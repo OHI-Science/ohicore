@@ -1,0 +1,17 @@
+Package: ohicompute
+Version: 0.1
+Date: 2013-09-25
+Title: Ocean Health Index calculation package
+Author: Steve Hastings
+Maintainer: Steve Hastings <hastings@nceas.ucsb.edu>
+Depends:
+    R (>= 2.14.0),
+    plyr
+Description: A collection of functions for generically calculating the Ocean
+    Health Index scores as well as individual goals and sub-goals.
+License: GPL-2
+Collate:
+    'subcalc.Pressures.R'
+    'subcalc.Resilience.R'
+    'calc.Goal.R'
+    'calc.Index.R'
