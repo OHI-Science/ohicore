@@ -1,5 +1,5 @@
 # Summary of work
-# Done (not necessarily unit tested)
+# Done (not necessarily tested)
 #   FP
 #       FIS
 #       MAR
