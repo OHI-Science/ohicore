@@ -6,7 +6,7 @@
 #' @return data.frame containing columns 'region', 'p_E', 'p_S', and 'p_x'
 #' @export
 #' 
-subcalc.Pressures = function (eco.pressures, social.pressures, gamma=0.5) {
+subcalc.Pressures <- function (eco.pressures, social.pressures, gamma=0.5) {
 
 
     p_i = plyr::ddply(          # Intermediate calculation of stressor intensity within Pressure categories

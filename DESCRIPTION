@@ -11,7 +11,3 @@ Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
 License: GPL-2
 Collate:
-    'subcalc.Pressures.R'
-    'subcalc.Resilience.R'
-    'calc.Goal.R'
-    'calc.Index.R'
