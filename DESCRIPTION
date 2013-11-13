@@ -6,7 +6,9 @@ Author: Steve Hastings
 Maintainer: Steve Hastings <hastings@nceas.ucsb.edu>
 Depends:
     R (>= 2.14.0),
-    plyr
+    plyr,
+    reshape2,
+    RJSONIO
 Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
 License: GPL-2
