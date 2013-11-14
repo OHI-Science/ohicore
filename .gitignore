@@ -2,4 +2,10 @@
 .Rhistory
 
 # Example code in package build process
-*-Ex.R
+*-Ex.Rtestdata/layers testdata/layers.navigation.csv testdata/layers.navigation.csv.example.csv
+
+
+
+.DS_Store
+test/data/*
+
