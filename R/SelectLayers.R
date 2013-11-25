@@ -8,10 +8,12 @@
 #' @return data.frame with data from selected layers
 #' @export
 SelectLayers = function (object, mode = "all", cast = T,
-                         target = NULL, layers = NULL) {
+                         target = NULL, layers = NULL,
+                         expand.time.invariant = F,
+                         alternate.layer.names = NULL) {
     if (mode == "layers") {
         focus.data = plyr::rbind.fill(
-            object$layer.data[object$layer.id %in% layers]
+            object$layer.data[object$layers.navigation$layer_id %in% layers]
         )
     } else if (mode == "target") {
         focus.data = plyr::rbind.fill(
@@ -30,8 +32,39 @@ SelectLayers = function (object, mode = "all", cast = T,
         formula.text = paste(
             paste(names(focus.data)[-stationary.columns], 
             collapse = '+'), '~layer.id')
-        return (reshape2::dcast(focus.data, as.formula(formula.text),
-            value.var = 'value', fun.aggregate=mean))
+            
+
+        recasted.data = reshape2::dcast(focus.data, as.formula(formula.text),
+            value.var = 'value', fun.aggregate=mean)
+
+        if (expand.time.invariant) {
+            ti.logical = plyr::ldply(recasted.data[, layers], function(X) {
+                Reduce('|', !is.na(recasted.data$year) & !is.nan(X))
+            })
+            
+            spatial = names(recasted.data)[-which(names(recasted.data) %in% 
+                c('year', layers))]
+            time.invariants = ti.logical$.id[!ti.logical$V1]
+
+            base = recasted.data[!is.na(recasted.data$year),
+                -which(names(recasted.data) %in% time.invariants)]
+
+            for (TI in time.invariants) {
+                base = plyr::join(base, 
+                    recasted.data[!is.nan(recasted.data[,TI]), c(spatial, TI)],
+                    by = spatial)
+            }
+
+            recasted.data = base
+
+        }
+
+        if (!is.null(alternate.layer.names)) {
+            names(recasted.data)[names(recasted.data) %in% layers] = alternate.layer.names
+        }
+
+        return (recasted.data)
+
     } else {
         return (focus.data)
     }

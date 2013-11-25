@@ -95,8 +95,9 @@ Halpern2012.NP = function (N, wp, Hp, E, R, Nv, Nk, w, ...) {
 #' @return 1 
 #' @export
 #' 
-Halpern2012.FP.FIS <- function (dBt, mMSY, Bt, Tc, ...) {
+Halpern2012.FP.FIS = function (mMSY, Bt, Tc, ...) {
     mMSYr = 0.75 * mMSY
+    dBt = abs(mMSYr - Bt)
     xFIS = ( 1 - ( dBt / mMSYr ) ) * Tc
     
     return ( xFIS )

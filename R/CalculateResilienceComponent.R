@@ -5,48 +5,76 @@
 #' @return (data.frame) 
 #' @export
 #' 
+CalculateResilienceComponent = function (goal.specific.regulations,
+                                         ecological.integrity,
+                                         social.integrity,
+                                         c.name = 'category', s.name = 'region',
+                                         gamma = 0.5) {
 
-# Needs work
-CalculateResilienceComponent <- function (data,
-                                          goal.specific.regulations.columns,
-                                          ecological.integrity.columns,
-                                          social.integrity.columns,
-                                          gamma = 0.5) {
+    DoSingle = function (gsr, ei, si) {
+        # Calculates a sub-component of the resilience component of the subgoal,
+        # if the subgoal has only one sub-component, then this is equivalent 
+        # to the overall resilience component
 
-  goal.specific.regulations <- plyr::ddply(goal.specific.regulations.data,
-                                c('spatial'),
-                                plyr::splat(function (value, weight, ...) {
-                                  return (sum(weight * value) / sum(weight))
-                                }))
-  names(goal.specific.regulations) <- gsub("V1", "goal.specific.regulations",
-                                names(goal.specific.regulations))
-  
-  social.integrity <- plyr::ddply(social.integrity.data,
-                                  c('spatial'),
-                                  plyr::splat(function (value, ...) {
-                                    return (mean(value))
-                                  }))
-  names(social.integrity) <- gsub("V1", "social.integrity",
-                                  names(social.integrity))
-  
-  ecological.integrity <- plyr::ddply(ecological.integrity.data,
-                                      c('spatial'),
-                                      plyr::splat(function (value, ...) {
-                                        return (mean(value))
-                                      }))
-  names(ecological.integrity) <- gsub("V1", "ecological.integrity",
-                                      names(ecological.integrity))
-  
-  resilience.data <- plyr::join(goal.specific.regulations, social.integrity,
-                                by = c('spatial'))
-  resilience.data <- plyr::join(resilience.data, ecological.integrity,
-                                by = c('spatial'))
-  
-  resilience.integrity <- (resilience.data$ecological.integrity +
-    resilience.data$social.integrity) / 2
-  
-  resilience <- (gamma * resilience.integrity) +
-    ((1 - gamma) * resilience.data$goal.specific.regulations)
-  
-  return (resilience)
+        gs.regulations.averaged = plyr::ddply(gsr,
+            c(s.name),
+            plyr::splat(function (value, weight, ...) {
+                c('gs.regulations' = sum(weight * value) / sum(weight))
+            }))
+
+        social.integrity.averaged = plyr::ddply(si,
+            c(s.name),
+            plyr::splat(function (value, ...) {
+                c('social.integrity' = mean(value))
+            }))
+
+        eco.integrity.averaged = plyr::ddply(ei,
+            c(s.name),
+            plyr::splat(function (value, ...) {
+                c('ecological.integrity' = mean(value))
+            }))
+
+
+        resilience.data = plyr::join(gs.regulations.averaged, 
+            social.integrity.averaged, by = c(s.name))
+        resilience.data = plyr::join(resilience.data, 
+            eco.integrity.averaged, by = c(s.name))
+
+        resilience.integrity = (resilience.data$ecological.integrity +
+            resilience.data$social.integrity) / 2
+
+        resilience.data$resilience = (gamma * resilience.integrity) +
+            ((1 - gamma) * resilience.data$gs.regulations)
+
+        return (resilience.data)
+    }
+
+    if (!is.data.frame(goal.specific.regulations)) {
+        full.resilience = data.frame(gs.regulations=c(),
+            social.integrity=c(), ecological.integrity=c(), resilience=c())
+        full.resilience[s.name] = c()
+        for (i in c(1:length(goal.specific.regulations))) {
+            full.resilience = rbind(full.resilience, 
+                DoSingle(goal.specific.regulations[[i]], 
+                    ecological.integrity[[i]],
+                    social.integrity[[i]]
+                )
+            )
+        }
+
+        reduced.resilience = plyr::ddply(full.resilience, s.name,
+            plyr::splat(function (gs.regulations, ecological.integrity,
+                                  social.integrity, resilience, ...) {
+                c('gs.regulations' = mean(gs.regulations),
+                    'ecological.integrity' = mean(ecological.integrity),
+                    'social.integrity' = mean(social.integrity),
+                    'resilience' = mean(resilience)
+                )
+            }))
+
+        return (reduced.resilience)
+    } else {
+        return (DoSingle(goal.specific.regulations, ecological.integrity,
+            social.integrity))
+    }
 }
