@@ -8,48 +8,65 @@
 #' @export
 #' 
 CalculatePressuresComponent <- function (eco.pressures, social.pressures, 
+                                         c.name = 'category', s.name = 'region',
                                          gamma = 0.5) {
 
-  p_i <- plyr::ddply(eco.pressures,
-                     c('region', 'category'),
-                     plyr::splat(function (value, weight, ...) {
-                       return (sum(weight * value) / 3.0)
-                     }))
-  names(p_i) <- gsub("V1", "p_i", names(p_i))
-  p_i$p_i[p_i$p_i > 1.0] <- 1.0
+    DoSingle = function (eco.p, social.p) {
+        # Calculates a sub-component of the pressures component of the subgoal,
+        # if the subgoal has only one sub-component, then this is equivalent 
+        # to the overall pressures component
+
+        pressure.i = plyr::ddply(eco.p, c(s.name, c.name),
+            plyr::splat(function (value, weight, ...) {
+                c('pressure_i' = sum(weight * value) / 3.0)
+            }))
+
+        pressure.i$pressure_i[pressure.i$pressure_i > 1.0] = 1.0
+
+        w.max = plyr::ddply(eco.p, c(s.name, c.name),
+            plyr::splat(function (weight, ...) {
+                c('max_weight' = max(weight))
+            }))
+
+        eco.p = plyr::join(eco.p, pressure.i, by = c(s.name, c.name))
+        eco.p = plyr::join(eco.p, w.max, by = c(s.name, c.name))
+
+        ecological = plyr::ddply(eco.p, c(s.name), 
+            plyr::splat(function (pressure_i, max_weight, ...) {
+                c('ecological' = sum(max_weight * pressure_i) / sum(max_weight))
+            }))
+
+        social = plyr::ddply(social.p, c(s.name), 
+            plyr::splat(function (value, ...) {
+                c('social' = mean(value))
+            }))
+
+        full.pressures = plyr::join(ecological, social, by = c(s.name))
+        full.pressures$combined = (gamma * full.pressures$ecological) +
+            ((1 - gamma) * full.pressures$social)
+        
+        return (full.pressures)
+    }
 
 
-  w.max <- plyr::ddply(eco.pressures,
-                       c('region', 'category'),
-                       plyr::splat(function (weight, ...) {
-                         return (max(weight))
-                       }))
-  names(w_max) <- gsub("V1", "w.max", names(w.max))
+    if (!is.data.frame(eco.pressures)) {
+        full.pressures = data.frame(ecological=c(), social=c(), combined=c())
+        full.pressures[s.name] = c()
+        for (i in c(1:length(eco.pressures))) {
+            full.pressures = rbind(full.pressures, 
+                DoSingle(eco.pressures[[i]], social.pressures[[i]]))
+        }
 
+        reduced.pressures = plyr::ddply(full.pressures, s.name,
+            plyr::splat(function (ecological, social, combined, ...) {
+                c('ecological' = mean(ecological),
+                    'social' = mean(social),
+                    'combined' = mean(combined)
+                )
+            }))
 
-  eco.pressures <- plyr::join(eco.pressures,
-                              p_i, by = c('region', 'category'))
-  eco.pressures <- plyr::join(eco.pressures,
-                              w.max, by = c('region', 'category'))
-
-  
-  p_E <- plyr::ddply(eco.pressures,
-                     c('region'),
-                     plyr::splat(function (p_i, w_max, ...) {
-                       return ( sum ( w_max * p_i ) / sum ( w_max ) )
-                     }))
-  names(p_E) <- gsub("V1", "p_E", names(p_E))
-
-  p_S <- plyr::ddply(social.pressures,
-                    c("region"),
-                    plyr::splat(function (value, ...) {
-                      return ( mean ( value ) )
-                    }))
-  names(p_S) <- gsub("V1", "p_S", names(p_S))
-
-  full.pressures <- plyr::join(p_E, p_S, by = c('region'))
-  full.pressures$p_x <- (gamma * full.pressures$p_E) + 
-    ((1 - gamma) * full.pressures$p_S)
-
-  return ( full.Pressures )
+        return (reduced.pressures)
+    } else {
+        return (DoSingle(eco.pressures, social.pressures))
+    }
 }

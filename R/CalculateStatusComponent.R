@@ -6,21 +6,22 @@
 #' @return stuff
 #' @export
 #' 
-subcalc.Status.Trend <- function (DATA, fun, trend.Years) {
-    
-    pre.Status <- plyr::ddply(DATA,
-                              c('spatial', 'year'),
+CalculateStatusComponent = function (DATA, fun, trend.Years = 5,
+                                     c.name = 'year', s.name = 'region') {
+
+    pre.status <- plyr::ddply(DATA,
+                              c(s.name, c.name),
                               plyr::splat(fun))
-    names(pre.Status) <- gsub("V1", "status", names(pre.Status))
+    names(pre.status) <- gsub("V1", "status", names(pre.status))
     
-    status <- plyr::ddply(pre.Status,
-                          'spatial',
+    status <- plyr::ddply(pre.status,
+                          s.name,
                           function (rows) {
                             return (rows[rows$year == max(rows$year), ])
                           })
 
-    trend <- plyr::ddply(pre.Status,
-                         'spatial',
+    trend <- plyr::ddply(pre.status,
+                         s.name,
                          function (rows) {
                            plyr::desc(rows)
                            n.rows <- rows[c((nrow(rows)-trend.Years+1):
@@ -28,8 +29,9 @@ subcalc.Status.Trend <- function (DATA, fun, trend.Years) {
             
                            s.lm <- lm(status ~ year, data = n.rows)
 
-                           return (s.lm$coefficients['year'])
+                           c('trend' = as.numeric(s.lm$coefficients['year']))
                          })
     
-    return (list("status" = status, "trend" = trend))
+    
+    return (plyr::join(status, trend, by=s.name))
 }
