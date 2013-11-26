@@ -2,15 +2,23 @@
 #' 
 #' @param object instance of Layers class
 #' @param mode {all|target|layers} defines how to select layers
-#' @param target only needed if mode='target', specifies the target (from layers.navigation) which should be selected
-#' @param layers only needed if mode='layers', specifies the layers which should be selected
-#' @param cast {T|F} whether to cast the resulting dataset, or leave it melted, defaults to TRUE
+#' @param target only needed if mode='target', specifies the target (from
+#'   layers.navigation) which should be selected
+#' @param layers only needed if mode='layers', specifies the layers which should
+#'   be selected
+#' @param alternate.layer.names aliases for layer names
+#' @param expand.time.invariant for layers without a year column, populate the
+#'   same value throughout all years where available in other layer(s)
+#' @param cast {T|F} whether to cast the resulting dataset, or leave it melted,
+#'   defaults to TRUE
 #' @return data.frame with data from selected layers
 #' @export
 SelectLayers = function (object, mode = "all", cast = T,
                          target = NULL, layers = NULL,
                          expand.time.invariant = F,
                          alternate.layer.names = NULL) {
+  
+    browser()
     if (mode == "layers") {
         focus.data = plyr::rbind.fill(
             object$layer.data[object$layers.navigation$layer_id %in% layers]

@@ -1,4 +1,8 @@
-
+#' Layers reference class.
+#' 
+#' @return object (non-instantiated) reference class of Layers
+#' @export
+#' @include SelectLayers.R
 Layers = setRefClass(
     'Layers',
     fields = list(

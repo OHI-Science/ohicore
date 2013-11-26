@@ -13,3 +13,12 @@ Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
 License: GPL-2
 Collate:
+    'CalculatePressuresComponent.R'
+    'CalculateResilienceComponent.R'
+    'CalculateStatusComponent.R'
+    'CalculateSubgoal.R'
+    'Halpern2012Data.R'
+    'SelectLayers.R'
+    'Layers.R'
+    'SpatialSchemes.R'
+    'TransformSpatialScheme.R'
