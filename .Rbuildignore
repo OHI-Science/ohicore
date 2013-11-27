@@ -2,6 +2,6 @@
 .gitignore
 
 README.md
-test
 ^.*\.Rproj$
 ^\.Rproj\.user$
+inst/extdata/layers\..*

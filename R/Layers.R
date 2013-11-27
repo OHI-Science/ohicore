@@ -1,38 +1,50 @@
 #' Layers reference class.
 #' 
-#' @return object (non-instantiated) reference class of Layers
+#' @param layers.csv path to comma-seperated value file with row of metadata per layer
+#' @param layers.dir path of directory containing individual layer files
+#' @return object (non-instantiated) reference class of Layers containing
+#' \itemize{
+#'  \item{\emph{meta} - metadata data.fram of original layers.csv}
+#'  \item{\emph{data} - named list of data frames, one per layer}
+#' }
+#' @details To instantiate this object, \code{Layers(layers.csv, layers.dir)} is used. The \code{layers.csv} is expected to have the following columns:
+#' \itemize{
+#'   \item{\emph{layer_id} - unique identifier (no spaces or special characters)}
+#'   \item{\emph{target} - the pipe delimited list of targets (goals, Pressure or Resilience) to feed this data layer}
+#'   \item{\emph{title} - full title of the variable}
+#'   \item{\emph{description} detailed description}
+#'   \item{\emph{citation} - reference for documentation}
+#'   \item{\emph{units} - indicating units and required column name in the layer csv file}
+#'   \item{\emph{filename} - the csv data file for the layer}   
+#' }
+#' The layers.dir directory should contain all the csv filenames listed in the layers.csv file.
 #' @export
 #' @include SelectLayers.R
 Layers = setRefClass(
     'Layers',
     fields = list(
-        layer.data = 'list',
-        layers.navigation = 'data.frame'
+        data = 'list',
+        meta = 'data.frame'
     ),
     methods = list(
-        initialize = function (file) {
-            .self$layers.navigation = read.csv(file, header = T)
-            .self$layer.data = apply(
-                .self$layers.navigation,
-                1,
-                function (X) {
-                    data = read.csv(X['filepath'], header = T)
-                    data$layer.id = X['layer_id']
-                    return (data)
-                })
+        initialize = function (layers.csv, layers.dir) {
+            .self$meta = read.csv(layers.csv, header = T)
+            .self$data = plyr::dlply(meta, 'layer_id', function (m) {
+              d = read.csv(file.path(layers.dir, m[['filename']]), header = T)
+              d$layer_id = m[['layer_id']]
+              return(d)
+            })
         },
         show = function () {
-            print (layers.navigation[-which(names(layers.navigation) == 'filepath')])
+            print (meta[-which(names(meta) == 'filename')])
         }
     )
 )
-
 
 setGeneric("SelectLayers", SelectLayers)
 
 setMethod("names", 'Layers', 
     function (x) {
-        names(x$layers.navigation[
-            -which(names(x$layers.navigation) == 'filepath')])
+        names(x$meta[-which(names(x$meta) == 'filepath')])
     }
 )

@@ -19,6 +19,12 @@
   \item{layers}{only needed if mode='layers', specifies the
   layers which should be selected}
 
+  \item{alternate.layer.names}{aliases for layer names}
+
+  \item{expand.time.invariant}{for layers without a year
+  column, populate the same value throughout all years
+  where available in other layer(s)}
+
   \item{cast}{{T|F} whether to cast the resulting dataset,
   or leave it melted, defaults to TRUE}
 }

@@ -22,3 +22,5 @@ Collate:
     'Layers.R'
     'SpatialSchemes.R'
     'TransformSpatialScheme.R'
+    'data.R'
+LazyData: TRUE

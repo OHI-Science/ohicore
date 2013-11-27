@@ -1,0 +1,359 @@
+"country_id","category","value"
+"ARG","Blue mussel",0.833333333333
+"ARG","Pacific cupped oyster",0.9
+"ARG","River Plata mussel",0.833333333333
+"AUS","Atlantic salmon",0.233333333333
+"AUS","Barramundi",0.3
+"AUS","Cupped oysters nei",0.9
+"AUS","Flat oysters nei",0.866666666667
+"AUS","Giant tiger prawn",0.233333333333
+"AUS","Giant tiger prawn (br)",0.233333333333
+"AUS","Kuruma prawn",0.333333333333
+"AUS","Pacific cupped oyster",1
+"AUS","Pacific cupped oyster (br)",1
+"AUS","Southern bluefin tuna",0.1
+"BGD","Penaeus shrimps nei",0.233333333333
+"BLZ","Whiteleg shrimp",0.366666666667
+"BRA","Cupped oysters nei",0.9
+"BRA","Groupers nei",0.333333333333
+"BRA","Whiteleg shrimp",0.3
+"CAN","Atlantic bluefin tuna",0.4
+"CAN","Atlantic cod",0.233333333333
+"CAN","Atlantic salmon (Atl)",0.166666666667
+"CAN","Atlantic salmon (Pac)",0.266666666667
+"CAN","Blue mussel",0.933333333333
+"CAN","Coho(=Silver)salmon",0.333333333333
+"CAN","Pacific cupped oyster",0.833333333333
+"CHL","Abalones nei",0.666666666667
+"CHL","Atlantic salmon",0.133333333333
+"CHL","Coho(=Silver)salmon",0.266666666667
+"CHL","Gracilaria seaweeds",0.9
+"CHL","Pacific cupped oyster",0.533333333333
+"CHN","Blood cockle",0.666666666667
+"CHN","Groupers nei",0.333333333333
+"CHN","Laver (Nori)",0.666666666667
+"CHN","Pacific cupped oyster",0.533333333333
+"CHN","Red drum",0.366666666667
+"CHN","Whiteleg shrimp",0.366666666667
+"COL","Cupped oysters nei",0.9
+"COL","Whiteleg shrimp (Atl)",0.366666666667
+"COL","Whiteleg shrimp (Pac)",0.366666666667
+"CRI","Whiteleg shrimp (Pac) (br)",0.433333333333
+"DEU","Blue mussel",0.933333333333
+"DEU","European seabass",0.566666666667
+"DEU","Pacific cupped oyster",0.533333333333
+"DNK","Atlantic salmon",0.5
+"DNK","Blue mussel",0.933333333333
+"DNK","European eel",0.433333333333
+"ECU","Red drum",0.366666666667
+"ECU","Whiteleg shrimp",0.366666666667
+"EGY","European seabass",0.433333333333
+"EGY","European seabass (br)",0.433333333333
+"EGY","Flathead grey mullet",0.433333333333
+"EGY","Flathead grey mullet (Med)",0.433333333333
+"EGY","Gilthead seabream",0.233333333333
+"EGY","Gilthead seabream (br)",0.233333333333
+"EGY","Penaeus shrimps nei",0.3
+"ESP","Atlantic salmon",0.166666666667
+"ESP","Blue mussel",0.933333333333
+"ESP","Cupped oysters nei",0.9
+"ESP","European eel",0.433333333333
+"ESP","European flat oyster",0.833333333333
+"ESP","European seabass",0.433333333333
+"ESP","Flathead grey mullet",0.433333333333
+"ESP","Gilthead seabream",0.166666666667
+"ESP","Kuruma prawn",0.5
+"ESP","Pacific cupped oyster",0.833333333333
+"ESP","Tuna-like fishes nei",0.1
+"FIN","Atlantic salmon",0.5
+"FRA","Atlantic salmon",0.366666666667
+"FRA","Blue mussel",0.933333333333
+"FRA","Coho(=Silver)salmon",0.366666666667
+"FRA","European eel",0.433333333333
+"FRA","European flat oyster",0.833333333333
+"FRA","European seabass",0.5
+"FRA","European seabass (br)",0.5
+"FRA","Gilthead seabream",0.233333333333
+"FRA","Kuruma prawn",0.433333333333
+"FRA","Pacific cupped oyster",0.533333333333
+"FRA","Pacific cupped oyster (Med)",0.533333333333
+"FRO","Atlantic salmon",0.433333333333
+"GBR","Atlantic cod",0.166666666667
+"GBR","Atlantic salmon",0.3
+"GBR","Blue mussel",0.933333333333
+"GBR","Cupped oysters nei",0.866666666667
+"GBR","European flat oyster",0.833333333333
+"GBR","European seabass",0.5
+"GBR","Pacific cupped oyster",0.833333333333
+"GRC","European eel",0.433333333333
+"GRC","European eel (br)",0.433333333333
+"GRC","European flat oyster",0.833333333333
+"GRC","European seabass",0.3
+"GRC","European seabass (br)",0.3
+"GRC","Flathead grey mullet",0.366666666667
+"GRC","Flathead grey mullet (br)",0.366666666667
+"GRC","Gilthead seabream",0.166666666667
+"GRC","Gilthead seabream (br)",0.166666666667
+"GRC","Kuruma prawn",0.433333333333
+"GTM","Penaeus shrimps nei",0.166666666667
+"HND","Penaeus shrimps nei",0.266666666667
+"IDN","Banana prawn",0.266666666667
+"IDN","Banana prawn (India)",0.333333333333
+"IDN","Barramundi",0.166666666667
+"IDN","Barramundi (br)",0.166666666667
+"IDN","Giant tiger prawn",0.166666666667
+"IDN","Giant tiger prawn (India)",0.166666666667
+"IDN","Groupers nei",0.333333333333
+"IDN","Milkfish",0.433333333333
+"IND","Giant tiger prawn",0.166666666667
+"IND","Giant tiger prawn (East)",0.166666666667
+"IRL","Atlantic salmon",0.433333333333
+"IRL","Blue mussel",0.933333333333
+"IRL","European flat oyster",0.833333333333
+"IRL","Pacific cupped oyster",0.833333333333
+"IRN","Indian white prawn",0.3
+"ISL","Abalones nei",0.633333333333
+"ISL","Arctic char",0.533333333333
+"ISL","Atlantic cod",0.566666666667
+"ISL","Atlantic halibut",0.533333333333
+"ISL","Atlantic salmon",0.6
+"ISL","Atlantic salmon (br)",0.6
+"ISL","Atlantic wolffish",0.533333333333
+"ISL","Blue mussel",0.933333333333
+"ISL","European seabass",0.65
+"ISL","Haddock",0.533333333333
+"ISL","Rainbow trout",0.6
+"ISL","Spotted wolffish",0.533333333333
+"ISL","Turbot",0.533333333333
+"ITA","Cupped oysters nei",1
+"ITA","Cupped oysters nei (br)",1
+"ITA","European eel",0.433333333333
+"ITA","European eel (br)",0.433333333333
+"ITA","European flat oyster",0.833333333333
+"ITA","European seabass",0.433333333333
+"ITA","European seabass (br)",0.433333333333
+"ITA","Flathead grey mullet",0.433333333333
+"ITA","Flathead grey mullet (br)",0.433333333333
+"ITA","Giant tiger prawn",0.3
+"ITA","Gilthead seabream",0.233333333333
+"ITA","Gilthead seabream (br)",0.233333333333
+"ITA","Gracilaria seaweeds",0.9
+"ITA","Kuruma prawn",0.5
+"ITA","Kuruma prawn (br)",0.5
+"JPN","Coho(=Silver)salmon",0.366666666667
+"JPN","Flathead grey mullet",0.433333333333
+"JPN","Kuruma prawn",0.5
+"JPN","Laver (Nori)",0.733333333333
+"JPN","Pacific cupped oyster",0.766666666667
+"KHM","Penaeus shrimps nei",0.233333333333
+"KIR","Milkfish",0.366666666667
+"KOR","Abalones nei",0.566666666667
+"KOR","Blood cockle",0.666666666667
+"KOR","Flathead grey mullet",0.433333333333
+"KOR","Groupers nei",0.333333333333
+"KOR","Kuruma prawn",0.5
+"KOR","Laver (Nori)",0.733333333333
+"KOR","Pacific cupped oyster",0.833333333333
+"LKA","Giant tiger prawn",0.1
+"MAR","Clams, etc nei",0.766666666667
+"MAR","European eel",0.433333333333
+"MAR","European flat oyster",0.766666666667
+"MAR","European seabass",0.433333333333
+"MAR","Gilthead seabream",0.433333333333
+"MAR","Marine fishes nei",0.466666666667
+"MAR","Mediterranean mussel",0.833333333333
+"MAR","Pacific cupped oyster",0.833333333333
+"MAR","Pacific cupped oyster (Med)",0.833333333333
+"MAR","Penaeus shrimps nei",0.433333333333
+"MAR","Yesso scallop",0.866666666667
+"MDG","Giant tiger prawn",0.233333333333
+"MEX","Abalones nei",0.666666666667
+"MEX","Atlantic bluefin tuna",0.233333333333
+"MEX","Flathead grey mullet",0.433333333333
+"MEX","Pacific cupped oyster",0.766666666667
+"MEX","Pacific cupped oyster (Atl)",0.766666666667
+"MEX","Whiteleg shrimp",0.433333333333
+"MEX","Whiteleg shrimp (br)",0.433333333333
+"MEX","Yellowfin tuna",0.1
+"MMR","Giant tiger prawn",0.166666666667
+"MYS","Banana prawn",0.3
+"MYS","Barramundi",0.166666666667
+"MYS","Barramundi (India)",0.166666666667
+"MYS","Blood cockle",0.666666666667
+"MYS","Blood cockle (India)",0.666666666667
+"MYS","Cupped oysters nei",0.833333333333
+"MYS","Cupped oysters nei (India)",0.833333333333
+"MYS","Giant tiger prawn",0.166666666667
+"MYS","Giant tiger prawn (India)",0.166666666667
+"NAM","Blue mussel",0.766666666667
+"NAM","Gracilaria seaweeds",0.8
+"NAM","Pacific cupped oyster",0.766666666667
+"NGA","Bagrid catfish",0.5
+"NGA","Freshwater fishes nei",0.366666666667
+"NGA","Mullets nei",0.433333333333
+"NGA","Snappers nei",0.433333333333
+"NGA","Tilapias nei",0.366666666667
+"NGA","Torpedo catfishes nei",0.366666666667
+"NIC","Whiteleg shrimp",0.366666666667
+"NLD","Blue mussel",0.933333333333
+"NLD","Cupped oysters nei",0.9
+"NLD","European flat oyster",0.833333333333
+"NOR","Atlantic cod",0.166666666667
+"NOR","Atlantic salmon",0.233333333333
+"NOR","Blue mussel",0.933333333333
+"NOR","European flat oyster",0.833333333333
+"NOR","Pacific cupped oyster",0.733333333333
+"NZL","Abalones nei",0.5
+"NZL","Pacific cupped oyster",0.766666666667
+"PAK","Marine crustaceans nei",0.3
+"PAN","Whiteleg shrimp",0.433333333333
+"PER","False abalone",0.733333333333
+"PER","Gracilaria seaweeds",0.833333333333
+"PER","Pacific cupped oyster",0.833333333333
+"PER","Whiteleg shrimp",0.366666666667
+"PHL","Banana prawn",0.2
+"PHL","Banana prawn (br)",0.266666666667
+"PHL","Barramundi",0.233333333333
+"PHL","Giant tiger prawn",0.1
+"PHL","Giant tiger prawn (br)",0.1
+"PHL","Gracilaria seaweeds",0.833333333333
+"PHL","Groupers, seabasses nei",0.333333333333
+"PHL","Groupers, seabasses nei (br)",0.333333333333
+"PHL","Milkfish",0.366666666667
+"PHL","Milkfish (br)",0.366666666667
+"PHL","Penaeus shrimps nei",0.233333333333
+"POL","Freshwater fishes nei",0.533333333333
+"PRK","Gracilaria seaweeds",0.833333333333
+"PRK","Laver (Nori)",0.666666666667
+"PRT","Atlantic salmon",0.4
+"PRT","Brill",0.566666666667
+"PRT","Common cuttlefish",0.6
+"PRT","Common edible cockle",0.733333333333
+"PRT","Common sole",0.533333333333
+"PRT","European eel",0.533333333333
+"PRT","European flat oyster",0.733333333333
+"PRT","European seabass",0.433333333333
+"PRT","European seabass (br)",0.433333333333
+"PRT","Flat and cupped oysters nei",0.833333333333
+"PRT","Freshwater fishes nei",0.5
+"PRT","Gilthead seabream",0.4
+"PRT","Gilthead seabream (br)",0.4
+"PRT","Grooved carpet shell",0.866666666667
+"PRT","Grooved carpet shell (br)",0.866666666667
+"PRT","Kuruma prawn",0.4
+"PRT","Marine fishes nei",0.533333333333
+"PRT","Marine molluscs nei",0.533333333333
+"PRT","Mullets nei",0.533333333333
+"PRT","Octopuses nei",0.533333333333
+"PRT","Pacific cupped oyster",0.833333333333
+"PRT","Pullet carpet shell",0.833333333333
+"PRT","Razor clams nei",0.833333333333
+"PRT","Sargo breams nei",0.4
+"PRT","Sea mussels nei",0.8
+"PRT","Turbot",0.466666666667
+"RUS","Atlantic salmon",0.433333333333
+"RUS","Brown seaweeds",0.933333333333
+"RUS","Brown seaweeds (Pac)",0.933333333333
+"RUS","Flatfishes nei",0.433333333333
+"RUS","Marine fishes nei",0.433333333333
+"RUS","Mediterranean mussel",0.8
+"RUS","Mullets nei",0.5
+"RUS","Sea mussels nei",0.766666666667
+"RUS","Sea mussels nei (Pac)",0.766666666667
+"RUS","Sea trout",0.466666666667
+"RUS","Sea trout (med)",0.466666666667
+"RUS","Sea urchins nei",0.5
+"RUS","Silver carp",0.533333333333
+"RUS","Sturgeons nei",0.533333333333
+"RUS","Yesso scallop",0.8
+"SAU","Barramundi",0.166666666667
+"SAU","Flathead grey mullet",0.433333333333
+"SAU","Giant tiger prawn",0.166666666667
+"SAU","Groupers nei",0.333333333333
+"SEN","Blackchin tilapia",0.566666666667
+"SEN","Cupped oysters nei",0.733333333333
+"SEN","Gasar cupped oyster",0.733333333333
+"SEN","Giant river prawn",0.366666666667
+"SEN","Nile tilapia",0.5
+"SEN","Pacific cupped oyster",0.733333333333
+"SWE","Atlantic salmon",0.533333333333
+"SWE","Blue mussel",0.766666666667
+"SWE","European flat oyster",0.866666666667
+"SWE","Rainbow trout",0.533333333333
+"THA","Banana prawn",0.2
+"THA","Barramundi",0.166666666667
+"THA","Barramundi (Ind)",0.166666666667
+"THA","Blood cockle",0.666666666667
+"THA","Blood cockle (Ind)",0.666666666667
+"THA","Cupped oysters nei",0.833333333333
+"THA","Cupped oysters nei (Ind)",0.833333333333
+"THA","Giant tiger prawn",0.1
+"THA","Giant tiger prawn (Ind)",0.1
+"THA","Groupers nei",0.333333333333
+"THA","Groupers nei (Ind)",0.333333333333
+"THA","Penaeus shrimps nei",0.266666666667
+"THA","Whiteleg shrimp",0.233333333333
+"TON","Milkfish",0.366666666667
+"TUR","Atlantic salmon",0.533333333333
+"TUR","Com.2-banded seabream",0.533333333333
+"TUR","Gilthead seabream",0.533333333333
+"TUR","Mediterranean mussel",0.8
+"TUR","Natantian decapods nei",0.533333333333
+"TUR","Seabasses nei",0.5
+"TUR","Trouts nei",0.433333333333
+"TWN","Abalones nei",0.433333333333
+"TWN","Abalones nei (br)",0.433333333333
+"TWN","Barramundi",0.233333333333
+"TWN","Barramundi (br)",0.166666666667
+"TWN","Blood cockle",0.666666666667
+"TWN","Flathead grey mullet",0.366666666667
+"TWN","Flathead grey mullet (br)",0.366666666667
+"TWN","Giant tiger prawn",0.1
+"TWN","Groupers nei",0.333333333333
+"TWN","Groupers nei (br)",0.333333333333
+"TWN","Groupers nei (Pac) (br)",0.333333333333
+"TWN","Kuruma prawn",0.366666666667
+"TWN","Kuruma prawn (br)",0.366666666667
+"TWN","Laver (Nori)",0.666666666667
+"TWN","Milkfish",0.5
+"TWN","Milkfish (br)",0.5
+"TWN","Pacific cupped oyster",0.533333333333
+"TWN","Pacific cupped oyster (br)",0.533333333333
+"TWN","Whiteleg shrimp",0.366666666667
+"UKR","Baltic prawn",0.466666666667
+"UKR","Flatfishes nei",0.5
+"UKR","Gobies nei",0.533333333333
+"UKR","Mediterranean mussel",0.8
+"UKR","Mullets nei",0.666666666667
+"UKR","Mullets nei (br)",0.666666666667
+"UKR","Silversides nei",0.566666666667
+"UKR","So-iuy mullet",0.633333333333
+"UKR","Sturgeons nei",0.6
+"USA","Abalones nei",0.5
+"USA","Atlantic salmon",0.366666666667
+"USA","Blue mussel",0.933333333333
+"USA","Coho(=Silver)salmon",0.366666666667
+"USA","Cupped oysters nei",1
+"USA","European flat oyster",0.833333333333
+"USA","Flat oysters nei",0.866666666667
+"USA","Pacific cupped oyster",0.9
+"USA","Whiteleg shrimp",0.433333333333
+"VEN","Whiteleg shrimp",0.5
+"VNM","Banana prawn",0.333333333333
+"VNM","Giant tiger prawn",0.1
+"VNM","Gracilaria seaweeds",0.833333333333
+"VNM","Whiteleg shrimp",0.233333333333
+"ZAF","Aquatic plants nei",0.866666666667
+"ZAF","Carpet shells nei",0.8
+"ZAF","European flat oyster",0.833333333333
+"ZAF","Giant tiger prawn",0.5
+"ZAF","Gracilaria seaweeds",0.866666666667
+"ZAF","Indian white prawn",0.5
+"ZAF","Kuruma prawn",0.5
+"ZAF","Mediterranean mussel",0.866666666667
+"ZAF","Mullets nei",0.566666666667
+"ZAF","Pacific cupped oyster",0.866666666667
+"ZAF","Perlemoen abalone",0.633333333333
+"ZAF","Red bait",0.6
+"ZAF","Sea mussels nei",0.833333333333
+"ZAF","Smooth mactra",0.766666666667

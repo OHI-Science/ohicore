@@ -1,7 +1,7 @@
 #' Select a set of layers.
 #' 
 #' @param object instance of Layers class
-#' @param mode {all|target|layers} defines how to select layers
+#' @param mode {all | target | layers} defines how to select layers
 #' @param target only needed if mode='target', specifies the target (from
 #'   layers.navigation) which should be selected
 #' @param layers only needed if mode='layers', specifies the layers which should
@@ -18,28 +18,28 @@ SelectLayers = function (object, mode = "all", cast = T,
                          expand.time.invariant = F,
                          alternate.layer.names = NULL) {
   
-    browser()
+
     if (mode == "layers") {
         focus.data = plyr::rbind.fill(
-            object$layer.data[object$layers.navigation$layer_id %in% layers]
+            object$data[object$meta$layer_id %in% layers]
         )
     } else if (mode == "target") {
         focus.data = plyr::rbind.fill(
-            object$layer.data[object$layers.navigation$target == target]
+            object$data[object$meta$target == target]
         )
     } else if (mode == "all") {
         focus.data = plyr::rbind.fill(
-            object$layer.data
+            object$data
         )
     } else {
         stop ("mode not understood")
     }
     if (cast) {
         stationary.columns = which(names(focus.data) %in% 
-            c('value', 'layer.id'))
+            c('value', 'layer_id'))
         formula.text = paste(
             paste(names(focus.data)[-stationary.columns], 
-            collapse = '+'), '~layer.id')
+            collapse = '+'), '~layer_id')
             
 
         recasted.data = reshape2::dcast(focus.data, as.formula(formula.text),
