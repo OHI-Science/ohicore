@@ -10,7 +10,7 @@
 \arguments{
   \item{object}{instance of Layers class}
 
-  \item{mode}{{all|target|layers} defines how to select
+  \item{mode}{{all | target | layers} defines how to select
   layers}
 
   \item{target}{only needed if mode='target', specifies the

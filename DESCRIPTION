@@ -23,4 +23,5 @@ Collate:
     'SpatialSchemes.R'
     'TransformSpatialScheme.R'
     'data.R'
+    'Scores.R'
 LazyData: TRUE

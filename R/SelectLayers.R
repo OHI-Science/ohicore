@@ -21,11 +21,13 @@ SelectLayers = function (object, mode = "all", cast = T,
 
     if (mode == "layers") {
         focus.data = plyr::rbind.fill(
-            object$data[object$meta$layer_id %in% layers]
+          object$data[names(object$data) %in% layers]
         )
     } else if (mode == "target") {
+        browser()
+        layers.with.target = names(which(sapply(object$targets, function(x){ target %in% x }) == T))
         focus.data = plyr::rbind.fill(
-            object$data[object$meta$target == target]
+            object$data[names(object$data) %in% layers.with.target]
         )
     } else if (mode == "all") {
         focus.data = plyr::rbind.fill(
@@ -52,7 +54,7 @@ SelectLayers = function (object, mode = "all", cast = T,
             
             spatial = names(recasted.data)[-which(names(recasted.data) %in% 
                 c('year', layers))]
-            time.invariants = ti.logical$.id[!ti.logical$V1]
+            time.invariants = ti.logical$.id[!ti.logical$V1] # DOH!
 
             base = recasted.data[!is.na(recasted.data$year),
                 -which(names(recasted.data) %in% time.invariants)]
@@ -77,7 +79,3 @@ SelectLayers = function (object, mode = "all", cast = T,
         return (focus.data)
     }
 }
-
-
-
-
