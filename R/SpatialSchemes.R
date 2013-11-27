@@ -1,5 +1,8 @@
-
-
+#' SpatialSchemes reference class.
+#' 
+#' @return object (non-instantiated) reference class of SpatialSchemes
+#' @export
+#' @include SelectLayers.R
 SpatialSchemes = setRefClass(
     'SpatialSchemes',
     fields = list(
