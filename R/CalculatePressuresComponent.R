@@ -7,7 +7,6 @@
 #' @return data.frame containing columns 'region', 'p_E', 'p_S', and 'p_x'
 #' @export
 #' 
-# testing...
 CalculatePressuresComponent <- function (eco.pressures, social.pressures, 
                                          c.name = 'category', s.name = 'region',
                                          gamma = 0.5) {
