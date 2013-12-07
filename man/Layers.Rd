@@ -27,8 +27,8 @@
   To instantiate this object, \code{Layers(layers.csv,
   layers.dir)} is used. The \code{layers.csv} is expected
   to have the following columns: \itemize{
-  \item{\emph{layer_id} - unique identifier (no spaces or
-  special characters)} \item{\emph{targets} - the pipe
+  \item{\emph{layer} - unique identifier (no spaces or
+  special characters)} \item{\emph{targets} - the pipe and
   space (' | ') delimited list of targets (goal name,
   'Pressures' or 'Resilience') to feed this data layer}
   \item{\emph{title} - full title of the variable}

@@ -10,8 +10,8 @@
 #' }
 #' @details To instantiate this object, \code{Layers(layers.csv, layers.dir)} is used. The \code{layers.csv} is expected to have the following columns:
 #' \itemize{
-#'   \item{\emph{layer_id} - unique identifier (no spaces or special characters)}
-#'   \item{\emph{targets} - the pipe space (' | ') delimited list of targets (goal name, 'Pressures' or 'Resilience') to feed this data layer}
+#'   \item{\emph{layer} - unique identifier (no spaces or special characters)}
+#'   \item{\emph{targets} - the pipe and space (' | ') delimited list of targets (goal name, 'Pressures' or 'Resilience') to feed this data layer}
 #'   \item{\emph{title} - full title of the variable}
 #'   \item{\emph{description} detailed description}
 #'   \item{\emph{citation} - reference for documentation}
@@ -31,12 +31,12 @@ Layers = setRefClass(
     methods = list(
         initialize = function (layers.csv, layers.dir) {
             .self$meta = read.csv(layers.csv, header = T)
-            .self$data = plyr::dlply(meta, 'layer_id', function (m) {
+            .self$data = plyr::dlply(meta, 'layer', function (m) {
               d = read.csv(file.path(layers.dir, m[['filename']]), header = T)
-              d$layer_id = m[['layer_id']]
+              d$layer = m[['layer']]
               return(d)
             })
-            .self$targets = plyr::dlply(meta, 'layer_id', function(m){
+            .self$targets = plyr::dlply(meta, 'layer', function(m){
               return(strsplit(as.character(m[['targets']]), ' | ', fixed=T)[[1]])
               # TODO: check that targets list valid goals/dimensions
             })

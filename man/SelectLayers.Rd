@@ -17,7 +17,10 @@
   target (from layers.navigation) which should be selected}
 
   \item{layers}{only needed if mode='layers', specifies the
-  layers which should be selected}
+  layers which should be selected. if given as a named
+  character vector, then layers get renamed with new names
+  as values, and old names as names per
+  {\code{\link{plyr::rename}}}}
 
   \item{alternate.layer.names}{aliases for layer names}
 
