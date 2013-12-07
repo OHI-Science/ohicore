@@ -48,7 +48,6 @@ SelectLayers = function (object, mode = "all", cast = T,
             paste(names(focus.data)[-stationary.columns], 
             collapse = '+'), '~layer')
             
-        #browser()
         recasted.data = reshape2::dcast(focus.data, as.formula(formula.text),
             value.var = 'value', fun.aggregate=mean)
 

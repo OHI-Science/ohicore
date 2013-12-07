@@ -4,8 +4,7 @@
 \usage{
   SelectLayers(object, mode = "all", cast = T,
     target = NULL, layers = NULL,
-    expand.time.invariant = F,
-    alternate.layer.names = NULL)
+    expand.time.invariant = F)
 }
 \arguments{
   \item{object}{instance of Layers class}
@@ -21,8 +20,6 @@
   character vector, then layers get renamed with new names
   as values, and old names as names per
   {\code{\link{plyr::rename}}}}
-
-  \item{alternate.layer.names}{aliases for layer names}
 
   \item{expand.time.invariant}{for layers without a year
   column, populate the same value throughout all years
