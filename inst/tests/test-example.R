@@ -11,7 +11,6 @@ test_that('example data loads OK', {
 
   status.data = SelectLayers(layers, mode='target', cast=T,
                              target='FIS',
-                             layers=c('i_fis_bt'='Bt', 'i_fis_mmsy'='mMSY', 'i_fis_tc'='Tc'),
                              expand.time.invariant = T)
   
   status = CalculateStatusComponent(status.data, Halpern2012.FP.FIS, s.name='country_id')
