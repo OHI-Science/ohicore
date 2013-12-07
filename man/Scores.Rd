@@ -5,8 +5,8 @@
   Scores(...)
 }
 \arguments{
-  \item{results.csv}{path to comma-seperated value results
-  file, long style}
+  \item{scores.csv}{path to comma-seperated results file,
+  long style}
 }
 \value{
   object (non-instantiated) reference class of Layers
@@ -23,8 +23,11 @@
   To instantiate this object, \code{Scores(results.csv)} is
   used. The \code{results.csv} is expected to have the
   following columns: \itemize{ \item{\emph{region_id} -
-  unique region identifier} \item{\emph{goal} - the goal
-  code} \item{\emph{dimension} - the dimension code}
+  unique numeric region identifier, reserving 0 as the
+  region_id for the area-weighted average of the entire
+  study area} \item{\emph{goal} - the goal code or Index}
+  \item{\emph{dimension} - the dimension code, one of:
+  status, trend, pressures, resilience, future, score}
   \item{\emph{score} - the numeric score: 0-100 for all
   dimensions, except trend (-1 to 1)} }
 }

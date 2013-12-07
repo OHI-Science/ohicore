@@ -1,36 +1,59 @@
-#' Layers originally published for Nature 2012 on the FTP site.
+#' Layers accompanying Nature 2012 publication on the FTP site for Global 2012 analysis.
 #'
-#' This data set is a subset of the data from the 2006 ASA Data expo
-#' challenge, \url{http://stat-computing.org/dataexpo/2006/}. The data are
-#' monthly ozone averages on a very coarse 24 by 24 grid covering Central
-#' America, from Jan 1995 to Dec 2000. The data is stored in a 3d area with
-#' the first two dimensions representing latitude and longitude, and the third
-#' representing time.
+#' These layers get used to calculate the Ocean Health Index.
 #'
 #' @docType data
-#' @name layers.Nature2012ftp
-#' @usage layers.Nature2012ftp
-#' @format A 24 x 24 x 72 numeric array
-#' @references \url{http://stat-computing.org/dataexpo/2006/}
+#' @name layers.Global2012.Nature2012ftp
+#' @usage layers.Global2012.Nature2012ftp
+#' @format a \code{\link{Layers}} object
+#' @references \url{http://ohi-science.org}
 #' @keywords datasets
-#' @examples
-#' value <- ozone[1, 1, ]
-#' time <- 1:72
-#' month.abbr <- c("Jan", "Feb", "Mar", "Apr", "May",
-#'  "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-#' month <- factor(rep(month.abbr, length = 72), levels = month.abbr)
-#' year <- rep(1:6, each = 12)
-#' deseasf <- function(value) lm(value ~ month - 1)
+NULL
+
+#' Layers used for the 2013 web launch applied to Global 2012 analysis.
 #'
-#' models <- alply(ozone, 1:2, deseasf)
-#' coefs <- laply(models, coef)
-#' dimnames(coefs)[[3]] <- month.abbr
-#' names(dimnames(coefs))[3] <- "month"
+#' These layers get used to calculate the Ocean Health Index.
 #'
-#' deseas <- laply(models, resid)
-#' dimnames(deseas)[[3]] <- 1:72
-#' names(dimnames(deseas))[3] <- "time"
+#' @docType data
+#' @name layers.Global2012.www2013
+#' @usage layers.Global2012.www2013
+#' @format a \code{\link{Layers}} object
+#' @references \url{http://ohi-science.org}
+#' @keywords datasets
+NULL
+
+#' Layers used for the 2013 web launch applied to Global 2013 analysis.
 #'
-#' dim(coefs)
-#' dim(deseas)
+#' These layers get used to calculate the Ocean Health Index.
+#'
+#' @docType data
+#' @name layers.Global2013.www2013
+#' @usage layers.Global2013.www2013
+#' @format a \code{\link{Layers}} object
+#' @references \url{http://ohi-science.org}
+#' @keywords datasets
+NULL
+
+#' Scores resulting from the 2013 web launch applied to Global 2012 analysis.
+#'
+#' These scores are the results of the Ocean Health Index.
+#'
+#' @docType data
+#' @name scores.Global2012.www2013
+#' @usage scores.Global2012.www2013
+#' @format a \code{\link{Scores}} object
+#' @references \url{http://ohi-science.org}
+#' @keywords datasets
+NULL
+
+#' Scores resulting from the 2013 web launch applied to Global 2013 analysis.
+#'
+#' These scores are the results of the Ocean Health Index.
+#'
+#' @docType data
+#' @name scores.Global2013.www2013
+#' @usage scores.Global2013.www2013
+#' @format a \code{\link{Scores}} object
+#' @references \url{http://ohi-science.org}
+#' @keywords datasets
 NULL
