@@ -20,6 +20,27 @@ layers.Global2012.www2013        Layers used for the 2013 web launch applied to 
 layers.Global2013.www2013        Layers used for the 2013 web launch applied to Global 2013 analysis.
 ```
 
-You can also embed plots, for example:
+## Customizing a Scenario
+
+Write files to disk:
+```{r}
+library(ohicore)
+
+# create directory
+wd = '~/myohi'
+dir.create(wd)
+setwd(wd)
+
+# write data to files
+conf.Global2013.www2013$write('conf')
+layers.Global2012.www2013$write('layers.csv', 'layers')
+#scores.Global2012.www2013$write('scores.csv')
+
+# ... modify files ...
+
+# read in and run
+conf = Conf('conf')
+layers = Layers('layers.csv', 'layers')
 
 
+```

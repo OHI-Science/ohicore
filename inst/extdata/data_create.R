@@ -1,6 +1,6 @@
 # Create package datasets for lazy loading. Document in R/data.R.
 
-# layers.Global[2013|2012].v2013web ----
+# [layers|scores].Global[2013|2012].v2013web ----
 
 # set from root directory based on operating system
 dir.from.root = c('Windows' = '//neptune/data_edit',
@@ -82,4 +82,18 @@ for (csv in list.files('inst/extdata', pattern=glob2rx('scores.*.csv'), full.nam
   
   # save to data folder for lazy loading
   save(list=c(scores), file=sprintf('data/%s.rda', scores))
+}
+
+# conf.* ----
+# Create conf.[scenario] dataset for all conf.[scenario] directories.
+for (dir in list.files('inst/extdata', pattern=glob2rx('conf.*'), full.names=T)){ # dir = list.files('inst/extdata', pattern=glob2rx('conf.*'), full.names=T)[1]
+    
+  # get directory and ensure exists
+  conf = basename(dir)
+  
+  # get layers and assign same variable name as dataset
+  assign(conf, ohicore::Conf(dir))
+  
+  # save to data folder for lazy loading
+  save(list=c(conf), file=sprintf('data/%s.rda', conf))
 }

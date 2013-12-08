@@ -22,36 +22,44 @@
 #' @export
 #' @include SelectLayers.R
 Layers = setRefClass(
-    'Layers',
-    fields = list(
-        data = 'list',
-        meta = 'data.frame',
-        targets = 'list'
+  'Layers',
+  fields = list(
+    data = 'list',
+    meta = 'data.frame',
+    targets = 'list'
     ),
-    methods = list(
-        initialize = function (layers.csv, layers.dir) {
-            .self$meta = read.csv(layers.csv, header = T)
-            .self$data = plyr::dlply(meta, 'layer', function (m) {
-              d = read.csv(file.path(layers.dir, m[['filename']]), header = T)
-              d$layer = m[['layer']]
-              return(d)
-            })
-            .self$targets = plyr::dlply(meta, 'layer', function(m){
-              return(strsplit(as.character(m[['targets']]), ' | ', fixed=T)[[1]])
-              # TODO: check that targets list valid goals/dimensions
-            })
-            
-        },
-        show = function () {
-            print (meta[-which(names(meta) == 'filename')])
-        }
+  methods = list(
+    initialize = function (layers.csv, layers.dir) {
+      
+      .self$meta = read.csv(layers.csv, header = T)
+      
+      .self$data = plyr::dlply(meta, 'layer', function (m) {
+        d = read.csv(file.path(layers.dir, m[['filename']]), header = T)
+        d$layer = m[['layer']]
+        return(d)})
+    
+      .self$targets = plyr::dlply(meta, 'layer', function(m){
+        return(strsplit(as.character(m[['targets']]), ' | ', fixed=T)[[1]])})
+      },
+    write = function(layers.csv, layers.dir){
+      write.csv(.self$meta, layers.csv, row.names=F, na='')
+      dir.create(layers.dir)
+      for (i in 1:nrow(.self$meta)){
+        lyr = .self$meta$layer[i]
+        csv = .self$meta$filename[i]
+        write.csv(.self$data[[lyr]], file.path(layers.dir, csv), row.names=F, na='')
+      }},
+    show = function(){
+      print(meta[-which(names(.self$meta) == 'filename')])}
     )
 )
 
-setGeneric("SelectLayers", SelectLayers)
+setGeneric('SelectLayers', SelectLayers)
 
-setMethod("names", 'Layers', 
-    function (x) {
-        names(x$meta[-which(names(x$meta) == 'filepath')])
-    }
+setMethod(
+  'names','Layers', 
+  function (x) {
+    names(x$data)}
 )
+
+#layers.Global2012.www2013$write('~/myohi/layers.csv')

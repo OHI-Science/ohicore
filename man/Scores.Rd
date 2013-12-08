@@ -9,12 +9,10 @@
   long style}
 }
 \value{
-  object (non-instantiated) reference class of Layers
-  containing \itemize{ \item{\emph{long} - long view (many
-  rows) of score results with columns: region, goal,
-  dimension, score} \item{\emph{wide} - wide view (many
-  columns) with one row per region and columns having
-  combination of goal and dimension} }
+  object reference class of Layers containing \itemize{
+  \item{\emph{data} - long view (many rows) of score
+  results with columns: region_id, goal, dimension, score}
+  }
 }
 \description{
   Scores reference class.
@@ -29,6 +27,10 @@
   \item{\emph{dimension} - the dimension code, one of:
   status, trend, pressures, resilience, future, score}
   \item{\emph{score} - the numeric score: 0-100 for all
-  dimensions, except trend (-1 to 1)} }
+  dimensions, except trend (-1 to 1)} } To get the wide
+  view (many columns, with one row per region and columns
+  having combination of goal and dimension), use something
+  like: \code{reshape2::dcast(.self$long, region_id ~ goal
+  + dimension, value.var='score')}.
 }
 

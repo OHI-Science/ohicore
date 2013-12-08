@@ -24,4 +24,6 @@ Collate:
     'TransformSpatialScheme.R'
     'data.R'
     'Scores.R'
+    'CalculatePressures.R'
+    'Conf.R'
 LazyData: TRUE
