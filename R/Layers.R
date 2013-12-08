@@ -31,7 +31,8 @@ Layers = setRefClass(
   methods = list(
     initialize = function (layers.csv, layers.dir) {
       
-      .self$meta = read.csv(layers.csv, header = T)
+      .self$meta = read.csv(layers.csv, header = T, na='')
+      row.names(.self$meta) = .self$meta$layer
       
       .self$data = plyr::dlply(meta, 'layer', function (m) {
         d = read.csv(file.path(layers.dir, m[['filename']]), header = T)

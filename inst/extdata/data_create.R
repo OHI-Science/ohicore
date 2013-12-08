@@ -39,6 +39,9 @@ for (yr in 2012:2013){ # yr=2012
   g$citation = g$X  
   write.csv(g[,c('targets','layer','title','description','citation','units','filename')], layers.csv, row.names=F, na='')
   
+  # run checks on layers
+  CheckLayers(layers.csv, dir.to, flds_id=c('rgn_id','cntry_key','saup_id'))
+  
   # create scores
   scores.csv = sprintf('inst/extdata/scores.Global%d.www2013.csv', yr)
   write.csv(r[r$scenario==yr, c('goal', 'dimension','region_id','score')], scores.csv, row.names=F, na='')
@@ -48,7 +51,7 @@ for (yr in 2012:2013){ # yr=2012
 #check.layers_navigation(layers_navigation.csv, layers_id_fields)
 #system(paste('open', layers_navigation.csv))
 #assemble.layers_data(layers_navigation.csv, layers_data.csv, layers_id_fields)
-
+CheckLayers('inst/extdata/layers.Global2012.Nature2012ftp.csv', 'inst/extdata/layers.Global2012.Nature2012ftp', flds_id=c('region_id','country_id','saup_id'))
 
 # layers.* ----
 # 
@@ -60,7 +63,7 @@ for (csv in list.files('inst/extdata', pattern=glob2rx('layers.*.csv'), full.nam
   dir = tools::file_path_sans_ext(csv)
   stopifnot(file.exists(dir))  
   layers = basename(dir)
-  
+    
   # get layers and assign same variable name as dataset
   assign(layers, ohicore::Layers(csv, dir))
   

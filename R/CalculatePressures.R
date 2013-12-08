@@ -108,8 +108,7 @@ calc.Pressures = function(){
     print('HACK RESCALED layers...')
     print(p.vals, row.names=F)    
   }
-  
-  
+    
   # iterate goals -----------------------------------------------------------
   # TODO: generate ohi.goal.subgoal.unique from goals.csv
   for (g in ohi.goal.subgoal.unique){ # g=ohi.goal.subgoal.unique[1]   # g='NP' # g='LIV' # g='FIS'  # g='CP'
@@ -119,6 +118,8 @@ calc.Pressures = function(){
     
     # reset components for so when debug==TRUE and saving, is per goal
     P = w = p = alpha = beta = NA
+    
+    layers
     
     # p: pressures value matrix [region_id x pressure]
     p <- matrix(as.matrix(d.p[match(region_ids, d.p$region_id), p.layers]), 

@@ -38,9 +38,11 @@ layers.Global2012.www2013$write('layers.csv', 'layers')
 
 # ... modify files ...
 
-# read in and run
+# read in updates
 conf = Conf('conf')
+CheckLayers('layers.csv', 'layers', flds_id=c('rgn_id','cntry_key','saup_id'))
 layers = Layers('layers.csv', 'layers')
+
 
 
 ```

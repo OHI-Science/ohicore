@@ -26,4 +26,5 @@ Collate:
     'Scores.R'
     'CalculatePressures.R'
     'Conf.R'
+    'CheckLayers.R'
 LazyData: TRUE
