@@ -1,6 +1,6 @@
 \name{CalculatePressures}
 \alias{CalculatePressures}
-\title{Calculate the pressures component of each (sub)goal.}
+\title{Calculate the pressures score for each (sub)goal.}
 \usage{
   CalculatePressures(layers, conf, gamma, debug = F)
 }
@@ -16,6 +16,6 @@
   pressures score
 }
 \description{
-  Calculate the pressures component of each (sub)goal.
+  Calculate the pressures score for each (sub)goal.
 }
 

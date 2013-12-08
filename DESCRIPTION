@@ -30,4 +30,6 @@ Collate:
     'CalculatePressuresScore.R'
     'CalculatePressuresMatrix.R'
     'ScoreScaling.R'
+    'CalculateResilience.R'
+    'CalculateResilienceScore.R'
 LazyData: TRUE

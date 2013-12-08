@@ -40,4 +40,6 @@ pressures_components  = list('NP'  = c('layer'='rnk_np_weights_combo'       , 'l
                              'LIV' = c('layer'='rnk_le_sector_weight'       , 'level'='region_id'),
                              'ECO' = c('layer'='rnk_le_sector_weight'       , 'level'='region_id'),
                              'HAB' = c('layer'='rnk_hab_presence'           , 'level'='region_id'))
+# TODO: inspect whether rnk_cs_habitat_extent is OK for CS given range of 0.82 to 39491, NOT 0 to 1
 pressures_categories = list(environmental=c('po','hd','fp','sp','cc'), social='ss')
+resilience_categories = c('environmental', 'regulatory', 'social')
