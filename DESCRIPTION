@@ -2,7 +2,7 @@ Package: ohicore
 Version: 0.1
 Date: 2013-09-25
 Title: Ocean Health Index calculation package
-Author: Ben Best, Steve Hastings
+Author: Ben Best, Steve Hastings, Darren Hardy
 Maintainer: Ben Best <bbest@nceas.ucsb.edu>
 Depends:
     R (>= 2.14.0),
@@ -18,8 +18,8 @@ Collate:
     'CalculateStatusComponent.R'
     'CalculateSubgoal.R'
     'Halpern2012Data.R'
-    'SelectLayers.R'
     'Layers.R'
+    'SelectLayersData.R'
     'SpatialSchemes.R'
     'TransformSpatialScheme.R'
     'data.R'
@@ -27,4 +27,7 @@ Collate:
     'CalculatePressures.R'
     'Conf.R'
     'CheckLayers.R'
+    'CalculatePressuresScore.R'
+    'CalculatePressuresMatrix.R'
+    'ScoreScaling.R'
 LazyData: TRUE

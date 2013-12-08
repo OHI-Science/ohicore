@@ -45,10 +45,10 @@ Conf = setRefClass(
       .self$functions = new.env(); source(file.path(dir, 'functions.R'), local=.self$functions)
       
       # set  data.frames: pressures_matrix, resilience_matrix, resilience_weights
-      .self$goals              = read.csv(file.path(dir, 'goals.csv'             ), na.strings='')
-      .self$pressures_matrix   = read.csv(file.path(dir, 'pressures_matrix.csv'  ), na.strings='')
-      .self$resilience_matrix  = read.csv(file.path(dir, 'resilience_matrix.csv' ), na.strings='')
-      .self$resilience_weights = read.csv(file.path(dir, 'resilience_weights.csv'), na.strings='')
+      .self$goals              = read.csv(file.path(dir, 'goals.csv'             ), na.strings='', stringsAsFactors=F)
+      .self$pressures_matrix   = read.csv(file.path(dir, 'pressures_matrix.csv'  ), na.strings='', stringsAsFactors=F)
+      .self$resilience_matrix  = read.csv(file.path(dir, 'resilience_matrix.csv' ), na.strings='', stringsAsFactors=F)
+      .self$resilience_weights = read.csv(file.path(dir, 'resilience_weights.csv'), na.strings='', stringsAsFactors=F)
       
      },
     write = function(dir){

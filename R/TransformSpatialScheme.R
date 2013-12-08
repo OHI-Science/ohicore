@@ -1,7 +1,7 @@
 #' Transform data
 #' 
 #' @param object instance of SpatialSchemes class
-#' @param data data.frame such as returned from 'SelectLayers' function
+#' @param data data.frame such as returned from 'SelectLayersData' function
 #' @param target single spatial scheme to which data should be transformed
 #' @param origin spatial schemes from which to transform, can be vector
 #' @param categories layers for which transformation should be done (to be safe, for now this should be all the layers in param data)

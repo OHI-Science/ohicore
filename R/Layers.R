@@ -20,7 +20,6 @@
 #' }
 #' The layers.dir directory should contain all the csv filenames listed in the layers.csv file.
 #' @export
-#' @include SelectLayers.R
 Layers = setRefClass(
   'Layers',
   fields = list(
@@ -55,7 +54,7 @@ Layers = setRefClass(
     )
 )
 
-setGeneric('SelectLayers', SelectLayers)
+#setGeneric("SelectLayers", SelectLayers)
 
 setMethod(
   'names','Layers', 

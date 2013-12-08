@@ -26,6 +26,7 @@
 
 # layers ----
 layers_id_fields = c('rgn_id','cntry_key','saup_id') # for Nature 2012: c('region_id','country_id','saup_id')
+layer_regions = 'rnk_rgn_global'
 
 # pressures & resilience matrices ----
 # components describe the layer and level with which to aggregate resilience and pressures matrices for goals with categories
@@ -39,3 +40,4 @@ pressures_components  = list('NP'  = c('layer'='rnk_np_weights_combo'       , 'l
                              'LIV' = c('layer'='rnk_le_sector_weight'       , 'level'='region_id'),
                              'ECO' = c('layer'='rnk_le_sector_weight'       , 'level'='region_id'),
                              'HAB' = c('layer'='rnk_hab_presence'           , 'level'='region_id'))
+pressures_categories = list(environmental=c('po','hd','fp','sp','cc'), social='ss')

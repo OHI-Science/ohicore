@@ -9,7 +9,7 @@
   \item{object}{instance of SpatialSchemes class}
 
   \item{data}{data.frame such as returned from
-  'SelectLayers' function}
+  'SelectLayersData' function}
 
   \item{target}{single spatial scheme to which data should
   be transformed}
