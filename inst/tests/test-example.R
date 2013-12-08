@@ -5,15 +5,15 @@ test_that('example data loads OK', {
   #schemes.list <- SpatialSchemes(system.file('inst','extdata', 'schemes_navigation.csv', package='ohicore')) # for loading in dev mode
   # TODO: resolve error: "cannot open file 'data/mat1.csv'" from local reference to mat1.csv 
   
-  status.data = SelectLayers(layers, mode='target', cast=T,
-                             target='FIS',
-                             expand.time.invariant = T)
-  
-  status.data = SelectLayers(layers, mode='layers', cast=T,
-                             layers=c('i_fis_bt'='Bt', 'i_fis_mmsy'='mMSY', 'i_fis_tc'='Tc'),
-                             expand.time.invariant = T)
-
-  status = CalculateStatusComponent(status.data, Halpern2012.FP.FIS, s.name='country_id')
+#   status.data = SelectLayers(layers, mode='target', cast=T,
+#                              target='FIS',
+#                              expand.time.invariant = T)
+#   
+#   status.data = SelectLayers(layers, mode='layers', cast=T,
+#                              layers=c('i_fis_bt'='Bt', 'i_fis_mmsy'='mMSY', 'i_fis_tc'='Tc'),
+#                              expand.time.invariant = T)
+# 
+#   status = CalculateStatusComponent(status.data, Halpern2012.FP.FIS, s.name='country_id')
 })
 
 # rm(list=ls())

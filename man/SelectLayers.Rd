@@ -26,9 +26,8 @@
 \value{
   data.frame with data of selected layers with the
   following fields: \itemize{ \item{\emph{layer} - layer
-  name, possibly renamed} \item{layer}{layer name, possibly
-  renamed} \item{\emph{layer0} - original layer name, if
-  fed a named character vector to layers}
+  name, possibly renamed} \item{\emph{layer0} - original
+  layer name, if fed a named character vector to layers}
   \item{\emph{id_num} - numeric id} \item{\emph{id_chr} -
   character id} \item{\emph{id_name} - fieldname of id}
   \item{\emph{category} - category}
