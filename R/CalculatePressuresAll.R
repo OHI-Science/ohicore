@@ -1,15 +1,15 @@
-#' Calculate the pressures score for each (sub)goal.
+#' Calculate all the pressures score for each (sub)goal.
 #' 
 #' @param layers object \code{\link{Layers}}
 #' @param conf object \code{\link{Conf}}
 #' @param gamma (optional) if not specified defaults to 0.5
 #' @return data.frame containing columns 'region_id' and per subgoal pressures score 
 #' @export
-CalculatePressures = function(layers, conf, gamma, debug=F){
+CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   # DEBUG: load_all(); conf=conf.Global2013.www2013; layers=layers.Global2013.www2013; debug=T; scores = scores.Global2013.www2013
-  # P.scores = CalculatePressures(layers, conf, debug=F); dim(P.scores); head(P.scores)
-  # subgoals = subset(conf$goals, !id %in% unique(conf$goals$parent), id, drop=T)
-  # head(dcast(subset(scores$data, dimension=='pressures' & goal %in% subset(conf$goals, !id %in% unique(conf$goals$parent), id, drop=T)), region_id ~ goal)[,c('region_id',subgoals)])
+  # P.scores = CalculatePressuresAll(layers, conf, debug=F); dim(P.scores); head(P.scores)
+  # subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
+  # head(dcast(subset(scores$data, dimension=='pressures' & goal %in% subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)), region_id ~ goal)[,c('region_id',subgoals)])
   
   # sqldf options (NOTE: cannot include sqldf dependancy in DESCRIPTION b/c tries to load X11)
   options(gsubfn.engine='R')
@@ -18,7 +18,7 @@ CalculatePressures = function(layers, conf, gamma, debug=F){
   options(sqldf.verbose = F)
     
   # setup initial data.frame for column binding results by region
-  D = rename(SelectLayersData(layers, layers=conf$config$layer_regions, narrow=T), c('id_num'='region_id'))[,'region_id',drop=F]
+  D = rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), c('id_num'='region_id'))[,'region_id',drop=F]
   regions = D[['region_id']]
     
   # cast pressures layer data
@@ -33,7 +33,7 @@ CalculatePressures = function(layers, conf, gamma, debug=F){
   np = length(p.layers) # number of pressures
             
   # iterate goals
-  subgoals = subset(conf$goals, !id %in% unique(conf$goals$parent), id, drop=T)
+  subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
   for (g in subgoals){ # g=subgoals[1]   # g='NP' # g='LIV' # g='FIS'  # g='CP'
     
     if (debug) cat(sprintf('goal: %s\n', g))
@@ -188,5 +188,7 @@ CalculatePressures = function(layers, conf, gamma, debug=F){
     
   }
 
-   return(D)
+  # return scores
+  scores = cbind(melt(D, id.vars='region_id', variable.name='goal', value.name='score'), dimension='pressures'); head(scores)
+  return(scores)
 }

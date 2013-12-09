@@ -99,45 +99,6 @@ SelectLayersData = function(object, targets=NULL, layers=NULL, cast=TRUE, narrow
   
   return (focus.data)
   
-#   if (cast) {
-#     
-#     data.all = SelectLayersData(layers); paste(sort(names(data.all)), collapse="','")
-#     'category','category_name','flds','id_chr','id_name','id_num','layer','val_chr','val_name','val_num','year'
-#     focus.data = SelectLayersData(layers, layers=conf$config$layer_regions)
-#     
-#     focus.data = subset(data.all, layer==conf$config$layer_regions)
-#     
-#     stationary.columns = which(names(focus.data) %in% c('val_num', 'layer'))
-#     
-#     reshape2::dcast(focus.data, id_num + ~ layer, value.var='value_chr', na.rm=T,
-#           subset = .(layer %in% c('sny_fis_biomass'))),
-#     
-#     names(focus.data)
-#     
-#     formula.text = paste(paste(names(focus.data)[-stationary.columns], 
-#                                collapse = '+'), '~layer')
-#     recasted.data = reshape2::dcast(focus.data, as.formula(formula.text),
-#                                     value.var = 'value', fun.aggregate=mean)
-#     
-#     if (expand.time.invariant) {    
-#       ti.logical = plyr::ldply(recasted.data[, layers], function(X) {
-#           Reduce('|', !is.na(recasted.data$year) & !is.nan(X))
-#       })
-#       
-#       spatial = names(recasted.data)[-which(names(recasted.data) %in% c('year', layers))]
-#       time.invariants = ti.logical$.id[!ti.logical$V1] # DOH!
-# 
-#       base = recasted.data[!is.na(recasted.data$year), -which(names(recasted.data) %in% time.invariants)]
-# 
-#       for (TI in time.invariants) {
-#         base = plyr::join(base, recasted.data[!is.nan(recasted.data[,TI]), c(spatial, TI)], by = spatial)
-#       }
-#       recasted.data = base
-#     }
-#     return (recasted.data)
-#   } else {
-#     return (focus.data)
-#   }
   
 # TODO: redo cast() and expand.time.invariant() now with id_num / id_chr, val_num / val_chr
 #   if (cast) {

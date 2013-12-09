@@ -1,15 +1,15 @@
-#' Calculate the resilience score for each (sub)goal.
+#' Calculate all the resilience score for each (sub)goal.
 #' 
 #' @param layers object \code{\link{Layers}}
 #' @param conf object \code{\link{Conf}}
 #' @return data.frame containing columns 'region_id' and per subgoal resilience score 
 #' @export
-CalculateResilience = function(layers, conf, debug=FALSE){
+CalculateResilienceAll = function(layers, conf, debug=FALSE){
 #DEBUG: load_all(); 
 #conf=conf.Global2013.www2013; layers=layers.Global2013.www2013; debug=T; scores = scores.Global2013.www2013
 #R.scores = CalculateResilience(layers, conf, debug=F); dim(R.scores); head(R.scores)
-# subgoals = subset(conf$goals, !id %in% unique(conf$goals$parent), id, drop=T)
-# head(dcast(subset(scores$data, dimension=='resilience' & goal %in% subset(conf$goals, !id %in% unique(conf$goals$parent), id, drop=T)), region_id ~ goal)[,c('region_id',subgoals)])
+# subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
+# head(dcast(subset(scores$data, dimension=='resilience' & goal %in% subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)), region_id ~ goal)[,c('region_id',subgoals)])
   
   # get resilience layers
   rm = conf$resilience_matrix
@@ -22,7 +22,7 @@ CalculateResilience = function(layers, conf, debug=FALSE){
   stopifnot(all(r.layers %in% rw$layer))
   
   # setup initial data.frame for column binding results by region
-  D = rename(SelectLayersData(layers, layers=conf$config$layer_regions, narrow=T), c('id_num'='region_id'))[,'region_id',drop=F]
+  D = rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), c('id_num'='region_id'))[,'region_id',drop=F]
   regions = D[['region_id']]
   
   # w.layers: weighting vector [layer]
@@ -32,8 +32,7 @@ CalculateResilience = function(layers, conf, debug=FALSE){
   types = setNames(rw$type, rw$layer)  
   
   # iterate goals
-  subgoals = subset(conf$goals, !id %in% unique(conf$goals$parent), id, drop=T)
-  #subgoals = subset(conf$goals, !id %in% c(unique(conf$goals$parent),'NP'), id, drop=T) # NP is SLOW!
+  subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
 
   for (g in subgoals){ # g=subgoals[1]
     
@@ -200,6 +199,7 @@ CalculateResilience = function(layers, conf, debug=FALSE){
     }
   } # end for g in...
   
-  return(D)
-    
+  # return scores
+  scores = cbind(melt(D, id.vars='region_id', variable.name='goal', value.name='score'), dimension='resilience'); head(scores)
+  return(scores)
 }

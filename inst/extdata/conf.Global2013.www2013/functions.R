@@ -1,179 +1,37 @@
-# TODO: check for missing layers
-
-
-calc.FIS.Nature2012 = function(d, dimensions=c('FIS.status'='status','FIS.trend'='trend'), status.year=2006, trend.years=2001:2006){
+FIS = function(layers){
   
-  # cast layers ----
-  # since SQLite, the default db of sqldf, doesn't support crosstab queries, we use the reshape package to transpose data into columns
-  # TODO: translate into prefixe values with setNames like MAR for readability
-  d = merge(merge(merge(
-    dcast(d, id_num + year ~ layer, value.var='value_num', na.rm=T,
-          subset = .(layer %in% c('sny_fis_biomass'))),
-    dcast(d, id_num ~ layer, value.var='value_num', na.rm=T,
-          subset = .(layer %in% c('sn_fis_mmsy','sn_area_km2','sn_fis_taxacorrection','sn_region_id'))), # 'sn_fis_flags',
-    all=T),
-                  dcast(d, id_num ~ layer, value.var='value_chr', na.rm=T,
-                        subset = .(layer %in% c('st_label','st_country_id'))),
-                  all=T),
-            dcast(d, id_num ~ category, value.var='value_chr', na.rm=T,
-                  subset = .(layer %in% c('stk_fis_flag'))),
-            all=T)
+  # status
+  r.status = rename(SelectLayersData(layers, layers='rn_fis_status'), c('id_num'='region_id','val_num'='score'))[,c('region_id','score')]
+  r.status$score = r.status$score * 100
   
-  # trim and rename columns for ease
-  names(d) = sub('sny_fis_|sn_fis_|sn_|st_fis|st_', '', names(d))
-  names(d) = sub('^id_num$' ,'saup_id'   , names(d))
+  # trend
+  r.trend = rename(SelectLayersData(layers, layers='rn_fis_trend'), c('id_num'='region_id','val_num'='score'))[,c('region_id','score')]
   
-  # calculate status ----  
-  #browser(); names(d)
-  
-  # use short names for variables
-  d = rename(d, c('taxacorrection'='tc',
-                  'biomass'='bt'))
-  d = within(d, {
-    
-    # override tc by sovereign country where flag set
-    idx = na.to.F(!is.na(use_sovereign))  
-    tc[idx] = tc[match(use_sovereign[idx], country_id)]
-    
-    # set reference mMSY
-    mmsy_ref = 0.75 * mmsy
-    
-    # main FIS status equation
-    x = (1 - bt / mmsy_ref ) * tc
-    
-    # set the reference point
-    deltabt <- abs(mmsy_ref - bt)
-    
-    # reset distance to 0 for bt that are within a +/- 5% buffer
-    deltabt[deltabt < 0.05 * mmsy] <- 0
-    # TODO: FIX code to match Eq. S16:
-    #deltabt[deltabt < 0.05 * mmsy_ref] <- 0
-    
-    # cap the distance to mMSYRef
-    idx = na.to.F(deltabt > mmsy_ref)
-    deltabt[idx] <- mmsy_ref[idx]
-    
-    # compute status model, rescale the distance to score
-    status <- (1 - deltabt / mmsy_ref) * tc  
-    
-    # override unreliable where flag set
-    idx = !is.na(unreliable)
-    status[idx] = tc[idx] * 0.25  
-    
-    # exclude where flag set
-    status[!is.na(exclude_all)] = NA 
-  })
-  
-  # populate years for those missing, as when defined by flag
-  d = rbind(
-    merge(
-      subset(d, is.na(year), setdiff(names(d),'year')), 
-      data.frame(year=na.omit(unique(d$year)))),
-    subset(d, !is.na(year)))
-  
-  # summarize to region by area, limiting to reference year and excluding any saup_id's without a matching region_id
-  x.allyears = ddply(
-    subset(d, !is.na(region_id)), .(region_id, year), summarize,
-    status = sum(status * area_km2, na.rm=T) / sum(area_km2) * 100
-    # TODO: update aggregation to region to exclude denominator area where status is NA using weighted.mean()
-    #FIS.status = weighted.mean(status, area_km2, na.rm=T) * 100
-  )
-  x = subset(x.allyears, year %in% c(NA,status.year), c(region_id, status)) 
-  
-  # calculate trend ----
-  y = ddply(
-    subset(x.allyears, year %in% trend.years), .(region_id), summarize,
-    trend = 
-      if(length(na.omit(status))>1) { 
-        lm(status ~ year)$coefficients[['year']] * 5 / 100
-      } else {
-        0
-      })
-  
-  # return dimensions ----
-  r = setNames(merge(x, y, all=T), c('region_id','status','trend'))
-  
-  # attach latex equations ----
-  #   \frac{B_T}{B_T+\sum\limits_{k} Y_k}
-  
-  #   (1 + \delta)^{-1} [ 1 + \beta T_i + (1 - \beta) (r_i - p_i) ] x_i
-  #   (x_i + \hat{x}_{i,F})/2
-  #   \sum_{i=1}^{N}\alpha_i I_i
-  
-  return(r[,c('region_id',dimensions)])
+  # return scores
+  s.status = cbind(r.status, data.frame('dimension'='status'))
+  s.trend  = cbind(r.trend , data.frame('dimension'='trend' ))
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='FIS'))
+  return(scores)  
 }
 
-calc.MAR.Nature2012 = function(d, dimensions=c('MAR.status'='status','MAR.trend'='trend'), 
-                               status.year=2009, trend.years=2001:2006){
+MAR = function(layers){
   
-  # cast layers ----
-  cnky = setNames(dcast(d, id_chr + category + year ~ layer, value.var='value_num', na.rm=T,
-                        subset = .(layer %in% c('cnky_mar_species_yield_smoothed'))),
-                  c('country_id','species','year','Y_k'))
-  cnk = setNames(dcast(d, id_chr + category ~ layer, value.var='value_num', na.rm=T,
-                       subset = .(layer %in% c('cnk_mar_species_sustainability'))),
-                 c('country_id','species','S_k'))
-  tk = setNames(dcast(d, category ~ layer, value.var='value_chr', na.rm=T,
-                      subset = .(layer %in% c('tk_mar_species_flags'))),
-                c('species','flag'))
-  cn = setNames(dcast(d, id_chr ~ layer, value.var='value_num', na.rm=T,
-                      subset = .(layer %in% c('cn_cntry_rgn'))),
-                c('country_id','region_id'))
-  rn = setNames(dcast(d, id_num ~ layer, value.var='value_num', na.rm=T,
-                      subset = .(layer %in% c('rn_rgn_area_offshore3nm'))),
-                c('region_id','A_r'))
+  # status
+  r.status = rename(SelectLayersData(layers, layers='rn_mar_status', narrow=T), c('id_num'='region_id','val_num'='score'))
+  r.status$score = r.status$score * 100
   
-  # calculate status ----  
+  # trend
+  r.trend = rename(SelectLayersData(layers, layers='rn_mar_trend', narrow=T), c('id_num'='region_id','val_num'='score'))
   
-  # summarize by country
-  cny = sqldf(
-    "SELECT country_id, year, 
-    SUM(Y_k * S_k) AS YS_c, 
-    COUNT(*) AS n
-    FROM    cnky
-    JOIN    cnk USING (country_id,species)
-    LEFT JOIN (
-    SELECT  species 
-    FROM    tk 
-    WHERE   flag = 'remove'
-    ) skip USING (species)
-    WHERE skip.species IS NULL
-    GROUP BY country_id, year
-    ORDER BY country_id, year")
-  
-  # summarize by region
-  rny = sqldf("SELECT region_id, year, A_r,
-    SUM(YS_c) AS yield,
-    SUM(YS_c)/A_r AS Y_c,
-    LOG((SUM(YS_c) / A_r) + 1) AS status_raw
-    FROM  cny
-    JOIN  cn USING (country_id)
-    JOIN  rn USING (region_id)
-    GROUP BY region_id, year, A_r
-    ORDER BY region_id, year")
-  
-  # rescale status
-  status.max = max(rny[,'status_raw'])  
-  rny[['status']] = rny[['status_raw']]/status.max * 100
-  
-  d.status = subset(rny, year==status.year, c(region_id, status)) 
-  
-  # calculate trend ----
-  d.trend = ddply(
-    subset(rny, year %in% trend.years), .(region_id), summarize,
-    trend = 
-      if(length(na.omit(status))>1) { 
-        lm(status ~ year)$coefficients[['year']] * 5 / 100
-      } else {
-        0
-      })
-  
-  # return dimensions ----
-  r = setNames(merge(d.status, d.trend, all=T), c('region_id','status','trend'))
-  return(setNames(r[,c('region_id',dimensions)], c('region_id', names(dimensions))))
+  # return scores
+  s.status = cbind(r.status, data.frame('dimension'='status'))
+  s.trend  = cbind(r.trend , data.frame('dimension'='trend' ))
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='MAR'))
+  return(scores)  
 }
 
-calc.SPP = function(ld.csv=layers_data.csv, 
+
+SPP = function(ld.csv=layers_data.csv,
                     status.csv = file.path(dir.results, sprintf('SPP_status_%s.csv', sfx.scenario)),
                     trend.csv  = file.path(dir.results, sprintf('SPP_trend_%s.csv' , sfx.scenario))){
   
@@ -187,19 +45,6 @@ calc.SPP = function(ld.csv=layers_data.csv,
   
 }
 
-calc.FIS = function(ld.csv=layers_data.csv, 
-                    status.csv = file.path(dir.results, sprintf('FIS_status_%s.csv', sfx.scenario)),
-                    trend.csv  = file.path(dir.results, sprintf('FIS_trend_%s.csv' , sfx.scenario))){
-  
-  d = rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_fis_status'),
-         c('id_num'='rgn_id','value_num'='status'))[,c('rgn_id','status')]
-  d$status = d$status * 100
-  write.csv(d, status.csv, row.names=F, na='')  
-
-  write.csv(rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_fis_trend'),
-                   c('id_num'='rgn_id','value_num'='trend'))[,c('rgn_id','trend')], trend.csv, row.names=F, na='')  
-  
-}
 
 calc.TR = function(ld.csv=layers_data.csv, 
                    status.csv = file.path(dir.results, sprintf('TR_status_%s.csv', sfx.scenario)),
@@ -214,23 +59,7 @@ calc.TR = function(ld.csv=layers_data.csv,
   
 }
 
-calc.MAR = function(ld.csv=layers_data.csv, 
-                    status.csv = file.path(dir.results, sprintf('MAR_status_%s.csv', sfx.scenario)),
-                    trend.csv  = file.path(dir.results, sprintf('MAR_trend_%s.csv' , sfx.scenario))){
-  
-  d = rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_mar_status'),
-             c('id_num'='rgn_id','value_num'='status'))[,c('rgn_id','status')]
-  d$status = d$status * 100
-  write.csv(d, status.csv, row.names=F, na='')  
-  
-  write.csv(rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_mar_trend'),
-                   c('id_num'='rgn_id','value_num'='trend'))[,c('rgn_id','trend')], trend.csv, row.names=F, na='')  
-  
-}
-
-calc.FP = function(ld.csv=layers_data.csv, 
-                   status.csv = file.path(dir.results, sprintf('FP_status_%s.csv', sfx.scenario)),
-                   trend.csv  = file.path(dir.results, sprintf('FP_trend_%s.csv' , sfx.scenario))){
+calc.FP = function(layers, scores){
   # w is the weighting matrix per Eq.S21a
   # f is FIS: region_id, FIS_status, FIS_trend
   # m is MAR: region_id, MAR_status, MAR_trend
@@ -238,6 +67,21 @@ calc.FP = function(ld.csv=layers_data.csv,
   # attach latex equations
   #   w * x_FIS + (1-w)*x_MAR
 
+  
+  # FP is seperate with weights
+  config.R = sprintf('~/ohi_tbx/scenarios/global_20%da/conf/config_20%da.R', s, s)  
+  load.config(config.R)
+  w = rename(subset(read.csv(layers_data.csv, na.strings=''), layer=='rn_fp_wildcaught_weight'),
+             c('id_num'='rgn_id', 'value_num'='w.FIS'))[,c('rgn_id','w.FIS')] #; head(w)  
+  d = merge(d, w, all.x=T)
+  d$w.MAR = 1 - d$w.FIS
+  for (m in c('i','f','s','t')){
+    d[[sprintf('FP.%s.%s', m, s)]] = apply(d[, c(sprintf('%s.%s.%s', c('FIS','MAR'), m, s),'w.FIS','w.MAR')] , 1, function(x) weighted.mean(x[1:2], x[3:4], na.rm=T))
+  }
+  write.csv(d[, c(sprintf('%s.%s.%s', c('FP','FIS','MAR'), 'i', s),'w.FIS','w.MAR')], sprintf('FP_20%s_debug.csv', s), row.names=F, na='') # debug output
+  d = d[, !names(d) %in% c('w.FIS','w.MAR')]
+  
+  
   # layers
   lyrs = list('r'  = c('rn_fis_status'           = 'FIS_status',
                        'rn_fis_trend'            = 'FIS_trend',
@@ -262,12 +106,11 @@ calc.FP = function(ld.csv=layers_data.csv,
   write.csv(r[,c('rgn_id','trend' )], trend.csv , row.names=F, na='')
 }
 
-calc.AO = function(ld.csv=layers_data.csv, 
+calc.AO.old = function(ld.csv=layers_data.csv, 
                    status.csv = file.path(dir.results, sprintf('AO_status_%s.csv', sfx.scenario)),
                    trend.csv  = file.path(dir.results, sprintf('AO_trend_%s.csv' , sfx.scenario)),
                    year.max=2012, year.min=2002, Sustainability=1.0){
-    
-  # TODO: gap fill
+  # d = SelectLayersData(layers, targets='AO'); dlply(d, .(layer), summary)
   
   # layers
   lyrs = list('r'  = c('rn_ao_access'        = 'access'),
@@ -313,6 +156,53 @@ calc.AO = function(ld.csv=layers_data.csv,
   #   # aggregate trend to region, gap-filling by georegions
   #   d.trend = aggregate_by_country(cn.trend, col.value='trend', lyrs.dat.csv=layers_data.csv)
   write.csv(r.trend, trend.csv, row.names=F, na='')  
+}
+
+AO = function(layers, 
+              year_max=max(layers_data$year, na.rm=T), 
+              year_min=max(min(layers_data$year, na.rm=T), max(layers_data$year, na.rm=T)-10), 
+              Sustainability=1.0){
+    
+  # cast data
+  layers_data = SelectLayersData(layers, targets='AO')
+  
+  ry = rename(dcast(layers_data, id_num + year ~ layer, value.var='val_num', 
+                    subset = .(layer %in% c('rny_ao_need'))),
+              c('id_num'='region_id', 'rny_ao_need'='need')); head(ry); summary(ry)
+
+  r = na.omit(rename(dcast(layers_data, id_num ~ layer, value.var='val_num', 
+                    subset = .(layer %in% c('rn_ao_access'))),
+              c('id_num'='region_id', 'rn_ao_access'='access'))); head(r); summary(r)
+    
+  ry = merge(ry, r); head(r); summary(r); dim(r)
+  
+  # model
+  ry = within(ry,{
+    Du = (1.0 - need) * (1.0 - access)
+    status = ((1.0 - Du) * Sustainability) * 100    
+  })
+  
+  # status
+  r.status = subset(ry, year==year_max, c(region_id, status)); summary(r.status); dim(r.status)
+  
+  # trend
+  r.trend = ddply(
+    subset(ry, year >= year_min), .(region_id), summarize,      
+    trend = 
+      if(length(na.omit(status))>1) {
+        # use only last valid 5 years worth of status data since year_min
+        d = data.frame(status=status, year=year)[tail(which(!is.na(status)), 5),]
+        lm(status ~ year, d)$coefficients[['year']] / 100
+      } else {
+        NA
+      }); summary(r.trend); dim(r.trend)
+  
+  # return scores
+  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status')); head(s.status)
+  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend')); head(s.trend)
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='AO')); dlply(scores, .(dimension), summary)
+  return(scores)
+  
 }
 
 calc.NP.Nature2012 = function(d, dimensions=c('NP_status'='status','NP_trend'='trend'), status.year=2008, 

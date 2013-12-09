@@ -1,6 +1,6 @@
 # TODO: check for missing layers
 
-calc.SPP = function(ld.csv=layers_data.csv, 
+calc.SPP = function(ld.csv=layers_data.csv,
                     status.csv = file.path(dir.results, sprintf('SPP_status_%s.csv', sfx.scenario)),
                     trend.csv  = file.path(dir.results, sprintf('SPP_trend_%s.csv' , sfx.scenario))){
   
@@ -89,12 +89,11 @@ calc.FP = function(ld.csv=layers_data.csv,
   write.csv(r[,c('rgn_id','trend' )], trend.csv , row.names=F, na='')
 }
 
-calc.AO = function(ld.csv=layers_data.csv, 
+calc.AO.old = function(ld.csv=layers_data.csv, 
                    status.csv = file.path(dir.results, sprintf('AO_status_%s.csv', sfx.scenario)),
                    trend.csv  = file.path(dir.results, sprintf('AO_trend_%s.csv' , sfx.scenario)),
                    year.max=2012, year.min=2002, Sustainability=1.0){
-    
-  # TODO: gap fill
+  # d = SelectLayersData(layers, targets='AO'); dlply(d, .(layer), summary)
   
   # layers
   lyrs = list('r'  = c('rn_ao_access'        = 'access'),
@@ -140,6 +139,55 @@ calc.AO = function(ld.csv=layers_data.csv,
   #   # aggregate trend to region, gap-filling by georegions
   #   d.trend = aggregate_by_country(cn.trend, col.value='trend', lyrs.dat.csv=layers_data.csv)
   write.csv(r.trend, trend.csv, row.names=F, na='')  
+}
+
+AO = function(layers, 
+              year_max=max(layers_data$year, na.rm=T), 
+              year_min=max(min(layers_data$year, na.rm=T), max(layers_data$year, na.rm=T)-10), 
+              Sustainability=1.0){
+  
+  # layers
+  lyrs = list('r'  = c('rn_ao_access'        = 'access'),
+              'ry' = c('rny_ao_need'         = 'need'))
+  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
+  
+  # cast data
+  layers_data = SelectLayersData(layers, targets='AO')
+  ry = rename(dcast(layers_data, id_num + year ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['ry']]))),
+              c('id_num'='region_id', lyrs[['ry']])); head(ry); summary(ry)
+  
+  r = na.omit(rename(dcast(layers_data, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
+                     c('id_num'='region_id', lyrs[['r']]))); head(r); summary(r)
+  
+  ry = merge(ry, r); head(r); summary(r); dim(r)
+  
+  # model
+  ry = within(ry,{
+    Du = (1.0 - need) * (1.0 - access)
+    status = ((1.0 - Du) * Sustainability) * 100    
+  })
+  
+  # status
+  r.status = subset(ry, year==year_max, c(region_id, status)); summary(r.status); dim(r.status)
+  
+  # trend
+  r.trend = ddply(
+    subset(ry, year >= year_min), .(region_id), summarize,      
+    trend = 
+      if(length(na.omit(status))>1) {
+        # use only last valid 5 years worth of status data since year_min
+        d = data.frame(status=status, year=year)[tail(which(!is.na(status)), 5),]
+        lm(status ~ year, d)$coefficients[['year']] / 100
+      } else {
+        NA
+      }); summary(r.trend); dim(r.trend)
+  
+  # return scores
+  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status')); head(s.status)
+  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend')); head(s.trend)
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='AO')); dlply(scores, .(dimension), summary)
+  return(scores)
+  
 }
 
 calc.NP.Nature2012 = function(d, dimensions=c('NP_status'='status','NP_trend'='trend'), status.year=2008, 

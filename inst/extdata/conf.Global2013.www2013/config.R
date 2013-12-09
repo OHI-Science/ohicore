@@ -26,7 +26,8 @@
 
 # layers ----
 layers_id_fields = c('rgn_id','cntry_key','saup_id') # for Nature 2012: c('region_id','country_id','saup_id')
-layer_regions = 'rnk_rgn_global'
+layer_region_labels = 'rnk_rgn_global'
+layer_region_areas  = 'rn_rgn_area'
 
 # pressures & resilience matrices ----
 # components describe the layer and level with which to aggregate resilience and pressures matrices for goals with categories
@@ -43,3 +44,8 @@ pressures_components  = list('NP'  = c('layer'='rnk_np_weights_combo'       , 'l
 # TODO: inspect whether rnk_cs_habitat_extent is OK for CS given range of 0.82 to 39491, NOT 0 to 1
 pressures_categories = list(environmental=c('po','hd','fp','sp','cc'), social='ss')
 resilience_categories = c('environmental', 'regulatory', 'social')
+
+pressures_gamma = 0.5
+goal_discount = 1.0
+goal_beta = 0.67
+default_trend = 0

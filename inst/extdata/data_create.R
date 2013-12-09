@@ -1,8 +1,8 @@
 # Create package datasets for lazy loading. Document in R/data.R.
 
-do.layers.Global.www2013 = T
-do.layers.Global2012.Nature2012ftp = T
-#do.conf.Global.www2013 = T
+# flags for turning on/off time consuming code
+do.layers.Global.www2013 = F
+do.layers.Global2012.Nature2012ftp = F
 
 # [layers|scores].Global[2013|2012].v2013web ----
 
@@ -89,7 +89,7 @@ for (csv in list.files('inst/extdata', pattern=glob2rx('scores.*.csv'), full.nam
   scores = basename(tools::file_path_sans_ext(csv))
   
   # get layers and assign same variable name as dataset
-  assign(scores, ohicore::Scores(csv))
+  assign(scores, read.csv(csv, header=T, na.strings=''))
   
   # save to data folder for lazy loading
   save(list=c(scores), file=sprintf('data/%s.rda', scores))
