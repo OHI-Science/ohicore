@@ -30,6 +30,144 @@ MAR = function(layers){
   return(scores)  
 }
 
+FP = function(layers, scores){
+  # TODO: check with differences calculated here (P,R,S,T now -> F,G later) vs layers_2013.R (S,T,F,G now)
+
+  # weights
+  w = rename(SelectLayersData(layers, layers='rn_fp_wildcaught_weight', narrow=T),
+             c('id_num'='region_id', 'val_num'='w_FIS')); head(w)
+  
+  # scores
+  s = dcast(scores, region_id + dimension ~ goal, value.var='score', subset=.(goal %in% c('FIS','MAR'))); head(s)
+  
+  # combine
+  scores = mutate(merge(s, w),
+                  goal='FP',
+                  score=weighted.mean(c(FIS, MAR), c(w_FIS, 1-w_FIS), na.rm=T))[,c('region_id','goal','dimension','score')]; head(scores)
+  return(scores)
+}
+
+AO = function(layers, 
+              year_max=max(layers_data$year, na.rm=T), 
+              year_min=max(min(layers_data$year, na.rm=T), max(layers_data$year, na.rm=T)-10), 
+              Sustainability=1.0){
+  
+  # cast data
+  layers_data = SelectLayersData(layers, targets='AO')
+  
+  ry = rename(dcast(layers_data, id_num + year ~ layer, value.var='val_num', 
+                    subset = .(layer %in% c('rny_ao_need'))),
+              c('id_num'='region_id', 'rny_ao_need'='need')); head(ry); summary(ry)
+  
+  r = na.omit(rename(dcast(layers_data, id_num ~ layer, value.var='val_num', 
+                           subset = .(layer %in% c('rn_ao_access'))),
+                     c('id_num'='region_id', 'rn_ao_access'='access'))); head(r); summary(r)
+  
+  ry = merge(ry, r); head(r); summary(r); dim(r)
+  
+  # model
+  ry = within(ry,{
+    Du = (1.0 - need) * (1.0 - access)
+    status = ((1.0 - Du) * Sustainability) * 100    
+  })
+  
+  # status
+  r.status = subset(ry, year==year_max, c(region_id, status)); summary(r.status); dim(r.status)
+  
+  # trend
+  r.trend = ddply(
+    subset(ry, year >= year_min), .(region_id), summarize,      
+    trend = 
+      if(length(na.omit(status))>1) {
+        # use only last valid 5 years worth of status data since year_min
+        d = data.frame(status=status, year=year)[tail(which(!is.na(status)), 5),]
+        lm(status ~ year, d)$coefficients[['year']] / 100
+      } else {
+        NA
+      }); summary(r.trend); dim(r.trend)
+  
+  # return scores
+  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status')); head(s.status)
+  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend')); head(s.trend)
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='AO')); dlply(scores, .(dimension), summary)
+  return(scores)  
+}
+
+NP = function(layers, 
+              status.year=2008, 
+              trend.years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
+                                 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
+  # 2013: NP(status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
+  
+  # layers
+  layers_data = SelectLayersData(layers, targets='NP'); ddply(layers_data, .(layer, flds, id_name, category_name, val_name), nrow)
+  
+  lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
+              'rk'  = c('rnk_np_sustainability_score' = 'S',
+                        'rnk_np_weights_combo'        = 'w'),
+              'r'   = c('rn_fis_status'               = 'fis_status'))
+  lyr_names = sub('^\\w*\\.', '', names(unlist(lyrs))) 
+  
+  # cast data  
+  D = SelectLayersData(, layers=layers)
+  rky = rename(dcast(D, id_num + category + year ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['rky']]))),
+               c('id_num'='rgn_id', 'category'='product', lyrs[['rky']])); head(rky); summary(rky)
+  rk  = rename(dcast(D, id_num + category ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['rk']]))),
+               c('id_num'='rgn_id', 'category'='product', lyrs[['rk']])); head(rk); summary(rk); table(rk$product)
+  r   = rename(dcast(D, id_num ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['r']]))),
+               c('id_num'='rgn_id', lyrs[['r']])); head(r); summary(r)
+  
+  # cast data  
+  rky = rename(SelectLayersData(layers, layers='rnky_np_harvest_relative', narrow=T),
+               c('id_num'='region_id', 'category'='product', 'val_num'='H'))
+  
+  rk  = rename(dcast(SelectLayersData(layers, layers=c('rnk_np_sustainability_score','rnk_np_weights_combo'), narrow=T), 
+                     id_num + category ~ layer, value.var='value_num'),
+               c('id_num'='rgn_id', 'category'='product', lyrs[['rk']])); head(rk); summary(rk); table(rk$product)
+  r   = rename(dcast(D, id_num ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['r']]))),
+               c('id_num'='rgn_id', lyrs[['r']])); head(r); summary(r)
+  
+  
+  # turn rn_fis_status to S for fish_oil
+  r$product = 'fish_oil'
+  rk = merge(rk, r, all.x=T)
+  rk$S[rk$product=='fish_oil'] = rk$fis_status[rk$product=='fish_oil']
+  rk = rk[,names(rk)!='fis_status']
+  
+  # merge H with S & w
+  rky = merge(rky, rk, all.x=T)
+  summary(rky)
+  
+  # missing S & w
+  cat('NP summary(rk):\n')
+  print(summary(rk))
+  write.csv(rk, file.path(dir.results, sprintf('NP_debug_rk_%s.csv', sfx.scenario)), na='')
+  
+  # missing S wrt H
+  cat('NP summary(rky):\n')
+  print(summary(rky))
+  write.csv(rk, file.path(dir.results, sprintf('NP_debug_rky_%s.csv', sfx.scenario)), na='')
+  
+  # get status across products, per region and year
+  rky$w = ifelse(is.na(rky$w), 0, rky$w)
+  rky = na.omit(rky)
+  ry = ddply(rky, .(rgn_id, year), summarize,
+             status = sum(w * H * S) / sum(w) * 100); head(ry)
+  write.csv(na.omit(subset(ry, year==status.year, c(rgn_id,status))), status.csv, row.names=F, na='')
+  
+  # get trend per product based on product-specific trend.years
+  rk.trend = rename(ddply(rky, .(rgn_id, product), function(x){
+    lm(H * S ~ year, x[x$year %in% trend.years[[x$product[1]]],])$coefficients[['year']] * 5
+  }), c('V1'='trend.k')); head(rk.trend); head(rk)
+  
+  # summarize trend per region
+  rk.trend.w = na.omit(merge(rk.trend, rk)); summary(rk.trend.w)
+  r.trend = ddply(rk.trend.w, .(rgn_id), summarize,
+                  trend = min(1, max(-1, sum(w * trend.k) / sum(w))))
+  write.csv(na.omit(r.trend), trend.csv, row.names=F, na='')
+}
+
+
 
 SPP = function(ld.csv=layers_data.csv,
                     status.csv = file.path(dir.results, sprintf('SPP_status_%s.csv', sfx.scenario)),
@@ -59,52 +197,6 @@ calc.TR = function(ld.csv=layers_data.csv,
   
 }
 
-calc.FP = function(layers, scores){
-  # w is the weighting matrix per Eq.S21a
-  # f is FIS: region_id, FIS_status, FIS_trend
-  # m is MAR: region_id, MAR_status, MAR_trend
-  #
-  # attach latex equations
-  #   w * x_FIS + (1-w)*x_MAR
-
-  
-  # FP is seperate with weights
-  config.R = sprintf('~/ohi_tbx/scenarios/global_20%da/conf/config_20%da.R', s, s)  
-  load.config(config.R)
-  w = rename(subset(read.csv(layers_data.csv, na.strings=''), layer=='rn_fp_wildcaught_weight'),
-             c('id_num'='rgn_id', 'value_num'='w.FIS'))[,c('rgn_id','w.FIS')] #; head(w)  
-  d = merge(d, w, all.x=T)
-  d$w.MAR = 1 - d$w.FIS
-  for (m in c('i','f','s','t')){
-    d[[sprintf('FP.%s.%s', m, s)]] = apply(d[, c(sprintf('%s.%s.%s', c('FIS','MAR'), m, s),'w.FIS','w.MAR')] , 1, function(x) weighted.mean(x[1:2], x[3:4], na.rm=T))
-  }
-  write.csv(d[, c(sprintf('%s.%s.%s', c('FP','FIS','MAR'), 'i', s),'w.FIS','w.MAR')], sprintf('FP_20%s_debug.csv', s), row.names=F, na='') # debug output
-  d = d[, !names(d) %in% c('w.FIS','w.MAR')]
-  
-  
-  # layers
-  lyrs = list('r'  = c('rn_fis_status'           = 'FIS_status',
-                       'rn_fis_trend'            = 'FIS_trend',
-                       'rn_mar_status'           = 'MAR_status',
-                       'rn_mar_trend'            = 'MAR_trend',
-                       'rn_fp_wildcaught_weight' = 'w'))  
-  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
-    
-  # cast data
-  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers); table(D$layer)
-  
-  r = rename(dcast(D, id_num + category ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['r']]))),
-             c('id_num'='rgn_id', lyrs[['r']])); head(r); summary(r)
-    
-  # calculate status and trend
-  r = within(r,{
-    status = ifelse(is.na(FIS_status), 0, w * FIS_status) + ifelse(is.na(MAR_status), 0, (1 - w) * MAR_status)
-    trend  = ifelse(is.na(FIS_trend) , 0, w * FIS_trend)  + ifelse(is.na(MAR_trend) , 0, (1 - w) * MAR_trend)
-  })
-  r$status = r$status * 100
-  write.csv(r[,c('rgn_id','status')], status.csv, row.names=F, na='')
-  write.csv(r[,c('rgn_id','trend' )], trend.csv , row.names=F, na='')
-}
 
 calc.AO.old = function(ld.csv=layers_data.csv, 
                    status.csv = file.path(dir.results, sprintf('AO_status_%s.csv', sfx.scenario)),
@@ -158,52 +250,6 @@ calc.AO.old = function(ld.csv=layers_data.csv,
   write.csv(r.trend, trend.csv, row.names=F, na='')  
 }
 
-AO = function(layers, 
-              year_max=max(layers_data$year, na.rm=T), 
-              year_min=max(min(layers_data$year, na.rm=T), max(layers_data$year, na.rm=T)-10), 
-              Sustainability=1.0){
-    
-  # cast data
-  layers_data = SelectLayersData(layers, targets='AO')
-  
-  ry = rename(dcast(layers_data, id_num + year ~ layer, value.var='val_num', 
-                    subset = .(layer %in% c('rny_ao_need'))),
-              c('id_num'='region_id', 'rny_ao_need'='need')); head(ry); summary(ry)
-
-  r = na.omit(rename(dcast(layers_data, id_num ~ layer, value.var='val_num', 
-                    subset = .(layer %in% c('rn_ao_access'))),
-              c('id_num'='region_id', 'rn_ao_access'='access'))); head(r); summary(r)
-    
-  ry = merge(ry, r); head(r); summary(r); dim(r)
-  
-  # model
-  ry = within(ry,{
-    Du = (1.0 - need) * (1.0 - access)
-    status = ((1.0 - Du) * Sustainability) * 100    
-  })
-  
-  # status
-  r.status = subset(ry, year==year_max, c(region_id, status)); summary(r.status); dim(r.status)
-  
-  # trend
-  r.trend = ddply(
-    subset(ry, year >= year_min), .(region_id), summarize,      
-    trend = 
-      if(length(na.omit(status))>1) {
-        # use only last valid 5 years worth of status data since year_min
-        d = data.frame(status=status, year=year)[tail(which(!is.na(status)), 5),]
-        lm(status ~ year, d)$coefficients[['year']] / 100
-      } else {
-        NA
-      }); summary(r.trend); dim(r.trend)
-  
-  # return scores
-  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status')); head(s.status)
-  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend')); head(s.trend)
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='AO')); dlply(scores, .(dimension), summary)
-  return(scores)
-  
-}
 
 calc.NP.Nature2012 = function(d, dimensions=c('NP_status'='status','NP_trend'='trend'), status.year=2008, 
                    trend.years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
@@ -310,109 +356,6 @@ calc.NP.Nature2012 = function(d, dimensions=c('NP_status'='status','NP_trend'='t
   # return dimensions ----
   r = setNames(merge(d.status, d.trend, all=T), c('region_id','status','trend'))
   return(setNames(r[,c('region_id',dimensions)], c('region_id', names(dimensions))))
-}
-
-calc.NP = function(ld.csv=layers_data.csv, 
-                   status.csv = file.path(dir.results, sprintf('NP_status_%s.csv', sfx.scenario)),
-                   trend.csv  = file.path(dir.results, sprintf('NP_trend_%s.csv' , sfx.scenario)),
-                   verbose=F,
-                   status.year=2008, 
-                   trend.years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
-                                      'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
-  # KL: if harvest is NA then it should be gapfilled with 0.
-  # BH: The 2012a harvest file is already rescaled from 0 to 1, meaning that the "value" field is actually a score, not raw tonnage (the rescaling step is already done). The 2013a NP file prepared by Julie should be raw tonnage (i.e. not rescaled to the peak), unless BH processed it? I can't check myself because I don't know where the 2013a NP files are.
-  # BH: The 'allyears' file is absolute values of harvest through 2009 (the year of assessment for 2013a) so that you can calculate peak harvest and then rescale to 1.0. The weights_combo file is already converted to proportional value and should be set to go.
-  # BB: It looks like I need value in dollars per region and product in order to calculate the product weights (based on value_peak / total_value)
-  #   calc.NP(status.year=2008, 
-  #     trend.years = list('corals'=2003:2007,
-  #                        'ornamentals'=2003:2007,
-  #                        'shells'=2003:2007,
-  #                        'fish_oil'=2004:2008,
-  #                        'seaweeds'=2004:2008,
-  #                        'sponges'=2004:2008))
-  #  I presume that once we get the harvest data sorted, then we'll use the most recent year per product for 2013a, and minus one year for 2012a.
-  #  np_harvest_v2012a.csv only goes up to 2008, yet has more rows (n=7190) of data than harvest GL-FAO-Commodities_v2009-cleaned.csv (n=7079) which goes up to 2009 or np_harvest_absolutevalue_all_yrs.xls which has the least (n=5203)
-  # 2008 in np_weights_combo_2012a.csv, 2009 in np_weights_combo_2013a.csv)
-  # calculate relative harvest from np_harvest_absolutevalue_all_yrs.xls to produce something akin to np_harvest_v2012a.csv for 2013
-  # so for now just use the same 2012a weights for all years preceding
-  
-  #   For calculating this 2013 relative harvest, I see the peak and 35% discussed in the supplement:
-  #   
-  #   For the Status of each product, we assessed the most recent harvest rate (in metric tons) per country relative to the maximum value (in 2008 USD) ever achieved in that country, under the assumption that the maximum achieved at any point in time was likely the maximum possible. This creates a reference point internal to each country. We then established a buffer around this peak catch because we do not know whether it is sustainable (similar to what was done for the fisheries sub-goal of food provision, Section 6A1). Any value within 35% of the peak was set to 1.0, with values below that rescaled to this 35% buffer value. We chose a 35% buffer following the logic of the wild-caught fisheries sub-goal, where a 25% buffer is used around mMSY. Because mMSY for wild-caught fisheries is already 10% below peak landings, we added 10% to the Natural Products buffer as a coarse approximation of the buffer mMSY builds around peak landings.
-  #   
-  #   Just to confirm the methods I use for 2013 are consistent with 2012, here's some of the SQL:
-  #   
-  #   LEAST(1, (yield / (0.65 * p.yield_peak))) AS P_i
-  #   
-  #   The exposure and risk to get at sustainability is no walk in the park, but doable. The supplement suggests a log transform and many product-specific codes, part of which I see as:
-  #   
-  #   LN(exposure+1)/LN(exposure_max+1) AS exposure
-  #   
-  #   ...
-  #   
-  #   CASE  WHEN e.exposure IS NOT NULL AND r.risk IS NOT NULL
-  #              THEN 1.0 - (0.5 * e.exposure + 0.5 * r.risk)
-  #              WHEN e.exposure IS NULL AND r.risk IS NOT NULL
-  #              THEN 1.0 - r.risk
-  #              WHEN e.exposure IS NOT NULL AND r.risk IS NULL
-  #              THEN 1.0 - e.exposure
-  #          ELSE 1
-  #        END AS s1
-  # BH: for 2013a status we used the 35% buffer, so you find the peak, multiply by 65%, then penalize for above or below this value
-  
-  # layers
-  lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
-              'rk'  = c('rnk_np_sustainability_score' = 'S',
-                        'rnk_np_weights_combo'        = 'w'),
-              'r'   = c('rn_fis_status'               = 'fis_status'))
-  layers = sub('(r|ry|rk|rky)\\.','', names(unlist(lyrs)))
-  
-  # cast data  
-  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
-  rky = rename(dcast(D, id_num + category + year ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['rky']]))),
-               c('id_num'='rgn_id', 'category'='product', lyrs[['rky']])); head(rky); summary(rky)
-  rk  = rename(dcast(D, id_num + category ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['rk']]))),
-               c('id_num'='rgn_id', 'category'='product', lyrs[['rk']])); head(rk); summary(rk); table(rk$product)
-  r   = rename(dcast(D, id_num ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['r']]))),
-               c('id_num'='rgn_id', lyrs[['r']])); head(r); summary(r)
-  
-  # turn rn_fis_status to S for fish_oil
-  r$product = 'fish_oil'
-  rk = merge(rk, r, all.x=T)
-  rk$S[rk$product=='fish_oil'] = rk$fis_status[rk$product=='fish_oil']
-  rk = rk[,names(rk)!='fis_status']
-
-  # merge H with S & w
-  rky = merge(rky, rk, all.x=T)
-  summary(rky)
-  
-  # missing S & w
-  cat('NP summary(rk):\n')
-  print(summary(rk))
-  write.csv(rk, file.path(dir.results, sprintf('NP_debug_rk_%s.csv', sfx.scenario)), na='')
-
-  # missing S wrt H
-  cat('NP summary(rky):\n')
-  print(summary(rky))
-  write.csv(rk, file.path(dir.results, sprintf('NP_debug_rky_%s.csv', sfx.scenario)), na='')
-  
-  # get status across products, per region and year
-  rky$w = ifelse(is.na(rky$w), 0, rky$w)
-  rky = na.omit(rky)
-  ry = ddply(rky, .(rgn_id, year), summarize,
-             status = sum(w * H * S) / sum(w) * 100); head(ry)
-  write.csv(na.omit(subset(ry, year==status.year, c(rgn_id,status))), status.csv, row.names=F, na='')
-  
-  # get trend per product based on product-specific trend.years
-  rk.trend = rename(ddply(rky, .(rgn_id, product), function(x){
-    lm(H * S ~ year, x[x$year %in% trend.years[[x$product[1]]],])$coefficients[['year']] * 5
-    }), c('V1'='trend.k')); head(rk.trend); head(rk)
-  
-  # summarize trend per region
-  rk.trend.w = na.omit(merge(rk.trend, rk)); summary(rk.trend.w)
-  r.trend = ddply(rk.trend.w, .(rgn_id), summarize,
-                          trend = min(1, max(-1, sum(w * trend.k) / sum(w))))
-  write.csv(na.omit(r.trend), trend.csv, row.names=F, na='')
 }
 
 calc.HAB = function(ld.csv=layers_data.csv, 

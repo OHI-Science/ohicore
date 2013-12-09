@@ -1,7 +1,7 @@
 order,goal,parent,name,weight,function_call
 1.1,FIS,FP,Fisheries,0.5,FIS(layers)
-1.2,FP,,Food Provision,1,
-1.3,MAR,FP,Mariculture,0.5,
+1.2,FP,,Food Provision,1,MAR(layers)
+1.3,MAR,FP,Mariculture,0.5,"FP(layers, scores)"
 2,AO,,Artisanal Fishing Opportunity,1,"AO(layers, year_max=2012)"
 3,NP,,Natural Products,1,
 4,CS,,Carbon Storage,1,

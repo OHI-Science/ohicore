@@ -7,7 +7,7 @@
 "CW","rn_cw_fertilizer_trend","Nutrients trend","FAO fertilizer trends","6I","trend.score","GL-NCEAS_CW_Fertilizers_trend_v2012a.csv","rgn_id",,,,"trend.score",,TRUE,-1,1,FALSE,,,,204
 "CW","rn_cw_pathogen_trend","Pathogen pollution trend","","6I","trend","po_pathogens_trend_sanitation2008to2011_popninland25km2008to2013.csv","rgn_id",,,,"trend",,TRUE,-0.0940269277341567,0.0324969508670384,FALSE,,,,204
 "CW","rn_cw_coastalpopn_trend","Coastal population trend (annual)","proxy for trash trend","6I","trend","rgn_popn5yrtrend_inland25mi_2007to2012.csv","rgn_id",,,,"trend",,TRUE,-0.188549514549214,0.274677444427172,FALSE,,,,204
-"FIS","rn_fis_status","fisheries status","","6A","status","FIS_Status_2012a_lyr.csv","rgn_id",,,"year","status",,TRUE,0,0.86,TRUE,,,,204
+"FIS | NP","rn_fis_status","fisheries status","","6A","status","FIS_Status_2012a_lyr.csv","rgn_id",,,"year","status",,TRUE,0,0.86,TRUE,,,,204
 "FIS","rn_fis_trend","fisheries trend","","6A","trend","FIS_Trend_2012a_lyr.csv","rgn_id",,,,"trend",,TRUE,-0.181428571,0.455714286,FALSE,,,,204
 "FP","rn_fp_wildcaught_weight","weighting factor","proportional yield of wild caught fisheries","6A","w_fis","GL_FP_wildcaught_weight_v2012a_lyr.csv","rgn_id",,,,"w_fis",,TRUE,0.146651471,1,TRUE,,,,204
 "pressures | HAB","rnk_hab_presence","Habitats model variable","habitat presence (wk)","6J","boolean","hab_habitat_presence.csv","rgn_id",,"habitat",,"boolean",,TRUE,1,1,TRUE,,,,204
