@@ -94,14 +94,14 @@ AO = function(layers,
 }
 
 NP = function(layers, 
-              status.year=2008, 
-              trend.years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
+              status_year=2008, 
+              trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
                                  'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
   # 2013: NP(status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
+  # 2012: NP(status_year=2008, trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007, 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008))
   
+    
   # layers
-  layers_data = SelectLayersData(layers, targets='NP'); ddply(layers_data, .(layer, flds, id_name, category_name, val_name), nrow)
-  
   lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
               'rk'  = c('rnk_np_sustainability_score' = 'S',
                         'rnk_np_weights_combo'        = 'w'),
@@ -109,24 +109,13 @@ NP = function(layers,
   lyr_names = sub('^\\w*\\.', '', names(unlist(lyrs))) 
   
   # cast data  
-  D = SelectLayersData(, layers=layers)
-  rky = rename(dcast(D, id_num + category + year ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['rky']]))),
-               c('id_num'='rgn_id', 'category'='product', lyrs[['rky']])); head(rky); summary(rky)
-  rk  = rename(dcast(D, id_num + category ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['rk']]))),
-               c('id_num'='rgn_id', 'category'='product', lyrs[['rk']])); head(rk); summary(rk); table(rk$product)
-  r   = rename(dcast(D, id_num ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['r']]))),
-               c('id_num'='rgn_id', lyrs[['r']])); head(r); summary(r)
-  
-  # cast data  
-  rky = rename(SelectLayersData(layers, layers='rnky_np_harvest_relative', narrow=T),
-               c('id_num'='region_id', 'category'='product', 'val_num'='H'))
-  
-  rk  = rename(dcast(SelectLayersData(layers, layers=c('rnk_np_sustainability_score','rnk_np_weights_combo'), narrow=T), 
-                     id_num + category ~ layer, value.var='value_num'),
-               c('id_num'='rgn_id', 'category'='product', lyrs[['rk']])); head(rk); summary(rk); table(rk$product)
-  r   = rename(dcast(D, id_num ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['r']]))),
-               c('id_num'='rgn_id', lyrs[['r']])); head(r); summary(r)
-  
+  D = SelectLayersData(layers, layers=lyr_names)
+  rky = rename(dcast(D, id_num + category + year ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rky']]))),
+               c('id_num'='region_id', 'category'='product', lyrs[['rky']]))
+  rk  = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
+               c('id_num'='region_id', 'category'='product', lyrs[['rk']]))
+  r   = rename(dcast(D, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
+               c('id_num'='region_id', lyrs[['r']]))
   
   # turn rn_fis_status to S for fish_oil
   r$product = 'fish_oil'
@@ -138,404 +127,85 @@ NP = function(layers,
   rky = merge(rky, rk, all.x=T)
   summary(rky)
   
-  # missing S & w
-  cat('NP summary(rk):\n')
-  print(summary(rk))
-  write.csv(rk, file.path(dir.results, sprintf('NP_debug_rk_%s.csv', sfx.scenario)), na='')
-  
-  # missing S wrt H
-  cat('NP summary(rky):\n')
-  print(summary(rky))
-  write.csv(rk, file.path(dir.results, sprintf('NP_debug_rky_%s.csv', sfx.scenario)), na='')
-  
   # get status across products, per region and year
   rky$w = ifelse(is.na(rky$w), 0, rky$w)
   rky = na.omit(rky)
-  ry = ddply(rky, .(rgn_id, year), summarize,
+  ry = ddply(rky, .(region_id, year), summarize,
              status = sum(w * H * S) / sum(w) * 100); head(ry)
-  write.csv(na.omit(subset(ry, year==status.year, c(rgn_id,status))), status.csv, row.names=F, na='')
+  r.status = subset(ry, year==status_year, c(region_id,status))
   
-  # get trend per product based on product-specific trend.years
-  rk.trend = rename(ddply(rky, .(rgn_id, product), function(x){
-    lm(H * S ~ year, x[x$year %in% trend.years[[x$product[1]]],])$coefficients[['year']] * 5
+  # get trend per product based on product-specific trend_years
+  rk.trend = rename(ddply(rky, .(region_id, product), function(x){
+    lm(H * S ~ year, x[x$year %in% trend_years[[x$product[1]]],])$coefficients[['year']] * 5
   }), c('V1'='trend.k')); head(rk.trend); head(rk)
   
   # summarize trend per region
   rk.trend.w = na.omit(merge(rk.trend, rk)); summary(rk.trend.w)
-  r.trend = ddply(rk.trend.w, .(rgn_id), summarize,
+  r.trend = ddply(rk.trend.w, .(region_id), summarize,
                   trend = min(1, max(-1, sum(w * trend.k) / sum(w))))
-  write.csv(na.omit(r.trend), trend.csv, row.names=F, na='')
+  
+  # return scores
+  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status'))
+  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend'))
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='NP'))
+  return(scores)  
 }
 
-
-
-SPP = function(ld.csv=layers_data.csv,
-                    status.csv = file.path(dir.results, sprintf('SPP_status_%s.csv', sfx.scenario)),
-                    trend.csv  = file.path(dir.results, sprintf('SPP_trend_%s.csv' , sfx.scenario))){
-  
-  d = rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_spp_status'),
-             c('id_num'='rgn_id','value_num'='status'))[,c('rgn_id','status')]
-  d$status = d$status * 100
-  write.csv(d, status.csv, row.names=F, na='')  
-  
-  write.csv(rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_spp_trend'),
-                   c('id_num'='rgn_id','value_num'='trend'))[,c('rgn_id','trend')], trend.csv, row.names=F, na='')  
-  
-}
-
-
-calc.TR = function(ld.csv=layers_data.csv, 
-                   status.csv = file.path(dir.results, sprintf('TR_status_%s.csv', sfx.scenario)),
-                   trend.csv  = file.path(dir.results, sprintf('TR_trend_%s.csv' , sfx.scenario))){
-  
-  d = rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_tr_status'),
-             c('id_num'='rgn_id','value_num'='status'))[,c('rgn_id','status')]
-  write.csv(d, status.csv, row.names=F, na='')  
-  
-  write.csv(rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_tr_trend'),
-                   c('id_num'='rgn_id','value_num'='trend'))[,c('rgn_id','trend')], trend.csv, row.names=F, na='')  
-  
-}
-
-
-calc.AO.old = function(ld.csv=layers_data.csv, 
-                   status.csv = file.path(dir.results, sprintf('AO_status_%s.csv', sfx.scenario)),
-                   trend.csv  = file.path(dir.results, sprintf('AO_trend_%s.csv' , sfx.scenario)),
-                   year.max=2012, year.min=2002, Sustainability=1.0){
-  # d = SelectLayersData(layers, targets='AO'); dlply(d, .(layer), summary)
-  
-  # layers
-  lyrs = list('r'  = c('rn_ao_access'        = 'access'),
-              'ry' = c('rny_ao_need'         = 'need'))
-  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
-  
-  # cast data
-  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
-  
-  ry = rename(dcast(D, id_num + year ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['ry']]))),
-              c('id_num'='rgn_id', lyrs[['ry']])); head(ry); summary(ry)
-
-  r = na.omit(rename(dcast(D, id_num ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['r']]))),
-             c('id_num'='rgn_id', lyrs[['r']]))); head(r); summary(r)
-  
-  ry = merge(ry, r); head(r); summary(r); dim(r)
-
-  # model
-  ry = within(ry,{
-    Du = (1.0 - need) * (1.0 - access)
-    status = ((1.0 - Du) * Sustainability) * 100    
-  })
-
-  # status
-  r.status = subset(ry, year==year.max, c(rgn_id, status)); summary(r.status); dim(r.status)
-    
-  #   # aggregate status to region, gap-filling by georegions
-  #   d.status = aggregate_by_country(cn, col.value='status', col.country='country_id')
-  write.csv(r.status, status.csv, row.names=F, na='')
-  
-  # trend
-  r.trend = ddply(
-    subset(ry, year >= year.min), .(rgn_id), summarize,      
-    trend = 
-      if(length(na.omit(status))>1) {
-        # use only last valid 5 years worth of status data since year.min
-        d = data.frame(status=status, year=year)[tail(which(!is.na(status)), 5),]
-        lm(status ~ year, d)$coefficients[['year']] / 100
-      } else {
-        NA
-      }); summary(r.trend); dim(r.trend)
-  
-  #   # aggregate trend to region, gap-filling by georegions
-  #   d.trend = aggregate_by_country(cn.trend, col.value='trend', lyrs.dat.csv=layers_data.csv)
-  write.csv(r.trend, trend.csv, row.names=F, na='')  
-}
-
-
-calc.NP.Nature2012 = function(d, dimensions=c('NP_status'='status','NP_trend'='trend'), status.year=2008, 
-                   trend.years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
-                                      'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
-  # debug: d=layers_data_NP; dimensions=c('NP_status'='status','NP_trend'='trend'); status.year=2008; trend.years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)
-  # TODO: rnk_np_weights/np_product_weights_byregion -> rnk_np_product_weight
-  
-  # cast data ----
-  cky = setNames(dcast(d, id_chr + category + year ~ layer, value.var='value_num', na.rm=T,
-                       subset = .(layer %in% c('cnky_np_harvest_relative','cnky_np_sustainability_score','cnky_np_weights_combo'))),
-                 c('country_id','product','year','Hp','Sp','Wp')) 
-  
-  rk = setNames(dcast(d, id_num + category ~ layer, value.var='value_num', na.rm=T,
-                      subset = .(layer %in% c('rnk_np_product_weight'))),
-                c('region_id','product','w')) 
-  
-  # calculate status ----
-  
-  # calculate status per country, product, year
-  cky = within(cky,{
-    status = Hp * Sp
-  })
-  
-  # populate status of 0 for missing years by country, product
-  d = cky.beg.end = ddply(cky, .(country_id, product), summarize, n=length(year), year.min=min(year), year.max=max(year))
-  cky.0 = cky[0,c('country_id','product','year')]
-  for (i in 1:nrow(d)){
-    yrs = d$year.min[i]:d$year.max[i]
-    n = length(yrs)
-    cky.0 = rbind(cky.0,
-                  data.frame(country_id = rep(d$country_id[i], n),
-                             product    = rep(d$product[i], n),
-                             year       = yrs)) # , Hp=rep(0,n), Sp=rep(0,n), Wp=rep(0,n), status     = rep(0, n)
-  }
-  cky = merge(cky.0, cky, all=T)
-  cky$status = ifelse(is.na(cky$status), 0, cky$status)
-  cky$Wp = ifelse(is.na(cky$Wp), 0, cky$Wp)
-    
-  # add combination products based on Eq S27 (combo-without-corals not used)
-  cky = sqldf(
-    "SELECT country_id, product, year, status
-    FROM cky
-    UNION
-    SELECT country_id, 'combo' AS product, year, 
-    SUM(Wp * status) / SUM(Wp) * 100 AS status
-    FROM cky
-    GROUP BY country_id, year
-    UNION
-    SELECT country_id, 'combo-without-corals' AS product, year, 
-    SUM(Wp * status) / SUM(Wp)  * 100 AS status
-    FROM cky
-    WHERE product NOT IN ('corals')
-    GROUP BY country_id, year")  
-  
-  # aggregate status to region, gap-filling by georegions
-  rky = ddply(cky, .(product), function(cy_k){
-    x = aggregate_by_country_year(cy_k, col.value='status', col.country='country_id')
-    return(x[attr(x,'source')=='actual',])
-  })
-  
-  # get status
-  d.status = subset(rky, year==status.year & product=='combo', c(region_id, status))
-  
-  trend.rk = function(region_id, product, year, status, trend.years){
-    k = unique(product)     # product    
-    yrs = trend.years[[k]]  # years specific to product
-    idx = year %in% yrs     # index of years with status    
-    d = data.frame(year=yrs, status=0, row.names=as.character(yrs)) # default all years to zero
-    d[as.character(year[idx]),'status'] = status[idx]
-    # TODO: shouldn't we rely on year.min & year.max above and not automatically fill in all years as zero?
-    #   FIX:
-    #     d = data.frame(year=year[idx], status=status[idx])   # subset data to trend years of given product
-    m = lm(status ~ year, d)$coefficients[['year']] * 5  # get linear model coefficient for 5 year period    
-    return(min(1, max(-1, m)))                           # clamp between -1 and 1    
-  }
-  
-  # get trend for each product and region. NOTE: here() trick to get ddply to recognize function trend.rk()
-  trends = ddply(subset(rky, product %in% names(trend.years)), .(region_id, product), here(summarize),
-                 trend = trend.rk(region_id, product, year, status, trend.years))
-  
-  # add combination products based on Eq S27 (combo-without-corals not used)
-  combo = sqldf(
-    "SELECT region_id, product, w, trend 
-    FROM trends
-    JOIN rk USING (region_id, product)
-    UNION
-    SELECT region_id, 'combo' AS product, NULL AS w,
-      SUM(w * trend) AS trend
-    FROM trends
-    JOIN rk USING (region_id, product)
-    GROUP BY region_id, product
-    UNION
-    SELECT region_id, 'combo-without-corals' AS product, NULL AS w,  
-      SUM(w * trend) AS trend
-    FROM trends
-    JOIN rk USING (region_id, product)
-    WHERE product NOT IN ('corals')
-    GROUP BY region_id, product
-    ORDER BY region_id, product")
-    
-  # get trend
-  d.trend = subset(combo, product=='combo', c(region_id, trend))  
-  
-  # return dimensions ----
-  r = setNames(merge(d.status, d.trend, all=T), c('region_id','status','trend'))
-  return(setNames(r[,c('region_id',dimensions)], c('region_id', names(dimensions))))
-}
-
-calc.HAB = function(ld.csv=layers_data.csv, 
-                    status.csv = file.path(dir.results, sprintf('HAB_status_%s.csv', sfx.scenario)),
-                    trend.csv  = file.path(dir.results, sprintf('HAB_trend_%s.csv' , sfx.scenario))){
-  # TODO: check that mangroves were sampled inland too! (per 6D)
+CS = function(layers){
   
   # layers
   lyrs = list('rk' = c('rnk_hab_health' = 'health',
                        'rnk_hab_extent' = 'extent',
                        'rnk_hab_trend'  = 'trend'))
-  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
-  
-  # cast data  
-  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
-    
-  rk = rename(dcast(D, id_num + category ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['rk']]))),
-              c('id_num'='rgn_id', 'category'='habitat', lyrs[['rk']])); head(rk); summary(rk)
-  
-#   # DEBUG
-#   browser()
-#   r = read.csv('/Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_details.csv', na.strings='')[, c('rgn_id','rgn_nam')]; head(r)
-#   e = na.omit(rk[,c('rgn_id','habitat','extent')]) ; head(e)
-#   e$habitat = sprintf('%s.extent', e$habitat)
-#   ew = dcast(e, rgn_id ~ habitat, value.var='extent'); head(ew)
-#   h = na.omit(rk[,c('rgn_id','habitat','health')]) ; head(h)
-#   h$habitat = sprintf('%s.health', h$habitat); head(h)
-#   hw = dcast(h, rgn_id ~ habitat, value.var='health'); head(hw)
-#   t = na.omit(rk[,c('rgn_id','habitat','trend')]); head(t)
-#   t$habitat = sprintf('%s.trend', t$habitat)
-#   tw = dcast(t, rgn_id ~ habitat, value.var='trend'); head(tw)  
-#   
-#   rk.HAB = subset(rk, habitat %in% c('coral','mangrove','seagrass','seaice_edge','soft_bottom'))
-#   
-#   rk.HAB$w.old = ifelse(!is.na(rk.HAB$extent), 1, 0) # BUG fix
-#   rk.HAB$habitat.w.old = sprintf('%s.w.old', rk.HAB$habitat)
-#   w.old = dcast(rk.HAB, rgn_id ~ habitat.w.old, value.var='w.old'); head(w.old)
-#   
-#   rk.HAB$w     = ifelse(!is.na(rk.HAB$extent) & rk.HAB$extent>0, 1, NA); head(rk.HAB)
-#   rk.HAB$habitat.w = sprintf('%s.w', rk.HAB$habitat)
-#   w = dcast(rk.HAB, rgn_id ~ habitat.w, value.var='w')
-#   
-# 
-#   HAB.status.old = ddply(na.omit(rk.HAB[,c('rgn_id','habitat','w.old','health')]), .(rgn_id), summarize,
-#                          HAB.status.old = min(1, sum(w.old * health) / sum(w.old)) * 100); summary(HAB.status.old); head(HAB.status.old)
-#   
-#   HAB.status = ddply(na.omit(rk.HAB[,c('rgn_id','habitat','w','health')]), .(rgn_id), summarize,
-#                      HAB.status = min(1, sum(w * health) / sum(w)) * 100); summary(HAB.status); head(HAB.status)
-#   
-#   
-#   HAB.trend.old = ddply(na.omit(rk.HAB[,c('rgn_id','habitat','w.old','trend')]), .(rgn_id), summarize,
-#                   HAB.trend.old = sum(w * trend) / sum(w)); summary(HAB.trend.old); head(HAB.trend.old)  
-#   
-#   HAB.trend = ddply(na.omit(rk.HAB[,c('rgn_id','habitat','w','trend')]), .(rgn_id), summarize,
-#                     HAB.trend = sum(w * trend) / sum(w)); summary(HAB.trend); head(HAB.trend)
-#   
-#   HAB.woldNA.not.trend = ddply(rk.HAB[,c('rgn_id','habitat','w.old','trend')], .(rgn_id), summarize,
-#                                HAB.woldNA.not.trend = ifelse(sum(!is.na(trend)>0) &  sum(!is.na(w.old)==0), TRUE, NA))
-#   nrow(subset(HAB.woldNA.not.trend, HAB.woldNA.not.trend==TRUE)) # 0
-#   
-#   # CS
-#   rk.CS = subset(rk, habitat %in% c('mangrove','saltmarsh','seagrass'))
-#   CS.status = ddply(na.omit(rk.CS[,c('rgn_id','habitat','extent','health')]), .(rgn_id), summarize,
-#                     CS.status = min(1, sum(extent * health) / sum(extent)) * 100)    
-#   CS.trend = ddply(na.omit(rk.CS[,c('rgn_id','habitat','extent','trend')]), .(rgn_id), summarize,
-#                    CS.trend = sum(extent * trend) / sum(extent) )
-#   CS.extentNA.not.trend = ddply(rk.CS[,c('rgn_id','habitat','extent','trend')], .(rgn_id), summarize,
-#                                 CS.extentNA.not.trend = ifelse(sum(!is.na(trend)>0) &  sum(!is.na(extent)==0), TRUE, NA))
-#   nrow(subset(CS.extentNA.not.trend, CS.extentNA.not.trend==TRUE))) # 13
-#   
-#   # CP
-#   habitat.rank = c('coral'            = 4,
-#                    'mangrove'         = 4,
-#                    'saltmarsh'        = 3,
-#                    'seagrass'         = 1,
-#                    'seaice_shoreline' = 4)  
-#   rk.CP = subset(rk, habitat %in% names(habitat.rank)); table(rk.CP$habitat)
-#   rk.CP$rank = habitat.rank[rk.CP$habitat]; summary(rk.CP); head(rk.CP)
-#   CP.status = ddply(na.omit(rk.CP[,c('rgn_id','habitat','rank','extent','health')]), .(rgn_id), summarize,
-#                     CP.status = min(1, sum(rank * health * extent) / (sum(extent) * max(rank)) ) * 100 )    
-#   CP.trend = ddply(na.omit(rk.CP[,c('rgn_id','habitat','rank','extent','trend')]), .(rgn_id), summarize,
-#                    CP.trend = sum(rank * trend * extent) / (sum(extent)* max(rank)) )
-#   CP.extentNA.not.trend = ddply(rk.CP[,c('rgn_id','habitat','rank','extent','trend')], .(rgn_id), summarize,
-#                                 CP.extentNA.not.trend = ifelse(sum(!is.na(trend)>0) &  sum(!is.na(extent)==0), TRUE, NA))
-#   nrow(subset(CP.extentNA.not.trend, CP.extentNA.not.trend==TRUE)) # 20
-# 
-#   z = merge(merge(merge(merge(merge(merge(merge(merge(merge(merge(merge(merge(merge(merge(merge(merge(r, ew, all=T), w.old, all=T), w, all=T), hw, all=T), tw, all=T), 
-#             HAB.status.old, all=T), HAB.status, all=T), HAB.trend.old, all=T), HAB.trend, all=T),
-#             CS.status, all=T), CS.trend, all=T), CP.status, all=T), CP.trend, all=T),
-#             HAB.woldNA.not.trend, all=T), CS.extentNA.not.trend, all=T), CP.extentNA.not.trend, all=T); head(z)  
-#   write.csv(z, '/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/HAB_CS_CP_debug.csv', row.names=F, na='')
-  
-  # limit to HAB habitats
-  rk = subset(rk, habitat %in% c('coral','mangrove','saltmarsh','seaice_edge','seagrass','soft_bottom'))  
-  #browser()
-  
-  # DEBUG
-#   r = read.csv('/Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_details.csv', na.strings='')[, c('rgn_id','rgn_nam')]; head(r)
-#   q = merge(subset(rk, habitat=='saltmarsh'), r); head(q)
-#   print(q[,c('rgn_id','rgn_nam','habitat','extent','health','trend')], row.names=F)
-  
-  # presence as weight
-  #rk$w = ifelse(!is.na(rk$extent), 1, 0) # BUG fix
-  rk$w = ifelse(!is.na(rk$extent) & rk$extent>0, 1, NA)
-    
-  # status
-  r.status = ddply(na.omit(rk[,c('rgn_id','habitat','w','health')]), .(rgn_id), summarize,
-                   status = min(1, sum(w * health) / sum(w)) * 100); summary(r.status)
-  write.csv(r.status, status.csv, row.names=F, na='')
-  
-  # trend
-  r.trend = ddply(na.omit(rk[,c('rgn_id','habitat','w','trend')]), .(rgn_id), summarize,
-                  trend = sum(w * trend) / sum(w))
-  write.csv(r.trend, trend.csv, row.names=F, na='')  
-}
-
-calc.CS = function(ld.csv=layers_data.csv, 
-                   status.csv = file.path(dir.results, sprintf('CS_status_%s.csv', sfx.scenario)),
-                   trend.csv  = file.path(dir.results, sprintf('CS_trend_%s.csv' , sfx.scenario))){
-  # TODO: check that mangroves were sampled inland too! (per 6D)
-  
-  # DEBUG browser()
-  
-  # layers
-  lyrs = list('rk' = c('rnk_hab_health' = 'health',
-                       'rnk_hab_extent' = 'extent',
-                       'rnk_hab_trend'  = 'trend'))
-  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
+  lyr_names = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
   
   # cast data
-  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
-    
-  rk = rename(dcast(D, id_num + category ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['rk']]))),
-              c('id_num'='rgn_id', 'category'='habitat', lyrs[['rk']])); head(rk); summary(rk)
-    
+  D = SelectLayersData(layers, layers=lyr_names)
+  rk = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
+              c('id_num'='region_id', 'category'='habitat', lyrs[['rk']]))
+  
   # limit to CS habitats
   rk = subset(rk, habitat %in% c('mangrove','saltmarsh','seagrass'))
   
   # BUG fix
   rk$extent[rk$extent==0] = NA
   
-  # debug file
-  #write.csv(rk, file.path(dir.results, sprintf('CS_debug_%s.csv', sfx.scenario)), na='', row.names=F)
-  
   # status
-  r.status = ddply(na.omit(rk[,c('rgn_id','habitat','extent','health')]), .(rgn_id), summarize,
+  r.status = ddply(na.omit(rk[,c('region_id','habitat','extent','health')]), .(region_id), summarize,
                    status = min(1, sum(extent * health) / sum(extent)) * 100)    
-  write.csv(r.status, status.csv, row.names=F, na='')
   
   # trend
-  r.trend = ddply(na.omit(rk[,c('rgn_id','habitat','extent','trend')]), .(rgn_id), summarize,
+  r.trend = ddply(na.omit(rk[,c('region_id','habitat','extent','trend')]), .(region_id), summarize,
                   trend = sum(extent * trend) / sum(extent) )
-  write.csv(r.trend, trend.csv, row.names=F, na='')   
+
+  # return scores
+  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status'))
+  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend'))
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='CS'))
+  return(scores)  
 }
 
-calc.CP = function(ld.csv=layers_data.csv, 
-                   status.csv = file.path(dir.results, sprintf('CP_status_%s.csv', sfx.scenario)),
-                   trend.csv  = file.path(dir.results, sprintf('CP_trend_%s.csv' , sfx.scenario))){
-#                    status.csv = file.path(dir.results, sprintf('CP_status_%s_BUG-seaice_shore.csv', sfx.scenario)),
-#                    trend.csv  = file.path(dir.results, sprintf('CP_trend_%s_BUG-seaice_shore.csv' , sfx.scenario))){
+CP = function(layers){
   
   # layers
   lyrs = list('rk' = c('rnk_hab_health' = 'health',
                        'rnk_hab_extent' = 'extent',
                        'rnk_hab_trend'  = 'trend'))
-  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
+  lyr_names = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
   
   # get layer data
-  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
+  D = SelectLayersData(layers, layers=lyr_names)
   
   # for habitat extent do not use all mangrove, but sum of mangrove_offshore1km + mangrove_inland1km = mangrove to match with extent and trend
-  m = dcast(D, layer + id_num ~ category, value.var='value_num', subset = .(layer=='rnk_hab_extent' & category %in% c('mangrove_inland1km','mangrove_offshore1km'))); head(m); table(m$category)
-  m$value_num = rowSums(m[,c('mangrove_inland1km','mangrove_offshore1km')], na.rm=T)
-  m$category = 'mangrove'; head(m)
-  d = subset(D, !(layer=='rnk_hab_extent' & category %in% c('mangrove','mangrove_inland1km','mangrove_offshore1km'))); table(subset(d, layer=='rnk_hab_extent', category)); table(subset(d, category=='mangrove', layer)); head(d)  
+  m = dcast(D, layer + id_num ~ category, value.var='val_num', subset = .(layer=='rnk_hab_extent' & category %in% c('mangrove_inland1km','mangrove_offshore1km')))
+  m$val_num = rowSums(m[,c('mangrove_inland1km','mangrove_offshore1km')], na.rm=T)
+  m$category = as.factor('mangrove')
+  d = subset(D, !(layer=='rnk_hab_extent' & category %in% c('mangrove','mangrove_inland1km','mangrove_offshore1km')))
   D = rbind.fill(m, d)
   
   # cast
-  rk = rename(dcast(D, id_num + category ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['rk']]))),
-              c('id_num'='rgn_id', 'category'='habitat', lyrs[['rk']])) #; table(rk$habitat); print(head(subset(rk, habitat=='mangrove')), row.names=F); head(rk)
+  rk = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
+              c('id_num'='region_id', 'category'='habitat', lyrs[['rk']]))
   
   # limit to CP habitats and add rank
   habitat.rank = c('coral'            = 4,
@@ -544,514 +214,62 @@ calc.CP = function(ld.csv=layers_data.csv,
                    'seagrass'         = 1,
                    'seaice_shoreline' = 4)
   
-  rk = subset(rk, habitat %in% names(habitat.rank)); table(rk$habitat)
-  rk$rank = habitat.rank[rk$habitat]; summary(rk); head(rk)
-
+  rk = subset(rk, habitat %in% names(habitat.rank))
+  rk$rank = habitat.rank[as.character(rk$habitat)]
+  
   # BUG fix
   rk$extent[rk$extent==0] = NA
   
   # status  
-  r.status = ddply(na.omit(rk[,c('rgn_id','habitat','rank','extent','health')]), .(rgn_id), summarize,
+  r.status = ddply(na.omit(rk[,c('region_id','habitat','rank','extent','health')]), .(region_id), summarize,
                    status = min(1, sum(rank * health * extent) / (sum(extent) * max(rank)) ) * 100 )    
-  write.csv(r.status, status.csv, row.names=F, na='')
   
   # trend
-  r.trend = ddply(na.omit(rk[,c('rgn_id','habitat','rank','extent','trend')]), .(rgn_id), summarize,
+  r.trend = ddply(na.omit(rk[,c('region_id','habitat','rank','extent','trend')]), .(region_id), summarize,
                   trend = sum(rank * trend * extent) / (sum(extent)* max(rank)) )
-  write.csv(r.trend, trend.csv, row.names=F, na='')
   
-#   # compare with OLD when habitat.rank of 'seaice_shore' vs 'seaice_shoreline' (n=25)
-#   s.bug = read.csv('CP_status_2013a_BUG-seaice_shore.csv')
-#   s = read.csv('CP_status_2013a.csv')
-#   t.bug = read.csv('CP_trend_2013a_BUG-seaice_shore.csv')
-#   t = read.csv('CP_trend_2013a.csv')
-#   s = merge(s, rename(s.bug, c('status'='status.bug')), all=T)
-#   t = merge(t, rename(t.bug, c('trend'='trend.bug')), all=T)
-#   r = merge(s, t, all=T)
-#   r$status.dif = with(r, status - status.bug)
-#   r$trend.dif = with(r, trend - trend.bug)
-#   head(r)
-#   write.csv(subset(r, abs(status.dif) > 0 | abs(trend.dif) > 0 ), 'CP_bug_dif.csv', row.names=F, na='')
-  
+  # return scores
+  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status'))
+  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend'))
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='CP'))
+  return(scores)  
 }
 
-
-
-calc.LIV.ECO.Nature2012copy = function(ld.csv=layers_data.csv, 
-                        LIV.status.csv = file.path(dir.results, sprintf('LIV_status_%s.csv', sfx.scenario)),
-                        LIV.trend.csv  = file.path(dir.results, sprintf('LIV_trend_%s.csv' , sfx.scenario)),
-                        ECO.status.csv = file.path(dir.results, sprintf('ECO_status_%s.csv', sfx.scenario)),
-                        ECO.trend.csv  = file.path(dir.results, sprintf('ECO_trend_%s.csv' , sfx.scenario))){
+TR = function(layers){
   
-  # QUICK HACK to consume Nature 2012 results as a placeholder
-  d = read.csv(file.path(root.data ,'model/GL-NCEAS-LayersDisaggregated_v2013a/data/rgn_results_2012n_long.csv'), na.strings=''); head(d)
-
-  for (g in c('ECO','LIV')){ # g = 'LIV'
-    # status
-    status = rename(subset(d, goal==g & dimension=='s', c(rgn_id, value)),
-                    c('value'='status')); head(status)
-    write.csv(status, get(sprintf('%s.status.csv', g)), row.names=F, na='')
-    
-    # trend
-    trend = rename(subset(d, goal==g & dimension=='t', c(rgn_id, value)),
-                   c('value'='trend')); head(trend)
-    write.csv(trend, get(sprintf('%s.trend.csv', g)), row.names=F, na='')
-  }
-  
+  # scores
+  return(cbind(rename(SelectLayersData(layers, layers=c('rn_tr_status'='status','rn_tr_trend'='trend'), narrow=T),
+                      c(id_num='region_id', layer='dimension', val_num='score')), 
+               data.frame('goal'='TR')))
 }
 
-calc.LIV.ECO = function(ld.csv=layers_data.csv, 
-                        LIV.status.csv = file.path(dir.results, sprintf('LIV_status_%s.csv', sfx.scenario)),
-                        LIV.trend.csv  = file.path(dir.results, sprintf('LIV_trend_%s.csv' , sfx.scenario)),
-                        ECO.status.csv = file.path(dir.results, sprintf('ECO_status_%s.csv', sfx.scenario)),
-                        ECO.trend.csv  = file.path(dir.results, sprintf('ECO_trend_%s.csv' , sfx.scenario)),
-                        scenario){
+LIV = function(layers){
   
-  # status
-  d = rename(read.csv(sprintf('/Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/data/rgn_liv.eco_status_%s.csv', scenario), na.strings=''),
-             c('value'='status')); head(d)  
-  d$status = d$status * 100
-  write.csv(subset(d, component=='livelihood', c(rgn_id, status)), LIV.status.csv, row.names=F, na='')
-  write.csv(subset(d, component=='economy', c(rgn_id, status)), ECO.status.csv, row.names=F, na='')
-  
-  # trend
-  d = rename(read.csv(sprintf('/Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/data/rgn_liv.eco_trend_%s.csv', scenario), na.strings=''), 
-             c('value'='trend')); head(d)  
-  write.csv(subset(d, component=='livelihood', c(rgn_id, trend)), LIV.trend.csv, row.names=F, na='')
-  write.csv(subset(d, component=='economy', c(rgn_id, trend)), ECO.trend.csv, row.names=F, na='')    
+  # scores
+  scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
+                    category=='livelihood'),
+             c(id_num='region_id', category='goal', layer='dimension', val_num='score'))
+  scores$goal = 'LIV'
+  return(scores)  
 }
 
+ECO = function(layers){
 
-calc.LIV.ECO.Later = function(ld.csv=layers_data.csv, 
-                   LIV.status.csv = file.path(dir.results, sprintf('LIV_status_%s.csv', sfx.scenario)),
-                   LIV.trend.csv  = file.path(dir.results, sprintf('LIV_trend_%s.csv' , sfx.scenario)),
-                   ECO.status.csv = file.path(dir.results, sprintf('ECO_status_%s.csv', sfx.scenario)),
-                   ECO.trend.csv  = file.path(dir.results, sprintf('ECO_trend_%s.csv' , sfx.scenario)),
-                   liv_adj_year=2009, eco_adj_min_year=2000){
-  # TODO: remove Brazil entries
-  # TODO: i_eco_rev_adj_gdp -> cnky_eco_rev_whence in functions.R
-  # i_eco_rev_adj_gdp     country_id,year,value_num            Economies model variable	revenue adjustment (GDP)	                   6F	  USD	    ECO	6F_eco_rev_adj_gdp.csv
-  
-  # since i_eco_rev_adj_gdp missing sector og for generating cny_eco_rev_adj_gdp, creating from filesystem
-  ohi.load('global_li_adjustments', dir='/var/data/ohi/model/GL-NCEAS-Livelihoods/data')
-  cnky_eco_rev_whence = sqldf(
-    "SELECT iso3166 AS country_id, whence, year, value AS USD 
-  FROM global_li_adjustments
-  WHERE metric='rev_adj'")
-  # TODO: i_eco_rev_adj_gdp -> cnky_eco_rev_whence in functions.R
-  # TODO: consider splitting into two layers, since currently funkily incorporating [whence] (actual or model) as [category] but category isn't sector like other layers.
-  
-  
-  # TODO: cny_liv_jobs_adj_unemp -> i_liv_jobs_adj_unemp in functions.R
-  # TODO: ?cny_eco_rev_adj_gdp
-  # TODO: cny_ao_ppp -> cny_le_ppp -> cny_ao_need (or ppppcgdp layer_id from Nature 2012?)
-  # x = contrast(x=head(b), by.x=c('metric','sector','country_id','year'), on.x=c('value','base_value','base_whence','adj_value'),
-  #              y=head(a), by.y=c('metric','sector','iso3166'   ,'year'), skip.y.na=F)
-  
-  # DEBUG isolated run
-  #liv_adj_year=2009
-  #eco_adj_min_year=2000
-  #layers_data.csv = '/Volumes/local_edit/src/toolbox/data/global_2012_nature/layers_data.csv'  
-  #source('/Volumes/local_edit/src/R/ohi/R/ohi.R')
-  
-  library(plyr)
-  library(reshape2)
-  library(sqldf)
-  
-  # cast data ----  
-
-  # layers
-  lyrs = list('cky' = c('cnky_eco_rev'             = 'rev',
-                        'cnky_liv_jobs'            = 'jobs',
-                        'cnky_liv_wages'           = 'wage'),
-              'cy'  = c('cny_ao_need'              = 'ppp',
-                        'cny_liv_pct_unemp'        = 'jobs',
-                        'cny_le_workforcesize_adj' = 'workforce',
-                        'cnky_eco_rev_whence'      = 'rev',
-                        'cnky_liv_wages_adj_lilo'  = 'wage'))
-  # NOTE: cnky_eco_rev_whence & cnky_liv_wages_adj_lilo are wierd ones unique by country & year with additional category column of whence
-  layers = sub('(cky|cy)\\.','', names(unlist(lyrs)))
-  
-  # get layer data
-  d = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
-  
-  # check for missing layers
-  layers.missing = layers[!layers %in% d$layer]
-  if (length(layers.missing)>0) stop(sprintf('Missing layer(s): %s', paste(layers.missing, collapse=', ')))
-  # missing: cny_liv_pct_unemp
-  
-  # HACK: rbind unemp
-  # adj_unemp  National unemployment statistics		7.48	percent	48	7_48_adj_unemp.csv																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									
-
-  # unemployment
-  #   /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_uem_2012a.csv
-  #   /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_uem_2013a.csv
-  #     
-  # total labor force
-  #   /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_lab_2012a.csv
-  #   /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_lab_2013a.csv
-  
-  x = read.csv('/Volumes/local_edit/src/toolbox/data/global_2012_nature_ftp/layers/7_48_adj_unemp.csv', na.strings=''); head(x)
-  # TODO: disaggregate this layer too for 2013
-  x = rename(x, c('country_id' = 'id_chr',
-                  'percent'    = 'value_num'))
-  x$layer = 'cny_liv_pct_unemp'
-  names(d)[!names(d) %in% names(x)]
-  d = rbind.fill(d, x)
-
-  # check for duplicates
-  for (lyr in lyrs[['cky']]){
-    x = subset(d, layer==lyr)
-    print(x[duplicated(x[,c('id_chr','category','year')]),])
-  }
-  for (lyr in lyrs[['cy']]){ # lyr='cny_le_workforcesize_adj'
-    x = subset(d, layer==lyr)    
-    print(x[duplicated(x[,c('id_chr','year')]),])
-  }
-    
-  # cast per country, sector, year
-  cky = rename(dcast(d, id_chr + category + year ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['cky']]))),
-               c('id_chr'='country_id', 'category'='sector', lyrs[['cky']])) #; table(rk$habitat); print(head(subset(rk, habitat=='mangrove')), row.names=F); head(rk)
-  #print(cky[duplicated(cky[,c('country_id','sector','year')]),])
-  
-  # cast per country, year
-  cy = rename(dcast(d, id_chr + year ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['cy']]))),
-              c('id_chr'='country_id', lyrs[['cy']])) #; table(rk$habitat); print(head(subset(rk, habitat=='mangrove')), row.names=F); head(rk)
-  #print(head(cy[duplicated(cy[,c('country_id','year')]),]))
-  
-  # add whence 
-  cy.t = rename(dcast(d, id_chr + year ~ layer, value.var='category', subset = .(layer %in% c('cnky_eco_rev_whence','cnky_liv_wages_adj_lilo'))),
-                c('id_chr'='country_id', 'cnky_eco_rev_whence'='rev_whence', 'cnky_liv_wages_adj_lilo'='wage_whence')); head(cy); head(cy.t); table(cy.t$rev_whence); table(cy.t$wage_whence)
-  cy = merge(cy, cy.t, all.x=T); head(cy); summary(cy)
-  #print(cy[duplicated(cy[,c('country_id','year')]),])
-        
-  # calculate status ----
-  
-  # get most recent (cur) and reference (ref) year, optimally going back 5 years
-  jobs = ddply(subset(cky, !is.na(jobs), c('country_id','sector','year','jobs')), .(country_id, sector), summarize,
-                 metric = 'jobs',
-                 year_cur = max(year),
-                 year_ref = year[na.omit(match(c(5, 6, 4, 7, 3, 8, 2, 9, 1, 10), max(year) - year))[1]])
-  rev = ddply(subset(cky, !is.na(rev), c('country_id','sector','year','rev')), .(country_id, sector), summarize,
-                 metric = 'rev',
-                 year_cur = max(year),
-                 year_ref = year[na.omit(match(c(5, 6, 4, 7, 3, 8, 2, 9, 1, 10), max(year) - year))[1]])
-  wage = ddply(subset(cky, !is.na(wage), c('country_id','sector','year','wage')), .(country_id, sector), summarize,
-                metric = 'wage',
-                year_cur = max(year),
-                year_ref = year[na.omit(match(c(5, 6, 4, 7, 3, 8, 2, 9, 1, 10), max(year) - year))[1]])
-  
-  # append jobs/rev/wage to base_cur and base_ref based on country_id, sector
-  jobs  = sqldf("SELECT j.*, d.jobs  AS base_cur FROM jobs  AS j JOIN cky AS d ON (j.year_cur=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
-  jobs  = sqldf("SELECT j.*, d.jobs  AS base_ref FROM jobs  AS j JOIN cky AS d ON (j.year_ref=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
-  rev   = sqldf("SELECT j.*, d.rev   AS base_cur FROM rev   AS j JOIN cky AS d ON (j.year_cur=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
-  rev   = sqldf("SELECT j.*, d.rev   AS base_ref FROM rev   AS j JOIN cky AS d ON (j.year_ref=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
-  wage  = sqldf("SELECT j.*, d.wage AS base_cur FROM wage AS j JOIN cky AS d ON (j.year_cur=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
-  wage  = sqldf("SELECT j.*, d.wage AS base_ref FROM wage AS j JOIN cky AS d ON (j.year_ref=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
-  
-  # append jobsrev/wage to adj_cur and adj_ref based on just country_id
-  jobs  = sqldf("SELECT j.*, d.jobs  AS adj_cur FROM jobs  AS j JOIN cy AS d ON (j.year_cur=d.year AND j.country_id=d.country_id)")
-  jobs  = sqldf("SELECT j.*, d.jobs  AS adj_ref FROM jobs  AS j JOIN cy AS d ON (j.year_ref=d.year AND j.country_id=d.country_id)")
-  rev   = sqldf("SELECT j.*, d.rev   AS adj_cur FROM rev   AS j JOIN cy AS d ON (j.year_cur=d.year AND j.country_id=d.country_id)")
-  rev   = sqldf("SELECT j.*, d.rev   AS adj_ref FROM rev   AS j JOIN cy AS d ON (j.year_ref=d.year AND j.country_id=d.country_id)")
-  wage  = sqldf("SELECT j.*, d.wage AS adj_cur FROM wage AS j JOIN cy AS d ON (j.year_cur=d.year AND j.country_id=d.country_id)")
-  wage  = sqldf("SELECT j.*, d.wage AS adj_ref FROM wage AS j JOIN cy AS d ON (j.year_ref=d.year AND j.country_id=d.country_id)")
-  
-  # combine jobs, rev, wage into single metrics table
-  jrw = rbind(jobs, rev, wage)
-
-  # quality enforce minimum data standards for countries to include: sum of sector years must be non-zero, 
-  #   and at least 2 sectors are required across revenue and jobs, but any ok for wage
-  jrw$base_sum = with(jrw, base_ref + base_cur)
-  q = ddply(ddply(jrw, 
-                  .(country_id, metric), summarize,
-                  n_nonzero_sectors = length(sector) - sum(base_sum==0)), 
-            .(country_id), summarize,
-            n_nonzero_metric_sectors = sum(n_nonzero_sectors))
-  mq = merge(jrw, q, all=T)
-  m = subset(mq, (base_sum != 0) & (n_nonzero_metric_sectors > 1 | metric=='wage'))
-#m0 = subset(mq, n_nonzero_metric_sectors > 1 | (metric=='wage' & base_sum != 0))
-#   sqldf("SELECT m.* FROM m LEFT JOIN n USING (country_id,sector,metric) WHERE n.country_id IS NULL")
-#   x = merge(m[,1:3],m0[,1:3], all=T)
-  # TODO: should this quality control really be for nonzero sectors per country,metric and not just country?
-  #  FIX:
-  #   q = ddply(jrw, .(country_id, metric), summarize,
-  #             n_nonzero_sectors = length(sector) - sum(base_sum==0)))
-  #   mq = merge(jrw, q, all=T)
-  #   m = subset(mq, base_sum != 0 & (n_nonzero_sectors > 1 | metric=='wage')))
-
-# # b = sqldf("SELECT * FROM m WHERE base_ref <> 0 AND adj_ref <> 0")
-# # dim(b)
-# status_model_curref = dbGetQuery(pg, "SELECT * FROM global_li.status_model_curref")
-# subset(status_model_curref, iso3166=='BRA' & metric=='wage')
-# subset(m, country_id=='BRA' & metric=='wage')  
-# # status_model_curref_lim = dbGetQuery(pg, "SELECT * FROM global_li.status_model_curref WHERE ref_base_value <> 0 AND ref_adj_value <> 0")
-# # dim(status_model_curref_lim)
-
-  # calculate jobs (LIV) and revenue (ECO) scores
-  s_jr = sqldf(
-    "SELECT  metric, country_id, COUNT(*) AS n_sector,
-    (SUM(base_cur) / SUM(base_ref)) / (AVG(adj_cur) / AVG(adj_ref)) AS score
-    FROM     m
-    WHERE    base_ref <> 0 AND adj_ref <> 0 AND metric IN ('jobs', 'rev')
-    GROUP BY metric, country_id
-    ORDER BY country_id, metric")
-  
-  # for wage (LIV), compute the corrected relative value per metric per country:
-  #   0. w'_i = (w_c/w_r)/(W_c/W_r) for each sector i per country
-  #   1. let w' = unweighted mean(w'_i) across all sector i per country
-  #   2. multiply w' by the purchasing power parity (PPP) value for the country
-  s_w = sqldf(
-    "SELECT  metric, country_id, (w_prime * ppp) AS score, n_sector
-    FROM     (
-    SELECT  metric, country_id, AVG(w_prime_i) AS w_prime, COUNT(*) AS n_sector
-    FROM    (
-    SELECT  metric, country_id, sector, 
-    (base_cur / base_ref) / (adj_cur / adj_ref) AS w_prime_i
-    FROM    m
-    WHERE   metric = 'wage' AND base_ref <> 0 AND adj_ref <> 0
-    ) t0
-    GROUP BY  metric, country_id
-    ) t1
-    JOIN    ( -- find current ppp value per country
-    SELECT  country_id, year, ppp
-    FROM    cy
-    JOIN    ( -- find most recent ppp year
-    SELECT    country_id, MAX(year) AS year 
-    FROM      cy
-    WHERE     ppp IS NOT NULL
-    GROUP BY  country_id
-    ) max USING (country_id, year)
-    ) p USING (country_id)
-    ORDER BY metric, country_id")
-
-  # 3. set the best country (PPP-adjusted average wage) equal to 1.0 and then rescale all countries to that max  
-  s_w$score = s_w$score / max(s_w$score)
-  
-  # combine the corrected relative values into a single status score for LIV (jobs & wage) and ECO (revenue)
-  s = sqldf(
-    "SELECT *
-    FROM (
-    SELECT d.country_id, 
-    cast('livelihood' AS varchar) AS component,   
-    CASE WHEN j.score IS NOT NULL AND w.score IS NOT NULL 
-    THEN (0.5 * j.score + 0.5 * w.score) 
-    ELSE COALESCE(j.score, w.score) 
-    END AS value
-    FROM      (SELECT DISTINCT country_id FROM m) d    
-    LEFT JOIN (SELECT * FROM s_jr WHERE metric = 'jobs') j USING (country_id)
-    LEFT JOIN (SELECT * FROM s_w WHERE metric = 'wage') w USING (country_id)
-    UNION        
-    SELECT    d.country_id, 'economy', e.score
-    FROM      (SELECT DISTINCT country_id FROM m) d    
-    LEFT JOIN (SELECT * FROM s_jr WHERE metric = 'rev') e USING (country_id)        
-    ) t
-    WHERE value IS NOT NULL
-    ORDER BY country_id")
-  
-  # assign status as value clamped 0 to 1, and multiply by 100
-  s$score = pmin(s$value, 1) * 100
-  
-  # aggregate ----
-  
-  # aggregate countries to regions by country workforce size for livelihood
-  w_liv = subset(cy, year==liv_adj_year & !is.na(workforce), c(country_id,workforce))
-  
-  s_liv = aggregate_by_country_weighted(df=subset(s, component=='livelihood'), w=w_liv,
-                                        col.value='score', col.country='country_id', col.weight='workforce') # ABW workforce==NA  # summary(s_liv)
-  # TODO: look for difference in LIV between ftp Nature2012 and global2012
-  # s_liv.a = dbGetQuery(pg, "SELECT id, value*100 AS status FROM global_li.status_region WHERE component = 'livelihood'"); head(s_liv.a)
-  #ck.LIV = contrast(s_liv, s_liv.a, by.x='region_id', by.y='id', on.x='score', on.y='status', precision=4)  
-  # all y in x success: 171 
-  # all x in y success: 171 
-  # score.equ success
-  #ck.LIV = contrast(x=s_liv, by.x='region_id', by.y='id', on.x='score', on.y='status',
-  #                     y=subset(results_global_data, goal.subgoal=='LIV'), precision=2)
-  # dropping mutual NAs: 1 / 172 
-  # all y in x success: 172 
-  # all x in y FAIL!: 3 / 171 
-  #     region_id            score
-  # 79         79 93.6637698071856
-  # 110       110 93.6637698071856
-  # 114       114 93.6637698071856
-  # score.equ  FAIL! on 3 / 171 
-  #  region_id            score  score.y          score.dif
-  #        121 68.3349668096027 66.75735  1.577616809602731
-  #        122 58.4077369325363 55.57214  2.835596932536262
-  #        171 82.5785097996376 83.16348 -0.584970200362378
-  
-  # aggregate countries to regions by country revenue for economies
-  w_eco = w = ddply(subset(cy, !is.na(rev) & year >= eco_adj_min_year & rev_whence=='actual'), .(country_id), summarize,
-                    rev_adj = rev[which.max(year)])  
-  s_eco = aggregate_by_country_weighted(df=subset(s, component=='economy'), w=w_eco,
-                                        col.value='score', col.country='country_id', col.weight='rev_adj') # ABW workforce==NA  
-  # TODO: look for difference in ECO between ftp Nature2012 and global2012
-  # s_eco.a = dbGetQuery(pg, "SELECT id, value*100 AS status FROM global_li.status_region WHERE component = 'economy'"); head(s_eco.a)
-  #ck.ECO = contrast(s_eco, s_eco.a, by.x='region_id', by.y='id', on.x='score', on.y='status', precision=4)
-  # all y in x success: 171 
-  # all x in y success: 171 
-  # score.equ success  
-  # ck.ECO = contrast(x=s_eco, by.x='region_id', by.y='id', on.x='score', on.y='status',
-  #                    y=subset(results_global_data, goal.subgoal=='ECO'), precision=2)
-  # dropping mutual NAs: 1 / 172 
-  # all y in x success: 172 
-  # all x in y FAIL!: 3 / 171 
-  #     region_id            score
-  # 79         79 75.0066169564487
-  # 110       110 75.0066169564487
-  # 114       114 75.0066169564487
-  # score.equ  FAIL! on 73 / 171 
-  #  region_id            score  score.y          score.dif
-  #          1 74.2692832666138 60.35782 13.911463266613758
-  #          2 74.2692832666138 60.35782 13.911463266613758
-  #         10 76.9955069354751 73.61761  3.377896935475107
-  #         12 77.2720562615789 62.23359 15.038466261578854
-  #         15 77.3206334298282 77.91991 -0.599276570171767
-  #         16 99.8922517164328 94.90722  4.985031716432843
-  # ...  
-
-  # gather status
-  d.status = merge(setNames(s_liv[,c('region_id','score')], c('region_id','LIV_status')),
-                   setNames(s_eco[,c('region_id','score')], c('region_id','ECO_status')), all=T)
-
-  print('LE.browser')
-  browser()
-  LIV.status.csv = file.path(dir.results, sprintf('LIV_status_%s.csv', sfx.scenario))
-  LIV.trend.csv  = file.path(dir.results, sprintf('LIV_trend_%s.csv' , sfx.scenario))
-  ECO.status.csv = file.path(dir.results, sprintf('ECO_status_%s.csv', sfx.scenario))
-  
-  
-#  head(d.status)
-  
-  # calculate trend ----
-  # TODO: get whence for jobs (have for rev & wage)  
-
-#   adjustments = dbGetQuery(pg, "SELECT * FROM global_li.adjustments"); head(adjustments); dim(adjustments); head(metric_sector_refperiod)
-#   b = sqldf("SELECT 'jobs_adj'  AS metric, country_id, year, NULL  AS whence, jobs  AS value FROM cy WHERE jobs  IS NOT NULL
-#         UNION
-#         SELECT 'rev_adj'   AS metric, country_id, year, rev_whence AS whence, rev   AS value FROM cy WHERE rev   IS NOT NULL
-#         UNION
-#         SELECT 'wage_adj' AS metric, country_id, year, NULL       AS whence, wage AS value FROM cy WHERE wage IS NOT NULL" ); head(b)
-#   x = contrast(x=b,           by.x=c('metric','country_id','year'), on.x='value',
-#                y=adjustments, by.y=c('metric','iso3166'   ,'year'), on.y='value', skip.y.na=F)
-#  all good
-  
-#   head(jrw)
-#   head(cky)
-#   status_model_curref = dbGetQuery(pg, "SELECT * FROM global_li.status_model_curref"); head(a); dim(a)
-#   adjustments = dbGetQuery(pg, "SELECT * FROM global_li.adjustments"); head(adjustments); dim(adjustments); head(metric_sector_refperiod)
-#   dlply(adjustments, .(metric), function(x) table(x$whence))
-  
-#   a = dbGetQuery(pg, "    -- grab adjustment data per metric-sector-year in sector timeframe
-#     SELECT  d.metric, d.sector, d.iso3166,
-#             a.year, a.whence AS adj_whence, a.value AS adj_value
-#     FROM    global_li.metric_sector_refperiod d
-#     JOIN    global_li.adjustments a USING (iso3166)
-#     WHERE   a.metric = d.metric || '_adj' AND 
-#             a.year <= d.cur_year AND
-#             a.year >= d.ref_year"); head(a)  
-  b = sqldf(
-    "-- SELECT d.metric, d.sector, d.country_id, 
-    --   a.year, a.
-    -- grab adjustment data per metric-sector-year in sector timeframe
-      SELECT  d.metric, d.sector, d.country_id,
-              a.year, a.whence AS adj_whence, a.value AS adj_value
-      FROM    jrw AS d
-      JOIN (
-        SELECT 'jobs'  AS metric, country_id, year, NULL       AS whence, jobs  AS value FROM cy WHERE jobs  IS NOT NULL
-        UNION
-        SELECT 'rev'   AS metric, country_id, year, rev_whence AS whence, rev   AS value FROM cy WHERE rev   IS NOT NULL
-        UNION
-        SELECT 'wage' AS metric, country_id, year, NULL       AS whence, wage AS value FROM cy WHERE wage IS NOT NULL
-      ) AS a USING (country_id, metric)
-      WHERE   a.year <= d.year_cur AND
-              a.year >= d.year_ref"); head(b)
-  
-
-#   a = dbGetQuery(pg, "SELECT  d.metric, d.sector, d.iso3166, d.year,
-#           cast(NULL as double precision)AS value,
-#           m.value                       AS base_value, 
-#           cast('actual' as varchar(80)) AS base_whence,
-#           d.adj_value,
-#           d.adj_whence
-#   FROM    ( 
-#     -- grab adjustment data per metric-sector-year in sector timeframe
-#     SELECT  d.metric, d.sector, d.iso3166,
-#             a.year, a.whence AS adj_whence, a.value AS adj_value
-#     FROM    global_li.metric_sector_refperiod d
-#     JOIN    global_li.adjustments a USING (iso3166)
-#     WHERE   a.metric = d.metric || '_adj' AND 
-#             a.year <= d.cur_year AND
-#             a.year >= d.ref_year
-#     ) d
-#   JOIN    global_li.metric_sector_year m USING (metric, sector, iso3166, year)
-#   WHERE   m.value IS NOT NULL -- double-check we're getting an actual base
-#   ORDER BY d.metric, d.sector, d.iso3166, d.year"); head(a)
-
-  b = sqldf(
-    "SELECT metric, sector, country_id, year,
-      CAST(NULL as REAL) AS value,
-      m.value                       AS base_value, 
-      cast('actual' as varchar(80)) AS base_whence,
-      adj_value,
-      adj_whence
-    FROM  (
-      -- grab adjustment data per metric-sector-year in sector timeframe
-      SELECT  d.metric, d.sector, d.country_id,
-              a.year, a.whence AS adj_whence, a.value AS adj_value
-      FROM    jrw AS d
-      JOIN (
-        SELECT 'jobs'  AS metric, country_id, year, wage_whence AS whence, jobs  AS value FROM cy WHERE jobs  IS NOT NULL
-        UNION
-        SELECT 'rev'   AS metric, country_id, year, rev_whence   AS whence, rev  AS value FROM cy WHERE rev   IS NOT NULL
-        UNION
-        SELECT 'wage' AS metric, country_id, year, NULL          AS whence, wage AS value FROM cy WHERE wage IS NOT NULL
-      ) AS a USING (country_id, metric)
-      WHERE   a.year <= d.year_cur AND
-              a.year >= d.year_ref) AS d
-    JOIN  (
-      SELECT 'jobs' AS metric, sector, country_id, year, jobs AS value FROM cky WHERE jobs  IS NOT NULL
-      UNION
-      SELECT 'rev'  AS metric, sector, country_id, year, rev  AS value FROM cky WHERE rev   IS NOT NULL
-      UNION
-      SELECT 'wage' AS metric, sector, country_id, year, wage AS value FROM cky WHERE wage IS NOT NULL
-    ) AS m USING (metric, sector, country_id, year)
-    WHERE   m.value IS NOT NULL -- double-check we're getting an actual base
-    ORDER BY d.metric, d.sector, d.country_id, d.year"); head(b)  
-  #x = contrast(x=b, by.x=c('metric','sector','country_id','year'), on.x=c('value','base_value','base_whence','adj_value'),
-  #             y=a, by.y=c('metric','sector','iso3166'   ,'year'), skip.y.na=F)
-  # all y in x FAIL!: 28 / 5933 
-  #      metric sector     country_id year value.y base_value.y base_whence.y adj_value.y
-  # 1085   jobs    mmw            ATA 1998      NA            5        actual          NA
-  # 1086   jobs    mmw            ATA 2008      NA           84        actual          NA
-  # 1089   jobs    mmw         Azores 1998      NA           11        actual          NA
-  # 1090   jobs    mmw         Azores 2008      NA           46        actual          NA
-  # 1107   jobs    mmw Canary Islands 1998      NA          943        actual          NA
-  # 1108   jobs    mmw Canary Islands 2008      NA          576        actual          NA"  
-  #table(subset(x, is.na(base_value), c(metric, sector)))
-  #        sector
-  # metric mmw og tour
-  #   jobs   6  0    0
-  #   rev    6 12    0
-  #   wage   0  2    2
-  #table(subset(x, is.na(base_value), c(metric, country_id)))
-  #          country_id
-  #   metric ATA Azores Canary Islands KAZ Wake Island
-  #   jobs   2      2              2   0           0
-  #   rev    8      2              2   0           6
-  #   wage   0      0              0   4           0
-  
-  
-        
+  # scores
+  scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
+                         category=='economy'),
+                  c(id_num='region_id', category='goal', layer='dimension', val_num='score'))
+  scores$goal = 'ECO'
+  return(scores)
 }
 
 calc.LSP = function(ld.csv=layers_data.csv, 
                     status.csv = file.path(dir.results, sprintf('LSP_status_%s.csv', sfx.scenario)),
                     trend.csv  = file.path(dir.results, sprintf('LSP_trend_%s.csv' , sfx.scenario)), 
-                    ref.pct.cmpa=30, ref.pct.cp=30, status.year=2012, trend.years=2005:2009, trend.method='default'){
+                    ref.pct.cmpa=30, ref.pct.cp=30, status_year=2012, trend_years=2005:2009, trend.method='default'){
   # Use Status of 2013 to again be as inclusive as possible of established protected areas, but presume a lag in exhaustive reporting of 3 years so use 2006-2010 for Trend.
-  # 2012a: calc.LSP(status.year=2013, trend.years=2006:2010)
-  # 2013a: calc.LSP(status.year=2009, trend.years=2002:2006)
+  # 2012a: calc.LSP(status_year=2013, trend_years=2006:2010)
+  # 2013a: calc.LSP(status_year=2009, trend_years=2002:2006)
     
   library(plyr)
   library(reshape2)
@@ -1064,7 +282,7 @@ calc.LSP = function(ld.csv=layers_data.csv,
   
 #   # DEBUG: load data
 #     load_all('/usr/local/ohi/src/R/ohi'); config.check('~/ohi_tbx/scenarios/global_2012_nature/conf/config.R')
-#     dimensions=c('LSP_status'='status','LSP_trend'='trend'); ref.pct.cmpa=30; ref.pct.cp=30; status.year=2009; trend.years=2002:2006
+#     dimensions=c('LSP_status'='status','LSP_trend'='trend'); ref.pct.cmpa=30; ref.pct.cp=30; status_year=2009; trend_years=2002:2006
 #     d = subset(read.csv(layers_data.csv, na.strings=''), layer %in% lyrs.names); head(d); table(d$layer)
 #   
 #   # DEBUG: compare with Nature 2012 database
@@ -1081,9 +299,9 @@ calc.LSP = function(ld.csv=layers_data.csv,
   
   # cast data ----
   d = subset(read.csv(ld.csv, na.strings=''), layer %in% lyrs.names)  
-  r  = rename(dcast(d, id_num ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['r']]))),
+  r  = rename(dcast(d, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
               c('id_num'='region_id', lyrs[['r']]))
-  ry = rename(dcast(d, id_num + year ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['ry']]))),
+  ry = rename(dcast(d, id_num + year ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['ry']]))),
               c('id_num'='region_id', lyrs[['ry']]))
     
   # fill in time series from first year specific region_id up to max year for all regions and generate cumulative sum
@@ -1112,9 +330,9 @@ calc.LSP = function(ld.csv=layers_data.csv,
   })
   
   # extract status based on specified year
-  status = r.yrs[r.yrs$year==status.year, c('region_id','status')]
+  status = r.yrs[r.yrs$year==status_year, c('region_id','status')]
   write.csv(rename(status,
-                   c('region_id'='rgn_id')), status.csv, row.names=F, na='')
+                   c('region_id'='region_id')), status.csv, row.names=F, na='')
   
   # calculate trend ----
 
@@ -1122,7 +340,7 @@ calc.LSP = function(ld.csv=layers_data.csv,
     # calculate trend Nature 2012 WRONG way ----
     
     # get cumulative sum of total protected areas added within trend years
-    t = subset(ry, year %in% trend.years)
+    t = subset(ry, year %in% trend_years)
     t$cp[is.na(t$cp)]     = 0
     t$cmpa[is.na(t$cmpa)] = 0
     t = within(t, {
@@ -1132,7 +350,7 @@ calc.LSP = function(ld.csv=layers_data.csv,
     # add all years
     r.yrs = ddply(ry, .(region_id), function(x){
       data.frame(region_id=x$region_id[1],
-                 year=min(trend.years):max(trend.years))
+                 year=min(trend_years):max(trend_years))
     }); head(r.yrs)
     t = merge(r.yrs, t, all.x=T); head(t)
   
@@ -1157,7 +375,7 @@ calc.LSP = function(ld.csv=layers_data.csv,
                   trend = min(1, max(-1, 5 * annual)))
   } else if (trend.method=='default'){
     # calculate trend new RIGHT way ----  
-    trend = ddply(subset(r.yrs, year %in% trend.years), .(region_id), summarize,
+    trend = ddply(subset(r.yrs, year %in% trend_years), .(region_id), summarize,
                   annual = lm(pct_pa ~ year)[['coefficients']][['year']],
                   trend = min(1, max(0, 5 * annual))) # HACK: capping trend to 0 since getting a few infinitessimally small negatives, eg 91  Crozet Islands	-6.15E-14 for LSP.t.12
   } else {
@@ -1166,7 +384,7 @@ calc.LSP = function(ld.csv=layers_data.csv,
 
   # return dimensions ----
   write.csv(rename(trend,
-                   c('region_id'='rgn_id'))[,c('rgn_id','trend')], trend.csv, row.names=F, na='')
+                   c('region_id'='region_id'))[,c('region_id','trend')], trend.csv, row.names=F, na='')
   
 #   # DEBUG: compare 
 #   ans = subset(results_global_data, goal.subgoal=='LSP', c(id, status, trend)); 
@@ -1180,19 +398,17 @@ calc.LSP = function(ld.csv=layers_data.csv,
 
 
 ICO = function(layers){
-
+  
   # layers
-  lyrs = list('rk' = c('rnk_ico_spp_extinction_status' = 'risk_category',
-                       'rnk_ico_spp_popn_trend'        = 'popn_trend'))
-  lyr_names = sub('^\\w*\\.','', names(unlist(lyrs)))
+  lyrs = c('rnk_ico_spp_extinction_status' = 'risk_category',
+           'rnk_ico_spp_popn_trend'        = 'popn_trend')
   
   # cast data ----
-  D = SelectLayersData(layers, layers=lyr_names)
+  layers_data = SelectLayersData(layers, layers=names(lyrs))  
+  rk = rename(dcast(layers_data, id_num + category ~ layer, value.var='val_chr'),
+              c('id_num'='region_id', 'category'='sciname', lyrs))
   
-  rk = rename(dcast(D, id_num + category ~ layer, value.var='val_chr', subset = .(layer %in% names(lyrs[['rk']]))),
-              c('id_num'='region_id', 'category'='sciname', lyrs[['rk']])); head(rk); summary(rk)
-  
-  # lookups for weights
+  # lookup for weights status
   w.risk_category = c('LC' = 0,
                       'NT' = 0.2,
                       'VU' = 0.4,
@@ -1200,6 +416,7 @@ ICO = function(layers){
                       'CR' = 0.8,
                       'EX' = 1)
   
+  # lookup for population trend
   w.popn_trend = c('Decreasing' = -0.5,
                    'Stable'     =  0,                                           
                    'Increasing' =  0.5)
@@ -1207,16 +424,16 @@ ICO = function(layers){
   # status
   r.status = rename(ddply(rk, .(region_id), function(x){ 
                           round(mean(1 - w.risk_category[x$risk_category], na.rm=T) * 100, 2) }), 
-                    c('V1'='score')); head(r.status); summary(r.status)
+                    c('V1'='score'))
   
   # trend
   r.trend = rename(ddply(rk, .(region_id), function(x){ 
                         round(mean(w.popn_trend[x$popn_trend], na.rm=T), 2) }), 
-                    c('V1'='score')); head(r.trend); summary(r.trend)
+                    c('V1'='score'))
 
   # return scores
-  s.status = cbind(r.status, data.frame('dimension'='status')); head(s.status)
-  s.trend  = cbind(r.trend , data.frame('dimension'='trend' )); head(s.trend)
+  s.status = cbind(r.status, data.frame('dimension'='status'))
+  s.trend  = cbind(r.trend , data.frame('dimension'='trend' ))
   scores = cbind(rbind(s.status, s.trend), data.frame('goal'='ICO'))
   return(scores)  
   
@@ -1239,8 +456,8 @@ calc.CW = function(ld.csv=layers_data.csv,
   
   # cast data
   D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)  
-  r = rename(dcast(D, id_num ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['r']]))),
-              c('id_num'='rgn_id', lyrs[['r']])); head(r); summary(r)
+  r = rename(dcast(D, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
+              c('id_num'='region_id', lyrs[['r']])); head(r); summary(r)
   
   # invert pressures
   r$a = 1 - r$a
@@ -1254,11 +471,11 @@ calc.CW = function(ld.csv=layers_data.csv,
   
   # status
   r$status = psych::geometric.mean(t(r[,c('a','u','l','d')]), na.rm=T) * 100
-  write.csv(r[,c('rgn_id','status')], status.csv, row.names=F, na='')
+  write.csv(r[,c('region_id','status')], status.csv, row.names=F, na='')
   
   # trend
   r$trend = rowMeans(r[,c('pest_trend','fert_trend','popn_trend','path_trend')], na.rm=T)
-  write.csv(r[,c('rgn_id','trend')], trend.csv, row.names=F, na='')  
+  write.csv(r[,c('region_id','trend')], trend.csv, row.names=F, na='')  
   
   if (verbose==T) {
     debug.csv = file.path(dir.results, sprintf('debug_CW_%s.csv',sfx.scenario))
@@ -1269,3 +486,51 @@ calc.CW = function(ld.csv=layers_data.csv,
   }
 }
 
+calc.SPP = function(ld.csv=layers_data.csv,
+                    status.csv = file.path(dir.results, sprintf('SPP_status_%s.csv', sfx.scenario)),
+                    trend.csv  = file.path(dir.results, sprintf('SPP_trend_%s.csv' , sfx.scenario))){
+  
+  d = rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_spp_status'),
+             c('id_num'='region_id','val_num'='status'))[,c('region_id','status')]
+  d$status = d$status * 100
+  write.csv(d, status.csv, row.names=F, na='')  
+  
+  write.csv(rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_spp_trend'),
+                   c('id_num'='region_id','val_num'='trend'))[,c('region_id','trend')], trend.csv, row.names=F, na='')  
+  
+}
+
+
+
+calc.HAB = function(ld.csv=layers_data.csv, 
+                    status.csv = file.path(dir.results, sprintf('HAB_status_%s.csv', sfx.scenario)),
+                    trend.csv  = file.path(dir.results, sprintf('HAB_trend_%s.csv' , sfx.scenario))){
+  
+  # layers
+  lyrs = list('rk' = c('rnk_hab_health' = 'health',
+                       'rnk_hab_extent' = 'extent',
+                       'rnk_hab_trend'  = 'trend'))
+  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
+  
+  # cast data  
+  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
+  
+  rk = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
+              c('id_num'='region_id', 'category'='habitat', lyrs[['rk']])); head(rk); summary(rk)
+  
+  # limit to HAB habitats
+  rk = subset(rk, habitat %in% c('coral','mangrove','saltmarsh','seaice_edge','seagrass','soft_bottom'))  
+  
+  # presence as weight
+  rk$w = ifelse(!is.na(rk$extent) & rk$extent>0, 1, NA)
+  
+  # status
+  r.status = ddply(na.omit(rk[,c('region_id','habitat','w','health')]), .(region_id), summarize,
+                   status = min(1, sum(w * health) / sum(w)) * 100); summary(r.status)
+  write.csv(r.status, status.csv, row.names=F, na='')
+  
+  # trend
+  r.trend = ddply(na.omit(rk[,c('region_id','habitat','w','trend')]), .(region_id), summarize,
+                  trend = sum(w * trend) / sum(w))
+  write.csv(r.trend, trend.csv, row.names=F, na='')  
+}

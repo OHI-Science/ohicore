@@ -3,14 +3,13 @@ order,goal,parent,name,weight,function_call
 1.2,FP,,Food Provision,1,MAR(layers)
 1.3,MAR,FP,Mariculture,0.5,"FP(layers, scores)"
 2,AO,,Artisanal Fishing Opportunity,1,"AO(layers, year_max=2012)"
-3,NP,,Natural Products,1,"calc.NP(status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008,
-                               'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))"
-4,CS,,Carbon Storage,1,
-5,CP,,Coastal Protection,1,
-6,TR,,Tourism & Recreation,1,
-7.1,LIV,LE,Livelihoods,0.5,
+3,NP,,Natural Products,1,"NP(status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))"
+4,CS,,Carbon Storage,1,CS(layers)
+5,CP,,Coastal Protection,1,CS(layers)
+6,TR,,Tourism & Recreation,1,TR(layers)
+7.1,LIV,LE,Livelihoods,0.5,LIV(layers)
 7.2,LE,,Coastal Livelihoods & Economies,1,
-7.3,ECO,LE,Economies,0.5,
+7.3,ECO,LE,Economies,0.5,ECO(layers)
 8.1,ICO,SP,Iconic Species,0.5,ICO(layers)
 8.2,SP,,Sense of Place,1,
 8.3,LSP,SP,Lasting Special Places,0.5,

@@ -79,13 +79,14 @@ SelectLayersData = function(object, targets=NULL, layers=NULL, cast=TRUE, narrow
       x$flds = paste(names(flds), collapse=' | ')
       
       return(x)
+      
       }))
   #plyr::ddply(focus.data, .(layer), function(x) unique(x$flds))
   
   # rename layers
   if (!is.null(layer.newnames)) {
     focus.data$layer0 = focus.data$layer
-    focus.data = plyr::revalue(focus.data, layer.newnames)
+    focus.data$layer = plyr::revalue(focus.data$layer, layer.newnames)
   }    
   
   if (narrow) {
@@ -98,7 +99,6 @@ SelectLayersData = function(object, targets=NULL, layers=NULL, cast=TRUE, narrow
   }
   
   return (focus.data)
-  
   
 # TODO: redo cast() and expand.time.invariant() now with id_num / id_chr, val_num / val_chr
 #   if (cast) {
