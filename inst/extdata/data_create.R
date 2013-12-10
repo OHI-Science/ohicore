@@ -1,7 +1,7 @@
 # Create package datasets for lazy loading. Document in R/data.R.
 
 # flags for turning on/off time consuming code
-do.layers.Global.www2013 = T
+do.layers.Global.www2013 = F
 do.layers.Global2012.Nature2012ftp = F
 
 # [layers|scores].Global[2013|2012].v2013web ----

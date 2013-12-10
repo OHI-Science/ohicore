@@ -1179,20 +1179,18 @@ calc.LSP = function(ld.csv=layers_data.csv,
 }
 
 
-calc.ICO = function(ld.csv=layers_data.csv, 
-                    status.csv = file.path(dir.results, sprintf('ICO_status_%s.csv', sfx.scenario)),
-                    trend.csv  = file.path(dir.results, sprintf('ICO_trend_%s.csv' , sfx.scenario))){
+ICO = function(layers){
 
   # layers
   lyrs = list('rk' = c('rnk_ico_spp_extinction_status' = 'risk_category',
                        'rnk_ico_spp_popn_trend'        = 'popn_trend'))
-  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
+  lyr_names = sub('^\\w*\\.','', names(unlist(lyrs)))
   
   # cast data ----
-  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
+  D = SelectLayersData(layers, layers=lyr_names)
   
-  rk = rename(dcast(D, id_num + category ~ layer, value.var='value_chr', subset = .(layer %in% names(lyrs[['rk']]))),
-              c('id_num'='rgn_id', 'category'='sciname', lyrs[['rk']])); head(rk); summary(rk)
+  rk = rename(dcast(D, id_num + category ~ layer, value.var='val_chr', subset = .(layer %in% names(lyrs[['rk']]))),
+              c('id_num'='region_id', 'category'='sciname', lyrs[['rk']])); head(rk); summary(rk)
   
   # lookups for weights
   w.risk_category = c('LC' = 0,
@@ -1207,16 +1205,21 @@ calc.ICO = function(ld.csv=layers_data.csv,
                    'Increasing' =  0.5)
   
   # status
-  r.status = rename(ddply(rk, .(rgn_id), function(x){ 
-                          mean(1 - w.risk_category[x$risk_category], na.rm=T) * 100 }), 
-                    c('V1'='status')); head(r.status); summary(r.status)
-  write.csv(r.status, status.csv, row.names=F, na='')
+  r.status = rename(ddply(rk, .(region_id), function(x){ 
+                          round(mean(1 - w.risk_category[x$risk_category], na.rm=T) * 100, 2) }), 
+                    c('V1'='score')); head(r.status); summary(r.status)
   
   # trend
-  r.trend = rename(ddply(rk, .(rgn_id), function(x){ 
-                        mean(w.popn_trend[x$popn_trend], na.rm=T) }), 
-                    c('V1'='trend')); head(r.trend); summary(r.trend)
-  write.csv(r.trend, trend.csv, row.names=F, na='')  
+  r.trend = rename(ddply(rk, .(region_id), function(x){ 
+                        round(mean(w.popn_trend[x$popn_trend], na.rm=T), 2) }), 
+                    c('V1'='score')); head(r.trend); summary(r.trend)
+
+  # return scores
+  s.status = cbind(r.status, data.frame('dimension'='status')); head(s.status)
+  s.trend  = cbind(r.trend , data.frame('dimension'='trend' )); head(s.trend)
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='ICO'))
+  return(scores)  
+  
 }
 
 calc.CW = function(ld.csv=layers_data.csv, 

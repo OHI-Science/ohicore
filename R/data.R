@@ -73,5 +73,4 @@ NULL
 #' To get the wide view (many columns, with one row per region and columns having combination of goal and dimension), 
 #' use something like: \code{reshape2::dcast(.self$long, region_id ~ goal + dimension, value.var='score')}.
 #' @keywords data
-#' @export scores
 NULL
