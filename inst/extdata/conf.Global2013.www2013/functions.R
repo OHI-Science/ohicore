@@ -14,6 +14,7 @@ FIS = function(layers){
   return(scores)  
 }
 
+
 MAR = function(layers){
   
   # status
@@ -38,7 +39,7 @@ FP = function(layers, scores){
              c('id_num'='region_id', 'val_num'='w_FIS')); head(w)
   
   # scores
-  s = dcast(scores, region_id + dimension ~ goal, value.var='score', subset=.(goal %in% c('FIS','MAR'))); head(s)
+  s = dcast(scores, region_id + dimension ~ goal, value.var='score', subset=.(goal %in% c('FIS','MAR') & !dimension %in% c('pressures','resilience'))); head(s)
   
   # combine
   scores = mutate(merge(s, w),
@@ -46,6 +47,7 @@ FP = function(layers, scores){
                   score=weighted.mean(c(FIS, MAR), c(w_FIS, 1-w_FIS), na.rm=T))[,c('region_id','goal','dimension','score')]; head(scores)
   return(scores)
 }
+
 
 AO = function(layers, 
               year_max=max(layers_data$year, na.rm=T), 
@@ -93,12 +95,13 @@ AO = function(layers,
   return(scores)  
 }
 
+
 NP = function(layers, 
               status_year=2008, 
               trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
                                  'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
-  # 2013: NP(status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
-  # 2012: NP(status_year=2008, trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007, 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008))
+  # 2013: NP(layers, status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
+  # 2012: NP(layers, status_year=2008, trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007, 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008))
   
     
   # layers
@@ -108,7 +111,7 @@ NP = function(layers,
               'r'   = c('rn_fis_status'               = 'fis_status'))
   lyr_names = sub('^\\w*\\.', '', names(unlist(lyrs))) 
   
-  # cast data  
+  # cast data
   D = SelectLayersData(layers, layers=lyr_names)
   rky = rename(dcast(D, id_num + category + year ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rky']]))),
                c('id_num'='region_id', 'category'='product', lyrs[['rky']]))
@@ -151,13 +154,14 @@ NP = function(layers,
   return(scores)  
 }
 
+
 CS = function(layers){
   
   # layers
   lyrs = list('rk' = c('rnk_hab_health' = 'health',
                        'rnk_hab_extent' = 'extent',
                        'rnk_hab_trend'  = 'trend'))
-  lyr_names = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
+  lyr_names = sub('^\\w*\\.','', names(unlist(lyrs)))  
   
   # cast data
   D = SelectLayersData(layers, layers=lyr_names)
@@ -172,18 +176,21 @@ CS = function(layers){
   
   # status
   r.status = ddply(na.omit(rk[,c('region_id','habitat','extent','health')]), .(region_id), summarize,
-                   status = min(1, sum(extent * health) / sum(extent)) * 100)    
+                   goal = 'CS',
+                   dimension = 'status',
+                   score = min(1, sum(extent * health) / sum(extent)) * 100)    
   
   # trend
   r.trend = ddply(na.omit(rk[,c('region_id','habitat','extent','trend')]), .(region_id), summarize,
-                  trend = sum(extent * trend) / sum(extent) )
+                  goal = 'CS',
+                  dimension = 'trend',
+                  score = sum(extent * trend) / sum(extent) )
 
   # return scores
-  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status'))
-  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend'))
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='CS'))
+  scores = cbind(rbind(r.status, r.trend))
   return(scores)  
 }
+
 
 CP = function(layers){
   
@@ -191,7 +198,7 @@ CP = function(layers){
   lyrs = list('rk' = c('rnk_hab_health' = 'health',
                        'rnk_hab_extent' = 'extent',
                        'rnk_hab_trend'  = 'trend'))
-  lyr_names = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
+  lyr_names = sub('^\\w*\\.','', names(unlist(lyrs)))
   
   # get layer data
   D = SelectLayersData(layers, layers=lyr_names)
@@ -222,18 +229,20 @@ CP = function(layers){
   
   # status  
   r.status = ddply(na.omit(rk[,c('region_id','habitat','rank','extent','health')]), .(region_id), summarize,
-                   status = min(1, sum(rank * health * extent) / (sum(extent) * max(rank)) ) * 100 )    
+                   goal = 'CP',
+                   dimension = 'status',
+                   score = min(1, sum(rank * health * extent) / (sum(extent) * max(rank)) ) * 100 )    
   
   # trend
   r.trend = ddply(na.omit(rk[,c('region_id','habitat','rank','extent','trend')]), .(region_id), summarize,
-                  trend = sum(rank * trend * extent) / (sum(extent)* max(rank)) )
+                  goal = 'CP',
+                  dimension = 'trend',
+                  score = sum(rank * trend * extent) / (sum(extent)* max(rank)) )
   
   # return scores
-  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status'))
-  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend'))
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='CP'))
-  return(scores)  
+  return(rbind(r.status, r.trend))  
 }
+
 
 TR = function(layers){
   
@@ -242,6 +251,7 @@ TR = function(layers){
                       c(id_num='region_id', layer='dimension', val_num='score')), 
                data.frame('goal'='TR')))
 }
+
 
 LIV = function(layers){
   
@@ -253,6 +263,7 @@ LIV = function(layers){
   return(scores)  
 }
 
+
 ECO = function(layers){
 
   # scores
@@ -263,139 +274,17 @@ ECO = function(layers){
   return(scores)
 }
 
-calc.LSP = function(ld.csv=layers_data.csv, 
-                    status.csv = file.path(dir.results, sprintf('LSP_status_%s.csv', sfx.scenario)),
-                    trend.csv  = file.path(dir.results, sprintf('LSP_trend_%s.csv' , sfx.scenario)), 
-                    ref.pct.cmpa=30, ref.pct.cp=30, status_year=2012, trend_years=2005:2009, trend.method='default'){
-  # Use Status of 2013 to again be as inclusive as possible of established protected areas, but presume a lag in exhaustive reporting of 3 years so use 2006-2010 for Trend.
-  # 2012a: calc.LSP(status_year=2013, trend_years=2006:2010)
-  # 2013a: calc.LSP(status_year=2009, trend_years=2002:2006)
-    
-  library(plyr)
-  library(reshape2)
+LE = function(scores){
   
-  lyrs = list('r'  = c('rn_rgn_area_inland1km'   = 'area_inland1km',
-                       'rn_rgn_area_offshore3nm' = 'area_offshore3nm'),
-              'ry' = c('rny_lsp_prot_area_offshore3nm' = 'cmpa',
-                        'rny_lsp_prot_area_inland1km'   = 'cp'))              
-  lyrs.names = sub('(r|ry)\\.','', names(unlist(lyrs)))
-  
-#   # DEBUG: load data
-#     load_all('/usr/local/ohi/src/R/ohi'); config.check('~/ohi_tbx/scenarios/global_2012_nature/conf/config.R')
-#     dimensions=c('LSP_status'='status','LSP_trend'='trend'); ref.pct.cmpa=30; ref.pct.cp=30; status_year=2009; trend_years=2002:2006
-#     d = subset(read.csv(layers_data.csv, na.strings=''), layer %in% lyrs.names); head(d); table(d$layer)
-#   
-#   # DEBUG: compare with Nature 2012 database
-#     require('RPostgreSQL')
-#     dbi.pg = dbDriver("PostgreSQL") 
-#     pg = dbConnect(dbi.pg, host='neptune.nceas.ucsb.edu', dbname='ohi_nature2012', user='bbest', password=pg.pass) # ASSUMES: pg.password manually set # dbDisconnect(pg)  
-#   
-#     status_region_year = dbGetQuery(pg, "SELECT * FROM global_sp.status_region_year"); head(status_region_year)
-#     status_region      = dbGetQuery(pg, "SELECT * FROM global_sp.status_region"); head(status_region)
-#     trend_region_year  = dbGetQuery(pg, "SELECT * FROM global_sp.trend_region_year ORDER BY component, id, metric, year"); head(trend_region_year)
-#     trend_region       = dbGetQuery(pg, "SELECT * FROM global_sp.trend_region      ORDER BY component, id, metric")      ; head(trend_region)
-#   # DEBUG: compare with Nature 2012 results
-#    results_global_data = read.csv('/usr/local/ohi/src/model/global2012/doc/results_global_data.csv', na.strings='')
-  
-  # cast data ----
-  d = subset(read.csv(ld.csv, na.strings=''), layer %in% lyrs.names)  
-  r  = rename(dcast(d, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
-              c('id_num'='region_id', lyrs[['r']]))
-  ry = rename(dcast(d, id_num + year ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['ry']]))),
-              c('id_num'='region_id', lyrs[['ry']]))
-    
-  # fill in time series from first year specific region_id up to max year for all regions and generate cumulative sum
-  yr.max = max(ry$year)
-  r.yrs = ddply(ry, .(region_id), function(x){
-    data.frame(region_id=x$region_id[1],
-               year=min(x$year):yr.max)
-    })
-  r.yrs = merge(r.yrs, ry, all.x=T)
-  r.yrs$cp[is.na(r.yrs$cp)]     = 0
-  r.yrs$cmpa[is.na(r.yrs$cmpa)] = 0
-  r.yrs = within(r.yrs, {
-    cp_cumsum    = ave(cp  , region_id, FUN=cumsum)
-    cmpa_cumsum  = ave(cmpa, region_id, FUN=cumsum)
-    pa_cumsum    = cp_cumsum + cmpa_cumsum
+  scores = within(dcast(scores, 
+                        region_id + dimension ~ goal, value.var='score', 
+                        subset=.(goal %in% c('LIV','ECO') & !dimension %in% c('pressures','resilience'))), {
+    goal = 'LE'
+    score = rowMeans(cbind(ECO, LIV), na.rm=T)
   })
+  return(scores[c('region_id','goal','dimension','score')])
   
-  # get percent of total area that is protected for inland1km (cp) and offshore3nm (cmpa) per year
-  # and calculate status score
-  r.yrs = merge(r.yrs, r, all.x=T); head(r.yrs)
-  r.yrs = within(r.yrs,{
-    pct_cp    = pmin(cp_cumsum   / area_inland1km   * 100, 100)
-    pct_cmpa  = pmin(cmpa_cumsum / area_offshore3nm * 100, 100)
-    pct_pa    = pmin( (cp_cumsum + cmpa_cumsum) / (area_inland1km + area_offshore3nm) * 100, 100)
-    status    = ( pmin(pct_cp / ref.pct.cp, 1) + pmin(pct_cmpa / ref.pct.cmpa, 1) ) / 2 * 100
-  })
-  
-  # extract status based on specified year
-  status = r.yrs[r.yrs$year==status_year, c('region_id','status')]
-  write.csv(rename(status,
-                   c('region_id'='region_id')), status.csv, row.names=F, na='')
-  
-  # calculate trend ----
-
-  if (trend.method=='nature2012'){
-    # calculate trend Nature 2012 WRONG way ----
-    
-    # get cumulative sum of total protected areas added within trend years
-    t = subset(ry, year %in% trend_years)
-    t$cp[is.na(t$cp)]     = 0
-    t$cmpa[is.na(t$cmpa)] = 0
-    t = within(t, {
-      pa_delta_cum = ave(cp+cmpa, region_id, FUN=cumsum)
-    }); head(t)
-  
-    # add all years
-    r.yrs = ddply(ry, .(region_id), function(x){
-      data.frame(region_id=x$region_id[1],
-                 year=min(trend_years):max(trend_years))
-    }); head(r.yrs)
-    t = merge(r.yrs, t, all.x=T); head(t)
-  
-    # last obs carried forward per region
-    library(zoo)
-    t = within(t, {
-      pa_delta_cum = ave(pa_delta_cum, region_id, function(x){ na.locf(x, fromLast=F, na.rm=F) })
-    });
-    t$pa_delta_cum[is.na(t$pa_delta_cum)] = 0
-    head(t)
-    
-    # merge r to get coastal area and percent total delta
-    t = merge(t, r, all.x=T)  
-    t = within(t, {
-      area_coastal     = area_inland1km + area_offshore3nm
-      pa_delta_cum_pct = pa_delta_cum / area_coastal    
-    })
-    
-    # calculate trend: OLD WRONG
-    trend = ddply(t, .(region_id), summarize,
-                  annual = lm(pa_delta_cum_pct ~ year)[['coefficients']][['year']],
-                  trend = min(1, max(-1, 5 * annual)))
-  } else if (trend.method=='default'){
-    # calculate trend new RIGHT way ----  
-    trend = ddply(subset(r.yrs, year %in% trend_years), .(region_id), summarize,
-                  annual = lm(pct_pa ~ year)[['coefficients']][['year']],
-                  trend = min(1, max(0, 5 * annual))) # HACK: capping trend to 0 since getting a few infinitessimally small negatives, eg 91  Crozet Islands	-6.15E-14 for LSP.t.12
-  } else {
-    stop(sprintf('trend.method=%s not supported in calc.LSP().', trend.method))
-  }
-
-  # return dimensions ----
-  write.csv(rename(trend,
-                   c('region_id'='region_id'))[,c('region_id','trend')], trend.csv, row.names=F, na='')
-  
-#   # DEBUG: compare 
-#   ans = subset(results_global_data, goal.subgoal=='LSP', c(id, status, trend)); 
-#   print(subset(ans, id %in% c(1,2,11,12)), row.names=F)  
-#   #  id    status     trend
-#   #   1 100.00000 0.3677242
-#   #   2   1.24302 0.0000000
-#   #  11  25.90764 0.0000663
-#   #  12  69.26206 0.0387219  
 }
-
 
 ICO = function(layers){
   
@@ -423,14 +312,14 @@ ICO = function(layers){
   
   # status
   r.status = rename(ddply(rk, .(region_id), function(x){ 
-                          round(mean(1 - w.risk_category[x$risk_category], na.rm=T) * 100, 2) }), 
+    round(mean(1 - w.risk_category[x$risk_category], na.rm=T) * 100, 2) }), 
                     c('V1'='score'))
   
   # trend
   r.trend = rename(ddply(rk, .(region_id), function(x){ 
-                        round(mean(w.popn_trend[x$popn_trend], na.rm=T), 2) }), 
-                    c('V1'='score'))
-
+    round(mean(w.popn_trend[x$popn_trend], na.rm=T), 2) }), 
+                   c('V1'='score'))
+  
   # return scores
   s.status = cbind(r.status, data.frame('dimension'='status'))
   s.trend  = cbind(r.trend , data.frame('dimension'='trend' ))
@@ -439,25 +328,102 @@ ICO = function(layers){
   
 }
 
-calc.CW = function(ld.csv=layers_data.csv, 
-                   status.csv = file.path(dir.results, sprintf('CW_status_%s.csv', sfx.scenario)),
-                   trend.csv  = file.path(dir.results, sprintf('CW_trend_%s.csv' , sfx.scenario)),
-                   verbose=F){
+LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_years=2005:2009){
+  # 2012a: LSP(layers, status_year=2013, trend_years=2006:2010)
+  # 2013a: LSP(layers, status_year=2009, trend_years=2002:2006)
+  # layers; ref_pct_cmpa=30; ref_pct_cp=30; status_year=2012; trend_years=2005:2009
+    
+  lyrs = list('r'  = c('rn_rgn_area_inland1km'   = 'area_inland1km',
+                       'rn_rgn_area_offshore3nm' = 'area_offshore3nm'),
+              'ry' = c('rny_lsp_prot_area_offshore3nm' = 'cmpa',
+                        'rny_lsp_prot_area_inland1km'   = 'cp'))              
+  lyr_names = sub('^\\w*\\.','', names(unlist(lyrs)))
+  
+  # cast data ----
+  #browser()
+  d = SelectLayersData(layers, layers=lyr_names)  
+  r  = rename(dcast(d, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
+              c('id_num'='region_id', lyrs[['r']]))
+  ry = rename(dcast(d, id_num + year ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['ry']]))),
+              c('id_num'='region_id', lyrs[['ry']]))
+    
+  # fill in time series from first year specific region_id up to max year for all regions and generate cumulative sum
+  yr.max = max(max(ry$year), status_year)
+  r.yrs = ddply(ry, .(region_id), function(x){
+    data.frame(region_id=x$region_id[1],
+               year=min(x$year):yr.max)
+    })
+  r.yrs = merge(r.yrs, ry, all.x=T)
+  r.yrs$cp[is.na(r.yrs$cp)]     = 0
+  r.yrs$cmpa[is.na(r.yrs$cmpa)] = 0
+  r.yrs = within(r.yrs, {
+    cp_cumsum    = ave(cp  , region_id, FUN=cumsum)
+    cmpa_cumsum  = ave(cmpa, region_id, FUN=cumsum)
+    pa_cumsum    = cp_cumsum + cmpa_cumsum
+  })
+  
+  # get percent of total area that is protected for inland1km (cp) and offshore3nm (cmpa) per year
+  # and calculate status score
+  r.yrs = merge(r.yrs, r, all.x=T); head(r.yrs)
+  r.yrs = within(r.yrs,{
+    pct_cp    = pmin(cp_cumsum   / area_inland1km   * 100, 100)
+    pct_cmpa  = pmin(cmpa_cumsum / area_offshore3nm * 100, 100)
+    pct_pa    = pmin( (cp_cumsum + cmpa_cumsum) / (area_inland1km + area_offshore3nm) * 100, 100)
+    status    = ( pmin(pct_cp / ref_pct_cp, 1) + pmin(pct_cmpa / ref_pct_cmpa, 1) ) / 2 * 100
+  })
+  
+  # extract status based on specified year
+  r.status = r.yrs[r.yrs$year==status_year, c('region_id','status')]; head(r.status)
+  
+  # calculate trend
+  r.trend = ddply(subset(r.yrs, year %in% trend_years), .(region_id), summarize,
+                  annual = lm(pct_pa ~ year)[['coefficients']][['year']],
+                  trend = min(1, max(0, 5 * annual)))
+  
+  # return scores
+  scores = rbind.fill(
+    within(r.status, {
+      goal      = 'LSP'
+      dimension = 'status'
+      score     = status}),
+    within(r.trend, {
+      goal      = 'LSP'
+      dimension = 'trend'
+      score     = trend}))
+  return(scores[,c('region_id','goal','dimension','score')])    
+}
+
+SP = function(scores){
+  
+  browser()
+  d = within(
+    dcast(
+      scores, 
+      region_id + dimension ~ goal, value.var='score', 
+      subset=.(goal %in% c('ICO','LSP') & !dimension %in% c('pressures','resilience')))
+    , {
+      goal = 'SP'
+      score = rowMeans(cbind(ICO, LSP), na.rm=T)})
+  return(d[,c('region_id','goal','dimension','score')])
+}
+
+
+CW = function(layers){
+  
   # layers
-  lyrs = list('r' = c('po_pathogens' = 'a',
-                      'po_nutrients' = 'u',
-                      'po_chemicals' = 'l',
-                      'po_trash'     = 'd',
-                      'rn_cw_pesticide_trend'   = 'pest_trend',
-                      'rn_cw_fertilizer_trend'  = 'fert_trend',
-                      'rn_cw_coastalpopn_trend' = 'popn_trend',
-                      'rn_cw_pathogen_trend'    = 'path_trend'))
-  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
+  lyrs = c('po_pathogens' = 'a',
+           'po_nutrients' = 'u',
+           'po_chemicals' = 'l',
+           'po_trash'     = 'd',
+           'rn_cw_pesticide_trend'   = 'pest_trend',
+           'rn_cw_fertilizer_trend'  = 'fert_trend',
+           'rn_cw_coastalpopn_trend' = 'popn_trend',
+           'rn_cw_pathogen_trend'    = 'path_trend')
   
   # cast data
-  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)  
-  r = rename(dcast(D, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
-              c('id_num'='region_id', lyrs[['r']])); head(r); summary(r)
+  d = SelectLayersData(layers, layers=names(lyrs))  
+  r = rename(dcast(d, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs))),
+              c('id_num'='region_id', lyrs)); head(r); summary(r)
   
   # invert pressures
   r$a = 1 - r$a
@@ -471,52 +437,35 @@ calc.CW = function(ld.csv=layers_data.csv,
   
   # status
   r$status = psych::geometric.mean(t(r[,c('a','u','l','d')]), na.rm=T) * 100
-  write.csv(r[,c('region_id','status')], status.csv, row.names=F, na='')
   
   # trend
   r$trend = rowMeans(r[,c('pest_trend','fert_trend','popn_trend','path_trend')], na.rm=T)
-  write.csv(r[,c('region_id','trend')], trend.csv, row.names=F, na='')  
   
-  if (verbose==T) {
-    debug.csv = file.path(dir.results, sprintf('debug_CW_%s.csv',sfx.scenario))
-    cat(sprintf('\noutputting debug file to: %s/%s\n', getwd(), debug.csv))
-    write.csv(r, debug.csv, row.names=F, na='')
-    cat(sprintf('\nSummary for: %s,%s\n',basename(status.csv),basename(trend.csv)))
-    print(summary(r))
-  }
-}
-
-calc.SPP = function(ld.csv=layers_data.csv,
-                    status.csv = file.path(dir.results, sprintf('SPP_status_%s.csv', sfx.scenario)),
-                    trend.csv  = file.path(dir.results, sprintf('SPP_trend_%s.csv' , sfx.scenario))){
-  
-  d = rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_spp_status'),
-             c('id_num'='region_id','val_num'='status'))[,c('region_id','status')]
-  d$status = d$status * 100
-  write.csv(d, status.csv, row.names=F, na='')  
-  
-  write.csv(rename(subset(read.csv(ld.csv, na.strings=''), layer=='rn_spp_trend'),
-                   c('id_num'='region_id','val_num'='trend'))[,c('region_id','trend')], trend.csv, row.names=F, na='')  
-  
+  # return scores
+  scores = rbind(
+    within(r, {
+      goal      = 'CW'
+      dimension = 'status'
+      score     = status}),
+    within(r, {
+      goal      = 'CW'
+      dimension = 'trend'
+      score     = trend}))[,c('region_id','goal','dimension','score')]
+  return(scores)  
 }
 
 
-
-calc.HAB = function(ld.csv=layers_data.csv, 
-                    status.csv = file.path(dir.results, sprintf('HAB_status_%s.csv', sfx.scenario)),
-                    trend.csv  = file.path(dir.results, sprintf('HAB_trend_%s.csv' , sfx.scenario))){
+HAB = function(layers){
   
   # layers
-  lyrs = list('rk' = c('rnk_hab_health' = 'health',
-                       'rnk_hab_extent' = 'extent',
-                       'rnk_hab_trend'  = 'trend'))
-  layers = sub('(r|ry|rk)\\.','', names(unlist(lyrs)))
+  lyrs = c('rnk_hab_health' = 'health',
+           'rnk_hab_extent' = 'extent',
+           'rnk_hab_trend'  = 'trend')
   
-  # cast data  
-  D = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
-  
-  rk = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
-              c('id_num'='region_id', 'category'='habitat', lyrs[['rk']])); head(rk); summary(rk)
+  # cast data
+  d = SelectLayersData(layers, layers=names(lyrs))  
+  rk = rename(dcast(d, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs))),
+              c('id_num'='region_id', 'category'='habitat', lyrs))
   
   # limit to HAB habitats
   rk = subset(rk, habitat %in% c('coral','mangrove','saltmarsh','seaice_edge','seagrass','soft_bottom'))  
@@ -526,11 +475,39 @@ calc.HAB = function(ld.csv=layers_data.csv,
   
   # status
   r.status = ddply(na.omit(rk[,c('region_id','habitat','w','health')]), .(region_id), summarize,
-                   status = min(1, sum(w * health) / sum(w)) * 100); summary(r.status)
-  write.csv(r.status, status.csv, row.names=F, na='')
+                   goal      = 'HAB',
+                   dimension = 'status',
+                   score     = min(1, sum(w * health) / sum(w)) * 100); summary(r.status)
   
   # trend
   r.trend = ddply(na.omit(rk[,c('region_id','habitat','w','trend')]), .(region_id), summarize,
-                  trend = sum(w * trend) / sum(w))
-  write.csv(r.trend, trend.csv, row.names=F, na='')  
+                  goal      = 'HAB',
+                  dimension = 'trend',
+                  score     = sum(w * trend) / sum(w))
+  
+  # return scores
+  scores = cbind(rbind(r.status, r.trend))
+  return(scores)  
+}
+
+
+SPP = function(layers){
+
+  # scores
+  scores = cbind(rename(SelectLayersData(layers, layers=c('rn_spp_status'='status','rn_spp_trend'='trend'), narrow=T),
+                      c(id_num='region_id', layer='dimension', val_num='score')), 
+               data.frame('goal'='SPP'))
+  scores = mutate(scores, score=ifelse(dimension=='status', score*100, score))
+  return(scores) 
+}
+
+BD = function(scores){
+  
+  scores = within(dcast(scores, 
+                        region_id + dimension ~ goal, value.var='score', 
+                        subset=.(goal %in% c('HAB','SPP'))), {
+                          goal = 'SP'
+                          score = rowMeans(cbind(HAB, SPP), na.rm=T)
+                        })
+  return(scores[c('region_id','goal','dimension','score')])
 }
