@@ -79,4 +79,4 @@
 "TR","rn_tr_trend","TR trend","","6G","trend","TourRec_Trend_2013a_Sep23b.csv","rgn_id",,,,"trend",,TRUE,-0.145058067,0.066334047,FALSE,,,,222
 "LIV | ECO","rn_liveco_status","LIV and ECO status","","","value","rgn_liv.eco_status_2013a.csv","rgn_id",,"component",,"value",,TRUE,0.000380686126825058,1,TRUE,,,,222
 "LIV | ECO","rn_liveco_trend","LIV and ECO trend","","","value","rgn_liv.eco_trend_2013a.csv","rgn_id",,"component",,"value",,TRUE,-0.998437811712268,0.999964535332029,FALSE,,,,222
-"LIV | ECO","rny_le_popn","WorldBank regional population","","","count","rgn_wb_pop_2013a_updated.csv","rgn_id",,,"year","count",,TRUE,0,1350695000,FALSE,,,265,222
+"LIV | ECO","rny_le_popn","WorldBank regional population","","","count","rgn_wb_pop_2013a_updated.csv","rgn_id",,,"year","count",,TRUE,0,1350695000,FALSE,,,,222

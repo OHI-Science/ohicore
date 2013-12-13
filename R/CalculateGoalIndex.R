@@ -35,7 +35,7 @@
 ##' 
 ##' @export
 CalculateGoalIndex = function(id, status, trend, resilience, pressure, 
-                           DISCOUNT = 1.0, BETA = 0.67, default_trend = 0.0) {
+                           DISCOUNT = 1.0, BETA = 0.67, default_trend = 0.0, xlim=c(0,1)) {
   #' Goal-level computation function to goal score ("component indicators for
   #' public goals") based on status, trend, resilience, pressure
   #'
@@ -59,10 +59,10 @@ CalculateGoalIndex = function(id, status, trend, resilience, pressure,
      #' and the goal score (score).
      
      # verify parameters
-     if (getOption('debug', FALSE)) {
-       stopifnot(BETA >= 0 && BETA <= 1)
-       stopifnot(DISCOUNT >= 0)
-     }
+     #if (getOption('debug', FALSE)) {
+     stopifnot(BETA >= 0 && BETA <= 1)
+     stopifnot(DISCOUNT >= 0)
+     #}
      
      # Simplify symbols based on math writeup
      d <- data.frame(id=id, x=status, t=trend, r=resilience, p=pressure)
@@ -73,19 +73,29 @@ CalculateGoalIndex = function(id, status, trend, resilience, pressure,
      }
      
      # enforce domains
-     if (getOption('debug', FALSE)) {
-       stopifnot(min(d$x, na.rm=T) >= 0  && max(d$x, na.rm=T) <= 1)   #  [0, 1]
-       stopifnot(min(d$t, na.rm=T) >= -1 && max(d$t, na.rm=T) <= 1)   # [-1, 1]
-       stopifnot(min(d$r, na.rm=T) >= 0  && max(d$r, na.rm=T) <= 1)   #  [0, 1]
-       stopifnot(min(d$p, na.rm=T) >= 0  && max(d$p, na.rm=T) <= 1)   #  [0, 1]
-     }
+     #if (getOption('debug', FALSE)) {
+     stopifnot(min(d$x, na.rm=T) >= 0  && max(d$x, na.rm=T) <= xlim[2])   #  [ 0, 1]
+     stopifnot(min(d$t, na.rm=T) >= -1 && max(d$t, na.rm=T) <= 1)         #  [-1, 1]
+     stopifnot(min(d$r, na.rm=T) >= 0  && max(d$r, na.rm=T) <= xlim[2])   #  [ 0, 1]
+     stopifnot(min(d$p, na.rm=T) >= 0  && max(d$p, na.rm=T) <= xlim[2])   #  [ 0, 1]
+     #}
+    
+     # rescale 0 to 1 if already going 0 to 100
+     #if (g=='AO') browser()
+     #if (identical(xlim, c(0,100))){
+     #  d[,c('x','r','p')] = d[,c('x','r','p')]/100
+     #}
      
      # compute "future" status, using all dimensions
      d$xF <- with(d, (DISCOUNT * (1 + (BETA * t) + ((1-BETA) * (r - p)))) * x)
      # clamp status domain to [0, 1]
-     d$xF <- with(d, score.clamp(xF))
+     d$xF <- with(d, score.clamp(xF, xlim=c(0,1)))
      # compute score using formula for individual goal component indicator
      d$score <- with(d, (x + xF)/2)
-     # return results
-     d
+     
+     # return results, rescaling if needed
+     #if (identical(xlim, c(0,100))){
+     #   d[,c('x','r','p','xF','score')] = d[,c('x','r','p','xF','score')]*100
+     #}
+     return(d)
 }

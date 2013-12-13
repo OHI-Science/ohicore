@@ -8,11 +8,11 @@ order,goal,parent,name,weight,preindex_function,postindex_function
 5,CP,,Coastal Protection,1,CP(layers),
 6,TR,,Tourism & Recreation,1,TR(layers),
 7.1,LIV,LE,Livelihoods,0.5,LIV(layers),
-7.2,LE,,Coastal Livelihoods & Economies,1,,LE(scores)
+7.2,LE,,Coastal Livelihoods & Economies,1,,"LE(scores, layers)"
 7.3,ECO,LE,Economies,0.5,ECO(layers),
 8.1,ICO,SP,Iconic Species,0.5,ICO(layers),
 8.2,SP,,Sense of Place,1,,SP(scores)
-8.3,LSP,SP,Lasting Special Places,0.5,"LSP(layers, status_year=2013, trend_years=2006:2010)",
+8.3,LSP,SP,Lasting Special Places,0.5,"LSP(layers, status_year=2012, trend_years=2005:2009)",
 9,CW,,Clean Waters,1,CW(layers),
 10.1,HAB,BD,Habitats,0.5,HAB(layers),
 10.2,BD,,Biodiversity,1,,BD(scores)

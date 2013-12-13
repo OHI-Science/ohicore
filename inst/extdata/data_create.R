@@ -4,6 +4,10 @@
 do.layers.Global.www2013 = T
 do.layers.Global2012.Nature2012ftp = F
 
+# load ohicore
+setwd('~/Code/ohicore')
+load_all()
+
 # [layers|scores].Global[2013|2012].v2013web ----
 
 # set from root directory based on operating system
@@ -16,7 +20,8 @@ g.url = 'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladk
 g = subset(read.csv(textConnection(RCurl::getURL(g.url)), skip=1, na.strings=''), !is.na(ingest))
 
 # load results
-results.csv = '/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-08.csv'
+results.csv = '/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-09.csv'
+# TODO: update results to 10-09, not 10-08, per HAB +saltmarsh in OHI_results_for_Radical_2013-10-09.csv
 r = plyr::rename(read.csv(results.csv), c('value'='score'))
 r$dimension = plyr::revalue(r$dimension, c('likely_future_state'='future'))
 #table(r[,c('dimension','goal')])
@@ -35,8 +40,24 @@ for (yr in 2012:2013){ # yr=2012
     for (f in sort(g$path)){ # f = sort(g$path)[1]
       cat(sprintf('    copying %s\n', f))
       stopifnot(file.copy(f, file.path(dir.to, basename(f)), overwrite=T))
-    }
       
+      # HACK: manual edit of rny_le_popn to remove duplicates
+      if (basename(f)=='rgn_wb_pop_2013a_updated.csv'){
+        f.to = file.path(dir.to, basename(f))
+        d = read.csv(f.to)
+        d = d[!duplicated(d[,c('rgn_id','year')]),]
+        write.csv(d, f.to, row.names=F, na='')
+      }
+    }
+    
+#     # HACK: create layer rnk_rgn_global_noAntarctica
+#     d = read.csv(file.path(dir.to, basename('rgn_global.csv')), na.strings=''); head(d)
+#     d = subset(d, label != 'Antarctica'); dim(d)
+#     write.csv(c, file.path(dir.to, basename('rgn_global_noAntarctica.csv')), row.names=F, na='')
+#     browser()
+#     revalue(subset(g, layer=='rnk_rgn_global'), c('')
+#     #rnk_rgn_global_noAntarctica
+          
     # create conforming layers navigation csv  
     layers.csv = sprintf('%s.csv', dir.to)
     g$targets = gsub('_', ' | ', as.character(g$target), fixed=T)
