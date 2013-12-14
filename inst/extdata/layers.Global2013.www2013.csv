@@ -1,82 +1,82 @@
 "targets","layer","title","description","citation","units","filename","fld_id_num","fld_id_chr","fld_category","fld_year","fld_val_num","fld_val_chr","file_exists","val_min","val_max","val_0to1","flds_unused","flds_missing","rows_duplicated","num_ids_unique"
-"AO","rn_ao_access","Artisanal Fishing Opportunities model variable","management effectiveness and opportunity (Mora et al 2009)","6B","value","r_mora_s4_2013a.csv","rgn_id",,,,"value",,TRUE,0,0.854,TRUE,,,,222
-"AO","rny_ao_need","Artisanal Fishing Opportunities model variable","Need: logged and rescaled per capita gross domestic product (pcGDP) adjusted by the purchasing power parity (PPP).","6B","value","rgn_wb_gdppcppp_rescaled_year_2013b.csv","rgn_id",,,"year","value",,TRUE,0.389403365,1,TRUE,,,,222
-"pressures | CP","rnk_cp_habitat_extent_rank","Coastal Protection model and Pressures variable","habitat extent (Ak) * habitat rank (wk)","6E","extent_rank","cp_habitat_extent_rank.csv","rgn_id",,"habitat",,"extent_rank",,TRUE,1.7465,3015240.885416,FALSE,,,,222
-"pressures | CS","rnk_cs_habitat_extent","Carbon Storage model variable","habitat extent (Ak)","6D","km2","cs_habitat_extent.csv","rgn_id",,"habitat",,"km2",,TRUE,0.82,39491,FALSE,,,,222
-"CW","rn_cw_pesticide_trend","Chemical pollution trend","FAO pesticide trends","6I","trend.score","GL-NCEAS_CW_Pesticides_trend_v2013a.csv","rgn_id",,,,"trend.score",,TRUE,-1,1.52476791072751,FALSE,,,,222
-"CW","rn_cw_fertilizer_trend","Nutrients trend","FAO fertilizer trends","6I","trend.score","GL-NCEAS_CW_Fertilizers_trend_v2013a.csv","rgn_id",,,,"trend.score",,TRUE,-1,1,FALSE,,,,222
-"CW","rn_cw_pathogen_trend","Pathogen pollution trend","","6I","trend","po_pathogens_trend_sanitation2008to2011_popninland25km2008to2013.csv","rgn_id",,,,"trend",,TRUE,-0.0940269277341567,0.0324969508670384,FALSE,,,,222
-"CW","rn_cw_coastalpopn_trend","Coastal population trend (annual)","proxy for trash trend","6I","trend","rgn_popn5yrtrend_inland25mi_2008to2013.csv","rgn_id",,,,"trend",,TRUE,-0.189382246579428,0.270753851039487,FALSE,,,,222
-"FIS | NP","rn_fis_status","fisheries status","","6A","status","FIS_Status_2013a_lyr.csv","rgn_id",,,"year","status",,TRUE,0,0.86,TRUE,,,,222
-"FIS","rn_fis_trend","fisheries trend","","6A","trend","FIS_Trend_2013a_lyr.csv","rgn_id",,,,"trend",,TRUE,-0.181428571,0.455714286,FALSE,,,,222
-"FP","rn_fp_wildcaught_weight","weighting factor","proportional yield of wild caught fisheries","6A","w_fis","GL_FP_wildcaught_weight_v2013a_lyr.csv","rgn_id",,,,"w_fis",,TRUE,0.145926531,1,TRUE,,,,222
-"pressures | HAB","rnk_hab_presence","Habitats model variable","habitat presence (wk)","6J","boolean","hab_habitat_presence.csv","rgn_id",,"habitat",,"boolean",,TRUE,1,1,TRUE,,,,222
-"HAB | CS | CP","rnk_hab_extent","Habitats extent","","6J","km2","hab_habitat_extent.csv","rgn_id",,"habitat",,"km2",,TRUE,0,3804040,FALSE,,,,222
-"HAB | CS | CP","rnk_hab_health","Habitats health condition data","","6J","health","hab_habitat_health_disaggregatedNature2012.csv","rgn_id",,"habitat",,"health",,TRUE,0,1,TRUE,,,,222
-"HAB | CS | CP","rnk_hab_trend","Habitats health trend","","6J","trend","hab_habitat_trend_disaggregatedNature2012.csv","rgn_id",,"habitat",,"trend",,TRUE,-1,1,FALSE,,,,222
-"ICO","rnk_ico_spp_extinction_status","Iconic species extinction risk category status","","6H","category","ico_spp_extinction_status.csv","rgn_id",,"sciname",,,"category",TRUE,,,,,,,222
-"ICO","rnk_ico_spp_popn_trend","Iconic species population trend","","6H","popn_trend","ico_spp_popn_trend.csv","rgn_id",,"sciname",,,"popn_trend",TRUE,,,,,,,222
-"LE | pressures","rnk_le_sector_weight","Coastal Livelihoods & Economies weighting for pressures","weighting by sector (defaulting to 1)","6F","weight","le_sector_weight_disaggregateNature2012b.csv","rgn_id",,"sector",,"weight",,TRUE,1,1,TRUE,,,,222
-"LSP","rny_lsp_prot_area_inland1km","Lasting Special Places model variable","coastal protected areas (inland 1km)","6H","area_km2","lsp_prot_area_inland1km.csv","rgn_id",,,"year","area_km2",,TRUE,0.87325077158,28756.1479081,FALSE,,,,222
-"LSP","rny_lsp_prot_area_offshore3nm","Lasting Special Places model variable","coastal marine protected areas (offshore 3nm)","6H","area_km2","lsp_prot_area_offshore3nmb.csv","rgn_id",,,"year","area_km2",,TRUE,0,56272.27972,FALSE,,,,222
-"MAR","rn_mar_status","mariculture status","[KL to do and fill in]","6A","status","GL_NCEAS_MAR_Status_v2013a_lyr.csv","rgn_id",,,,"status",,TRUE,0,1,TRUE,,,,222
-"MAR","rn_mar_trend","mariculture trend","[KL to do and fill in]","6A","trend","GL_NCEAS_MAR_Trend_v2013a_lyr.csv","rgn_id",,,,"trend",,TRUE,-0.23,0.32,FALSE,,,,222
-"NP","rnky_np_harvest_relative","Natural Products model variable","harvest (Hp) by product (coral, fish oil, seaweed and plants, shells, sponges, ornamental fish)","6C","score","np_harvest_relative_v2013a_updated_lyr_NAmanualoverride.csv","rgn_id",,"product","year","score",,TRUE,0,1,TRUE,,,,222
-"NP","rnk_np_sustainability_score","Natural Products model variable","sustainability (Sp) by product","6C","score","np_sustainability_v2013a_updated_lyr.csv","rgn_id",,"product",,"score",,TRUE,0,1,TRUE,,,,222
-"NP | pressures","rnk_np_weights_combo","Natural Products model variable","weight by product","6C","weight","np_weight_combo_2013a_updated_lyr.csv","rgn_id",,"product",,"weight",,TRUE,0,1,TRUE,,,,222
-"pressures","cc_acid","Ocean acidification","","7.52","pressure_score","cc_acid_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0.0135662,0.974705,TRUE,,,,222
-"pressures","cc_slr","Sea level rise (SLR)","TODO: see John P's documentation for specifics","","pressure_score","cc_slr_2013.csv","rgn_id",,,,"pressure_score",,TRUE,5.51248910833575e-06,0.000825506825442928,TRUE,,,,222
-"pressures","cc_sst","Sea surface temperature (SST) anomalies","","7.58","pressure_score","cc_sst_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.909090909090909,TRUE,,,,222
-"pressures","cc_uv","UV radiation","","7.69","pressure_score","cc_uv_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0.601021494082126,0.909090909090909,TRUE,,,,222
-"pressures","fp_art_hb","Artisanal fishing: high bycatch","","7.02","pressures.score","p_fp_art_hb_disaggregateNature2012.csv","rgn_id",,,,"pressures.score",,TRUE,1.295083288e-05,0.25366568914956,TRUE,,,,222
-"pressures","fp_art_lb","Artisanal fishing: low bycatch","EEZ","7.03","pressure_score","fp_art_lb_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.909090909090909,TRUE,,,,222
-"pressures","fp_com_hb","Commercial fishing: high bycatch","","7.11","pressure_score","fp_com_hb_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.18820895,TRUE,,,,222
-"pressures","fp_com_lb","Commercial fishing: low bycatch","","7.12","pressure_score","fp_com_lb_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.1690305,TRUE,,,,222
-"pressures","fp_targetharvest","Targeted harvest","pressures_score","7.63","score","rgn_fao_targeted_2013a_rescaled.csv","rgn_id",,,,"score",,TRUE,0,0.909090909090909,TRUE,,,,222
-"pressures","hd_intertidal","Habitat destruction: intertidal","","7.24","pressure_score","hd_intertidal_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.530149,TRUE,,,,222
-"pressures","hd_subtidal_hb","Habitat destruction: subtidal hard bottom","","7.25","value","p_hd_subtidal_hb_v2013a.csv","rgn_id",,,,"value",,TRUE,1.3e-05,0.253665689,TRUE,,,,222
-"pressures","hd_subtidal_sb","Habitat destruction: subtidal soft bottom","","7.26","pressures.score","po_rgn_hd_subtidal_sb_2013a.csv","rgn_id",,,,"pressures.score",,TRUE,0,0.992856206,TRUE,,,,222
-"pressures","po_chemicals","Chemical pollution","EEZ","7.06-7.08","pressure_score","po_chemicals_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0.000133491581905408,0.764782278905096,TRUE,,,,222
-"pressures","po_chemicals_3nm","Chemical pollution","coastal","7.06-7.09","pressure_score","po_chemicals_3nm_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.631873593517296,TRUE,,,,222
-"pressures","po_nutrients","Nutrient pollution","EEZ","7.51","pressure_score","po_nutrients_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.334982,TRUE,,,,222
-"pressures","po_nutrients_3nm","Nutrient pollution","coastal","7.51","pressure_score","po_nutrients_3nm_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.341163,TRUE,,,,222
-"pressures","po_pathogens","Pathogen pollution","pressures_score","7.53","pressure_score","po_pathogens_sanitation2011_popninland25km2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.909090909090909,TRUE,,,,222
-"pressures","po_trash","Trash pollution","pressures_score","7.67","pressure_score","po_trash2012.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.909090909090909,TRUE,,,,222
-"pressures","sp_alien","Alien species","pressures_score","7.01","pressures.score","p_sp_alien_2013a.csv","rgn_id",,,,"pressures.score",,TRUE,0,1,TRUE,,,,222
-"pressures","sp_genetic","Genetic escapes","","7.22","pressures.score","GenEsc_v2013a.csv","rgn_id",,,,"pressures.score",,TRUE,0,1,TRUE,,,,222
-"pressures","ss_wgi","Worldwide Governance Indicators (WGI)","pressures_score (1 - wgi_all)","7.7","score","rgn_wb_wgi_2013a_rescaled_inverse.csv","rgn_id",,,,"score",,TRUE,0.128125372616126,0.959156983820862,TRUE,,,,222
-"regions","cn_cntry_rgn","Reporting units","regions per country","3","rgn_id","cntry_rgn_2013.csv",,"cntry_key",,,"rgn_id",,TRUE,1,250,FALSE,,,,222
-"regions","cnk_cntry_georegions","Reporting units","georegions per country, at 3 georegion levels","3","georgn_id","cntry_georegions_long_2013b.csv",,"cntry_key","level",,"georgn_id",,TRUE,1,999,FALSE,,,,222
-"regions","rn_rgn_area","Reporting units","region in water area","3","area_km2","rgn_fao_gcs_area.csv","rgn_id",,,,"area_km2",,TRUE,9.46355858358,31057239.8303,FALSE,,,,222
-"regions","rn_rgn_area_inland1km","Reporting units","inland area 1 mile from shore","3","area_km2","rgn_area_inland1km.csv","rgn_id",,,,"area_km2",,TRUE,1.7465015431603,163643.701591034,FALSE,,,,222
-"regions","rn_rgn_area_offshore3nm","Reporting units","offshore area 3 nautical miles from shore","3","area_km2","rgn_area_offshore3nm.csv","rgn_id",,,,"area_km2",,TRUE,10.4790092589618,629255.77349294,FALSE,,,,222
-"regions","rnk_rgn_georegions","Reporting units","georegions per region, at 3 georegion levels","3","georgn_id","rgn_georegions_long_2013b.csv","rgn_id",,"level",,"georgn_id",,TRUE,1,999,FALSE,,,,222
-"regions","rtk_rgn_georegion_labels","Reporting units","georegions per region, at 3 georegion levels","3","label","rgn_georegions_labels_long_2013b.csv","rgn_id",,"level",,,"label",TRUE,,,,,,,222
-"regions","rnk_rgn_global","Reporting units","regions used in global analysis for Nature 2012, subset of regions_labels by type=eez and not deleted or disputed ","3","label","rgn_global.csv","rgn_id",,,,,"label",TRUE,,,,,,,222
-"regions","rtk_rgn_labels","Reporting units","regions by type (eez, subocean, unclaimed) and label","3","label","rgn_labels.csv","rgn_id",,"type",,,"label",TRUE,,,,,,,222
-"resilience","alien_species","Alien species","resilience score","7.01","resilience score","r_alien_species_Nature2012disaggregated.csv","rgn_id",,,,"resilience.score",,TRUE,0,1,TRUE,,,,222
-"resilience","cites","Convention on International Trade in Endangered Species of Wild Fauna and Flora (CITES) signatories","resilience score","7.16","resilience score","r_cites_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0,1,TRUE,,,,222
-"resilience","fishing_v1","Convention on Biological Diversity (CBD) survey","fishing v1 (coastal)","7.14","resilience score","r_fishing_v1_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.241538566918161,0.892453964007202,TRUE,,,,222
-"resilience","fishing_v1_eez","Convention on Biological Diversity (CBD) survey","fishing v1 (EEZ)","7.14","resilience score","r_fishing_v1_eez_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.190061654351495,0.803602501344025,TRUE,,,,222
-"resilience","fishing_v2_eez","Convention on Biological Diversity (CBD) survey","fishing v2 (EEZ)","7.14","resilience score","r_fishing_v2_eez_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.245046240763621,0.766252150695941,TRUE,,,,222
-"resilience","fishing_v3","Convention on Biological Diversity (CBD) survey","fishing v3 (coastal)","7.14","resilience score","r_fishing_v3_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.245507455539828,0.901998500191288,TRUE,,,,222
-"resilience","fishing_v3_eez","Convention on Biological Diversity (CBD) survey","fishing v3 (EEZ)","7.14","resilience score","r_fishing_v3_eez_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.194030542973161,0.812899771097748,TRUE,,,,222
-"resilience","habitat","Convention on Biological Diversity (CBD) survey","habitat","7.14","resilience score","r_habitat_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.138087289287079,1,TRUE,,,,222
-"resilience","habitat_combo","Convention on Biological Diversity (CBD) survey","habitat alternate (coastal)","7.14","resilience score","r_habitat_combo_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.123025268,0.99999775,TRUE,,,,222
-"resilience","habitat_combo_eez","Convention on Biological Diversity (CBD) survey","habitat alternate (EEZ)","7.14","resilience score","r_habitat_combo_eez_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.086045814459742,0.943233237345455,TRUE,,,,222
-"resilience","li_gci","Global Competitiveness Index (GCI)","","7.23","score","rgn_wef_gci_2013a_rescaled.csv","rgn_id",,,"year","score",,TRUE,0.303333333333333,0.778333333333333,TRUE,,,,222
-"resilience","li_sector_evenness","Sector Evenness","","7.6","resilience score","r_li_sector_evenness_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0,0.997518269205,TRUE,,,,222
-"resilience","mariculture","Convention on Biological Diversity (CBD) survey","mariculture","7.14","resilience score","r_mariculture_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.054428393263486,1,TRUE,,,,222
-"resilience","msi_gov","Mariculture Sustainability Index (MSI): sustainability and regulations","resilience score","7.3","resilience score","r_msi_gov_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.1,0.8576923077,TRUE,,,,222
-"resilience","species_diversity","Ecological integrity","EEZ","7.18","score","rgn_spp_score_2013.csv","rgn_id",,,,"score",,TRUE,0.743259450182977,0.930308754120408,TRUE,,,,222
-"resilience","species_diversity_3nm","Ecological integrity","coastal","7.18","score","rgn_spp_score_offshore3nm_2013.csv","rgn_id",,,,"score",,TRUE,0.752102387423915,0.943822818112876,TRUE,,,,222
-"resilience","tourism","Convention on Biological Diversity (CBD) survey","tourism","7.14","resilience score","r_tourism_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0,1,TRUE,,,,222
-"resilience","water","Convention on Biological Diversity (CBD) survey","water","7.14","resilience score","r_water_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0,1,TRUE,,,,222
-"resilience","wgi_all","Worldwide Governance Indicators (WGI)","resilience score","7.7","score","rgn_wb_wgi_2013a_rescaled.csv","rgn_id",,,,"score",,TRUE,0.040843016179138,0.871874627383874,TRUE,,,,222
-"SPP","rn_spp_status","Status of species extinction risk","","6J","score","rgn_spp_score_2013.csv","rgn_id",,,,"score",,TRUE,0.743259450182977,0.930308754120408,TRUE,,,,222
-"SPP","rn_spp_trend","Trend in species extinction risk","","6J","score","rgn_spp_trend_2013.csv","rgn_id",,,,"score",,TRUE,-0.464904077028102,0.0977703458133595,FALSE,,,,222
-"TR","rn_tr_status","TR status","","6G","status","TourRec_Status_2013a_Sep23b.csv","rgn_id",,,,"status",,TRUE,0,100,FALSE,,,,222
-"TR","rn_tr_trend","TR trend","","6G","trend","TourRec_Trend_2013a_Sep23b.csv","rgn_id",,,,"trend",,TRUE,-0.145058067,0.066334047,FALSE,,,,222
-"LIV | ECO","rn_liveco_status","LIV and ECO status","","","value","rgn_liv.eco_status_2013a.csv","rgn_id",,"component",,"value",,TRUE,0.000380686126825058,1,TRUE,,,,222
-"LIV | ECO","rn_liveco_trend","LIV and ECO trend","","","value","rgn_liv.eco_trend_2013a.csv","rgn_id",,"component",,"value",,TRUE,-0.998437811712268,0.999964535332029,FALSE,,,,222
-"LIV | ECO","rny_le_popn","WorldBank regional population","","","count","rgn_wb_pop_2013a_updated.csv","rgn_id",,,"year","count",,TRUE,0,1350695000,FALSE,,,,222
+"AO","rn_ao_access","Artisanal Fishing Opportunities model variable","management effectiveness and opportunity (Mora et al 2009)",,"value","r_mora_s4_2013a.csv","rgn_id",,,,"value",,TRUE,0,0.854,TRUE,,,,222
+"AO","rny_ao_need","Artisanal Fishing Opportunities model variable","Need: logged and rescaled per capita gross domestic product (pcGDP) adjusted by the purchasing power parity (PPP).",,"value","rgn_wb_gdppcppp_rescaled_year_2013b.csv","rgn_id",,,"year","value",,TRUE,0.389403365,1,TRUE,,,,222
+"pressures | CP","rnk_cp_habitat_extent_rank","Coastal Protection model and Pressures variable","habitat extent (Ak) * habitat rank (wk)",,"extent_rank","cp_habitat_extent_rank.csv","rgn_id",,"habitat",,"extent_rank",,TRUE,1.7465,3015240.885416,FALSE,,,,222
+"pressures | CS","rnk_cs_habitat_extent","Carbon Storage model variable","habitat extent (Ak)",,"km2","cs_habitat_extent.csv","rgn_id",,"habitat",,"km2",,TRUE,0.82,39491,FALSE,,,,222
+"CW","rn_cw_pesticide_trend","Chemical pollution trend","FAO pesticide trends",,"trend.score","GL-NCEAS_CW_Pesticides_trend_v2013a.csv","rgn_id",,,,"trend.score",,TRUE,-1,1.52476791072751,FALSE,,,,222
+"CW","rn_cw_fertilizer_trend","Nutrients trend","FAO fertilizer trends",,"trend.score","GL-NCEAS_CW_Fertilizers_trend_v2013a.csv","rgn_id",,,,"trend.score",,TRUE,-1,1,FALSE,,,,222
+"CW","rn_cw_pathogen_trend","Pathogen pollution trend","",,"trend","po_pathogens_trend_sanitation2008to2011_popninland25km2008to2013.csv","rgn_id",,,,"trend",,TRUE,-0.0940269277341567,0.0324969508670384,FALSE,,,,222
+"CW","rn_cw_coastalpopn_trend","Coastal population trend (annual)","proxy for trash trend",,"trend","rgn_popn5yrtrend_inland25mi_2008to2013.csv","rgn_id",,,,"trend",,TRUE,-0.189382246579428,0.270753851039487,FALSE,,,,222
+"FIS | NP","rn_fis_status","fisheries status","",,"status","FIS_Status_2013a_lyr.csv","rgn_id",,,"year","status",,TRUE,0,0.86,TRUE,,,,222
+"FIS","rn_fis_trend","fisheries trend","",,"trend","FIS_Trend_2013a_lyr.csv","rgn_id",,,,"trend",,TRUE,-0.181428571,0.455714286,FALSE,,,,222
+"FP","rn_fp_wildcaught_weight","weighting factor","proportional yield of wild caught fisheries",,"w_fis","GL_FP_wildcaught_weight_v2013a_lyr.csv","rgn_id",,,,"w_fis",,TRUE,0.145926531,1,TRUE,,,,222
+"pressures | HAB","rnk_hab_presence","Habitats model variable","habitat presence (wk)",,"boolean","hab_habitat_presence.csv","rgn_id",,"habitat",,"boolean",,TRUE,1,1,TRUE,,,,222
+"HAB | CS | CP","rnk_hab_extent","Habitats extent","",,"km2","hab_habitat_extent.csv","rgn_id",,"habitat",,"km2",,TRUE,0,3804040,FALSE,,,,222
+"HAB | CS | CP","rnk_hab_health","Habitats health condition data","",,"health","hab_habitat_health_disaggregatedNature2012.csv","rgn_id",,"habitat",,"health",,TRUE,0,1,TRUE,,,,222
+"HAB | CS | CP","rnk_hab_trend","Habitats health trend","",,"trend","hab_habitat_trend_disaggregatedNature2012.csv","rgn_id",,"habitat",,"trend",,TRUE,-1,1,FALSE,,,,222
+"ICO","rnk_ico_spp_extinction_status","Iconic species extinction risk category status","",,"category","ico_spp_extinction_status.csv","rgn_id",,"sciname",,,"category",TRUE,,,,,,,222
+"ICO","rnk_ico_spp_popn_trend","Iconic species population trend","",,"popn_trend","ico_spp_popn_trend.csv","rgn_id",,"sciname",,,"popn_trend",TRUE,,,,,,,222
+"LE | pressures","rnk_le_sector_weight","Coastal Livelihoods & Economies weighting for pressures","weighting by sector (defaulting to 1)",,"weight","le_sector_weight_disaggregateNature2012b.csv","rgn_id",,"sector",,"weight",,TRUE,1,1,TRUE,,,,222
+"LSP","rny_lsp_prot_area_inland1km","Lasting Special Places model variable","coastal protected areas (inland 1km)",,"area_km2","lsp_prot_area_inland1km.csv","rgn_id",,,"year","area_km2",,TRUE,0.87325077158,28756.1479081,FALSE,,,,222
+"LSP","rny_lsp_prot_area_offshore3nm","Lasting Special Places model variable","coastal marine protected areas (offshore 3nm)",,"area_km2","lsp_prot_area_offshore3nmb.csv","rgn_id",,,"year","area_km2",,TRUE,0,56272.27972,FALSE,,,,222
+"MAR","rn_mar_status","mariculture status","[KL to do and fill in]",,"status","GL_NCEAS_MAR_Status_v2013a_lyr.csv","rgn_id",,,,"status",,TRUE,0,1,TRUE,,,,222
+"MAR","rn_mar_trend","mariculture trend","[KL to do and fill in]",,"trend","GL_NCEAS_MAR_Trend_v2013a_lyr.csv","rgn_id",,,,"trend",,TRUE,-0.23,0.32,FALSE,,,,222
+"NP","rnky_np_harvest_relative","Natural Products model variable","harvest (Hp) by product (coral, fish oil, seaweed and plants, shells, sponges, ornamental fish)",,"score","np_harvest_relative_v2013a_updated_lyr_NAmanualoverride.csv","rgn_id",,"product","year","score",,TRUE,0,1,TRUE,,,,222
+"NP","rnk_np_sustainability_score","Natural Products model variable","sustainability (Sp) by product",,"score","np_sustainability_v2013a_updated_lyr.csv","rgn_id",,"product",,"score",,TRUE,0,1,TRUE,,,,222
+"NP | pressures","rnk_np_weights_combo","Natural Products model variable","weight by product",,"weight","np_weight_combo_2013a_updated_lyr.csv","rgn_id",,"product",,"weight",,TRUE,0,1,TRUE,,,,222
+"pressures","cc_acid","Ocean acidification","",,"pressure_score","cc_acid_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0.0135662,0.974705,TRUE,,,,222
+"pressures","cc_slr","Sea level rise (SLR)","TODO: see John P's documentation for specifics",,"pressure_score","cc_slr_2013.csv","rgn_id",,,,"pressure_score",,TRUE,5.51248910833575e-06,0.000825506825442928,TRUE,,,,222
+"pressures","cc_sst","Sea surface temperature (SST) anomalies","",,"pressure_score","cc_sst_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.909090909090909,TRUE,,,,222
+"pressures","cc_uv","UV radiation","",,"pressure_score","cc_uv_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0.601021494082126,0.909090909090909,TRUE,,,,222
+"pressures","fp_art_hb","Artisanal fishing: high bycatch","",,"pressures.score","p_fp_art_hb_disaggregateNature2012.csv","rgn_id",,,,"pressures.score",,TRUE,1.295083288e-05,0.25366568914956,TRUE,,,,222
+"pressures","fp_art_lb","Artisanal fishing: low bycatch","EEZ",,"pressure_score","fp_art_lb_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.909090909090909,TRUE,,,,222
+"pressures","fp_com_hb","Commercial fishing: high bycatch","",,"pressure_score","fp_com_hb_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.18820895,TRUE,,,,222
+"pressures","fp_com_lb","Commercial fishing: low bycatch","",,"pressure_score","fp_com_lb_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.1690305,TRUE,,,,222
+"pressures","fp_targetharvest","Targeted harvest","pressures_score",,"score","rgn_fao_targeted_2013a_rescaled.csv","rgn_id",,,,"score",,TRUE,0,0.909090909090909,TRUE,,,,222
+"pressures","hd_intertidal","Habitat destruction: intertidal","",,"pressure_score","hd_intertidal_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.530149,TRUE,,,,222
+"pressures","hd_subtidal_hb","Habitat destruction: subtidal hard bottom","",,"value","p_hd_subtidal_hb_v2013a.csv","rgn_id",,,,"value",,TRUE,1.3e-05,0.253665689,TRUE,,,,222
+"pressures","hd_subtidal_sb","Habitat destruction: subtidal soft bottom","",,"pressures.score","po_rgn_hd_subtidal_sb_2013a.csv","rgn_id",,,,"pressures.score",,TRUE,0,0.992856206,TRUE,,,,222
+"pressures","po_chemicals","Chemical pollution","EEZ",,"pressure_score","po_chemicals_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0.000133491581905408,0.764782278905096,TRUE,,,,222
+"pressures","po_chemicals_3nm","Chemical pollution","coastal",,"pressure_score","po_chemicals_3nm_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.631873593517296,TRUE,,,,222
+"pressures","po_nutrients","Nutrient pollution","EEZ",,"pressure_score","po_nutrients_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.334982,TRUE,,,,222
+"pressures","po_nutrients_3nm","Nutrient pollution","coastal",,"pressure_score","po_nutrients_3nm_2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.341163,TRUE,,,,222
+"pressures","po_pathogens","Pathogen pollution","pressures_score",,"pressure_score","po_pathogens_sanitation2011_popninland25km2013.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.909090909090909,TRUE,,,,222
+"pressures","po_trash","Trash pollution","pressures_score",,"pressure_score","po_trash2012.csv","rgn_id",,,,"pressure_score",,TRUE,0,0.909090909090909,TRUE,,,,222
+"pressures","sp_alien","Alien species","pressures_score",,"pressures.score","p_sp_alien_2013a.csv","rgn_id",,,,"pressures.score",,TRUE,0,1,TRUE,,,,222
+"pressures","sp_genetic","Genetic escapes","",,"pressures.score","GenEsc_v2013a.csv","rgn_id",,,,"pressures.score",,TRUE,0,1,TRUE,,,,222
+"pressures","ss_wgi","Worldwide Governance Indicators (WGI)","pressures_score (1 - wgi_all)",,"score","rgn_wb_wgi_2013a_rescaled_inverse.csv","rgn_id",,,,"score",,TRUE,0.128125372616126,0.959156983820862,TRUE,,,,222
+"regions","cn_cntry_rgn","Reporting units","regions per country",,"rgn_id","cntry_rgn_2013.csv",,"cntry_key",,,"rgn_id",,TRUE,1,250,FALSE,,,,222
+"regions","cnk_cntry_georegions","Reporting units","georegions per country, at 3 georegion levels",,"georgn_id","cntry_georegions_long_2013b.csv",,"cntry_key","level",,"georgn_id",,TRUE,1,999,FALSE,,,,222
+"regions","rn_rgn_area","Reporting units","region in water area",,"area_km2","rgn_fao_gcs_area.csv","rgn_id",,,,"area_km2",,TRUE,9.46355858358,31057239.8303,FALSE,,,,222
+"regions","rn_rgn_area_inland1km","Reporting units","inland area 1 mile from shore",,"area_km2","rgn_area_inland1km.csv","rgn_id",,,,"area_km2",,TRUE,1.7465015431603,163643.701591034,FALSE,,,,222
+"regions","rn_rgn_area_offshore3nm","Reporting units","offshore area 3 nautical miles from shore",,"area_km2","rgn_area_offshore3nm.csv","rgn_id",,,,"area_km2",,TRUE,10.4790092589618,629255.77349294,FALSE,,,,222
+"regions","rnk_rgn_georegions","Reporting units","georegions per region, at 3 georegion levels",,"georgn_id","rgn_georegions_long_2013b.csv","rgn_id",,"level",,"georgn_id",,TRUE,1,999,FALSE,,,,222
+"regions","rtk_rgn_georegion_labels","Reporting units","georegions per region, at 3 georegion levels",,"label","rgn_georegions_labels_long_2013b.csv","rgn_id",,"level",,,"label",TRUE,,,,,,,222
+"regions","rnk_rgn_global","Reporting units","regions used in global analysis for Nature 2012, subset of regions_labels by type=eez and not deleted or disputed ",,"label","rgn_global.csv","rgn_id",,,,,"label",TRUE,,,,,,,222
+"regions","rtk_rgn_labels","Reporting units","regions by type (eez, subocean, unclaimed) and label",,"label","rgn_labels.csv","rgn_id",,"type",,,"label",TRUE,,,,,,,222
+"resilience","alien_species","Alien species","resilience score",,"resilience score","r_alien_species_Nature2012disaggregated.csv","rgn_id",,,,"resilience.score",,TRUE,0,1,TRUE,,,,222
+"resilience","cites","Convention on International Trade in Endangered Species of Wild Fauna and Flora (CITES) signatories","resilience score",,"resilience score","r_cites_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0,1,TRUE,,,,222
+"resilience","fishing_v1","Convention on Biological Diversity (CBD) survey","fishing v1 (coastal)",,"resilience score","r_fishing_v1_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.241538566918161,0.892453964007202,TRUE,,,,222
+"resilience","fishing_v1_eez","Convention on Biological Diversity (CBD) survey","fishing v1 (EEZ)",,"resilience score","r_fishing_v1_eez_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.190061654351495,0.803602501344025,TRUE,,,,222
+"resilience","fishing_v2_eez","Convention on Biological Diversity (CBD) survey","fishing v2 (EEZ)",,"resilience score","r_fishing_v2_eez_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.245046240763621,0.766252150695941,TRUE,,,,222
+"resilience","fishing_v3","Convention on Biological Diversity (CBD) survey","fishing v3 (coastal)",,"resilience score","r_fishing_v3_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.245507455539828,0.901998500191288,TRUE,,,,222
+"resilience","fishing_v3_eez","Convention on Biological Diversity (CBD) survey","fishing v3 (EEZ)",,"resilience score","r_fishing_v3_eez_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.194030542973161,0.812899771097748,TRUE,,,,222
+"resilience","habitat","Convention on Biological Diversity (CBD) survey","habitat",,"resilience score","r_habitat_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.138087289287079,1,TRUE,,,,222
+"resilience","habitat_combo","Convention on Biological Diversity (CBD) survey","habitat alternate (coastal)",,"resilience score","r_habitat_combo_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.123025268,0.99999775,TRUE,,,,222
+"resilience","habitat_combo_eez","Convention on Biological Diversity (CBD) survey","habitat alternate (EEZ)",,"resilience score","r_habitat_combo_eez_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.086045814459742,0.943233237345455,TRUE,,,,222
+"resilience","li_gci","Global Competitiveness Index (GCI)","",,"score","rgn_wef_gci_2013a_rescaled.csv","rgn_id",,,"year","score",,TRUE,0.303333333333333,0.778333333333333,TRUE,,,,222
+"resilience","li_sector_evenness","Sector Evenness","",,"resilience score","r_li_sector_evenness_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0,0.997518269205,TRUE,,,,222
+"resilience","mariculture","Convention on Biological Diversity (CBD) survey","mariculture",,"resilience score","r_mariculture_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.054428393263486,1,TRUE,,,,222
+"resilience","msi_gov","Mariculture Sustainability Index (MSI): sustainability and regulations","resilience score",,"resilience score","r_msi_gov_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0.1,0.8576923077,TRUE,,,,222
+"resilience","species_diversity","Ecological integrity","EEZ",,"score","rgn_spp_score_2013.csv","rgn_id",,,,"score",,TRUE,0.743259450182977,0.930308754120408,TRUE,,,,222
+"resilience","species_diversity_3nm","Ecological integrity","coastal",,"score","rgn_spp_score_offshore3nm_2013.csv","rgn_id",,,,"score",,TRUE,0.752102387423915,0.943822818112876,TRUE,,,,222
+"resilience","tourism","Convention on Biological Diversity (CBD) survey","tourism",,"resilience score","r_tourism_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0,1,TRUE,,,,222
+"resilience","water","Convention on Biological Diversity (CBD) survey","water",,"resilience score","r_water_2013a.csv","rgn_id",,,,"resilience.score",,TRUE,0,1,TRUE,,,,222
+"resilience","wgi_all","Worldwide Governance Indicators (WGI)","resilience score",,"score","rgn_wb_wgi_2013a_rescaled.csv","rgn_id",,,,"score",,TRUE,0.040843016179138,0.871874627383874,TRUE,,,,222
+"SPP","rn_spp_status","Status of species extinction risk","",,"score","rgn_spp_score_2013.csv","rgn_id",,,,"score",,TRUE,0.743259450182977,0.930308754120408,TRUE,,,,222
+"SPP","rn_spp_trend","Trend in species extinction risk","",,"score","rgn_spp_trend_2013.csv","rgn_id",,,,"score",,TRUE,-0.464904077028102,0.0977703458133595,FALSE,,,,222
+"TR","rn_tr_status","TR status","",,"status","TourRec_Status_2013a_Sep23b.csv","rgn_id",,,,"status",,TRUE,0,100,FALSE,,,,222
+"TR","rn_tr_trend","TR trend","",,"trend","TourRec_Trend_2013a_Sep23b.csv","rgn_id",,,,"trend",,TRUE,-0.145058067,0.066334047,FALSE,,,,222
+"LIV | ECO","rn_liveco_status","LIV and ECO status","",,"value","rgn_liv.eco_status_2013a.csv","rgn_id",,"component",,"value",,TRUE,0.000380686126825058,1,TRUE,,,,222
+"LIV | ECO","rn_liveco_trend","LIV and ECO trend","",,"value","rgn_liv.eco_trend_2013a.csv","rgn_id",,"component",,"value",,TRUE,-0.998437811712268,0.999964535332029,FALSE,,,,222
+"LIV | ECO","rny_le_popn","WorldBank regional population","",,"count","rgn_wb_pop_2013a_updated.csv","rgn_id",,,"year","count",,TRUE,0,1350695000,FALSE,,,,222

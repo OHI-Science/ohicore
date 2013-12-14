@@ -132,7 +132,21 @@ NP = function(layers,
   
   # merge H with S & w
   rky = merge(rky, rk, all.x=T)
-  summary(rky)
+  
+  
+# DEBUG ----
+#   summary(rky)
+#     
+#   print(summary(rk))  # missing S & w
+#   print(summary(rky)) # missing S wrt H
+#   rk.old  = read.csv('/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/NP_debug_rk_2013a.csv' , na.strings='')
+#   rky.old = read.csv('/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/NP_debug_rky_2013a.csv', na.strings='')
+#   browser()
+#   
+#   summary(rk.old)
+#   summary(rk)
+#   summary(rky.old)
+#   summary(rky)  
   
   # get status across products, per region and year
   rky$w = ifelse(is.na(rky$w), 0, rky$w)
@@ -143,8 +157,8 @@ NP = function(layers,
   
   # get trend per product based on product-specific trend_years
   rk.trend = rename(ddply(rky, .(region_id, product), function(x){
-    lm(H * S ~ year, x[x$year %in% trend_years[[x$product[1]]],])$coefficients[['year']] * 5
-  }), c('V1'='trend.k')); head(rk.trend); head(rk)
+    lm(H * S ~ year, x[x$year %in% trend_years[[as.character(x$product[1])]],])$coefficients[['year']] * 5
+  }), c('V1'='trend.k')); head(rk.trend)  
   
   # summarize trend per region
   rk.trend.w = na.omit(merge(rk.trend, rk)); summary(rk.trend.w)

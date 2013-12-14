@@ -20,7 +20,7 @@ g.url = 'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladk
 g = subset(read.csv(textConnection(RCurl::getURL(g.url)), skip=1, na.strings=''), !is.na(ingest))
 
 # load results
-results.csv = '/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-09.csv'
+results.csv = '/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv'
 # TODO: update results to 10-09, not 10-08, per HAB +saltmarsh in OHI_results_for_Radical_2013-10-09.csv
 r = plyr::rename(read.csv(results.csv), c('value'='score'))
 r$dimension = plyr::revalue(r$dimension, c('likely_future_state'='future'))
@@ -61,8 +61,8 @@ for (yr in 2012:2013){ # yr=2012
     # create conforming layers navigation csv  
     layers.csv = sprintf('%s.csv', dir.to)
     g$targets = gsub('_', ' | ', as.character(g$target), fixed=T)
-    g$description = g$citation.2012n
-    g$citation = g$X  
+    g$description = g$subtitle
+    g$citation = g$citation_2013a
     write.csv(g[,c('targets','layer','title','description','citation','units','filename')], layers.csv, row.names=F, na='')
     
     # run checks on layers

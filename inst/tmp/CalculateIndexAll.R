@@ -1,38 +1,53 @@
 debug=T
 setwd('~/Code/ohicore')
 load_all()
-options(warn=2)
 
 # load layers and configuration
 scenario = 'Global2013.www2013'
-scores_www = read.csv(sprintf('inst/extdata/scores.%s.csv', scenario), na.strings='', stringsAsFactors=F)
 layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
                     layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
 conf       = Conf(sprintf('inst/extdata/conf.%s', scenario))
 
 # Pressures, all goals
-#scores.P = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma)  # DEBUG
-#write.csv(scores.P, '~/Downloads/scores.P.csv', na='', row.names=F)
-scores.P = read.csv('~/Downloads/scores.P.csv', na.strings='', stringsAsFactors=F)
-scores = scores.P
+scores_P = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma)  # DEBUG
+#write.csv(scores_P, '~/Downloads/scores_P.csv', na='', row.names=F)
+#scores_P = read.csv('~/Downloads/scores_P.csv', na.strings='', stringsAsFactors=F)
+scores = scores_P
 
 # Resilience, all goals
-#scores.R = CalculateResilienceAll(layers, conf) # DEBUG
-#write.csv(scores.R, '~/Downloads/scores.R.csv', na='', row.names=F)
-scores.R = read.csv('~/Downloads/scores.R.csv', na.strings='', stringsAsFactors=F)
-scores = rbind(scores, scores.R)
+scores_R = CalculateResilienceAll(layers, conf) # DEBUG
+#write.csv(scores_R, '~/Downloads/scores_R.csv', na='', row.names=F)
+#scores_R = read.csv('~/Downloads/scores_R.csv', na.strings='', stringsAsFactors=F)
+scores = rbind(scores, scores_R)
 
 # pre-Index functions: Status and Trend, by goal
-goals.X = subset(conf$goals, !is.na(preindex_function))
-goals.X = goals.X[order(nchar(goals.X$goal), decreasing=T),] # order by length of goal id so subgoals first
-for (i in 1:nrow(goals.X)){ # i=2
+goals_X = subset(conf$goals, !is.na(preindex_function))
+goals_X = goals_X[order(nchar(goals_X$goal), decreasing=T),] # order by length of goal id so subgoals first
+for (i in 1:nrow(goals_X)){ # i=2
   
   # calculate Status and Trend
-  scores.X = eval(parse(text=goals.X$preindex_function[i]), envir=conf$functions)  
+  scores = rbind(scores, eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions))
   
   # bind to other goal scores
-  scores = rbind(scores, scores.X)
+  scores = scores_X)
 }
+
+
+# DEBUG: NP ----
+# scores_old = rbind(cbind(rename(read.csv('/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/NP_status_2013a.csv', na.strings=''),
+#                                 c('rgn_id'='region_id', 'status'='score_old')), 
+#                          goal='NP', dimension='status'),
+#                    cbind(rename(read.csv('/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/NP_trend_2013a.csv', na.strings=''),
+#                                 c('rgn_id'='region_id', 'trend'='score_old')), 
+#                          goal='NP', dimension='trend'))
+# scores_old$score_old = round(scores_old$score_old, 2)
+# x = merge(rename(scores_www, c(score='score_www')), scores_old); head(x)
+# x = merge(x, scores)
+# x$score = round(x$score, 2)
+# x = within(x, {score_dif = score - score_www}); head(x)
+# print(subset(x, score_dif > 0.02), row.names=F)
+# browser()
+# head(x)
 
 # Goal Score and Likely Future
 goals.G = as.character(unique(subset(scores, dimension=='status', goal, drop=T)))
@@ -76,20 +91,13 @@ for (g in goals.G){ # g = goals.G[9]
   scores = rbind(scores, scores.G)
 }
 
-# WHOAH! likely future is off b/n score & score_www. b/c xlim=c(0,100)?
-
 # post-Index functions: supragoals
 goals.Y = subset(conf$goals, !is.na(postindex_function))
 goals.Y = goals.Y[order(nchar(goals.Y$goal), decreasing=T),] # order by length of goal id so subgoals first
 for (i in 1:nrow(goals.Y)){ # i=2
   
   # run function
-  scores = eval(parse(text=goals.Y$postindex_function[i]), envir=conf$functions)  
-  
-  #if (debug) cat(sprintf('post-Index %s: %d\n', goals.Y$goal[i], nrow(scores.Y)))
-  
-  # bind to other goal scores
-  #scores = rbind(scores, scores.Y)
+  scores = eval(parse(text=goals.Y$postindex_function[i]), envir=conf$functions)    
 }
 
 # regional Index score by goal weights
@@ -119,6 +127,7 @@ scores = rbind(scores, scores.F)
 scores = conf$functions$PreGlobalScores(layers, conf, scores)
 
 # global (region_id-0) scores by area weighting
+# NOTE: Index.future.0 (goal.dimension.region_id) is now 65.61 vs previous 64.71 which was just the mean, not area weighted
 region_areas = rename(SelectLayersData(layers, layers=conf$config$layer_region_areas, narrow=T), 
                       c('id_num'='region_id','val_num'='area')); head(region_areas); subset(region_areas, region_id==213)
 data.0 = merge(subset(scores, dimension %in% c('score','status','future')), 
@@ -132,7 +141,10 @@ scores = rbind(scores, scores.0)
 # post-process
 scores = conf$functions$FinalizeScores(layers, conf, scores)
 
-# compare with scores published on website
+
+
+# Compare with scores published on website ----
+scores_www = read.csv(sprintf('inst/extdata/scores.%s.csv', scenario), na.strings='', stringsAsFactors=F)
 v = merge(scores,
           rename(scores_www, c('score'='score_www')), all=T)
 v$score_dif = with(v, score - score_www)
@@ -140,10 +152,12 @@ v$score_dif = with(v, score - score_www)
 # print comparisons
 print(all.equal(v$score, v$score_www))
 print(v[is.na(v$score) != is.na(v$score_www), ])
-v_dif = v[!is.na(v$score) & !is.na(v$score_www) & (abs(v$score_dif) > 0.1),]
+#v_dif = v[!is.na(v$score) & !is.na(v$score_www) & (abs(v$score_dif) > 0.1),]
 print(subset(v_dif, !goal %in% c('NP','Index')), row.names=F)
 print(v_dif, row.names=F)
 browser()
+
+c_dif = dcast(subset(v, goal=='NP'), region_id ~ dimension, value.var='score_dif'); print(c_dif[,c('region_id','status','trend','future','score')], row.names=F)
 
 nrow(v_dif)
 print(table(v_dif[,c('goal','dimension')]))
