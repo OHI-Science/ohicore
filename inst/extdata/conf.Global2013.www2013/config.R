@@ -45,6 +45,7 @@ pressures_components  = list('NP'  = c('layer'='rnk_np_weights_combo'       , 'l
 pressures_categories = list(environmental=c('po','hd','fp','sp','cc'), social='ss')
 resilience_categories = c('environmental', 'regulatory', 'social')
 
+# constants
 pressures_gamma = 0.5
 goal_discount = 1.0
 goal_beta = 0.67

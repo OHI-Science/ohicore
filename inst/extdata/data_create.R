@@ -49,15 +49,7 @@ for (yr in 2012:2013){ # yr=2012
         write.csv(d, f.to, row.names=F, na='')
       }
     }
-    
-#     # HACK: create layer rnk_rgn_global_noAntarctica
-#     d = read.csv(file.path(dir.to, basename('rgn_global.csv')), na.strings=''); head(d)
-#     d = subset(d, label != 'Antarctica'); dim(d)
-#     write.csv(c, file.path(dir.to, basename('rgn_global_noAntarctica.csv')), row.names=F, na='')
-#     browser()
-#     revalue(subset(g, layer=='rnk_rgn_global'), c('')
-#     #rnk_rgn_global_noAntarctica
-          
+              
     # create conforming layers navigation csv  
     layers.csv = sprintf('%s.csv', dir.to)
     g$targets = gsub('_', ' | ', as.character(g$target), fixed=T)
