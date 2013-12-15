@@ -3,33 +3,44 @@
 \title{Calculate Goal Index}
 \usage{
   CalculateGoalIndex(id, status, trend, resilience,
-    pressure, DISCOUNT = 1, BETA = 0.67, default_trend = 0)
+    pressure, DISCOUNT = 1, BETA = 0.67, default_trend = 0,
+    xlim = c(0, 1))
 }
 \arguments{
-  \item{id}{Region identifiers.}
+  \item{id}{is the subregion identifier}
 
-  \item{status}{Status scores.}
+  \item{status}{(x) score}
 
-  \item{trend}{Trend values for 5 year outlook.}
+  \item{trend}{(t) score for 5 year outloook}
 
-  \item{resilience}{Resilience scores.}
+  \item{resilience}{(r) score}
 
-  \item{pressure}{Pressures scores.}
+  \item{pressure}{(p) score
 
-  \item{DISCOUNT}{Discount multiplier.}
+  Constants:}
 
-  \item{BETA}{Multiplier used in likely future status
-  calculation.}
+  \item{DISCOUNT}{is the discount multiplier (i.e., df = 1
+  - rate)}
+
+  \item{BETA}{is the trend dampening multiplier used in
+  likely future status calculation}
 
   \item{default_trend}{The default trend value (0) if
   region has NA.}
 }
 \value{
-  Returns a data.frame with the input data, and a likely
-  future status and OHI score.
+  Returns a data.frame with the input data, a likely future
+  status and OHI score, containing columns: status (x),
+  trend (t), resilience (r), pressure (p), future status
+  (xF) and goal score (score).
 }
 \description{
-  The goal model function.
+  Goal-level computation function to goal score ("component
+  indicators for public goals") based on status, trend,
+  resilience, pressure
+}
+\details{
+  Parameters:
 }
 \examples{
 \dontrun{

@@ -32,4 +32,5 @@ Collate:
     'CalculateGoalIndex.R'
     'CalculatePressuresAll.R'
     'CalculateResilienceAll.R'
+    'CalculateAll.R'
 LazyData: TRUE

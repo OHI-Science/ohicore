@@ -1,3 +1,4 @@
+export(CalculateAll)
 export(CalculateGoalIndex)
 export(CalculatePressuresAll)
 export(CalculatePressuresComponent)
