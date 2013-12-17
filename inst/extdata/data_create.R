@@ -2,10 +2,12 @@
 
 # flags for turning on/off time consuming code
 do.layers.Global.www2013 = T
+do.shapes.www2013 = T
 do.layers.Global2012.Nature2012ftp = F
 
 # load ohicore
-setwd('~/Code/ohicore')
+wd = '~/Code/ohicore'
+setwd(wd)
 load_all()
 
 # [layers|scores].Global[2013|2012].v2013web ----
@@ -64,6 +66,34 @@ for (yr in 2012:2013){ # yr=2012
   # create scores
   scores.csv = sprintf('inst/extdata/scores.Global%d.www2013.csv', yr)
   write.csv(r[r$scenario==yr, c('goal', 'dimension','region_id','score')], scores.csv, row.names=F, na='')
+}
+
+# shapes.v2013web ----
+if (do.shapes.www2013){
+  
+  # paths
+  shp.from   = file.path(dir.from.root, 'model/GL-NCEAS-OceanRegions_v2013a/data/rgn_simple_gcs.shp')
+  dir.to     = path.expand(file.path(wd, 'inst/extdata/shapes.www2013'))
+  shp.to     = file.path(dir.to, 'regions_gcs.shp')
+  geojson.to = file.path(dir.to, 'regions_gcs.geojson')
+  js.to      = file.path(dir.to, 'regions_gcs.js')
+  del.to     = file.path(dir.to, 'regions_gcs.*')
+  
+  # prep paths
+  dir.create(dir.to, showWarnings=F)
+  unlink(del.to)
+  
+  # read and write shapefile
+  sp::set_ll_warn(TRUE) # convert error to warning about exceeding longlat bounds
+  x = maptools::readShapeSpatial(shp.from, proj4string=sp::CRS('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'))
+  flds = c('rgn_id'='rgn_id', 'rgn_nam'='rgn_nam') #flds = c('rgn_id'='region_id', 'rgn_nam'='region_nam') # too long for shapefile columns
+  x@data = plyr::rename(x@data[,names(flds)], flds) # drop other fields  
+  rgdal::writeOGR(x, dsn=geojson.to, layer=basename(tools::file_path_sans_ext(geojson.to)), driver='GeoJSON')
+  rgdal::writeOGR(x, dsn=shp.to, layer=basename(tools::file_path_sans_ext(shp.to)), driver='ESRI Shapefile')  
+  fw = file(js.to, 'wb')
+  cat('var regions = ', file=fw)
+  cat(readLines(geojson.to, n = -1), file=fw)
+  close(fw)
 }
 
 # TODO: layers.Global2012.v2012Nature ----
