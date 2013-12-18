@@ -8,7 +8,8 @@ Depends:
     R (>= 2.14.0),
     plyr,
     reshape2,
-    RJSONIO
+    RJSONIO,
+    psych
 Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
 License: MIT
