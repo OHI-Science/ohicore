@@ -77,6 +77,7 @@ SelectLayersData = function(object, targets=NULL, layers=NULL, cast=TRUE, narrow
       x$val_name      = ifelse(length(intersect(c('val_num','val_chr'), names(x)))==1, as.character(na.omit(flds[c('val_num','val_chr')])), NA)
       x$category_name = ifelse('category' %in% names(x), as.character(flds['category']), NA)
       x$flds = paste(names(flds), collapse=' | ')
+      x$layer = layer
       
       return(x)
       
@@ -91,6 +92,7 @@ SelectLayersData = function(object, targets=NULL, layers=NULL, cast=TRUE, narrow
   
   if (narrow) {
     flds = unique(strsplit(paste(unique(focus.data$flds), collapse=' | '), ' | ', fixed=T)[[1]])
+    #browser()
     if (length(unique(focus.data$layer))==1){
       focus.data = focus.data[flds]
     } else {
