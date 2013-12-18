@@ -82,7 +82,7 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
     if (length(idx.ids)>0){
       # if more than one id field, then presume lookup table and get the id field entirely unique rows
       if (length(idx.ids)>1){
-        fld_id = names(d)[lapply(as.list(d[,idx.ids]), anyDuplicated)==0]
+        fld_id = names(d)[idx.ids[lapply(as.list(d[,idx.ids]), anyDuplicated)==0]]
       } else {
         fld_id = names(d)[idx.ids]
       }
@@ -95,6 +95,7 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
       }
       
       # assign metadata check
+      #if (layer=='cn_cntry_rgn') browser()
       m$num_ids_unique  = length(unique(d[[fld_id]]))
     }
     
