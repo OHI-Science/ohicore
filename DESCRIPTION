@@ -33,4 +33,5 @@ Collate:
     'CalculatePressuresAll.R'
     'CalculateResilienceAll.R'
     'CalculateAll.R'
+    'ReadWriteScenario.R'
 LazyData: TRUE
