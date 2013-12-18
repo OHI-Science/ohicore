@@ -49,7 +49,7 @@ CalculateAll = function(conf, layers, debug=F){
   cat(sprintf('Calculating Resilience...\n'))
   scores_R = CalculateResilienceAll(layers, conf)
   #write.csv(scores_R, '~/Downloads/scores_R.csv', na='', row.names=F)
-  scores_R = read.csv('~/Downloads/scores_R.csv', na.strings='', stringsAsFactors=F)
+  #scores_R = read.csv('~/Downloads/scores_R.csv', na.strings='', stringsAsFactors=F)
   scores = rbind(scores, scores_R)
   
   # pre-Index functions: Status and Trend, by goal  
