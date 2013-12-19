@@ -47,7 +47,9 @@ Layers = setRefClass(
       for (i in 1:nrow(.self$meta)){
         lyr = .self$meta$layer[i]
         csv = .self$meta$filename[i]
-        write.csv(.self$data[[lyr]], file.path(layers.dir, csv), row.names=F, na='')
+        d = .self$data[[lyr]]
+        d = d[,names(d) != 'layer']
+        write.csv(d, file.path(layers.dir, csv), row.names=F, na='')
       }},
     show = function(){
       print(meta[-which(names(.self$meta) == 'filename')])}
