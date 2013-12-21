@@ -9,10 +9,13 @@ layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario)
 
 
 # calculate scores ----
-scores = CalculateAll(conf, layers, debug=F)
-
+scores = CalculateAll(conf, layers, debug=T)
+scores2 = data.frame(scores, stringsAsFactors=F); summary(scores2)
 
 # compare scores ----
+
+# convert strings to factors
+scores = with(scores, data.frame(goal=as.character(goal), dimension=as.character(dimension), region_id=region_id, score=score, stringsAsFactors=F))
 scores_www = read.csv(sprintf('inst/extdata/scores.%s.csv', scenario), na.strings='', stringsAsFactors=F)
 v = merge(scores,
           rename(scores_www, c('score'='score_www')), all=T)
@@ -25,7 +28,6 @@ print(all.equal(v$score, v$score_www))
 print(table(scores[,c('goal','dimension')]) - table(scores_www[,c('goal','dimension')]), zero.print='.')
 print(table(v[!is.na(v$score), c('goal','dimension')]) - table(v[!is.na(v$score_www), c('goal','dimension')]), zero.print='.')
 print(v[is.na(v$score) != is.na(v$score_www), ])
-
 print(table(v_dif[,c('goal','dimension')]))
 print(v_dif, row.names=F)
 

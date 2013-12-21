@@ -39,7 +39,6 @@ FP = function(layers, scores){
              c('id_num'='region_id', 'val_num'='w_FIS')); head(w)
   
   # scores
-  browser()
   s = dcast(scores, region_id + dimension ~ goal, value.var='score', subset=.(goal %in% c('FIS','MAR') & !dimension %in% c('pressures','resilience'))); head(s)
   
   # combine

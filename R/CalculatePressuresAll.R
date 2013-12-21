@@ -69,6 +69,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
       
       # get data layer for determining the weights by region, which could be from layers_data or layers_data_bycountry
       stopifnot(g %in% names(pc))
+      stopifnot(pc[[g]][['layer']] %in% names(layers))
       d_w = rename(SelectLayersData(layers, layers=pc[[g]][['layer']], narrow=T),
                    c('id_num'='region_id','val_num'='value'))
       

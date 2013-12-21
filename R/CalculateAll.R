@@ -40,14 +40,14 @@ CalculateAll = function(conf, layers, debug=F){
   
   # Pressures, all goals
   cat(sprintf('Calculating Pressures...\n'))
-  scores_P = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma)
+  scores_P = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
   #write.csv(scores_P, '~/Downloads/scores_P.csv', na='', row.names=F)
   #scores_P = read.csv('~/Downloads/scores_P.csv', na.strings='', stringsAsFactors=F)
   scores = scores_P
   
   # Resilience, all goals
   cat(sprintf('Calculating Resilience...\n'))
-  scores_R = CalculateResilienceAll(layers, conf)
+  scores_R = CalculateResilienceAll(layers, conf, debug)
   #write.csv(scores_R, '~/Downloads/scores_R.csv', na='', row.names=F)
   #scores_R = read.csv('~/Downloads/scores_R.csv', na.strings='', stringsAsFactors=F)
   scores = rbind(scores, scores_R)

@@ -10,14 +10,15 @@
 #' @param if True (default), extra diagnostics are output
 #' @return warning messages
 #' @details The CheckLayers() function iterates through all the layers
-#' in layers.csv and updates the following field names:
+#' in layers.csv and updates the following field names, which can be NA for any except flds:
 #' \itemize{
-#'   \item{\emph{fld_id_num} - numeric unique identifier}
-#'   \item{\emph{fld_id_chr} - character unique identifier}
-#'   \item{\emph{fld_category} - category}
-#'   \item{\emph{fld_year} - year}
-#'   \item{\emph{fld_val_num} - numeric value}
-#'   \item{\emph{fld_val_chr} - character value}
+#'  \item{\emph{fld_id_num} - name of field used as spatial identifier, if numeric}
+#'  \item{\emph{fld_id_chr} - name of field used as spatial identifier, if character}
+#'  \item{\emph{fld_category} - name of field used as category}
+#'  \item{\emph{fld_year} - ame of field used as year}
+#'  \item{\emph{fld_val_num} - name of field used as value, from fld_value, if numeric}
+#'  \item{\emph{fld_val_chr} - name of field used as value, from fld_value, if character}
+#'  \item{\emph{flds} - data fields used for the layer}
 #' }
 #' Additional diagnostic fields are updated:
 #' \itemize{
@@ -100,18 +101,18 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
     }
     
     # units field
-    fld_units = tolower(chartr('/ ','..', m$units[i])) # translate slash or space to a single dot
-    if (!fld_units %in% names(d)){
-      m$flds_missing[i] = paste(m$flds_missing[i], fld_units)
+    fld_value = tolower(chartr('/ ','..', m$fld_value[i])) # translate slash or space to a single dot
+    if (!fld_value %in% names(d)){
+      m$flds_missing[i] = paste(m$flds_missing[i], fld_value)
     } else {
-      if (fld_types[fld_units]=='character'){
-        m$fld_val_chr[i] = fld_units
+      if (fld_types[fld_value]=='character'){
+        m$fld_val_chr[i] = fld_value
       } else {
-        m$fld_val_num[i] = fld_units
+        m$fld_val_num[i] = fld_value
         
         # add metadata checks
-        m$val_min[i]  = min(d[[fld_units]], na.rm=T)
-        m$val_max[i]  = max(d[[fld_units]], na.rm=T)
+        m$val_min[i]  = min(d[[fld_value]], na.rm=T)
+        m$val_max[i]  = max(d[[fld_value]], na.rm=T)
         m$val_0to1[i] = m$val_min[i] >=0 & m$val_max[i]<=1
       }
     }

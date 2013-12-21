@@ -131,7 +131,7 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
         condition = rownames(components.in.cond)[apply(components.in.cond, 1, function(x) all(x==T,na.rm=T))]
         #if (identical(condition, character(0))) condition = NA
         if (identical(condition, character(0))){
-          cat(sprintf('  skipping region %s for %s since no matching conditions, but having components: %s\n', id, g, paste(components, collapse=', ')))
+          if (debug) cat(sprintf('  skipping region %s for %s since no matching conditions, but having components: %s\n', id, g, paste(components, collapse=', ')))
           next # Wierd: with layers.Global2013.www2013, g=HAB, id=35, get condition=NA. and for HAB then lyrs bonks       
         } 
         

@@ -1,14 +1,16 @@
 # Create package datasets for lazy loading. Document in R/data.R.
 
-# flags for turning on/off time consuming code
-do.layers.Global.www2013 = T
-do.shapes.www2013 = T
-do.layers.Global2012.Nature2012ftp = F
+library(plyr)
 
 # load ohicore
 wd = '~/Code/ohicore'
 setwd(wd)
 load_all()
+
+# flags for turning on/off time consuming code
+do.layers.Global.www2013 = T
+do.shapes.www2013 = F
+do.layers.Global2012.Nature2012ftp = F
 
 # [layers|scores].Global[2013|2012].v2013web ----
 
@@ -29,7 +31,7 @@ r$dimension = plyr::revalue(r$dimension, c('likely_future_state'='future'))
 #table(r[,c('dimension','goal')])
 
 # iterate over scenarios
-for (yr in 2012:2013){ # yr=2012
+for (yr in 2012:2013){ # yr=2013
   cat(sprintf('\n---------\nScenario: %da\n', yr))
   
   if (do.layers.Global.www2013){
@@ -54,10 +56,10 @@ for (yr in 2012:2013){ # yr=2012
               
     # create conforming layers navigation csv  
     layers.csv = sprintf('%s.csv', dir.to)
-    g$targets = gsub('_', ' | ', as.character(g$target), fixed=T)
-    g$description = g$subtitle
+    g$targets = gsub('_', ' ', as.character(g$target), fixed=T)
+    #g$description = g$subtitle
     g$citation = g$citation_2013a
-    write.csv(g[,c('targets','layer','title','description','citation','units','filename')], layers.csv, row.names=F, na='')
+    write.csv(g[,c('targets','layer','name','description','citation','units','filename','fld_value')], layers.csv, row.names=F, na='')
     
     # run checks on layers
     CheckLayers(layers.csv, dir.to, flds_id=c('rgn_id','cntry_key','saup_id'))
@@ -140,7 +142,7 @@ for (csv in list.files('inst/extdata', pattern=glob2rx('scores.*.csv'), full.nam
 
 # conf.* ----
 # Create conf.[scenario] dataset for all conf.[scenario] directories.
-for (dir in list.files('inst/extdata', pattern=glob2rx('conf.*'), full.names=T)){ # dir = list.files('inst/extdata', pattern=glob2rx('conf.*'), full.names=T)[1]
+for (dir in list.files('inst/extdata', pattern=glob2rx('conf.*'), full.names=T)){ # dir = list.files('inst/extdata', pattern=glob2rx('conf.*'), full.names=T)[2]
     
   # get directory and ensure exists
   conf = basename(dir)
