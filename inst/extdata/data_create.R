@@ -9,7 +9,7 @@ load_all()
 
 # flags for turning on/off time consuming code
 do.layers.Global.www2013 = T
-do.shapes.www2013 = F
+do.spatial.www2013 = F
 do.layers.Global2012.Nature2012ftp = F
 
 # [layers|scores].Global[2013|2012].v2013web ----
@@ -70,12 +70,12 @@ for (yr in 2012:2013){ # yr=2013
   write.csv(r[r$scenario==yr, c('goal', 'dimension','region_id','score')], scores.csv, row.names=F, na='')
 }
 
-# shapes.v2013web ----
-if (do.shapes.www2013){
+# spatial.v2013web ----
+if (do.spatial.www2013){
   
   # paths
   shp.from   = file.path(dir.from.root, 'model/GL-NCEAS-OceanRegions_v2013a/data/rgn_simple_gcs.shp')
-  dir.to     = path.expand(file.path(wd, 'inst/extdata/shapes.www2013'))
+  dir.to     = path.expand(file.path(wd, 'inst/extdata/spatial.www2013'))
   shp.to     = file.path(dir.to, 'regions_gcs.shp')
   geojson.to = file.path(dir.to, 'regions_gcs.geojson')
   js.to      = file.path(dir.to, 'regions_gcs.js')

@@ -35,4 +35,5 @@ Collate:
     'CalculateResilienceAll.R'
     'CalculateAll.R'
     'ReadWriteScenario.R'
+    'PlotChloroplethMap.R'
 LazyData: TRUE
