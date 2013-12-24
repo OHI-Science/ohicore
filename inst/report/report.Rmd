@@ -119,17 +119,18 @@ scores$dimension_label = factor(
 ```
 
 ```{r flowers, results='asis'}
-cat('\n## Flower Plots\n')
 
 # loop through regions
 for (rgn_id in rgns){ # rgn_id=0
    
   # header md
   rgn_name = subset(rgn_names, region_id==rgn_id, rgn_name, drop=T)
-  cat(sprintf('\n### %s (%d)\n\n', rgn_name, rgn_id))
+  cat(sprintf('\n## %s (%d)\n\n', rgn_name, rgn_id))
   
   # flower plot ----
   if (do_flowers){
+    
+    cat('\n## Flower\n\n')
   
     # region scores    
     x = with(subset(scores, dimension=='score' & region_id==rgn_id & goal %in% names(wts)),
@@ -161,6 +162,9 @@ for (rgn_id in rgns){ # rgn_id=0
   
   # table md
   if (do_tables){
+    
+    cat('\n## Scores\n\n')
+    
     x = dcast(subset(scores, region_id==rgn_id), goal_label ~ dimension_label, value.var='score')
     row.names(x) = x$goal_label; x = x[, names(x)!='goal_label']
     kable(x, format='markdown')  
