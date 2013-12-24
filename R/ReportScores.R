@@ -21,11 +21,17 @@ ReportScores = function(scenario = list(conf   = ohicore::conf.Global2013.www201
                                                          system.file('inst/extdata/spatial.www2013', package='ohicore'))),
                         directory = path.expand('~/myohi/scenario.Global2013.www2013/reports'),
                         filename = 'report_Global2013_www2013.html', 
-                        overwrite=F, global_only=F, ck_Equations=T, ck_Histograms=T, ck_Maps=T, ck_Paths=T, ck_Tables=T, ck_Flowers=T, 
+                        # options:
+                        open_html=T, overwrite=F, global_only=T,
+                        # include:
+                        do_flowers=T, do_tables=T, 
+                        # to implement...
+                        do_maps=T, do_histograms=T, do_paths=T, do_equations=T, 
                         debug=F, ...){
+  
 
   require(knitr); require(markdown)
-  #setwd('~/Code/ohicore'); load_all()
+  #setwd('~/Code/ohicore'); load_all(); launchApp()
 
   # TODO: read scenario.R for this info
   conf        = scenario$conf
@@ -53,12 +59,13 @@ ReportScores = function(scenario = list(conf   = ohicore::conf.Global2013.www201
   # knit ----
   # global_only=F; overwrite=T
   knitr::knit(f_rmd, f_md)
-  markdown::markdownToHTML(f_md, f_html, options=c('hard_wrap','use_xhtml','smartypants','toc')); browseURL(f_html) #; shell.exec(f[3])
+  markdown::markdownToHTML(f_md, f_html, options=c('hard_wrap','use_xhtml','smartypants','toc'))
+  if (open_html) browseURL(f_html)
   
-  if (.Platform$OS.type == 'windows'){
-    system(sprintf('cd %s; pandoc -s --toc %s -o %s', dirname(f_md), f_md, f_pdf)); shell.exec(f_pdf)
-  } else if (.Platform$OS.type == 'unix'){
-    system(sprintf('cd %s; pandoc -s --toc %s -o %s', dirname(f_md), f_md, f_pdf)); system(sprintf('open %s', f_pdf))
-  }
+#   if (.Platform$OS.type == 'windows'){
+#     system(sprintf('cd %s; pandoc -s --toc %s -o %s', dirname(f_md), f_md, f_pdf)); shell.exec(f_pdf)
+#   } else if (.Platform$OS.type == 'unix'){
+#     system(sprintf('cd %s; pandoc -s --toc %s -o %s', dirname(f_md), f_md, f_pdf)); system(sprintf('open %s', f_pdf))
+#   }
   
 }
