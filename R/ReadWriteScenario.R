@@ -3,7 +3,7 @@
 ##' Read or write all the necessary elements, ie "scenario", of the Ocean Health Index.
 ##' 
 ##' @aliases WriteScenario ReadScenario
-##' @param scenario list of (conf, layers, scores, shapes, dir)
+##' @param scenario list of (conf, layers, scores, spatial, dir)
 ##' @param scenario.R code to source and set scenario
 ##' @return Returns scenario
 ##' @seealso Conf, Layers, scores
@@ -13,8 +13,8 @@
 WriteScenario = function(scenario = list(conf   = ohicore::conf.Global2013.www2013, 
                                          layers = ohicore::layers.Global2013.www2013, 
                                          scores = ohicore::scores.Global2013.www2013,
-                                         shapes = system.file('extdata/shapes.www2013', package='ohicore'),
-#shapes = system.file('inst/extdata/shapes.www2013', package='ohicore'),
+                                         spatial = system.file('extdata/spatial.www2013', package='ohicore'),
+#spatial = system.file('inst/extdata/spatial.www2013', package='ohicore'),
                                          dir    = path.expand('~/myohi/scenario.Global2013.www2013'))) {
   
   
@@ -28,7 +28,7 @@ WriteScenario = function(scenario = list(conf   = ohicore::conf.Global2013.www20
   dir_layers   = file.path(dir_scenario, 'layers')
   csv_layers   = sprintf('%s.csv', dir_layers)
   csv_scores   = file.path(dir_scenario, 'scores.csv') 
-  dir_shapes   = file.path(dir_scenario, 'shapes')
+  dir_spatial   = file.path(dir_scenario, 'spatial')
   r_scenario   =  file.path(dir_scenario, 'scenario.R') 
   sh_app       =  file.path(dir_scenario, 'run_app.sh') 
 
@@ -44,10 +44,10 @@ WriteScenario = function(scenario = list(conf   = ohicore::conf.Global2013.www20
   # scores csv
   write.csv(scenario$scores, csv_scores, na='', row.names=F)
   
-  # shapes dir
-  dir.create(dir_shapes, recursive=T, showWarnings=F)
-  for (f in list.files(scenario$shapes, full.names=T)){ # f = list.files(scenario$shapes, full.names=T)[1]
-    file.copy(f, file.path(dir_shapes, basename(f)))
+  # spatial dir
+  dir.create(dir_spatial, recursive=T, showWarnings=F)
+  for (f in list.files(scenario$spatial, full.names=T)){ # f = list.files(scenario$spatial, full.names=T)[1]
+    file.copy(f, file.path(dir_spatial, basename(f)))
   }
   
   # scenario
@@ -58,7 +58,7 @@ WriteScenario = function(scenario = list(conf   = ohicore::conf.Global2013.www20
       '  conf   = ohicore::Conf(file.path(wd, "conf")),',
       '  layers = ohicore::Layers(file.path(wd, "layers.csv"), file.path(wd, "layers")),',
       '  scores = read.csv(file.path(wd, "scores.csv"), na.strings=""),',
-      '  shapes = file.path(wd, "shapes"),',
+      '  spatial = file.path(wd, "spatial"),',
       '  dir    = wd)',
       sep='\n', file=file.path(dir_scenario, 'scenario.R'))  
   
@@ -71,7 +71,7 @@ WriteScenario = function(scenario = list(conf   = ohicore::conf.Global2013.www20
       '  conf   = ohicore::Conf("conf"),',
       '  layers = ohicore::Layers("layers.csv", "layers"),',
       '  scores = read.csv("scores.csv", na.strings=""),',
-      '  shapes = file.path(wd, "shapes"),',
+      '  spatial = file.path(wd, "spatial"),',
       '  dir    = wd), launch.browser=T)',
       sep='\n', file=file.path(dir_scenario, 'launchApp_code.R'))
   

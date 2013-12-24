@@ -36,4 +36,5 @@ Collate:
     'CalculateAll.R'
     'ReadWriteScenario.R'
     'PlotChloroplethMap.R'
+    'PlotFlower.R'
 LazyData: TRUE

@@ -1,0 +1,100 @@
+# Ocean Health Index Report
+
+
+```{r init, dependson=NULL, echo=F, cache=F, message=F}
+# see ohicore::ReportScores() for running this template
+library(plyr)
+
+# knitr options
+library(knitr)
+opts_chunk$set(dependson='init',echo=F,cache=T,fig.width=8,fig.height=5)
+options(markdown.HTML.options=c('hard_wrap','use_xhtml','smartypants','toc')) # exclude 'base64_images'
+ohi.markdown.css = ifelse(file.exists(system.file('report/markdown.css', package='ohicore')),
+                          system.file(     'report/markdown.css', package='ohicore'),
+                          system.file('inst/report/markdown.css', package='ohicore'))
+
+ohi.options <- function() {
+    double.digits <- 15 # <- floor(log10(.Machine$double.base^.Machine$double.digits)) 
+    options(digits=double.digits)
+    options(stringsAsFactors=FALSE) # to prevent factors
+    options(width=120) # for outputting wide columns
+    options(rstudio.markdownToHTML = 
+              function(inputFile, outputFile) {      
+                # example: eg /var/data/ohi/model/GL-NCEAS-Pressures_Matrix/report9.Rmd
+                # see: http://www.rstudio.com/ide/docs/authoring/markdown_custom_rendering
+                # original: '/Applications/RStudio.app/Contents/Resources/resources/markdown.css'
+                markdownToHTML(inputFile, options=getOption('markdown.HTML.options'), outputFile, stylesheet=ohi.markdown.css)   
+              })
+    options()
+}
+opt_old = options(ohi.options())
+
+# get goals for flowers, all and specific to weights
+goals.all = arrange(conf$goals, order_color)[['goal']]
+
+# get colors for aster, based on 10 colors, but extended to all goals. subselect for goals.wts
+cols.goals.all = colorRampPalette(RColorBrewer::brewer.pal(10, 'Spectral'), space='Lab')(length(goals.all))
+names(cols.goals.all) = goals.all
+
+# get subgoals and goals, not supragoals, for doing flower plot
+goals_supra = na.omit(unique(conf$goals$parent))
+wts = with(subset(conf$goals, !goal %in% goals_supra, c(goal, weight)), setNames(weight, goal))
+goal_labels = gsub('\\n', '\n', with(conf$goals, setNames(name_flower, goal))[names(wts)], fixed=T)
+
+# region names, ordered by GLOBAL and alphabetical
+rgn_names = rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), c('id_num'='region_id', 'val_chr'='rgn_name'))[,c('region_id','rgn_name')]
+rgn_names = rbind(data.frame(region_id=0, rgn_name='GLOBAL'), 
+                  arrange(rgn_names, rgn_name))
+
+# determine regions
+if (global_only){
+  rgns = 0
+} else {
+  rgns = rgn_names$region_id
+}
+
+# directory to store figures
+dir_fig = file.path(dir_report, 'figures')
+dir.create(dir_fig, showWarnings=F)
+```
+
+```{r flowers, results='asis'}
+cat('\n## Flower Plots\n')
+
+# loop through regions
+for (rgn_id in rgns){
+   
+  # region name and scores
+  rgn_name = subset(rgn_names, region_id==rgn_id, rgn_name, drop=T)
+  x = with(subset(scores, dimension=='score' & region_id==rgn_id & goal %in% names(wts)),
+           setNames(score, goal))[names(wts)]
+  
+  # paths
+  fig_pdf = sprintf('%s/flower_%s.pdf', dir_fig, gsub(' ','_', rgn_name))
+  fig_png = sprintf('%s/flower_%s.png', dir_fig, gsub(' ','_', rgn_name))
+  
+  # plot
+  if (overwrite | !file.exists(fig_png)){
+    pdf(fig_pdf, width=7, height=7)
+    PlotFlower(main = rgn_name,
+               lengths=x,
+               widths=wts,
+               fill.col=ifelse(is.na(x), 
+                               'grey80', 
+                               cols.goals.all[names(wts)]),
+               labels  =ifelse(is.na(x), 
+                               paste(goal_labels, '-', sep='\n'), 
+                               paste(goal_labels, round(x), sep='\n')),
+               center=round(weighted.mean(x, wts, na.rm=T)),
+               max.length = 100, disk=0.4, label.cex=0.9, label.offset=0.155, cex=2.2, cex.main=2.5)
+    dev.off()
+  
+    # imagemagick's convert
+    system(sprintf('convert -density 150x150 %s %s', fig_pdf, fig_png))
+  }
+  
+  # markdown
+  cat(sprintf('\n### %s (%d)\n', rgn_name, rgn_id))
+  cat(sprintf('![flower plot of %s](figures/%s)\n', rgn_name, basename(fig_png)))
+}
+```
