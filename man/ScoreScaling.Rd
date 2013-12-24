@@ -1,0 +1,40 @@
+\name{ScoreScaling}
+\alias{ScoreScaling}
+\alias{score.clamp}
+\alias{score.max}
+\alias{score.rescale}
+\title{Score Scaling Functions}
+\usage{
+  score.rescale(x, xlim = NULL, method = "linear", ...)
+}
+\arguments{
+  \item{x}{A numeric vector of data.}
+
+  \item{xlim}{The scoring range. If null, derives range
+  from data.}
+
+  \item{p}{A percentage buffer to add to the maximum
+  value.}
+
+  \item{method}{Only 'linear' is supported.}
+
+  \item{...}{Arguments for min, max, pmin, pmax.}
+}
+\value{
+  Returns scores.
+}
+\description{
+  Scoring functions
+}
+\examples{
+score.max(c(0.5, 1, 2))
+score.max(c(0.5, 1, 2), p=0.25)
+score.rescale(c(0.5, 1, 2))
+score.clamp(c(-0.5, 1, 2))
+score.clamp(c(-0.5, 1, 2), xlim=c(-1, 1))
+}
+\seealso{
+  min, max, pmin, pmax
+}
+\keyword{ohi}
+

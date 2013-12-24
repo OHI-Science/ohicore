@@ -2,7 +2,7 @@
 #' 
 #' @return object (non-instantiated) reference class of SpatialSchemes
 #' @export
-#' @include SelectLayers.R
+#' @include SelectLayersData.R
 SpatialSchemes = setRefClass(
     'SpatialSchemes',
     fields = list(
@@ -38,7 +38,7 @@ SpatialSchemes = setRefClass(
 )
 
 
-setGeneric("SelectLayers", SelectLayers)
+#setGeneric("SelectLayers", SelectLayers)
 
 setMethod("names", 'SpatialSchemes', 
     function (x) {

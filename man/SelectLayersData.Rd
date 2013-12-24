@@ -1,0 +1,57 @@
+\name{SelectLayersData}
+\alias{SelectLayersData}
+\title{Select Layers to Data}
+\usage{
+  SelectLayersData(object, targets = NULL, layers = NULL,
+    cast = TRUE, narrow = FALSE,
+    expand.time.invariant = FALSE)
+}
+\arguments{
+  \item{object}{instance of Layers class}
+
+  \item{targets}{specifies the targets of layers to be
+  selected, defaulting to \code{c('regions')}}
+
+  \item{layers}{specifies the layers to be selected. If
+  given as a named character vector, then layers get
+  renamed with new names as values, and old names as names
+  per {\code{\link{plyr::rename}}}}
+
+  \item{narrow}{narrow the resulting data frame to just the
+  fields containing data (as described by \emph{flds} in
+  the default wide result) #}
+
+  \item{expand.time.invariant}{for layers without a year
+  column, populate the same value throughout all years
+  where available in other layer(s) #}
+
+  \item{cast}{whether to cast the resulting dataset, or
+  leave it melted, defaults to TRUE}
+}
+\value{
+  data.frame with the merged data of selected layers having
+  the following fields: \itemize{ \item{\emph{layer} -
+  layer name, possibly renamed} \item{\emph{layer0} -
+  original layer name, if fed a named character vector to
+  layers} \item{\emph{id_num} - numeric id}
+  \item{\emph{id_chr} - character id} \item{\emph{id_name}
+  - fieldname of id in original layer csv file}
+  \item{\emph{category} - category}
+  \item{\emph{category_name} - fieldname of character in
+  original layer csv file} \item{\emph{year} - year}
+  \item{\emph{val_num} - numeric value}
+  \item{\emph{val_chr} - character value}
+  \item{\emph{val_name} - fieldname of value in original
+  layer csv file} \item{\emph{flds} - data fields used for
+  the layer} }
+}
+\description{
+  Select Layers to Data
+}
+\details{
+  If neither targets or layers are specified then all
+  layers are returned. If targets and layers are specified,
+  then the union of the two sets of layers are returned,
+  with any renamed layers renamed.
+}
+

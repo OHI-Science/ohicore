@@ -1,0 +1,173 @@
+# Ocean Health Index Report
+
+```{r debug_load, echo=F, eval=F, dependson=NULL}
+# DEBUG
+devtools::load_all('~/Code/ohicore')
+scenario = list(conf = ohicore::conf.Global2013.www2013, 
+                       layers = ohicore::layers.Global2013.www2013, 
+                       scores = ohicore::scores.Global2013.www2013,
+                       spatial = ifelse(file.exists(system.file('extdata/spatial.www2013', package='ohicore')),
+                                        system.file('extdata/spatial.www2013', package='ohicore'),
+                                        system.file('inst/extdata/spatial.www2013', package='ohicore')))
+directory = path.expand('~/myohi/scenario.Global2013.www2013/reports')
+filename = 'report_Global2013_www2013.html'
+# options:
+open_html=T; overwrite=F; global_only=T
+# include:
+do_flowers=T; do_tables=T 
+# to implement...
+do_maps=T; do_histograms=T; do_paths=T; do_equations=T
+debug=F
+
+require(knitr); require(markdown)
+
+# TODO: read scenario.R for this info
+conf        = scenario$conf
+layers      = scenario$layers
+scores      = scenario$scores
+dir_spatial = scenario$spatial
+
+dir_report  = directory # file.path(dir_scenario, 'reports')
+f_report    = filename  # TODO: pdf
+
+# report template
+f_rmd = ifelse(file.exists(system.file(     'report/report.Rmd', package='ohicore')),
+                           system.file(     'report/report.Rmd', package='ohicore'),
+                           system.file('inst/report/report.Rmd', package='ohicore'))
+
+# create directories
+dir.create(dir_report, recursive=T, showWarnings=F)
+
+# output files
+f      = tools::file_path_sans_ext(f_report)
+f_md   = sprintf('%s/%s.md'  , dir_report, f)
+f_html = sprintf('%s/%s.html', dir_report, f)
+f_pdf  = sprintf('%s/%s.pdf' , dir_report, f)
+```
+
+```{r init, dependson=NULL, echo=F, cache=F, message=F}
+# DEBUG: dependson='debug_load'
+
+# see ohicore::ReportScores() and system.file('shiny_app/server.R', package='ohigui') for running this template
+library(plyr)
+
+# knitr options
+require(knitr); require(markdown)
+opts_chunk$set(dependson='init',echo=F,cache=F,fig.width=8,fig.height=5)
+options(markdown.HTML.options=c('hard_wrap','use_xhtml','smartypants','toc')) # exclude 'base64_images'
+ohi.markdown.css = ifelse(file.exists(system.file('report/markdown.css', package='ohicore')),
+                          system.file(     'report/markdown.css', package='ohicore'),
+                          system.file('inst/report/markdown.css', package='ohicore'))
+
+ohi.options <- function() {
+    double.digits <- 15 # <- floor(log10(.Machine$double.base^.Machine$double.digits)) 
+    options(digits=double.digits)
+    options(stringsAsFactors=FALSE) # to prevent factors
+    options(width=120) # for outputting wide columns
+    options(rstudio.markdownToHTML = 
+              function(inputFile, outputFile) {      
+                # example: eg /var/data/ohi/model/GL-NCEAS-Pressures_Matrix/report9.Rmd
+                # see: http://www.rstudio.com/ide/docs/authoring/markdown_custom_rendering
+                # original: '/Applications/RStudio.app/Contents/Resources/resources/markdown.css'
+                markdownToHTML(inputFile, options=getOption('markdown.HTML.options'), outputFile, stylesheet=ohi.markdown.css)   
+              })
+    options()
+}
+opt_old = options(ohi.options())
+
+# get goals for flowers, all and specific to weights
+goals.all = arrange(conf$goals, order_color)[['goal']]
+
+# get colors for aster, based on 10 colors, but extended to all goals. subselect for goals.wts
+cols.goals.all = colorRampPalette(RColorBrewer::brewer.pal(10, 'Spectral'), space='Lab')(length(goals.all))
+names(cols.goals.all) = goals.all
+
+# get subgoals and goals, not supragoals, for doing flower plot
+goals_supra = na.omit(unique(conf$goals$parent))
+wts = with(subset(conf$goals, !goal %in% goals_supra, c(goal, weight)), setNames(weight, goal))
+goal_labels = gsub('\\n', '\n', with(conf$goals, setNames(name_flower, goal))[names(wts)], fixed=T)
+
+# region names, ordered by GLOBAL and alphabetical
+rgn_names = rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), c('id_num'='region_id', 'val_chr'='rgn_name'))[,c('region_id','rgn_name')]
+rgn_names = rbind(data.frame(region_id=0, rgn_name='GLOBAL'), 
+                  arrange(rgn_names, rgn_name))
+
+# determine regions
+if (global_only){
+  rgns = 0
+} else {
+  rgns = rgn_names$region_id
+}
+
+# directory to store figures
+dir_fig = file.path(dir_report, 'figures')
+dir.create(dir_fig, showWarnings=F)
+
+# use factors to sort by goal and dimension in scores
+conf$goals = arrange(conf$goals, order_hierarchy)
+scores$goal_label = factor(
+  scores$goal, 
+  levels = c('Index', conf$goals$goal),
+  labels = c('Index', ifelse(!is.na(conf$goals$parent),
+                             sprintf('. %s', conf$goals$name),
+                             conf$goals$name)),
+  ordered=T)
+scores$dimension_label = factor(
+  scores$dimension,
+  levels = names(conf$config$dimension_descriptions),
+  ordered=T)
+```
+
+```{r flowers, results='asis'}
+
+# loop through regions
+for (rgn_id in rgns){ # rgn_id=0
+   
+  # header md
+  rgn_name = subset(rgn_names, region_id==rgn_id, rgn_name, drop=T)
+  cat(sprintf('\n## %s (%d)\n\n', rgn_name, rgn_id))
+  
+  # flower plot ----
+  if (do_flowers){
+    
+    cat('\n### Flower\n\n')
+  
+    # region scores    
+    x = with(subset(scores, dimension=='score' & region_id==rgn_id & goal %in% names(wts)),
+             setNames(score, goal))[names(wts)]
+    
+    fig_pdf = sprintf('%s/flower_%s.pdf', dir_fig, gsub(' ','_', rgn_name))
+    fig_png = sprintf('%s/flower_%s.png', dir_fig, gsub(' ','_', rgn_name))
+    res=72
+    if (overwrite | !file.exists(fig_png)){
+      png(fig_png, width=res*7, height=res*7)
+      PlotFlower(main = rgn_name,
+                 lengths=x,
+                 widths=wts,
+                 fill.col=ifelse(is.na(x), 
+                                 'grey80', 
+                                 cols.goals.all[names(wts)]),
+                 labels  =ifelse(is.na(x), 
+                                 paste(goal_labels, '-', sep='\n'), 
+                                 paste(goal_labels, round(x), sep='\n')),
+                 center=round(weighted.mean(x, wts, na.rm=T)),
+                 max.length = 100, disk=0.4, label.cex=0.9, label.offset=0.155, cex=2.2, cex.main=2.5)
+      dev.off()      
+      #system(sprintf('convert -density 150x150 %s %s', fig_pdf, fig_png)) # imagemagick's convert
+    }
+    
+    # flower md
+    cat(sprintf('![flower plot of %s](figures/%s)\n\n', rgn_name, basename(fig_png)))
+  }
+  
+  # table md
+  if (do_tables){
+    
+    cat('\n### Scores\n\n')
+    
+    x = dcast(subset(scores, region_id==rgn_id), goal_label ~ dimension_label, value.var='score')
+    row.names(x) = x$goal_label; x = x[, names(x)!='goal_label']
+    knitr::kable(x, format='markdown')  
+  }
+}
+```
