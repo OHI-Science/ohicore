@@ -32,8 +32,6 @@ MAR = function(layers){
 }
 
 FP = function(layers, scores){
-  # TODO: check with differences calculated here (P,R,S,T now -> F,G later) vs layers_2013.R (S,T,F,G now)
-
   # weights
   w = rename(SelectLayersData(layers, layers='rn_fp_wildcaught_weight', narrow=T),
              c('id_num'='region_id', 'val_num'='w_FIS')); head(w)
@@ -106,7 +104,6 @@ NP = function(layers,
                                  'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
   # 2013: NP(layers, status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
   # 2012: NP(layers, status_year=2008, trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007, 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008))
-  # status_year=2009; trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009)
     
   # layers
   lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
@@ -132,21 +129,6 @@ NP = function(layers,
   
   # merge H with S & w
   rky = merge(rky, rk, all.x=T)
-  
-  
-# DEBUG ----
-#   summary(rky)
-#     
-#   print(summary(rk))  # missing S & w
-#   print(summary(rky)) # missing S wrt H
-#   rk.old  = read.csv('/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/NP_debug_rk_2013a.csv' , na.strings='')
-#   rky.old = read.csv('/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/NP_debug_rky_2013a.csv', na.strings='')
-#   browser()
-#   
-#   summary(rk.old)
-#   summary(rk)
-#   summary(rky.old)
-#   summary(rky)  
   
   # get status across products, per region and year
   rky$w = ifelse(is.na(rky$w), 0, rky$w)
@@ -189,7 +171,7 @@ CS = function(layers){
   # limit to CS habitats
   rk = subset(rk, habitat %in% c('mangrove','saltmarsh','seagrass'))
   
-  # BUG fix
+  # assign extent of 0 as NA
   rk$extent[rk$extent==0] = NA
   
   # status
@@ -242,7 +224,7 @@ CP = function(layers){
   rk = subset(rk, habitat %in% names(habitat.rank))
   rk$rank = habitat.rank[as.character(rk$habitat)]
   
-  # BUG fix
+  # assign extent of 0 as NA
   rk$extent[rk$extent==0] = NA
   
   # status  
@@ -366,9 +348,8 @@ ICO = function(layers){
 }
 
 LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_years=2005:2009){
-  # 2012a: LSP(layers, status_year=2013, trend_years=2006:2010)
-  # 2013a: LSP(layers, status_year=2009, trend_years=2002:2006)
-  # layers; ref_pct_cmpa=30; ref_pct_cp=30; status_year=2012; trend_years=2005:2009
+  # 2013: LSP(layers, status_year=2013, trend_years=2006:2010)
+  # 2012: LSP(layers, status_year=2009, trend_years=2002:2006)
     
   lyrs = list('r'  = c('rn_rgn_area_inland1km'   = 'area_inland1km',
                        'rn_rgn_area_offshore3nm' = 'area_offshore3nm'),
@@ -377,7 +358,6 @@ LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_y
   lyr_names = sub('^\\w*\\.','', names(unlist(lyrs)))
   
   # cast data ----
-  #browser()
   d = SelectLayersData(layers, layers=lyr_names)  
   r  = rename(dcast(d, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
               c('id_num'='region_id', lyrs[['r']]))
@@ -496,9 +476,6 @@ CW = function(layers){
 
 HAB = function(layers){
   
-  # calc != www: 0  16  59  69  70 153 154 156 162 163 176 177 178 179 180 181 184 209 218 222 227 228
-  #browser()
-  
   # layers
   lyrs = c('rnk_hab_health' = 'health',
            'rnk_hab_extent' = 'extent',
@@ -510,7 +487,6 @@ HAB = function(layers){
               c('id_num'='region_id', 'category'='habitat', lyrs))
   
   # limit to HAB habitats
-  #rk = subset(rk, habitat %in% c('coral','mangrove','saltmarsh','seaice_edge','seagrass','soft_bottom'))  # 2013-10-09: added saltmarsh
   rk = subset(rk, habitat %in% c('coral','mangrove','saltmarsh','seaice_edge','seagrass','soft_bottom'))  
   
   # presence as weight

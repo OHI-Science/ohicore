@@ -25,6 +25,8 @@
 #' @export
 Conf = setRefClass(
   'Conf', fields = list(
+    config_txt = 'character',
+    functions_txt = 'character',
     config = 'environment',
     functions = 'environment',
     goals = 'data.frame',
@@ -40,7 +42,9 @@ Conf = setRefClass(
         if (!file.exists(file.path(dir, f))) { stop(sprintf('Required Conf file not found: %s', file.path(dir, f))) }
       }
       
-      # set environments: config, functions
+      # read R files: config, functions
+      .self$config_txt    = suppressWarnings(readLines(file.path(dir, 'config.R'   )))
+      .self$functions_txt = suppressWarnings(readLines(file.path(dir, 'functions.R')))      
       .self$config    = new.env(); source(file.path(dir, 'config.R'   ), local=.self$config)
       .self$functions = new.env(); source(file.path(dir, 'functions.R'), local=.self$functions)
       
@@ -54,9 +58,9 @@ Conf = setRefClass(
     write = function(dir){
       dir.create(dir)
       
-      # dump environments
-      dump(ls(.self$config   ), file=file.path(dir, 'config.R'   ), envir=.self$config)
-      dump(ls(.self$functions), file=file.path(dir, 'functions.R'), envir=.self$functions)
+      # write R files
+      writeLines(.self$config_txt   , file.path(dir, 'config.R'   ))
+      writeLines(.self$functions_txt, file.path(dir, 'functions.R'   ))      
       
       # dump data.frames
       write.csv(.self$goals             , file.path(dir, 'goals.csv'             ), row.names=F, na='')
