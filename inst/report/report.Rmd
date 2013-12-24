@@ -1,6 +1,6 @@
 # Ocean Health Index Report
 
-```{r debug_load, eval=F, dependson=NULL}
+```{r debug_load, echo=F, eval=F, dependson=NULL}
 # DEBUG
 devtools::load_all('~/Code/ohicore')
 scenario = list(conf = ohicore::conf.Global2013.www2013, 
@@ -159,7 +159,7 @@ for (rgn_id in rgns){ # rgn_id=0
     cat(sprintf('![flower plot of %s](figures/%s)\n\n', rgn_name, basename(fig_png)))
   }
   
-  # table
+  # table md
   if (do_tables){
     x = dcast(subset(scores, region_id==rgn_id), goal_label ~ dimension_label, value.var='score')
     row.names(x) = x$goal_label; x = x[, names(x)!='goal_label']
