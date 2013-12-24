@@ -52,7 +52,7 @@ f_pdf  = sprintf('%s/%s.pdf' , dir_report, f)
 library(plyr)
 
 # knitr options
-library(knitr)
+require(knitr); require(markdown)
 opts_chunk$set(dependson='init',echo=F,cache=F,fig.width=8,fig.height=5)
 options(markdown.HTML.options=c('hard_wrap','use_xhtml','smartypants','toc')) # exclude 'base64_images'
 ohi.markdown.css = ifelse(file.exists(system.file('report/markdown.css', package='ohicore')),
@@ -167,7 +167,7 @@ for (rgn_id in rgns){ # rgn_id=0
     
     x = dcast(subset(scores, region_id==rgn_id), goal_label ~ dimension_label, value.var='score')
     row.names(x) = x$goal_label; x = x[, names(x)!='goal_label']
-    kable(x, format='markdown')  
+    knitr::kable(x, format='markdown')  
   }
 }
 ```
