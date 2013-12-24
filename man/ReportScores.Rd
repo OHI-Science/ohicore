@@ -5,9 +5,10 @@
   ReportScores(scenario = list(conf = ohicore::conf.Global2013.www2013, layers = ohicore::layers.Global2013.www2013, scores = ohicore::scores.Global2013.www2013, spatial = ifelse(file.exists(system.file("extdata/spatial.www2013", package = "ohicore")), system.file("extdata/spatial.www2013", package = "ohicore"), system.file("inst/extdata/spatial.www2013", package = "ohicore"))),
     directory = path.expand("~/myohi/scenario.Global2013.www2013/reports"),
     filename = "report_Global2013_www2013.html",
-    overwrite = F, global_only = F, ck_Equations = T,
-    ck_Histograms = T, ck_Maps = T, ck_Paths = T,
-    ck_Tables = T, ck_Flowers = T, debug = F, ...)
+    open_html = T, overwrite = F, global_only = T,
+    do_flowers = T, do_tables = T, do_maps = T,
+    do_histograms = T, do_paths = T, do_equations = T,
+    debug = F, ...)
 }
 \arguments{
   \item{scenario}{list of (conf, layers, scores, spatial)}
