@@ -89,7 +89,7 @@ WriteScenario = function(scenario = list(conf   = ohicore::conf.Global2013.www20
         '}',
         'Rscript --vanilla launchApp_code.R', 
         sep='\n', file=file.path(dir_scenario, 'launchApp.command'))
-    Sys.chmod(file.path(dir_scenario, 'launchApp_Mac.command'), mode = "0777", use_umask = TRUE)
+    Sys.chmod(file.path(dir_scenario, 'launchApp.command'), mode = "0777", use_umask = TRUE)    
   }
   
 }
