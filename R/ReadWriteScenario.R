@@ -75,19 +75,23 @@ WriteScenario = function(scenario = list(conf   = ohicore::conf.Global2013.www20
       '  dir    = wd), launch.browser=T)',
       sep='\n', file=file.path(dir_scenario, 'launchApp_code.R'))
   
-  cat('#!/bin/bash',
-      'cd "$(dirname "$BASH_SOURCE")" || {',
-      '  echo "Error getting script directory" >&2',
-      '  exit 1',
-      '}',
-      'Rscript --vanilla launchApp_code.R', 
-      sep='\n', file=file.path(dir_scenario, 'launchApp_Mac.command'))
-  Sys.chmod(file.path(dir_scenario, 'launchApp_Mac.command'), mode = "0777", use_umask = TRUE)
+  if (.Platform$OS.type == 'windows'){
+    Rscript = sprintf('%s/Rscript.exe', dirname(Sys.which('R')) )
+    cat('REM on Microsoft Windows (adjust the path to R.exe as needed)',
+        sprintf('%s "%%CD%%\\launchApp_code.R"', Rscript),
+        'PAUSE',
+        sep='\n', file=file.path(dir_scenario, 'launchApp.bat'))
+  } else {
+    cat('#!/bin/bash',
+        'cd "$(dirname "$BASH_SOURCE")" || {',
+        '  echo "Error getting script directory" >&2',
+        '  exit 1',
+        '}',
+        'Rscript --vanilla launchApp_code.R', 
+        sep='\n', file=file.path(dir_scenario, 'launchApp.command'))
+    Sys.chmod(file.path(dir_scenario, 'launchApp_Mac.command'), mode = "0777", use_umask = TRUE)
+  }
   
-  cat('REM on Microsoft Windows (adjust the path to R.exe as needed)',
-      '"C:\\Program Files\\R\\R-3.0.2\\bin\\x64\\Rscript.exe" CMD BATCH "%CD%\\launchApp_code.R"',
-      'PAUSE',
-      sep='\n', file=file.path(dir_scenario, 'launchApp_Win.bat'))
 }
 
 ReadScenario = function(scenario.R) {  
