@@ -96,6 +96,10 @@ if (do.spatial.www2013){
   cat('var regions = ', file=fw)
   cat(readLines(geojson.to, n = -1), file=fw)
   close(fw)
+  
+  # copy other reference files
+  #rgn_simple_gcs.shp
+  
 }
 
 # TODO: layers.Global2012.v2012Nature ----

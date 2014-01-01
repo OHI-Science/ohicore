@@ -6,11 +6,11 @@
 #' @param directory output directory of report
 #' @param filename output filename of report (should be html, pdf implementation later)
 #' @return Returns path to report
-#' @seealso Conf, Layers, scores
+#' @seealso \code{\link{Conf}}, \code{\link{Layers}} and \code{\link{scores}}
 #' @details You'll need the \href{http://www.imagemagick.org}{ImageMagick} program, especially the \code{convert} executable.  On Windows, you can try installing with the following
 #' \code{if (!require('installr')) install.packages('installr')
 #' # installr::install.ImageMagick() # doesn't seem to work
-# installr::install.URL('http://www.imagemagick.org/download/binaries/ImageMagick-6.8.7-10-Q16-x86-dll.exe')
+#' installr::install.URL('http://www.imagemagick.org/download/binaries/ImageMagick-6.8.7-10-Q16-x86-dll.exe')}
 #' @keywords ohi report
 #' @export
 ReportScores = function(scenario = list(conf   = ohicore::conf.Global2013.www2013, 
