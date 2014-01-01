@@ -32,9 +32,11 @@
   you can try installing with the following \code{if
   (!require('installr')) install.packages('installr') #
   installr::install.ImageMagick() # doesn't seem to work
+  installr::install.URL('http://www.imagemagick.org/download/binaries/ImageMagick-6.8.7-10-Q16-x86-dll.exe')}
 }
 \seealso{
-  Conf, Layers, scores
+  \code{\link{Conf}}, \code{\link{Layers}} and
+  \code{\link{scores}}
 }
 \keyword{ohi}
 \keyword{report}
