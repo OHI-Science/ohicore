@@ -75,9 +75,9 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
                                               ifelse(nchar(cond.2)>0, cond.2, NA))))      
       if (!all(component_categories %in% unique(lyr_agg$category))){
         cat(sprintf('Based on the following components for %s:\n  %s', g, paste(r.g$component, collapse='\n  ')))
-        stop(sprintf('The following component categories for %s are not in the aggregation layer %s categories (%s): %s', g, rc[[g]][['layer']], 
-                     paste(unique(lyr_agg$category), collapse=', '),
-                     paste(component_categories[!component_categories %in% lyr_agg$category], collapse=', ')))
+#         stop(sprintf('The following component categories for %s are not in the aggregation layer %s categories (%s): %s', g, rc[[g]][['layer']], 
+#                      paste(unique(lyr_agg$category), collapse=', '),
+#                      paste(component_categories[!component_categories %in% lyr_agg$category], collapse=', ')))
       }
     }      
     
