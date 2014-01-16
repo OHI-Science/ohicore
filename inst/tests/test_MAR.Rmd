@@ -1,0 +1,22 @@
+
+wd: `/var/data/ohi/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013/`
+
+## Procedure
+1. format layers: MAR_to_lyr.R
+  - all lower case fieldnames
+  
+1. register in [layers_navigation_2012a_2013a](https://docs.google.com/a/nceas.ucsb.edu/spreadsheet/ccc?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&usp=drive_web#gid=0)
+  - required fields: target, layer, name, description, fld_value, units, dir_2012a, fn_2012a, dir_2013a, fn_2013a, ingest
+
+1. copy layers into extdata
+
+```{r init}
+library(devtools)
+
+od = '~/Code/ohicore'
+setwd(od)
+load_all(od)
+
+# do.layers.Global.www2013 = T
+source('inst/extdata/data_create.R')
+```

@@ -15,7 +15,7 @@ FIS = function(layers){
 }
 
 
-MAR = function(layers){
+MAR.0 = function(layers){
   
   # status
   r.status = rename(SelectLayersData(layers, layers='rn_mar_status', narrow=T), c('id_num'='region_id','val_num'='score'))
@@ -29,6 +29,84 @@ MAR = function(layers){
   s.trend  = cbind(r.trend , data.frame('dimension'='trend' ))
   scores = cbind(rbind(s.status, s.trend), data.frame('goal'='MAR'))
   return(scores)  
+}
+
+MAR = function(layers){
+  
+  # arguments
+  status_years = 2005:2011
+  
+  # layers
+  wd = '/Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013'
+  setwd(wd)
+  harvest_tonnes       = read.csv('mar_harvest_tonnes_lyr.csv')
+  harvest_species      = read.csv('mar_harvest_species_lyr.csv')
+  sustainability_score = read.csv('mar_sustainability_score_lyr.csv')
+  popn_inland25mi      = read.csv('rgn_popsum2005to2015_inland25mi.csv')
+  trend_years          = read.csv('mar_trend_years_lyr.csv')
+  
+  # merge and cast harvest with sustainability
+  #harvest_species$species = as.character(harvest_species$species)
+  rky = dcast(merge(merge(harvest_tonnes, 
+                          harvest_species, all.x=TRUE, by=c('species_code')),
+                    sustainability_score, all.x=TRUE, by=c('rgn_id', 'species')),
+              rgn_id + species + species_code + sust_coeff ~ year, value.var='tonnes', mean, na.rm=T); head(rky)
+  
+  # smooth each species-country time-series using a running mean with 4-year window, excluding NAs from the 4-year mean calculation
+  yrs_smooth <- names(rky)[!names(rky) %in% c('rgn_id','species','species_code','sust_coeff')]
+  rky_smooth = zoo::rollapply(t(rky[,yrs_smooth]), 4, mean, na.rm = TRUE, partial=T) 
+  rownames(rky_smooth) = as.character(yrs_smooth)
+  rky_smooth = t(rky_smooth)
+  rky = as.data.frame(cbind(rky[, c('rgn_id','species','species_code','sust_coeff')], rky_smooth)); head(rky)
+  
+  # melt
+  m = melt(rky,
+           id=c('rgn_id', 'species', 'species_code', 'sust_coeff'),
+           variable.name='year', value.name='sm_tonnes'); head(m)
+  
+  # for each species-country-year, smooth mariculture harvest times the sustainability coefficient
+  m = within(m, {
+    sust_tonnes = sust_coeff * sm_tonnes
+    year        = as.numeric(as.character(m$year))
+  })
+  
+  # merge the MAR and coastal human population data
+  m = merge(m, popn_inland25mi, by=c('rgn_id','year'), all.x=T)
+  
+  # must first aggregate all weighted timeseries per region, before dividing by total population
+  ry = ddply(m, .(rgn_id, year, popsum), summarize, 
+             sust_tonnes_sum = sum(sust_tonnes),
+             mar_pop         = sum(sust_tonnes) / popsum[1])
+  
+  # get reference quantile based on argument years
+  ref_95pct = quantile(subset(ry, year %in% status_years, mar_pop, drop=T), 0.95, na.rm=T)
+  
+  ry = within(ry, {
+    status = ifelse(mar_pop / ref_95pct > 1, 
+                    1,
+                    mar_pop / ref_95pct)})
+  status <- subset(ry, year == max(status_years), c('rgn_id', 'status'))
+  status$status <- round(status$status*100, 2)
+  
+  # get list where trend is only to be calculated up to second-to-last-year
+  # species where the last year of the time-series was 2010, and the same value was copied over to 2011
+  # i.e. it was gapfilled using the previous year
+  four_yr_trend = trend_years$rgn_id[trend_years$trend_yrs=="4_yr"] 
+  five_yr_trend = trend_years$rgn_id[trend_years$trend_yrs=="5_yr"] 
+  
+  # get MAR trend
+  ry = merge(ry, trend_years, all.x=T)
+  yr_max = max(status_years)
+  trend = ddply(ry, .(rgn_id), function(x){  # x = subset(ry, rgn_id==5)
+    yrs = ifelse(x$trend_yrs=='4_yr',
+                 (yr_max-5):(yr_max-1), # 4_yr
+                 (yr_max-5):(yr_max))   # 5_yr
+    y = subset(x, year %in% yrs)
+    return(data.frame(
+      trend = round(min(lm(status ~ year, data=y)$coefficients[['year']] * 5,1), 2)))  
+    })
+  
+
 }
 
 FP = function(layers, scores){
