@@ -14,27 +14,8 @@ FIS = function(layers){
   return(scores)  
 }
 
-
-MAR.0 = function(layers){
-  
-  # status
-  r.status = rename(SelectLayersData(layers, layers='rn_mar_status', narrow=T), c('id_num'='region_id','val_num'='score'))
-  r.status$score = r.status$score * 100
-  
-  # trend
-  r.trend = rename(SelectLayersData(layers, layers='rn_mar_trend', narrow=T), c('id_num'='region_id','val_num'='score'))
-  
-  # return scores
-  s.status = cbind(r.status, data.frame('dimension'='status'))
-  s.trend  = cbind(r.trend , data.frame('dimension'='trend' ))
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='MAR'))
-  return(scores)  
-}
-
-MAR = function(layers){
-  
-  # arguments
-  status_years = 2005:2011
+MAR = function(layers, status_years=2005:2011){  
+  # status_years = 2005:2011
   
   # layers
   wd = '/Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013'
@@ -91,8 +72,6 @@ MAR = function(layers){
   # get list where trend is only to be calculated up to second-to-last-year
   # species where the last year of the time-series was 2010, and the same value was copied over to 2011
   # i.e. it was gapfilled using the previous year
-  four_yr_trend = trend_years$rgn_id[trend_years$trend_yrs=="4_yr"] 
-  five_yr_trend = trend_years$rgn_id[trend_years$trend_yrs=="5_yr"] 
   
   # get MAR trend
   ry = merge(ry, trend_years, all.x=T)
@@ -105,8 +84,18 @@ MAR = function(layers){
     return(data.frame(
       trend = round(min(lm(status ~ year, data=y)$coefficients[['year']] * 5,1), 2)))  
     })
-  
 
+  # return scores
+  scores = rbind(
+    within(status, { 
+      region_id = rgn_id
+      score     = status
+      dimension = 'status'})[,c('region_id','dimension','score')],
+    within(trend, { 
+      region_id = rgn_id
+      score     = trend
+      dimension = 'trend'})[,c('region_id','dimension','score')])
+  return(scores)
 }
 
 FP = function(layers, scores){

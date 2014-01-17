@@ -8,7 +8,7 @@ wd: `/var/data/ohi/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013/`
 1. register in [layers_navigation_2012a_2013a](https://docs.google.com/a/nceas.ucsb.edu/spreadsheet/ccc?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&usp=drive_web#gid=0)
   - required fields: target, layer, name, description, fld_value, units, dir_2012a, fn_2012a, dir_2013a, fn_2013a, ingest
 
-1. copy layers into extdata
+1. copy and check layers into extdata
 
 ```{r init}
 library(devtools)
@@ -20,3 +20,14 @@ load_all(od)
 # do.layers.Global.www2013 = T
 source('inst/extdata/data_create.R')
 ```
+
+1. run MAR function
+
+```{r calc}
+
+setwd('~/Code/ohicore/inst/extdata/')
+layers = ohicore::Layers('layers.Global2013.www2013.csv', 'layers.Global2013.www2013')
+
+conf   = ohicore::Conf('conf.Global2013.www2013')
+conf$functions$MAR(layers, status_years=2005:2011)
+```   
