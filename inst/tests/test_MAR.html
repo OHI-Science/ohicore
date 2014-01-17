@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Procedure</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: rgb(88, 72, 246)
+   }
+
+   pre .number {
+     color: rgb(0, 0, 205);
+   }
+
+   pre .comment {
+     color: rgb(76, 136, 107);
+   }
+
+   pre .keyword {
+     color: rgb(0, 0, 255);
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: rgb(3, 106, 7);
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+
+</head>
+
+<body>
+<p>wd: <code>/var/data/ohi/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013/</code></p>
+
+<h2>Procedure</h2>
+
+<ol>
+<li><p>format layers: MAR_to_lyr.R</p>
+
+<ul>
+<li>all lower case fieldnames</li>
+</ul></li>
+<li><p>register in <a href="https://docs.google.com/a/nceas.ucsb.edu/spreadsheet/ccc?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&amp;usp=drive_web#gid=0">layers_navigation_2012a_2013a</a></p>
+
+<ul>
+<li>required fields: target, layer, name, description, fld_value, units, dir_2012a, fn_2012a, dir_2013a, fn_2013a, ingest</li>
+</ul></li>
+<li><p>copy and check layers into extdata</p></li>
+</ol>
+
+<pre><code class="r">library(devtools)
+
+od = &quot;~/Code/ohicore&quot;
+setwd(od)
+load_all(od)
+</code></pre>
+
+<pre><code>## Loading ohicore
+## Loading required namespace: plyr
+## Loading required namespace: reshape2
+## Loading required namespace: RJSONIO
+## Loading required namespace: markdown
+## Loading required namespace: psych
+## Loading required package: plyr
+## Loading required package: reshape2
+## Loading required package: RJSONIO
+## Loading required package: markdown
+## Loading required package: psych
+</code></pre>
+
+<pre><code class="r">
+# do.layers.Global.www2013 = T
+source(&quot;inst/extdata/data_create.R&quot;)
+</code></pre>
+
+<pre><code>## Loading ohicore
+</code></pre>
+
+<pre><code>## 
+## ---------
+## Scenario: 2012a
+##   copy to inst/extdata/layers.Global2012.www2013
+##     copying /Volumes/data_edit/model/GL-FAO-TargetedHarvest_v2011/data/rgn_fao_targeted_2012a_rescaled.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_CW_trends_v2013a/data/GL-NCEAS_CW_Fertilizers_trend_v2012a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_CW_trends_v2013a/data/GL-NCEAS_CW_Pesticides_trend_v2012a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_FIS_v2012a/FIS_Status_2012a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_FIS_v2012a/FIS_Trend_2012a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_FIS_v2012a/GL_FP_wildcaught_weight_v2012a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/data/GL_NCEAS_MAR_Status_v2012a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/data/GL_NCEAS_MAR_Trend_v2012a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013/MAR_harvest_tonnes_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013/mar_sustainability_score_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-ArtisanalOpportunities_v2013a/data/rgn_wb_gdppcppp_rescaled_year_2012b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-CoastalPopulation_v2013/data/rgn_popn5yrtrend_inland25mi_2007to2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-CoastalPopulation_v2013/data/rgn_popsum2005to2015_inland25mi.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/cp_habitat_extent_rank.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/cs_habitat_extent.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/hab_habitat_extent.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/hab_habitat_health_disaggregatedNature2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/hab_habitat_presence.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/hab_habitat_trend_disaggregatedNature2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-IconicSpecies_v2013/data/ico_spp_extinction_status.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-IconicSpecies_v2013/data/ico_spp_popn_trend.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/data/rgn_liv.eco_status_2012a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/data/rgn_liv.eco_trend_2012a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-NaturalProducts_v2013a/data/np_harvest_relative_v2013a_updated_lyr_NAmanualoverride.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-NaturalProducts_v2013a/data/np_sustainability_v2012a_updated_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-NaturalProducts_v2013a/data/np_weight_combo_2012a_updated_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_area_inland1km.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_area_offshore3nm.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_fao_gcs_area.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_global.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_labels.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/manual_output/cntry_georegions_long_2013b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/manual_output/cntry_rgn_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/manual_output/rgn_georegions_labels_long_2013b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/manual_output/rgn_georegions_long_2013b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/cc_acid_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/cc_slr_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/cc_sst_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/cc_uv_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/fp_art_lb_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/fp_com_hb_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/fp_com_lb_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/hd_intertidal_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/le_sector_weight_disaggregateNature2012b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/p_fp_art_hb_disaggregateNature2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/p_hd_subtidal_hb_v2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/p_sp_alien_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_chemicals_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_chemicals_3nm_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_nutrients_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_nutrients_3nm_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_pathogens_sanitation2008_popninland25km2008.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_pathogens_trend_sanitation2008to2011_popninland25km2008to2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_trash2011.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures-GenEsc_v2013a/data/GenEsc_v2012a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_alien_species_Nature2012disaggregated.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_cites_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v1_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v1_eez_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v2_eez_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v3_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v3_eez_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_habitat_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_habitat_combo_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_habitat_combo_eez_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_li_gci_Nature2012disaggregated.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_li_sector_evenness_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_mariculture_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_mora_s4_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_msi_gov_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_tourism_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_water_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-SpeciesDiversity_v2013a/data/rgn_spp_score_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-SpeciesDiversity_v2013a/data/rgn_spp_score_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-SpeciesDiversity_v2013a/data/rgn_spp_score_offshore3nm_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-SpeciesDiversity_v2013a/data/rgn_spp_trend_2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-subtidal_softbottom_v2013a/data/po_rgn_hd_subtidal_sb_2012a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-TR_v2013a/data/TourRec_Status_2012a_Sep23b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-TR_v2013a/data/TourRec_Trend_2012a_Sep23b.csv
+##     copying /Volumes/data_edit/model/GL-WDPA-MPA_v2013/data/lsp_prot_area_inland1km.csv
+##     copying /Volumes/data_edit/model/GL-WDPA-MPA_v2013/data/lsp_prot_area_offshore3nmb.csv
+##     copying /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_pop_2013a_updated.csv
+##     copying /Volumes/data_edit/model/GL-WorldBank-WGI_v2011/data/rgn_wb_wgi_2012a_rescaled_inverse.csv
+##     copying /Volumes/data_edit/model/GL-WorldBank-WGI_v2011/data/rgn_wb_wgi_2012a_rescaled.csv
+##   rn_ao_access
+##   rny_ao_need
+##   rnk_cp_habitat_extent_rank
+##   rnk_cs_habitat_extent
+##   rn_cw_pesticide_trend
+##   rn_cw_fertilizer_trend
+##   rn_cw_pathogen_trend
+##   rn_cw_coastalpopn_trend
+##   rn_fis_status
+##   rn_fis_trend
+##   rn_fp_wildcaught_weight
+##   rnk_hab_presence
+##   rnk_hab_extent
+##   rnk_hab_health
+##   rnk_hab_trend
+##   rnk_ico_spp_extinction_status
+##   rnk_ico_spp_popn_trend
+##   rnk_le_sector_weight
+##   rny_lsp_prot_area_inland1km
+##   rny_lsp_prot_area_offshore3nm
+##   rn_mar_status
+##   rn_mar_trend
+##   rnky_np_harvest_relative
+##   rnk_np_sustainability_score
+##   rnk_np_weights_combo
+##   cc_acid
+##   cc_slr
+##   cc_sst
+##   cc_uv
+##   fp_art_hb
+##   fp_art_lb
+##   fp_com_hb
+##   fp_com_lb
+##   fp_targetharvest
+##   hd_intertidal
+##   hd_subtidal_hb
+##   hd_subtidal_sb
+##   po_chemicals
+##   po_chemicals_3nm
+##   po_nutrients
+##   po_nutrients_3nm
+##   po_pathogens
+##   po_trash
+##   sp_alien
+##   sp_genetic
+##   ss_wgi
+##   cn_cntry_rgn
+##   cnk_cntry_georegions
+##   rn_rgn_area
+##   rn_rgn_area_inland1km
+##   rn_rgn_area_offshore3nm
+##   rnk_rgn_georegions
+##   rtk_rgn_georegion_labels
+##   rnk_rgn_global
+##   rtk_rgn_labels
+##   alien_species
+##   cites
+##   fishing_v1
+##   fishing_v1_eez
+##   fishing_v2_eez
+##   fishing_v3
+##   fishing_v3_eez
+##   habitat
+##   habitat_combo
+##   habitat_combo_eez
+##   li_gci
+##   li_sector_evenness
+##   mariculture
+##   msi_gov
+##   species_diversity
+##   species_diversity_3nm
+##   tourism
+##   water
+##   wgi_all
+##   rn_spp_status
+##   rn_spp_trend
+##   rn_tr_status
+##   rn_tr_trend
+##   rn_liveco_status
+##   rn_liveco_trend
+##   rny_le_popn
+##   mar_harvest_tonnes
+##   mar_sustainability_score
+##   mar_coastalpopn_inland25mi
+## 
+## ---------
+## Scenario: 2013a
+##   copy to inst/extdata/layers.Global2013.www2013
+##     copying /Volumes/data_edit/model/GL-FAO-TargetedHarvest_v2011/data/rgn_fao_targeted_2013a_rescaled.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_CW_trends_v2013a/data/GL-NCEAS_CW_Fertilizers_trend_v2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_CW_trends_v2013a/data/GL-NCEAS_CW_Pesticides_trend_v2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_FIS_v2013a/FIS_Status_2013a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_FIS_v2013a/FIS_Trend_2013a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_FIS_v2013a/GL_FP_wildcaught_weight_v2013a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/data/GL_NCEAS_MAR_Status_v2013a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/data/GL_NCEAS_MAR_Trend_v2013a_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013/MAR_harvest_tonnes_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013/mar_sustainability_score_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-ArtisanalOpportunities_v2013a/data/rgn_wb_gdppcppp_rescaled_year_2013b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-CoastalPopulation_v2013/data/rgn_popn5yrtrend_inland25mi_2008to2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-CoastalPopulation_v2013/data/rgn_popsum2005to2015_inland25mi.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/cp_habitat_extent_rank.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/cs_habitat_extent.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/hab_habitat_extent.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/hab_habitat_health_disaggregatedNature2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/hab_habitat_presence.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Habitats_v2013a/data/hab_habitat_trend_disaggregatedNature2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-IconicSpecies_v2013/data/ico_spp_extinction_status.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-IconicSpecies_v2013/data/ico_spp_popn_trend.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/data/rgn_liv.eco_status_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/data/rgn_liv.eco_trend_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-NaturalProducts_v2013a/data/np_harvest_relative_v2013a_updated_lyr_NAmanualoverride.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-NaturalProducts_v2013a/data/np_sustainability_v2013a_updated_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-NaturalProducts_v2013a/data/np_weight_combo_2013a_updated_lyr.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_area_inland1km.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_area_offshore3nm.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_fao_gcs_area.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_global.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/data/rgn_labels.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/manual_output/cntry_georegions_long_2013b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/manual_output/cntry_rgn_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/manual_output/rgn_georegions_labels_long_2013b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-OceanRegions_v2013a/manual_output/rgn_georegions_long_2013b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/cc_acid_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/cc_slr_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/cc_sst_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/cc_uv_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/fp_art_lb_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/fp_com_hb_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/fp_com_lb_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/hd_intertidal_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/le_sector_weight_disaggregateNature2012b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/p_fp_art_hb_disaggregateNature2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/p_hd_subtidal_hb_v2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/p_sp_alien_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_chemicals_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_chemicals_3nm_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_nutrients_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_nutrients_3nm_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_pathogens_sanitation2011_popninland25km2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_pathogens_trend_sanitation2008to2011_popninland25km2008to2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures_v2013a/data/po_trash2012.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Pressures-GenEsc_v2013a/data/GenEsc_v2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_alien_species_Nature2012disaggregated.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_cites_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v1_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v1_eez_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v2_eez_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v3_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_fishing_v3_eez_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_habitat_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_habitat_combo_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_habitat_combo_eez_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_li_sector_evenness_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_mariculture_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_mora_s4_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_msi_gov_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_tourism_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-Resilience_v2013a/data/r_water_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-SpeciesDiversity_v2013a/data/rgn_spp_score_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-SpeciesDiversity_v2013a/data/rgn_spp_score_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-SpeciesDiversity_v2013a/data/rgn_spp_score_offshore3nm_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-SpeciesDiversity_v2013a/data/rgn_spp_trend_2013.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-subtidal_softbottom_v2013a/data/po_rgn_hd_subtidal_sb_2013a.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-TR_v2013a/data/TourRec_Status_2013a_Sep23b.csv
+##     copying /Volumes/data_edit/model/GL-NCEAS-TR_v2013a/data/TourRec_Trend_2013a_Sep23b.csv
+##     copying /Volumes/data_edit/model/GL-WDPA-MPA_v2013/data/lsp_prot_area_inland1km.csv
+##     copying /Volumes/data_edit/model/GL-WDPA-MPA_v2013/data/lsp_prot_area_offshore3nmb.csv
+##     copying /Volumes/data_edit/model/GL-WEF-Economics_v2013/data/rgn_wef_gci_2013a_rescaled.csv
+##     copying /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_pop_2013a_updated.csv
+##     copying /Volumes/data_edit/model/GL-WorldBank-WGI_v2011/data/rgn_wb_wgi_2013a_rescaled_inverse.csv
+##     copying /Volumes/data_edit/model/GL-WorldBank-WGI_v2011/data/rgn_wb_wgi_2013a_rescaled.csv
+##   rn_ao_access
+##   rny_ao_need
+##   rnk_cp_habitat_extent_rank
+##   rnk_cs_habitat_extent
+##   rn_cw_pesticide_trend
+##   rn_cw_fertilizer_trend
+##   rn_cw_pathogen_trend
+##   rn_cw_coastalpopn_trend
+##   rn_fis_status
+##   rn_fis_trend
+##   rn_fp_wildcaught_weight
+##   rnk_hab_presence
+##   rnk_hab_extent
+##   rnk_hab_health
+##   rnk_hab_trend
+##   rnk_ico_spp_extinction_status
+##   rnk_ico_spp_popn_trend
+##   rnk_le_sector_weight
+##   rny_lsp_prot_area_inland1km
+##   rny_lsp_prot_area_offshore3nm
+##   rn_mar_status
+##   rn_mar_trend
+##   rnky_np_harvest_relative
+##   rnk_np_sustainability_score
+##   rnk_np_weights_combo
+##   cc_acid
+##   cc_slr
+##   cc_sst
+##   cc_uv
+##   fp_art_hb
+##   fp_art_lb
+##   fp_com_hb
+##   fp_com_lb
+##   fp_targetharvest
+##   hd_intertidal
+##   hd_subtidal_hb
+##   hd_subtidal_sb
+##   po_chemicals
+##   po_chemicals_3nm
+##   po_nutrients
+##   po_nutrients_3nm
+##   po_pathogens
+##   po_trash
+##   sp_alien
+##   sp_genetic
+##   ss_wgi
+##   cn_cntry_rgn
+##   cnk_cntry_georegions
+##   rn_rgn_area
+##   rn_rgn_area_inland1km
+##   rn_rgn_area_offshore3nm
+##   rnk_rgn_georegions
+##   rtk_rgn_georegion_labels
+##   rnk_rgn_global
+##   rtk_rgn_labels
+##   alien_species
+##   cites
+##   fishing_v1
+##   fishing_v1_eez
+##   fishing_v2_eez
+##   fishing_v3
+##   fishing_v3_eez
+##   habitat
+##   habitat_combo
+##   habitat_combo_eez
+##   li_gci
+##   li_sector_evenness
+##   mariculture
+##   msi_gov
+##   species_diversity
+##   species_diversity_3nm
+##   tourism
+##   water
+##   wgi_all
+##   rn_spp_status
+##   rn_spp_trend
+##   rn_tr_status
+##   rn_tr_trend
+##   rn_liveco_status
+##   rn_liveco_trend
+##   rny_le_popn
+##   mar_harvest_tonnes
+##   mar_sustainability_score
+##   mar_coastalpopn_inland25mi
+</code></pre>
+
+<ol>
+<li>run MAR function</li>
+</ol>
+
+<pre><code class="r">
+setwd(&quot;~/Code/ohicore/inst/extdata/&quot;)
+layers = ohicore::Layers(&quot;layers.Global2013.www2013.csv&quot;, &quot;layers.Global2013.www2013&quot;)
+
+conf = ohicore::Conf(&quot;conf.Global2013.www2013&quot;)
+scores = conf$functions$MAR(layers, status_years = 2005:2011)
+</code></pre>
+
+<ol>
+<li>compare with scores published in 2013 www</li>
+</ol>
+
+<pre><code class="r">
+# status
+scores_www = rename(subset(read.csv(&quot;/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-09.csv&quot;), 
+    goal == &quot;MAR&quot; &amp; dimension %in% c(&quot;status&quot;, &quot;trend&quot;) &amp; scenario == 2013 &amp; 
+        region_id != 0), c(value = &quot;score_www&quot;))
+head(scores_www)
+</code></pre>
+
+<pre><code>##       scenario goal dimension region_id score_www
+## 42975     2013  MAR    status         1        NA
+## 42976     2013  MAR    status         2        NA
+## 42977     2013  MAR    status         3        NA
+## 42978     2013  MAR    status         4        NA
+## 42979     2013  MAR    status         5     15.88
+## 42980     2013  MAR    status         6      0.19
+</code></pre>
+
+<pre><code class="r">v = merge(scores_www, scores, all = T)
+head(v)
+</code></pre>
+
+<pre><code>##   dimension region_id scenario goal score_www score
+## 1    status         1     2013  MAR        NA    NA
+## 2    status         2     2013  MAR        NA    NA
+## 3    status         3     2013  MAR        NA    NA
+## 4    status         4     2013  MAR        NA    NA
+## 5    status         5     2013  MAR     15.88 15.88
+## 6    status         6     2013  MAR      0.19  0.19
+</code></pre>
+
+<pre><code class="r">dlply(v, .(dimension), function(x) {
+    all.equal(x$score, x$score_www)
+})
+</code></pre>
+
+<pre><code>## $status
+## [1] TRUE
+## 
+## $trend
+## [1] &quot;Mean relative difference: 0.2126&quot;
+## 
+## attr(,&quot;split_type&quot;)
+## [1] &quot;data.frame&quot;
+## attr(,&quot;split_labels&quot;)
+##   dimension
+## 1    status
+## 2     trend
+</code></pre>
+
+<pre><code class="r">v$score_dif = with(v, score - score_www)
+summary(subset(v, dimension == &quot;trend&quot;))
+</code></pre>
+
+<pre><code>##                dimension     region_id      scenario         goal    
+##  likely_future_state:  0   Min.   :  1   Min.   :2013   MAR    :221  
+##  pressures          :  0   1st Qu.: 59   1st Qu.:2013   AO     :  0  
+##  resilience         :  0   Median :117   Median :2013   BD     :  0  
+##  score              :  0   Mean   :118   Mean   :2013   CP     :  0  
+##  status             :  0   3rd Qu.:177   3rd Qu.:2013   CS     :  0  
+##  trend              :221   Max.   :250   Max.   :2013   CW     :  0  
+##                                                         (Other):  0  
+##    score_www         score         score_dif    
+##  Min.   :-0.23   Min.   :-0.29   Min.   :-0.06  
+##  1st Qu.: 0.00   1st Qu.: 0.00   1st Qu.: 0.00  
+##  Median : 0.00   Median : 0.00   Median : 0.00  
+##  Mean   : 0.00   Mean   : 0.00   Mean   : 0.00  
+##  3rd Qu.: 0.00   3rd Qu.: 0.01   3rd Qu.: 0.00  
+##  Max.   : 0.32   Max.   : 0.40   Max.   : 0.08  
+##  NA&#39;s   :102     NA&#39;s   :102     NA&#39;s   :102
+</code></pre>
+
+<pre><code class="r">print(v[(is.na(v$score) != is.na(v$score_www)) | (!is.na(v$score_dif) &amp; abs(v$score_dif) &gt; 
+    0.01), ])
+</code></pre>
+
+<pre><code>##     dimension region_id scenario goal score_www score score_dif
+## 237     trend        16     2013  MAR      0.03  0.04      0.01
+## 243     trend        24     2013  MAR      0.04  0.05      0.01
+## 268     trend        50     2013  MAR      0.06  0.07      0.01
+## 299     trend        81     2013  MAR      0.04  0.05      0.01
+## 346     trend       132     2013  MAR     -0.03 -0.04     -0.01
+## 351     trend       137     2013  MAR      0.32  0.40      0.08
+## 352     trend       138     2013  MAR      0.13  0.16      0.03
+## 360     trend       147     2013  MAR     -0.03 -0.04     -0.01
+## 376     trend       164     2013  MAR     -0.23 -0.29     -0.06
+## 391     trend       181     2013  MAR     -0.21 -0.27     -0.06
+## 397     trend       187     2013  MAR     -0.06 -0.08     -0.02
+## 415     trend       206     2013  MAR      0.09  0.12      0.03
+## 416     trend       207     2013  MAR      0.04  0.05      0.01
+## 417     trend       208     2013  MAR     -0.03 -0.04     -0.01
+## 419     trend       210     2013  MAR     -0.03 -0.04     -0.01
+## 425     trend       218     2013  MAR      0.03  0.04      0.01
+</code></pre>
+
+<pre><code class="r"># NOTE: these differences are due to 4_yr species only previously getting
+# trend calculated to 4 years (instead of 5)
+</code></pre>
+
+</body>
+
+</html>
+
