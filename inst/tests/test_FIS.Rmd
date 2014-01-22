@@ -1,0 +1,47 @@
+# FIS: Update Data Layers and Function
+
+1. format layers: MAR_to_lyr.R
+  - all lower case fieldnames
+  
+1. register in [layers_navigation_2012a_2013a](https://docs.google.com/a/nceas.ucsb.edu/spreadsheet/ccc?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&usp=drive_web#gid=0)
+  - required fields: target, layer, name, description, fld_value, units, dir_2012a, fn_2012a, dir_2013a, fn_2013a, ingest
+
+1. copy and check layers into extdata
+
+```{r init}
+library(devtools)
+
+od = '~/Code/ohicore'
+setwd(od)
+load_all(od)
+
+# do.layers.Global.www2013 = T
+source('inst/extdata/data_create.R')
+```
+
+1. run MAR function
+
+```{r calc}
+
+setwd('~/Code/ohicore/inst/extdata/')
+layers = ohicore::Layers('layers.Global2013.www2013.csv', 'layers.Global2013.www2013')
+
+conf   = ohicore::Conf('conf.Global2013.www2013')
+scores = conf$functions$MAR(layers, status_years=2005:2011)
+```   
+
+1. compare with scores published in 2013 www
+
+```{r compare, dependson='calc'}
+
+# test differences
+scores_www = rename(subset(read.csv('/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-09.csv'),
+                           goal=='MAR' & dimension %in% c('status','trend') & scenario==2013 & region_id!=0),
+                    c('value'='score_www'))
+v = merge(scores_www, scores, all=T); head(v)
+dlply(v, .(dimension), function(x){ all.equal(x$score, x$score_www) })
+v$score_dif = with(v, score - score_www)
+summary(subset(v, dimension=='trend'))
+print(v[( is.na(v$score) != is.na(v$score_www) ) | ( !is.na(v$score_dif) & abs(v$score_dif) > 0.01 ),])
+# NOTE: these differences are due to 4_yr species only previously getting trend calculated to 4 years (instead of 5)
+```
