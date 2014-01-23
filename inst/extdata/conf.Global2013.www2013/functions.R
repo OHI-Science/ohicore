@@ -15,16 +15,22 @@ FIS = function(layers){
 }
 
 MAR = function(layers, status_years=2005:2011){  
-  # status_years = 2005:2011
   
-  # layers
-  wd = '/Volumes/data_edit/model/GL-NCEAS_MAR_v2013a/Revision_Dec202013'
-  setwd(wd)
-  harvest_tonnes       = read.csv('mar_harvest_tonnes_lyr.csv')
-  harvest_species      = read.csv('mar_harvest_species_lyr.csv')
-  sustainability_score = read.csv('mar_sustainability_score_lyr.csv')
-  popn_inland25mi      = read.csv('rgn_popsum2005to2015_inland25mi.csv')
-  trend_years          = read.csv('mar_trend_years_lyr.csv')
+  harvest_tonnes = rename(
+    SelectLayersData(layers, layers='mar_harvest_tonnes', narrow=T),
+    c('id_num'='rgn_id', 'category'='species_code', 'year'='year', 'val_num'='tonnes'))
+  harvest_species = rename(
+    SelectLayersData(layers, layers='mar_harvest_species', narrow=T),
+    c('category'='species_code', 'val_chr'='species'))
+  sustainability_score = rename(
+    SelectLayersData(layers, layers='mar_sustainability_score', narrow=T),
+    c('id_num'='rgn_id', 'category'='species', 'val_num'='sust_coeff'))
+  popn_inland25mi = rename(
+    SelectLayersData(layers, layers='mar_coastalpopn_inland25mi', narrow=T),
+    c('id_num'='rgn_id', 'year'='year', 'val_num'='popsum'))
+  trend_years = rename(
+    SelectLayersData(layers, layers='mar_trend_years', narrow=T),
+    c('id_num'='rgn_id', 'val_chr'='trend_yrs'))
   
   # merge and cast harvest with sustainability
   #harvest_species$species = as.character(harvest_species$species)
