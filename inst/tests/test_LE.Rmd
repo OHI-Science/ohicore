@@ -1,0 +1,752 @@
+# LE: Update Data Layers and Function
+
+## Try (unsuccessfully) to replicate Nature 2012
+
+1. Get Nature 2012 with Brazil data...
+```{r init_nature2012}
+library(devtools)
+library(RPostgreSQL)
+#library(RCurl)
+library(dplyr)
+
+wd = '~/Code/ohicore'
+setwd(wd)
+load_all(wd)
+
+pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_nature2012', user='bbest') # assumes password in ~/.pgpass
+dbSendQuery(pg, 'SET search_path TO global_li, global; SET ROLE TO ohi;')
+
+#status_score = dbGetQuery(pg, 'SELECT * FROM status_score'); head(status_score)
+
+scores_global2012 = read.csv('/Volumes/local_edit/src/model/global2012/doc/results_global_scores.csv'); head(scores_global2012)
+scores_global2012_LE = scores_global2012 %.%   
+  filter(!is.na(id)) %.% 
+  select(id, label, LIV:ECO) %.%
+  melt(id=c('id','label'), variable='goal') %.%
+  rename(c(value='score_global2012'))
+dim(scores_global2012_LE); head(scores_global2012_LE); tail(scores_global2012_LE)
+
+scores_ftp2012 = read.csv('ftp://ohi.nceas.ucsb.edu/pub/data/2012/results_global_scores.csv')                        
+scores_ftp2012_LE = scores_ftp2012 %.%   
+  filter(!is.na(id)) %.% 
+  select(id, label, LIV:ECO) %.%
+  melt(id=c('id','label'), variable='goal') %.%
+  rename(c(value='score_ftp2012'))
+dim(scores_ftp2012_LE); head(scores_ftp2012_LE); tail(scores_ftp2012_LE) 
+
+# show differences
+v = merge(scores_global2012_LE, scores_ftp2012_LE, all=T) %.%
+  filter(goal!='LE' & 
+           ((!is.na(score_global2012) & !is.na(score_ftp2012) & score_global2012 != score_ftp2012) |
+            (is.na(score_global2012) != is.na(score_ftp2012)))) %.%
+  arrange(goal, id, label)
+
+print(v, row.names=F)
+
+# data with Brazil
+
+library(reshape2)
+d0 = dbGetQuery(pg, 'SELECT * FROM metric_sector_year'); head(d0); summary(d0); d0 %.% filter(iso3166=='BRA') %.% select(-iso3166) %.% dcast(year ~ metric + sector)
+#   metric sector iso3166 year      value
+# 1   jobs     cf     ABW 1980     276.85
+# 2   jobs     cf     ABW 1970     276.85
+# 3   jobs     cf     BGD 1993 1329868.75
+# 4   jobs     cf     BGD 1994 1454038.27
+# 5   jobs     cf     BGD 1995 1454038.27
+# 6   jobs     cf     BGD 1996 1454038.27
+#     metric             sector            iso3166               year          value           
+#  Length:17786       Length:17786       Length:17786       Min.   :1970   Min.   :-7.146e+08  
+#  Class :character   Class :character   Class :character   1st Qu.:1993   1st Qu.: 2.194e+03  
+#  Mode  :character   Mode  :character   Mode  :character   Median :1998   Median : 3.853e+04  
+#                                                           Mean   :1997   Mean   : 2.094e+09  
+#                                                           3rd Qu.:2004   3rd Qu.: 1.926e+07  
+#                                                           Max.   :2010   Max.   : 2.842e+11  
+#    year jobs_mmw jobs_tour rev_aqf     rev_cf   rev_mar  rev_mmw      rev_og   rev_tour  wage_cf  wage_og  wage_ph wage_tour wage_tran
+# 1  1976       NA        NA 3754789         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 2  1977       NA        NA 3750791         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 3  1978       NA        NA 4635826         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 4  1979       NA        NA 4873514         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 5  1980       NA        NA 3496889         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 6  1981       NA        NA 2793823         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 7  1982       NA        NA 2201571         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 8  1983       NA        NA 1767002         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 9  1984       NA        NA 2342118         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 10 1985       NA        NA 2649379         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 11 1986       NA        NA 2677757         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 12 1987       NA        NA 3078818         NA        NA       NA          NA         NA       NA       NA       NA  3959.960        NA
+# 13 1988       NA  293317.1 3112899         NA        NA       NA          NA 3028549562       NA       NA       NA        NA        NA
+# 14 1989       NA  395871.1 3058840         NA        NA       NA          NA 5441198586       NA       NA       NA        NA        NA
+# 15 1990       NA  319075.1 3646451         NA        NA       NA          NA 4448129222       NA       NA       NA        NA        NA
+# 16 1991     0.00  296890.7 4636262         NA        NA        0          NA 4931749994       NA       NA       NA        NA        NA
+# 17 1992       NA  300573.4 5842812         NA        NA       NA          NA 5107089901       NA       NA       NA        NA        NA
+# 18 1993       NA  267940.7 7750130         NA        NA       NA          NA 4516975860       NA       NA       NA        NA        NA
+# 19 1994   237.46  318127.2 8838447         NA        NA  8003049          NA 5309538689       NA       NA       NA        NA        NA
+# 20 1995       NA  286039.7 9538106         NA        NA       NA  5722816702 5100147383       NA       NA       NA        NA        NA
+# 21 1996       NA  266829.2 9253378         NA        NA       NA  8524744323 4973942321       NA       NA       NA        NA        NA
+# 22 1997       NA  263846.9 8353435 3166140602  31096166       NA  7798772898 5073699695       NA       NA       NA        NA        NA
+# 23 1998   225.97  253935.5 7011979         NA        NA 10348171  6295747407 5044111344       NA       NA       NA        NA        NA
+# 24 1999       NA  261917.5 6918492         NA        NA       NA  9912546006 5384790627 3062.078 30519.75 4549.362  3350.490  6731.960
+# 25 2000       NA  266057.4 6420861         NA        NA       NA 20427553973 5463596472       NA       NA       NA        NA        NA
+# 26 2001       NA  276593.8 6229517         NA        NA       NA 18026476648 5746421437 1602.452 27970.33 1284.657  2824.642  9147.173
+# 27 2002       NA  312548.6 6176970 2727607197 246184441       NA 19792375561 6523115653       NA       NA       NA        NA        NA
+# 28 2003       NA  341150.4 4419754         NA        NA       NA 23240357298 6813544329 2392.859       NA 2555.675        NA        NA
+# 29 2004       NA  344178.8 4823501         NA        NA       NA 30260532076 7004628875 2420.997       NA 2713.987        NA        NA
+# 30 2005       NA  330978.9 7612500         NA        NA       NA 46964920337 6810858235 2972.316       NA       NA        NA        NA
+# 31 2006   310.23  305837.4 7011079         NA        NA 28817230 53124525031 6397530459 3732.541       NA 3354.185        NA        NA
+# 32 2007       NA  308006.0 8329691 3250326243 323625356       NA 57488411021 6690893175       NA       NA       NA        NA        NA
+# 33 2008       NA  295972.1 8942525         NA        NA       NA 76830430718 6592168914       NA       NA       NA        NA        NA
+# 34 2009       NA  314813.5      NA         NA        NA       NA 49355074847 6957932176       NA       NA       NA        NA        NA
+# 35 2010       NA  319687.5      NA         NA        NA       NA          NA 7258691979       NA       NA       NA        NA        NA
+
+
+s0 = dbGetQuery(pg, 'SELECT * FROM status_region'); s0 = s0 %.% dcast(id ~ component); summary(s0); head(s0, 10)
+#        id            economy         livelihood     
+#  Min.   :  1.00   Min.   :0.0000   Min.   :0.01734  
+#  1st Qu.: 43.50   1st Qu.:0.6128   1st Qu.:0.88889  
+#  Median : 86.00   Median :0.7427   Median :0.97095  
+#  Mean   : 86.06   Mean   :0.7107   Mean   :0.91863  
+#  3rd Qu.:128.50   3rd Qu.:0.8703   3rd Qu.:1.00000  
+#  Max.   :172.00   Max.   :1.0000   Max.   :1.00000  
+#    id   economy livelihood
+# 1   1 0.7426928  0.9771011
+# 2   2 0.7426928  0.9771011
+# 3   3 0.9054129  1.0000000
+# 4   4 1.0000000  1.0000000
+# 5   5 1.0000000  1.0000000
+# 6   6 0.8419086  0.9366377
+# 7   7 0.6199029  0.9366377
+# 8   8 0.7500662  0.9366377
+# 9   9 0.6283681  0.9366377
+# 10 10 0.7699551  0.8904377
+```
+
+1. Remove Brazil data from Nature 2012...
+```{bash fix}
+return dict([(row['code'].lower(), row['name'].replace(' ', '-')) for row in csv.DictReader(open('%s/%s.csv' % (os.getenv('OHI_PARAMDIR'), k)))])
+IOError: [Errno 2] No such file or directory: '/var/lib/ohi/param/dimensions.csv'
+bbest@neptune:/var/lib/ohi/param$ ln -s /var/data/ohi/usr/local/src/param/* .
+```
+
+```{bash run}
+export PGDATABASE=ohi_nature2012
+cd /var/data/ohi/model/GL-NCEAS-Livelihoods
+vi import.sql
+# commented out the following Brazil specific data
+# \echo "DEBUG: commenting out section -- Uploading revised Brazil data"
+# \echo "Uploading revised Brazil data"
+# DELETE
+# FROM    metric_sector_year
+# WHERE   (metric = 'wage' AND sector IN (SELECT DISTINCT sector FROM br_metric_sector_year WHERE metric = 'wage') AND iso3166 = 'BRA')
+# ;
+# 
+# INSERT INTO metric_sector_year
+#     SELECT * FROM br_metric_sector_year
+# ;
+# 
+# SELECT  *
+# FROM    metric_sector_year
+# WHERE   (metric = 'wage' AND sector IN (SELECT DISTINCT sector FROM br_metric_sector_year WHERE metric = 'wage') AND iso3166 = 'BRA')
+# ;
+flow
+cd /usr/local/ohi/src/model/global2012/livelihoods/status
+flow
+```
+
+1. Compare Nature 2012 with Brazil data removed
+```{r}
+
+d1 = dbGetQuery(pg, 'SELECT * FROM metric_sector_year'); head(d1); summary(d1); d1 %.% filter(iso3166=='BRA') %.% select(-iso3166) %.% dcast(year ~ metric + sector)
+#   metric sector iso3166 year        value
+# 1   jobs     cf     ABW 1999     718.0698
+# 2   jobs     cf     ABW 2000     720.4428
+# 3   jobs     cf     BGD 1993 1329868.7500
+# 4   jobs     cf     BGD 1994 1454038.2689
+# 5   jobs     cf     BGD 1995 1454038.2689
+# 6   jobs     cf     BGD 1996 1454038.2689
+#     metric             sector            iso3166               year          value           
+#  Length:17780       Length:17780       Length:17780       Min.   :1970   Min.   :-7.146e+08  
+#  Class :character   Class :character   Class :character   1st Qu.:1993   1st Qu.: 2.192e+03  
+#  Mode  :character   Mode  :character   Mode  :character   Median :1998   Median : 3.863e+04  
+#                                                           Mean   :1997   Mean   : 2.095e+09  
+#                                                           3rd Qu.:2004   3rd Qu.: 1.938e+07  
+#                                                           Max.   :2010   Max.   : 2.842e+11  
+#    year jobs_mmw jobs_tour rev_aqf     rev_cf   rev_mar  rev_mmw      rev_og   rev_tour  wage_cf  wage_og  wage_ph wage_tour wage_tran
+# 1  1976       NA        NA 3754789         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 2  1977       NA        NA 3750791         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 3  1978       NA        NA 4635826         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 4  1979       NA        NA 4873514         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 5  1980       NA        NA 3496889         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 6  1981       NA        NA 2793823         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 7  1982       NA        NA 2201571         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 8  1983       NA        NA 1767002         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 9  1984       NA        NA 2342118         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 10 1985       NA        NA 2649379         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 11 1986       NA        NA 2677757         NA        NA       NA          NA         NA       NA       NA       NA        NA        NA
+# 12 1987       NA        NA 3078818         NA        NA       NA          NA         NA       NA       NA 6542.197  3959.960        NA
+# 13 1988       NA  293317.1 3112899         NA        NA       NA          NA 3028549562       NA       NA       NA        NA        NA
+# 14 1989       NA  395871.1 3058840         NA        NA       NA          NA 5441198586       NA       NA       NA        NA        NA
+# 15 1990       NA  319075.1 3646451         NA        NA       NA          NA 4448129222       NA       NA       NA        NA        NA
+# 16 1991     0.00  296890.7 4636262         NA        NA        0          NA 4931749994       NA       NA       NA        NA        NA
+# 17 1992       NA  300573.4 5842812         NA        NA       NA          NA 5107089901       NA       NA       NA        NA        NA
+# 18 1993       NA  267940.7 7750130         NA        NA       NA          NA 4516975860       NA       NA       NA        NA        NA
+# 19 1994   237.46  318127.2 8838447         NA        NA  8003049          NA 5309538689       NA       NA       NA        NA        NA
+# 20 1995       NA  286039.7 9538106         NA        NA       NA  5722816702 5100147383       NA       NA       NA        NA        NA
+# 21 1996       NA  266829.2 9253378         NA        NA       NA  8524744323 4973942321       NA       NA       NA        NA        NA
+# 22 1997       NA  263846.9 8353435 3166140602  31096166       NA  7798772898 5073699695       NA       NA       NA        NA        NA
+# 23 1998   225.97  253935.5 7011979         NA        NA 10348171  6295747407 5044111344       NA       NA       NA        NA        NA
+# 24 1999       NA  261917.5 6918492         NA        NA       NA  9912546006 5384790627 3544.623 30519.75 5240.164  3350.490  6731.960
+# 25 2000       NA  266057.4 6420861         NA        NA       NA 20427553973 5463596472       NA       NA       NA        NA        NA
+# 26 2001       NA  276593.8 6229517         NA        NA       NA 18026476648 5746421437 1971.085 27970.33 1572.346  2824.642  9147.173
+# 27 2002       NA  312548.6 6176970 2727607197 246184441       NA 19792375561 6523115653       NA       NA       NA        NA        NA
+# 28 2003       NA  341150.4 4419754         NA        NA       NA 23240357298 6813544329       NA       NA       NA        NA        NA
+# 29 2004       NA  344178.8 4823501         NA        NA       NA 30260532076 7004628875       NA       NA       NA        NA        NA
+# 30 2005       NA  330978.9 7612500         NA        NA       NA 46964920337 6810858235       NA       NA       NA        NA        NA
+# 31 2006   310.23  305837.4 7011079         NA        NA 28817230 53124525031 6397530459       NA       NA       NA        NA        NA
+# 32 2007       NA  308006.0 8329691 3250326243 323625356       NA 57488411021 6690893175       NA       NA       NA        NA        NA
+# 33 2008       NA  295972.1 8942525         NA        NA       NA 76830430718 6592168914       NA       NA       NA        NA        NA
+# 34 2009       NA  314813.5      NA         NA        NA       NA 49355074847 6957932176       NA       NA       NA        NA        NA
+# 35 2010       NA  319687.5      NA         NA        NA       NA          NA 7258691979       NA       NA       NA        NA        NA
+
+s1 = dbGetQuery(pg, 'SELECT * FROM status_region'); s1 = s1 %.% dcast(id ~ component); summary(s1); head(s1, 10)
+#        id            economy         livelihood     
+#  Min.   :  1.00   Min.   :0.0000   Min.   :0.01734  
+#  1st Qu.: 43.50   1st Qu.:0.6128   1st Qu.:0.88889  
+#  Median : 86.00   Median :0.7427   Median :0.97095  
+#  Mean   : 86.06   Mean   :0.7107   Mean   :0.91863  
+#  3rd Qu.:128.50   3rd Qu.:0.8703   3rd Qu.:1.00000  
+#  Max.   :172.00   Max.   :1.0000   Max.   :1.00000  
+#    id   economy livelihood
+# 1   1 0.7426928  0.9771011
+# 2   2 0.7426928  0.9771011
+# 3   3 0.9054129  1.0000000
+# 4   4 1.0000000  1.0000000
+# 5   5 1.0000000  1.0000000
+# 6   6 0.8419086  0.9366377
+# 7   7 0.6199029  0.9366377
+# 8   8 0.7500662  0.9366377
+# 9   9 0.6283681  0.9366377
+# 10 10 0.7699551  0.8904377
+
+
+# ohi_nature2012_archive
+pg_other = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_results_20111130', user='bbest') # assumes password in ~/.pgpass
+dbSendQuery(pg_other, 'SET search_path TO global_li, global; SET ROLE TO ohi;')
+sa = dbGetQuery(pg_other, 'SELECT * FROM status_region'); sa = sa %.% dcast(id ~ component); summary(sa); head(sa, 10)
+
+ohi_nature2012_archive
+
+scores_ftp2012 = read.csv('ftp://ohi.nceas.ucsb.edu/pub/data/2012/results_global_scores.csv')                        
+scores_ftp2012_LE = scores_ftp2012 %.%   
+  filter(!is.na(id)) %.% 
+  select(id, label, LIV:ECO) %.%
+  melt(id=c('id','label'), variable='goal') %.%
+  rename(c(value='score_ftp2012'))
+dim(scores_ftp2012_LE); head(scores_ftp2012_LE); tail(scores_ftp2012_LE) 
+
+# show differences
+v = merge(scores_global2012_LE, scores_ftp2012_LE, all=T) %.%
+  filter(goal!='LE' & 
+           ((!is.na(score_global2012) & !is.na(score_ftp2012) & score_global2012 != score_ftp2012) |
+            (is.na(score_global2012) != is.na(score_ftp2012)))) %.%
+  arrange(goal, id, label)
+
+```
+
+## Get 2013a (vs Nature 2012 or 2012a)
+
+* ran `/Volumes/data_edit/model/GL-NCEAS-Livelihoods_v2013a/model.R` for 2013a
+
+* ran disaggregation from 2012 country_id to 2013 rgn_id. 
+  /Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/digest_disaggregate.R
+
+
+```{r init_2013a}
+library(devtools)
+library(RPostgreSQL)
+library(dplyr)
+
+wd = '~/Code/ohicore'
+setwd(wd)
+load_all(wd)
+
+pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_global2013', user='bbest') # assumes password in ~/.pgpass
+dbSendQuery(pg, 'SET search_path TO global_li, global; SET ROLE TO ohi;')
+```
+
+* check that 2012a, 2013a matches: YES (except unpopulated islands)
+```{r check2013, dependson='init_2013a'}
+
+# get disaggregate() function
+source('/Volumes/local_edit/src/R/jstewart/disaggregate_bbest.R')     
+
+for (yr in c(2012, 2013)){
+  cat(sprintf('scenario %d\n', yr))
+
+  # run disaggregation
+  r12 = sprintf('/Volumes/local_edit/src/model/global2013/livelihoods/status/data_2013/global_li_status_region_%da.csv', yr)
+  r13 = sprintf('/Users/bbest/Code/ohicore/inst/tests/tmp_LE_status_global%d_region2013.csv', yr)
+  disaggregate(csv.in=r12, csv.out=r13, flds.id=c('id','component'), fld.value = 'value', verbose=F)
+  
+  # compare official results (r) to modeled (m)
+  r = read.csv('/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-09.csv', na.strings=''); head(r)
+  r = r %.% 
+    filter(goal=='LIV' & scenario==yr & dimension=='status' & region_id!=0) %.% 
+    select(region_id, value) %.%
+    rename(c(value='r'))
+  #head(r)
+  
+  m = read.csv(r13, na.strings=''); head(m)
+  m = m %.% 
+    filter(component=='livelihood') %.% 
+    mutate(value = round(value * 100, 2)) %.%
+    select(rgn_id, value) %.%
+    rename(c(rgn_id='region_id', value='m')) %.%
+    merge(r, all=T) %.%
+    mutate(d = m - r) %.%
+    filter(d != 0 | (is.na(m) != is.na(r)) )
+  #print(m, row.names=F)
+  cat('  Mismatched regions:', paste(m$region_id, collapse=','),'\n')
+  # These must be islands / unpopulated regions
+}
+```
+
+* ok, now working backwards from final results...
+
+```{r LIV.ECO.2012n}
+
+
+aggregate_by_country_weighted(df=subset(s, component=='livelihood'), w=w_liv,
+                                        col.value='score', col.country='country_id', col.weight='workforce') # ABW workforce==NA  # summary(s_liv)
+
+
+# original function ... ----
+
+  #   ld.csv=layers_data.csv, 
+  #   LIV.status.csv = file.path(dir.results, sprintf('LIV_status_%s.csv', sfx.scenario)),
+  #   LIV.trend.csv  = file.path(dir.results, sprintf('LIV_trend_%s.csv' , sfx.scenario)),
+  #   ECO.status.csv = file.path(dir.results, sprintf('ECO_status_%s.csv', sfx.scenario)),
+  #   ECO.trend.csv  = file.path(dir.results, sprintf('ECO_trend_%s.csv' , sfx.scenario)),
+  #   liv_adj_year=2009, eco_adj_min_year=2000
+  
+  
+  # database connection
+  pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_nature2012', user='bbest') # assumes password in ~/.pgpass
+  dbSendQuery(pg, 'SET search_path TO global_li, global; SET ROLE TO ohi;')
+  
+  # TODO: remove Brazil entries
+  # TODO: i_eco_rev_adj_gdp -> cnky_eco_rev_whence in functions.R
+  # i_eco_rev_adj_gdp     country_id,year,value_num            Economies model variable  revenue adjustment (GDP)                     6F	  USD	    ECO	6F_eco_rev_adj_gdp.csv
+  
+  # since i_eco_rev_adj_gdp missing sector og for generating cny_eco_rev_adj_gdp, creating from filesystem
+  ohi.load('global_li_adjustments', dir='/var/data/ohi/model/GL-NCEAS-Livelihoods/data')
+  cnky_eco_rev_whence = sqldf(
+    "SELECT iso3166 AS country_id, whence, year, value AS USD 
+    FROM global_li_adjustments
+    WHERE metric='rev_adj'")
+  # TODO: i_eco_rev_adj_gdp -> cnky_eco_rev_whence in functions.R
+  # TODO: consider splitting into two layers, since currently funkily incorporating [whence] (actual or model) as [category] but category isn't sector like other layers.
+  
+  
+  # TODO: cny_liv_jobs_adj_unemp -> i_liv_jobs_adj_unemp in functions.R
+  # TODO: ?cny_eco_rev_adj_gdp
+  # TODO: cny_ao_ppp -> cny_le_ppp -> cny_ao_need (or ppppcgdp layer_id from Nature 2012?)
+  # x = contrast(x=head(b), by.x=c('metric','sector','country_id','year'), on.x=c('value','base_value','base_whence','adj_value'),
+  #              y=head(a), by.y=c('metric','sector','iso3166'   ,'year'), skip.y.na=F)
+  
+  # DEBUG isolated run
+  #liv_adj_year=2009
+  #eco_adj_min_year=2000
+  #layers_data.csv = '/Volumes/local_edit/src/toolbox/data/global_2012_nature/layers_data.csv'  
+  #source('/Volumes/local_edit/src/R/ohi/R/ohi.R')
+  
+  library(plyr)
+  library(reshape2)
+  library(sqldf)
+  
+  # cast data ----  
+  
+  # layers
+  lyrs = list('cky' = c('cnky_eco_rev'             = 'rev',
+                        'cnky_liv_jobs'            = 'jobs',
+                        'cnky_liv_wages'           = 'wage'),
+              'cy'  = c('cny_ao_need'              = 'ppp',
+                        'cny_liv_pct_unemp'        = 'jobs',
+                        'cny_le_workforcesize_adj' = 'workforce',
+                        'cnky_eco_rev_whence'      = 'rev',
+                        'cnky_liv_wages_adj_lilo'  = 'wage'))
+  # NOTE: cnky_eco_rev_whence & cnky_liv_wages_adj_lilo are wierd ones unique by country & year with additional category column of whence
+  layers = sub('(cky|cy)\\.','', names(unlist(lyrs)))
+  
+  # get layer data
+  d = subset(read.csv(ld.csv, na.strings=''), layer %in% layers)
+  
+  # check for missing layers
+  layers.missing = layers[!layers %in% d$layer]
+  if (length(layers.missing)>0) stop(sprintf('Missing layer(s): %s', paste(layers.missing, collapse=', ')))
+  # missing: cny_liv_pct_unemp
+  
+  # HACK: rbind unemp
+  # adj_unemp  National unemployment statistics		7.48	percent	48	7_48_adj_unemp.csv																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																									
+  
+  # unemployment
+  #   /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_uem_2012a.csv
+  #   /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_uem_2013a.csv
+  #     
+  # total labor force
+  #   /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_lab_2012a.csv
+  #   /Volumes/data_edit/model/GL-WorldBank-Statistics_v2012/data/rgn_wb_lab_2013a.csv
+  
+  x = read.csv('/Volumes/local_edit/src/toolbox/data/global_2012_nature_ftp/layers/7_48_adj_unemp.csv', na.strings=''); head(x)
+  # TODO: disaggregate this layer too for 2013
+  x = rename(x, c('country_id' = 'id_chr',
+                  'percent'    = 'value_num'))
+  x$layer = 'cny_liv_pct_unemp'
+  names(d)[!names(d) %in% names(x)]
+  d = rbind.fill(d, x)
+  
+  # check for duplicates
+  for (lyr in lyrs[['cky']]){
+    x = subset(d, layer==lyr)
+    print(x[duplicated(x[,c('id_chr','category','year')]),])
+  }
+  for (lyr in lyrs[['cy']]){ # lyr='cny_le_workforcesize_adj'
+    x = subset(d, layer==lyr)    
+    print(x[duplicated(x[,c('id_chr','year')]),])
+  }
+  
+  # cast per country, sector, year
+  cky = rename(dcast(d, id_chr + category + year ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['cky']]))),
+               c('id_chr'='country_id', 'category'='sector', lyrs[['cky']])) #; table(rk$habitat); print(head(subset(rk, habitat=='mangrove')), row.names=F); head(rk)
+  #print(cky[duplicated(cky[,c('country_id','sector','year')]),])
+  
+  # cast per country, year
+  cy = rename(dcast(d, id_chr + year ~ layer, value.var='value_num', subset = .(layer %in% names(lyrs[['cy']]))),
+              c('id_chr'='country_id', lyrs[['cy']])) #; table(rk$habitat); print(head(subset(rk, habitat=='mangrove')), row.names=F); head(rk)
+  #print(head(cy[duplicated(cy[,c('country_id','year')]),]))
+  
+  # add whence 
+  cy.t = rename(dcast(d, id_chr + year ~ layer, value.var='category', subset = .(layer %in% c('cnky_eco_rev_whence','cnky_liv_wages_adj_lilo'))),
+                c('id_chr'='country_id', 'cnky_eco_rev_whence'='rev_whence', 'cnky_liv_wages_adj_lilo'='wage_whence')); head(cy); head(cy.t); table(cy.t$rev_whence); table(cy.t$wage_whence)
+  cy = merge(cy, cy.t, all.x=T); head(cy); summary(cy)
+  #print(cy[duplicated(cy[,c('country_id','year')]),])
+  
+  # calculate status ----
+  
+  # get most recent (cur) and reference (ref) year, optimally going back 5 years
+  jobs = ddply(subset(cky, !is.na(jobs), c('country_id','sector','year','jobs')), .(country_id, sector), summarize,
+               metric = 'jobs',
+               year_cur = max(year),
+               year_ref = year[na.omit(match(c(5, 6, 4, 7, 3, 8, 2, 9, 1, 10), max(year) - year))[1]])
+  rev = ddply(subset(cky, !is.na(rev), c('country_id','sector','year','rev')), .(country_id, sector), summarize,
+              metric = 'rev',
+              year_cur = max(year),
+              year_ref = year[na.omit(match(c(5, 6, 4, 7, 3, 8, 2, 9, 1, 10), max(year) - year))[1]])
+  wage = ddply(subset(cky, !is.na(wage), c('country_id','sector','year','wage')), .(country_id, sector), summarize,
+               metric = 'wage',
+               year_cur = max(year),
+               year_ref = year[na.omit(match(c(5, 6, 4, 7, 3, 8, 2, 9, 1, 10), max(year) - year))[1]])
+  
+  # append jobs/rev/wage to base_cur and base_ref based on country_id, sector
+  jobs  = sqldf("SELECT j.*, d.jobs  AS base_cur FROM jobs  AS j JOIN cky AS d ON (j.year_cur=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
+  jobs  = sqldf("SELECT j.*, d.jobs  AS base_ref FROM jobs  AS j JOIN cky AS d ON (j.year_ref=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
+  rev   = sqldf("SELECT j.*, d.rev   AS base_cur FROM rev   AS j JOIN cky AS d ON (j.year_cur=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
+  rev   = sqldf("SELECT j.*, d.rev   AS base_ref FROM rev   AS j JOIN cky AS d ON (j.year_ref=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
+  wage  = sqldf("SELECT j.*, d.wage AS base_cur FROM wage AS j JOIN cky AS d ON (j.year_cur=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
+  wage  = sqldf("SELECT j.*, d.wage AS base_ref FROM wage AS j JOIN cky AS d ON (j.year_ref=d.year AND j.country_id=d.country_id AND j.sector=d.sector)")
+  
+  # append jobsrev/wage to adj_cur and adj_ref based on just country_id
+  jobs  = sqldf("SELECT j.*, d.jobs  AS adj_cur FROM jobs  AS j JOIN cy AS d ON (j.year_cur=d.year AND j.country_id=d.country_id)")
+  jobs  = sqldf("SELECT j.*, d.jobs  AS adj_ref FROM jobs  AS j JOIN cy AS d ON (j.year_ref=d.year AND j.country_id=d.country_id)")
+  rev   = sqldf("SELECT j.*, d.rev   AS adj_cur FROM rev   AS j JOIN cy AS d ON (j.year_cur=d.year AND j.country_id=d.country_id)")
+  rev   = sqldf("SELECT j.*, d.rev   AS adj_ref FROM rev   AS j JOIN cy AS d ON (j.year_ref=d.year AND j.country_id=d.country_id)")
+  wage  = sqldf("SELECT j.*, d.wage AS adj_cur FROM wage AS j JOIN cy AS d ON (j.year_cur=d.year AND j.country_id=d.country_id)")
+  wage  = sqldf("SELECT j.*, d.wage AS adj_ref FROM wage AS j JOIN cy AS d ON (j.year_ref=d.year AND j.country_id=d.country_id)")
+  
+  # combine jobs, rev, wage into single metrics table
+  jrw = rbind(jobs, rev, wage)
+  
+  # quality enforce minimum data standards for countries to include: sum of sector years must be non-zero, 
+  #   and at least 2 sectors are required across revenue and jobs, but any ok for wage
+  jrw$base_sum = with(jrw, base_ref + base_cur)
+  q = ddply(ddply(jrw, 
+                  .(country_id, metric), summarize,
+                  n_nonzero_sectors = length(sector) - sum(base_sum==0)), 
+            .(country_id), summarize,
+            n_nonzero_metric_sectors = sum(n_nonzero_sectors))
+  mq = merge(jrw, q, all=T)
+  m = subset(mq, (base_sum != 0) & (n_nonzero_metric_sectors > 1 | metric=='wage'))
+  #m0 = subset(mq, n_nonzero_metric_sectors > 1 | (metric=='wage' & base_sum != 0))
+  #   sqldf("SELECT m.* FROM m LEFT JOIN n USING (country_id,sector,metric) WHERE n.country_id IS NULL")
+  #   x = merge(m[,1:3],m0[,1:3], all=T)
+  # TODO: should this quality control really be for nonzero sectors per country,metric and not just country?
+  #  FIX:
+  #   q = ddply(jrw, .(country_id, metric), summarize,
+  #             n_nonzero_sectors = length(sector) - sum(base_sum==0)))
+  #   mq = merge(jrw, q, all=T)
+  #   m = subset(mq, base_sum != 0 & (n_nonzero_sectors > 1 | metric=='wage')))
+  
+  # # b = sqldf("SELECT * FROM m WHERE base_ref <> 0 AND adj_ref <> 0")
+  # # dim(b)
+  # status_model_curref = dbGetQuery(pg, "SELECT * FROM global_li.status_model_curref")
+  # subset(status_model_curref, iso3166=='BRA' & metric=='wage')
+  # subset(m, country_id=='BRA' & metric=='wage')  
+  # # status_model_curref_lim = dbGetQuery(pg, "SELECT * FROM global_li.status_model_curref WHERE ref_base_value <> 0 AND ref_adj_value <> 0")
+  # # dim(status_model_curref_lim)
+  
+  # calculate jobs (LIV) and revenue (ECO) scores
+  s_jr = sqldf(
+    "SELECT  metric, country_id, COUNT(*) AS n_sector,
+    (SUM(base_cur) / SUM(base_ref)) / (AVG(adj_cur) / AVG(adj_ref)) AS score
+    FROM     m
+    WHERE    base_ref <> 0 AND adj_ref <> 0 AND metric IN ('jobs', 'rev')
+    GROUP BY metric, country_id
+    ORDER BY country_id, metric")
+  
+  # for wage (LIV), compute the corrected relative value per metric per country:
+  #   0. w'_i = (w_c/w_r)/(W_c/W_r) for each sector i per country
+  #   1. let w' = unweighted mean(w'_i) across all sector i per country
+  #   2. multiply w' by the purchasing power parity (PPP) value for the country
+  s_w = sqldf(
+    "SELECT  metric, country_id, (w_prime * ppp) AS score, n_sector
+    FROM     (
+    SELECT  metric, country_id, AVG(w_prime_i) AS w_prime, COUNT(*) AS n_sector
+    FROM    (
+    SELECT  metric, country_id, sector, 
+    (base_cur / base_ref) / (adj_cur / adj_ref) AS w_prime_i
+    FROM    m
+    WHERE   metric = 'wage' AND base_ref <> 0 AND adj_ref <> 0
+    ) t0
+    GROUP BY  metric, country_id
+    ) t1
+    JOIN    ( -- find current ppp value per country
+    SELECT  country_id, year, ppp
+    FROM    cy
+    JOIN    ( -- find most recent ppp year
+    SELECT    country_id, MAX(year) AS year 
+    FROM      cy
+    WHERE     ppp IS NOT NULL
+    GROUP BY  country_id
+    ) max USING (country_id, year)
+    ) p USING (country_id)
+    ORDER BY metric, country_id")
+  
+  # 3. set the best country (PPP-adjusted average wage) equal to 1.0 and then rescale all countries to that max  
+  s_w$score = s_w$score / max(s_w$score)
+  
+  # combine the corrected relative values into a single status score for LIV (jobs & wage) and ECO (revenue)
+  s = sqldf(
+    "SELECT *
+    FROM (
+    SELECT d.country_id, 
+    cast('livelihood' AS varchar) AS component,   
+    CASE WHEN j.score IS NOT NULL AND w.score IS NOT NULL 
+    THEN (0.5 * j.score + 0.5 * w.score) 
+    ELSE COALESCE(j.score, w.score) 
+    END AS value
+    FROM      (SELECT DISTINCT country_id FROM m) d    
+    LEFT JOIN (SELECT * FROM s_jr WHERE metric = 'jobs') j USING (country_id)
+    LEFT JOIN (SELECT * FROM s_w WHERE metric = 'wage') w USING (country_id)
+    UNION        
+    SELECT    d.country_id, 'economy', e.score
+    FROM      (SELECT DISTINCT country_id FROM m) d    
+    LEFT JOIN (SELECT * FROM s_jr WHERE metric = 'rev') e USING (country_id)        
+    ) t
+    WHERE value IS NOT NULL
+    ORDER BY country_id")
+  
+  # assign status as value clamped 0 to 1, and multiply by 100
+  s$score = pmin(s$value, 1) * 100
+  
+  # aggregate ----
+  
+  # aggregate countries to regions by country workforce size for livelihood
+  w_liv = subset(cy, year==liv_adj_year & !is.na(workforce), c(country_id,workforce))
+  
+  s_liv = aggregate_by_country_weighted(df=subset(s, component=='livelihood'), w=w_liv,
+                                        col.value='score', col.country='country_id', col.weight='workforce') # ABW workforce==NA  # summary(s_liv)
+  # TODO: look for difference in LIV between ftp Nature2012 and global2012
+  # s_liv.a = dbGetQuery(pg, "SELECT id, value*100 AS status FROM global_li.status_region WHERE component = 'livelihood'"); head(s_liv.a)
+  #ck.LIV = contrast(s_liv, s_liv.a, by.x='region_id', by.y='id', on.x='score', on.y='status', precision=4)  
+  # all y in x success: 171 
+  # all x in y success: 171 
+  # score.equ success
+  #ck.LIV = contrast(x=s_liv, by.x='region_id', by.y='id', on.x='score', on.y='status',
+  #                     y=subset(results_global_data, goal.subgoal=='LIV'), precision=2)
+  # dropping mutual NAs: 1 / 172 
+  # all y in x success: 172 
+  # all x in y FAIL!: 3 / 171 
+  #     region_id            score
+  # 79         79 93.6637698071856
+  # 110       110 93.6637698071856
+  # 114       114 93.6637698071856
+  # score.equ  FAIL! on 3 / 171 
+  #  region_id            score  score.y          score.dif
+  #        121 68.3349668096027 66.75735  1.577616809602731
+  #        122 58.4077369325363 55.57214  2.835596932536262
+  #        171 82.5785097996376 83.16348 -0.584970200362378
+  
+  # aggregate countries to regions by country revenue for economies
+  w_eco = w = ddply(subset(cy, !is.na(rev) & year >= eco_adj_min_year & rev_whence=='actual'), .(country_id), summarize,
+                    rev_adj = rev[which.max(year)])  
+  s_eco = aggregate_by_country_weighted(df=subset(s, component=='economy'), w=w_eco,
+                                        col.value='score', col.country='country_id', col.weight='rev_adj') # ABW workforce==NA  
+  # TODO: look for difference in ECO between ftp Nature2012 and global2012
+  # s_eco.a = dbGetQuery(pg, "SELECT id, value*100 AS status FROM global_li.status_region WHERE component = 'economy'"); head(s_eco.a)
+  #ck.ECO = contrast(s_eco, s_eco.a, by.x='region_id', by.y='id', on.x='score', on.y='status', precision=4)
+  # all y in x success: 171 
+  # all x in y success: 171 
+  # score.equ success  
+  # ck.ECO = contrast(x=s_eco, by.x='region_id', by.y='id', on.x='score', on.y='status',
+  #                    y=subset(results_global_data, goal.subgoal=='ECO'), precision=2)
+  # dropping mutual NAs: 1 / 172 
+  # all y in x success: 172 
+  # all x in y FAIL!: 3 / 171 
+  #     region_id            score
+  # 79         79 75.0066169564487
+  # 110       110 75.0066169564487
+  # 114       114 75.0066169564487
+  # score.equ  FAIL! on 73 / 171 
+  #  region_id            score  score.y          score.dif
+  #          1 74.2692832666138 60.35782 13.911463266613758
+  #          2 74.2692832666138 60.35782 13.911463266613758
+  #         10 76.9955069354751 73.61761  3.377896935475107
+  #         12 77.2720562615789 62.23359 15.038466261578854
+  #         15 77.3206334298282 77.91991 -0.599276570171767
+  #         16 99.8922517164328 94.90722  4.985031716432843
+  # ...  
+  
+  # gather status
+  d.status = merge(setNames(s_liv[,c('region_id','score')], c('region_id','LIV_status')),
+                   setNames(s_eco[,c('region_id','score')], c('region_id','ECO_status')), all=T)
+  
+  print('LE.browser')
+  browser()
+  LIV.status.csv = file.path(dir.results, sprintf('LIV_status_%s.csv', sfx.scenario))
+  LIV.trend.csv  = file.path(dir.results, sprintf('LIV_trend_%s.csv' , sfx.scenario))
+  ECO.status.csv = file.path(dir.results, sprintf('ECO_status_%s.csv', sfx.scenario))
+  
+  
+  #  head(d.status)
+  
+  # calculate trend ----
+  # TODO: get whence for jobs (have for rev & wage)  
+  
+  #   adjustments = dbGetQuery(pg, "SELECT * FROM global_li.adjustments"); head(adjustments); dim(adjustments); head(metric_sector_refperiod)
+  #   b = sqldf("SELECT 'jobs_adj'  AS metric, country_id, year, NULL  AS whence, jobs  AS value FROM cy WHERE jobs  IS NOT NULL
+  #         UNION
+  #         SELECT 'rev_adj'   AS metric, country_id, year, rev_whence AS whence, rev   AS value FROM cy WHERE rev   IS NOT NULL
+  #         UNION
+  #         SELECT 'wage_adj' AS metric, country_id, year, NULL       AS whence, wage AS value FROM cy WHERE wage IS NOT NULL" ); head(b)
+  #   x = contrast(x=b,           by.x=c('metric','country_id','year'), on.x='value',
+  #                y=adjustments, by.y=c('metric','iso3166'   ,'year'), on.y='value', skip.y.na=F)
+  #  all good
+  
+  #   head(jrw)
+  #   head(cky)
+  #   status_model_curref = dbGetQuery(pg, "SELECT * FROM global_li.status_model_curref"); head(a); dim(a)
+  #   adjustments = dbGetQuery(pg, "SELECT * FROM global_li.adjustments"); head(adjustments); dim(adjustments); head(metric_sector_refperiod)
+  #   dlply(adjustments, .(metric), function(x) table(x$whence))
+  
+  #   a = dbGetQuery(pg, "    -- grab adjustment data per metric-sector-year in sector timeframe
+  #     SELECT  d.metric, d.sector, d.iso3166,
+  #             a.year, a.whence AS adj_whence, a.value AS adj_value
+  #     FROM    global_li.metric_sector_refperiod d
+  #     JOIN    global_li.adjustments a USING (iso3166)
+  #     WHERE   a.metric = d.metric || '_adj' AND 
+  #             a.year <= d.cur_year AND
+  #             a.year >= d.ref_year"); head(a)  
+  b = sqldf(
+    "-- SELECT d.metric, d.sector, d.country_id, 
+    --   a.year, a.
+    -- grab adjustment data per metric-sector-year in sector timeframe
+    SELECT  d.metric, d.sector, d.country_id,
+    a.year, a.whence AS adj_whence, a.value AS adj_value
+    FROM    jrw AS d
+    JOIN (
+    SELECT 'jobs'  AS metric, country_id, year, NULL       AS whence, jobs  AS value FROM cy WHERE jobs  IS NOT NULL
+    UNION
+    SELECT 'rev'   AS metric, country_id, year, rev_whence AS whence, rev   AS value FROM cy WHERE rev   IS NOT NULL
+    UNION
+    SELECT 'wage' AS metric, country_id, year, NULL       AS whence, wage AS value FROM cy WHERE wage IS NOT NULL
+    ) AS a USING (country_id, metric)
+    WHERE   a.year <= d.year_cur AND
+    a.year >= d.year_ref"); head(b)
+  
+  
+  #   a = dbGetQuery(pg, "SELECT  d.metric, d.sector, d.iso3166, d.year,
+  #           cast(NULL as double precision)AS value,
+  #           m.value                       AS base_value, 
+  #           cast('actual' as varchar(80)) AS base_whence,
+  #           d.adj_value,
+  #           d.adj_whence
+  #   FROM    ( 
+  #     -- grab adjustment data per metric-sector-year in sector timeframe
+  #     SELECT  d.metric, d.sector, d.iso3166,
+  #             a.year, a.whence AS adj_whence, a.value AS adj_value
+  #     FROM    global_li.metric_sector_refperiod d
+  #     JOIN    global_li.adjustments a USING (iso3166)
+  #     WHERE   a.metric = d.metric || '_adj' AND 
+  #             a.year <= d.cur_year AND
+  #             a.year >= d.ref_year
+  #     ) d
+  #   JOIN    global_li.metric_sector_year m USING (metric, sector, iso3166, year)
+  #   WHERE   m.value IS NOT NULL -- double-check we're getting an actual base
+  #   ORDER BY d.metric, d.sector, d.iso3166, d.year"); head(a)
+  
+  b = sqldf(
+    "SELECT metric, sector, country_id, year,
+    CAST(NULL as REAL) AS value,
+    m.value                       AS base_value, 
+    cast('actual' as varchar(80)) AS base_whence,
+    adj_value,
+    adj_whence
+    FROM  (
+    -- grab adjustment data per metric-sector-year in sector timeframe
+    SELECT  d.metric, d.sector, d.country_id,
+    a.year, a.whence AS adj_whence, a.value AS adj_value
+    FROM    jrw AS d
+    JOIN (
+    SELECT 'jobs'  AS metric, country_id, year, wage_whence AS whence, jobs  AS value FROM cy WHERE jobs  IS NOT NULL
+    UNION
+    SELECT 'rev'   AS metric, country_id, year, rev_whence   AS whence, rev  AS value FROM cy WHERE rev   IS NOT NULL
+    UNION
+    SELECT 'wage' AS metric, country_id, year, NULL          AS whence, wage AS value FROM cy WHERE wage IS NOT NULL
+    ) AS a USING (country_id, metric)
+    WHERE   a.year <= d.year_cur AND
+    a.year >= d.year_ref) AS d
+    JOIN  (
+    SELECT 'jobs' AS metric, sector, country_id, year, jobs AS value FROM cky WHERE jobs  IS NOT NULL
+    UNION
+    SELECT 'rev'  AS metric, sector, country_id, year, rev  AS value FROM cky WHERE rev   IS NOT NULL
+    UNION
+    SELECT 'wage' AS metric, sector, country_id, year, wage AS value FROM cky WHERE wage IS NOT NULL
+    ) AS m USING (metric, sector, country_id, year)
+    WHERE   m.value IS NOT NULL -- double-check we're getting an actual base
+    ORDER BY d.metric, d.sector, d.country_id, d.year"); head(b)  
+  #x = contrast(x=b, by.x=c('metric','sector','country_id','year'), on.x=c('value','base_value','base_whence','adj_value'),
+  #             y=a, by.y=c('metric','sector','iso3166'   ,'year'), skip.y.na=F)
+  # all y in x FAIL!: 28 / 5933 
+  #      metric sector     country_id year value.y base_value.y base_whence.y adj_value.y
+  # 1085   jobs    mmw            ATA 1998      NA            5        actual          NA
+  # 1086   jobs    mmw            ATA 2008      NA           84        actual          NA
+  # 1089   jobs    mmw         Azores 1998      NA           11        actual          NA
+  # 1090   jobs    mmw         Azores 2008      NA           46        actual          NA
+  # 1107   jobs    mmw Canary Islands 1998      NA          943        actual          NA
+  # 1108   jobs    mmw Canary Islands 2008      NA          576        actual          NA"  
+  #table(subset(x, is.na(base_value), c(metric, sector)))
+  #        sector
+  # metric mmw og tour
+  #   jobs   6  0    0
+  #   rev    6 12    0
+  #   wage   0  2    2
+  #table(subset(x, is.na(base_value), c(metric, country_id)))
+  #          country_id
+  #   metric ATA Azores Canary Islands KAZ Wake Island
+  #   jobs   2      2              2   0           0
+  #   rev    8      2              2   0           6
+  #   wage   0      0              0   4           0
+  
+  # QUICK HACK to consume Nature 2012 results as a placeholder
+  d = read.csv(file.path(root.data ,'model/GL-NCEAS-LayersDisaggregated_v2013a/data/rgn_results_2012n_long.csv'), na.strings=''); head(d)
+
+```
