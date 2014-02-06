@@ -2,7 +2,7 @@
 \alias{Halpern2012.LSP}
 \title{Calculate Lasting Special Places subgoal of Sense of Place.}
 \usage{
-  Halpern2012.LSP(CMPA, tCMPA, CP, tCP, ...)
+Halpern2012.LSP(CMPA, tCMPA, CP, tCP, ...)
 }
 \arguments{
   \item{placeholder}{placeholder CMPA coastal marine
@@ -16,10 +16,9 @@
   \item{placeholder}{placeholder tCP total coastline}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Lasting Special Places subgoal of Sense of
-  Place.
+Calculate Lasting Special Places subgoal of Sense of Place.
 }
 

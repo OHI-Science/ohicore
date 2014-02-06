@@ -2,9 +2,8 @@
 \alias{SelectLayersData}
 \title{Select Layers to Data}
 \usage{
-  SelectLayersData(object, targets = NULL, layers = NULL,
-    cast = TRUE, narrow = FALSE,
-    expand.time.invariant = FALSE)
+SelectLayersData(object, targets = NULL, layers = NULL, cast = TRUE,
+  narrow = FALSE, expand.time.invariant = FALSE)
 }
 \arguments{
   \item{object}{instance of Layers class}
@@ -29,29 +28,27 @@
   leave it melted, defaults to TRUE}
 }
 \value{
-  data.frame with the merged data of selected layers having
-  the following fields: \itemize{ \item{\emph{layer} -
-  layer name, possibly renamed} \item{\emph{layer0} -
-  original layer name, if fed a named character vector to
-  layers} \item{\emph{id_num} - numeric id}
-  \item{\emph{id_chr} - character id} \item{\emph{id_name}
-  - fieldname of id in original layer csv file}
-  \item{\emph{category} - category}
-  \item{\emph{category_name} - fieldname of character in
-  original layer csv file} \item{\emph{year} - year}
-  \item{\emph{val_num} - numeric value}
-  \item{\emph{val_chr} - character value}
-  \item{\emph{val_name} - fieldname of value in original
-  layer csv file} \item{\emph{flds} - data fields used for
-  the layer} }
+data.frame with the merged data of selected layers having
+the following fields: \itemize{ \item{\emph{layer} - layer
+name, possibly renamed} \item{\emph{layer0} - original
+layer name, if fed a named character vector to layers}
+\item{\emph{id_num} - numeric id} \item{\emph{id_chr} -
+character id} \item{\emph{id_name} - fieldname of id in
+original layer csv file} \item{\emph{category} - category}
+\item{\emph{category_name} - fieldname of character in
+original layer csv file} \item{\emph{year} - year}
+\item{\emph{val_num} - numeric value} \item{\emph{val_chr}
+- character value} \item{\emph{val_name} - fieldname of
+value in original layer csv file} \item{\emph{flds} - data
+fields used for the layer} }
 }
 \description{
-  Select Layers to Data
+Select Layers to Data
 }
 \details{
-  If neither targets or layers are specified then all
-  layers are returned. If targets and layers are specified,
-  then the union of the two sets of layers are returned,
-  with any renamed layers renamed.
+If neither targets or layers are specified then all layers
+are returned. If targets and layers are specified, then the
+union of the two sets of layers are returned, with any
+renamed layers renamed.
 }
 

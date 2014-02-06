@@ -2,7 +2,7 @@
 \alias{Halpern2012.AO}
 \title{Calculate Artisanal Fishing Opportunities.}
 \usage{
-  Halpern2012.AO(Sao, Oao, PPPpcGDP, ...)
+Halpern2012.AO(Sao, Oao, PPPpcGDP, ...)
 }
 \arguments{
   \item{placeholder}{placeholder Sao}
@@ -12,9 +12,9 @@
   \item{placeholder}{placeholder PPPpcGDP}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Artisanal Fishing Opportunities.
+Calculate Artisanal Fishing Opportunities.
 }
 

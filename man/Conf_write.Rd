@@ -6,12 +6,11 @@
   be output}
 }
 \description{
-  Write the Conf to disk
+Write the Conf to disk
 }
 \details{
-  Use this function to write the configuration to disk,
-  like so \code{conf$write(dir)}. This is useful for
-  modifying and then reloading with
-  \code{\link{Conf}(dir)}.
+Use this function to write the configuration to disk, like
+so \code{conf$write(dir)}. This is useful for modifying and
+then reloading with \code{\link{Conf}(dir)}.
 }
 

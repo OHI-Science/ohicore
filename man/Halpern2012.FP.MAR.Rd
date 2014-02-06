@@ -2,7 +2,7 @@
 \alias{Halpern2012.FP.MAR}
 \title{Calculate Mariculture subgoal of Food Provision.}
 \usage{
-  Halpern2012.FP.MAR(k, Smk, Ac, Yk, ...)
+Halpern2012.FP.MAR(k, Smk, Ac, Yk, ...)
 }
 \arguments{
   \item{placeholder}{placeholder k each mariculture
@@ -18,9 +18,9 @@
   k}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Mariculture subgoal of Food Provision.
+Calculate Mariculture subgoal of Food Provision.
 }
 

@@ -2,7 +2,7 @@
 \alias{Halpern2012.LE}
 \title{Calculate Coastal Livelihoods and Economies.}
 \usage{
-  Halpern2012.LE(jc, jr, gc, gr, ec, er, ...)
+Halpern2012.LE(jc, jr, gc, gr, ec, er, ...)
 }
 \arguments{
   \item{placeholder}{placeholder jc total adjusted jobs per
@@ -24,9 +24,9 @@
   generated per sector at reference time}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Coastal Livelihoods and Economies.
+Calculate Coastal Livelihoods and Economies.
 }
 

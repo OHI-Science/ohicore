@@ -2,8 +2,8 @@
 \alias{CalculateStatusComponent}
 \title{Compute a single subgoal.}
 \usage{
-  CalculateStatusComponent(DATA, fun, trend.Years = 5,
-    c.name = "year", s.name = "region")
+CalculateStatusComponent(DATA, fun, trend.Years = 5, c.name = "year",
+  s.name = "region")
 }
 \arguments{
   \item{DATA}{data.frame containing columns 'region',
@@ -16,9 +16,9 @@
   \item{w}{(optional) numeric vector describing the}
 }
 \value{
-  stuff
+stuff
 }
 \description{
-  Compute a single subgoal.
+Compute a single subgoal.
 }
 

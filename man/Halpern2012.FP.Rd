@@ -2,7 +2,7 @@
 \alias{Halpern2012.FP}
 \title{Calculate Food Provision.}
 \usage{
-  Halpern2012.FP(w, dBt, mMSY, Bt, Tc, k, Smk, Ac, Yk, ...)
+Halpern2012.FP(w, dBt, mMSY, Bt, Tc, k, Smk, Ac, Yk, ...)
 }
 \arguments{
   \item{placeholder}{placeholder k each mariculture
@@ -18,9 +18,9 @@
   k}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Food Provision.
+Calculate Food Provision.
 }
 
