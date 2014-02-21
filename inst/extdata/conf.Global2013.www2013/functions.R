@@ -308,13 +308,21 @@ LE = function(scores, layers){
 ICO = function(layers){
   
   # layers
-  lyrs = c('rnk_ico_spp_extinction_status_value' = 'risk_value',
-           'rnk_ico_spp_popn_trend'              = 'popn_trend')
+  lyrs = c('rnk_ico_spp_extinction_status' = 'risk_category',
+           'rnk_ico_spp_popn_trend'        = 'popn_trend')
   
   # cast data ----
   layers_data = SelectLayersData(layers, layers=names(lyrs))  
   rk = rename(dcast(layers_data, id_num + category ~ layer, value.var='val_chr'),
               c('id_num'='region_id', 'category'='sciname', lyrs))
+  
+  # lookup for weights status
+  w.risk_category = c('LC' = 0,
+                      'NT' = 0.2,
+                      'VU' = 0.4,
+                      'EN' = 0.6,
+                      'CR' = 0.8,
+                      'EX' = 1)
   
   # lookup for population trend
   w.popn_trend = c('Decreasing' = -0.5,
@@ -323,8 +331,8 @@ ICO = function(layers){
   
   # status
   r.status = rename(ddply(rk, .(region_id), function(x){ 
-    mean(1 - x$risk_value, na.rm=T) * 100 }), 
-         c('V1'='score'))
+    mean(1 - w.risk_category[x$risk_category], na.rm=T) * 100 }), 
+                    c('V1'='score'))
   
   # trend
   r.trend = rename(ddply(rk, .(region_id), function(x){ 
