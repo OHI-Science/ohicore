@@ -1,38 +1,23 @@
 library(plyr)
 library(dplyr)
 
-# TODO: update the path to your location where this script is located
-wd = '/Users/bbest/GitHub_Mac/ohicore_Canada-CHONe/inst/extdata'
+wd = 'C:/Users/Remi-Work/Documents/ohigit/ohicore/inst/extdata'
 setwd(wd)
 
 # get species 
 spp_ico = read.csv('layers.Canada-CHONe2014/ICO/iconic_species.csv', stringsAsFactors=F); head(spp_ico)
 spp_sara = read.csv('layers.Canada-CHONe2014/ICO/SARA_sp.csv', stringsAsFactors=F); head(spp_sara)
 
-# TODO: fix iconics not matching to sara
-anti_join(spp_ico, spp_sara, by='Scientific_name')
-#    Common_name          Scientific_name              Source
-# 1      Lobster       Homarus americanus Royal Canadian Mint
-# 2         Loon              Gavia immer Royal Canadian Mint
-# 3   Bald Eagle Haliaeetus leucocephalus Royal Canadian Mint
-# 4       Salmon                     <NA>                    
-# 5         Orca          Orcinus\xa0orca Royal Canadian Mint
-# 6 Leather star   Dermasterias imbricata Royal Canadian Mint
 
-# create a dummy weight for species ranges to enable convergence on a single species value for all of Canada
-spp_range_weights = data.frame(
-  Range        = unique(spp_sara$Range),
-  range_weight = 1)
-write.csv(spp_range_weights, 'layers.Canada-CHONe2014/ICO/spp_range_weights.csv', row.names=F)
-
-# TODO: alter weights to something sensible, like using proportional area for range weights and IUCN analogue for status weights
+# TODO: alter weights to something sensible, like IUCN analogue for status weights
 
 # read in weights
 spp_range_weights = read.csv('layers.Canada-CHONe2014/ICO/spp_range_weights.csv', stringsAsFactors=F); head(spp_range_weights)
 
 # create weights for species category. Can't just use category because averaging multiple ranges
 paste(unique(spp_sara$COSEWIC_Status), collapse="'=0.,'")
-spp_status_weights = c('Non-active'      = 0,
+spp_status_weights = c('Not Assessed'    = 0,
+                       'Non-active'      = 0,
                        'Data Deficient'  = 0,
                        'Not at Risk'     = 0,
                        'Special Concern' = 0.2,
@@ -52,7 +37,7 @@ spp_ico_sara = spp_ico %.%
   group_by(sciname) %.%
   summarise(
     value = weighted.mean(x=status_weight, w=range_weight),
-    rgn_id        = 118)
+    rgn_id        = 218)
   
 ###
 # create new ico_spp_extinction_status now with extinction risk as numeric value and not categorical with these Canada values swapped in
@@ -70,7 +55,7 @@ ico_spp_status$value = w.risk_category[ico_spp_status$category]; head(ico_spp_st
 
 # inject Canada values
 ico_spp_status = ico_spp_status %.%
-  filter(rgn_id != 118) %.%
+  filter(rgn_id != 218) %.%
   select(rgn_id, sciname, value) %.%
   rbind(spp_ico_sara)
   
@@ -90,3 +75,4 @@ layers$fld_value[i] = 'value'
 
 # write back updated layers.csv
 write.csv(layers, 'layers.Global2013.www2013.csv', na='', row.names=F)
+
