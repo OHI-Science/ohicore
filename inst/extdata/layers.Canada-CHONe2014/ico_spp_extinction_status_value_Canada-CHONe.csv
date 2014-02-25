@@ -79,16 +79,11 @@
 250,"Megaptera novaeangliae",0
 250,"Isurus oxyrinchus",0.4
 16,"Lepidochelys olivacea",0.4
-16,"Phocoena dioptrica",
 16,"Delphinus delphis",0
-16,"Globicephala macrorhynchus",
 16,"Eretmochelys imbricata",0.8
 16,"Lagenodelphis hosei",0
 16,"Dermochelys coriacea",0.8
 16,"Prionace glauca",0.2
-16,"Lissodelphis peronii",
-16,"Mesoplodon grayi ",
-16,"Lagenorhynchus obscurus",
 16,"Caretta caretta",0.6
 16,"Peponocephala electra",0
 16,"Tursiops truncatus",0
@@ -96,24 +91,14 @@
 16,"Stenella attenuata",0
 16,"Cheilinus undulatus",0.6
 16,"Balaenoptera borealis",0.6
-16,"Megachasma pelagios",
 16,"Isurus paucus",0.4
-16,"Pseudorca crassidens ",
-16,"Mesoplodon layardii",
-16,"Stenella longirostris",
 16,"Galeocerdo cuvier",0.2
 16,"Carcharhinus melanopterus",0.2
-16,"Orcinus orca",
-16,"Globicephala melas",
 16,"Chelonia mydas",0.6
-16,"Feresa attenuata",
 16,"Lagenorhynchus cruciger",0
 16,"Sousa chinensis",0.2
 16,"Cetorhinus maximus",0.4
-16,"Mesoplodon bowdoini",
-16,"Tursiops aduncus",
 16,"Carcharhinus amblyrhynchos",0.2
-16,"Kogia simus",
 16,"Orcaella heinsohni",0.2
 16,"Stenella coeruleoalba",0
 16,"Steno bredanensis",0
@@ -122,27 +107,15 @@
 16,"Physeter macrocephalus",0.4
 16,"Balaenoptera acutorostrata",0
 16,"Ziphius cavirostris",0
-16,"Balaenoptera edeni",
 16,"Triaenodon obesus",0.2
-16,"Kogia breviceps",
-16,"Tasmacetus shepherdi ",
 16,"Hyperoodon planifrons",0
 16,"Eubalaena australis ",0
-16,"Indopacetus pacificus",
 16,"Rhincodon typus",0.4
 16,"Balaenoptera physalus",0.6
-16,"Mesoplodon densirostris",
-16,"Mesoplodon hectori",
 16,"Alopias vulpinus",0.4
 16,"Lamna nasus",0.4
-16,"Mesoplodon ginkgodens",
 16,"Megaptera novaeangliae",0
-16,"Natator depressus",
-16,"Caperea marginata",
-16,"Berardius arnuxii ",
-16,"Balaenoptera bonaerensis ",
 16,"Balaenoptera musculus",0.6
-16,"Mesoplodon mirus",
 55,"Eubalaena glacialis",1
 110,"Eubalaena glacialis",0.6
 110,"Carcharodon carcharias",0.4
@@ -226,7 +199,6 @@
 245,"Prionace glauca",0.2
 232,"Carcharodon carcharias",0.4
 232,"Cetorhinus maximus",0.4
-171,"Megachasma pelagios",
 171,"Eretmochelys imbricata",0.8
 171,"Cetorhinus maximus",0.4
 171,"Lepidochelys olivacea",0.4
@@ -756,7 +728,6 @@
 216,"Dermochelys coriacea",0.8
 216,"Carcharhinus amblyrhynchos",0.2
 216,"Rhincodon typus",0.4
-216,"Megachasma pelagios",
 216,"Megaptera novaeangliae",0
 216,"Chelonia mydas",0.6
 216,"Eretmochelys imbricata",0.8
@@ -825,7 +796,6 @@
 210,"Megaptera novaeangliae",0
 210,"Isurus paucus",0.4
 210,"Chelonia mydas",0.6
-210,"Megachasma pelagios",
 210,"Isurus oxyrinchus",0.4
 210,"Cetorhinus maximus",0.4
 210,"Balaenoptera borealis",0.6
@@ -1238,7 +1208,6 @@
 138,"Balaenoptera physalus",0.6
 138,"Lepidochelys olivacea",0.4
 15,"Eretmochelys imbricata",0.8
-15,"Megachasma pelagios",
 15,"Balaenoptera physalus",0.6
 15,"Balaenoptera musculus",0.6
 15,"Orcaella brevirostris",0.4
@@ -1382,7 +1351,6 @@
 66,"Megaptera novaeangliae",0
 66,"Dermochelys coriacea",0.8
 66,"Caretta caretta",0.6
-66,"Megachasma pelagios",
 66,"Isurus oxyrinchus",0.4
 66,"Prionace glauca",0.2
 66,"Lepidochelys olivacea",0.4
@@ -1664,7 +1632,6 @@
 163,"Dermochelys coriacea",0.8
 163,"Galeocerdo cuvier",0.2
 163,"Lamna nasus",0.4
-163,"Megachasma pelagios",
 163,"Carcharhinus amblyrhynchos",0.2
 163,"Eschrichtius robustus",0
 163,"Megaptera novaeangliae",0
@@ -1776,21 +1743,21 @@
 47,"Galeocerdo cuvier",0.2
 47,"Lepidochelys olivacea",0.4
 47,"Eretmochelys imbricata",0.8
-218,"Oncorhynchus mykiss",0
 218,"Ursus maritimus",0.2
 218,"Haliaeetus leucocephalus",0
-218,"Megaptera novaeangliae",0.00667742166710904
-218,"Homarus americanus",0
-218,"Gavia immer",0
-218,"Orcinus orca",0.230347465936729
+218,"Oncorhynchus mykiss",0
 218,"Balaenoptera musculus",0.2
-218,"Delphinapterus leucas",0.38383389610601
-218,"Oncorhynchus nerka",0.6
+218,"Gavia immer",0
 218,"Gadus morhua",0.48
-218,"Oncorhynchus tshawytscha",0.4
-218,"Oncorhynchus gorbuscha",0
-218,"Oncorhynchus kisutch",0.6
-218,"Oncorhynchus keta",0
-218,"Salmo salar",0.324960125100174
 218,"Dermasterias imbricata",0
+218,"Salmo salar",0.324960125100174
+218,"Megaptera novaeangliae",0.00667742166710904
+218,"Oncorhynchus keta",0
+218,"Oncorhynchus kisutch",0.6
+218,"Oncorhynchus gorbuscha",0
+218,"Orcinus orca",0.230347465936729
+218,"Oncorhynchus tshawytscha",0.4
 218,"Balaena mysticetus",0.133333333333333
+218,"Oncorhynchus nerka",0.6
+218,"Delphinapterus leucas",0.38383389610601
+218,"Homarus americanus",0
