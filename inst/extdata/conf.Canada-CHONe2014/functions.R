@@ -307,36 +307,31 @@ LE = function(scores, layers){
 
 ICO = function(layers){
   
-  # layers
-  lyrs = c('rnk_ico_spp_extinction_status_value' = 'risk_value',
-           'rnk_ico_spp_popn_trend'              = 'popn_trend')
-  
-  # cast data ----
-  layers_data = SelectLayersData(layers, layers=names(lyrs))  
-  rk = rename(dcast(layers_data, id_num + category ~ layer, value.var='val_chr'),
-              c('id_num'='region_id', 'category'='sciname', lyrs))
-  
-  # lookup for population trend
-  w.popn_trend = c('Decreasing' = -0.5,
-                   'Stable'     =  0,                                           
-                   'Increasing' =  0.5)
+  library(dplyr) # for chaining (%.%) and grammar of data manipulation see http://blog.rstudio.org/2014/01/17/introducing-dplyr/
   
   # status
-  r.status = rename(ddply(rk, .(region_id), function(x){ 
-    mean(1 - x$risk_value, na.rm=T) * 100 }), 
-         c('V1'='score'))
+  status = SelectLayersData(layers, layers='rnk_ico_spp_extinction_status_value', narrow=T) %.%
+    rename(c(id_num='region_id')) %.%
+    filter(!is.na(val_num)) %.%
+    group_by(region_id) %.%
+    summarise(score     = mean(1 - val_num) * 100,
+              dimension = 'status')
   
   # trend
-  r.trend = rename(ddply(rk, .(region_id), function(x){ 
-    mean(w.popn_trend[x$popn_trend], na.rm=T) }), 
-                   c('V1'='score'))
+  w = c('Decreasing' = -0.5,
+        'Stable'     =  0,                                           
+        'Increasing' =  0.5)
+  trend = SelectLayersData(layers, layers='rnk_ico_spp_popn_trend', narrow=T) %.%
+    rename(c(id_num='region_id')) %.%
+    filter(val_chr %in% names(w)) %.%
+    group_by(region_id) %.%
+    summarise(score     = mean(w[val_chr]),
+              dimension = 'trend')
   
   # return scores
-  s.status = cbind(r.status, data.frame('dimension'='status'))
-  s.trend  = cbind(r.trend , data.frame('dimension'='trend' ))
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='ICO'))
+  scores = rbind_list(status, trend) %.%
+    mutate(goal='ICO')
   return(scores)  
-  
 }
 
 LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_years=2005:2009){
