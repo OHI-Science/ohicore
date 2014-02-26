@@ -104,7 +104,7 @@ NP = function(layers,
                                  'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
   # 2013: NP(layers, status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
   # 2012: NP(layers, status_year=2008, trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007, 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008))
-    
+  
   # layers
   lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
               'rk'  = c('rnk_np_sustainability_score' = 'S',
@@ -185,7 +185,7 @@ CS = function(layers){
                   goal = 'CS',
                   dimension = 'trend',
                   score = sum(extent * trend) / sum(extent) )
-
+  
   # return scores
   scores = cbind(rbind(r.status, r.trend))
   return(scores)  
@@ -257,8 +257,8 @@ LIV = function(layers){
   
   # scores
   scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
-                    category=='livelihood'),
-             c(id_num='region_id', category='goal', layer='dimension', val_num='score'))
+                         category=='livelihood'),
+                  c(id_num='region_id', category='goal', layer='dimension', val_num='score'))
   scores = mutate(scores, 
                   score = ifelse(dimension=='status', score * 100, score),
                   goal  = 'LIV')
@@ -267,7 +267,7 @@ LIV = function(layers){
 
 
 ECO = function(layers){
-
+  
   # scores
   scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
                          category=='economy'),
@@ -282,11 +282,11 @@ LE = function(scores, layers){
   
   # calculate LE scores
   scores.LE = within(dcast(scores, 
-                        region_id + dimension ~ goal, value.var='score', 
-                        subset=.(goal %in% c('LIV','ECO') & !dimension %in% c('pressures','resilience'))), {
-    goal = 'LE'
-    score = rowMeans(cbind(ECO, LIV), na.rm=T)
-  })
+                           region_id + dimension ~ goal, value.var='score', 
+                           subset=.(goal %in% c('LIV','ECO') & !dimension %in% c('pressures','resilience'))), {
+                             goal = 'LE'
+                             score = rowMeans(cbind(ECO, LIV), na.rm=T)
+                           })
   scores = rbind(scores, scores.LE[c('region_id','goal','dimension','score')])
   
   # LIV, ECO and LE: nullify unpopulated regions and those of the Southern Ocean Islands
@@ -307,46 +307,41 @@ LE = function(scores, layers){
 
 ICO = function(layers){
   
-  # layers
-  lyrs = c('rnk_ico_spp_extinction_status_value' = 'risk_value',
-           'rnk_ico_spp_popn_trend'              = 'popn_trend')
-  
-  # cast data ----
-  layers_data = SelectLayersData(layers, layers=names(lyrs))  
-  rk = rename(dcast(layers_data, id_num + category ~ layer, value.var='val_chr'),
-              c('id_num'='region_id', 'category'='sciname', lyrs))
-  
-  # lookup for population trend
-  w.popn_trend = c('Decreasing' = -0.5,
-                   'Stable'     =  0,                                           
-                   'Increasing' =  0.5)
+  library(dplyr) # for chaining (%.%) and grammar of data manipulation see http://blog.rstudio.org/2014/01/17/introducing-dplyr/
   
   # status
-  r.status = rename(ddply(rk, .(region_id), function(x){ 
-    mean(1 - x$risk_value, na.rm=T) * 100 }), 
-         c('V1'='score'))
+  status = SelectLayersData(layers, layers='rnk_ico_spp_extinction_status_value', narrow=T) %.%
+    rename(c(id_num='region_id')) %.%
+    filter(!is.na(val_num)) %.%
+    group_by(region_id) %.%
+    summarise(score     = mean(1 - val_num) * 100,
+              dimension = 'status')
   
   # trend
-  r.trend = rename(ddply(rk, .(region_id), function(x){ 
-    mean(w.popn_trend[x$popn_trend], na.rm=T) }), 
-                   c('V1'='score'))
+  w = c('Decreasing' = -0.5,
+        'Stable'     =  0,                                           
+        'Increasing' =  0.5)
+  trend = SelectLayersData(layers, layers='rnk_ico_spp_popn_trend', narrow=T) %.%
+    rename(c(id_num='region_id')) %.%
+    filter(val_chr %in% names(w)) %.%
+    group_by(region_id) %.%
+    summarise(score     = mean(w[val_chr]),
+              dimension = 'trend')
   
   # return scores
-  s.status = cbind(r.status, data.frame('dimension'='status'))
-  s.trend  = cbind(r.trend , data.frame('dimension'='trend' ))
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='ICO'))
+  scores = rbind_list(status, trend) %.%
+    mutate(goal='ICO')
   return(scores)  
-  
 }
 
 LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_years=2005:2009){
   # 2013: LSP(layers, status_year=2013, trend_years=2006:2010)
   # 2012: LSP(layers, status_year=2009, trend_years=2002:2006)
-    
+  
   lyrs = list('r'  = c('rn_rgn_area_inland1km'   = 'area_inland1km',
                        'rn_rgn_area_offshore3nm' = 'area_offshore3nm'),
               'ry' = c('rny_lsp_prot_area_offshore3nm' = 'cmpa',
-                        'rny_lsp_prot_area_inland1km'   = 'cp'))              
+                       'rny_lsp_prot_area_inland1km'   = 'cp'))              
   lyr_names = sub('^\\w*\\.','', names(unlist(lyrs)))
   
   # cast data ----
@@ -355,13 +350,13 @@ LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_y
               c('id_num'='region_id', lyrs[['r']]))
   ry = rename(dcast(d, id_num + year ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['ry']]))),
               c('id_num'='region_id', lyrs[['ry']]))
-    
+  
   # fill in time series from first year specific region_id up to max year for all regions and generate cumulative sum
   yr.max = max(max(ry$year), status_year)
   r.yrs = ddply(ry, .(region_id), function(x){
     data.frame(region_id=x$region_id[1],
                year=min(x$year):yr.max)
-    })
+  })
   r.yrs = merge(r.yrs, ry, all.x=T)
   r.yrs$cp[is.na(r.yrs$cp)]     = 0
   r.yrs$cmpa[is.na(r.yrs$cmpa)] = 0
@@ -434,7 +429,7 @@ CW = function(layers){
   # cast data
   d = SelectLayersData(layers, layers=names(lyrs))  
   r = rename(dcast(d, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs))),
-              c('id_num'='region_id', lyrs)); head(r); summary(r)
+             c('id_num'='region_id', lyrs)); head(r); summary(r)
   
   # invert pressures
   r$a = 1 - r$a
@@ -503,11 +498,11 @@ HAB = function(layers){
 
 
 SPP = function(layers){
-
+  
   # scores
   scores = cbind(rename(SelectLayersData(layers, layers=c('rn_spp_status'='status','rn_spp_trend'='trend'), narrow=T),
-                      c(id_num='region_id', layer='dimension', val_num='score')), 
-               data.frame('goal'='SPP'))
+                        c(id_num='region_id', layer='dimension', val_num='score')), 
+                 data.frame('goal'='SPP'))
   scores = mutate(scores, score=ifelse(dimension=='status', score*100, score))
   return(scores) 
 }
@@ -519,16 +514,16 @@ BD = function(scores){
       scores, 
       region_id + dimension ~ goal, value.var='score', 
       subset=.(goal %in% c('HAB','SPP') & !dimension %in% c('pressures','resilience'))), 
-    {
-      goal = 'BD'
-      score = rowMeans(cbind(HAB, SPP), na.rm=T)})
-  
-  # return all scores
-  return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
+{
+  goal = 'BD'
+  score = rowMeans(cbind(HAB, SPP), na.rm=T)})
+
+# return all scores
+return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
 }
 
 PreGlobalScores = function(layers, conf, scores){
-    
+  
   # get regions
   rgns = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T)
   
@@ -538,7 +533,7 @@ PreGlobalScores = function(layers, conf, scores){
   # apply NA to Antarctica
   id_ant = subset(rgns, val_chr=='Antarctica', id_num, drop=T)
   scores[scores$region_id==id_ant, 'score'] = NA
-    
+  
   return(scores)
 }
 
@@ -546,7 +541,7 @@ FinalizeScores = function(layers, conf, scores){
   
   # get regions
   rgns = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T)
-    
+  
   # add NAs to missing combos (region_id, goal, dimension)
   d = expand.grid(list(score_NA  = NA,
                        region_id = c(rgns[,'id_num'], 0),
@@ -554,14 +549,14 @@ FinalizeScores = function(layers, conf, scores){
                        goal      = c(conf$goals$goal, 'Index')), stringsAsFactors=F); head(d)
   d = subset(d, 
              !(dimension %in% c('pressures','resilience','trend') & region_id==0) & 
-             !(dimension %in% c('pressures','resilience','status','trend') & goal=='Index'))
+               !(dimension %in% c('pressures','resilience','status','trend') & goal=='Index'))
   scores = merge(scores, d, all=T)[,c('goal','dimension','region_id','score')]
-      
+  
   # order
   scores = arrange(scores, goal, dimension, region_id)
   
   # round scores
   scores$score = round(scores$score, 2)
-    
+  
   return(scores)
 }

@@ -9,6 +9,10 @@ file.copy('layers.Global2013.www2013.csv', 'layers.Canada-CHONe2014.csv', overwr
 file.copy('scores.Global2013.www2013.csv', 'scores.Canada-CHONe2014.csv', overwrite = T)
 fl=list.files('layers.Global2013.www2013')
 file.copy(paste('layers.Global2013.www2013/',fl,sep = ""),paste('layers.Canada-CHONe2014/',fl,sep = ""), overwrite = T)
+fl=list.files('conf.Global2013.www2013')
+file.copy(paste('conf.Global2013.www2013/',fl,sep = ""),paste('conf.Canada-CHONe2014/',fl,sep = ""), overwrite = T)
+fl=list.files('spatial.www2013')
+file.copy(paste('spatial.www2013/',fl,sep = ""),paste('spatial.Canada-CHONe2014/',fl,sep = ""), overwrite = T)
 
 # get species 
 spp_ico = read.csv('rawdata.Canada-CHONe2014/ICO/iconic_species.csv', stringsAsFactors=F); head(spp_ico)
@@ -82,3 +86,59 @@ layers$fld_value[i] = 'value'
 # write back updated layers.csv
 write.csv(layers, 'layers.Canada-CHONe2014.csv', na='', row.names=F)
 
+
+########################################## replace WGI with CWI #############################################################
+
+CIW=read.csv('rawdata.Canada-CHONe2014/CIW/CIW-GDP-Domains-1994-2010.csv', stringsAsFactors=F)
+
+# extrapolate CIW and GDP
+fitCIW=lm(CIW~Year,data=CIW)
+fitGDP=lm(GDP~Year,data=CIW)
+
+# create CIW layers
+ciw=data.frame(cbind(rgn_id=1:250,score=0.5))
+ciw[218,2]=(coef(fitCIW)[2]*2013+coef(fitCIW)[1])/(coef(fitGDP)[2]*2013+coef(fitGDP)[1])
+ciw2=data.frame(cbind(rgn_id=ciw$rgn_id,score=1-ciw$score))
+
+# write out new CIW layers
+write.csv(ciw, 'layers.Canada-CHONe2014/rgn_wb_cwi_2013_rescaled.csv', na='', row.names=F)
+write.csv(ciw2, 'layers.Canada-CHONe2014/rgn_wb_cwi_2013_rescaled_inverse.csv', na='', row.names=F)
+
+# alter fields for this updated layer
+layers = read.csv('layers.Canada-CHONe2014.csv', na.strings='', stringsAsFactors=F); head(layers); 
+
+i = which(layers$layer=='ss_wgi')
+layers$layer[i]     = 'ss_cwi'
+layers$name[i]      = 'Hardship of Canadians indicated with the CWI'
+layers$units[i]     = 'pressure score'
+layers$filename[i]  = 'rgn_wb_cwi_2013_rescaled_inverse.csv'
+layers$fld_value[i] = 'score'
+layers$val_min[i] = min(ciw2[,2])
+layers$val_max[i] = max(ciw2[,2])
+
+
+i = which(layers$layer=='wgi_all')
+layers$layer[i]     = 'cwi_all'
+layers$name[i]      = 'Wellbeing of Canadians indicated with the CWI'
+layers$units[i]     = 'resilience score'
+layers$filename[i]  = 'rgn_wb_cwi_2013_rescaled.csv'
+layers$fld_value[i] = 'score'
+layers$val_min[i] = min(ciw[,2])
+layers$val_max[i] = max(ciw[,2])
+
+# write back updated layers.csv
+write.csv(layers, 'layers.Canada-CHONe2014.csv', na='', row.names=F)
+
+# update pressure/resilience matrices and resilience weights
+rw=read.csv('conf.Canada-CHONe2014/resilience_weights.csv')
+rw$layer[rw$layer=='wgi_all']='cwi_all'
+write.csv(rw,'conf.Canada-CHONe2014/resilience_weights.csv',row.names=FALSE)
+
+pm=read.csv('conf.Canada-CHONe2014/pressures_matrix.csv')
+names(pm)[names(pm)=='ss_wgi']='ss_cwi'
+write.csv(pm,'conf.Canada-CHONe2014/pressures_matrix.csv',row.names=FALSE,na="")
+
+rm=read.csv('conf.Canada-CHONe2014/resilience_matrix.csv')
+names(rm)[names(rm)=='wgi_all']='cwi_all'
+rm$cwi_all='cwi_all'
+write.csv(rm,'conf.Canada-CHONe2014/resilience_matrix.csv',row.names=FALSE)
