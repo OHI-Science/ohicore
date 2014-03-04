@@ -481,6 +481,8 @@ HAB = function(layers){
            'rnk_hab_extent' = 'extent',
            'rnk_hab_trend'  = 'trend')
   
+  browser()
+  
   # cast data
   d = SelectLayersData(layers, layers=names(lyrs))  
   rk = rename(dcast(d, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs))),

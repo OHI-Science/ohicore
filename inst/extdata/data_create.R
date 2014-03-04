@@ -35,7 +35,8 @@ conf = list(
 
 # load Google spreadsheet
 g.url = 'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv'
-g = subset(read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings=''), !is.na(ingest))
+     #  'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv&single=true&gid=0
+g = subset(read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings=''), ingest==T )
 
 # load results
 results.csv = file.path(conf$dir_neptune_local, 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv')
@@ -53,7 +54,11 @@ for (yr in 2012:2013){ # yr=2012
     dir.to     = sprintf('inst/extdata/layers.Global%d.www2013', yr)
     dir.create(dir.to, showWarnings=F)
     cat(sprintf('  copy to %s\n', dir.to))
-    g$filename = g[, sprintf('fn_%da' , yr)]
+    g$filename = g[, sprintf('fn_%da' , yr)]    
+    
+    # check for NA filename
+    stopifnot(nrow(subset(g, is.na(filename))) == 0)
+    
     g$path = file.path(dir.from.root, g[, sprintf('dir_%da', yr)], g$filename)
     for (f in sort(g$path)){ # f = sort(g$path)[1]
       cat(sprintf('    copying %s\n', f))
