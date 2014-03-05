@@ -1,4 +1,5 @@
-setwd('~/Code/ohicore')
+#setwd('~/Code/ohicore')
+library(devtools)
 load_all()
 
 # load layers and conf ----
@@ -10,7 +11,8 @@ layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario)
 
 # calculate scores ----
 scores = CalculateAll(conf, layers, debug=T)
-scores2 = data.frame(scores, stringsAsFactors=F); summary(scores2)
+#scores.0 = scores
+write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
 
 # compare scores ----
 
