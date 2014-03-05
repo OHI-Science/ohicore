@@ -12,7 +12,7 @@ layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario)
 # calculate scores ----
 scores = CalculateAll(conf, layers, debug=T)
 #scores.0 = scores
-write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
+#write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
 
 # compare scores ----
 
