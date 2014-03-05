@@ -254,7 +254,7 @@ TR = function(layers){
 
 
 LIV = function(layers){
-#browser()  
+browser()  
   # scores
   scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
                     category=='livelihood'),
