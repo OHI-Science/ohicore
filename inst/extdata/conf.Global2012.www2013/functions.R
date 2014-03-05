@@ -254,7 +254,7 @@ TR = function(layers){
 
 
 LIV = function(layers){
-  
+#browser()  
   # scores
   scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
                     category=='livelihood'),
@@ -263,6 +263,9 @@ LIV = function(layers){
                   score = ifelse(dimension=='status', score * 100, score),
                   goal  = 'LIV')
   return(scores)  
+
+scores[scores$goal=="LIV" & scores$dimension=="score", ]
+
 }
 
 
@@ -279,8 +282,33 @@ ECO = function(layers){
 }
 
 LE = function(scores, layers){
+
+## replacing 2012 scores for ECO and LIV with 2013 data (email Feb 28, Ben H.)
+  # ECO: Eritrea (just this one country)
+  # LIV: Eritrea, Anguilla, Bermuda, Egypt, Ghana, Indonesia, Iceland, Saint Kitts, 
+  #      Sri Lanka, Brunei, Malaysia, Trinidad & Tobago, and Taiwan
+
+# replacement data and region names:
+scores_2013 <- read.csv("inst\\extdata\\scores.Global2013.www2013.csv")  
+rgns <- read.csv("inst\\extdata\\layers.global2012.www2013\\rgn_labels.csv") 
   
-  # calculate LE scores
+  # region ID's based on name
+rgns2replace <- rgns[grep("Eritrea", rgns$label), "rgn_id"]
+
+##ECO
+#remove scores from 2012 data:
+#scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
+ scores <- scores[!(scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==regions2replace),]
+
+# find scores from 2013 data
+#scores_2013[scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==rgns2replace,]
+scores_2013_ECO <- scores_2013[(scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==regions2replace),]
+
+# bind to new data
+scores <- rbind(scores, score_2013_ECO)
+scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
+
+ # calculate LE scores
   scores.LE = within(dcast(scores, 
                         region_id + dimension ~ goal, value.var='score', 
                         subset=.(goal %in% c('LIV','ECO') & !dimension %in% c('pressures','resilience'))), {

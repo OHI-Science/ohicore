@@ -47,7 +47,7 @@ r$dimension = plyr::revalue(r$dimension, c('likely_future_state'='future'))
 
 # iterate over scenarios
 for (yr in 2012:2013){ 
-  yr=2013
+  yr=2012
   cat(sprintf('\n---------\nScenario: %da\n', yr))
   
   if (do.layers.Global.www2013){
