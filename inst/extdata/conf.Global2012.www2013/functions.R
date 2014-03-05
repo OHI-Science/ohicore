@@ -254,7 +254,7 @@ TR = function(layers){
 
 
 LIV = function(layers){
-browser()  
+#browser()  
   # scores
   scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
                     category=='livelihood'),
@@ -287,24 +287,48 @@ LE = function(scores, layers){
   #      Sri Lanka, Brunei, Malaysia, Trinidad & Tobago, and Taiwan
 
 ## replacement data and region names:
-#scores_2013 <- read.csv("inst\\extdata\\scores.Global2013.www2013.csv")  
-#rgns <- read.csv("inst\\extdata\\layers.global2012.www2013\\rgn_labels.csv") 
+scores_2013 <- read.csv("inst\\extdata\\scores.Global2013.www2013.csv")  
+rgns <- read.csv("inst\\extdata\\layers.global2012.www2013\\rgn_labels.csv") 
   
-  # region ID's based on name
-#rgns2replace <- rgns[grep("Eritrea", rgns$label), "rgn_id"]
-
 ##ECO
+# ID regions to change
+rgns2replace <- rgns[grep("Eritrea", rgns$label), "rgn_id"]
 #remove scores from 2012 data:
 #scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
-# scores <- scores[!(scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==regions2replace),]
-
+scores <- scores[!(scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace),]
 # find scores from 2013 data
 #scores_2013[scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==rgns2replace,]
-#scores_2013_ECO <- scores_2013[(scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==regions2replace),]
-
+scores_2013_ECO <- scores_2013[(scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==rgns2replace),]
 # bind to new data
-#scores <- rbind(scores, score_2013_ECO)
-#scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
+scores <- rbind(scores, scores_2013_ECO)
+scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
+
+# LIV: Eritrea, Anguilla, Bermuda, Egypt, Ghana, Indonesia, Iceland, Saint Kitts, 
+#      Sri Lanka, Brunei, Malaysia, Trinidad & Tobago, and Taiwan
+# ID regions to change
+rgns2replace <- rbind(rgns[grep("Eritrea", rgns$label),],
+                      rgns[grep("Anguilla", rgns$label),],
+                      rgns[grep("Bermuda", rgns$label),],
+                      rgns[grep("Egypt", rgns$label),],
+                      rgns[grep("Ghana", rgns$label),],
+                      rgns[grep("Indonesia", rgns$label),],
+                      rgns[grep("Iceland", rgns$label),],
+                      rgns[grep("Saint Kitts", rgns$label),],
+                      rgns[grep("Sri Lanka", rgns$label),],
+                      rgns[grep("Brunei", rgns$label),],
+                      rgns[grep("Malaysia", rgns$label),],
+                      rgns[grep("Trinidad", rgns$label),],
+                      rgns[grep("Taiwan", rgns$label),])
+rgns2replace <- rgns2replace$rgn_id
+#remove scores from 2012 data:
+#scores[scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace,]
+scores <- scores[!(scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace),]
+# find scores from 2013 data
+#scores_2013[scores_2013$goal=="LIV" & scores_2013$dimension=="score" & scores_2013$region_id %in% rgns2replace,]
+scores_2013_LIV <- scores_2013[(scores_2013$goal=="LIV" & scores_2013$dimension=="score" & scores_2013$region_id %in% rgns2replace),]
+# bind to new data
+scores <- rbind(scores, scores_2013_LIV)
+#scores[scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace,]
 
  # calculate LE scores
   scores.LE = within(dcast(scores, 
