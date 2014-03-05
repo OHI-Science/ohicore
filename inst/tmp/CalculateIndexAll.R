@@ -12,7 +12,7 @@ layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario)
 # calculate scores ----
 scores = CalculateAll(conf, layers, debug=T)
 #scores.0 = scores
-#write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
+write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
 
 # compare scores ----
 
@@ -22,7 +22,7 @@ scores_www = read.csv(sprintf('inst/extdata/scores.%s.csv', scenario), na.string
 v = merge(scores,
           rename(scores_www, c('score'='score_www')), all=T)
 v$score_dif = with(v, score - score_www)
-v_dif = v[!is.na(v$score) & !is.na(v$score_www) & (abs(v$score_dif) > 0.001),]
+v_dif = v[!is.na(v$score) & !is.na(v$score_www) & (abs(v$score_dif) > 0.1),]
 
 # print comparisons
 print(all.equal(v$score, v$score_www))

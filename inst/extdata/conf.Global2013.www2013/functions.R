@@ -481,7 +481,7 @@ HAB = function(layers){
            'rnk_hab_extent' = 'extent',
            'rnk_hab_trend'  = 'trend')
   
-  browser()
+#  browser()
   
   # cast data
   d = SelectLayersData(layers, layers=names(lyrs))  
