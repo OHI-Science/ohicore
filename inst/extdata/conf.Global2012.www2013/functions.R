@@ -398,8 +398,8 @@ ICO = function(layers){
 }
 
 LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_years=2005:2009){
-  # 2013: LSP(layers, status_year=2013, trend_years=2006:2010)
-  # 2012: LSP(layers, status_year=2009, trend_years=2002:2006)
+  # 2013: LSP(layers, status_year=2012, trend_years=2005:2009)
+  # 2012: LSP(layers, status_year=2011, trend_years=2004:2008)  
     
   lyrs = list('r'  = c('rn_rgn_area_inland1km'   = 'area_inland1km',
                        'rn_rgn_area_offshore3nm' = 'area_offshore3nm'),
