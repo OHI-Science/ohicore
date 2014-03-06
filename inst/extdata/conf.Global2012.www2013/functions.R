@@ -254,7 +254,7 @@ TR = function(layers){
 
 
 LIV = function(layers){
-  
+#browser()  
   # scores
   scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
                     category=='livelihood'),
@@ -263,6 +263,7 @@ LIV = function(layers){
                   score = ifelse(dimension=='status', score * 100, score),
                   goal  = 'LIV')
   return(scores)  
+
 }
 
 
@@ -279,8 +280,57 @@ ECO = function(layers){
 }
 
 LE = function(scores, layers){
+
+## replacing 2012 scores for ECO and LIV with 2013 data (email Feb 28, Ben H.)
+  # ECO: Eritrea (just this one country)
+  # LIV: Eritrea, Anguilla, Bermuda, Egypt, Ghana, Indonesia, Iceland, Saint Kitts, 
+  #      Sri Lanka, Brunei, Malaysia, Trinidad & Tobago, and Taiwan
+
+## replacement data and region names:
+scores_2013 <- read.csv("inst\\extdata\\scores.Global2013.www2013.csv")  
+rgns <- read.csv("inst\\extdata\\layers.global2012.www2013\\rgn_labels.csv") 
   
-  # calculate LE scores
+##ECO
+# ID regions to change
+rgns2replace <- rgns[grep("Eritrea", rgns$label), "rgn_id"]
+#remove scores from 2012 data:
+#scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
+scores <- scores[!(scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace),]
+# find scores from 2013 data
+#scores_2013[scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==rgns2replace,]
+scores_2013_ECO <- scores_2013[(scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==rgns2replace),]
+# bind to new data
+scores <- rbind(scores, scores_2013_ECO)
+scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
+
+# LIV: Eritrea, Anguilla, Bermuda, Egypt, Ghana, Indonesia, Iceland, Saint Kitts, 
+#      Sri Lanka, Brunei, Malaysia, Trinidad & Tobago, and Taiwan
+# ID regions to change
+rgns2replace <- rbind(rgns[grep("Eritrea", rgns$label),],
+                      rgns[grep("Anguilla", rgns$label),],
+                      rgns[grep("Bermuda", rgns$label),],
+                      rgns[grep("Egypt", rgns$label),],
+                      rgns[grep("Ghana", rgns$label),],
+                      rgns[grep("Indonesia", rgns$label),],
+                      rgns[grep("Iceland", rgns$label),],
+                      rgns[grep("Saint Kitts", rgns$label),],
+                      rgns[grep("Sri Lanka", rgns$label),],
+                      rgns[grep("Brunei", rgns$label),],
+                      rgns[grep("Malaysia", rgns$label),],
+                      rgns[grep("Trinidad", rgns$label),],
+                      rgns[grep("Taiwan", rgns$label),])
+rgns2replace <- rgns2replace$rgn_id
+#remove scores from 2012 data:
+#scores[scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace,]
+scores <- scores[!(scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace),]
+# find scores from 2013 data
+#scores_2013[scores_2013$goal=="LIV" & scores_2013$dimension=="score" & scores_2013$region_id %in% rgns2replace,]
+scores_2013_LIV <- scores_2013[(scores_2013$goal=="LIV" & scores_2013$dimension=="score" & scores_2013$region_id %in% rgns2replace),]
+# bind to new data
+scores <- rbind(scores, scores_2013_LIV)
+#scores[scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace,]
+
+ # calculate LE scores
   scores.LE = within(dcast(scores, 
                         region_id + dimension ~ goal, value.var='score', 
                         subset=.(goal %in% c('LIV','ECO') & !dimension %in% c('pressures','resilience'))), {
@@ -348,8 +398,8 @@ ICO = function(layers){
 }
 
 LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_years=2005:2009){
-  # 2013: LSP(layers, status_year=2013, trend_years=2006:2010)
-  # 2012: LSP(layers, status_year=2009, trend_years=2002:2006)
+  # 2013: LSP(layers, status_year=2012, trend_years=2005:2009)
+  # 2012: LSP(layers, status_year=2011, trend_years=2004:2008)  
     
   lyrs = list('r'  = c('rn_rgn_area_inland1km'   = 'area_inland1km',
                        'rn_rgn_area_offshore3nm' = 'area_offshore3nm'),
