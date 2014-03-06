@@ -6,14 +6,16 @@
 ```{r init_nature2012}
 library(devtools)
 library(RPostgreSQL)
-#library(RCurl)
-library(dplyr)
 
 wd = '~/Code/ohicore'
 setwd(wd)
 load_all(wd)
 
-pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_nature2012', user='bbest') # assumes password in ~/.pgpass
+#library(RCurl)
+library(dplyr)
+
+#pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_nature2012', user='bbest') # assumes password in ~/.pgpass
+pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_global2013', user='bbest') # assumes password in ~/.pgpass
 dbSendQuery(pg, 'SET search_path TO global_li, global; SET ROLE TO ohi;')
 
 #status_score = dbGetQuery(pg, 'SELECT * FROM status_score'); head(status_score)
@@ -310,15 +312,9 @@ for (yr in c(2012, 2013)){
 }
 ```
 
-* ok, now working backwards from final results...
+* ok, LIV.ECO.2012n.original
 
-```{r LIV.ECO.2012n}
-
-
-aggregate_by_country_weighted(df=subset(s, component=='livelihood'), w=w_liv,
-                                        col.value='score', col.country='country_id', col.weight='workforce') # ABW workforce==NA  # summary(s_liv)
-
-
+```{r LIV.ECO.2012n.original}
 # original function ... ----
 
   #   ld.csv=layers_data.csv, 
@@ -748,5 +744,493 @@ aggregate_by_country_weighted(df=subset(s, component=='livelihood'), w=w_liv,
   
   # QUICK HACK to consume Nature 2012 results as a placeholder
   d = read.csv(file.path(root.data ,'model/GL-NCEAS-LayersDisaggregated_v2013a/data/rgn_results_2012n_long.csv'), na.strings=''); head(d)
+
+```
+
+
+* now working backwards from final results...
+```{r LIV.ECO.2014 reverse}
+
+# ohicore
+library(devtools)
+wd = '~/Code/ohicore'
+setwd(wd)
+load_all(wd)
+
+# other libraries
+library(RPostgreSQL)
+library(reshape2)
+library(dplyr)
+
+# db connection
+pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_global2013', user='bbest') # assumes password in ~/.pgpass
+dbSendQuery(pg, 'SET search_path TO global_li, global; SET ROLE TO ohi;')
+
+# status_model_combined ----
+status_model_combined_pg = dbGetQuery(pg, "SELECT metric, iso3166, score, n_sector FROM status_model_combined")
+head(status_model_combined_pg)
+
+
+
+# inputs
+status_model_curref = dbGetQuery(pg, "SELECT * FROM status_model_curref"); head(status_model_curref)
+#dput(dbGetQuery(pg, "SELECT * FROM status_model_curref"), 'tmp_dput.txt'); status_model_curref = dget('tmp_dput.txt'); head(status_model_curref)
+
+smc1_pg = dbGetQuery(pg, "SELECT  metric, iso3166, 
+          (SUM(cur_base_value) / SUM(ref_base_value)) / (AVG(cur_adj_value) / AVG(ref_adj_value))
+          AS score,
+          COUNT(*) AS n_sector
+  FROM    status_model_curref d
+  WHERE   ref_base_value <> 0 AND ref_adj_value <> 0 AND metric IN ('jobs', 'rev')
+  GROUP BY  metric, iso3166
+  ORDER BY  metric, iso3166")
+
+
+# read data
+write.csv(subset(status_model_curref, iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev'), '/Volumes/bbest/webdocs/public_html/tmp/status_model_curref.csv', row.names=F, na='')
+d = read.csv('http://nceas.ucsb.edu/~bbest/tmp/status_model_curref.csv')
+
+a = d %.%
+  filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  group_by(metric, iso3166) %.%
+  summarise(
+    score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+    n_sector = n()) %.%
+  arrange(metric, iso3166) %.%
+  subset(iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev')
+print(a)
+# Source: local data frame [4 x 4]
+# Groups: 
+# 
+#     metric iso3166     score n_sector
+# 193    rev     CAN 1.8397948        6
+# 224    rev     FRA 3.3727256        5
+# 348    rev     YEM 0.3542311        2
+# 349    rev     ZAF 0.3695337        4
+
+b = d %.%
+  subset(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  group_by(metric, iso3166) %.%
+  summarise(
+    score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+    n_sector = n()) %.%
+  arrange(metric, iso3166) %.%
+  subset(iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev')
+print(b)
+# Source: local data frame [4 x 4]
+# Groups: 
+# 
+#     metric iso3166    score n_sector
+# 189    rev     CAN 1.809354        7
+# 220    rev     FRA 3.322725        6
+# 344    rev     YEM 1.479118        3
+# 345    rev     ZAF 2.784615        5
+
+d %.%
+  filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  filter(iso3166=='CAN' & metric =='rev')
+#   metric sector iso3166 cur_year ref_year cur_base_value ref_base_value cur_adj_value ref_adj_value
+# 1    rev    aqf     CAN     2009     2004          23520   8.872055e+04   1.33758e+12   9.92226e+11
+# 2    rev     cf     CAN     2007     2002     9861465221   9.644530e+09   1.42407e+12   7.34662e+11
+# 3    rev    mar     CAN     2007     2002     1589835080   1.030606e+09   1.42407e+12   7.34662e+11
+# 4    rev    mmw     CAN     2008     1998      152810976   1.986941e+08   1.50268e+12   6.16766e+11
+# 5    rev     og     CAN     2009     2004      566984718   9.163231e+08   1.33758e+12   9.92226e+11
+# 6    rev   tour     CAN     2012     2007    79575000000   2.070855e+10            NA   1.42407e+12
+
+d %.%
+  subset(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  filter(iso3166=='CAN' & metric =='rev')
+#   metric sector iso3166 cur_year ref_year cur_base_value ref_base_value cur_adj_value ref_adj_value
+# 1    rev    aqf     CAN     2009     2004          23520   8.872055e+04   1.33758e+12   9.92226e+11
+# 2    rev     cf     CAN     2007     2002     9861465221   9.644530e+09   1.42407e+12   7.34662e+11
+# 3    rev    mar     CAN     2007     2002     1589835080   1.030606e+09   1.42407e+12   7.34662e+11
+# 4    rev    mmw     CAN     2008     1998      152810976   1.986941e+08   1.50268e+12   6.16766e+11
+# 5    rev     og     CAN     2009     2004      566984718   9.163231e+08   1.33758e+12   9.92226e+11
+# 6    rev   tour     CAN     2012     2007    79575000000   2.070855e+10            NA   1.42407e+12
+# 7    rev    wte     CAN     2006     2001        2115003   2.706660e+06   1.27861e+12   7.15424e+11
+
+c = d %.%
+  filter(iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev') %.%
+  filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  group_by(metric, iso3166) %.%
+  summarise(
+    score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+    n_sector = n()) %.%
+  arrange(metric, iso3166) %.%
+print(c)
+# Source: local data frame [4 x 4]
+# Groups: metric
+# 
+#   metric iso3166    score n_sector
+# 1    rev     CAN 1.809354        7
+# 2    rev     FRA 3.322725        6
+# 3    rev     YEM 1.479118        3
+# 4    rev     ZAF 2.784615        5
+
+d %.%
+  subset(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  subset(iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev')
+
+d %.%
+  subset(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  subset(iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev')
+
+
+dim(filter(d, ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')))
+
+dim(subset(d, ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')))
+
+  group_by(metric, iso3166) %.%
+
+
+%.%
+  subset(iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev')
+smc1
+
+
+subset(status_model_curref, iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev') %.%
+  filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  group_by(metric, iso3166) %.%
+  summarise(
+    score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+    n_sector = n()) %.%
+  arrange(metric, iso3166) %.%
+  subset(iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev')
+
+
+head(smc1_pg); summary(smc1_pg); dim(smc1_pg); filter(smc1_pg, is.na(score))
+head(smc1   ); summary(smc1   ); dim(smc1   ); filter(smc1   , is.na(score))
+
+
+filter(smc1_pg, is.na(score))
+#   metric iso3166 score n_sector
+# 1    rev     AIA    NA        1
+# 2    rev     COM    NA        1
+# 3    rev     KNA    NA        1
+filter(smc1   , is.na(score))
+# Source: local data frame [7 x 4]
+# Groups: metric
+# 
+#   metric        iso3166 score n_sector
+# 1   jobs            ATA   NaN        1
+# 2   jobs         Azores   NaN        1
+# 3   jobs Canary Islands   NaN        1
+# 4    rev            AIA   NaN        1
+# 5    rev            ATA   NaN        1
+# 6    rev            COM   NaN        1
+# 7    rev            KNA   NaN        1
+
+# show differences
+v = merge(smc1, 
+          smc1_pg %.% rename(c(score='score_pg', n_sector='n_sector_pg')), all=T) %.%
+  group_by(metric, iso3166) %.%
+  subset(
+    (!is.na(score) & !is.na(score_pg) & !isTRUE(all.equal(score, score_pg))) |
+    (is.na(score) != is.na(score_pg)))
+print(v)
+
+
+# Source: local data frame [4 x 6]
+# Groups: metric, iso3166
+# 
+#   metric iso3166     score n_sector score_pg n_sector_pg
+# 1    rev     CAN 1.8397948        6 1.809354           7
+# 2    rev     FRA 3.3727256        5 3.322725           6
+# 3    rev     YEM 0.3542311        2 1.479118           3
+# 4    rev     ZAF 0.3695337        4 2.784615           5
+
+dbGetQuery(pg, "SELECT * FROM status_model_curref WHERE iso3166='CAN' AND metric='rev' ORDER BY iso3166, sector")
+
+
+d = status_model_curref %.%
+  subset(iso3166 %in% c('CAN','FRA','YEM','ZAF') & metric =='rev') %.%
+  select(metric, iso3166, sector, ref_base_value, ref_adj_value) %.%
+  arrange(metric,iso3166, sector)
+
+dput(d)
+
+d = structure(list(metric = c("jobs", "jobs", "jobs", "jobs", "jobs", 
+"jobs", "jobs", "jobs", "jobs", "jobs", "jobs", "jobs", "jobs", 
+"rev", "rev", "rev", "rev", "rev", "rev", "rev", "rev", "rev", 
+"rev", "rev", "rev", "rev", "rev", "rev", "rev", "rev", "rev", 
+"rev", "rev", "rev", "rev", "rev", "rev"), iso3166 = c("CAN", 
+"CAN", "CAN", "FRA", "FRA", "FRA", "FRA", "FRA", "YEM", "YEM", 
+"ZAF", "ZAF", "ZAF", "CAN", "CAN", "CAN", "CAN", "CAN", "CAN", 
+"CAN", "FRA", "FRA", "FRA", "FRA", "FRA", "FRA", "FRA", "YEM", 
+"YEM", "YEM", "YEM", "ZAF", "ZAF", "ZAF", "ZAF", "ZAF", "ZAF"
+), sector = c("cf", "tour", "wte", "cf", "mar", "mmw", "tour", 
+"wte", "cf", "tour", "cf", "mmw", "tour", "aqf", "cf", "mar", 
+"mmw", "og", "tour", "wte", "aqf", "cf", "mar", "mmw", "og", 
+"tour", "wte", "aqf", "cf", "og", "tour", "aqf", "cf", "mar", 
+"mmw", "og", "tour"), ref_base_value = c(37880.4363, 332943.422695, 
+8.695, 20900.5139, 24989.0550687, 1.915, 542884.235473, 109.04, 
+77698.348, 31274.6144738, 16294.6, 921.115, 109749.195755, 88720.5542725376, 
+9644530043.456, 1030606089.4693, 198694105.7, 916323131.388, 
+20708548840.2, 2706659.586036, 1041152, 6006916428.8, 1117478553.3003, 
+520325.2, 0, 45257734686.1, 47475426.54232, 14484.9884526502, 
+1477908839.904, 0, 273428925.511, 23538.1062355488, 5318462270.464, 
+24548462.9115, 70310975.61, 0, 3865920789.8), ref_adj_value = c(92.4200534, 
+93.23684576, 93.23684576, 91.29653696, 91.38909259, 87.92680999, 
+91.150281, 91.41031357, 89.4523825251, 83.89999962, 83.2116558416, 
+74.99786554, 73.2630199, 9.92226e+11, 7.34662e+11, 7.34662e+11, 
+6.16766e+11, 9.92226e+11, 1.42407e+12, 7.15424e+11, 2.05568e+12, 
+1.45203e+12, 1.45203e+12, 1.46887e+12, 2.05568e+12, 2.58239e+12, 
+1.79221e+12, 13873500888, 10693278292, 13873500888, 21656550140, 
+2.19093e+11, 1.11101e+11, 1.11101e+11, 1.34296e+11, 2.19093e+11, 
+2.86172e+11)), class = "data.frame", row.names = c(NA, -37L), .Names = c("metric", 
+"iso3166", "sector", "ref_base_value", "ref_adj_value"))
+
+d %.%
+  filter(metric %in% c('jobs', 'rev') & ref_adj_value != 0 & ref_base_value != 0) %.% 
+  group_by(metric, iso3166) %.%
+  summarise(n_sectors=n()) %.% filter(metric=='rev')
+
+d %.%
+  subset(metric %in% c('jobs', 'rev') & ref_adj_value != 0 & ref_base_value != 0) %.% 
+  group_by(metric, iso3166) %.%
+  summarise(n_sectors=n()) %.% filter(metric=='rev')
+
+
+write.csv(status_model_curref, 'status_model_curref.csv', row.names=F)
+smcw = read.csv('status_model_curref.csv')
+
+filter(smcw, ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  group_by(metric, iso3166) %.%
+  summarise(
+    #score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+    n_sector = n())
+
+
+
+d1 = subset(status_model_curref, iso3166=='CAN' & metric=='rev') %.%
+  filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  group_by(metric, iso3166) %.%
+  summarise(
+    #score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+    n_sector = n()) %.%
+  arrange(metric, iso3166)
+d1
+
+
+d1 = status_model_curref %.%
+  subset(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  group_by(metric, iso3166) %.%
+  summarise(
+    #score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+    n_sector = n()) %.%
+  arrange(metric, iso3166)
+subset(d1, iso3166=='CAN' & metric=='rev')
+
+subset(status_model_curref, iso3166=='CAN' & metric=='rev')
+
+subset(status_model_curref, ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev') & iso3166=='CAN' & metric=='rev')
+d2 = subset(status_model_curref, ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev'))
+subset(d2, iso3166=='CAN' & metric=='rev')
+
+filter(status_model_curref, ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev') & iso3166=='CAN' & metric=='rev')
+filter(status_model_curref, ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  filter(iso3166=='CAN' & metric=='rev')
+
+status_model_curref$m = status_model_curref$metric
+d2 = filter(status_model_curref, ref_base_value != 0 &  m %in% c('jobs', 'rev')) # ref_adj_value != 0 &
+filter(d2, iso3166=='CAN' & m=='rev')
+
+
+subset(d1, iso3166=='CAN' & metric=='rev')
+
+d0 = subset(d                  , iso3166=='CAN' & metric=='rev'); row.names(d0) = 1:nrow(d0)
+s0 = subset(status_model_curref, iso3166=='CAN' & metric=='rev')[c('metric','iso3166','sector','ref_base_value','ref_adj_value')]; row.names(s0) = 1:nrow(s0)
+
+d0; s0; summary(d0); summary(s0)
+all.equal(d0, s0)
+
+# Source: local data frame [4 x 3]
+# Groups: metric
+# 
+#   metric iso3166 n_sectors
+# 1    rev     ZAF         5
+# 2    rev     YEM         3
+# 3    rev     FRA         6
+# 4    rev     CAN         7
+  #   & ) %.% #) %.% # , metric %in% c('jobs','rev')
+  filter(iso3166 == 'CAN' & metric == 'rev') %.% #  & sector=='wte'
+  
+  select(ref_base_value)
+
+
+status_model_curref %.%
+  mutate(b_metric = )
+  filter(ref_adj_value != 0 & ref_base_value != 0) %.% #   & metric %in% c('jobs', 'rev')) %.% #) %.% # , metric %in% c('jobs','rev')
+  filter(iso3166 == 'CAN' & metric == 'rev') %.% #  & sector=='wte'
+  select(ref_base_value)
+
+metric %in% c('jobs','rev') & ref_base_value != 0 # YES
+metric %in% c('jobs','rev') & ref_adj_value != 0 # NO
+
+ref_base_value
+
+
+a = subset(v, metric=='rev' & iso3166=='WSM')
+all.equal(a$score, a$score_pg)
+
+
+
+# status_score ----
+status_score_pg = dbGetQuery(pg, "SELECT * FROM status_score"); head(status_score_pg)
+
+# inputs
+status_model_combined = dbGetQuery(pg, "SELECT metric, iso3166, score, n_sector FROM status_model_combined"); head(status_model_combined)
+
+# TODO: rescale jobs, not just wage. Perhaps gap fill wage before calculating status, or use status georegional gap fill...?
+
+# status_score R
+status_score = status_model_combined %.%
+  # liv
+  dcast(iso3166 ~ metric, value.var='score') %.%
+  group_by(iso3166) %.%
+  mutate(
+    value     = mean(c(jobs, wage), na.rm=T),
+    component = 'livelihood') %.%
+  select(iso3166, component, value) %.%
+  # eco
+  rbind(
+    status_model_combined %.%
+      filter(metric=='rev') %.%
+      mutate(
+        value     = score,
+        component = 'economy') %.%
+      select(iso3166, component, value)) %.%
+  # order
+  subset(!is.na(value)) %.%
+  arrange(iso3166, component) %.%
+  # clamp
+  mutate(score = min(value, 1))
+
+# status_score compare
+status_score_pg = dbGetQuery(pg, "SELECT * FROM status_score ORDER BY iso3166, component")
+head(status_score   ); dim(status_score   ); summary(status_score   )
+head(status_score_pg); dim(status_score_pg); summary(status_score_pg)
+```
+
+```{r LIV.ECO.2014 reverse clean & new}
+
+yr = 2013
+
+# inputs
+status_model_curref = read.csv(file.path(dir_data,  sprintf('model/GL-NCEAS-Livelihoods_2012/data_%d/global_li_status_model_curref.csv', yr)), na.strings='') # head(status_model_curref)
+ppp                 = read.csv(file.path(dir_data, 'model/GL-NCEAS-Livelihoods_v2013a/data/country_gdppcppp_2013a.csv'), na.strings='') # head(ppp); dim(ppp); summary(ppp)
+
+# status_model_combined: jobs, rev
+status_jobs_rev = status_model_curref %.%
+  filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+  group_by(metric, iso3166) %.%
+  summarise(
+    score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+    n_sector = n()) %.%
+  arrange(metric, iso3166)
+
+# status_model_combined: wage t0
+t0 = status_model_curref %.%
+  filter(metric=='wage' & ref_base_value != 0 & ref_adj_value != 0) %.%
+  mutate(w_prime_i = (cur_base_value / ref_base_value) / (cur_adj_value / ref_adj_value)) %.%
+  select(metric, iso3166, sector, w_prime_i) %.%
+  group_by(metric, iso3166) %.%
+  summarise(w_prime  = mean(w_prime_i, na.rm=T),
+            n_sector = n()) %.%
+  arrange(metric, iso3166)
+
+# status_model_combined: wage p
+p = ppp %.%
+  rename(c(ISO3166='iso3166',YEAR='year',VALUE='value')) %.%
+  arrange(iso3166, year) %.%
+  group_by(iso3166) %.%
+  summarise(year      = last(year),
+            ppp_value = last(value)) %.%
+  filter(!is.na(ppp_value)) %.%
+  arrange(iso3166)
+
+# status_model_combined: wage t2 = t0 + p
+t2 = t0 %.%
+  merge(p, by='iso3166') %.%
+  mutate(score = w_prime * ppp_value) %.%
+  select(metric, iso3166, score, n_sector) %.%
+  arrange(metric, iso3166)
+
+# status_model_combined: wage
+max_wage_score = max(t2$score, na.rm=T)
+status_wage = t2 %.%
+  mutate(score = score / max_wage_score)
+
+# status_model_combined: wage union with jobs, rev
+status_model_combined = status_jobs_rev %.%
+  rbind(status_wage)
+
+# status_score R
+status_score = status_model_combined %.%
+  # liv
+  dcast(iso3166 ~ metric, value.var='score') %.%
+  group_by(iso3166) %.%
+  mutate(
+    value     = mean(c(jobs, wage), na.rm=T),
+    component = 'livelihood') %.%
+  select(iso3166, component, value) %.%
+  # eco
+  rbind(
+    status_model_combined %.%
+      filter(metric=='rev') %.%
+      mutate(
+        value     = score,
+        component = 'economy') %.%
+      select(iso3166, component, value)) %.%
+  # order
+  subset(!is.na(value)) %.%
+  arrange(iso3166, component) %.%
+  # clamp
+  mutate(score = min(value, 1))
+```
+
+```{r other actuals}
+
+yr = 2013
+
+# get actuals and convert from Nature 2012 regions to 2013 regions
+actuals    = read.csv(file.path(dir_local, sprintf('src/model/global2013/livelihoods/status/_output_actuals_%d.csv', yr)), na.strings=''); head(actuals)
+
+regions_country = read.csv(file.path(dir_data,  'model/GL-NCEAS-OceanRegions/data/ocean_regions_country.csv'      ), na.strings=''); head(regions_country)
+regions_area    = read.csv(file.path(dir_data,  'model/GL-NCEAS-OceanRegions/data/ocean_regions_totalarea.csv'    ), na.strings=''); head(regions_area)
+region_details  = read.csv(file.path(dir_data,  'model/GL-NCEAS-OceanRegions/data/ocean_regions_details.csv'      ), na.strings=''); head(region_details)
+georegion_names = read.csv(file.path(dir_data,  'model/GL-UN-GeoRegions/data/global_georegion_names.csv'          ), na.strings=''); head(georegion_names)
+
+georegion_names = georegion_names %.%
+  select(R2, NAME) %.%
+  rename(c('NAME'='R2_NAME'))
+
+library(reshape2)
+library(dplyr)
+actuals = actuals_2012 %.%
+  merge(regions_country, by.x='id', by.y='ID') %.%
+  merge(country_georegions, by='ISO3166') %.%
+#  merge(regions_area, by.x='id', by.y='ID') %.%
+  merge(region_details[,c('ID','LABEL','COMMENTS')], by.x='id', by.y='ID') %.%
+#  filter(R2==14) %.%    
+  merge(georegion_names, by='R2') %.%  
+  rename(c(score='LIV_status')) %.%
+  merge(actuals_smc, by.x='ISO3166', by.y='iso3166') %.%
+  select(R2_NAME,R2,LABEL,id,KM2,ISO3166,jobs,wage,LIV_status) %.%
+  arrange(R2_NAME,LABEL,ISO3166)
+print(actuals, row.names=F)
+#         R2_NAME R2                           LABEL  id         KM2 ISO3166      jobs        rev        wage LIV_status
+#  Eastern Africa 14                         Comoros  20  165681.869     COM 0.9226143  0.8939394          NA  0.8939394
+#  Eastern Africa 14                        Djibouti  32    7050.627     DJI        NA  1.6270573          NA  1.0000000
+#  Eastern Africa 14 French Indian Ocean Territories  21 1006063.481     MYT 1.0036725  3.2901977          NA  0.8307986
+#  Eastern Africa 14 French Indian Ocean Territories  21 1006063.481     REU 0.8241365  0.6840689          NA  0.8307986
+#  Eastern Africa 14                           Kenya  29  112625.772     KEN 0.9648566 13.8049921          NA  1.0000000
+#  Eastern Africa 14                      Madagascar  28 1205757.595     MDG 1.1877055  1.3637273 0.008664429  1.0000000
+#  Eastern Africa 14                       Mauritius  23 1279955.966     MUS 1.0334589  0.6603615 0.137437123  0.6603615
+#  Eastern Africa 14                      Mozambique  27  575652.148     MOZ 1.4247727  3.9298248          NA  1.0000000
+#  Eastern Africa 14                      Seychelles  22 1340607.599     SYC 1.2184959  0.7062264          NA  0.7062264
+#  Eastern Africa 14                        Tanzania 152  242961.069     TZA 1.4392675 10.4909550          NA  1.0000000
+
+write.csv(actuals, '/Volumes/local_edit/src/toolbox/code/debug_LIV_Eritrea_actuals.csv', na='', row.names=F)
 
 ```
