@@ -2,7 +2,7 @@
 \alias{Halpern2012.LE.LIV}
 \title{Calculate Livelihoods subgoal of Coastal Livelihoods and Economies.}
 \usage{
-  Halpern2012.LE.LIV(jc, jr, gc, gr, ...)
+Halpern2012.LE.LIV(jc, jr, gc, gr, ...)
 }
 \arguments{
   \item{placeholder}{placeholder jc total adjusted jobs per
@@ -18,10 +18,10 @@
   per-capita annual wages per sector in reference region}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Livelihoods subgoal of Coastal Livelihoods and
-  Economies.
+Calculate Livelihoods subgoal of Coastal Livelihoods and
+Economies.
 }
 

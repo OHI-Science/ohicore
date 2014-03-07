@@ -2,8 +2,9 @@
 \alias{CalculatePressuresScore}
 \title{Calculate Pressures Score}
 \usage{
-  CalculatePressuresScore(p, w, GAMMA = 0.5, browse = F,
-    pressures_categories = list(environmental = c("po", "hd", "fp", "sp", "cc"), social = "ss"))
+CalculatePressuresScore(p, w, GAMMA = 0.5, browse = F,
+  pressures_categories = list(environmental = c("po", "hd", "fp", "sp", "cc"),
+  social = "ss"))
 }
 \arguments{
   \item{p}{the pressures value matrix [region_id x
@@ -32,83 +33,82 @@
   social pressures.}
 }
 \value{
-  Returns a named vector with the pressures score for each
-  named region.
+Returns a named vector with the pressures score for each
+named region.
 }
 \description{
-  The pressures score is calculated for each region given a
-  weighting matrix for a goal and the individual pressures
-  values.
+The pressures score is calculated for each region given a
+weighting matrix for a goal and the individual pressures
+values.
 }
 \details{
-  Each pressure layer \eqn{p(i,j)} is either environmental
-  or social, belongs to a pressures category \eqn{K \in
-  \{cc,fp,hd,po,sp,ss\}}, and has a value \eqn{(0..1)} for
-  each region \emph{i} and pressures layer \emph{j}. Each
-  goal has a weight matrix \eqn{w} that has a rank weight
-  between 0 and 3 inclusive, or NoData, for each region
-  \emph{i} and each pressure layer \emph{j} on a per goal
-  \emph{g} basis.
+Each pressure layer \eqn{p(i,j)} is either environmental or
+social, belongs to a pressures category \eqn{K \in
+\{cc,fp,hd,po,sp,ss\}}, and has a value \eqn{(0..1)} for
+each region \emph{i} and pressures layer \emph{j}. Each
+goal has a weight matrix \eqn{w} that has a rank weight
+between 0 and 3 inclusive, or NoData, for each region
+\emph{i} and each pressure layer \emph{j} on a per goal
+\emph{g} basis.
 
-  The pressures scores calculations go through 5 steps,
-  using a complex weighting scheme that varies across
-  goals, subgoals, pressures categories, and regions:
+The pressures scores calculations go through 5 steps, using
+a complex weighting scheme that varies across goals,
+subgoals, pressures categories, and regions:
 
-  \itemize{
+\itemize{
 
-  \item \emph{g} is the goal or subgoal (e.g., AO, CW, LIV,
-  ECO, ...), \item \emph{i} is the region (e.g., 1, 2, 3,
-  ...), \item \emph{j} is the pressures layer or stressor
-  (e.g., \code{cc_acid}, \code{fp_art_lb}, etc.).
+\item \emph{g} is the goal or subgoal (e.g., AO, CW, LIV,
+ECO, ...), \item \emph{i} is the region (e.g., 1, 2, 3,
+...), \item \emph{j} is the pressures layer or stressor
+(e.g., \code{cc_acid}, \code{fp_art_lb}, etc.).
 
-  }
+}
 
-  Calculations
+Calculations
 
-  \enumerate{
+\enumerate{
 
-  \item Apply weights for each goal \emph{g}, region
-  \emph{i}, and pressure layer \emph{j}: Each weighted
-  pressure \eqn{p_w(g,i,j)} is the pressure layer value
-  \eqn{p(i,j)} per region \emph{i} and pressure layer
-  \emph{j} multiplied by the rank weight \eqn{w(g,i,j)} for
-  that goal \emph{g}, region \emph{i}, and pressure layer
-  \emph{j}. If the \eqn{w(g,i,j)} is NoData or 0, the
-  weighted pressure \eqn{p_w(g,i,j)} is NoData.
+\item Apply weights for each goal \emph{g}, region
+\emph{i}, and pressure layer \emph{j}: Each weighted
+pressure \eqn{p_w(g,i,j)} is the pressure layer value
+\eqn{p(i,j)} per region \emph{i} and pressure layer
+\emph{j} multiplied by the rank weight \eqn{w(g,i,j)} for
+that goal \emph{g}, region \emph{i}, and pressure layer
+\emph{j}. If the \eqn{w(g,i,j)} is NoData or 0, the
+weighted pressure \eqn{p_w(g,i,j)} is NoData.
 
-  \deqn{p_{w}(g,i,j) = w(g,i,j) * p(i,j)}
+\deqn{p_{w}(g,i,j) = w(g,i,j) * p(i,j)}
 
-  \item Category-level aggregation: The pressures category
-  score \eqn{p_K} is the sum of all \eqn{p_w} within each
-  category, then rescaled to 0..1 using a linear scale
-  range transformation (from 0..3 to 0..1). Any score
-  \eqn{p_K} greater than 1 is capped to 1:
+\item Category-level aggregation: The pressures category
+score \eqn{p_K} is the sum of all \eqn{p_w} within each
+category, then rescaled to 0..1 using a linear scale range
+transformation (from 0..3 to 0..1). Any score \eqn{p_K}
+greater than 1 is capped to 1:
 
-  \deqn{p_K(g,i) = \frac{\min(\sum_{j \in K} p_w(g,i,j),
-  3)}{3}}
+\deqn{p_K(g,i) = \frac{\min(\sum_{j \in K} p_w(g,i,j),
+3)}{3}}
 
-  \item Environmental aggregation: The environmental
-  pressures score \eqn{p_E(g,i)} is the weighted sum of
-  \eqn{p_K}(g,i), where each weight is the maximum weight
-  in the pressure category \eqn{K}, and then divided by the
-  sum of the maximum weights:
+\item Environmental aggregation: The environmental
+pressures score \eqn{p_E(g,i)} is the weighted sum of
+\eqn{p_K}(g,i), where each weight is the maximum weight in
+the pressure category \eqn{K}, and then divided by the sum
+of the maximum weights:
 
-  \deqn{w_{K,max}(g,i) = max(\{\forall_j \in K |
-  w(g,i,j)\})}
+\deqn{w_{K,max}(g,i) = max(\{\forall_j \in K | w(g,i,j)\})}
 
-  \deqn{p_E(g,i) = \frac{\sum_K w_{K,max}(g,i)
-  p_K(g,i)}{\sum_K w_{K,max}(g,i)}}
+\deqn{p_E(g,i) = \frac{\sum_K w_{K,max}(g,i)
+p_K(g,i)}{\sum_K w_{K,max}(g,i)}}
 
-  \item Social aggregation: The social pressures score
-  \eqn{p_S(g,i)} is the mean of the \emph{unweighted}
-  social pressure scores \eqn{p(i,j)}:
+\item Social aggregation: The social pressures score
+\eqn{p_S(g,i)} is the mean of the \emph{unweighted} social
+pressure scores \eqn{p(i,j)}:
 
-  \deqn{p_S(g,i) = \frac{\sum_{j \in S}^{} p(i,j)}{N}}
+\deqn{p_S(g,i) = \frac{\sum_{j \in S}^{} p(i,j)}{N}}
 
-  \item Gamma combination: The pressures score
-  \eqn{p_X(g,i)}:
+\item Gamma combination: The pressures score
+\eqn{p_X(g,i)}:
 
-  \deqn{p_X(g,i) = \gamma p_E(g,i) + (1-\gamma)p_S(g,i)} }
+\deqn{p_X(g,i) = \gamma p_E(g,i) + (1-\gamma)p_S(g,i)} }
 }
 \examples{
 \dontrun{
@@ -214,7 +214,7 @@
 }
 }
 \seealso{
-  \code{\link{CalculatePressuresMatrix}}
+\code{\link{CalculatePressuresMatrix}}
 }
 \keyword{ohi}
 

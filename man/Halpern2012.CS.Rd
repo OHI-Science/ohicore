@@ -2,7 +2,7 @@
 \alias{Halpern2012.CS}
 \title{Calculate Carbon Storage}
 \usage{
-  Halpern2012.CS(Cc, Cr, A, ...)
+Halpern2012.CS(Cc, Cr, A, ...)
 }
 \arguments{
   \item{placeholder}{placeholder Cc current 'condition' of
@@ -15,9 +15,9 @@
   by habitat k}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Carbon Storage
+Calculate Carbon Storage
 }
 

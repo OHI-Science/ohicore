@@ -5,7 +5,7 @@
 \alias{score.rescale}
 \title{Score Scaling Functions}
 \usage{
-  score.rescale(x, xlim = NULL, method = "linear", ...)
+score.rescale(x, xlim = NULL, method = "linear", ...)
 }
 \arguments{
   \item{x}{A numeric vector of data.}
@@ -21,10 +21,10 @@
   \item{...}{Arguments for min, max, pmin, pmax.}
 }
 \value{
-  Returns scores.
+Returns scores.
 }
 \description{
-  Scoring functions
+Scoring functions
 }
 \examples{
 score.max(c(0.5, 1, 2))
@@ -34,7 +34,7 @@ score.clamp(c(-0.5, 1, 2))
 score.clamp(c(-0.5, 1, 2), xlim=c(-1, 1))
 }
 \seealso{
-  min, max, pmin, pmax
+min, max, pmin, pmax
 }
 \keyword{ohi}
 

@@ -2,8 +2,7 @@
 \alias{CheckLayers}
 \title{Check Layers}
 \usage{
-  CheckLayers(layers.csv, layers.dir, flds_id, verbose = T,
-    msg.indent = "  ")
+CheckLayers(layers.csv, layers.dir, flds_id, verbose = T, msg.indent = "  ")
 }
 \arguments{
   \item{layers.csv}{full path to the layers.csv file.}
@@ -19,39 +18,39 @@
   \item{if}{True (default), extra diagnostics are output}
 }
 \value{
-  warning messages
+warning messages
 }
 \description{
-  Check all the input layers as defined by layers.csv and
-  update required fields
+Check all the input layers as defined by layers.csv and
+update required fields
 }
 \details{
-  The CheckLayers() function iterates through all the
-  layers in layers.csv and updates the following field
-  names, which can be NA for any except flds: \itemize{
-  \item{\emph{fld_id_num} - name of field used as spatial
-  identifier, if numeric} \item{\emph{fld_id_chr} - name of
-  field used as spatial identifier, if character}
-  \item{\emph{fld_category} - name of field used as
-  category} \item{\emph{fld_year} - ame of field used as
-  year} \item{\emph{fld_val_num} - name of field used as
-  value, from fld_value, if numeric}
-  \item{\emph{fld_val_chr} - name of field used as value,
-  from fld_value, if character} \item{\emph{flds} - data
-  fields used for the layer} } Additional diagnostic fields
-  are updated: \itemize{ \item{\emph{file_exists} - input
-  filename exists} \item{\emph{val_min} - minimum value, if
-  numeric} \item{\emph{val_max} - maximum value, if
-  numeric} \item{\emph{val_0to1} - TRUE if value ranges
-  between 0 and 1} \item{\emph{flds_unused} - unused fields
-  from input file when guessing prescribed field names
-  (aboves)} \item{\emph{flds_missing} - fields expected, as
-  given by Layers units, and not found}
-  \item{\emph{rows_duplicated} - given the combination of
-  all row-identifying fields (and excluding value fields),
-  the number of rows which are duplicates}
-  \item{\emph{num_ids_unique} - number of unique ids, as
-  provided by just the unique instances of the fld_id} }
+The CheckLayers() function iterates through all the layers
+in layers.csv and updates the following field names, which
+can be NA for any except flds: \itemize{
+\item{\emph{fld_id_num} - name of field used as spatial
+identifier, if numeric} \item{\emph{fld_id_chr} - name of
+field used as spatial identifier, if character}
+\item{\emph{fld_category} - name of field used as category}
+\item{\emph{fld_year} - ame of field used as year}
+\item{\emph{fld_val_num} - name of field used as value,
+from fld_value, if numeric} \item{\emph{fld_val_chr} - name
+of field used as value, from fld_value, if character}
+\item{\emph{flds} - data fields used for the layer} }
+Additional diagnostic fields are updated: \itemize{
+\item{\emph{file_exists} - input filename exists}
+\item{\emph{val_min} - minimum value, if numeric}
+\item{\emph{val_max} - maximum value, if numeric}
+\item{\emph{val_0to1} - TRUE if value ranges between 0 and
+1} \item{\emph{flds_unused} - unused fields from input file
+when guessing prescribed field names (aboves)}
+\item{\emph{flds_missing} - fields expected, as given by
+Layers units, and not found} \item{\emph{rows_duplicated} -
+given the combination of all row-identifying fields (and
+excluding value fields), the number of rows which are
+duplicates} \item{\emph{num_ids_unique} - number of unique
+ids, as provided by just the unique instances of the
+fld_id} }
 }
 \examples{
 \dontrun{

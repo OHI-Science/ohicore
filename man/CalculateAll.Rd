@@ -2,7 +2,7 @@
 \alias{CalculateAll}
 \title{Calculate All}
 \usage{
-  CalculateAll(conf, layers, debug = F)
+CalculateAll(conf, layers, debug = F)
 }
 \arguments{
   \item{conf}{of class \code{\link{Conf}}}
@@ -12,18 +12,18 @@
   \item{debug}{print debug messages (default=FALSE)}
 }
 \value{
-  Returns a data.frame of scores having the following
-  columns: \itemize{ \item{\emph{region_id} - unique
-  numeric region identifier, reserving 0 as the region_id
-  for the area-weighted average of the entire study area}
-  \item{\emph{goal} - the goal code or Index}
-  \item{\emph{dimension} - the dimension code, one of:
-  status, trend, pressures, resilience, future, score}
-  \item{\emph{score} - the numeric score: 0-100 for all
-  dimensions, except trend (-1 to 1)} }
+Returns a data.frame of scores having the following
+columns: \itemize{ \item{\emph{region_id} - unique numeric
+region identifier, reserving 0 as the region_id for the
+area-weighted average of the entire study area}
+\item{\emph{goal} - the goal code or Index}
+\item{\emph{dimension} - the dimension code, one of:
+status, trend, pressures, resilience, future, score}
+\item{\emph{score} - the numeric score: 0-100 for all
+dimensions, except trend (-1 to 1)} }
 }
 \description{
-  Calculate all scores, given layers and configuration.
+Calculate all scores, given layers and configuration.
 }
 \examples{
 \dontrun{
