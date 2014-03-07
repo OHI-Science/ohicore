@@ -130,15 +130,56 @@ layers$val_max[i] = max(ciw[,2])
 write.csv(layers, 'layers.Canada-CHONe2014.csv', na='', row.names=F)
 
 # update pressure/resilience matrices and resilience weights
-rw=read.csv('conf.Canada-CHONe2014/resilience_weights.csv')
+rw=read.csv('conf.Canada-CHONe2014/resilience_weights.csv', stringsAsFactors=F)
 rw$layer[rw$layer=='wgi_all']='cwi_all'
 write.csv(rw,'conf.Canada-CHONe2014/resilience_weights.csv',row.names=FALSE)
 
-pm=read.csv('conf.Canada-CHONe2014/pressures_matrix.csv')
+pm=read.csv('conf.Canada-CHONe2014/pressures_matrix.csv', stringsAsFactors=F)
 names(pm)[names(pm)=='ss_wgi']='ss_cwi'
 write.csv(pm,'conf.Canada-CHONe2014/pressures_matrix.csv',row.names=FALSE,na="")
 
-rm=read.csv('conf.Canada-CHONe2014/resilience_matrix.csv')
+rm=read.csv('conf.Canada-CHONe2014/resilience_matrix.csv', stringsAsFactors=F)
 names(rm)[names(rm)=='wgi_all']='cwi_all'
 rm$cwi_all='cwi_all'
 write.csv(rm,'conf.Canada-CHONe2014/resilience_matrix.csv',row.names=FALSE)
+
+
+##################################### Aboriginal Needs ################################################################################
+source("rawdata.Canada-CHONe2014/AN/AN_timeseries.R")
+
+# copies modified functions.R in rawdata.Canada-CHONe2014/ and to conf.Canada-CHONe2014/functions.R 
+file.copy('rawdata.Canada-CHONe2014/functions.R', 'conf.Canada-CHONe2014/functions.R', overwrite = T)
+
+# rename Artisinal Opportunities to Aboriginal Needs
+# alter fields for this updated layer
+goals = read.csv('conf.Canada-CHONe2014/goals.csv', stringsAsFactors=F); head(goals); 
+
+i = which(goals$goal=='AO')
+goals$goal[i]     = 'AN'
+goals$name[i]      = 'Aboriginal Needs'
+goals$name_flower[i]      = '           Aboriginal Needs'
+goals$description[i]     = 'This goal captures The extent to which Canada’s Aboriginals are able to access ocean resources for subsistence, social and ceremonial purposes'
+goals$preindex_function[i]  = 'AN(layers, year_max=2012)'
+
+# write back updated layers.csv
+write.csv(goals, 'conf.Canada-CHONe2014/goals.csv', na='', row.names=F)
+
+# alter fields for this updated layer
+layers = read.csv('layers.Canada-CHONe2014.csv', na.strings='', stringsAsFactors=F); head(layers); 
+
+i = which(layers$targets=='AO')
+layers$targets[i]     = 'AN'
+
+# write back updated layers.csv
+write.csv(layers, 'layers.Canada-CHONe2014.csv', na='', row.names=F)
+
+pm=read.csv('conf.Canada-CHONe2014/pressures_matrix.csv', stringsAsFactors=F)
+pm$goal[pm$goal=='AO']     = 'AN'
+write.csv(pm,'conf.Canada-CHONe2014/pressures_matrix.csv',row.names=FALSE,na="")
+
+rm=read.csv('conf.Canada-CHONe2014/resilience_matrix.csv', stringsAsFactors=F)
+rm$goal[rm$goal=='AO']     = 'AN'
+write.csv(rm,'conf.Canada-CHONe2014/resilience_matrix.csv',row.names=FALSE)
+
+# create Aboriginal needs layers
+

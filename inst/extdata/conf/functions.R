@@ -50,13 +50,13 @@ FP = function(layers, scores){
 }
 
 
-AO = function(layers, 
+AN = function(layers, 
               year_max=max(layers_data$year, na.rm=T), 
               year_min=max(min(layers_data$year, na.rm=T), max(layers_data$year, na.rm=T)-10), 
               Sustainability=1.0){
   
   # cast data
-  layers_data = SelectLayersData(layers, targets='AO')
+  layers_data = SelectLayersData(layers, targets='AN')
   
   ry = rename(dcast(layers_data, id_num + year ~ layer, value.var='val_num', 
                     subset = .(layer %in% c('rny_ao_need'))),
@@ -93,7 +93,7 @@ AO = function(layers,
   #browser()
   s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status')); head(s.status)
   s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend')); head(s.trend)
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='AO')); dlply(scores, .(dimension), summary)
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='AN')); dlply(scores, .(dimension), summary)
   return(scores)  
 }
 
