@@ -594,11 +594,9 @@
 237,"coral",1
 232,"soft_bottom",0.701691962123
 21,"seaice_edge",1
-59,"seaice_edge",0
 69,"seaice_edge",0.916666667
 70,"seaice_edge",1
 73,"seaice_edge",1
-141,"seaice_edge",0
 143,"seaice_edge",0.461538462
 144,"seaice_edge",0.019255456
 145,"seaice_edge",0.832101909
@@ -614,17 +612,12 @@
 209,"seaice_edge",1
 210,"seaice_edge",1
 218,"seaice_edge",0.918449021
-219,"seaice_edge",0
 222,"seaice_edge",1
 223,"seaice_edge",0.836272275
 255,"seaice_edge",0.190906483
-4,"seaice_edge",0
 89,"seaice_edge",0.714864389
-94,"seaice_edge",0
-172,"seaice_edge",0
 213,"seaice_edge",0.982204905
 21,"seaice_shoreline",1
-59,"seaice_shoreline",0
 69,"seaice_shoreline",1
 70,"seaice_shoreline",1
 73,"seaice_shoreline",0.923106654
@@ -634,8 +627,6 @@
 174,"seaice_shoreline",1
 175,"seaice_shoreline",1
 176,"seaice_shoreline",0.94590846
-177,"seaice_shoreline",0
-178,"seaice_shoreline",0.039855072
 179,"seaice_shoreline",0.097345133
 180,"seaice_shoreline",0.301687764
 189,"seaice_shoreline",0.861751152
@@ -645,5 +636,4 @@
 222,"seaice_shoreline",1
 223,"seaice_shoreline",0.832558519
 255,"seaice_shoreline",0.366007194
-89,"seaice_shoreline",0
 213,"seaice_shoreline",0.980240515
