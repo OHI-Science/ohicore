@@ -1,10 +1,11 @@
 # Create package datasets for lazy loading. Document in R/data.R.
-
+library(devtools)
 library(plyr)
 
-# load ohicore
-wd = '~/Code/ohicore'
-setwd(wd)
+#load ohicore wd = '~/../Github/ohicore' # '~/Code/ohicore' setwd(wd) 
+# if opening
+# ohicore as the RStudio versioned project (using Github) then should auto set to
+# correct working directory.
 load_all()
 
 # flags for turning on/off time consuming code
@@ -15,16 +16,30 @@ do.layers.Global2012.Nature2012ftp = F
 # [layers|scores].Global[2013|2012].v2013web ----
 
 # set from root directory based on operating system
-dir.from.root = c('Windows' = '//neptune/data_edit',
+dir.from.root = c('Windows' = '//neptune.nceas.ucsb.edu/data_edit',
                   'Darwin'  = '/Volumes/data_edit',
                   'Linux'   = '/var/data/ohi')[[ Sys.info()[['sysname']] ]]
 
+# get paths configuration based on host machine name
+conf = list(
+  'AMPHITRITE'=list(  # BB's Windows 8 on MacBook Pro VMWare
+    dir_git   = 'G:/ohigit',
+    dir_annex = 'Z:/bbest On My Mac/neptune_cyberduck'),
+  'BEASTIE3'=list(  # Melanie's Windows 8 on MacBook Pro VMWare
+    dir_ohicore       = 'C:/Users/Melanie/Github/ohicore',
+    dir_neptune_data  = '//neptune.nceas.ucsb.edu/data_edit',
+    dir_neptune_local = '//neptune.nceas.ucsb.edu/local_edit',
+    dir_annex         = '//neptune.nceas.ucsb.edu/data_edit/git-annex')
+)[[Sys.info()['nodename']]] # N: # temp working from UCSB campus
+
+
 # load Google spreadsheet
 g.url = 'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv'
-g = subset(read.csv(textConnection(RCurl::getURL(g.url)), skip=1, na.strings=''), !is.na(ingest))
+     #  'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv&single=true&gid=0
+g = subset(read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings=''), ingest==T )
 
 # load results
-results.csv = '/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv'
+results.csv = file.path(conf$dir_neptune_local, 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv')
 # TODO: update results to 10-09, not 10-08, per HAB +saltmarsh in OHI_results_for_Radical_2013-10-09.csv
 r = plyr::rename(read.csv(results.csv), c('value'='score'))
 r$dimension = plyr::revalue(r$dimension, c('likely_future_state'='future'))
@@ -39,6 +54,7 @@ for (yr in do.years.www2013){ # yr=2013
   dir.create(dir.to, showWarnings=F)
   cat(sprintf('  copy to %s\n', dir.to))
   g$filename = g[, sprintf('fn_%da' , yr)]
+  stopifnot(nrow(subset(g, is.na(filename))) == 0)  
   g$path = file.path(dir.from.root, g[, sprintf('dir_%da', yr)], g$filename)
   for (f in sort(g$path)){ # f = sort(g$path)[1]
     cat(sprintf('    copying %s\n', f))

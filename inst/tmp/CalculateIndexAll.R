@@ -1,8 +1,9 @@
-setwd('~/Code/ohicore')
+#setwd('~/Code/ohicore')
+library(devtools)
 load_all()
 
 # load layers and conf ----
-scenario = 'Global2013.www2013'
+scenario = 'Global2012.www2013'
 conf       = Conf(sprintf('inst/extdata/conf.%s', scenario))
 layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
                     layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
@@ -10,7 +11,8 @@ layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario)
 
 # calculate scores ----
 scores = CalculateAll(conf, layers, debug=T)
-scores2 = data.frame(scores, stringsAsFactors=F); summary(scores2)
+#scores.0 = scores
+write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
 
 # compare scores ----
 
