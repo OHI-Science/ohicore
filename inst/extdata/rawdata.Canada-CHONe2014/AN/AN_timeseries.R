@@ -35,6 +35,6 @@ for(i in 1:l){
   Aboriginal_Needs_Index=ANindex[ice_layer$Name==ice_layer$Name[i]&ice_layer$Type==ice_layer$Type[i]]
   ANmean=ANmean+(Aboriginal_Needs_Index*food_gas_data$population[food_gas_data$name==food_gas_data$name[i]&food_gas_data$type==food_gas_data$type[i]])/sum(food_gas_data$population[1:l])
 }
-
-ANmean=data.frame(Year,ANmean)
-write.csv(ANmean,'~/Documents/ohigit/ohicore/inst/extdata/rawdata.Canada-CHONe2014/AN/AN_timeseries.csv',row.names=F)
+ANmean2=data.frame(cbind(year=rep(Year,278),rgn_id=rep(1:278,each = length(Year)),an_timeseries=rep(0.5,278*length(Year))))
+ANmean2$an_timeseries[ANmean2$rgn_id==218]=ANmean
+write.csv(ANmean2,'~/Documents/ohigit/ohicore/inst/extdata/rawdata.Canada-CHONe2014/AN/AN_timeseries.csv',row.names=F)

@@ -51,43 +51,26 @@ FP = function(layers, scores){
 
 
 AN = function(layers, 
-              year_max=max(layers_data$year, na.rm=T), 
-              year_min=max(min(layers_data$year, na.rm=T), max(layers_data$year, na.rm=T)-10), 
               Sustainability=1.0){
   
-  # cast data
-  layers_data = SelectLayersData(layers, targets='AN')
-  
-  ry = rename(dcast(layers_data, id_num + year ~ layer, value.var='val_num', 
-                    subset = .(layer %in% c('rny_ao_need'))),
-              c('id_num'='region_id', 'rny_ao_need'='need')); head(ry); summary(ry)
-  
-  r = na.omit(rename(dcast(layers_data, id_num ~ layer, value.var='val_num', 
-                           subset = .(layer %in% c('rn_ao_access'))),
-                     c('id_num'='region_id', 'rn_ao_access'='access'))); head(r); summary(r)
-  
-  ry = merge(ry, r); head(r); summary(r); dim(r)
-  
-  # model
-  ry = within(ry,{
-    Du = (1.0 - need) * (1.0 - access)
-    status = ((1.0 - Du) * Sustainability) * 100
-  })
+  layers_data =rename(SelectLayersData(layers, layers='rny_an_timeseries'),c('id_num'='region_id','category'='score'))
   
   # status
-  r.status = subset(ry, year==year_max, c(region_id, status)); summary(r.status); dim(r.status)
+  r.status = subset(layers_data, year==max(layers_data$year, na.rm=T), c(region_id, score)); summary(r.status); dim(r.status)
+  r.status$score = r.status$score * 100 * Sustainability
   
+
   # trend
   r.trend = ddply(
-    subset(ry, year >= year_min), .(region_id), summarize,      
+    layers_data, .(region_id), summarize,      
     trend = 
-      if(length(na.omit(status))>1) {
+      if(length(na.omit(r.status))>1) {
         # use only last valid 5 years worth of status data since year_min
-        d = data.frame(status=status, year=year)[tail(which(!is.na(status)), 5),]
-        lm(status ~ year, d)$coefficients[['year']] / 100
+        d = data.frame(status=score, year=year)[tail(which(!is.na(score)), 10),]
+        lm(status ~ year, d)$coefficients[['year']]
       } else {
         NA
-      }); # summary(r.trend); summary(subset(scores_www, goal=='AO' & dimension=='trend'))
+      }); # summary(r.trend); summary(subset(scores_www, goal=='AN' & dimension=='trend'))
   
   # return scores
   #browser()

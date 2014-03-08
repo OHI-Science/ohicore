@@ -113,8 +113,8 @@ layers$name[i]      = 'Hardship of Canadians indicated with the CWI'
 layers$units[i]     = 'pressure score'
 layers$filename[i]  = 'rgn_wb_cwi_2013_rescaled_inverse.csv'
 layers$fld_value[i] = 'score'
-layers$val_min[i] = min(ciw2[,2])
-layers$val_max[i] = max(ciw2[,2])
+layers$val_min[i] = 0
+layers$val_max[i] = 1
 
 
 i = which(layers$layer=='wgi_all')
@@ -123,8 +123,8 @@ layers$name[i]      = 'Wellbeing of Canadians indicated with the CWI'
 layers$units[i]     = 'resilience score'
 layers$filename[i]  = 'rgn_wb_cwi_2013_rescaled.csv'
 layers$fld_value[i] = 'score'
-layers$val_min[i] = min(ciw[,2])
-layers$val_max[i] = max(ciw[,2])
+layers$val_min[i] = 0
+layers$val_max[i] = 1
 
 # write back updated layers.csv
 write.csv(layers, 'layers.Canada-CHONe2014.csv', na='', row.names=F)
@@ -151,7 +151,6 @@ source("rawdata.Canada-CHONe2014/AN/AN_timeseries.R")
 file.copy('rawdata.Canada-CHONe2014/functions.R', 'conf.Canada-CHONe2014/functions.R', overwrite = T)
 
 # rename Artisinal Opportunities to Aboriginal Needs
-# alter fields for this updated layer
 goals = read.csv('conf.Canada-CHONe2014/goals.csv', stringsAsFactors=F); head(goals); 
 
 i = which(goals$goal=='AO')
@@ -159,17 +158,31 @@ goals$goal[i]     = 'AN'
 goals$name[i]      = 'Aboriginal Needs'
 goals$name_flower[i]      = '           Aboriginal Needs'
 goals$description[i]     = 'This goal captures The extent to which Canada’s Aboriginals are able to access ocean resources for subsistence, social and ceremonial purposes'
-goals$preindex_function[i]  = 'AN(layers, year_max=2012)'
+goals$preindex_function[i]  = 'AN(layers)'
 
-# write back updated layers.csv
+# write back updated goals.csv
 write.csv(goals, 'conf.Canada-CHONe2014/goals.csv', na='', row.names=F)
+
+# copy rgn_an_timeseries
+file.copy('rawdata.Canada-CHONe2014/AN/AN_timeseries.csv', 'layers.Canada-CHONe2014/rgn_an_timeseries.csv', overwrite = T)
+
 
 # alter fields for this updated layer
 layers = read.csv('layers.Canada-CHONe2014.csv', na.strings='', stringsAsFactors=F); head(layers); 
 
-i = which(layers$targets=='AO')
-layers$targets[i]     = 'AN'
+# remove unnecessary layer
+i = which(layers$layer!='rn_ao_access')
+layers     = layers[i,]
 
+# alter layer
+i = which(layers$layer=='rny_ao_need')
+layers$targets[i]   = 'AN'
+layers$layer[i]     = 'rny_an_timeseries'
+layers$name[i]      = 'Timeseries of Aboriginal Needs Status'
+layers$citation[i]  = ''
+layers$filename[i]  = 'rgn_an_timeseries.csv'
+layers$val_min[i] = 0
+layers$val_max[i] = 1
 # write back updated layers.csv
 write.csv(layers, 'layers.Canada-CHONe2014.csv', na='', row.names=F)
 

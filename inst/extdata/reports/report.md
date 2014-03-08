@@ -19,11 +19,11 @@
 
 |id                               |  score|  status|  future|
 |:--------------------------------|------:|-------:|-------:|
-|Index                            |  64.67|      NA|   64.56|
+|Index                            |  60.04|      NA|   59.94|
 |Food Provision                   |  32.30|   30.38|   34.21|
 |. Fisheries                      |  30.29|   28.34|   32.24|
 |. Mariculture                    |  25.93|   25.12|   26.74|
-|Aboriginal Needs                 |  95.30|   92.39|   98.22|
+|Aboriginal Needs                 |  51.96|   49.28|   54.64|
 |Natural Products                 |  30.54|   28.58|   32.51|
 |Carbon Storage                   |  73.20|   79.69|   66.70|
 |Coastal Protection               |  68.50|   69.15|   67.85|
@@ -51,11 +51,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   60.20|      NA|   61.57|     NA|         NA|          NA|
+|Index                            |   54.70|      NA|   55.93|     NA|         NA|          NA|
 |Food Provision                   |   20.73|   20.05|   21.40|  -0.03|         NA|          NA|
 |. Fisheries                      |   23.76|   23.00|   24.51|  -0.03|      30.54|       56.57|
 |. Mariculture                    |    4.26|    4.03|    4.48|   0.00|      35.00|       68.75|
-|Aboriginal Needs                 |   96.42|   92.83|  100.00|   0.00|      27.02|       56.48|
+|Aboriginal Needs                 |   52.43|   50.00|   54.86|   0.00|      27.02|       56.48|
 |Natural Products                 |    7.39|    7.24|    7.54|  -0.02|      47.56|       63.21|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -83,11 +83,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   53.94|      NA|   53.14|     NA|         NA|          NA|
+|Index                            |   48.44|      NA|   47.45|     NA|         NA|          NA|
 |Food Provision                   |   23.69|   22.96|   24.42|  -0.03|         NA|          NA|
 |. Fisheries                      |   23.73|   23.00|   24.46|  -0.03|      30.55|       55.94|
 |. Mariculture                    |    0.03|    0.03|    0.03|   0.00|      33.32|       58.33|
-|Aboriginal Needs                 |   96.25|   92.50|  100.00|   0.00|      28.09|       55.27|
+|Aboriginal Needs                 |   52.24|   50.00|   54.48|   0.00|      28.09|       55.27|
 |Natural Products                 |    9.30|    8.95|    9.65|  -0.07|      29.33|       66.17|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -115,11 +115,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  60.24|      NA|   58.99|     NA|         NA|          NA|
+|Index                            |  55.27|      NA|   53.94|     NA|         NA|          NA|
 |Food Provision                   |  17.87|   17.00|   18.74|   0.02|         NA|          NA|
 |. Fisheries                      |  17.87|   17.00|   18.74|   0.02|      25.62|       52.66|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.32|       30.27|
-|Aboriginal Needs                 |  97.02|   94.04|  100.00|   0.00|      25.77|       53.29|
+|Aboriginal Needs                 |  52.27|   50.00|   54.54|   0.00|      25.77|       53.29|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  90.99|   91.28|   90.70|     NA|      32.46|       30.51|
 |Coastal Protection               |  28.21|   28.68|   27.74|  -0.02|      35.37|       30.51|
@@ -147,11 +147,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   73.07|      NA|   73.22|     NA|         NA|          NA|
+|Index                            |   63.76|      NA|   64.61|     NA|         NA|          NA|
 |Food Provision                   |    2.10|    2.00|    2.20|  -0.01|         NA|          NA|
 |. Fisheries                      |    2.10|    2.00|    2.20|  -0.01|      25.37|       57.38|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.02|       70.34|
-|Aboriginal Needs                 |  100.00|  100.00|  100.00|   0.00|      25.28|       67.23|
+|Aboriginal Needs                 |   53.46|   50.00|   56.92|   0.00|      25.28|       67.23|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -179,11 +179,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  56.45|      NA|   54.95|     NA|         NA|          NA|
+|Index                            |  51.65|      NA|   50.00|     NA|         NA|          NA|
 |Food Provision                   |   1.05|    1.00|    1.10|   0.00|         NA|          NA|
 |. Fisheries                      |   1.05|    1.00|    1.10|   0.00|      26.57|       58.27|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      27.59|       60.73|
-|Aboriginal Needs                 |  95.88|   91.77|  100.00|   0.00|      26.54|       59.35|
+|Aboriginal Needs                 |  52.71|   50.00|   55.41|   0.00|      26.54|       59.35|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  73.50|   86.45|   60.55|  -0.58|      32.12|       58.94|
 |Coastal Protection               |  52.91|   51.85|   53.98|  -0.05|      36.74|       58.94|
@@ -211,11 +211,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  46.68|      NA|   42.45|     NA|         NA|          NA|
+|Index                            |  42.75|      NA|   38.34|     NA|         NA|          NA|
 |Food Provision                   |  10.49|   10.00|   10.98|   0.01|         NA|          NA|
 |. Fisheries                      |  10.49|   10.00|   10.98|   0.01|      27.06|       54.87|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      26.78|       62.50|
-|Aboriginal Needs                 |  91.60|   87.64|   95.57|   0.00|      26.80|       53.97|
+|Aboriginal Needs                 |  52.24|   50.00|   54.48|   0.00|      26.80|       53.97|
 |Natural Products                 |   0.33|    0.33|    0.34|  -0.07|      26.81|       53.98|
 |Carbon Storage                   |  60.42|   86.94|   33.89|  -1.00|      31.19|       49.32|
 |Coastal Protection               |  18.70|   27.05|   10.35|  -1.00|      33.40|       49.32|
@@ -243,11 +243,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.25|      NA|   60.12|     NA|         NA|          NA|
+|Index                            |   59.32|      NA|   55.15|     NA|         NA|          NA|
 |Food Provision                   |    2.11|    2.00|    2.22|   0.01|         NA|          NA|
 |. Fisheries                      |    2.11|    2.00|    2.22|   0.01|      25.63|       57.21|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      26.74|       63.13|
-|Aboriginal Needs                 |   96.98|   93.97|  100.00|   0.00|      25.88|       57.87|
+|Aboriginal Needs                 |   52.64|   50.00|   55.28|   0.00|      25.88|       57.87|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |   68.91|  100.00|   37.83|  -1.00|      37.43|       52.06|
 |Coastal Protection               |   37.46|   38.66|   36.26|  -0.14|      42.76|       52.06|
@@ -307,11 +307,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   72.58|      NA|   73.67|     NA|         NA|          NA|
+|Index                            |   68.14|      NA|   69.22|     NA|         NA|          NA|
 |Food Provision                   |    1.05|    1.00|    1.10|   0.00|         NA|          NA|
 |. Fisheries                      |    1.05|    1.00|    1.10|   0.00|      25.99|       57.60|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      26.53|       63.54|
-|Aboriginal Needs                 |   97.15|   94.30|  100.00|   0.00|      26.24|       59.58|
+|Aboriginal Needs                 |   52.75|   50.00|   55.50|   0.00|      26.24|       59.58|
 |Natural Products                 |   95.19|   90.43|   99.94|  -0.02|      27.35|       63.80|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      38.14|       58.03|
 |Coastal Protection               |   27.16|   28.56|   25.75|  -0.22|      43.56|       58.03|
@@ -339,11 +339,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  62.11|      NA|   61.85|     NA|         NA|          NA|
+|Index                            |  56.49|      NA|   56.23|     NA|         NA|          NA|
 |Food Provision                   |  35.67|   34.99|   36.35|  -0.08|         NA|          NA|
 |. Fisheries                      |  35.68|   35.00|   36.36|  -0.08|      28.41|       56.45|
 |. Mariculture                    |   0.07|    0.07|    0.07|   0.00|      28.00|       50.73|
-|Aboriginal Needs                 |  97.47|   94.94|  100.00|   0.00|      26.66|       56.96|
+|Aboriginal Needs                 |  52.50|   50.00|   55.00|   0.00|      26.66|       56.96|
 |Natural Products                 |  38.94|   34.86|   43.03|   0.19|      26.12|       59.17|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -371,11 +371,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   73.68|      NA|   72.42|     NA|         NA|          NA|
+|Index                            |   69.32|      NA|   67.94|     NA|         NA|          NA|
 |Food Provision                   |   17.07|   16.00|   18.14|   0.05|         NA|          NA|
 |. Fisheries                      |   17.07|   16.00|   18.14|   0.05|      26.25|       57.56|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      27.32|       63.13|
-|Aboriginal Needs                 |   96.24|   92.48|  100.00|   0.00|      26.37|       58.02|
+|Aboriginal Needs                 |   52.61|   50.00|   55.22|   0.00|      26.37|       58.02|
 |Natural Products                 |   96.51|   93.03|  100.00|   0.07|      29.40|       61.58|
 |Carbon Storage                   |   81.26|   99.51|   63.02|  -0.61|      38.52|       52.06|
 |Coastal Protection               |   78.66|   76.62|   80.69|   0.03|      42.63|       52.06|
@@ -403,11 +403,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  50.00|      NA|   50.68|     NA|         NA|          NA|
+|Index                            |  43.95|      NA|   44.32|     NA|         NA|          NA|
 |Food Provision                   |  23.34|   22.00|   24.69|   0.02|         NA|          NA|
 |. Fisheries                      |  23.34|   22.00|   24.69|   0.02|      25.29|       58.83|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.33|       70.34|
-|Aboriginal Needs                 |  95.01|   90.11|   99.91|   0.00|      25.47|       58.20|
+|Aboriginal Needs                 |  52.70|   50.00|   55.40|   0.00|      25.47|       58.20|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -435,11 +435,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   68.42|      NA|   69.70|     NA|         NA|          NA|
+|Index                            |   63.80|      NA|   65.30|     NA|         NA|          NA|
 |Food Provision                   |   16.98|   15.92|   18.03|   0.03|         NA|          NA|
 |. Fisheries                      |   17.86|   16.76|   18.96|   0.03|      27.92|       60.66|
 |. Mariculture                    |   13.17|   12.29|   14.04|   0.03|      28.18|       65.25|
-|Aboriginal Needs                 |   99.14|   98.28|  100.00|   0.00|      27.11|       63.53|
+|Aboriginal Needs                 |   53.00|   50.00|   56.01|   0.00|      27.11|       63.53|
 |Natural Products                 |   33.23|   32.83|   33.62|  -0.15|      31.13|       68.37|
 |Carbon Storage                   |   91.13|   82.25|  100.00|   0.74|      31.87|       64.23|
 |Coastal Protection               |   54.79|   49.92|   59.65|   0.16|      37.49|       64.23|
@@ -467,11 +467,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   69.16|      NA|   72.03|     NA|         NA|          NA|
+|Index                            |   62.74|      NA|   65.60|     NA|         NA|          NA|
 |Food Provision                   |   24.39|   23.00|   25.77|   0.04|         NA|          NA|
 |. Fisheries                      |   24.39|   23.00|   25.77|   0.04|      26.82|       55.81|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      29.18|       64.52|
-|Aboriginal Needs                 |   97.37|   94.74|  100.00|   0.00|      26.97|       56.96|
+|Aboriginal Needs                 |   52.47|   50.00|   54.95|   0.00|      26.97|       56.96|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -499,11 +499,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   59.98|      NA|   57.60|     NA|         NA|          NA|
+|Index                            |   55.41|      NA|   53.13|     NA|         NA|          NA|
 |Food Provision                   |   14.95|   14.00|   15.90|   0.05|         NA|          NA|
 |. Fisheries                      |   14.95|   14.00|   15.90|   0.05|      25.89|       57.82|
 |. Mariculture                    |    0.00|    0.00|    0.00|   0.00|      27.27|       63.54|
-|Aboriginal Needs                 |   98.37|   96.74|  100.00|   0.00|      25.66|       57.77|
+|Aboriginal Needs                 |   52.65|   50.00|   55.30|   0.00|      25.66|       57.77|
 |Natural Products                 |   19.98|   20.50|   19.45|  -0.24|      28.37|       61.95|
 |Carbon Storage                   |   65.30|   93.63|   36.96|  -1.00|      30.83|       50.45|
 |Coastal Protection               |   34.45|   35.80|   33.10|  -0.18|      36.92|       50.45|
@@ -531,11 +531,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  59.12|      NA|   57.78|     NA|         NA|          NA|
+|Index                            |  54.62|      NA|   53.24|     NA|         NA|          NA|
 |Food Provision                   |  26.82|   26.00|   27.63|  -0.03|         NA|          NA|
 |. Fisheries                      |  26.82|   26.00|   27.64|  -0.03|      31.12|       55.71|
 |. Mariculture                    |   0.01|    0.01|    0.01|   0.00|      30.72|       50.00|
-|Aboriginal Needs                 |  97.26|   94.51|  100.00|   0.00|      27.67|       55.37|
+|Aboriginal Needs                 |  52.29|   50.00|   54.57|   0.00|      27.67|       55.37|
 |Natural Products                 |  21.60|   20.71|   22.49|   0.00|      28.43|       54.46|
 |Carbon Storage                   |  86.18|   85.51|   86.84|     NA|      36.96|       41.67|
 |Coastal Protection               |  39.32|   44.05|   34.59|  -0.32|      41.57|       41.67|
@@ -563,11 +563,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   63.69|      NA|   64.24|     NA|         NA|          NA|
+|Index                            |   59.99|      NA|   60.35|     NA|         NA|          NA|
 |Food Provision                   |    3.74|    3.61|    3.86|   0.00|         NA|          NA|
 |. Fisheries                      |    0.00|    0.00|    0.00|  -0.01|      29.97|       58.22|
 |. Mariculture                    |   13.24|   12.78|   13.70|   0.04|      36.85|       50.52|
-|Aboriginal Needs                 |   89.62|   85.12|   94.11|   0.00|      28.17|       59.66|
+|Aboriginal Needs                 |   52.60|   50.00|   55.20|   0.00|      28.17|       59.66|
 |Natural Products                 |    1.14|    1.09|    1.18|  -0.04|      28.78|       64.39|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.56|      32.60|       48.61|
 |Coastal Protection               |  100.00|  100.00|  100.00|   0.56|      31.48|       57.40|
@@ -595,11 +595,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   52.38|      NA|   52.31|     NA|         NA|          NA|
+|Index                            |   47.96|      NA|   47.85|     NA|         NA|          NA|
 |Food Provision                   |    1.06|    1.00|    1.11|   0.01|         NA|          NA|
 |. Fisheries                      |    1.06|    1.00|    1.11|   0.01|      25.83|       57.92|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      28.32|       67.71|
-|Aboriginal Needs                 |   96.89|   93.78|  100.00|   0.00|      26.51|       59.30|
+|Aboriginal Needs                 |   52.71|   50.00|   55.41|   0.00|      26.51|       59.30|
 |Natural Products                 |   13.53|   13.99|   13.07|  -0.28|      27.56|       64.20|
 |Carbon Storage                   |   26.00|   25.28|   26.73|     NA|      40.91|       58.33|
 |Coastal Protection               |   27.28|   26.33|   28.23|   0.04|      44.97|       58.33|
@@ -627,11 +627,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  66.10|      NA|   67.70|     NA|         NA|          NA|
+|Index                            |  63.41|      NA|   65.21|     NA|         NA|          NA|
 |Food Provision                   |     NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |     NA|      NA|      NA|     NA|      25.07|       56.63|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.54|       63.52|
-|Aboriginal Needs                 |     NA|      NA|      NA|     NA|      25.02|       57.09|
+|Aboriginal Needs                 |  52.65|   50.00|   55.29|   0.00|      25.02|       57.09|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  89.11|   85.57|   92.64|   0.09|      47.47|       53.76|
@@ -659,11 +659,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   70.52|      NA|   71.79|     NA|         NA|          NA|
+|Index                            |   65.99|      NA|   67.41|     NA|         NA|          NA|
 |Food Provision                   |   24.37|   23.00|   25.75|   0.01|         NA|          NA|
 |. Fisheries                      |   24.37|   23.00|   25.75|   0.01|      28.33|       61.61|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      36.61|       67.71|
-|Aboriginal Needs                 |   98.45|   96.89|  100.00|   0.00|      27.88|       65.83|
+|Aboriginal Needs                 |   53.13|   50.00|   56.26|   0.00|      27.88|       65.83|
 |Natural Products                 |   24.26|   23.28|   25.23|  -0.06|      29.50|       67.89|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.50|      30.73|       70.61|
 |Coastal Protection               |  100.00|  100.00|  100.00|   0.50|      30.09|       70.61|
@@ -691,11 +691,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   63.07|      NA|   63.16|     NA|         NA|          NA|
+|Index                            |   58.76|      NA|   58.76|     NA|         NA|          NA|
 |Food Provision                   |   31.37|   32.18|   30.55|  -0.11|         NA|          NA|
 |. Fisheries                      |    8.53|    8.00|    9.05|   0.03|      27.58|       61.29|
 |. Mariculture                    |   51.66|   53.67|   49.65|  -0.23|      29.14|       53.12|
-|Aboriginal Needs                 |   96.14|   92.27|  100.00|   0.00|      26.07|       62.82|
+|Aboriginal Needs                 |   53.03|   50.00|   56.06|   0.00|      26.07|       62.82|
 |Natural Products                 |   41.50|   46.74|   36.27|  -0.51|      28.38|       63.81|
 |Carbon Storage                   |   39.63|   29.87|   49.39|   0.87|      34.06|       54.60|
 |Coastal Protection               |    9.98|    9.19|   10.76|   0.18|      38.26|       54.60|
@@ -723,11 +723,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   61.98|      NA|   61.22|     NA|         NA|          NA|
+|Index                            |   58.92|      NA|   58.03|     NA|         NA|          NA|
 |Food Provision                   |   30.25|   29.00|   31.50|  -0.01|         NA|          NA|
 |. Fisheries                      |   30.25|   29.00|   31.50|  -0.01|      27.16|       55.56|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      30.56|       64.58|
-|Aboriginal Needs                 |   82.79|   79.24|   86.34|   0.00|      27.50|       54.43|
+|Aboriginal Needs                 |   52.22|   50.00|   54.44|   0.00|      27.50|       54.43|
 |Natural Products                 |   94.66|   89.88|   99.45|   0.00|      27.17|       59.42|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      39.39|       53.79|
 |Coastal Protection               |  100.00|  100.00|  100.00|     NA|      41.48|       53.79|
@@ -755,11 +755,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   67.88|      NA|   68.73|     NA|         NA|          NA|
+|Index                            |   62.76|      NA|   63.79|     NA|         NA|          NA|
 |Food Provision                   |    4.22|    4.00|    4.44|   0.02|         NA|          NA|
 |. Fisheries                      |    4.22|    4.00|    4.44|   0.02|      25.99|       55.40|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      26.51|       63.13|
-|Aboriginal Needs                 |   98.89|   97.77|  100.00|   0.00|      26.38|       59.76|
+|Aboriginal Needs                 |   52.75|   50.00|   55.51|   0.00|      26.38|       59.76|
 |Natural Products                 |   36.13|   31.06|   41.19|   0.31|      26.46|       63.02|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |   52.00|   51.73|   52.27|  -0.03|      46.93|       56.52|
@@ -787,11 +787,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   82.62|      NA|   81.28|     NA|         NA|          NA|
+|Index                            |   77.78|      NA|   76.32|     NA|         NA|          NA|
 |Food Provision                   |      NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |      NA|      NA|      NA|     NA|      27.88|       58.05|
 |. Mariculture                    |    0.07|    0.07|    0.08|   0.00|      27.72|       63.13|
-|Aboriginal Needs                 |   96.24|   92.48|  100.00|   0.00|      26.07|       58.59|
+|Aboriginal Needs                 |   52.68|   50.00|   55.37|   0.00|      26.07|       58.59|
 |Natural Products                 |   96.72|   93.44|  100.00|   0.07|      29.48|       62.03|
 |Carbon Storage                   |   76.78|   92.63|   60.93|  -0.61|      31.66|       52.61|
 |Coastal Protection               |   91.68|   90.45|   92.90|  -0.01|      42.32|       52.61|
@@ -819,11 +819,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  52.99|      NA|   50.64|     NA|         NA|          NA|
+|Index                            |  47.60|      NA|   45.01|     NA|         NA|          NA|
 |Food Provision                   |  20.53|   19.85|   21.21|  -0.03|         NA|          NA|
 |. Fisheries                      |  23.80|   23.00|   24.60|  -0.03|      34.77|       61.91|
 |. Mariculture                    |   1.97|    1.95|    2.00|   0.00|      42.89|       51.04|
-|Aboriginal Needs                 |  95.59|   91.19|  100.00|   0.00|      31.87|       61.83|
+|Aboriginal Needs                 |  52.47|   50.00|   54.94|   0.00|      31.87|       61.83|
 |Natural Products                 |   2.38|    2.30|    2.47|   0.01|      44.23|       63.60|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -851,11 +851,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  56.69|      NA|   57.74|     NA|         NA|          NA|
+|Index                            |  56.03|      NA|   57.37|     NA|         NA|          NA|
 |Food Provision                   |  15.70|   15.00|   16.41|  -0.02|         NA|          NA|
 |. Fisheries                      |  15.70|   15.00|   16.41|  -0.02|      25.03|       58.42|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.03|       63.42|
-|Aboriginal Needs                 |     NA|      NA|      NA|     NA|      25.03|       58.25|
+|Aboriginal Needs                 |  52.74|   50.00|   55.48|   0.00|      25.03|       58.25|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  84.93|   82.19|   87.66|  -0.02|      25.23|       50.00|
@@ -883,11 +883,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   66.12|      NA|   65.29|     NA|         NA|          NA|
+|Index                            |   61.81|      NA|   60.84|     NA|         NA|          NA|
 |Food Provision                   |   23.94|   22.89|   24.98|  -0.01|         NA|          NA|
 |. Fisheries                      |   27.86|   26.64|   29.07|  -0.01|      27.47|       57.65|
 |. Mariculture                    |    4.32|    4.13|    4.51|   0.00|      32.63|       60.31|
-|Aboriginal Needs                 |   95.90|   91.80|  100.00|   0.00|      27.29|       60.88|
+|Aboriginal Needs                 |   52.77|   50.00|   55.54|   0.00|      27.29|       60.88|
 |Natural Products                 |   14.79|   13.99|   15.59|  -0.02|      26.57|       64.74|
 |Carbon Storage                   |   91.83|   95.42|   88.24|  -0.27|      30.48|       61.97|
 |Coastal Protection               |   84.39|   85.28|   83.49|  -0.18|      32.81|       61.97|
@@ -915,11 +915,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   73.70|      NA|   73.60|     NA|         NA|          NA|
+|Index                            |   68.81|      NA|   68.38|     NA|         NA|          NA|
 |Food Provision                   |   31.94|   31.00|   32.89|  -0.11|         NA|          NA|
 |. Fisheries                      |   31.94|   31.00|   32.89|  -0.11|      25.11|       66.78|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.60|       69.23|
-|Aboriginal Needs                 |   92.65|   86.37|   98.93|   0.00|      25.10|       68.61|
+|Aboriginal Needs                 |   53.59|   50.00|   57.18|   0.00|      25.10|       68.61|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  100.00|  100.00|  100.00|     NA|      45.89|       71.78|
@@ -947,11 +947,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  63.04|      NA|   59.27|     NA|         NA|          NA|
+|Index                            |  58.11|      NA|   54.30|     NA|         NA|          NA|
 |Food Provision                   |   6.35|    6.00|    6.70|   0.02|         NA|          NA|
 |. Fisheries                      |   6.35|    6.00|    6.70|   0.02|      25.87|       57.25|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      27.03|       63.13|
-|Aboriginal Needs                 |  96.98|   93.97|  100.00|   0.00|      26.14|       58.05|
+|Aboriginal Needs                 |  52.63|   50.00|   55.27|   0.00|      26.14|       58.05|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  68.92|  100.00|   37.84|  -1.00|      37.65|       52.32|
 |Coastal Protection               |  45.80|   46.24|   45.35|  -0.08|      42.56|       52.32|
@@ -979,11 +979,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  66.03|      NA|   64.39|     NA|         NA|          NA|
+|Index                            |  61.36|      NA|   59.85|     NA|         NA|          NA|
 |Food Provision                   |  17.09|   15.81|   18.38|   0.11|         NA|          NA|
 |. Fisheries                      |  17.30|   16.00|   18.60|   0.11|      30.85|       58.43|
 |. Mariculture                    |   3.84|    3.66|    4.02|   0.00|      29.69|       59.46|
-|Aboriginal Needs                 |  99.06|   98.12|  100.00|   0.00|      30.27|       58.50|
+|Aboriginal Needs                 |  52.33|   50.00|   54.66|   0.00|      30.27|       58.50|
 |Natural Products                 |  93.23|   88.28|   98.17|   0.00|      28.93|       62.88|
 |Carbon Storage                   |  63.71|   83.83|   43.58|  -0.81|      30.32|       49.01|
 |Coastal Protection               |  96.96|   97.36|   96.55|  -0.11|      38.16|       57.67|
@@ -1011,11 +1011,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   57.54|      NA|   55.69|     NA|         NA|          NA|
+|Index                            |   52.05|      NA|   50.13|     NA|         NA|          NA|
 |Food Provision                   |   23.65|   23.24|   24.06|  -0.08|         NA|          NA|
 |. Fisheries                      |   24.42|   24.00|   24.84|  -0.08|      28.27|       55.18|
 |. Mariculture                    |    4.56|    4.42|    4.70|   0.02|      35.40|       50.00|
-|Aboriginal Needs                 |   96.71|   93.42|  100.00|   0.00|      26.92|       60.37|
+|Aboriginal Needs                 |   52.76|   50.00|   55.52|   0.00|      26.92|       60.37|
 |Natural Products                 |    3.02|    2.86|    3.18|   0.00|      28.58|       62.53|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -1043,11 +1043,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  54.16|      NA|   48.57|     NA|         NA|          NA|
+|Index                            |  50.11|      NA|   44.31|     NA|         NA|          NA|
 |Food Provision                   |   5.54|    5.24|    5.84|   0.03|         NA|          NA|
 |. Fisheries                      |   5.29|    5.00|    5.57|   0.03|      31.18|       59.23|
 |. Mariculture                    |   9.94|    9.45|   10.43|   0.04|      27.92|       51.04|
-|Aboriginal Needs                 |  93.13|   88.52|   97.73|   0.00|      28.30|       59.49|
+|Aboriginal Needs                 |  52.57|   50.00|   55.15|   0.00|      28.30|       59.49|
 |Natural Products                 |   2.28|    2.19|    2.36|  -0.08|      27.12|       66.62|
 |Carbon Storage                   |  53.09|   75.88|   30.30|  -1.00|      28.63|       49.62|
 |Coastal Protection               |  61.82|   80.82|   42.83|  -0.84|      30.24|       58.08|
@@ -1075,11 +1075,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   56.61|      NA|   54.01|     NA|         NA|          NA|
+|Index                            |   53.33|      NA|   50.59|     NA|         NA|          NA|
 |Food Provision                   |   22.99|   22.00|   23.98|   0.01|         NA|          NA|
 |. Fisheries                      |   22.99|   22.00|   23.98|   0.01|      30.96|       55.88|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      30.57|       62.50|
-|Aboriginal Needs                 |   85.08|   81.27|   88.88|   0.00|      28.48|       56.59|
+|Aboriginal Needs                 |   52.32|   50.00|   54.64|   0.00|      28.48|       56.59|
 |Natural Products                 |    2.58|    2.44|    2.71|   0.00|      28.11|       61.19|
 |Carbon Storage                   |   82.23|   91.91|   72.54|  -0.40|      30.15|       48.40|
 |Coastal Protection               |   82.36|   91.91|   72.80|  -0.40|      29.29|       48.40|
@@ -1107,11 +1107,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   68.19|      NA|   71.07|     NA|         NA|          NA|
+|Index                            |   61.84|      NA|   64.91|     NA|         NA|          NA|
 |Food Provision                   |   53.38|   48.88|   57.88|   0.01|         NA|          NA|
 |. Fisheries                      |   47.08|   43.00|   51.17|   0.01|      15.78|       71.01|
 |. Mariculture                    |   92.89|   85.77|  100.00|   0.03|      13.10|       68.68|
-|Aboriginal Needs                 |   98.86|   97.71|  100.00|   0.00|      12.99|       72.14|
+|Aboriginal Needs                 |   35.41|   32.39|   38.42|  -0.01|      12.99|       72.14|
 |Natural Products                 |   31.29|   29.71|   32.87|  -0.14|      14.89|       75.08|
 |Carbon Storage                   |   54.43|   50.39|   58.46|   0.00|      13.12|       61.62|
 |Coastal Protection               |   97.55|   95.09|  100.00|   0.00|      24.17|       61.62|
@@ -1139,11 +1139,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  65.74|      NA|   68.18|     NA|         NA|          NA|
+|Index                            |  60.95|      NA|   63.18|     NA|         NA|          NA|
 |Food Provision                   |  39.90|   38.00|   41.79|   0.01|         NA|          NA|
 |. Fisheries                      |  39.90|   38.00|   41.79|   0.01|      27.73|       55.65|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      28.16|       62.59|
-|Aboriginal Needs                 |  95.58|   91.17|  100.00|   0.00|      27.48|       57.60|
+|Aboriginal Needs                 |  52.48|   50.00|   54.97|   0.00|      27.48|       57.60|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  51.75|   50.00|   53.50|     NA|      36.91|       58.15|
 |Coastal Protection               |  51.58|   50.00|   53.15|     NA|      39.03|       58.15|
@@ -1171,11 +1171,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   71.08|      NA|   71.21|     NA|         NA|          NA|
+|Index                            |   65.88|      NA|   65.76|     NA|         NA|          NA|
 |Food Provision                   |   33.50|   32.00|   35.00|  -0.01|         NA|          NA|
 |. Fisheries                      |   33.50|   32.00|   35.00|  -0.01|      25.70|       56.47|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      26.56|       51.04|
-|Aboriginal Needs                 |   88.89|   84.58|   93.20|   0.00|      25.90|       56.19|
+|Aboriginal Needs                 |   52.50|   50.00|   55.00|   0.00|      25.90|       56.19|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -1203,11 +1203,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  63.97|      NA|   63.03|     NA|         NA|          NA|
+|Index                            |  59.55|      NA|   58.59|     NA|         NA|          NA|
 |Food Provision                   |   0.00|    0.00|    0.00|   0.00|         NA|          NA|
 |. Fisheries                      |   0.00|    0.00|    0.00|   0.00|      25.73|       57.96|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      26.89|       63.13|
-|Aboriginal Needs                 |  96.98|   93.97|  100.00|   0.00|      25.88|       59.43|
+|Aboriginal Needs                 |  52.77|   50.00|   55.54|   0.00|      25.88|       59.43|
 |Natural Products                 |   2.15|    2.02|    2.28|   0.00|      29.74|       67.75|
 |Carbon Storage                   |  87.94|   97.95|   77.93|  -0.42|      30.27|       54.42|
 |Coastal Protection               |  53.71|   54.19|   53.22|  -0.10|      38.55|       54.42|
@@ -1235,11 +1235,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   68.79|      NA|   69.86|     NA|         NA|          NA|
+|Index                            |   63.17|      NA|   64.33|     NA|         NA|          NA|
 |Food Provision                   |   57.46|   55.39|   59.52|   0.02|         NA|          NA|
 |. Fisheries                      |   47.32|   44.76|   49.88|   0.02|      28.64|       58.80|
 |. Mariculture                    |  100.00|  100.00|  100.00|   0.00|      26.62|       62.48|
-|Aboriginal Needs                 |   97.83|   95.66|  100.00|   0.00|      26.81|       61.84|
+|Aboriginal Needs                 |   52.89|   50.00|   55.78|   0.00|      26.81|       61.84|
 |Natural Products                 |   27.89|   25.31|   30.46|   0.11|      26.78|       65.25|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -1267,11 +1267,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   56.12|      NA|   54.97|     NA|         NA|          NA|
+|Index                            |   51.64|      NA|   50.44|     NA|         NA|          NA|
 |Food Provision                   |   68.28|   67.99|   68.57|   0.01|         NA|          NA|
 |. Fisheries                      |   15.76|   15.00|   16.53|   0.03|      35.23|       59.51|
 |. Mariculture                    |  100.00|  100.00|  100.00|   0.00|      37.30|       62.60|
-|Aboriginal Needs                 |   97.11|   94.21|  100.00|   0.00|      31.49|       59.59|
+|Aboriginal Needs                 |   52.32|   50.00|   54.64|   0.00|      31.49|       59.59|
 |Natural Products                 |    1.31|    1.22|    1.39|   0.01|      28.83|       69.37|
 |Carbon Storage                   |   53.09|   62.73|   43.45|  -0.56|      37.33|       57.98|
 |Coastal Protection               |   46.60|   46.24|   46.95|  -0.10|      33.70|       57.98|
@@ -1299,11 +1299,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  64.13|      NA|   64.83|     NA|         NA|          NA|
+|Index                            |  59.12|      NA|   59.90|     NA|         NA|          NA|
 |Food Provision                   |   2.11|    2.00|    2.21|   0.00|         NA|          NA|
 |. Fisheries                      |   2.11|    2.00|    2.21|   0.00|      27.11|       59.67|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.69|       74.61|
-|Aboriginal Needs                 |  97.95|   95.90|  100.00|   0.00|      26.71|       61.29|
+|Aboriginal Needs                 |  52.85|   50.00|   55.71|   0.00|      26.71|       61.29|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  89.35|   85.51|   93.18|     NA|      32.10|       59.27|
 |Coastal Protection               |  23.86|   22.41|   25.31|   0.07|      33.97|       59.27|
@@ -1331,11 +1331,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   45.60|      NA|   45.35|     NA|         NA|          NA|
+|Index                            |   47.01|      NA|   47.34|     NA|         NA|          NA|
 |Food Provision                   |   15.75|   15.00|   16.49|   0.00|         NA|          NA|
 |. Fisheries                      |   15.75|   15.00|   16.49|   0.00|      25.07|       55.48|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.28|       55.27|
-|Aboriginal Needs                 |      NA|      NA|      NA|     NA|      25.04|       57.00|
+|Aboriginal Needs                 |   52.64|   50.00|   55.27|   0.00|      25.04|       57.00|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -1363,11 +1363,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  64.81|      NA|   66.03|     NA|         NA|          NA|
+|Index                            |  59.80|      NA|   61.11|     NA|         NA|          NA|
 |Food Provision                   |   4.23|    4.00|    4.47|   0.01|         NA|          NA|
 |. Fisheries                      |   4.23|    4.00|    4.47|   0.01|      26.22|       60.09|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.38|       74.61|
-|Aboriginal Needs                 |  97.95|   95.90|  100.00|   0.00|      26.11|       60.72|
+|Aboriginal Needs                 |  52.86|   50.00|   55.71|   0.00|      26.11|       60.72|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  89.44|   85.51|   93.36|     NA|      30.51|       58.33|
 |Coastal Protection               |  50.94|   47.96|   53.91|   0.07|      34.61|       58.33|
@@ -1395,11 +1395,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  62.13|      NA|   61.05|     NA|         NA|          NA|
+|Index                            |  57.84|      NA|   56.59|     NA|         NA|          NA|
 |Food Provision                   |  12.24|   11.59|   12.89|   0.02|         NA|          NA|
 |. Fisheries                      |  13.75|   13.00|   14.49|   0.03|      28.21|       57.83|
 |. Mariculture                    |   4.20|    4.05|    4.34|  -0.03|      31.16|       58.85|
-|Aboriginal Needs                 |  95.57|   91.15|  100.00|   0.00|      26.42|       58.95|
+|Aboriginal Needs                 |  52.68|   50.00|   55.37|   0.00|      26.42|       58.95|
 |Natural Products                 |  91.28|   82.56|  100.00|   0.53|      26.21|       63.65|
 |Carbon Storage                   |  48.95|   67.58|   30.33|  -0.96|      29.76|       57.35|
 |Coastal Protection               |  60.54|   63.69|   57.39|  -0.24|      37.97|       57.35|
@@ -1427,11 +1427,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  63.31|      NA|   64.95|     NA|         NA|          NA|
+|Index                            |  60.37|      NA|   61.86|     NA|         NA|          NA|
 |Food Provision                   |  32.15|   32.00|   32.30|  -0.14|         NA|          NA|
 |. Fisheries                      |  32.15|   32.00|   32.30|  -0.14|      26.05|       57.87|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      27.23|       57.29|
-|Aboriginal Needs                 |  82.03|   77.93|   86.13|   0.00|      26.35|       58.10|
+|Aboriginal Needs                 |  52.62|   50.00|   55.24|   0.00|      26.35|       58.10|
 |Natural Products                 |  95.18|   90.35|  100.00|   0.00|      26.02|       61.68|
 |Carbon Storage                   |  88.13|   85.51|   90.75|     NA|      34.10|       52.66|
 |Coastal Protection               |  28.30|   27.57|   29.04|     NA|      36.45|       52.66|
@@ -1459,11 +1459,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   58.66|      NA|   58.37|     NA|         NA|          NA|
+|Index                            |   54.33|      NA|   53.96|     NA|         NA|          NA|
 |Food Provision                   |   18.97|   18.00|   19.93|  -0.01|         NA|          NA|
 |. Fisheries                      |   18.97|   18.00|   19.93|  -0.01|      25.39|       59.12|
 |. Mariculture                    |    0.00|    0.00|    0.00|   0.00|      25.35|       59.89|
-|Aboriginal Needs                 |   96.25|   92.50|  100.00|   0.00|      25.49|       60.74|
+|Aboriginal Needs                 |   52.91|   50.00|   55.82|   0.00|      25.49|       60.74|
 |Natural Products                 |    0.75|    0.70|    0.79|   0.00|      25.96|       62.95|
 |Carbon Storage                   |   52.66|   50.00|   55.32|   0.00|      26.14|       58.38|
 |Coastal Protection               |   87.66|   98.03|   77.28|  -0.41|      38.61|       58.38|
@@ -1491,11 +1491,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  59.53|      NA|   56.14|     NA|         NA|          NA|
+|Index                            |  55.24|      NA|   51.70|     NA|         NA|          NA|
 |Food Provision                   |  22.53|   21.41|   23.64|   0.01|         NA|          NA|
 |. Fisheries                      |  24.21|   23.00|   25.42|   0.01|      28.61|       57.61|
 |. Mariculture                    |   5.86|    5.68|    6.03|  -0.05|      31.06|       60.42|
-|Aboriginal Needs                 |  95.69|   91.38|  100.00|   0.00|      26.93|       60.88|
+|Aboriginal Needs                 |  52.80|   50.00|   55.60|   0.00|      26.93|       60.88|
 |Natural Products                 |  32.42|   33.00|   31.84|  -0.25|      25.56|       65.26|
 |Carbon Storage                   |  45.36|   64.67|   26.04|  -1.00|      29.96|       51.99|
 |Coastal Protection               |  61.35|   75.24|   47.46|  -0.69|      31.00|       59.66|
@@ -1523,11 +1523,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   74.11|      NA|   76.22|     NA|         NA|          NA|
+|Index                            |   68.63|      NA|   70.59|     NA|         NA|          NA|
 |Food Provision                   |   21.16|   20.48|   21.84|  -0.02|         NA|          NA|
 |. Fisheries                      |   21.69|   21.00|   22.39|  -0.02|      32.09|       55.88|
 |. Mariculture                    |   15.84|   15.25|   16.44|  -0.06|      31.96|       67.71|
-|Aboriginal Needs                 |   96.27|   92.54|  100.00|   0.00|      27.30|       56.91|
+|Aboriginal Needs                 |   52.44|   50.00|   54.89|   0.00|      27.30|       56.91|
 |Natural Products                 |   60.52|   58.37|   62.67|  -0.05|      29.42|       61.86|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -1555,11 +1555,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   71.98|      NA|   72.27|     NA|         NA|          NA|
+|Index                            |   68.23|      NA|   69.13|     NA|         NA|          NA|
 |Food Provision                   |   34.72|   34.00|   35.45|  -0.10|         NA|          NA|
 |. Fisheries                      |   34.72|   34.00|   35.45|  -0.10|      25.01|       57.64|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.03|       70.34|
-|Aboriginal Needs                 |      NA|      NA|      NA|     NA|      25.03|       64.58|
+|Aboriginal Needs                 |   53.26|   50.00|   56.53|   0.00|      25.03|       64.58|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -1587,11 +1587,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   67.32|      NA|   68.32|     NA|         NA|          NA|
+|Index                            |   62.84|      NA|   63.92|     NA|         NA|          NA|
 |Food Provision                   |    5.61|    5.30|    5.93|   0.02|         NA|          NA|
 |. Fisheries                      |    6.36|    6.00|    6.72|   0.02|      28.24|       60.68|
 |. Mariculture                    |    1.72|    1.61|    1.82|   0.00|      30.00|       67.71|
-|Aboriginal Needs                 |   97.81|   95.63|  100.00|   0.00|      26.12|       62.06|
+|Aboriginal Needs                 |   52.97|   50.00|   55.93|   0.00|      26.12|       62.06|
 |Natural Products                 |   99.08|   98.15|  100.00|   1.00|      27.77|       65.24|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.09|      33.08|       60.93|
 |Coastal Protection               |   31.41|   29.35|   33.48|   0.09|      36.13|       60.93|
@@ -1619,11 +1619,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   79.28|      NA|   77.92|     NA|         NA|          NA|
+|Index                            |   74.44|      NA|   72.96|     NA|         NA|          NA|
 |Food Provision                   |      NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |      NA|      NA|      NA|     NA|      25.97|       57.59|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      27.42|       63.13|
-|Aboriginal Needs                 |   96.24|   92.48|  100.00|   0.00|      26.15|       58.48|
+|Aboriginal Needs                 |   52.67|   50.00|   55.33|   0.00|      26.15|       58.48|
 |Natural Products                 |   96.62|   93.25|  100.00|   0.07|      29.39|       61.93|
 |Carbon Storage                   |   72.14|   87.72|   56.56|  -0.61|      28.62|       45.66|
 |Coastal Protection               |  100.00|  100.00|  100.00|   0.03|      51.13|       52.57|
@@ -1651,11 +1651,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  54.87|      NA|   56.07|     NA|         NA|          NA|
+|Index                            |  49.18|      NA|   50.51|     NA|         NA|          NA|
 |Food Provision                   |  18.81|   17.87|   19.76|   0.00|         NA|          NA|
 |. Fisheries                      |  19.94|   19.00|   20.87|   0.00|      28.84|       59.55|
 |. Mariculture                    |  13.40|   12.41|   14.40|   0.04|      29.51|       69.79|
-|Aboriginal Needs                 |  98.32|   96.64|  100.00|   0.00|      26.81|       60.52|
+|Aboriginal Needs                 |  52.78|   50.00|   55.56|   0.00|      26.81|       60.52|
 |Natural Products                 |   8.92|    8.45|    9.39|   0.00|      30.45|       64.40|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -1683,11 +1683,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   43.77|      NA|   41.80|     NA|         NA|          NA|
+|Index                            |   41.04|      NA|   38.94|     NA|         NA|          NA|
 |Food Provision                   |   14.65|   14.00|   15.30|   0.02|         NA|          NA|
 |. Fisheries                      |   14.65|   14.00|   15.30|   0.02|      32.97|       57.82|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      46.60|       56.25|
-|Aboriginal Needs                 |   79.75|   75.85|   83.65|   0.00|      28.97|       59.67|
+|Aboriginal Needs                 |   52.53|   50.00|   55.07|   0.00|      28.97|       59.67|
 |Natural Products                 |    0.00|    0.00|    0.00|   0.00|      34.64|       62.80|
 |Carbon Storage                   |   21.24|   30.61|   11.87|  -1.00|      33.00|       50.48|
 |Coastal Protection               |   21.31|   30.61|   12.00|  -1.00|      31.67|       50.48|
@@ -1715,11 +1715,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   66.95|      NA|   67.78|     NA|         NA|          NA|
+|Index                            |   62.32|      NA|   63.32|     NA|         NA|          NA|
 |Food Provision                   |   19.81|   18.79|   20.82|   0.03|         NA|          NA|
 |. Fisheries                      |   20.02|   19.00|   21.05|   0.03|      32.58|       58.82|
 |. Mariculture                    |    9.21|    8.75|    9.67|   0.02|      35.84|       63.53|
-|Aboriginal Needs                 |   99.04|   98.08|  100.00|   0.00|      28.95|       62.03|
+|Aboriginal Needs                 |   52.73|   50.00|   55.46|   0.00|      28.95|       62.03|
 |Natural Products                 |   20.18|   18.77|   21.59|   0.05|      29.90|       65.24|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      39.03|       62.16|
 |Coastal Protection               |   88.70|   87.23|   90.16|   0.01|      53.37|       62.16|
@@ -1747,11 +1747,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   66.87|      NA|   67.53|     NA|         NA|          NA|
+|Index                            |   62.81|      NA|   63.28|     NA|         NA|          NA|
 |Food Provision                   |   21.01|   20.00|   22.02|   0.01|         NA|          NA|
 |. Fisheries                      |   21.01|   20.00|   22.02|   0.01|      28.90|       56.87|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      27.44|       50.00|
-|Aboriginal Needs                 |   88.93|   84.74|   93.12|   0.00|      26.93|       56.48|
+|Aboriginal Needs                 |   52.44|   50.00|   54.88|   0.00|      26.93|       56.48|
 |Natural Products                 |   84.69|   80.68|   88.71|  -0.01|      28.12|       60.41|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|      28.61|       44.68|
 |Coastal Protection               |   99.23|   98.45|  100.00|     NA|      40.28|       46.45|
@@ -1779,11 +1779,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  52.72|      NA|   53.66|     NA|         NA|          NA|
+|Index                            |  48.29|      NA|   49.17|     NA|         NA|          NA|
 |Food Provision                   |   1.05|    1.00|    1.10|   0.00|         NA|          NA|
 |. Fisheries                      |   1.05|    1.00|    1.10|   0.00|      26.81|       57.68|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      28.45|       66.67|
-|Aboriginal Needs                 |  96.89|   93.77|  100.00|   0.00|      26.87|       57.86|
+|Aboriginal Needs                 |  52.56|   50.00|   55.11|   0.00|      26.87|       57.86|
 |Natural Products                 |  40.20|   37.85|   42.56|  -0.02|      29.85|       72.28|
 |Carbon Storage                   |  25.88|   25.28|   26.49|     NA|      40.01|       54.55|
 |Coastal Protection               |   6.73|    7.24|    6.21|  -0.27|      43.46|       54.55|
@@ -1811,11 +1811,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   66.08|      NA|   64.26|     NA|         NA|          NA|
+|Index                            |   61.77|      NA|   59.82|     NA|         NA|          NA|
 |Food Provision                   |    5.71|    5.40|    6.01|   0.02|         NA|          NA|
 |. Fisheries                      |    6.34|    6.00|    6.69|   0.03|      27.72|       57.13|
 |. Mariculture                    |    0.30|    0.29|    0.32|   0.00|      31.11|       64.58|
-|Aboriginal Needs                 |   95.84|   91.69|  100.00|   0.00|      26.78|       60.57|
+|Aboriginal Needs                 |   52.79|   50.00|   55.58|   0.00|      26.78|       60.57|
 |Natural Products                 |   83.94|   72.60|   95.28|   0.30|      30.98|       63.82|
 |Carbon Storage                   |   57.02|   81.90|   32.14|  -1.00|      36.65|       55.56|
 |Coastal Protection               |   54.52|   57.04|   52.00|  -0.19|      43.96|       55.56|
@@ -1843,11 +1843,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  55.43|      NA|   53.40|     NA|         NA|          NA|
+|Index                            |  52.08|      NA|   49.89|     NA|         NA|          NA|
 |Food Provision                   |  15.62|   15.00|   16.25|   0.00|         NA|          NA|
 |. Fisheries                      |  15.63|   15.00|   16.25|   0.00|      29.23|       54.21|
 |. Mariculture                    |   0.03|    0.02|    0.03|   0.00|      26.90|       50.00|
-|Aboriginal Needs                 |  85.84|   81.85|   89.82|   0.00|      26.41|       55.10|
+|Aboriginal Needs                 |  52.37|   50.00|   54.73|   0.00|      26.41|       55.10|
 |Natural Products                 |  91.39|   82.78|  100.00|   1.00|      27.16|       53.12|
 |Carbon Storage                   |  57.69|   84.48|   30.90|  -1.00|      33.35|       44.20|
 |Coastal Protection               |  17.70|   26.04|    9.36|  -1.00|      35.24|       44.20|
@@ -1875,11 +1875,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.08|      NA|   60.18|     NA|         NA|          NA|
+|Index                            |   59.83|      NA|   55.81|     NA|         NA|          NA|
 |Food Provision                   |   54.37|   53.55|   55.20|   0.15|         NA|          NA|
 |. Fisheries                      |   23.92|   22.54|   25.29|   0.03|      28.60|       58.55|
 |. Mariculture                    |  100.00|  100.00|  100.00|   0.32|      28.78|       55.94|
-|Aboriginal Needs                 |   95.73|   91.47|  100.00|   0.00|      26.48|       64.97|
+|Aboriginal Needs                 |   53.18|   50.00|   56.35|   0.00|      26.48|       64.97|
 |Natural Products                 |   24.05|   22.31|   25.80|   0.03|      25.74|       67.58|
 |Carbon Storage                   |   53.40|   74.14|   32.66|  -1.00|      28.07|       61.56|
 |Coastal Protection               |   58.07|   79.96|   36.17|  -1.00|      28.97|       66.04|
@@ -1907,11 +1907,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   68.17|      NA|   69.40|     NA|         NA|          NA|
+|Index                            |   63.88|      NA|   64.99|     NA|         NA|          NA|
 |Food Provision                   |   20.36|   20.36|   20.37|  -0.13|         NA|          NA|
 |. Fisheries                      |   15.75|   15.00|   16.50|  -0.01|      28.83|       60.26|
 |. Mariculture                    |   21.15|   21.27|   21.03|  -0.15|      30.16|       57.14|
-|Aboriginal Needs                 |   95.87|   91.73|  100.00|   0.00|      26.50|       62.35|
+|Aboriginal Needs                 |   52.96|   50.00|   55.92|   0.00|      26.50|       62.35|
 |Natural Products                 |   21.04|   21.67|   20.40|  -0.27|      28.79|       66.67|
 |Carbon Storage                   |   85.73|   82.46|   89.00|   0.00|      38.06|       62.09|
 |Coastal Protection               |   54.48|   52.91|   56.05|   0.00|      43.89|       62.09|
@@ -1939,11 +1939,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   53.05|      NA|   50.13|     NA|         NA|          NA|
+|Index                            |   48.75|      NA|   45.71|     NA|         NA|          NA|
 |Food Provision                   |   18.51|   17.79|   19.23|  -0.02|         NA|          NA|
 |. Fisheries                      |   19.77|   19.00|   20.54|  -0.03|      28.20|       57.97|
 |. Mariculture                    |    0.32|    0.30|    0.34|   0.00|      34.62|       68.75|
-|Aboriginal Needs                 |   95.95|   91.89|  100.00|   0.00|      27.69|       62.86|
+|Aboriginal Needs                 |   52.90|   50.00|   55.80|   0.00|      27.69|       62.86|
 |Natural Products                 |    7.66|    7.03|    8.28|   0.07|      27.07|       66.53|
 |Carbon Storage                   |   42.02|   59.96|   24.09|  -1.00|      31.83|       53.57|
 |Coastal Protection               |   42.14|   59.96|   24.31|  -1.00|      30.69|       53.57|
@@ -1971,11 +1971,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  63.14|      NA|   61.26|     NA|         NA|          NA|
+|Index                            |  58.64|      NA|   56.72|     NA|         NA|          NA|
 |Food Provision                   |  18.89|   18.00|   19.78|   0.01|         NA|          NA|
 |. Fisheries                      |  18.89|   18.00|   19.78|   0.01|      25.75|       53.36|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      27.21|       50.00|
-|Aboriginal Needs                 |  97.27|   94.54|  100.00|   0.00|      26.07|       54.11|
+|Aboriginal Needs                 |  52.31|   50.00|   54.63|   0.00|      26.07|       54.11|
 |Natural Products                 |  99.77|   99.53|  100.00|  -0.02|      26.07|       56.87|
 |Carbon Storage                   |  85.78|   93.63|   77.92|  -0.32|      28.44|       42.23|
 |Coastal Protection               |  85.87|   93.63|   78.10|  -0.32|      27.87|       42.23|
@@ -2003,11 +2003,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  55.15|      NA|   55.48|     NA|         NA|          NA|
+|Index                            |  51.94|      NA|   52.11|     NA|         NA|          NA|
 |Food Provision                   |  17.97|   17.00|   18.93|   0.02|         NA|          NA|
 |. Fisheries                      |  17.97|   17.00|   18.93|   0.02|      26.99|       57.39|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      26.80|       58.33|
-|Aboriginal Needs                 |  84.64|   80.45|   88.82|   0.00|      25.71|       56.95|
+|Aboriginal Needs                 |  52.58|   50.00|   55.15|   0.00|      25.71|       56.95|
 |Natural Products                 |  65.71|   51.27|   80.15|   0.70|      32.05|       61.61|
 |Carbon Storage                   |  88.96|   92.71|   85.22|  -0.22|      28.63|       49.62|
 |Coastal Protection               |  91.36|   97.05|   85.67|  -0.22|      39.72|       49.62|
@@ -2035,11 +2035,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   71.51|      NA|   72.49|     NA|         NA|          NA|
+|Index                            |   67.03|      NA|   68.11|     NA|         NA|          NA|
 |Food Provision                   |   32.01|   31.00|   33.03|  -0.06|         NA|          NA|
 |. Fisheries                      |   32.01|   31.00|   33.03|  -0.06|      28.58|       60.29|
 |. Mariculture                    |    0.00|    0.00|    0.00|   0.00|      30.51|       69.79|
-|Aboriginal Needs                 |   97.86|   95.72|  100.00|   0.00|      26.74|       64.28|
+|Aboriginal Needs                 |   53.10|   50.00|   56.19|   0.00|      26.74|       64.28|
 |Natural Products                 |    9.02|    8.45|    9.59|   0.01|      28.09|       67.67|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.50|      27.89|       64.15|
 |Coastal Protection               |   84.69|   85.69|   83.69|  -0.09|      52.41|       64.15|
@@ -2067,11 +2067,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   58.77|      NA|   60.04|     NA|         NA|          NA|
+|Index                            |   53.58|      NA|   54.97|     NA|         NA|          NA|
 |Food Provision                   |   46.59|   45.96|   47.22|  -0.04|         NA|          NA|
 |. Fisheries                      |   33.78|   33.00|   34.56|  -0.05|      31.50|       55.65|
 |. Mariculture                    |  100.00|  100.00|  100.00|   0.00|      26.03|       63.53|
-|Aboriginal Needs                 |   98.89|   97.78|  100.00|   0.00|      28.29|       54.88|
+|Aboriginal Needs                 |   52.19|   50.00|   54.39|   0.00|      28.29|       54.88|
 |Natural Products                 |    0.25|    0.25|    0.25|  -0.14|      29.16|       59.83|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |   90.63|   92.22|   89.04|   0.01|      61.84|       50.00|
@@ -2099,11 +2099,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  57.93|      NA|   59.68|     NA|         NA|          NA|
+|Index                            |  51.52|      NA|   53.30|     NA|         NA|          NA|
 |Food Provision                   |  32.80|   32.00|   33.59|  -0.09|         NA|          NA|
 |. Fisheries                      |  32.80|   32.00|   33.59|  -0.09|      25.53|       58.02|
 |. Mariculture                    |   0.00|    0.00|    0.00|  -0.03|      25.22|       70.34|
-|Aboriginal Needs                 |  97.51|   95.01|  100.00|   0.00|      25.40|       57.76|
+|Aboriginal Needs                 |  52.67|   50.00|   55.34|   0.00|      25.40|       57.76|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -2131,11 +2131,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   69.30|      NA|   65.73|     NA|         NA|          NA|
+|Index                            |   65.60|      NA|   61.85|     NA|         NA|          NA|
 |Food Provision                   |   40.25|   35.99|   44.51|   0.23|         NA|          NA|
 |. Fisheries                      |   40.26|   36.00|   44.52|   0.23|      27.51|       52.85|
 |. Mariculture                    |    0.03|    0.03|    0.04|   0.00|      25.70|       50.00|
-|Aboriginal Needs                 |   89.51|   85.15|   93.88|   0.00|      25.77|       56.70|
+|Aboriginal Needs                 |   52.55|   50.00|   55.10|   0.00|      25.77|       56.70|
 |Natural Products                 |   23.93|   24.39|   23.48|  -0.14|      44.12|       61.18|
 |Carbon Storage                   |   56.75|   82.26|   31.25|  -1.00|      31.18|       46.28|
 |Coastal Protection               |   77.39|   79.68|   75.11|  -0.12|      39.83|       46.28|
@@ -2163,11 +2163,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   68.41|      NA|   69.78|     NA|         NA|          NA|
+|Index                            |   63.37|      NA|   64.89|     NA|         NA|          NA|
 |Food Provision                   |   28.98|   28.02|   29.94|  -0.04|         NA|          NA|
 |. Fisheries                      |   31.02|   30.00|   32.03|  -0.04|      32.19|       61.40|
 |. Mariculture                    |   13.77|   13.19|   14.35|  -0.02|      32.26|       62.92|
-|Aboriginal Needs                 |   98.41|   96.83|  100.00|   0.00|      26.91|       63.58|
+|Aboriginal Needs                 |   53.03|   50.00|   56.05|   0.00|      26.91|       63.58|
 |Natural Products                 |   37.23|   32.01|   42.45|   0.29|      28.10|       67.10|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |   77.54|   79.55|   75.53|  -0.06|      53.84|       50.00|
@@ -2195,11 +2195,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   70.46|      NA|   73.34|     NA|         NA|          NA|
+|Index                            |   65.91|      NA|   68.95|     NA|         NA|          NA|
 |Food Provision                   |   43.84|   42.20|   45.47|  -0.01|         NA|          NA|
 |. Fisheries                      |   29.47|   28.00|   30.93|   0.01|      30.06|       59.20|
 |. Mariculture                    |   70.22|   68.27|   72.17|  -0.05|      37.77|       65.23|
-|Aboriginal Needs                 |   98.57|   97.15|  100.00|   0.00|      28.63|       65.21|
+|Aboriginal Needs                 |   53.02|   50.00|   56.04|   0.00|      28.63|       65.21|
 |Natural Products                 |   51.54|   46.29|   56.79|   0.15|      29.26|       67.71|
 |Carbon Storage                   |   78.29|   66.92|   89.66|   0.34|      35.38|       69.62|
 |Coastal Protection               |   48.73|   44.36|   53.10|   0.11|      32.83|       69.62|
@@ -2227,11 +2227,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   63.56|      NA|   63.27|     NA|         NA|          NA|
+|Index                            |   59.28|      NA|   58.83|     NA|         NA|          NA|
 |Food Provision                   |    6.35|    6.00|    6.69|   0.02|         NA|          NA|
 |. Fisheries                      |    6.35|    6.00|    6.69|   0.02|      25.72|       56.52|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      27.03|       61.93|
-|Aboriginal Needs                 |   95.62|   91.25|  100.00|   0.00|      25.83|       59.63|
+|Aboriginal Needs                 |   52.79|   50.00|   55.58|   0.00|      25.83|       59.63|
 |Natural Products                 |   23.82|   28.31|   19.33|  -0.65|      27.23|       62.83|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.00|      27.75|       53.14|
 |Coastal Protection               |  100.00|  100.00|  100.00|   0.00|      27.29|       53.14|
@@ -2259,11 +2259,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   67.60|      NA|   68.82|     NA|         NA|          NA|
+|Index                            |   63.51|      NA|   64.50|     NA|         NA|          NA|
 |Food Provision                   |   29.17|   27.78|   30.57|  -0.01|         NA|          NA|
 |. Fisheries                      |   26.25|   25.00|   27.50|   0.00|      27.13|       58.25|
 |. Mariculture                    |   48.61|   46.21|   51.01|  -0.03|      25.33|       62.85|
-|Aboriginal Needs                 |   93.79|   88.73|   98.85|   0.00|      25.48|       59.82|
+|Aboriginal Needs                 |   52.83|   50.00|   55.67|   0.00|      25.48|       59.82|
 |Natural Products                 |   70.84|   68.74|   72.94|  -0.08|      28.69|       63.73|
 |Carbon Storage                   |   88.58|   85.51|   91.66|     NA|      30.90|       52.68|
 |Coastal Protection               |   86.70|   84.28|   89.13|   0.01|      36.77|       52.68|
@@ -2291,11 +2291,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  55.11|      NA|   50.27|     NA|         NA|          NA|
+|Index                            |  50.65|      NA|   45.70|     NA|         NA|          NA|
 |Food Provision                   |  29.32|   28.00|   30.63|   0.02|         NA|          NA|
 |. Fisheries                      |  29.32|   28.00|   30.63|   0.02|      29.37|       53.53|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      26.66|       50.00|
-|Aboriginal Needs                 |  96.73|   93.46|  100.00|   0.00|      28.12|       54.32|
+|Aboriginal Needs                 |  52.16|   50.00|   54.32|   0.00|      28.12|       54.32|
 |Natural Products                 |  52.36|   49.31|   55.41|   0.03|      26.22|       57.23|
 |Carbon Storage                   |  47.45|   68.65|   26.26|  -1.00|      27.20|       43.10|
 |Coastal Protection               |  47.49|   68.65|   26.34|  -1.00|      26.84|       43.10|
@@ -2323,11 +2323,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.95|      NA|   61.08|     NA|         NA|          NA|
+|Index                            |   61.25|      NA|   57.22|     NA|         NA|          NA|
 |Food Provision                   |   28.06|   27.00|   29.12|  -0.02|         NA|          NA|
 |. Fisheries                      |   28.06|   27.00|   29.13|  -0.02|      30.50|       58.13|
 |. Mariculture                    |    0.09|    0.08|    0.09|   0.00|      31.73|       73.96|
-|Aboriginal Needs                 |   89.32|   85.25|   93.38|   0.00|      28.29|       57.07|
+|Aboriginal Needs                 |   52.37|   50.00|   54.75|   0.00|      28.29|       57.07|
 |Natural Products                 |   89.95|   87.70|   92.21|  -0.08|      29.92|       61.17|
 |Carbon Storage                   |   60.49|   82.39|   38.60|  -0.88|      31.68|       49.43|
 |Coastal Protection               |   60.65|   82.39|   38.90|  -0.88|      30.56|       49.43|
@@ -2355,11 +2355,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   58.49|      NA|   58.07|     NA|         NA|          NA|
+|Index                            |   53.10|      NA|   52.45|     NA|         NA|          NA|
 |Food Provision                   |   25.57|   25.00|   26.14|  -0.08|         NA|          NA|
 |. Fisheries                      |   25.57|   25.00|   26.14|  -0.08|      26.76|       56.30|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      30.76|       50.00|
-|Aboriginal Needs                 |   95.65|   91.31|  100.00|   0.00|      26.70|       57.18|
+|Aboriginal Needs                 |   52.51|   50.00|   55.03|   0.00|      26.70|       57.18|
 |Natural Products                 |   17.61|   16.75|   18.47|  -0.01|      27.46|       60.47|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -2387,11 +2387,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   67.11|      NA|   66.79|     NA|         NA|          NA|
+|Index                            |   62.58|      NA|   62.44|     NA|         NA|          NA|
 |Food Provision                   |   18.72|   17.59|   19.85|   0.04|         NA|          NA|
 |. Fisheries                      |   19.16|   18.00|   20.33|   0.04|      32.37|       62.83|
 |. Mariculture                    |   12.68|   12.05|   13.31|   0.03|      39.63|       65.21|
-|Aboriginal Needs                 |   98.52|   97.04|  100.00|   0.00|      28.46|       67.91|
+|Aboriginal Needs                 |   53.25|   50.00|   56.51|   0.00|      28.46|       67.91|
 |Natural Products                 |   12.29|   11.43|   13.14|   0.03|      29.04|       69.17|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.50|      31.54|       72.04|
 |Coastal Protection               |   98.74|   97.48|  100.00|   0.05|      47.20|       72.04|
@@ -2419,11 +2419,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  49.34|      NA|   45.32|     NA|         NA|          NA|
+|Index                            |  46.14|      NA|   41.97|     NA|         NA|          NA|
 |Food Provision                   |  40.02|   39.00|   41.03|  -0.06|         NA|          NA|
 |. Fisheries                      |  40.02|   39.00|   41.03|  -0.06|      27.89|       56.44|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      30.04|       62.50|
-|Aboriginal Needs                 |  84.30|   80.57|   88.02|   0.00|      28.13|       55.29|
+|Aboriginal Needs                 |  52.24|   50.00|   54.48|   0.00|      28.13|       55.29|
 |Natural Products                 |  40.47|   34.17|   46.76|   0.39|      27.62|       60.68|
 |Carbon Storage                   |  68.18|   98.52|   37.83|  -1.00|      39.77|       56.14|
 |Coastal Protection               |  17.72|   25.69|    9.74|  -1.00|      41.26|       56.14|
@@ -2451,11 +2451,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   67.38|      NA|   68.21|     NA|         NA|          NA|
+|Index                            |   61.05|      NA|   61.92|     NA|         NA|          NA|
 |Food Provision                   |   19.77|   19.00|   20.54|  -0.03|         NA|          NA|
 |. Fisheries                      |   19.77|   19.00|   20.54|  -0.03|      29.19|       59.22|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      41.48|       70.50|
-|Aboriginal Needs                 |   97.34|   94.68|  100.00|   0.00|      28.29|       64.52|
+|Aboriginal Needs                 |   52.99|   50.00|   55.98|   0.00|      28.29|       64.52|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -2483,11 +2483,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  66.28|      NA|   69.34|     NA|         NA|          NA|
+|Index                            |  60.85|      NA|   63.62|     NA|         NA|          NA|
 |Food Provision                   |     NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |     NA|      NA|      NA|     NA|      25.09|       57.26|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.25|       63.52|
-|Aboriginal Needs                 |  90.68|   86.02|   95.35|   0.00|      25.07|       57.42|
+|Aboriginal Needs                 |  52.67|   50.00|   55.34|   0.00|      25.07|       57.42|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  89.75|   85.57|   93.93|   0.09|      42.90|       53.76|
@@ -2515,11 +2515,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  70.20|      NA|   72.80|     NA|         NA|          NA|
+|Index                            |  64.59|      NA|   67.22|     NA|         NA|          NA|
 |Food Provision                   |  27.58|   26.51|   28.65|  -0.03|         NA|          NA|
 |. Fisheries                      |  25.83|   25.00|   26.67|  -0.04|      30.99|       58.48|
 |. Mariculture                    |  31.75|   30.12|   33.39|   0.00|      30.07|       62.98|
-|Aboriginal Needs                 |  97.56|   95.12|  100.00|   0.00|      27.67|       59.90|
+|Aboriginal Needs                 |  52.66|   50.00|   55.32|   0.00|      27.67|       59.90|
 |Natural Products                 |  30.87|   28.76|   32.97|   0.06|      30.83|       63.82|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -2547,11 +2547,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.38|      NA|   66.08|     NA|         NA|          NA|
+|Index                            |   59.23|      NA|   61.17|     NA|         NA|          NA|
 |Food Provision                   |   35.96|   34.00|   37.91|   0.02|         NA|          NA|
 |. Fisheries                      |   35.96|   34.00|   37.91|   0.02|      26.14|       56.93|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.33|       63.53|
-|Aboriginal Needs                 |   99.19|   98.38|  100.00|   0.00|      25.67|       60.76|
+|Aboriginal Needs                 |   52.89|   50.00|   55.79|   0.00|      25.67|       60.76|
 |Natural Products                 |    0.28|    0.27|    0.29|   0.00|      40.13|       65.37|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |   92.41|   92.22|   92.60|   0.01|      50.12|       50.00|
@@ -2579,11 +2579,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  53.69|      NA|   51.32|     NA|         NA|          NA|
+|Index                            |  49.42|      NA|   46.84|     NA|         NA|          NA|
 |Food Provision                   |  11.65|   11.00|   12.31|   0.02|         NA|          NA|
 |. Fisheries                      |  11.65|   11.00|   12.31|   0.02|      26.10|       58.28|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      28.02|       63.54|
-|Aboriginal Needs                 |  95.28|   90.57|  100.00|   0.00|      26.07|       58.05|
+|Aboriginal Needs                 |  52.64|   50.00|   55.28|   0.00|      26.07|       58.05|
 |Natural Products                 |  52.96|   49.88|   56.04|   0.00|      28.40|       65.84|
 |Carbon Storage                   |  37.00|   52.48|   21.51|  -1.00|      32.59|       56.82|
 |Coastal Protection               |  37.26|   54.08|   20.45|  -1.00|      42.26|       56.82|
@@ -2611,11 +2611,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  64.68|      NA|   65.27|     NA|         NA|          NA|
+|Index                            |  60.23|      NA|   60.82|     NA|         NA|          NA|
 |Food Provision                   |   1.39|    1.32|    1.46|   0.01|         NA|          NA|
 |. Fisheries                      |   1.40|    1.33|    1.47|   0.01|      27.40|       57.87|
 |. Mariculture                    |   0.26|    0.25|    0.28|   0.00|      27.15|       63.13|
-|Aboriginal Needs                 |  97.28|   94.56|  100.00|   0.00|      26.95|       60.50|
+|Aboriginal Needs                 |  52.77|   50.00|   55.54|   0.00|      26.95|       60.50|
 |Natural Products                 |  98.49|   96.97|  100.00|   1.00|      28.13|       63.72|
 |Carbon Storage                   |  97.48|   99.88|   95.07|  -0.15|      39.26|       55.74|
 |Coastal Protection               |  31.78|   31.00|   32.56|   0.02|      44.01|       55.74|
@@ -2643,11 +2643,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   67.29|      NA|   65.97|     NA|         NA|          NA|
+|Index                            |   63.37|      NA|   61.84|     NA|         NA|          NA|
 |Food Provision                   |   40.16|   37.70|   42.62|   0.08|         NA|          NA|
 |. Fisheries                      |   44.13|   41.00|   47.27|   0.08|      27.78|       56.99|
 |. Mariculture                    |   33.79|   32.42|   35.17|   0.07|      35.79|       47.29|
-|Aboriginal Needs                 |   92.01|   87.15|   96.87|   0.00|      27.61|       61.23|
+|Aboriginal Needs                 |   52.77|   50.00|   55.55|   0.00|      27.61|       61.23|
 |Natural Products                 |    8.82|    9.07|    8.57|  -0.27|      26.29|       65.22|
 |Carbon Storage                   |   88.19|   94.09|   82.30|  -0.30|      31.41|       53.48|
 |Coastal Protection               |   88.36|   94.09|   82.63|  -0.30|      30.34|       53.48|
@@ -2675,11 +2675,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  56.85|      NA|   58.45|     NA|         NA|          NA|
+|Index                            |  51.09|      NA|   52.83|     NA|         NA|          NA|
 |Food Provision                   |     NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |     NA|      NA|      NA|     NA|      28.02|       58.40|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      31.34|       63.47|
-|Aboriginal Needs                 |  98.62|   97.23|  100.00|   0.00|      27.24|       58.01|
+|Aboriginal Needs                 |  52.54|   50.00|   55.08|   0.00|      27.24|       58.01|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  52.51|   50.00|   55.01|   0.00|      27.94|       58.33|
 |Coastal Protection               |  36.63|   35.66|   37.59|   0.03|      47.23|       58.33|
@@ -2707,11 +2707,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   46.09|      NA|   44.28|     NA|         NA|          NA|
+|Index                            |   43.23|      NA|   41.29|     NA|         NA|          NA|
 |Food Provision                   |   27.29|   26.00|   28.58|   0.01|         NA|          NA|
 |. Fisheries                      |   27.29|   26.00|   28.58|   0.01|      26.97|       54.73|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      27.39|       63.54|
-|Aboriginal Needs                 |   81.00|   77.20|   84.81|   0.00|      26.85|       56.54|
+|Aboriginal Needs                 |   52.45|   50.00|   54.90|   0.00|      26.85|       56.54|
 |Natural Products                 |   18.33|   24.11|   12.54|  -0.88|      27.28|       60.92|
 |Carbon Storage                   |   33.26|   36.72|   29.80|  -0.39|      36.19|       57.80|
 |Coastal Protection               |    7.69|    8.54|    6.85|  -0.39|      39.02|       57.80|
@@ -2739,11 +2739,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   42.41|      NA|   40.59|     NA|         NA|          NA|
+|Index                            |   39.17|      NA|   37.16|     NA|         NA|          NA|
 |Food Provision                   |   23.01|   22.00|   24.03|  -0.02|         NA|          NA|
 |. Fisheries                      |   23.01|   22.00|   24.03|  -0.02|      26.64|       58.36|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      26.60|       56.25|
-|Aboriginal Needs                 |   85.49|   80.56|   90.42|   0.00|      26.22|       63.17|
+|Aboriginal Needs                 |   53.05|   50.00|   56.10|   0.00|      26.22|       63.17|
 |Natural Products                 |    8.49|   10.75|    6.24|  -0.81|      27.65|       64.21|
 |Carbon Storage                   |   25.35|   35.55|   15.14|  -1.00|      34.55|       63.59|
 |Coastal Protection               |    6.04|    8.54|    3.55|  -1.00|      37.43|       63.59|
@@ -2771,11 +2771,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  53.82|      NA|   49.27|     NA|         NA|          NA|
+|Index                            |  50.11|      NA|   45.39|     NA|         NA|          NA|
 |Food Provision                   |   2.09|    2.00|    2.19|   0.01|         NA|          NA|
 |. Fisheries                      |   2.10|    2.00|    2.19|   0.01|      28.25|       55.99|
 |. Mariculture                    |   0.65|    0.61|    0.68|   0.00|      29.68|       62.50|
-|Aboriginal Needs                 |  89.47|   85.31|   93.63|   0.00|      26.73|       55.76|
+|Aboriginal Needs                 |  52.39|   50.00|   54.79|   0.00|      26.73|       55.76|
 |Natural Products                 |  24.22|   22.55|   25.89|   0.06|      27.49|       60.80|
 |Carbon Storage                   |  72.18|   87.91|   56.45|  -0.60|      30.06|       44.32|
 |Coastal Protection               |  72.30|   87.91|   56.69|  -0.60|      29.22|       44.32|
@@ -2803,11 +2803,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   44.58|      NA|   39.43|     NA|         NA|          NA|
+|Index                            |   41.37|      NA|   36.07|     NA|         NA|          NA|
 |Food Provision                   |    1.05|    1.00|    1.10|   0.01|         NA|          NA|
 |. Fisheries                      |    1.05|    1.00|    1.10|   0.01|      26.85|       54.83|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      27.99|       50.00|
-|Aboriginal Needs                 |   84.42|   80.69|   88.15|   0.00|      26.72|       54.60|
+|Aboriginal Needs                 |   52.30|   50.00|   54.60|   0.00|      26.72|       54.60|
 |Natural Products                 |   11.91|   13.42|   10.41|  -0.42|      36.78|       54.07|
 |Carbon Storage                   |   64.59|   95.96|   33.21|  -1.00|      37.06|       41.94|
 |Coastal Protection               |   22.02|   33.16|   10.87|  -1.00|      42.55|       41.94|
@@ -2835,11 +2835,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   92.17|      NA|   93.42|     NA|         NA|          NA|
+|Index                            |   84.47|      NA|   86.19|     NA|         NA|          NA|
 |Food Provision                   |   77.76|   73.00|   82.52|   0.02|         NA|          NA|
 |. Fisheries                      |   77.76|   73.00|   82.52|   0.02|      25.08|       60.52|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.01|       74.61|
-|Aboriginal Needs                 |      NA|      NA|      NA|     NA|      25.05|       69.28|
+|Aboriginal Needs                 |   53.65|   50.00|   57.30|   0.00|      25.05|       69.28|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -2867,11 +2867,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   55.01|      NA|   52.33|     NA|         NA|          NA|
+|Index                            |   51.17|      NA|   48.29|     NA|         NA|          NA|
 |Food Provision                   |    7.05|    6.95|    7.14|  -0.05|         NA|          NA|
 |. Fisheries                      |    4.23|    4.00|    4.47|   0.02|      27.31|       59.09|
 |. Mariculture                    |    8.42|    8.40|    8.45|  -0.09|      31.20|       51.35|
-|Aboriginal Needs                 |   91.16|   86.26|   96.05|   0.00|      26.56|       60.78|
+|Aboriginal Needs                 |   52.82|   50.00|   55.65|   0.00|      26.56|       60.78|
 |Natural Products                 |    1.65|    1.57|    1.73|  -0.01|      32.41|       65.25|
 |Carbon Storage                   |   61.81|   87.74|   35.88|  -1.00|      36.65|       60.58|
 |Coastal Protection               |   40.40|   40.59|   40.21|  -0.10|      42.87|       60.58|
@@ -2899,11 +2899,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  85.82|      NA|   86.36|     NA|         NA|          NA|
+|Index                            |  80.37|      NA|   81.34|     NA|         NA|          NA|
 |Food Provision                   |  62.09|   54.00|   70.19|   0.31|         NA|          NA|
 |. Fisheries                      |  62.09|   54.00|   70.19|   0.31|      25.16|       53.06|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.20|       30.27|
-|Aboriginal Needs                 |     NA|      NA|      NA|     NA|      25.12|       62.99|
+|Aboriginal Needs                 |  53.12|   50.00|   56.25|   0.00|      25.12|       62.99|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  99.63|  100.00|   99.26|  -0.02|      42.63|       45.37|
@@ -2931,11 +2931,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  55.96|      NA|   57.66|     NA|         NA|          NA|
+|Index                            |  50.83|      NA|   52.59|     NA|         NA|          NA|
 |Food Provision                   |  25.88|   25.12|   26.63|  -0.02|         NA|          NA|
 |. Fisheries                      |  25.76|   25.00|   26.52|  -0.02|      30.38|       53.14|
 |. Mariculture                    |  60.36|   60.61|   60.11|  -0.17|      26.93|       58.94|
-|Aboriginal Needs                 |  98.38|   96.75|  100.00|   0.00|      27.57|       54.09|
+|Aboriginal Needs                 |  52.19|   50.00|   54.38|   0.00|      27.57|       54.09|
 |Natural Products                 |  14.51|   13.65|   15.37|   0.04|      28.77|       58.07|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  38.20|   40.73|   35.68|  -0.11|      66.05|       50.00|
@@ -2963,11 +2963,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   71.92|      NA|   72.61|     NA|         NA|          NA|
+|Index                            |   68.71|      NA|   69.73|     NA|         NA|          NA|
 |Food Provision                   |      NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |      NA|      NA|      NA|     NA|      25.07|       56.62|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.33|       63.52|
-|Aboriginal Needs                 |      NA|      NA|      NA|     NA|      25.05|       57.44|
+|Aboriginal Needs                 |   52.67|   50.00|   55.34|   0.00|      25.05|       57.44|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.00|      25.04|       45.57|
 |Coastal Protection               |   92.05|   87.38|   96.72|   0.08|      37.77|       53.76|
@@ -2995,11 +2995,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  59.09|      NA|   60.56|     NA|         NA|          NA|
+|Index                            |  58.02|      NA|   59.69|     NA|         NA|          NA|
 |Food Provision                   |  33.39|   33.00|   33.78|  -0.12|         NA|          NA|
 |. Fisheries                      |  33.39|   33.00|   33.78|  -0.12|      25.07|       56.85|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.25|       63.52|
-|Aboriginal Needs                 |     NA|      NA|      NA|     NA|      25.06|       57.18|
+|Aboriginal Needs                 |  52.65|   50.00|   55.30|   0.00|      25.06|       57.18|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  89.44|   85.57|   93.30|   0.09|      45.13|       53.76|
@@ -3027,11 +3027,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  58.48|      NA|   57.03|     NA|         NA|          NA|
+|Index                            |  54.90|      NA|   53.28|     NA|         NA|          NA|
 |Food Provision                   |  13.12|   12.58|   13.65|  -0.01|         NA|          NA|
 |. Fisheries                      |  13.55|   13.00|   14.11|  -0.01|      30.35|       58.72|
 |. Mariculture                    |   2.31|    2.23|    2.40|   0.00|      38.21|       60.73|
-|Aboriginal Needs                 |  88.24|   83.89|   92.59|   0.00|      29.10|       59.75|
+|Aboriginal Needs                 |  52.53|   50.00|   55.06|   0.00|      29.10|       59.75|
 |Natural Products                 |  56.77|   52.86|   60.68|   0.05|      28.68|       64.37|
 |Carbon Storage                   |  73.59|   87.14|   60.03|  -0.58|      35.95|       59.28|
 |Coastal Protection               |  52.99|   53.22|   52.75|  -0.10|      41.75|       59.28|
@@ -3059,11 +3059,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  59.37|      NA|   58.31|     NA|         NA|          NA|
+|Index                            |  55.67|      NA|   54.41|     NA|         NA|          NA|
 |Food Provision                   |  23.55|   21.80|   25.30|   0.10|         NA|          NA|
 |. Fisheries                      |  25.55|   23.57|   27.53|   0.12|      30.93|       58.37|
 |. Mariculture                    |  16.52|   15.57|   17.46|   0.05|      28.90|       55.52|
-|Aboriginal Needs                 |  89.72|   85.16|   94.28|   0.00|      28.44|       60.23|
+|Aboriginal Needs                 |  52.62|   50.00|   55.25|   0.00|      28.44|       60.23|
 |Natural Products                 |  57.22|   51.56|   62.89|   0.12|      27.73|       70.43|
 |Carbon Storage                   |  50.22|   70.15|   30.28|  -1.00|      30.55|       61.36|
 |Coastal Protection               |  59.05|   61.49|   56.62|  -0.24|      36.51|       61.36|
@@ -3091,11 +3091,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   52.43|      NA|   47.45|     NA|         NA|          NA|
+|Index                            |   47.98|      NA|   42.97|     NA|         NA|          NA|
 |Food Provision                   |   25.17|   24.43|   25.91|  -0.05|         NA|          NA|
 |. Fisheries                      |   25.75|   25.00|   26.51|  -0.05|      29.73|       57.84|
 |. Mariculture                    |    6.88|    6.53|    7.23|   0.02|      28.74|       57.50|
-|Aboriginal Needs                 |   97.00|   94.00|  100.00|   0.00|      26.99|       58.38|
+|Aboriginal Needs                 |   52.59|   50.00|   55.18|   0.00|      26.99|       58.38|
 |Natural Products                 |   30.64|   28.80|   32.49|   0.02|      27.34|       62.12|
 |Carbon Storage                   |   58.79|   84.86|   32.72|  -1.00|      34.79|       51.62|
 |Coastal Protection               |   17.41|   25.26|    9.56|  -1.00|      36.96|       51.62|
@@ -3123,11 +3123,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   59.50|      NA|   59.33|     NA|         NA|          NA|
+|Index                            |   55.25|      NA|   54.90|     NA|         NA|          NA|
 |Food Provision                   |   11.40|   11.00|   11.80|   0.00|         NA|          NA|
 |. Fisheries                      |   11.40|   11.00|   11.80|   0.00|      32.82|       55.36|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      54.81|       50.00|
-|Aboriginal Needs                 |   90.46|   86.53|   94.38|   0.00|      27.91|       54.86|
+|Aboriginal Needs                 |   52.22|   50.00|   54.45|   0.00|      27.91|       54.86|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |   85.44|   85.51|   85.37|     NA|      42.36|       41.87|
 |Coastal Protection               |   85.36|   85.51|   85.21|     NA|      42.93|       41.87|
@@ -3155,11 +3155,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   62.86|      NA|   64.54|     NA|         NA|          NA|
+|Index                            |   58.27|      NA|   60.09|     NA|         NA|          NA|
 |Food Provision                   |   43.52|   42.61|   44.43|  -0.06|         NA|          NA|
 |. Fisheries                      |   40.22|   39.00|   41.44|  -0.04|      29.95|       57.59|
 |. Mariculture                    |   66.23|   67.43|   65.04|  -0.21|      33.85|       65.73|
-|Aboriginal Needs                 |   98.63|   97.25|  100.00|   0.00|      27.90|       60.88|
+|Aboriginal Needs                 |   52.72|   50.00|   55.44|   0.00|      27.90|       60.88|
 |Natural Products                 |   24.11|   22.04|   26.18|   0.09|      28.19|       66.56|
 |Carbon Storage                   |   52.77|   50.00|   55.54|   0.00|      30.33|       63.91|
 |Coastal Protection               |   52.82|   50.00|   55.64|   0.00|      29.74|       63.91|
@@ -3187,11 +3187,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   63.45|      NA|   66.36|     NA|         NA|          NA|
+|Index                            |   58.88|      NA|   61.85|     NA|         NA|          NA|
 |Food Provision                   |   12.38|   11.82|   12.95|   0.00|         NA|          NA|
 |. Fisheries                      |   15.72|   15.00|   16.44|   0.00|      28.99|       58.17|
 |. Mariculture                    |    0.68|    0.65|    0.71|   0.00|      41.09|       72.92|
-|Aboriginal Needs                 |   98.19|   96.39|  100.00|   0.00|      28.50|       58.31|
+|Aboriginal Needs                 |   52.46|   50.00|   54.92|   0.00|      28.50|       58.31|
 |Natural Products                 |    7.81|    7.86|    7.77|  -0.19|      28.71|       64.08|
 |Carbon Storage                   |   91.23|   82.45|  100.00|   1.00|      48.43|       55.28|
 |Coastal Protection               |   91.23|   82.45|  100.00|   1.00|      50.73|       55.28|
@@ -3219,11 +3219,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   63.06|      NA|   65.70|     NA|         NA|          NA|
+|Index                            |   58.50|      NA|   61.22|     NA|         NA|          NA|
 |Food Provision                   |   20.30|   19.62|   20.97|  -0.03|         NA|          NA|
 |. Fisheries                      |   20.69|   20.00|   21.37|  -0.03|      29.82|       55.87|
 |. Mariculture                    |   19.81|   19.15|   20.47|  -0.03|      34.55|       61.60|
-|Aboriginal Needs                 |   98.10|   96.20|  100.00|   0.00|      27.73|       59.03|
+|Aboriginal Needs                 |   52.58|   50.00|   55.16|   0.00|      27.73|       59.03|
 |Natural Products                 |   19.14|   17.64|   20.63|   0.08|      28.41|       63.30|
 |Carbon Storage                   |   78.31|   65.18|   91.43|   0.50|      39.51|       60.00|
 |Coastal Protection               |   34.68|   28.84|   40.52|   0.50|      38.80|       60.00|
@@ -3251,11 +3251,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   45.31|      NA|   43.31|     NA|         NA|          NA|
+|Index                            |   42.10|      NA|   39.95|     NA|         NA|          NA|
 |Food Provision                   |   37.34|   36.00|   38.68|  -0.04|         NA|          NA|
 |. Fisheries                      |   37.34|   36.00|   38.68|  -0.04|      26.30|       57.52|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      30.73|       73.96|
-|Aboriginal Needs                 |   84.58|   80.55|   88.60|   0.00|      26.91|       57.05|
+|Aboriginal Needs                 |   52.49|   50.00|   54.97|   0.00|      26.91|       57.05|
 |Natural Products                 |   19.37|   19.49|   19.25|  -0.19|      26.69|       61.33|
 |Carbon Storage                   |   22.87|   32.78|   12.97|  -1.00|      30.29|       50.16|
 |Coastal Protection               |   22.92|   32.78|   13.06|  -1.00|      29.41|       50.16|
@@ -3283,11 +3283,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   59.18|      NA|   54.83|     NA|         NA|          NA|
+|Index                            |   54.81|      NA|   50.33|     NA|         NA|          NA|
 |Food Provision                   |    1.04|    0.99|    1.08|   0.01|         NA|          NA|
 |. Fisheries                      |    1.05|    1.00|    1.09|   0.01|      27.68|       54.07|
 |. Mariculture                    |    0.09|    0.08|    0.09|   0.00|      28.89|       50.00|
-|Aboriginal Needs                 |   96.16|   92.32|  100.00|   0.00|      26.84|       57.39|
+|Aboriginal Needs                 |   52.52|   50.00|   55.04|   0.00|      26.84|       57.39|
 |Natural Products                 |   16.89|   16.37|   17.42|  -0.06|      29.10|       60.89|
 |Carbon Storage                   |   66.12|   97.46|   34.78|  -1.00|      38.58|       46.72|
 |Coastal Protection               |   25.93|   27.58|   24.29|  -0.19|      43.58|       46.72|
@@ -3315,11 +3315,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  66.10|      NA|   68.16|     NA|         NA|          NA|
+|Index                            |  60.33|      NA|   62.52|     NA|         NA|          NA|
 |Food Provision                   |  27.35|   26.19|   28.52|   0.00|         NA|          NA|
 |. Fisheries                      |  27.35|   26.19|   28.52|   0.00|      30.62|       57.69|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.06|       63.42|
-|Aboriginal Needs                 |  98.57|   97.14|  100.00|   0.00|      28.70|       58.28|
+|Aboriginal Needs                 |  52.44|   50.00|   54.88|   0.00|      28.70|       58.28|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  81.41|   82.19|   80.63|  -0.02|      51.15|       50.00|
@@ -3347,11 +3347,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.46|      NA|   64.35|     NA|         NA|          NA|
+|Index                            |   59.95|      NA|   59.84|     NA|         NA|          NA|
 |Food Provision                   |   17.72|   17.04|   18.40|   0.00|         NA|          NA|
 |. Fisheries                      |   16.53|   15.89|   17.18|   0.00|      31.03|       55.68|
 |. Mariculture                    |   24.60|   23.72|   25.48|  -0.03|      30.69|       59.23|
-|Aboriginal Needs                 |   97.67|   95.33|  100.00|   0.00|      28.76|       58.82|
+|Aboriginal Needs                 |   52.48|   50.00|   54.96|   0.00|      28.76|       58.82|
 |Natural Products                 |    4.42|    4.44|    4.39|  -0.16|      32.10|       61.54|
 |Carbon Storage                   |   93.11|   91.28|   94.94|     NA|      38.23|       50.37|
 |Coastal Protection               |   90.40|   90.87|   89.93|  -0.05|      42.63|       50.37|
@@ -3379,11 +3379,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  70.58|      NA|   69.80|     NA|         NA|          NA|
+|Index                            |  67.08|      NA|   67.07|     NA|         NA|          NA|
 |Food Provision                   |  18.79|   18.00|   19.58|   0.00|         NA|          NA|
 |. Fisheries                      |  18.79|   18.00|   19.58|   0.00|      26.37|       53.04|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.32|       30.27|
-|Aboriginal Needs                 |     NA|      NA|      NA|     NA|      25.90|       63.09|
+|Aboriginal Needs                 |  53.07|   50.00|   56.14|   0.00|      25.90|       63.09|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -3411,11 +3411,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  61.56|      NA|   63.38|     NA|         NA|          NA|
+|Index                            |  55.80|      NA|   57.77|     NA|         NA|          NA|
 |Food Provision                   |     NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |     NA|      NA|      NA|     NA|      27.91|       59.10|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      31.28|       63.47|
-|Aboriginal Needs                 |  98.62|   97.23|  100.00|   0.00|      27.04|       58.08|
+|Aboriginal Needs                 |  52.56|   50.00|   55.12|   0.00|      27.04|       58.08|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  52.47|   50.00|   54.94|   0.00|      28.80|       58.71|
 |Coastal Protection               |  36.68|   35.66|   37.70|   0.03|      46.67|       58.71|
@@ -3443,11 +3443,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  65.49|      NA|   64.11|     NA|         NA|          NA|
+|Index                            |  63.42|      NA|   62.78|     NA|         NA|          NA|
 |Food Provision                   |  12.57|   12.00|   13.14|   0.01|         NA|          NA|
 |. Fisheries                      |  12.57|   12.00|   13.14|   0.01|      25.33|       52.71|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.43|       30.27|
-|Aboriginal Needs                 |     NA|      NA|      NA|     NA|      25.55|       62.89|
+|Aboriginal Needs                 |  53.08|   50.00|   56.16|   0.00|      25.55|       62.89|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  74.43|   74.30|   74.57|     NA|      44.29|       45.37|
@@ -3475,11 +3475,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  54.18|      NA|   51.34|     NA|         NA|          NA|
+|Index                            |  50.17|      NA|   47.15|     NA|         NA|          NA|
 |Food Provision                   |   4.17|    4.00|    4.34|   0.01|         NA|          NA|
 |. Fisheries                      |   4.17|    4.00|    4.34|   0.01|      35.49|       58.62|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      36.23|       65.62|
-|Aboriginal Needs                 |  92.47|   88.18|   96.76|   0.00|      29.24|       58.47|
+|Aboriginal Needs                 |  52.41|   50.00|   54.82|   0.00|      29.24|       58.47|
 |Natural Products                 |  11.28|   10.84|   11.72|  -0.04|      30.31|       63.09|
 |Carbon Storage                   |  87.91|   85.51|   90.30|     NA|      39.85|       56.82|
 |Coastal Protection               |  56.32|   59.92|   52.73|  -0.24|      44.38|       56.82|
@@ -3507,11 +3507,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  66.36|      NA|   69.44|     NA|         NA|          NA|
+|Index                            |  60.92|      NA|   63.72|     NA|         NA|          NA|
 |Food Provision                   |     NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |     NA|      NA|      NA|     NA|      25.08|       57.09|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.52|       63.52|
-|Aboriginal Needs                 |  90.70|   86.02|   95.39|   0.00|      25.04|       57.53|
+|Aboriginal Needs                 |  52.68|   50.00|   55.36|   0.00|      25.04|       57.53|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  89.42|   85.57|   93.27|   0.09|      45.26|       53.76|
@@ -3539,11 +3539,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  55.94|      NA|   53.87|     NA|         NA|          NA|
+|Index                            |  52.25|      NA|   49.98|     NA|         NA|          NA|
 |Food Provision                   |  14.84|   14.00|   15.67|   0.02|         NA|          NA|
 |. Fisheries                      |  14.84|   14.00|   15.67|   0.02|      26.40|       59.45|
 |. Mariculture                    |   0.00|    0.00|    0.00|   0.00|      32.09|       69.79|
-|Aboriginal Needs                 |  89.75|   84.86|   94.65|   0.00|      27.02|       61.71|
+|Aboriginal Needs                 |  52.86|   50.00|   55.72|   0.00|      27.02|       61.71|
 |Natural Products                 |   4.04|    4.27|    3.80|  -0.37|      27.75|       70.41|
 |Carbon Storage                   |  81.39|   90.02|   72.76|  -0.43|      32.39|       61.54|
 |Coastal Protection               |  58.76|   58.97|   58.55|  -0.13|      38.09|       61.54|
@@ -3571,11 +3571,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   85.09|      NA|   85.97|     NA|         NA|          NA|
+|Index                            |   75.72|      NA|   77.22|     NA|         NA|          NA|
 |Food Provision                   |   60.33|   57.00|   63.65|   0.01|         NA|          NA|
 |. Fisheries                      |   60.33|   57.00|   63.65|   0.01|      25.10|       58.15|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.03|       70.34|
-|Aboriginal Needs                 |  100.00|  100.00|  100.00|   0.00|      25.07|       62.92|
+|Aboriginal Needs                 |   53.12|   50.00|   56.25|   0.00|      25.07|       62.92|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -3603,11 +3603,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   60.92|      NA|   60.74|     NA|         NA|          NA|
+|Index                            |   57.32|      NA|   56.98|     NA|         NA|          NA|
 |Food Provision                   |   39.32|   35.99|   42.65|   0.16|         NA|          NA|
 |. Fisheries                      |   39.33|   36.00|   42.66|   0.16|      30.01|       54.15|
 |. Mariculture                    |    0.14|    0.14|    0.14|   0.00|      25.29|       47.21|
-|Aboriginal Needs                 |   88.27|   84.38|   92.16|   0.00|      27.05|       54.90|
+|Aboriginal Needs                 |   52.30|   50.00|   54.60|   0.00|      27.05|       54.90|
 |Natural Products                 |    4.59|    5.87|    3.32|  -0.80|      25.79|       55.88|
 |Carbon Storage                   |   86.90|   85.51|   88.29|     NA|      31.44|       41.28|
 |Coastal Protection               |   82.32|   81.75|   82.88|     NA|      37.07|       41.28|
@@ -3635,11 +3635,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   56.99|      NA|   56.17|     NA|         NA|          NA|
+|Index                            |   52.30|      NA|   51.65|     NA|         NA|          NA|
 |Food Provision                   |   17.54|   16.94|   18.13|  -0.02|         NA|          NA|
 |. Fisheries                      |   17.60|   17.00|   18.19|  -0.02|      30.13|       56.03|
 |. Mariculture                    |    0.05|    0.05|    0.05|   0.00|      32.63|       50.00|
-|Aboriginal Needs                 |   99.19|   98.38|  100.00|   0.00|      26.86|       55.69|
+|Aboriginal Needs                 |   52.38|   50.00|   54.76|   0.00|      26.86|       55.69|
 |Natural Products                 |    7.46|    7.24|    7.68|  -0.01|      39.92|       59.96|
 |Carbon Storage                   |   86.33|   85.51|   87.15|     NA|      36.83|       42.65|
 |Coastal Protection               |   23.68|   23.54|   23.82|     NA|      39.01|       42.65|
@@ -3667,11 +3667,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.55|      NA|   66.43|     NA|         NA|          NA|
+|Index                            |   60.11|      NA|   62.01|     NA|         NA|          NA|
 |Food Provision                   |   32.03|   31.00|   33.06|  -0.06|         NA|          NA|
 |. Fisheries                      |   32.03|   31.00|   33.06|  -0.06|      27.96|       59.44|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      33.76|       71.88|
-|Aboriginal Needs                 |   97.25|   94.50|  100.00|   0.00|      27.64|       62.30|
+|Aboriginal Needs                 |   52.86|   50.00|   55.72|   0.00|      27.64|       62.30|
 |Natural Products                 |   26.78|   25.71|   27.86|  -0.06|      28.61|       65.84|
 |Carbon Storage                   |   52.65|   50.00|   55.30|   0.00|      29.15|       61.26|
 |Coastal Protection               |   73.41|   73.63|   73.18|  -0.04|      55.66|       61.26|
@@ -3699,11 +3699,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   60.64|      NA|   61.62|     NA|         NA|          NA|
+|Index                            |   55.15|      NA|   56.02|     NA|         NA|          NA|
 |Food Provision                   |   14.73|   14.00|   15.46|   0.00|         NA|          NA|
 |. Fisheries                      |   14.73|   14.00|   15.46|   0.00|      28.54|       60.19|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      36.15|       66.67|
-|Aboriginal Needs                 |   96.54|   93.09|  100.00|   0.00|      28.52|       60.14|
+|Aboriginal Needs                 |   52.61|   50.00|   55.22|   0.00|      28.52|       60.14|
 |Natural Products                 |    7.60|    7.24|    7.96|   0.00|      29.30|       59.59|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -3731,11 +3731,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   42.51|      NA|   40.00|     NA|         NA|          NA|
+|Index                            |   39.92|      NA|   37.29|     NA|         NA|          NA|
 |Food Provision                   |   26.19|   25.00|   27.38|   0.00|         NA|          NA|
 |. Fisheries                      |   26.19|   25.00|   27.38|   0.00|      26.23|       55.03|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      28.70|       63.54|
-|Aboriginal Needs                 |   78.12|   74.66|   81.57|   0.00|      26.62|       53.73|
+|Aboriginal Needs                 |   52.24|   50.00|   54.47|   0.00|      26.62|       53.73|
 |Natural Products                 |    7.12|    6.76|    7.48|   0.00|      26.83|       59.17|
 |Carbon Storage                   |   23.96|   34.97|   12.94|  -1.00|      29.94|       42.05|
 |Coastal Protection               |   24.00|   34.97|   13.03|  -1.00|      29.12|       42.05|
@@ -3763,11 +3763,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   55.97|      NA|   55.42|     NA|         NA|          NA|
+|Index                            |   50.45|      NA|   49.71|     NA|         NA|          NA|
 |Food Provision                   |   22.52|   21.79|   23.25|  -0.02|         NA|          NA|
 |. Fisheries                      |   22.74|   22.00|   23.48|  -0.02|      28.32|       52.44|
 |. Mariculture                    |    0.18|    0.18|    0.19|   0.00|      29.88|       50.00|
-|Aboriginal Needs                 |   96.38|   92.75|  100.00|   0.00|      26.28|       52.74|
+|Aboriginal Needs                 |   52.18|   50.00|   54.37|   0.00|      26.28|       52.74|
 |Natural Products                 |   53.55|   46.60|   60.50|   0.30|      29.09|       58.77|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -3795,11 +3795,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   69.32|      NA|   69.20|     NA|         NA|          NA|
+|Index                            |   63.36|      NA|   62.95|     NA|         NA|          NA|
 |Food Provision                   |      NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |      NA|      NA|      NA|     NA|      25.41|       53.53|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.41|       47.21|
-|Aboriginal Needs                 |   94.24|   89.78|   98.69|   0.00|      25.63|       55.54|
+|Aboriginal Needs                 |   52.47|   50.00|   54.94|   0.00|      25.63|       55.54|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  100.00|  100.00|  100.00|     NA|      37.95|       41.28|
@@ -3827,11 +3827,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   61.49|      NA|   61.09|     NA|         NA|          NA|
+|Index                            |   56.53|      NA|   56.26|     NA|         NA|          NA|
 |Food Provision                   |   32.02|   31.00|   33.03|  -0.06|         NA|          NA|
 |. Fisheries                      |   32.02|   31.00|   33.03|  -0.06|      28.44|       60.48|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      39.90|       67.71|
-|Aboriginal Needs                 |   97.89|   95.78|  100.00|   0.00|      28.24|       68.14|
+|Aboriginal Needs                 |   53.29|   50.00|   56.58|   0.00|      28.24|       68.14|
 |Natural Products                 |   18.26|   17.01|   19.50|   0.01|      28.37|       69.94|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |   70.17|   72.88|   67.45|  -0.08|      56.03|       50.00|
@@ -3859,11 +3859,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   72.22|      NA|   73.15|     NA|         NA|          NA|
+|Index                            |   68.48|      NA|   69.92|     NA|         NA|          NA|
 |Food Provision                   |   15.89|   15.00|   16.77|  -0.01|         NA|          NA|
 |. Fisheries                      |   15.89|   15.00|   16.77|  -0.01|      25.22|       62.21|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.38|       74.61|
-|Aboriginal Needs                 |      NA|      NA|      NA|     NA|      25.30|       67.54|
+|Aboriginal Needs                 |   53.48|   50.00|   56.97|   0.00|      25.30|       67.54|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -3891,11 +3891,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   55.33|      NA|   54.49|     NA|         NA|          NA|
+|Index                            |   52.51|      NA|   51.53|     NA|         NA|          NA|
 |Food Provision                   |   19.45|   19.19|   19.72|  -0.10|         NA|          NA|
 |. Fisheries                      |   20.27|   20.00|   20.55|  -0.10|      28.57|       57.18|
 |. Mariculture                    |    1.17|    1.12|    1.22|  -0.01|      26.29|       55.42|
-|Aboriginal Needs                 |   80.87|   76.74|   85.00|   0.00|      26.15|       58.83|
+|Aboriginal Needs                 |   52.70|   50.00|   55.39|   0.00|      26.15|       58.83|
 |Natural Products                 |   54.73|   46.44|   63.02|   0.33|      29.09|       69.73|
 |Carbon Storage                   |   67.09|   87.30|   46.88|  -0.82|      32.09|       58.15|
 |Coastal Protection               |   40.82|   41.00|   40.63|  -0.12|      37.00|       58.15|
@@ -3923,11 +3923,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   70.14|      NA|   72.64|     NA|         NA|          NA|
+|Index                            |   63.99|      NA|   66.23|     NA|         NA|          NA|
 |Food Provision                   |   32.49|   31.00|   33.98|   0.00|         NA|          NA|
 |. Fisheries                      |   32.49|   31.00|   33.98|   0.00|      27.02|       56.13|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      28.16|       64.52|
-|Aboriginal Needs                 |   95.59|   91.18|  100.00|   0.00|      26.99|       58.14|
+|Aboriginal Needs                 |   52.57|   50.00|   55.14|   0.00|      26.99|       58.14|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -3955,11 +3955,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  63.70|      NA|   62.10|     NA|         NA|          NA|
+|Index                            |  59.24|      NA|   57.54|     NA|         NA|          NA|
 |Food Provision                   |  19.62|   18.35|   20.89|   0.09|         NA|          NA|
 |. Fisheries                      |  17.62|   16.48|   18.75|   0.09|      34.16|       58.69|
 |. Mariculture                    |  31.81|   29.73|   33.89|   0.09|      35.34|       59.46|
-|Aboriginal Needs                 |  96.85|   93.71|  100.00|   0.00|      32.49|       58.76|
+|Aboriginal Needs                 |  52.17|   50.00|   54.33|   0.00|      32.49|       58.76|
 |Natural Products                 |  22.63|   22.71|   22.54|  -0.18|      28.90|       63.53|
 |Carbon Storage                   |  64.55|   83.97|   45.12|  -0.83|      30.65|       57.95|
 |Coastal Protection               |  75.76|   80.20|   71.33|  -0.26|      38.07|       57.95|
@@ -3987,11 +3987,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   70.72|      NA|   69.74|     NA|         NA|          NA|
+|Index                            |   66.70|      NA|   65.54|     NA|         NA|          NA|
 |Food Provision                   |   34.03|   34.00|   34.05|  -0.14|         NA|          NA|
 |. Fisheries                      |   34.03|   34.00|   34.05|  -0.14|      25.75|       54.05|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.56|       50.00|
-|Aboriginal Needs                 |   92.52|   88.30|   96.74|   0.00|      25.71|       54.30|
+|Aboriginal Needs                 |   52.36|   50.00|   54.72|   0.00|      25.71|       54.30|
 |Natural Products                 |   86.36|   72.72|  100.00|   1.00|      26.83|       53.92|
 |Carbon Storage                   |   70.31|   85.51|   55.11|  -0.58|      31.81|       41.67|
 |Coastal Protection               |   63.51|   62.62|   64.40|   0.03|      38.29|       41.67|
@@ -4019,11 +4019,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   71.20|      NA|   71.55|     NA|         NA|          NA|
+|Index                            |   66.65|      NA|   67.03|     NA|         NA|          NA|
 |Food Provision                   |   21.39|   20.63|   22.16|  -0.02|         NA|          NA|
 |. Fisheries                      |   22.71|   22.00|   23.41|  -0.03|      29.41|       54.99|
 |. Mariculture                    |   16.05|   15.04|   17.06|   0.01|      29.03|       67.71|
-|Aboriginal Needs                 |   97.88|   95.75|  100.00|   0.00|      27.36|       56.67|
+|Aboriginal Needs                 |   52.42|   50.00|   54.84|   0.00|      27.36|       56.67|
 |Natural Products                 |   11.42|   11.00|   11.85|  -0.05|      27.69|       61.33|
 |Carbon Storage                   |   84.88|   82.45|   87.31|     NA|      38.15|       56.00|
 |Coastal Protection               |   84.62|   82.45|   86.79|     NA|      40.04|       56.00|
@@ -4051,11 +4051,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  73.60|      NA|   75.74|     NA|         NA|          NA|
+|Index                            |  69.47|      NA|   71.41|     NA|         NA|          NA|
 |Food Provision                   |  88.50|   77.00|  100.00|   0.35|         NA|          NA|
 |. Fisheries                      |  88.50|   77.00|  100.00|   0.35|      25.38|       53.71|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.37|       50.00|
-|Aboriginal Needs                 |  93.73|   89.44|   98.02|   0.00|      25.46|       54.38|
+|Aboriginal Needs                 |  52.39|   50.00|   54.77|   0.00|      25.46|       54.38|
 |Natural Products                 |  87.36|   74.73|  100.00|   0.70|      30.06|       54.07|
 |Carbon Storage                   |  87.01|   85.51|   88.50|     NA|      31.07|       41.67|
 |Coastal Protection               |  80.68|   80.10|   81.26|     NA|      37.30|       41.67|
@@ -4083,11 +4083,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   59.07|      NA|   60.47|     NA|         NA|          NA|
+|Index                            |   54.55|      NA|   55.69|     NA|         NA|          NA|
 |Food Provision                   |   26.38|   25.00|   27.75|   0.01|         NA|          NA|
 |. Fisheries                      |   26.38|   25.00|   27.75|   0.01|      27.11|       59.33|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      26.97|       57.29|
-|Aboriginal Needs                 |   89.19|   84.10|   94.28|   0.00|      26.66|       63.09|
+|Aboriginal Needs                 |   53.01|   50.00|   56.01|   0.00|      26.66|       63.09|
 |Natural Products                 |   16.92|   15.48|   18.35|   0.09|      27.67|       64.83|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -4115,11 +4115,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   69.14|      NA|   71.03|     NA|         NA|          NA|
+|Index                            |   64.84|      NA|   66.56|     NA|         NA|          NA|
 |Food Provision                   |   23.53|   22.63|   24.43|  -0.04|         NA|          NA|
 |. Fisheries                      |   23.92|   23.00|   24.83|  -0.04|      26.01|       57.38|
 |. Mariculture                    |    0.95|    0.89|    1.01|   0.00|      29.22|       70.83|
-|Aboriginal Needs                 |   95.56|   91.13|  100.00|   0.00|      26.50|       58.42|
+|Aboriginal Needs                 |   52.63|   50.00|   55.27|   0.00|      26.50|       58.42|
 |Natural Products                 |   23.00|   20.06|   25.94|   0.26|      26.70|       63.07|
 |Carbon Storage                   |   88.38|   85.51|   91.25|     NA|      37.01|       57.35|
 |Coastal Protection               |   78.85|   77.22|   80.47|  -0.01|      41.64|       57.35|
@@ -4147,11 +4147,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   58.85|      NA|   60.38|     NA|         NA|          NA|
+|Index                            |   54.99|      NA|   56.27|     NA|         NA|          NA|
 |Food Provision                   |   29.70|   29.58|   29.83|  -0.18|         NA|          NA|
 |. Fisheries                      |   30.13|   30.00|   30.25|  -0.18|      26.93|       66.30|
 |. Mariculture                    |    1.03|    0.97|    1.09|  -0.01|      25.73|       63.52|
-|Aboriginal Needs                 |   91.93|   86.02|   97.84|   0.00|      26.42|       67.53|
+|Aboriginal Needs                 |   53.39|   50.00|   56.78|   0.00|      26.42|       67.53|
 |Natural Products                 |    5.54|    5.84|    5.23|  -0.36|      25.73|       68.50|
 |Carbon Storage                   |   90.87|   85.59|   96.14|   0.00|      32.94|       70.30|
 |Coastal Protection               |   34.76|   31.94|   37.59|   0.09|      35.09|       70.30|
@@ -4179,11 +4179,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   61.92|      NA|   59.23|     NA|         NA|          NA|
+|Index                            |   57.59|      NA|   54.82|     NA|         NA|          NA|
 |Food Provision                   |   34.26|   32.32|   36.20|   0.04|         NA|          NA|
 |. Fisheries                      |   36.09|   34.00|   38.19|   0.04|      29.16|       57.48|
 |. Mariculture                    |   18.90|   18.20|   19.59|  -0.01|      30.14|       55.31|
-|Aboriginal Needs                 |   96.26|   92.53|  100.00|   0.00|      26.96|       62.61|
+|Aboriginal Needs                 |   52.94|   50.00|   55.88|   0.00|      26.96|       62.61|
 |Natural Products                 |   17.99|   16.42|   19.57|   0.09|      26.99|       67.36|
 |Carbon Storage                   |   62.50|   87.98|   37.01|  -1.00|      31.52|       59.00|
 |Coastal Protection               |   34.19|   36.50|   31.88|  -0.31|      33.98|       59.00|
@@ -4211,11 +4211,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  55.81|      NA|   55.59|     NA|         NA|          NA|
+|Index                            |  52.26|      NA|   51.88|     NA|         NA|          NA|
 |Food Provision                   |   2.10|    2.00|    2.20|   0.01|         NA|          NA|
 |. Fisheries                      |   2.10|    2.00|    2.20|   0.01|      25.49|       53.73|
 |. Mariculture                    |   0.00|    0.00|    0.00|   0.00|      25.46|       50.00|
-|Aboriginal Needs                 |  87.84|   83.81|   91.86|   0.00|      25.56|       54.26|
+|Aboriginal Needs                 |  52.37|   50.00|   54.74|   0.00|      25.56|       54.26|
 |Natural Products                 |  19.61|   19.27|   19.96|  -0.04|      35.53|       53.58|
 |Carbon Storage                   |  93.18|   86.36|  100.00|   0.94|      30.72|       41.67|
 |Coastal Protection               |  73.99|   71.85|   76.14|   0.07|      36.84|       41.67|
@@ -4243,11 +4243,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  68.99|      NA|   70.50|     NA|         NA|          NA|
+|Index                            |  62.35|      NA|   63.97|     NA|         NA|          NA|
 |Food Provision                   |  25.85|   25.00|   26.71|  -0.03|         NA|          NA|
 |. Fisheries                      |  25.85|   25.00|   26.71|  -0.03|      28.06|       54.83|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      34.66|       50.00|
-|Aboriginal Needs                 |  98.62|   97.24|  100.00|   0.00|      28.14|       54.33|
+|Aboriginal Needs                 |  52.16|   50.00|   54.32|   0.00|      28.14|       54.33|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -4275,11 +4275,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  54.38|      NA|   53.05|     NA|         NA|          NA|
+|Index                            |  48.82|      NA|   47.30|     NA|         NA|          NA|
 |Food Provision                   |  24.02|   23.41|   24.64|  -0.03|         NA|          NA|
 |. Fisheries                      |  24.63|   24.00|   25.26|  -0.03|      29.87|       51.82|
 |. Mariculture                    |   5.98|    5.80|    6.16|   0.02|      30.34|       45.50|
-|Aboriginal Needs                 |  96.44|   92.88|  100.00|   0.00|      27.27|       51.24|
+|Aboriginal Needs                 |  51.98|   50.00|   53.96|   0.00|      27.27|       51.24|
 |Natural Products                 |  16.39|   16.50|   16.28|  -0.07|      39.53|       50.47|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -4307,11 +4307,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   66.57|      NA|   58.45|     NA|         NA|          NA|
+|Index                            |   61.64|      NA|   53.47|     NA|         NA|          NA|
 |Food Provision                   |    1.05|    1.00|    1.10|   0.00|         NA|          NA|
 |. Fisheries                      |    1.05|    1.00|    1.10|   0.00|      26.94|       58.60|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      29.28|       63.13|
-|Aboriginal Needs                 |   96.98|   93.97|  100.00|   0.00|      26.62|       57.93|
+|Aboriginal Needs                 |   52.58|   50.00|   55.17|   0.00|      26.62|       57.93|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |   68.75|  100.00|   37.51|  -1.00|      38.40|       52.06|
 |Coastal Protection               |   68.25|  100.00|   36.49|  -1.00|      41.48|       52.06|
@@ -4339,11 +4339,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   69.45|      NA|   71.79|     NA|         NA|          NA|
+|Index                            |   64.34|      NA|   66.43|     NA|         NA|          NA|
 |Food Provision                   |   50.29|   47.98|   52.59|   0.01|         NA|          NA|
 |. Fisheries                      |   50.31|   48.00|   52.62|   0.01|      30.14|       57.83|
 |. Mariculture                    |    0.11|    0.10|    0.11|   0.00|      33.48|       64.09|
-|Aboriginal Needs                 |   93.29|   89.06|   97.52|   0.00|      28.81|       57.24|
+|Aboriginal Needs                 |   52.35|   50.00|   54.69|   0.00|      28.81|       57.24|
 |Natural Products                 |   32.61|   30.87|   34.35|   0.00|      29.09|       62.74|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -4371,11 +4371,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   58.25|      NA|   57.68|     NA|         NA|          NA|
+|Index                            |   55.40|      NA|   54.68|     NA|         NA|          NA|
 |Food Provision                   |   27.46|   27.63|   27.29|  -0.16|         NA|          NA|
 |. Fisheries                      |   27.97|   28.14|   27.80|  -0.16|      28.38|       57.56|
 |. Mariculture                    |    0.17|    0.16|    0.18|   0.00|      28.41|       66.67|
-|Aboriginal Needs                 |   81.20|   76.98|   85.43|   0.00|      26.36|       58.99|
+|Aboriginal Needs                 |   52.69|   50.00|   55.38|   0.00|      26.36|       58.99|
 |Natural Products                 |    0.88|    0.82|    0.94|   0.00|      26.95|       69.03|
 |Carbon Storage                   |   96.96|   97.46|   96.47|  -0.15|      30.17|       58.11|
 |Coastal Protection               |   69.72|   71.49|   67.95|  -0.18|      36.66|       58.11|
@@ -4403,11 +4403,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   51.62|      NA|   49.88|     NA|         NA|          NA|
+|Index                            |   47.27|      NA|   45.37|     NA|         NA|          NA|
 |Food Provision                   |    0.31|    0.30|    0.32|   0.00|         NA|          NA|
 |. Fisheries                      |    0.00|    0.00|    0.00|   0.00|      30.84|       56.48|
 |. Mariculture                    |    7.94|    7.60|    8.28|   0.04|      27.10|       46.25|
-|Aboriginal Needs                 |   95.88|   91.77|  100.00|   0.00|      27.35|       56.81|
+|Aboriginal Needs                 |   52.43|   50.00|   54.86|   0.00|      27.35|       56.81|
 |Natural Products                 |    0.00|    0.00|    0.00|   0.00|      26.77|       59.76|
 |Carbon Storage                   |   79.22|   89.77|   68.67|  -0.44|      29.73|       47.12|
 |Coastal Protection               |   48.79|   51.83|   45.76|  -0.24|      34.55|       47.12|
@@ -4435,11 +4435,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   58.38|      NA|   57.43|     NA|         NA|          NA|
+|Index                            |   52.77|      NA|   51.87|     NA|         NA|          NA|
 |Food Provision                   |   21.90|   20.99|   22.80|  -0.02|         NA|          NA|
 |. Fisheries                      |   21.91|   21.00|   22.81|  -0.02|      26.39|       57.15|
 |. Mariculture                    |   15.84|   14.88|   16.80|   0.05|      26.24|       55.31|
-|Aboriginal Needs                 |   97.63|   95.26|  100.00|   0.00|      25.83|       59.34|
+|Aboriginal Needs                 |   52.76|   50.00|   55.53|   0.00|      25.83|       59.34|
 |Natural Products                 |    4.60|    4.41|    4.79|  -0.05|      26.55|       62.82|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -4467,11 +4467,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  72.57|      NA|   74.11|     NA|         NA|          NA|
+|Index                            |  67.60|      NA|   68.91|     NA|         NA|          NA|
 |Food Provision                   |  83.47|   70.00|   96.95|   0.44|         NA|          NA|
 |. Fisheries                      |  83.47|   70.00|   96.95|   0.44|      25.68|       53.30|
 |. Mariculture                    |   0.00|    0.00|    0.00|   0.00|      25.32|       50.00|
-|Aboriginal Needs                 |  92.08|   87.92|   96.24|   0.00|      25.89|       54.38|
+|Aboriginal Needs                 |  52.35|   50.00|   54.70|   0.00|      25.89|       54.38|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  96.26|   96.41|   96.10|     NA|      42.64|       41.67|
@@ -4499,11 +4499,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   72.87|      NA|   74.21|     NA|         NA|          NA|
+|Index                            |   68.31|      NA|   69.82|     NA|         NA|          NA|
 |Food Provision                   |   23.25|   22.06|   24.43|   0.03|         NA|          NA|
 |. Fisheries                      |   21.09|   20.00|   22.19|   0.03|      31.80|       58.57|
 |. Mariculture                    |   28.85|   27.42|   30.27|   0.02|      38.44|       65.83|
-|Aboriginal Needs                 |   98.64|   97.28|  100.00|   0.00|      29.11|       66.20|
+|Aboriginal Needs                 |   53.06|   50.00|   56.12|   0.00|      29.11|       66.20|
 |Natural Products                 |   24.18|   22.57|   25.80|   0.02|      29.27|       67.94|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.50|      32.01|       70.72|
 |Coastal Protection               |  100.00|  100.00|  100.00|   0.50|      31.24|       70.72|
@@ -4531,11 +4531,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   67.47|      NA|   64.23|     NA|         NA|          NA|
+|Index                            |   63.49|      NA|   60.06|     NA|         NA|          NA|
 |Food Provision                   |   71.12|   67.00|   75.24|   0.03|         NA|          NA|
 |. Fisheries                      |   79.76|   75.00|   84.52|   0.06|      27.32|       54.46|
 |. Mariculture                    |   15.91|   15.88|   15.95|  -0.12|      25.65|       51.22|
-|Aboriginal Needs                 |   92.25|   87.94|   96.55|   0.00|      25.52|       54.95|
+|Aboriginal Needs                 |   52.43|   50.00|   54.86|   0.00|      25.52|       54.95|
 |Natural Products                 |   67.24|   66.37|   68.10|  -0.12|      25.96|       58.81|
 |Carbon Storage                   |   50.19|   73.41|   26.97|  -1.00|      31.20|       42.55|
 |Coastal Protection               |   59.08|   60.80|   57.37|  -0.10|      38.95|       42.55|
@@ -4563,11 +4563,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   70.36|      NA|   70.89|     NA|         NA|          NA|
+|Index                            |   65.76|      NA|   66.44|     NA|         NA|          NA|
 |Food Provision                   |   43.73|   42.92|   44.54|  -0.02|         NA|          NA|
 |. Fisheries                      |   25.41|   24.35|   26.48|  -0.03|      27.96|       61.24|
 |. Mariculture                    |  100.00|  100.00|  100.00|   0.00|      29.01|       59.89|
-|Aboriginal Needs                 |   98.69|   97.39|  100.00|   0.00|      26.81|       59.97|
+|Aboriginal Needs                 |   52.74|   50.00|   55.47|   0.00|      26.81|       59.97|
 |Natural Products                 |   21.41|   20.17|   22.66|   0.02|      27.36|       61.51|
 |Carbon Storage                   |   76.49|   77.71|   75.27|  -0.21|      28.15|       60.30|
 |Coastal Protection               |   62.13|   61.69|   62.57|  -0.14|      27.71|       60.30|
@@ -4595,11 +4595,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   47.06|      NA|   47.73|     NA|         NA|          NA|
+|Index                            |   43.25|      NA|   43.72|     NA|         NA|          NA|
 |Food Provision                   |   18.04|   17.08|   19.00|   0.04|         NA|          NA|
 |. Fisheries                      |   20.23|   19.00|   21.46|   0.06|      28.96|       56.63|
 |. Mariculture                    |   15.46|   14.82|   16.10|   0.03|      30.45|       50.62|
-|Aboriginal Needs                 |   90.77|   86.13|   95.40|   0.00|      26.65|       58.95|
+|Aboriginal Needs                 |   52.66|   50.00|   55.33|   0.00|      26.65|       58.95|
 |Natural Products                 |    6.83|    6.49|    7.17|   0.01|      33.52|       63.05|
 |Carbon Storage                   |    5.51|    7.94|    3.08|  -1.00|      35.95|       53.30|
 |Coastal Protection               |    8.73|    9.21|    8.26|  -0.22|      39.08|       53.30|
@@ -4627,11 +4627,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   48.23|      NA|   47.53|     NA|         NA|          NA|
+|Index                            |   44.70|      NA|   43.90|     NA|         NA|          NA|
 |Food Provision                   |   15.41|   15.00|   15.83|   0.01|         NA|          NA|
 |. Fisheries                      |   15.41|   15.00|   15.83|   0.01|      38.89|       53.27|
 |. Mariculture                    |    0.00|    0.00|    0.00|   0.00|      29.78|       48.33|
-|Aboriginal Needs                 |   86.67|   84.20|   89.14|   0.00|      34.82|       52.05|
+|Aboriginal Needs                 |   51.42|   50.00|   52.84|   0.00|      34.82|       52.05|
 |Natural Products                 |    0.24|    0.23|    0.25|   0.00|      28.41|       56.06|
 |Carbon Storage                   |   99.96|   99.91|  100.00|  -0.01|      34.64|       42.09|
 |Coastal Protection               |   27.89|   27.83|   27.95|  -0.01|      38.67|       42.09|
@@ -4659,11 +4659,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.89|      NA|   65.10|     NA|         NA|          NA|
+|Index                            |   60.08|      NA|   60.19|     NA|         NA|          NA|
 |Food Provision                   |   20.89|   20.00|   21.79|  -0.03|         NA|          NA|
 |. Fisheries                      |   20.89|   20.00|   21.79|  -0.03|      25.44|       58.94|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.43|       59.89|
-|Aboriginal Needs                 |   96.25|   92.50|  100.00|   0.00|      25.66|       60.88|
+|Aboriginal Needs                 |   52.91|   50.00|   55.81|   0.00|      25.66|       60.88|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |   52.60|   50.00|   55.21|   0.00|      26.77|       58.33|
 |Coastal Protection               |   81.99|   90.02|   73.96|  -0.36|      39.61|       58.33|
@@ -4691,11 +4691,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  68.37|      NA|   69.56|     NA|         NA|          NA|
+|Index                            |  61.79|      NA|   63.25|     NA|         NA|          NA|
 |Food Provision                   |  11.64|   11.00|   12.29|   0.01|         NA|          NA|
 |. Fisheries                      |  11.64|   11.00|   12.29|   0.01|      25.42|       59.10|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.63|       74.61|
-|Aboriginal Needs                 |  98.94|   97.87|  100.00|   0.00|      25.57|       60.63|
+|Aboriginal Needs                 |  52.89|   50.00|   55.78|   0.00|      25.57|       60.63|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -4723,11 +4723,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   53.93|      NA|   53.41|     NA|         NA|          NA|
+|Index                            |   48.82|      NA|   48.35|     NA|         NA|          NA|
 |Food Provision                   |   17.53|   16.85|   18.22|   0.00|         NA|          NA|
 |. Fisheries                      |   17.68|   17.00|   18.36|   0.00|      31.85|       56.07|
 |. Mariculture                    |   14.90|   14.15|   15.66|   0.00|      27.98|       60.31|
-|Aboriginal Needs                 |   98.18|   96.37|  100.00|   0.00|      28.97|       55.96|
+|Aboriginal Needs                 |   52.23|   50.00|   54.45|   0.00|      28.97|       55.96|
 |Natural Products                 |   17.20|   20.67|   13.73|  -0.69|      29.21|       67.26|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  100.00|  100.00|  100.00|   0.03|      45.67|       50.00|
@@ -4755,11 +4755,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  61.72|      NA|   61.29|     NA|         NA|          NA|
+|Index                            |  56.67|      NA|   56.22|     NA|         NA|          NA|
 |Food Provision                   |   8.93|    8.49|    9.36|   0.04|         NA|          NA|
 |. Fisheries                      |   8.93|    8.49|    9.36|   0.04|      29.07|       52.55|
 |. Mariculture                    |   0.43|    0.43|    0.43|   0.00|      25.87|       30.27|
-|Aboriginal Needs                 |  97.61|   95.21|  100.00|   0.00|      26.68|       53.41|
+|Aboriginal Needs                 |  52.21|   50.00|   54.41|   0.00|      26.68|       53.41|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  90.92|   91.28|   90.56|     NA|      32.91|       30.51|
 |Coastal Protection               |  44.26|   45.24|   43.28|  -0.02|      38.62|       30.51|
@@ -4787,11 +4787,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   80.32|      NA|   82.16|     NA|         NA|          NA|
+|Index                            |   74.75|      NA|   76.59|     NA|         NA|          NA|
 |Food Provision                   |      NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |      NA|      NA|      NA|     NA|      27.76|       58.75|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      29.53|       63.13|
-|Aboriginal Needs                 |   97.28|   94.56|  100.00|   0.00|      26.76|       59.81|
+|Aboriginal Needs                 |   52.73|   50.00|   55.45|   0.00|      26.76|       59.81|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      38.98|       54.80|
 |Coastal Protection               |   33.30|   32.33|   34.27|   0.04|      44.02|       54.80|
@@ -4819,11 +4819,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   71.43|      NA|   73.53|     NA|         NA|          NA|
+|Index                            |   66.25|      NA|   68.60|     NA|         NA|          NA|
 |Food Provision                   |   58.28|   57.43|   59.12|   0.00|         NA|          NA|
 |. Fisheries                      |   32.37|   31.00|   33.74|  -0.01|      30.77|       59.04|
 |. Mariculture                    |  100.00|  100.00|  100.00|   0.00|      26.64|       63.42|
-|Aboriginal Needs                 |   99.46|   98.93|  100.00|   0.00|      27.57|       61.91|
+|Aboriginal Needs                 |   52.83|   50.00|   55.67|   0.00|      27.57|       61.91|
 |Natural Products                 |   22.50|   20.51|   24.48|   0.10|      27.73|       65.16|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |   81.26|   82.19|   80.32|  -0.02|      52.28|       50.00|
@@ -4851,11 +4851,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  54.69|      NA|   49.01|     NA|         NA|          NA|
+|Index                            |  49.17|      NA|   43.30|     NA|         NA|          NA|
 |Food Provision                   |     NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |     NA|      NA|      NA|     NA|      28.53|       54.14|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      30.01|       50.00|
-|Aboriginal Needs                 |  96.33|   92.66|  100.00|   0.00|      27.64|       54.04|
+|Aboriginal Needs                 |  52.18|   50.00|   54.36|   0.00|      27.64|       54.04|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  28.80|   42.35|   15.24|  -1.00|      29.62|       38.66|
 |Coastal Protection               |  54.45|   80.78|   28.11|  -1.00|      37.00|       42.44|
@@ -4883,11 +4883,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   66.27|      NA|   66.09|     NA|         NA|          NA|
+|Index                            |   61.28|      NA|   61.06|     NA|         NA|          NA|
 |Food Provision                   |   32.87|   31.98|   33.76|  -0.05|         NA|          NA|
 |. Fisheries                      |   32.89|   32.00|   33.78|  -0.05|      26.65|       53.68|
 |. Mariculture                    |    0.15|    0.15|    0.16|   0.00|      27.37|       50.00|
-|Aboriginal Needs                 |   97.21|   94.42|  100.00|   0.00|      26.28|       54.44|
+|Aboriginal Needs                 |   52.32|   50.00|   54.65|   0.00|      26.28|       54.44|
 |Natural Products                 |   35.35|   30.88|   39.82|   0.28|      27.23|       58.25|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|      27.92|       39.29|
 |Coastal Protection               |   98.66|   98.45|   98.86|     NA|      41.62|       42.86|
@@ -4915,11 +4915,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  46.48|      NA|   42.65|     NA|         NA|          NA|
+|Index                            |  42.61|      NA|   38.60|     NA|         NA|          NA|
 |Food Provision                   |  27.02|   25.99|   28.05|  -0.02|         NA|          NA|
 |. Fisheries                      |  27.03|   26.00|   28.06|  -0.02|      28.52|       56.33|
 |. Mariculture                    |   0.01|    0.01|    0.01|   0.00|      30.72|       57.81|
-|Aboriginal Needs                 |  91.03|   86.79|   95.28|   0.00|      27.40|       56.80|
+|Aboriginal Needs                 |  52.43|   50.00|   54.85|   0.00|      27.40|       56.80|
 |Natural Products                 |  10.99|   10.37|   11.61|   0.01|      27.47|       61.91|
 |Carbon Storage                   |  31.37|   45.51|   17.24|  -1.00|      29.43|       44.23|
 |Coastal Protection               |  31.43|   45.51|   17.35|  -1.00|      28.69|       44.23|
@@ -4947,11 +4947,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   68.95|      NA|   68.76|     NA|         NA|          NA|
+|Index                            |   64.61|      NA|   64.29|     NA|         NA|          NA|
 |Food Provision                   |   89.42|   78.93|   99.91|   0.38|         NA|          NA|
 |. Fisheries                      |   89.50|   79.00|  100.00|   0.38|      28.03|       57.37|
 |. Mariculture                    |    2.21|    2.06|    2.35|   0.01|      25.57|       65.62|
-|Aboriginal Needs                 |   96.07|   92.14|  100.00|   0.00|      25.89|       58.10|
+|Aboriginal Needs                 |   52.66|   50.00|   55.31|   0.00|      25.89|       58.10|
 |Natural Products                 |   58.03|   46.30|   69.75|   0.60|      31.27|       62.92|
 |Carbon Storage                   |   64.03|   86.42|   41.63|  -0.87|      32.16|       52.65|
 |Coastal Protection               |   53.68|   54.77|   52.60|  -0.13|      37.26|       52.65|
@@ -4979,11 +4979,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   65.68|      NA|   64.41|     NA|         NA|          NA|
+|Index                            |   63.59|      NA|   63.06|     NA|         NA|          NA|
 |Food Provision                   |   12.56|   12.00|   13.13|   0.00|         NA|          NA|
 |. Fisheries                      |   12.56|   12.00|   13.13|   0.00|      25.06|       53.53|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.23|       30.27|
-|Aboriginal Needs                 |      NA|      NA|      NA|     NA|      25.05|       63.11|
+|Aboriginal Needs                 |   53.14|   50.00|   56.28|   0.00|      25.05|       63.11|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |   74.92|   74.30|   75.53|     NA|      40.35|       45.37|
@@ -5011,11 +5011,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   54.27|      NA|   53.10|     NA|         NA|          NA|
+|Index                            |   49.94|      NA|   48.68|     NA|         NA|          NA|
 |Food Provision                   |   35.19|   34.28|   36.11|  -0.07|         NA|          NA|
 |. Fisheries                      |   35.93|   35.00|   36.87|  -0.07|      29.32|       59.10|
 |. Mariculture                    |    5.65|    5.42|    5.88|  -0.02|      28.41|       58.33|
-|Aboriginal Needs                 |   96.26|   92.51|  100.00|   0.00|      26.73|       61.60|
+|Aboriginal Needs                 |   52.88|   50.00|   55.75|   0.00|      26.73|       61.60|
 |Natural Products                 |    8.56|    8.33|    8.79|  -0.10|      26.73|       64.33|
 |Carbon Storage                   |   24.29|   34.32|   14.27|  -1.00|      30.70|       56.67|
 |Coastal Protection               |   29.39|   33.11|   25.67|  -0.45|      33.51|       56.67|
@@ -5043,11 +5043,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   61.57|      NA|   63.04|     NA|         NA|          NA|
+|Index                            |   57.94|      NA|   59.24|     NA|         NA|          NA|
 |Food Provision                   |   87.05|   74.99|   99.11|   0.35|         NA|          NA|
 |. Fisheries                      |   87.06|   75.00|   99.12|   0.35|      28.70|       54.50|
 |. Mariculture                    |    0.03|    0.03|    0.03|   0.00|      26.10|       50.00|
-|Aboriginal Needs                 |   88.60|   84.59|   92.62|   0.00|      26.43|       54.58|
+|Aboriginal Needs                 |   52.32|   50.00|   54.64|   0.00|      26.43|       54.58|
 |Natural Products                 |   13.01|   12.62|   13.40|  -0.06|      27.66|       58.90|
 |Carbon Storage                   |   79.62|   71.32|   87.93|   0.29|      31.19|       42.12|
 |Coastal Protection               |   52.98|   52.58|   53.38|   0.00|      37.04|       42.12|
@@ -5075,11 +5075,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  57.32|      NA|   54.35|     NA|         NA|          NA|
+|Index                            |  52.90|      NA|   49.86|     NA|         NA|          NA|
 |Food Provision                   |  67.48|   63.63|   71.33|   0.05|         NA|          NA|
 |. Fisheries                      |  67.87|   64.00|   71.73|   0.05|      28.28|       55.60|
 |. Mariculture                    |  26.83|   24.70|   28.96|   0.13|      29.81|       55.73|
-|Aboriginal Needs                 |  96.65|   93.31|  100.00|   0.00|      26.97|       57.81|
+|Aboriginal Needs                 |  52.54|   50.00|   55.09|   0.00|      26.97|       57.81|
 |Natural Products                 |  63.30|   60.51|   66.10|  -0.03|      26.19|       60.31|
 |Carbon Storage                   |  37.66|   54.22|   21.11|  -1.00|      28.74|       46.72|
 |Coastal Protection               |  37.72|   54.22|   21.22|  -1.00|      28.12|       46.72|
@@ -5107,11 +5107,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  57.11|      NA|   54.63|     NA|         NA|          NA|
+|Index                            |  53.09|      NA|   50.45|     NA|         NA|          NA|
 |Food Provision                   |  17.20|   16.16|   18.24|   0.07|         NA|          NA|
 |. Fisheries                      |  18.16|   17.00|   19.33|   0.09|      35.79|       58.46|
 |. Mariculture                    |  13.38|   12.83|   13.92|   0.00|      29.02|       54.63|
-|Aboriginal Needs                 |  92.25|   88.43|   96.06|   0.00|      33.38|       59.14|
+|Aboriginal Needs                 |  52.13|   50.00|   54.25|   0.00|      33.38|       59.14|
 |Natural Products                 |  90.74|   81.48|  100.00|   0.30|      29.53|       68.60|
 |Carbon Storage                   |  63.38|   89.66|   37.10|  -0.99|      35.08|       58.22|
 |Coastal Protection               |  54.64|   56.48|   52.80|  -0.18|      40.52|       58.22|
@@ -5139,11 +5139,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   84.23|      NA|   84.43|     NA|         NA|          NA|
+|Index                            |   78.29|      NA|   78.24|     NA|         NA|          NA|
 |Food Provision                   |      NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |      NA|      NA|      NA|     NA|      25.14|       59.07|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.21|       47.21|
-|Aboriginal Needs                 |   94.89|   89.78|  100.00|   0.00|      25.19|       65.79|
+|Aboriginal Needs                 |   53.35|   50.00|   56.70|   0.00|      25.19|       65.79|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  100.00|  100.00|  100.00|     NA|      40.59|       57.95|
@@ -5171,11 +5171,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   66.60|      NA|   68.24|     NA|         NA|          NA|
+|Index                            |   61.31|      NA|   62.71|     NA|         NA|          NA|
 |Food Provision                   |   15.87|   15.00|   16.74|   0.01|         NA|          NA|
 |. Fisheries                      |   15.87|   15.00|   16.74|   0.01|      25.07|       58.49|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.18|       62.85|
-|Aboriginal Needs                 |   95.17|   90.34|  100.00|   0.00|      25.08|       59.98|
+|Aboriginal Needs                 |   52.88|   50.00|   55.76|   0.00|      25.08|       59.98|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  100.00|  100.00|  100.00|     NA|      39.30|       52.68|
@@ -5203,11 +5203,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   57.33|      NA|   57.41|     NA|         NA|          NA|
+|Index                            |   52.88|      NA|   53.06|     NA|         NA|          NA|
 |Food Provision                   |   31.25|   30.00|   32.50|  -0.04|         NA|          NA|
 |. Fisheries                      |   31.25|   30.00|   32.50|  -0.04|      28.55|       61.07|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      41.23|       60.10|
-|Aboriginal Needs                 |   97.78|   95.55|  100.00|   0.00|      28.51|       67.50|
+|Aboriginal Needs                 |   53.22|   50.00|   56.43|   0.00|      28.51|       67.50|
 |Natural Products                 |   36.22|   30.94|   41.50|   0.31|      28.83|       69.30|
 |Carbon Storage                   |   67.16|   63.55|   70.77|   0.00|      34.85|       69.31|
 |Coastal Protection               |    4.19|    4.08|    4.29|   0.00|      54.84|       69.31|
@@ -5235,11 +5235,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   71.24|      NA|   73.65|     NA|         NA|          NA|
+|Index                            |   65.60|      NA|   68.01|     NA|         NA|          NA|
 |Food Provision                   |   25.14|   23.94|   26.33|   0.02|         NA|          NA|
 |. Fisheries                      |   26.25|   25.00|   27.50|   0.02|      30.11|       56.32|
 |. Mariculture                    |    4.38|    4.18|    4.59|   0.00|      35.04|       64.52|
-|Aboriginal Needs                 |   97.61|   95.21|  100.00|   0.00|      28.49|       58.33|
+|Aboriginal Needs                 |   52.46|   50.00|   54.92|   0.00|      28.49|       58.33|
 |Natural Products                 |   40.33|   37.48|   43.17|   0.05|      28.46|       64.88|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -5267,11 +5267,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   84.20|      NA|   84.56|     NA|         NA|          NA|
+|Index                            |   74.90|      NA|   75.96|     NA|         NA|          NA|
 |Food Provision                   |   32.53|   31.00|   34.06|  -0.03|         NA|          NA|
 |. Fisheries                      |   32.53|   31.00|   34.06|  -0.03|      25.05|       61.08|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      29.18|       56.31|
-|Aboriginal Needs                 |  100.00|  100.00|  100.00|   0.00|      25.32|       67.80|
+|Aboriginal Needs                 |   53.50|   50.00|   57.01|   0.00|      25.32|       67.80|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -5299,11 +5299,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   60.89|      NA|   60.48|     NA|         NA|          NA|
+|Index                            |   55.88|      NA|   55.41|     NA|         NA|          NA|
 |Food Provision                   |    7.57|    7.20|    7.93|   0.02|         NA|          NA|
 |. Fisheries                      |    7.57|    7.20|    7.93|   0.02|      26.97|       53.03|
 |. Mariculture                    |    0.00|    0.00|    0.00|   0.00|      27.61|       38.13|
-|Aboriginal Needs                 |   97.27|   94.55|  100.00|   0.00|      26.62|       53.39|
+|Aboriginal Needs                 |   52.21|   50.00|   54.42|   0.00|      26.62|       53.39|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.72|      38.28|       36.90|
 |Coastal Protection               |   36.09|   35.33|   36.85|   0.10|      44.45|       36.90|
@@ -5331,11 +5331,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  61.84|      NA|   62.18|     NA|         NA|          NA|
+|Index                            |  57.10|      NA|   57.71|     NA|         NA|          NA|
 |Food Provision                   |  27.14|   26.00|   28.27|  -0.03|         NA|          NA|
 |. Fisheries                      |  27.14|   26.00|   28.27|  -0.03|      27.50|       59.19|
 |. Mariculture                    |   0.00|    0.00|    0.00|   0.00|      31.80|       62.50|
-|Aboriginal Needs                 |  99.96|   99.92|  100.00|   0.00|      26.88|       58.61|
+|Aboriginal Needs                 |  52.62|   50.00|   55.24|   0.00|      26.88|       58.61|
 |Natural Products                 |  92.81|   87.64|   97.99|   0.00|      27.85|       63.63|
 |Carbon Storage                   |  88.28|   85.58|   90.99|   0.00|      36.89|       56.07|
 |Coastal Protection               |  32.82|   32.04|   33.61|   0.00|      41.24|       56.07|
@@ -5363,11 +5363,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  72.20|      NA|   75.77|     NA|         NA|          NA|
+|Index                            |  67.45|      NA|   70.77|     NA|         NA|          NA|
 |Food Provision                   |  31.93|   31.38|   32.47|  -0.10|         NA|          NA|
 |. Fisheries                      |  32.56|   32.00|   33.12|  -0.10|      26.68|       56.98|
 |. Mariculture                    |   0.22|    0.21|    0.24|   0.00|      25.85|       63.52|
-|Aboriginal Needs                 |  90.74|   86.02|   95.46|   0.00|      26.33|       59.05|
+|Aboriginal Needs                 |  52.70|   50.00|   55.40|   0.00|      26.33|       59.05|
 |Natural Products                 |    NaN|     NaN|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  88.93|   85.57|   92.28|   0.09|      51.00|       55.99|
@@ -5395,11 +5395,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  54.80|      NA|   52.98|     NA|         NA|          NA|
+|Index                            |  50.02|      NA|   47.95|     NA|         NA|          NA|
 |Food Provision                   |  24.19|   23.00|   25.39|   0.01|         NA|          NA|
 |. Fisheries                      |  24.19|   23.00|   25.39|   0.01|      28.05|       56.60|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      26.56|       50.00|
-|Aboriginal Needs                 |  90.83|   86.30|   95.36|   0.00|      27.53|       58.91|
+|Aboriginal Needs                 |  52.59|   50.00|   55.18|   0.00|      27.53|       58.91|
 |Natural Products                 |    NaN|     NaN|     NaN|    NaN|      26.24|       60.82|
 |Carbon Storage                   |  28.15|   40.00|   16.29|  -1.00|      29.20|       52.62|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -5427,11 +5427,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   63.70|      NA|   64.08|     NA|         NA|          NA|
+|Index                            |   58.27|      NA|   58.68|     NA|         NA|          NA|
 |Food Provision                   |   44.58|   43.00|   46.16|  -0.05|         NA|          NA|
 |. Fisheries                      |   44.58|   43.00|   46.16|  -0.05|      26.08|       58.49|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      35.03|       58.33|
-|Aboriginal Needs                 |   96.78|   93.56|  100.00|   0.00|      26.67|       67.81|
+|Aboriginal Needs                 |   53.39|   50.00|   56.79|   0.00|      26.67|       67.81|
 |Natural Products                 |   26.24|   25.99|   26.49|  -0.10|      42.96|       69.71|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -5459,11 +5459,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   67.32|      NA|   69.09|     NA|         NA|          NA|
+|Index                            |   62.81|      NA|   64.65|     NA|         NA|          NA|
 |Food Provision                   |   16.62|   15.78|   17.46|   0.01|         NA|          NA|
 |. Fisheries                      |   16.64|   15.80|   17.48|   0.01|      26.58|       57.05|
 |. Mariculture                    |    2.90|    2.74|    3.07|   0.03|      25.86|       56.98|
-|Aboriginal Needs                 |   97.89|   95.79|  100.00|   0.00|      25.81|       59.41|
+|Aboriginal Needs                 |   52.77|   50.00|   55.54|   0.00|      25.81|       59.41|
 |Natural Products                 |    0.88|    0.83|    0.93|   0.00|      25.93|       63.66|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      29.89|       57.71|
 |Coastal Protection               |   95.63|   92.68|   98.59|  -0.01|      36.75|       57.71|
@@ -5491,11 +5491,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   89.48|      NA|   89.96|     NA|         NA|          NA|
+|Index                            |   84.65|      NA|   85.02|     NA|         NA|          NA|
 |Food Provision                   |      NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |      NA|      NA|      NA|     NA|      25.96|       58.24|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      28.43|       63.13|
-|Aboriginal Needs                 |   96.24|   92.48|  100.00|   0.00|      26.06|       60.00|
+|Aboriginal Needs                 |   52.80|   50.00|   55.60|   0.00|      26.06|       60.00|
 |Natural Products                 |   97.07|   94.14|  100.00|   0.07|      29.60|       62.98|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      37.93|       54.77|
 |Coastal Protection               |   99.60|   99.20|  100.00|   0.03|      42.41|       54.77|
@@ -5523,11 +5523,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  62.26|      NA|   64.00|     NA|         NA|          NA|
+|Index                            |  56.98|      NA|   58.44|     NA|         NA|          NA|
 |Food Provision                   |  16.83|   16.00|   17.66|  -0.01|         NA|          NA|
 |. Fisheries                      |  16.83|   16.00|   17.66|  -0.01|      25.47|       59.23|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.38|       70.34|
-|Aboriginal Needs                 |  95.06|   90.11|  100.00|   0.00|      25.72|       59.25|
+|Aboriginal Needs                 |  52.77|   50.00|   55.53|   0.00|      25.72|       59.25|
 |Natural Products                 |  90.54|   86.00|   95.09|  -0.03|      25.84|       62.96|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -5555,11 +5555,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   65.56|      NA|   65.38|     NA|         NA|          NA|
+|Index                            |   60.55|      NA|   60.35|     NA|         NA|          NA|
 |Food Provision                   |    3.15|    3.00|    3.31|   0.01|         NA|          NA|
 |. Fisheries                      |    3.15|    3.00|    3.31|   0.01|      26.46|       56.03|
 |. Mariculture                    |    0.00|    0.00|    0.00|   0.00|      29.15|       50.00|
-|Aboriginal Needs                 |   97.46|   94.92|  100.00|   0.00|      26.36|       55.03|
+|Aboriginal Needs                 |   52.37|   50.00|   54.73|   0.00|      26.36|       55.03|
 |Natural Products                 |     NaN|     NaN|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      38.80|       41.67|
 |Coastal Protection               |   43.61|   43.74|   43.49|     NA|      43.36|       41.67|
@@ -5587,11 +5587,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   57.30|      NA|   57.59|     NA|         NA|          NA|
+|Index                            |   52.90|      NA|   53.13|     NA|         NA|          NA|
 |Food Provision                   |    2.12|    2.00|    2.24|   0.01|         NA|          NA|
 |. Fisheries                      |    2.12|    2.00|    2.24|   0.01|      26.49|       59.77|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      29.26|       70.83|
-|Aboriginal Needs                 |   96.68|   93.37|  100.00|   0.00|      26.56|       59.30|
+|Aboriginal Needs                 |   52.70|   50.00|   55.40|   0.00|      26.56|       59.30|
 |Natural Products                 |   39.58|   38.13|   41.03|  -0.09|      30.38|       72.21|
 |Carbon Storage                   |   26.21|   25.28|   27.15|     NA|      34.39|       56.86|
 |Coastal Protection               |   65.56|   65.00|   66.12|  -0.04|      42.68|       56.86|
@@ -5619,11 +5619,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  58.60|      NA|   60.30|     NA|         NA|          NA|
+|Index                            |  53.45|      NA|   55.29|     NA|         NA|          NA|
 |Food Provision                   |  36.13|   34.00|   38.25|   0.04|         NA|          NA|
 |. Fisheries                      |  36.13|   34.00|   38.25|   0.04|      27.23|       56.45|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      27.58|       62.50|
-|Aboriginal Needs                 |  98.79|   97.57|  100.00|   0.00|      26.56|       56.32|
+|Aboriginal Needs                 |  52.46|   50.00|   54.91|   0.00|      26.56|       56.32|
 |Natural Products                 |  88.65|   84.19|   93.12|   0.00|      26.62|       58.73|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |   0.00|    0.00|    0.00|  -0.51|      39.64|       50.00|
@@ -5651,11 +5651,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  49.78|      NA|   50.10|     NA|         NA|          NA|
+|Index                            |  45.04|      NA|   45.14|     NA|         NA|          NA|
 |Food Provision                   |   3.17|    3.00|    3.34|   0.01|         NA|          NA|
 |. Fisheries                      |   3.17|    3.00|    3.34|   0.01|      25.94|       58.70|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      27.67|       57.29|
-|Aboriginal Needs                 |  95.32|   90.63|  100.00|   0.00|      26.06|       58.41|
+|Aboriginal Needs                 |  52.67|   50.00|   55.34|   0.00|      26.06|       58.41|
 |Natural Products                 |  18.33|   16.96|   19.70|   0.13|      40.37|       63.05|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  70.68|   71.52|   69.84|  -0.05|      51.04|       53.41|
@@ -5683,11 +5683,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  50.47|      NA|   50.74|     NA|         NA|          NA|
+|Index                            |  46.21|      NA|   46.31|     NA|         NA|          NA|
 |Food Provision                   |  18.42|   17.00|   19.84|   0.08|         NA|          NA|
 |. Fisheries                      |  18.42|   17.00|   19.84|   0.08|      26.25|       59.77|
 |. Mariculture                    |   0.00|    0.00|    0.00|   0.00|      25.64|       64.58|
-|Aboriginal Needs                 |  95.46|   90.91|  100.00|   0.00|      26.27|       60.83|
+|Aboriginal Needs                 |  52.85|   50.00|   55.70|   0.00|      26.27|       60.83|
 |Natural Products                 |   3.61|    4.33|    2.89|  -0.61|      40.49|       64.35|
 |Carbon Storage                   |  88.38|   85.51|   91.25|     NA|      33.82|       54.17|
 |Coastal Protection               |  33.30|   31.57|   35.02|   0.08|      37.21|       54.17|
@@ -5715,11 +5715,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   61.54|      NA|   61.72|     NA|         NA|          NA|
+|Index                            |   57.62|      NA|   57.62|     NA|         NA|          NA|
 |Food Provision                   |   10.48|   10.00|   10.97|   0.01|         NA|          NA|
 |. Fisheries                      |   10.48|   10.00|   10.97|   0.01|      26.14|       53.47|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.81|       50.00|
-|Aboriginal Needs                 |   83.54|   80.05|   87.02|   0.00|      26.20|       52.23|
+|Aboriginal Needs                 |   52.15|   50.00|   54.29|   0.00|      26.20|       52.23|
 |Natural Products                 |   91.61|   89.64|   93.58|  -0.08|      26.26|       56.28|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -5747,11 +5747,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   57.27|      NA|   56.25|     NA|         NA|          NA|
+|Index                            |   52.87|      NA|   51.79|     NA|         NA|          NA|
 |Food Provision                   |   20.24|   19.24|   21.24|   0.00|         NA|          NA|
 |. Fisheries                      |   20.36|   19.39|   21.34|  -0.01|      27.18|       58.78|
 |. Mariculture                    |   19.51|   18.33|   20.70|   0.06|      28.60|       55.62|
-|Aboriginal Needs                 |   96.76|   93.52|  100.00|   0.00|      26.12|       59.12|
+|Aboriginal Needs                 |   52.72|   50.00|   55.45|   0.00|      26.12|       59.12|
 |Natural Products                 |   17.36|   21.89|   12.83|  -0.79|      27.87|       63.78|
 |Carbon Storage                   |   82.01|   85.55|   78.46|  -0.24|      34.76|       58.01|
 |Coastal Protection               |   29.01|   30.48|   27.53|  -0.24|      39.01|       58.01|
@@ -5779,11 +5779,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   49.51|      NA|   47.92|     NA|         NA|          NA|
+|Index                            |   46.06|      NA|   44.30|     NA|         NA|          NA|
 |Food Provision                   |   27.02|   25.99|   28.04|  -0.01|         NA|          NA|
 |. Fisheries                      |   27.02|   26.00|   28.05|  -0.01|      30.63|       57.13|
 |. Mariculture                    |    0.07|    0.07|    0.07|   0.00|      29.30|       56.15|
-|Aboriginal Needs                 |   87.10|   82.77|   91.42|   0.00|      28.00|       59.49|
+|Aboriginal Needs                 |   52.60|   50.00|   55.20|   0.00|      28.00|       59.49|
 |Natural Products                 |   31.62|   27.96|   35.29|   0.24|      33.10|       63.77|
 |Carbon Storage                   |   32.90|   46.41|   19.38|  -1.00|      34.51|       61.04|
 |Coastal Protection               |    5.36|    7.68|    3.05|  -1.00|      40.80|       61.04|
@@ -5811,11 +5811,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   77.30|      NA|   78.37|     NA|         NA|          NA|
+|Index                            |   72.88|      NA|   73.93|     NA|         NA|          NA|
 |Food Provision                   |   32.75|   32.00|   33.50|  -0.09|         NA|          NA|
 |. Fisheries                      |   32.75|   32.00|   33.50|  -0.09|      25.39|       57.89|
 |. Mariculture                    |    0.00|    0.00|    0.00|  -0.14|      25.34|       70.83|
-|Aboriginal Needs                 |   96.98|   93.96|  100.00|   0.00|      25.46|       59.44|
+|Aboriginal Needs                 |   52.80|   50.00|   55.61|   0.00|      25.46|       59.44|
 |Natural Products                 |   32.16|   29.23|   35.08|   0.11|      25.75|       63.66|
 |Carbon Storage                   |  100.00|  100.00|  100.00|   0.00|      26.48|       51.05|
 |Coastal Protection               |   83.90|   85.62|   82.18|  -0.16|      38.09|       59.03|
@@ -5843,11 +5843,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   48.49|      NA|   47.21|     NA|         NA|          NA|
+|Index                            |   44.93|      NA|   43.49|     NA|         NA|          NA|
 |Food Provision                   |   39.01|   37.00|   41.02|   0.01|         NA|          NA|
 |. Fisheries                      |   39.01|   37.00|   41.02|   0.01|      27.48|       57.82|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      29.74|       57.29|
-|Aboriginal Needs                 |   87.98|   83.85|   92.11|   0.00|      27.40|       56.73|
+|Aboriginal Needs                 |   52.42|   50.00|   54.84|   0.00|      27.40|       56.73|
 |Natural Products                 |   83.96|   79.67|   88.25|   0.03|      32.96|       60.40|
 |Carbon Storage                   |   24.08|   34.81|   13.35|  -1.00|      35.81|       52.00|
 |Coastal Protection               |    6.29|    9.15|    3.43|  -1.00|      38.32|       52.00|
@@ -5875,11 +5875,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   53.02|      NA|   52.55|     NA|         NA|          NA|
+|Index                            |   48.21|      NA|   47.77|     NA|         NA|          NA|
 |Food Provision                   |   17.02|   16.60|   17.45|   0.04|         NA|          NA|
 |. Fisheries                      |   18.46|   18.00|   18.93|   0.05|      49.61|       55.34|
 |. Mariculture                    |    2.13|    2.09|    2.17|  -0.03|      50.70|       68.75|
-|Aboriginal Needs                 |   99.22|   98.44|  100.00|   0.00|      41.93|       55.00|
+|Aboriginal Needs                 |   51.08|   50.00|   52.16|   0.00|      41.93|       55.00|
 |Natural Products                 |    0.33|    0.32|    0.34|   0.00|      42.47|       60.65|
 |Carbon Storage                   |   86.93|   85.51|   88.34|     NA|      43.00|       53.03|
 |Coastal Protection               |   26.40|   26.00|   26.79|   0.00|      43.43|       53.03|
@@ -5907,11 +5907,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   83.96|      NA|   84.56|     NA|         NA|          NA|
+|Index                            |   79.11|      NA|   79.59|     NA|         NA|          NA|
 |Food Provision                   |      NA|      NA|      NA|     NA|         NA|          NA|
 |. Fisheries                      |      NA|      NA|      NA|     NA|      26.19|       58.31|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      29.94|       63.13|
-|Aboriginal Needs                 |   96.24|   92.48|  100.00|   0.00|      26.26|       58.28|
+|Aboriginal Needs                 |   52.64|   50.00|   55.28|   0.00|      26.26|       58.28|
 |Natural Products                 |   96.47|   92.95|  100.00|   0.07|      30.12|       61.83|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      38.61|       52.06|
 |Coastal Protection               |   91.65|   89.29|   94.01|   0.03|      42.69|       52.06|
@@ -5939,11 +5939,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   66.59|      NA|   66.54|     NA|         NA|          NA|
+|Index                            |   61.73|      NA|   61.55|     NA|         NA|          NA|
 |Food Provision                   |    4.22|    4.00|    4.43|   0.02|         NA|          NA|
 |. Fisheries                      |    4.22|    4.00|    4.43|   0.02|      29.42|       58.33|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      31.27|       63.13|
-|Aboriginal Needs                 |   96.24|   92.48|  100.00|   0.00|      27.60|       58.37|
+|Aboriginal Needs                 |   52.54|   50.00|   55.08|   0.00|      27.60|       58.37|
 |Natural Products                 |     NaN|     NaN|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      40.20|       52.19|
 |Coastal Protection               |   30.72|   30.00|   31.44|   0.03|      44.28|       52.19|
@@ -5971,11 +5971,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.14|      NA|   63.78|     NA|         NA|          NA|
+|Index                            |   58.59|      NA|   58.35|     NA|         NA|          NA|
 |Food Provision                   |   18.82|   17.96|   19.68|  -0.01|         NA|          NA|
 |. Fisheries                      |   24.11|   23.00|   25.21|  -0.01|      34.69|       66.74|
 |. Mariculture                    |    6.31|    6.02|    6.61|   0.01|      42.44|       69.79|
-|Aboriginal Needs                 |   97.69|   95.38|  100.00|   0.00|      28.19|       67.77|
+|Aboriginal Needs                 |   53.27|   50.00|   56.53|   0.00|      28.19|       67.77|
 |Natural Products                 |   27.79|   24.36|   31.23|   0.23|      30.63|       68.75|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -6003,11 +6003,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   61.46|      NA|   60.86|     NA|         NA|          NA|
+|Index                            |   58.00|      NA|   57.21|     NA|         NA|          NA|
 |Food Provision                   |   93.00|   86.00|  100.00|   0.46|         NA|          NA|
 |. Fisheries                      |   93.00|   86.00|  100.00|   0.46|      25.98|       57.73|
 |. Mariculture                    |    0.00|    0.00|    0.00|   0.00|      25.50|       75.00|
-|Aboriginal Needs                 |   87.30|   82.77|   91.84|   0.00|      26.06|       58.78|
+|Aboriginal Needs                 |   52.70|   50.00|   55.40|   0.00|      26.06|       58.78|
 |Natural Products                 |    9.09|    8.95|    9.23|  -0.12|      33.32|       66.00|
 |Carbon Storage                   |   50.49|   71.18|   29.81|  -1.00|      31.25|       58.17|
 |Coastal Protection               |   58.66|   55.04|   62.27|   0.09|      37.03|       58.17|
@@ -6035,11 +6035,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  49.81|      NA|   44.07|     NA|         NA|          NA|
+|Index                            |  46.03|      NA|   40.12|     NA|         NA|          NA|
 |Food Provision                   |  26.79|   27.00|   26.58|  -0.16|         NA|          NA|
 |. Fisheries                      |  26.79|   27.00|   26.58|  -0.16|      25.77|       53.80|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      26.28|       50.00|
-|Aboriginal Needs                 |  90.06|   86.02|   94.10|   0.00|      25.85|       53.80|
+|Aboriginal Needs                 |  52.31|   50.00|   54.61|   0.00|      25.85|       53.80|
 |Natural Products                 |  19.44|   21.22|   17.66|  -0.38|      32.44|       58.45|
 |Carbon Storage                   |  52.32|   76.84|   27.79|  -1.00|      27.90|       37.50|
 |Coastal Protection               |  39.01|   58.49|   19.53|  -1.00|      40.49|       41.67|
@@ -6067,11 +6067,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   60.39|      NA|   58.11|     NA|         NA|          NA|
+|Index                            |   55.99|      NA|   53.66|     NA|         NA|          NA|
 |Food Provision                   |   26.85|   25.91|   27.79|  -0.04|         NA|          NA|
 |. Fisheries                      |   26.95|   26.00|   27.89|  -0.04|      27.69|       58.17|
 |. Mariculture                    |    0.88|    0.85|    0.92|   0.00|      30.73|       56.31|
-|Aboriginal Needs                 |   96.73|   93.45|  100.00|   0.00|      26.79|       60.40|
+|Aboriginal Needs                 |   52.77|   50.00|   55.55|   0.00|      26.79|       60.40|
 |Natural Products                 |    5.22|    4.92|    5.53|   0.01|      26.68|       61.96|
 |Carbon Storage                   |   78.45|   99.46|   57.45|  -0.71|      36.35|       53.38|
 |Coastal Protection               |   22.06|   25.51|   18.62|  -0.48|      37.68|       53.38|
@@ -6099,11 +6099,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   79.28|      NA|   81.63|     NA|         NA|          NA|
+|Index                            |   69.99|      NA|   73.05|     NA|         NA|          NA|
 |Food Provision                   |   19.84|   19.00|   20.68|  -0.07|         NA|          NA|
 |. Fisheries                      |   19.84|   19.00|   20.68|  -0.07|      25.03|       65.43|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.08|       70.34|
-|Aboriginal Needs                 |  100.00|  100.00|  100.00|   0.00|      25.10|       68.28|
+|Aboriginal Needs                 |   53.56|   50.00|   57.12|   0.00|      25.10|       68.28|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -6131,11 +6131,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   62.04|      NA|   63.68|     NA|         NA|          NA|
+|Index                            |   56.25|      NA|   58.03|     NA|         NA|          NA|
 |Food Provision                   |   33.73|   32.80|   34.66|  -0.04|         NA|          NA|
 |. Fisheries                      |    1.04|    1.00|    1.09|   0.00|      30.87|       57.24|
 |. Mariculture                    |   55.65|   54.13|   57.17|  -0.06|      32.29|       61.52|
-|Aboriginal Needs                 |   98.66|   97.32|  100.00|   0.00|      28.89|       57.90|
+|Aboriginal Needs                 |   52.39|   50.00|   54.79|   0.00|      28.89|       57.90|
 |Natural Products                 |   32.32|   32.97|   31.66|  -0.20|      28.36|       57.62|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -6163,11 +6163,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.87|      NA|   66.51|     NA|         NA|          NA|
+|Index                            |   60.31|      NA|   62.00|     NA|         NA|          NA|
 |Food Provision                   |   38.18|   36.42|   39.93|   0.01|         NA|          NA|
 |. Fisheries                      |   23.02|   22.00|   24.04|   0.01|      29.70|       55.47|
 |. Mariculture                    |   64.33|   61.31|   67.34|   0.01|      34.80|       62.59|
-|Aboriginal Needs                 |   98.07|   96.14|  100.00|   0.00|      28.30|       57.71|
+|Aboriginal Needs                 |   52.43|   50.00|   54.85|   0.00|      28.30|       57.71|
 |Natural Products                 |   28.73|   26.72|   30.75|   0.06|      28.41|       62.18|
 |Carbon Storage                   |   51.50|   50.00|   53.00|     NA|      40.61|       58.80|
 |Coastal Protection               |   51.40|   50.00|   52.80|     NA|      41.85|       58.80|
@@ -6195,11 +6195,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  58.33|      NA|   59.68|     NA|         NA|          NA|
+|Index                            |  54.50|      NA|   55.65|     NA|         NA|          NA|
 |Food Provision                   |   5.95|    5.70|    6.20|   0.00|         NA|          NA|
 |. Fisheries                      |   6.26|    6.00|    6.53|   0.00|      32.02|       58.62|
 |. Mariculture                    |   0.20|    0.19|    0.21|   0.00|      34.24|       61.25|
-|Aboriginal Needs                 |  90.82|   86.36|   95.27|   0.00|      29.11|       59.54|
+|Aboriginal Needs                 |  52.51|   50.00|   55.02|   0.00|      29.11|       59.54|
 |Natural Products                 |  86.21|   72.43|  100.00|   1.00|      27.10|       63.85|
 |Carbon Storage                   |  76.75|   85.92|   67.58|  -0.42|      38.89|       58.80|
 |Coastal Protection               |  29.26|   25.14|   33.38|   0.40|      40.22|       58.80|
@@ -6227,11 +6227,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  52.08|      NA|   50.60|     NA|         NA|          NA|
+|Index                            |  48.59|      NA|   46.95|     NA|         NA|          NA|
 |Food Provision                   |  17.73|   17.00|   18.47|  -0.01|         NA|          NA|
 |. Fisheries                      |  17.73|   17.00|   18.47|  -0.01|      26.37|       54.89|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      27.33|       50.00|
-|Aboriginal Needs                 |  87.29|   83.33|   91.25|   0.00|      25.93|       54.39|
+|Aboriginal Needs                 |  52.35|   50.00|   54.70|   0.00|      25.93|       54.39|
 |Natural Products                 |  32.98|   30.86|   35.11|   0.15|      49.33|       59.67|
 |Carbon Storage                   |  86.52|   85.52|   87.52|   0.00|      34.60|       41.67|
 |Coastal Protection               |  31.05|   30.90|   31.20|   0.00|      38.70|       41.67|
@@ -6259,11 +6259,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.87|      NA|   65.23|     NA|         NA|          NA|
+|Index                            |   60.59|      NA|   60.78|     NA|         NA|          NA|
 |Food Provision                   |    1.04|    1.00|    1.09|   0.00|         NA|          NA|
 |. Fisheries                      |    1.04|    1.00|    1.09|   0.00|      27.11|       53.73|
 |. Mariculture                    |    0.48|    0.47|    0.50|   0.00|      29.53|       50.00|
-|Aboriginal Needs                 |   95.57|   91.14|  100.00|   0.00|      26.09|       59.57|
+|Aboriginal Needs                 |   52.76|   50.00|   55.52|   0.00|      26.09|       59.57|
 |Natural Products                 |   26.80|   21.07|   32.53|   0.66|      30.92|       61.37|
 |Carbon Storage                   |   99.74|   99.48|  100.00|  -0.03|      27.71|       53.91|
 |Coastal Protection               |   99.74|   99.48|  100.00|  -0.03|      27.26|       53.91|
@@ -6291,11 +6291,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   63.61|      NA|   63.07|     NA|         NA|          NA|
+|Index                            |   59.06|      NA|   58.65|     NA|         NA|          NA|
 |Food Provision                   |   30.70|   29.58|   31.82|  -0.03|         NA|          NA|
 |. Fisheries                      |   31.14|   30.00|   32.27|  -0.03|      30.29|       59.61|
 |. Mariculture                    |    3.07|    2.90|    3.25|   0.01|      32.00|       66.35|
-|Aboriginal Needs                 |   98.37|   96.74|  100.00|   0.00|      27.19|       62.25|
+|Aboriginal Needs                 |   52.89|   50.00|   55.78|   0.00|      27.19|       62.25|
 |Natural Products                 |    9.29|    8.89|    9.69|  -0.05|      28.43|       65.82|
 |Carbon Storage                   |   64.72|   61.48|   67.96|   0.00|      30.53|       62.46|
 |Coastal Protection               |   71.61|   70.91|   72.31|  -0.01|      53.61|       62.46|
@@ -6323,11 +6323,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   62.72|      NA|   61.65|     NA|         NA|          NA|
+|Index                            |   57.35|      NA|   56.04|     NA|         NA|          NA|
 |Food Provision                   |   17.88|   17.00|   18.76|   0.00|         NA|          NA|
 |. Fisheries                      |   17.88|   17.00|   18.76|   0.00|      28.36|       59.70|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      39.84|       58.33|
-|Aboriginal Needs                 |   95.52|   91.04|  100.00|   0.00|      28.28|       59.29|
+|Aboriginal Needs                 |   52.56|   50.00|   55.12|   0.00|      28.28|       59.29|
 |Natural Products                 |   43.79|   42.96|   44.62|  -0.07|      38.53|       63.48|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -6355,11 +6355,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  57.99|      NA|   58.62|     NA|         NA|          NA|
+|Index                            |  53.35|      NA|   54.06|     NA|         NA|          NA|
 |Food Provision                   |   9.38|    8.89|    9.86|   0.03|         NA|          NA|
 |. Fisheries                      |   7.38|    7.00|    7.76|   0.03|      32.63|       58.86|
 |. Mariculture                    |  31.90|   30.19|   33.62|   0.04|      33.88|       60.19|
-|Aboriginal Needs                 |  98.64|   97.28|  100.00|   0.00|      32.34|       59.36|
+|Aboriginal Needs                 |  52.23|   50.00|   54.46|   0.00|      32.34|       59.36|
 |Natural Products                 |  28.98|   27.16|   30.79|   0.03|      30.93|       64.37|
 |Carbon Storage                   |  94.02|   91.28|   96.76|     NA|      39.21|       57.40|
 |Coastal Protection               |  39.81|   39.09|   40.53|  -0.01|      43.37|       57.40|
@@ -6387,11 +6387,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   55.51|      NA|   52.60|     NA|         NA|          NA|
+|Index                            |   51.61|      NA|   48.50|     NA|         NA|          NA|
 |Food Provision                   |   13.39|   12.77|   14.02|   0.01|         NA|          NA|
 |. Fisheries                      |   13.63|   13.00|   14.27|   0.01|      31.19|       58.46|
 |. Mariculture                    |    0.14|    0.13|    0.15|   0.00|      27.51|       62.50|
-|Aboriginal Needs                 |   91.69|   87.09|   96.30|   0.00|      30.40|       62.11|
+|Aboriginal Needs                 |   52.62|   50.00|   55.23|   0.00|      30.40|       62.11|
 |Natural Products                 |    1.96|    1.82|    2.09|   0.00|      27.08|       71.54|
 |Carbon Storage                   |   62.06|   82.37|   41.76|  -0.89|      29.83|       61.68|
 |Coastal Protection               |   63.96|   60.32|   67.61|   0.07|      39.21|       61.68|
@@ -6419,11 +6419,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   67.51|      NA|   67.42|     NA|         NA|          NA|
+|Index                            |   63.12|      NA|   62.94|     NA|         NA|          NA|
 |Food Provision                   |   63.53|   60.88|   66.17|   0.01|         NA|          NA|
 |. Fisheries                      |    8.47|    8.00|    8.94|   0.03|      29.85|       58.47|
 |. Mariculture                    |   92.65|   88.86|   96.43|  -0.01|      31.18|       59.05|
-|Aboriginal Needs                 |   96.48|   92.96|  100.00|   0.00|      28.67|       59.90|
+|Aboriginal Needs                 |   52.58|   50.00|   55.15|   0.00|      28.67|       59.90|
 |Natural Products                 |   53.83|   45.18|   62.48|   0.39|      27.55|       64.06|
 |Carbon Storage                   |   65.68|   85.64|   45.73|  -0.82|      32.00|       58.24|
 |Coastal Protection               |   37.94|   40.89|   34.99|  -0.33|      34.40|       58.24|
@@ -6451,11 +6451,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   59.78|      NA|   58.87|     NA|         NA|          NA|
+|Index                            |   56.95|      NA|   55.93|     NA|         NA|          NA|
 |Food Provision                   |   45.33|   44.00|   46.65|  -0.04|         NA|          NA|
 |. Fisheries                      |   45.33|   44.00|   46.65|  -0.04|      28.27|       54.36|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      28.26|       62.50|
-|Aboriginal Needs                 |   80.29|   77.11|   83.46|   0.00|      28.13|       52.72|
+|Aboriginal Needs                 |   52.03|   50.00|   54.06|   0.00|      28.13|       52.72|
 |Natural Products                 |   25.04|   24.23|   25.85|  -0.05|      27.15|       58.33|
 |Carbon Storage                   |  100.00|  100.00|  100.00|     NA|      38.58|       52.27|
 |Coastal Protection               |  100.00|  100.00|  100.00|     NA|      40.44|       52.27|
@@ -6483,11 +6483,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   66.84|      NA|   66.57|     NA|         NA|          NA|
+|Index                            |   62.02|      NA|   61.66|     NA|         NA|          NA|
 |Food Provision                   |   38.00|   35.00|   41.00|   0.09|         NA|          NA|
 |. Fisheries                      |   38.00|   35.00|   41.00|   0.09|      25.34|       59.27|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.25|       59.89|
-|Aboriginal Needs                 |   96.25|   92.50|  100.00|   0.00|      25.40|       60.77|
+|Aboriginal Needs                 |   52.92|   50.00|   55.84|   0.00|      25.40|       60.77|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |   52.66|   50.00|   55.32|   0.00|      26.07|       58.33|
 |Coastal Protection               |   88.15|   98.38|   77.93|  -0.42|      36.95|       58.33|
@@ -6515,11 +6515,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   55.94|      NA|   52.81|     NA|         NA|          NA|
+|Index                            |   51.66|      NA|   48.32|     NA|         NA|          NA|
 |Food Provision                   |   17.11|   16.00|   18.22|   0.06|         NA|          NA|
 |. Fisheries                      |   17.11|   16.00|   18.22|   0.06|      25.51|       54.72|
 |. Mariculture                    |    0.00|    0.00|    0.00|   0.00|      25.84|       47.50|
-|Aboriginal Needs                 |   95.32|   90.79|   99.85|   0.00|      25.67|       55.64|
+|Aboriginal Needs                 |   52.47|   50.00|   54.95|   0.00|      25.67|       55.64|
 |Natural Products                 |   17.82|   21.12|   14.52|  -0.60|      26.95|       54.25|
 |Carbon Storage                   |   67.50|   85.51|   49.49|  -0.67|      34.03|       41.72|
 |Coastal Protection               |   29.01|   37.21|   20.81|  -0.67|      39.90|       41.72|
@@ -6547,11 +6547,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  71.68|      NA|   71.33|     NA|         NA|          NA|
+|Index                            |  67.17|      NA|   66.84|     NA|         NA|          NA|
 |Food Provision                   |  11.68|   11.00|   12.36|   0.03|         NA|          NA|
 |. Fisheries                      |  11.68|   11.00|   12.36|   0.03|      26.21|       57.29|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      30.29|       50.00|
-|Aboriginal Needs                 |  97.71|   95.42|  100.00|   0.00|      26.46|       57.42|
+|Aboriginal Needs                 |  52.55|   50.00|   55.11|   0.00|      26.46|       57.42|
 |Natural Products                 |  51.52|   50.30|   52.75|  -0.09|      28.22|       60.44|
 |Carbon Storage                   |  85.27|   93.33|   77.20|  -0.33|      29.65|       44.96|
 |Coastal Protection               |  79.57|   81.65|   77.50|  -0.10|      41.00|       46.64|
@@ -6579,11 +6579,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  49.33|      NA|   50.16|     NA|         NA|          NA|
+|Index                            |  43.29|      NA|   43.82|     NA|         NA|          NA|
 |Food Provision                   |  17.04|   16.00|   18.09|   0.04|         NA|          NA|
 |. Fisheries                      |  17.04|   16.00|   18.09|   0.04|      25.10|       57.35|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.19|       70.34|
-|Aboriginal Needs                 |  94.91|   90.11|   99.71|   0.00|      25.26|       57.31|
+|Aboriginal Needs                 |  52.64|   50.00|   55.29|   0.00|      25.26|       57.31|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -6611,11 +6611,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   62.85|      NA|   63.27|     NA|         NA|          NA|
+|Index                            |   57.33|      NA|   57.60|     NA|         NA|          NA|
 |Food Provision                   |   23.26|   22.48|   24.04|  -0.02|         NA|          NA|
 |. Fisheries                      |   24.83|   24.00|   25.65|  -0.03|      30.19|       56.27|
 |. Mariculture                    |    2.28|    2.17|    2.40|   0.01|      32.10|       62.50|
-|Aboriginal Needs                 |   96.47|   92.95|  100.00|   0.00|      27.42|       55.61|
+|Aboriginal Needs                 |   52.33|   50.00|   54.65|   0.00|      27.42|       55.61|
 |Natural Products                 |   26.94|   28.75|   25.13|  -0.30|      37.19|       60.32|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -6643,11 +6643,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   55.86|      NA|   55.84|     NA|         NA|          NA|
+|Index                            |   50.25|      NA|   50.23|     NA|         NA|          NA|
 |Food Provision                   |   19.78|   19.25|   20.30|  -0.05|         NA|          NA|
 |. Fisheries                      |   22.23|   21.67|   22.79|  -0.06|      31.14|       59.69|
 |. Mariculture                    |    9.74|    9.37|   10.10|   0.00|      34.44|       58.14|
-|Aboriginal Needs                 |   97.43|   94.85|  100.00|   0.00|      28.38|       59.84|
+|Aboriginal Needs                 |   52.60|   50.00|   55.19|   0.00|      28.38|       59.84|
 |Natural Products                 |    0.88|    0.89|    0.87|  -0.15|      38.24|       64.39|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -6675,11 +6675,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   63.53|      NA|   60.85|     NA|         NA|          NA|
+|Index                            |   59.10|      NA|   56.40|     NA|         NA|          NA|
 |Food Provision                   |   10.66|   10.00|   11.32|   0.05|         NA|          NA|
 |. Fisheries                      |   10.66|   10.00|   11.32|   0.05|      27.61|       57.45|
 |. Mariculture                    |    0.02|    0.02|    0.02|   0.00|      26.96|       63.13|
-|Aboriginal Needs                 |   96.98|   93.97|  100.00|   0.00|      25.80|       59.26|
+|Aboriginal Needs                 |   52.76|   50.00|   55.52|   0.00|      25.80|       59.26|
 |Natural Products                 |   21.12|   19.99|   22.26|   0.00|      29.00|       63.33|
 |Carbon Storage                   |   74.30|   99.50|   49.10|  -0.86|      32.81|       54.07|
 |Coastal Protection               |   33.20|   34.65|   31.76|  -0.21|      36.47|       54.07|
@@ -6707,11 +6707,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   77.39|      NA|   78.04|     NA|         NA|          NA|
+|Index                            |   73.31|      NA|   73.78|     NA|         NA|          NA|
 |Food Provision                   |   89.48|   78.98|   99.98|   0.28|         NA|          NA|
 |. Fisheries                      |   89.50|   79.00|  100.00|   0.28|      27.74|       52.61|
 |. Mariculture                    |    0.35|    0.33|    0.36|   0.00|      25.22|       50.00|
-|Aboriginal Needs                 |   88.99|   84.96|   93.03|   0.00|      25.47|       53.96|
+|Aboriginal Needs                 |   52.35|   50.00|   54.70|   0.00|      25.47|       53.96|
 |Natural Products                 |   97.71|   95.41|  100.00|   1.00|      25.52|       54.28|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  100.00|  100.00|  100.00|   0.06|      42.93|       42.47|
@@ -6739,11 +6739,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  66.07|      NA|   66.60|     NA|         NA|          NA|
+|Index                            |  61.82|      NA|   62.14|     NA|         NA|          NA|
 |Food Provision                   |  34.50|   33.49|   35.51|  -0.06|         NA|          NA|
 |. Fisheries                      |  35.03|   34.00|   36.05|  -0.06|      27.63|       58.10|
 |. Mariculture                    |   0.28|    0.27|    0.29|   0.00|      34.46|       57.71|
-|Aboriginal Needs                 |  95.23|   90.45|  100.00|   0.00|      26.83|       59.95|
+|Aboriginal Needs                 |  52.73|   50.00|   55.46|   0.00|      26.83|       59.95|
 |Natural Products                 |  34.66|   32.98|   36.34|  -0.03|      27.69|       64.54|
 |Carbon Storage                   |  84.57|   82.45|   86.70|     NA|      41.23|       56.84|
 |Coastal Protection               |  84.32|   82.45|   86.18|     NA|      43.13|       56.84|
@@ -6771,11 +6771,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.08|      NA|   66.20|     NA|         NA|          NA|
+|Index                            |   59.53|      NA|   61.74|     NA|         NA|          NA|
 |Food Provision                   |   21.94|   20.99|   22.89|   0.00|         NA|          NA|
 |. Fisheries                      |   21.95|   21.00|   22.91|   0.00|      30.34|       58.42|
 |. Mariculture                    |    0.11|    0.10|    0.11|  -0.01|      31.01|       62.50|
-|Aboriginal Needs                 |   98.18|   96.37|  100.00|   0.00|      27.06|       60.13|
+|Aboriginal Needs                 |   52.73|   50.00|   55.46|   0.00|      27.06|       60.13|
 |Natural Products                 |   18.02|   16.91|   19.13|   0.02|      29.88|       65.94|
 |Carbon Storage                   |   92.98|   85.95|  100.00|   0.86|      35.81|       58.64|
 |Coastal Protection               |   32.10|   24.31|   39.90|   0.86|      38.32|       58.64|
@@ -6803,11 +6803,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   61.81|      NA|   63.69|     NA|         NA|          NA|
+|Index                            |   57.23|      NA|   59.26|     NA|         NA|          NA|
 |Food Provision                   |   34.14|   32.67|   35.60|   0.00|         NA|          NA|
 |. Fisheries                      |   36.61|   35.06|   38.17|   0.00|      31.07|       58.78|
 |. Mariculture                    |   15.41|   14.61|   16.21|   0.01|      32.48|       63.47|
-|Aboriginal Needs                 |   98.57|   97.15|  100.00|   0.00|      28.66|       62.78|
+|Aboriginal Needs                 |   52.81|   50.00|   55.63|   0.00|      28.66|       62.78|
 |Natural Products                 |   17.68|   16.42|   18.93|   0.05|      29.72|       65.67|
 |Carbon Storage                   |   52.96|   50.00|   55.93|   0.00|      30.00|       65.92|
 |Coastal Protection               |   37.01|   35.66|   38.37|   0.03|      48.24|       65.92|
@@ -6835,11 +6835,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   64.54|      NA|   61.04|     NA|         NA|          NA|
+|Index                            |   59.87|      NA|   56.50|     NA|         NA|          NA|
 |Food Provision                   |   38.39|   36.92|   39.87|   0.00|         NA|          NA|
 |. Fisheries                      |   39.57|   38.04|   41.10|   0.00|      30.02|       54.23|
 |. Mariculture                    |   10.11|    9.82|   10.41|   0.00|      28.89|       46.94|
-|Aboriginal Needs                 |   99.11|   98.22|  100.00|   0.00|      28.35|       56.61|
+|Aboriginal Needs                 |   52.33|   50.00|   54.66|   0.00|      28.35|       56.61|
 |Natural Products                 |   21.48|   20.94|   22.03|  -0.05|      30.98|       55.97|
 |Carbon Storage                   |   62.50|   76.22|   48.77|  -0.56|      31.86|       37.09|
 |Coastal Protection               |   76.59|   76.93|   76.26|  -0.04|      32.06|       37.09|
@@ -6867,11 +6867,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   61.24|      NA|   62.67|     NA|         NA|          NA|
+|Index                            |   55.60|      NA|   56.98|     NA|         NA|          NA|
 |Food Provision                   |   49.33|   48.00|   50.67|  -0.05|         NA|          NA|
 |. Fisheries                      |   49.33|   48.00|   50.67|  -0.05|      27.29|       54.58|
 |. Mariculture                    |    0.00|    0.00|    0.00|   0.00|      35.76|       51.04|
-|Aboriginal Needs                 |   97.27|   94.54|  100.00|   0.00|      28.04|       55.05|
+|Aboriginal Needs                 |   52.23|   50.00|   54.46|   0.00|      28.04|       55.05|
 |Natural Products                 |    0.83|    0.87|    0.79|  -0.29|      26.65|       57.55|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |      NA|      NA|      NA|     NA|        NaN|          NA|
@@ -6899,11 +6899,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   75.08|      NA|   72.89|     NA|         NA|          NA|
+|Index                            |   71.42|      NA|   69.06|     NA|         NA|          NA|
 |Food Provision                   |   88.38|   76.89|   99.86|   0.36|         NA|          NA|
 |. Fisheries                      |   88.50|   77.00|  100.00|   0.36|      27.12|       55.19|
 |. Mariculture                    |    0.20|    0.19|    0.21|   0.00|      25.59|       59.38|
-|Aboriginal Needs                 |   89.03|   84.78|   93.27|   0.00|      25.81|       56.03|
+|Aboriginal Needs                 |   52.49|   50.00|   54.99|   0.00|      25.81|       56.03|
 |Natural Products                 |   94.16|   88.32|  100.00|   1.00|      28.72|       59.68|
 |Carbon Storage                   |   63.21|   85.50|   40.93|  -0.83|      33.51|       44.73|
 |Coastal Protection               |   31.41|   43.01|   19.81|  -0.83|      38.98|       44.73|
@@ -6931,11 +6931,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  52.47|      NA|   49.43|     NA|         NA|          NA|
+|Index                            |  48.01|      NA|   44.90|     NA|         NA|          NA|
 |Food Provision                   |  13.36|   12.64|   14.08|   0.03|         NA|          NA|
 |. Fisheries                      |  14.81|   14.00|   15.62|   0.04|      27.19|       54.40|
 |. Mariculture                    |   3.12|    3.04|    3.21|  -0.02|      30.77|       52.50|
-|Aboriginal Needs                 |  96.99|   93.98|  100.00|   0.00|      26.91|       55.68|
+|Aboriginal Needs                 |  52.37|   50.00|   54.75|   0.00|      26.91|       55.68|
 |Natural Products                 |   3.47|    3.39|    3.55|  -0.07|      30.36|       59.31|
 |Carbon Storage                   |  70.61|   89.67|   51.56|  -0.70|      31.56|       45.29|
 |Coastal Protection               |  40.33|   47.39|   33.28|  -0.48|      37.18|       45.29|
@@ -6963,11 +6963,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   57.03|      NA|   54.07|     NA|         NA|          NA|
+|Index                            |   53.32|      NA|   50.18|     NA|         NA|          NA|
 |Food Provision                   |   14.31|   13.60|   15.02|   0.03|         NA|          NA|
 |. Fisheries                      |    3.14|    3.00|    3.28|   0.02|      33.30|       58.14|
 |. Mariculture                    |   34.01|   32.29|   35.72|   0.04|      33.97|       58.02|
-|Aboriginal Needs                 |   89.50|   85.34|   93.65|   0.00|      32.36|       61.26|
+|Aboriginal Needs                 |   52.38|   50.00|   54.77|   0.00|      32.36|       61.26|
 |Natural Products                 |   12.41|   12.83|   12.00|  -0.27|      30.53|       65.10|
 |Carbon Storage                   |   41.85|   58.51|   25.20|  -1.00|      30.85|       61.35|
 |Coastal Protection               |   66.57|   77.14|   55.99|  -0.53|      36.20|       61.35|
@@ -6995,11 +6995,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  63.32|      NA|   61.88|     NA|         NA|          NA|
+|Index                            |  57.65|      NA|   56.41|     NA|         NA|          NA|
 |Food Provision                   |   5.26|    5.00|    5.51|   0.02|         NA|          NA|
 |. Fisheries                      |   5.26|    5.00|    5.51|   0.02|      25.33|       52.74|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      25.75|       30.27|
-|Aboriginal Needs                 |  98.51|   97.01|  100.00|   0.00|      25.37|       63.24|
+|Aboriginal Needs                 |  53.12|   50.00|   56.25|   0.00|      25.37|       63.24|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  74.19|   74.30|   74.08|     NA|      46.26|       45.37|
@@ -7027,11 +7027,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   74.39|      NA|   76.75|     NA|         NA|          NA|
+|Index                            |   69.28|      NA|   71.36|     NA|         NA|          NA|
 |Food Provision                   |   85.22|   73.00|   97.44|   0.34|         NA|          NA|
 |. Fisheries                      |   85.22|   73.00|   97.44|   0.34|      25.63|       58.34|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      25.59|       62.85|
-|Aboriginal Needs                 |   93.71|   88.73|   98.69|   0.00|      26.08|       59.87|
+|Aboriginal Needs                 |   52.79|   50.00|   55.58|   0.00|      26.08|       59.87|
 |Natural Products                 |      NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |      NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |  100.00|  100.00|  100.00|   0.01|      39.78|       52.68|
@@ -7059,11 +7059,11 @@
 
 |id                               |  score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |  68.78|      NA|   68.63|     NA|         NA|          NA|
+|Index                            |  63.10|      NA|   62.73|     NA|         NA|          NA|
 |Food Provision                   |  34.26|   33.00|   35.53|   0.00|         NA|          NA|
 |. Fisheries                      |  34.26|   33.00|   35.53|   0.00|      26.61|       49.55|
 |. Mariculture                    |     NA|      NA|      NA|     NA|      26.93|       30.49|
-|Aboriginal Needs                 |  91.69|   88.24|   95.14|   0.00|      26.17|       49.45|
+|Aboriginal Needs                 |  51.92|   50.00|   53.84|   0.00|      26.17|       49.45|
 |Natural Products                 |     NA|      NA|      NA|     NA|         NA|          NA|
 |Carbon Storage                   |     NA|      NA|      NA|     NA|        NaN|          NA|
 |Coastal Protection               |     NA|      NA|      NA|     NA|        NaN|          NA|
@@ -7091,11 +7091,11 @@
 
 |id                               |   score|  status|  future|  trend|  pressures|  resilience|
 |:--------------------------------|-------:|-------:|-------:|------:|----------:|-----------:|
-|Index                            |   51.48|      NA|   49.00|     NA|         NA|          NA|
+|Index                            |   47.70|      NA|   45.05|     NA|         NA|          NA|
 |Food Provision                   |   23.12|   22.00|   24.25|   0.02|         NA|          NA|
 |. Fisheries                      |   23.12|   22.00|   24.25|   0.02|      26.91|       54.69|
 |. Mariculture                    |      NA|      NA|      NA|     NA|      28.16|       50.00|
-|Aboriginal Needs                 |   90.10|   86.20|   94.00|   0.00|      26.72|       54.21|
+|Aboriginal Needs                 |   52.27|   50.00|   54.54|   0.00|      26.72|       54.21|
 |Natural Products                 |   17.68|   16.41|   18.94|   0.08|      27.14|       58.11|
 |Carbon Storage                   |   72.14|   85.52|   58.77|  -0.50|      34.95|       41.67|
 |Coastal Protection               |   32.10|   28.83|   35.37|   0.32|      38.06|       41.67|
