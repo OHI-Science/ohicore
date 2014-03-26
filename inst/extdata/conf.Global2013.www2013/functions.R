@@ -1,5 +1,6 @@
 FIS = function(layers, status_year=2011){
   
+  library(plyr)
   library(dplyr)
     
   # catch data
@@ -129,7 +130,7 @@ FIS = function(layers, status_year=2011){
   UnAssessedCatches <- subset(UnAssessedCatches, penalty!=1)
   UnAssessedCatches$score <- score(UnAssessedCatches, "Minb_bmsy")
   
-  scores <- rbind(AssessedCatches[,c("TaxonName", "TaxonKey", "year", "fao_id", "saup_id", "catch","score")],
+  AllScores <- rbind(AssessedCatches[,c("TaxonName", "TaxonKey", "year", "fao_id", "saup_id", "catch","score")],
                   UnAssessedCatchesT6[,c("TaxonName", "TaxonKey", "year", "fao_id", "saup_id", "catch","score")],
                   UnAssessedCatches[,c("TaxonName", "TaxonKey", "year", "fao_id", "saup_id", "catch","score")])
     
@@ -141,15 +142,15 @@ FIS = function(layers, status_year=2011){
   # the mean catch of taxon i is divided by the   
   # sum of mean catch of all species in region r, which is calculated as: 
   
-  smc <- ddply(.data = scores, .(year, saup_id), summarize, 
+  smc <- ddply(.data = AllScores, .(year, saup_id), summarize, 
                SumCatch = sum(catch))   
-  scores<-join(scores,smc,by=c("year","saup_id"))  
-  scores$wprop<-scores$catch/scores$SumCatch 
+  AllScores<-join(AllScores,smc,by=c("year","saup_id"))  
+  AllScores$wprop<-AllScores$catch/AllScores$SumCatch 
   
   
   #  4b. The "score" and "weight" values per taxon per SAUP region are used to  
   #    calculate a geometric weighted mean across taxa for each saup_id region
-  geomMean <- ddply(.data = scores, .(saup_id, year), summarize, status_saup = prod(score^wprop)) 
+  geomMean <- ddply(.data = AllScores, .(saup_id, year), summarize, status_saup = prod(score^wprop)) 
   
   # ------------------------------------------------------------------------
   # STEP 5. Convert status from saup spatial scale to OHI spatial scale  
@@ -164,50 +165,34 @@ FIS = function(layers, status_year=2011){
   geomMean <- join(a, geomMean, type="inner", by="saup_id") # merge km2 of shelf area with status results
   
   # weighted mean scores
+  #StatusData <- ddply(.data = geomMean, .(rgn_id, year), summarize, Status = round(sum(status_saup*prop_area)*100))
   StatusData <- ddply(.data = geomMean, .(rgn_id, year), summarize, Status = sum(status_saup*prop_area))
   
   # 2013 status is based on 2011 data (most recent data)
-  Status <- StatusData[StatusData$year==as.character(status_year), ]
-  Status$Status <- round(Status$Status*100, 0)
-  Status <- subset(Status, select=c("rgn_id", "Status"))
-  OHIregions <- data.frame(rgn_id=unique(a$rgn_id))
-  Status <- merge(OHIregions, Status, all=TRUE, by="rgn_id")
+  status = StatusData %.%
+    filter(year==status_year) %.%
+    mutate(
+      score     = round(Status*100),
+      dimension = 'status') %.%
+    select(region_id=rgn_id, dimension, score)
+    
     
   # ------------------------------------------------------------------------
   # STEP 6. Calculate trend  
   # -----------------------------------------------------------------------
   # NOTE: Status is rounded to 2 digits before trend is 
   # calculated in order to match OHI 2013 results (is this what we want to do?)
-  Trend = ddply(StatusData, .(rgn_id), summarize,
-    Trend = lm(round(Status, 2) ~ year)$coefficients[['year']] * 5)
-  Trend <- join(OHIregions, Trend)
-  #write.csv(Trend, trend.csv, row.names=F, na='')
+  trend = ddply(StatusData, .(rgn_id), function(x){
+    mdl = lm(Status ~ year, data=x)
+    data.frame(
+      score     = round(coef(mdl)[['year']] * 5, 2),
+      dimension = 'trend')}) %.%
+    select(region_id=rgn_id, dimension, score)
+  # %.% semi_join(status, by='rgn_id')
   
-  
-  # assemble
-  scores = Status %.%
-    select(region_id=rgn_id, score=Status) %.%
-    mutate(dimension = 'status') %.%
-    rbind(
-      Trend %.%
-        select(region_id=rgn_id, score=Trend) %.%
-        mutate(dimension = 'trend')) %.%
-    mutate(goal='FIS')
-  #write.csv(scores, '/Volumes/data_edit/model/GL-NCEAS_FIS_v2013a/RevisingFIS/final/scores_FIS_2013a_mrf_bdb.csv', row.names=F, na='')
-
-  
-#   # status
-#   r.status = rename(SelectLayersData(layers, layers='rn_fis_status'), c('id_num'='region_id','val_num'='score'))[,c('region_id','score')]
-#   r.status$score = r.status$score * 100
-#   
-#   # trend
-#   r.trend = rename(SelectLayersData(layers, layers='rn_fis_trend'), c('id_num'='region_id','val_num'='score'))[,c('region_id','score')]
-#   
-#   # return scores
-#   s.status = cbind(r.status, data.frame('dimension'='status'))
-#   s.trend  = cbind(r.trend , data.frame('dimension'='trend' ))
-#   scores = cbind(rbind(s.status, s.trend), data.frame('goal'='FIS'))
-   return(scores)  
+  # assemble dimensions
+  scores = rbind(status, trend) %.% mutate(goal='FIS')
+  return(scores)  
 }
 
 MAR = function(layers, status_years=2005:2011){  

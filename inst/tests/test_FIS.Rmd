@@ -19,21 +19,6 @@ load_all()
 source('inst/extdata/data_create.R')
 ```
 
-Warning messages:
-1: In CheckLayers(layers.csv, dir.to, flds_id = c("rgn_id", "cntry_key",  :
-  Missing fields...
-    snk_fis_meancatch: NA metric.tons
-    snk_fis_proparea_saup2rgn: NA proparea
-2: In CheckLayers(layers.csv, dir.to, flds_id = c("rgn_id", "cntry_key",  :
-  Unused fields...
-    snk_fis_meancatch: TaxonName_TaxonKey,MeanCatch
-    fnk_fis_b_bmsy: TaxonName
-    snk_fis_proparea_saup2rgn: propArea
-3: In CheckLayers(layers.csv, dir.to, flds_id = c("rgn_id", "cntry_key",  :
-  Rows duplicated...
-    snk_fis_meancatch: 142417
-    fnk_fis_b_bmsy: 76558
-
 1. run FIS function
 
 ```{r calc}
@@ -53,10 +38,12 @@ scores = conf$functions$FIS(layers, status_year=2011)
 scores_www = rename(subset(read.csv('/Volumes/local_edit/src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-09.csv'),
                            goal=='FIS' & dimension %in% c('status','trend') & scenario==2013 & region_id!=0),
                     c('value'='score_www'))
+
+# conf   = ohicore::Conf('inst/extdata/conf.Global2013.www2013'); scores = conf$functions$FIS(layers, status_year=2011)
 v = merge(scores_www, scores, all=T); head(v)
 dlply(v, .(dimension), function(x){ all.equal(x$score, x$score_www) })
 v$score_dif = with(v, score - score_www)
 summary(subset(v, dimension=='trend'))
 print(v[( is.na(v$score) != is.na(v$score_www) ) | ( !is.na(v$score_dif) & abs(v$score_dif) > 0.01 ),])
-# NOTE: these differences are due to 4_yr species only previously getting trend calculated to 4 years (instead of 5)
+# NOTE: these differences are due to minor rounding errors 
 ```
