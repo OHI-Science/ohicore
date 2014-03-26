@@ -73,13 +73,13 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
     }
     m$file_exists[i] = T
     d = read.csv(path, stringsAsFactors=F)
-    #names(d) = tolower(names(d))
+    names(d) = tolower(names(d))
     
     # get field types
     fld_types = sapply(as.list(d), class)
     
     # id field
-    #if (as.character(layer)=='seas_rgns_offshore12nm'){ browser() }
+    #if (as.character(layer)=='snk_fis_meancatch'){ browser() }
     idx.ids = which(tolower(names(d)) %in% flds_id)
     if (length(idx.ids)>0){
       # if more than one id field, then presume lookup table and get the id field entirely unique rows      

@@ -11,9 +11,10 @@
 ```{r init}
 library(devtools)
 
-od = '~/Code/ohicore'
-setwd(od)
-load_all(od)
+#od = '~/Code/ohicore'
+#setwd(od)
+#load_all(od)
+load_all()
 
 # do.layers.Global.www2013 = T
 source('inst/extdata/data_create.R')
@@ -22,11 +23,10 @@ source('inst/extdata/data_create.R')
 1. run MAR function
 
 ```{r calc}
+#setwd('~/Code/ohicore/inst/extdata/')
+layers = ohicore::Layers('inst/extdata/layers.Global2013.www2013.csv', 'inst/extdata/layers.Global2013.www2013')
 
-setwd('~/Code/ohicore/inst/extdata/')
-layers = ohicore::Layers('layers.Global2013.www2013.csv', 'layers.Global2013.www2013')
-
-conf   = ohicore::Conf('conf.Global2013.www2013')
+conf   = ohicore::Conf('inst/extdata/conf.Global2013.www2013')
 scores = conf$functions$MAR(layers, status_years=2005:2011)
 ```   
 
