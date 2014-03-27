@@ -9,7 +9,7 @@
 "FIS NP","rn_fis_status","Fisheries status","Modeled fisheries status based on the Sea Around Us Project ","5.2","status score","FIS_Status_2013a_lyr.csv","status","rgn_id",,,"year","status",,TRUE,0,0.86,TRUE,,,,222
 "FIS","rn_fis_trend","Fisheries trend","Modeled fisheries trend based on the Sea Around Us Project (status)","5.2","trend score","FIS_Trend_2013a_lyr.csv","trend","rgn_id",,,,"trend",,TRUE,-0.181428571,0.455714286,FALSE,,,,222
 "FP","rn_fp_wildcaught_weight","Fisheries weighting factor","Proportional yield of wild caught fisheries","5.2","value","GL_FP_wildcaught_weight_v2013a_lyr.csv","w_fis","rgn_id",,,,"w_fis",,TRUE,0.145926531,1,TRUE,,,,222
-"pressures HAB","rnk_hab_presence","Habitat presence","Modeled combined habitat presence","","boolean","hab_habitat_presence.csv","boolean","rgn_id",,"habitat",,"boolean",,TRUE,1,1,TRUE,,,,222
+"pressures HAB","rnk_hab_presence","Habitat presence","Modeled combined habitat presence","","boolean","hab_habitat_presence.csv","boolean","rgn_id",,"habitat",,"boolean",,TRUE,0,1,TRUE,,,,222
 "HAB CS CP","rnk_hab_extent","Habitat extent","Modeled combined habitat extent","","km^2","hab_habitat_extent.csv","km2","rgn_id",,"habitat",,"km2",,TRUE,0,3804040,FALSE,,,,222
 "HAB CS CP","rnk_hab_health","Habitat health","Modeled combined habitat health condition trend","","value","hab_habitat_health_disaggregatedNature2012.csv","health","rgn_id",,"habitat",,"health",,TRUE,0,1,TRUE,,,,222
 "HAB CS CP","rnk_hab_trend","Habitat health trend","Modeled combined habitat health trend","","trend score","hab_habitat_trend_disaggregatedNature2012.csv","trend","rgn_id",,"habitat",,"trend",,TRUE,-1,1,FALSE,,,,222

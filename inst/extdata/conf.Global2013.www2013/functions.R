@@ -169,7 +169,7 @@ CS = function(layers){
               c('id_num'='region_id', 'category'='habitat', lyrs[['rk']]))
   
   # limit to CS habitats
-  rk = subset(rk, habitat %in% c('mangrove','saltmarsh','seagrass'))
+  rk = subset(rk, habitat %in% c('mangrove','saltmarsh','seagrass','clathrates','permafrost'))
   
   # assign extent of 0 as NA
   rk$extent[rk$extent==0] = NA

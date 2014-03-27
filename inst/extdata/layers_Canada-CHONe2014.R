@@ -14,6 +14,48 @@ file.copy(paste('conf.Global2013.www2013/',fl,sep = ""),paste('conf.Canada-CHONe
 fl=list.files('spatial.www2013')
 file.copy(paste('spatial.www2013/',fl,sep = ""),paste('spatial.Canada-CHONe2014/',fl,sep = ""), overwrite = T)
 
+########################################## add carbon storage habitats #############################################################
+pres=read.csv('layers.Canada-CHONe2014/hab_habitat_presence.csv', na.strings='', stringsAsFactors=F);head(pres);
+ext=read.csv('layers.Canada-CHONe2014/hab_habitat_extent.csv', na.strings='', stringsAsFactors=F);head(ext);
+health=read.csv('layers.Canada-CHONe2014/hab_habitat_health_disaggregatedNature2012.csv', na.strings='', stringsAsFactors=F);head(health);
+trend=read.csv('layers.Canada-CHONe2014/hab_habitat_trend_disaggregatedNature2012.csv', na.strings='', stringsAsFactors=F);head(trend);
+
+# inject permafrost and clathrates
+#presence
+newpres=data.frame(cbind(rgn_id=1:278,habitat=rep(c('clathrates','permafrost'),each=278),boolean=0))
+newpres$boolean[newpres$rgn_id==218]=1
+pres=rbind(pres,newpres)
+
+#extent
+ext=rbind(ext,data.frame(cbind(rgn_id=218,habitat=c('clathrates','permafrost'),km2=c(2517375.704,819702.5225))))
+
+# calculate temperature based on CO2
+co2 = read.csv("~/Documents/ohigit/ohicore/inst/extdata/rawdata.Canada-CHONe2014/HAB/CO2.csv")
+
+# set baseline to pre-industrial levels (280 ppm)
+co2$anomaly = co2$mean-280
+
+#calculate health
+co2$health = 1-co2$anomaly/(550-280)
+
+#health
+max_year = max(co2$year)
+status = co2$health[which(co2$year==max_year)]
+health = rbind(health,data.frame(cbind(rgn_id=218,habitat=c('clathrates','permafrost'),health=c(status,status))))
+
+#trend
+d = data.frame(status=co2$health, year=co2$year)[tail(which(!is.na(co2$health)), 20),]
+t = lm(status ~ year, d)$coefficients[['year']]
+trend = rbind(trend,data.frame(cbind(rgn_id=218,habitat=c('clathrates','permafrost'),trend=c(t,t))))
+
+# write out modified layers
+write.csv(pres,'layers.Canada-CHONe2014/hab_habitat_presence.csv', na='', row.names=F)
+write.csv(ext,'layers.Canada-CHONe2014/hab_habitat_extent.csv', na='', row.names=F)
+write.csv(health,'layers.Canada-CHONe2014/hab_habitat_health_disaggregatedNature2012.csv', na='', row.names=F)
+write.csv(trend,'layers.Canada-CHONe2014/hab_habitat_trend_disaggregatedNature2012.csv', na='', row.names=F)
+
+
+########################################## Change iconic species #############################################################
 # get species 
 spp_ico = read.csv('rawdata.Canada-CHONe2014/ICO/iconic_species.csv', stringsAsFactors=F); head(spp_ico)
 spp_sara = read.csv('rawdata.Canada-CHONe2014/ICO/SARA_sp.csv', stringsAsFactors=F); head(spp_sara)
@@ -194,5 +236,38 @@ rm=read.csv('conf.Canada-CHONe2014/resilience_matrix.csv', stringsAsFactors=F)
 rm$goal[rm$goal=='AO']     = 'AN'
 write.csv(rm,'conf.Canada-CHONe2014/resilience_matrix.csv',row.names=FALSE)
 
-# create Aboriginal needs layers
 
+##################################### weights from survey ################################################################################
+
+aveRank=read.csv('rawdata.Canada-CHONe2014/weights/aveRank.csv')
+
+# rename Artisinal Opportunities to Aboriginal Needs
+goals = read.csv('conf.Canada-CHONe2014/goals.csv', stringsAsFactors=F); head(goals); 
+
+#calculate inverse of average rank
+aveRank$V1=10-aveRank$V1
+
+#calculate weights
+goals$weight[goals$goal=='FP']     = aveRank$V1[aveRank$X=="FoodProvision"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='FIS']     = aveRank$V1[aveRank$X=="FoodProvision"]/sum(aveRank$V1)/2*10
+goals$weight[goals$goal=='MAR']     = aveRank$V1[aveRank$X=="FoodProvision"]/sum(aveRank$V1)/2*10
+goals$weight[goals$goal=='AN']     = aveRank$V1[aveRank$X=="AboriginalNeeds"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='NP']     = aveRank$V1[aveRank$X=="NaturalProducts"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='CS']     = aveRank$V1[aveRank$X=="CarbonStorage"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='CP']     = aveRank$V1[aveRank$X=="CoastalProtection"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='TR']     = aveRank$V1[aveRank$X=="TourismRecreation"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='LE']     = aveRank$V1[aveRank$X=="CoastalLivelihoods"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='LIV']     = aveRank$V1[aveRank$X=="CoastalLivelihoods"]/sum(aveRank$V1)/2*10
+goals$weight[goals$goal=='ECO']     = aveRank$V1[aveRank$X=="CoastalLivelihoods"]/sum(aveRank$V1)/2*10
+goals$weight[goals$goal=='SP']     = aveRank$V1[aveRank$X=="IconicPlacesSPecies"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='ICO']     = aveRank$V1[aveRank$X=="IconicPlacesSPecies"]/sum(aveRank$V1)/2*10
+goals$weight[goals$goal=='LSP']     = aveRank$V1[aveRank$X=="IconicPlacesSPecies"]/sum(aveRank$V1)/2*10
+goals$weight[goals$goal=='CW']     = aveRank$V1[aveRank$X=="CleanWaters"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='BD']     = aveRank$V1[aveRank$X=="Biodiversity"]/sum(aveRank$V1)*10
+goals$weight[goals$goal=='HAB']     = aveRank$V1[aveRank$X=="Biodiversity"]/sum(aveRank$V1)/2*10
+goals$weight[goals$goal=='SPP']     = aveRank$V1[aveRank$X=="Biodiversity"]/sum(aveRank$V1)/2*10
+
+
+
+# write back updated goals.csv
+write.csv(goals, 'conf.Canada-CHONe2014/goals.csv', na='', row.names=F)
