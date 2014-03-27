@@ -946,6 +946,120 @@ LIV.ECO.2012n = function(){
   
 }
 
+LIV.ECO.2013 = function(layers){
+    
+  # DEBUG: initialize -----
+  
+  # arguments
+  yr = 2013
+  
+  library(devtools)
+  library(RPostgreSQL)
+  
+  #wd = '~/Code/ohicore'
+  #setwd(wd)
+  load_all()
+  
+  #library(RCurl)
+  library(dplyr)
+  
+  # paths
+  dir_data  = '/Volumes/data_edit'
+  dir_local = '/Volumes/local_edit'
+  
+  # db for comparison
+  pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_global2013', user='bbest') # assumes password in ~/.pgpass
+  dbSendQuery(pg, 'SET search_path TO global_li, global; SET ROLE TO ohi;')
+    
+  # inputs
+  status_model_curref = read.csv(file.path(dir_data,  sprintf('model/GL-NCEAS-Livelihoods_2012/data_%d/global_li_status_model_curref.csv', yr)), na.strings='') # head(status_model_curref)
+  ppp                 = read.csv(file.path(dir_data, 'model/GL-NCEAS-Livelihoods_v2013a/data/country_gdppcppp_2013a.csv'), na.strings='') # head(ppp); dim(ppp); summary(ppp)
+  
+  
+  # model... ----
+  
+  # status_model_combined: jobs, rev
+  status_jobs_rev = status_model_curref %.%
+    filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+    group_by(metric, iso3166) %.%
+    summarise(
+      score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+      n_sector = n()) %.%
+    arrange(metric, iso3166)
+  
+  # status_model_combined: wage t0
+  t0 = status_model_curref %.%
+    filter(metric=='wage' & ref_base_value != 0 & ref_adj_value != 0) %.%
+    mutate(w_prime_i = (cur_base_value / ref_base_value) / (cur_adj_value / ref_adj_value)) %.%
+    select(metric, iso3166, sector, w_prime_i) %.%
+    group_by(metric, iso3166) %.%
+    summarise(w_prime  = mean(w_prime_i, na.rm=T),
+              n_sector = n()) %.%
+    arrange(metric, iso3166)
+  
+  # status_model_combined: wage p
+  p = ppp %.%
+    rename(c(ISO3166='iso3166',YEAR='year',VALUE='value')) %.%
+    arrange(iso3166, year) %.%
+    group_by(iso3166) %.%
+    summarise(year      = last(year),
+              ppp_value = last(value)) %.%
+    filter(!is.na(ppp_value)) %.%
+    arrange(iso3166)
+  
+  # status_model_combined: wage t2 = t0 + p
+  t2 = t0 %.%
+    merge(p, by='iso3166') %.%
+    mutate(score = w_prime * ppp_value) %.%
+    select(metric, iso3166, score, n_sector) %.%
+    arrange(metric, iso3166)
+  
+  # status_model_combined: wage
+  max_wage_score = max(t2$score, na.rm=T)
+  status_wage = t2 %.%
+    mutate(score = score / max_wage_score)
+  
+  # status_model_combined: wage union with jobs, rev
+  status_model_combined = ungroup(status_jobs_rev) %.%
+    rbind(status_wage)
+  
+  # status_score R
+  status_score = status_model_combined %.%
+    # liv
+    dcast(iso3166 ~ metric, value.var='score') %.%
+    group_by(iso3166) %.%
+    mutate(
+      value     = mean(c(jobs, wage), na.rm=T),
+      component = 'livelihood') %.%
+    select(iso3166, component, value) %.%
+    ungroup() %.% 
+    arrange(iso3166, component, value) %.%
+    # eco
+    rbind(status_model_combined %.%
+            filter(metric=='rev') %.%
+            mutate(
+              value     = score,
+              component = 'economy') %.%
+            select(iso3166, component, value)) %.%
+    # order
+    filter(!is.na(value)) %.%
+    arrange(iso3166, component) %.%
+    # clamp
+    mutate(score = pmin(value, 1))
+  
+  # DEBUG: status_score compare ---
+  status_score_pg = dbGetQuery(pg, "SELECT * FROM status_score ORDER BY iso3166, component")
+  head(status_score   ); dim(status_score   ); summary(status_score   )
+  head(status_score_pg); dim(status_score_pg); summary(status_score_pg)
+  
+  # TODO NEXT: 
+  #  * aggregate country_2012 to region_2012
+  #    - original: /Volumes/local_edit/src/model/global2013/livelihoods/status
+  #    - new: aggregate_by_country_weighted(), eg above
+  #  * disaggregate region_2012 to region_2013
+  #    - /Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/digest_disaggregate.R
+  
+}
 
 LIV = function(layers){
   
