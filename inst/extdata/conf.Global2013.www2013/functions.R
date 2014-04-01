@@ -1,4 +1,6 @@
 FIS = function(layers, status_year=2011){
+  # layers used: snk_fis_meancatch, fnk_fis_b_bmsy, snk_fis_proparea_saup2rgn
+  
   
   library(plyr)
   library(dplyr)
@@ -197,6 +199,7 @@ FIS = function(layers, status_year=2011){
 }
 
 MAR = function(layers, status_years=2005:2011){  
+  # layers used: mar_harvest_tonnes, mar_harvest_species, mar_sustainability_score, mar_coastalpopn_inland25mi, mar_trend_years
   
   harvest_tonnes = rename(
     SelectLayersData(layers, layers='mar_harvest_tonnes', narrow=T),
@@ -362,15 +365,15 @@ AO = function(layers,
 NP = function(layers, 
               status_year=2008, 
               trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
-                                 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
+                                 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008), scores){
   # 2013: NP(layers, status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
   # 2012: NP(layers, status_year=2008, trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007, 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008))
     
   # layers
   lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
               'rk'  = c('rnk_np_sustainability_score' = 'S',
-                        'rnk_np_weights_combo'        = 'w'),
-              'r'   = c('rn_fis_status'               = 'fis_status'))
+                        'rnk_np_weights_combo'        = 'w'))
+              #'r'   = c('rn_fis_status'               = 'fis_status'))
   lyr_names = sub('^\\w*\\.', '', names(unlist(lyrs))) 
   
   # cast data
@@ -379,8 +382,12 @@ NP = function(layers,
                c('id_num'='region_id', 'category'='product', lyrs[['rky']]))
   rk  = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
                c('id_num'='region_id', 'category'='product', lyrs[['rk']]))
-  r   = rename(dcast(D, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
-               c('id_num'='region_id', lyrs[['r']]))
+  
+  # TODO: switch from layer rn_fis_status to using scores FIS status
+  #'r'   = c('rn_fis_status'               = 'fis_status'))
+  #r   = rename(dcast(D, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
+  #             c('id_num'='region_id', lyrs[['r']]))
+  browser()
   
   # turn rn_fis_status to S for fish_oil
   r$product = 'fish_oil'

@@ -94,6 +94,10 @@ for (yr in do.years.www2013){ # yr=2013
       write.csv(d, f.to, row.names=F, na='')
     }
   }
+  
+  # delete extraneous files
+  files.used = as.character(g[, sprintf('fn_%da' , yr)])
+  unlink(sprintf('%s/%s', dir.to, setdiff(list.files(dir.to), files.used)))
             
   # create conforming layers navigation csv  
   layers.csv = sprintf('%s.csv', dir.to)
