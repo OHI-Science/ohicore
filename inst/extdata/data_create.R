@@ -9,7 +9,7 @@ library(plyr)
 load_all()
 
 # flags for turning on/off time consuming code
-do.years.www2013 = 2013 # c(2012,2013)
+do.years.www2013 = c(2012,2013)
 do.spatial.www2013 = F
 do.layers.Global2012.Nature2012ftp = F
 
@@ -39,7 +39,12 @@ dir_conf = list(
   'AMPHITRITE'=list(  # BB's Windows 8 on MacBook Pro VMWare
     dir_git   = 'G:/ohigit',
     dir_annex = 'Z:/bbest On My Mac/neptune_cyberduck'),
-  'salacia.nceas.ucsb.edu'=list(  # Melanie's Windows 8 on MacBook Pro VMWare
+  'salacia.local'=list(  # BB's Mac
+    dir_ohicore       = getwd(),
+    dir_neptune_data  = '/Volumes/data_edit',
+    dir_neptune_local = '/Volumes/local_edit',
+    dir_annex         = '/Volumes/data_edit/git-annex'),
+  'salacia.nceas.ucsb.edu'=list(  # BB's Mac
     dir_ohicore       = getwd(),
     dir_neptune_data  = '/Volumes/data_edit',
     dir_neptune_local = '/Volumes/local_edit',
@@ -55,7 +60,9 @@ dir_conf = list(
 # load Google spreadsheet
 g.url = 'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv'
      #  'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv&single=true&gid=0
-g = subset(read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings=''), ingest==T )
+g0 = read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings='')
+write.csv(g0, 'inst/extdata/tmp/layers_navigation_2012a_2013a.csv', na='', row.names=F)
+g = subset(g0, ingest==T )
 
 # load results
 results.csv = file.path(dir_conf$dir_neptune_local, 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv')

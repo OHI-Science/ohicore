@@ -10,6 +10,7 @@ FIS = function(layers, status_year=2011){
       taxon_name_key = category,
       year,
       catch          = val_num)  
+  
   # separate out the region ids:
   c$fao_id    <- as.numeric(sapply(strsplit(as.character(c$fao_saup_id), "_"), function(x)x[1]))
   c$saup_id   <- as.numeric(sapply(strsplit(as.character(c$fao_saup_id), "_"), function(x)x[2]))
