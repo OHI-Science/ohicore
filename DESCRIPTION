@@ -7,6 +7,7 @@ Maintainer: Ben Best <bbest@nceas.ucsb.edu>
 Depends:
     R (>= 2.14.0),
     plyr,
+    dplyr (>= 0.1.2),
     reshape2,
     RJSONIO,
     knitr (>= 1.5),

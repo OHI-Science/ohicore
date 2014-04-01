@@ -1,8 +1,5 @@
 FIS = function(layers, status_year=2010){
   
-  library(plyr)
-  library(dplyr)
-  
   # catch data
   c = SelectLayersData(layers, layer='snk_fis_meancatch', narrow=T) %.%
     select(
@@ -279,15 +276,16 @@ MAR = function(layers, status_years=2004:2010){
   })
   
   # return scores
-  scores = rbind(
-    within(status, { 
-      region_id = rgn_id
-      score     = status
-      dimension = 'status'})[,c('region_id','dimension','score')],
-    within(trend, { 
-      region_id = rgn_id
-      score     = trend
-      dimension = 'trend'})[,c('region_id','dimension','score')])
+  scores = status %.%
+    select(region_id = rgn_id,
+           score     = status) %.%
+    mutate(dimension='status') %.%
+    rbind(
+      trend %.%
+        select(region_id = rgn_id,
+               score     = trend) %.%
+        mutate(dimension='trend')) %.%
+    mutate(goal='MAR')
   return(scores)
   # NOTE: some differences to www2013 are due to 4_yr species only previously getting trend calculated to 4 years (instead of 5)
 }
