@@ -6,7 +6,7 @@ load_all()
 # if opening ohicore as the RStudio versioned project (using Github) then should auto set to correct working directory.
 
 # flags for turning on/off time consuming code
-do.years.www2013 = c(2013,2012)
+do.years.www2013 = c(2012,2013)
 do.spatial.www2013 = F
 do.layers.Global2012.Nature2012ftp = F
 results.source = 'calculate' # 'calculate' OR path, eg 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv'
