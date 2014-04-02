@@ -337,38 +337,43 @@ AO = function(layers,
   r.status = subset(ry, year==year_max, c(region_id, status)); summary(r.status); dim(r.status)
   
   # trend
-  r.trend = ddply(
-    subset(ry, year >= year_min), .(region_id), summarize,      
-    trend = 
-      if(length(na.omit(status))>1) {
-        # use only last valid 5 years worth of status data since year_min
-        d = data.frame(status=status, year=year)[tail(which(!is.na(status)), 5),]
-        lm(status ~ year, d)$coefficients[['year']] / 100
-      } else {
-        NA
-      }); # summary(r.trend); summary(subset(scores_www, goal=='AO' & dimension=='trend'))
+  # trend
+  r.trend = ddply(subset(ry, year >= year_min), .(region_id), function(x)
+  {
+    if (length(na.omit(x$status))>1) {
+      # use only last valid 5 years worth of status data since year_min
+      d = data.frame(status=x$status, year=x$year)[tail(which(!is.na(x$status)), 5),]
+      trend = coef(lm(status ~ year, d))[['year']] / 100
+    } else {
+      trend = NA
+    }
+    return(data.frame(trend=trend))
+  })
   
   # return scores
-  #browser()
-  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status')); head(s.status)
-  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend')); head(s.trend)
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='AO')); dlply(scores, .(dimension), summary)
+  scores = r.status %.%
+    select(region_id, score=status) %.%
+    mutate(dimension='status') %.%
+    rbind(
+      r.trend %.%
+        select(region_id, score=trend) %.%
+        mutate(dimension='trend')) %.%
+    mutate(goal='AO') # dlply(scores, .(dimension), summary)
   return(scores)  
 }
 
 
-NP = function(layers, 
+NP = function(scores, layers, 
               status_year=2008, 
               trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
                                  'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
   # 2013: NP(layers, status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
   # 2012: NP(layers, status_year=2008, trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007, 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008))
-    
+  
   # layers
   lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
               'rk'  = c('rnk_np_sustainability_score' = 'S',
-                        'rnk_np_weights_combo'        = 'w'),
-              'r'   = c('rn_fis_status'               = 'fis_status'))
+                        'rnk_np_weights_combo'        = 'w'))
   lyr_names = sub('^\\w*\\.', '', names(unlist(lyrs))) 
   
   # cast data
@@ -377,8 +382,11 @@ NP = function(layers,
                c('id_num'='region_id', 'category'='product', lyrs[['rky']]))
   rk  = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
                c('id_num'='region_id', 'category'='product', lyrs[['rk']]))
-  r   = rename(dcast(D, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
-               c('id_num'='region_id', lyrs[['r']]))
+  
+  # get FIS status
+  r = scores %.%
+    filter(goal=='FIS' & dimension=='status') %.%
+    select(region_id, fis_status=score)
   
   # turn rn_fis_status to S for fish_oil
   r$product = 'fish_oil'
@@ -540,63 +548,66 @@ ECO = function(layers){
 
 LE = function(scores, layers){
 
-## replacing 2012 scores for ECO and LIV with 2013 data (email Feb 28, Ben H.)
-  # ECO: Eritrea (just this one country)
+  ## replacing 2012 scores for ECO and LIV with 2013 data (email Feb 28, Ben H.)
+    # ECO: Eritrea (just this one country)
+    # LIV: Eritrea, Anguilla, Bermuda, Egypt, Ghana, Indonesia, Iceland, Saint Kitts, 
+    #      Sri Lanka, Brunei, Malaysia, Trinidad & Tobago, and Taiwan
+  
+  ## replacement data and region names:
+  scores_2013 <- read.csv("inst\\extdata\\scores.Global2013.www2013.csv")  
+  rgns <- read.csv("inst\\extdata\\layers.global2012.www2013\\rgn_labels.csv") 
+    
+  ##ECO
+  # ID regions to change
+  rgns2replace <- rgns[grep("Eritrea", rgns$label), "rgn_id"]
+  #remove scores from 2012 data:
+  #scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
+  scores <- scores[!(scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace),]
+  # find scores from 2013 data
+  #scores_2013[scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==rgns2replace,]
+  scores_2013_ECO <- scores_2013[(scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==rgns2replace),]
+  # bind to new data
+  scores <- rbind(scores, scores_2013_ECO)
+  scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
+  
   # LIV: Eritrea, Anguilla, Bermuda, Egypt, Ghana, Indonesia, Iceland, Saint Kitts, 
   #      Sri Lanka, Brunei, Malaysia, Trinidad & Tobago, and Taiwan
+  # ID regions to change
+  rgns2replace <- rbind(rgns[grep("Eritrea", rgns$label),],
+                        rgns[grep("Anguilla", rgns$label),],
+                        rgns[grep("Bermuda", rgns$label),],
+                        rgns[grep("Egypt", rgns$label),],
+                        rgns[grep("Ghana", rgns$label),],
+                        rgns[grep("Indonesia", rgns$label),],
+                        rgns[grep("Iceland", rgns$label),],
+                        rgns[grep("Saint Kitts", rgns$label),],
+                        rgns[grep("Sri Lanka", rgns$label),],
+                        rgns[grep("Brunei", rgns$label),],
+                        rgns[grep("Malaysia", rgns$label),],
+                        rgns[grep("Trinidad", rgns$label),],
+                        rgns[grep("Taiwan", rgns$label),])
+  rgns2replace <- rgns2replace$rgn_id
+  #remove scores from 2012 data:
+  #scores[scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace,]
+  scores <- scores[!(scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace),]
+  # find scores from 2013 data
+  #scores_2013[scores_2013$goal=="LIV" & scores_2013$dimension=="score" & scores_2013$region_id %in% rgns2replace,]
+  scores_2013_LIV <- scores_2013[(scores_2013$goal=="LIV" & scores_2013$dimension=="score" & scores_2013$region_id %in% rgns2replace),]
+  # bind to new data
+  scores <- rbind(scores, scores_2013_LIV)
+  #scores[scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace,]
 
-## replacement data and region names:
-scores_2013 <- read.csv("inst\\extdata\\scores.Global2013.www2013.csv")  
-rgns <- read.csv("inst\\extdata\\layers.global2012.www2013\\rgn_labels.csv") 
+  # calculate LE scores
+  scores.LE = scores %.% 
+    filter(goal %in% c('LIV','ECO') & dimension %in% c('status','trend')) %.% # did old use likely future?
+    dcast(region_id + dimension ~ goal, value.var='score') %.%
+    mutate(score = rowMeans(cbind(ECO, LIV), na.rm=T)) %.%
+    select(region_id, dimension, score) %.%
+    mutate(goal  = 'LE')
   
-##ECO
-# ID regions to change
-rgns2replace <- rgns[grep("Eritrea", rgns$label), "rgn_id"]
-#remove scores from 2012 data:
-#scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
-scores <- scores[!(scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace),]
-# find scores from 2013 data
-#scores_2013[scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==rgns2replace,]
-scores_2013_ECO <- scores_2013[(scores_2013$goal=="ECO" & scores_2013$dimension=="score" & scores_2013$region_id==rgns2replace),]
-# bind to new data
-scores <- rbind(scores, scores_2013_ECO)
-scores[scores$goal=="ECO" & scores$dimension=="score" & scores$region_id==rgns2replace,]
-
-# LIV: Eritrea, Anguilla, Bermuda, Egypt, Ghana, Indonesia, Iceland, Saint Kitts, 
-#      Sri Lanka, Brunei, Malaysia, Trinidad & Tobago, and Taiwan
-# ID regions to change
-rgns2replace <- rbind(rgns[grep("Eritrea", rgns$label),],
-                      rgns[grep("Anguilla", rgns$label),],
-                      rgns[grep("Bermuda", rgns$label),],
-                      rgns[grep("Egypt", rgns$label),],
-                      rgns[grep("Ghana", rgns$label),],
-                      rgns[grep("Indonesia", rgns$label),],
-                      rgns[grep("Iceland", rgns$label),],
-                      rgns[grep("Saint Kitts", rgns$label),],
-                      rgns[grep("Sri Lanka", rgns$label),],
-                      rgns[grep("Brunei", rgns$label),],
-                      rgns[grep("Malaysia", rgns$label),],
-                      rgns[grep("Trinidad", rgns$label),],
-                      rgns[grep("Taiwan", rgns$label),])
-rgns2replace <- rgns2replace$rgn_id
-#remove scores from 2012 data:
-#scores[scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace,]
-scores <- scores[!(scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace),]
-# find scores from 2013 data
-#scores_2013[scores_2013$goal=="LIV" & scores_2013$dimension=="score" & scores_2013$region_id %in% rgns2replace,]
-scores_2013_LIV <- scores_2013[(scores_2013$goal=="LIV" & scores_2013$dimension=="score" & scores_2013$region_id %in% rgns2replace),]
-# bind to new data
-scores <- rbind(scores, scores_2013_LIV)
-#scores[scores$goal=="LIV" & scores$dimension=="score" & scores$region_id %in% rgns2replace,]
-
- # calculate LE scores
-  scores.LE = within(dcast(scores, 
-                        region_id + dimension ~ goal, value.var='score', 
-                        subset=.(goal %in% c('LIV','ECO') & !dimension %in% c('pressures','resilience'))), {
-    goal = 'LE'
-    score = rowMeans(cbind(ECO, LIV), na.rm=T)
-  })
-  scores = rbind(scores, scores.LE[c('region_id','goal','dimension','score')])
+  # rbind to all scores
+  scores = scores %.%
+    rbind(scores.LE)
   
   # LIV, ECO and LE: nullify unpopulated regions and those of the Southern Ocean Islands
   r_s_islands   = subset(SelectLayersData(layers, layers='rnk_rgn_georegions', narrow=T), 

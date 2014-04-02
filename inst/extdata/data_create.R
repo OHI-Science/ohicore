@@ -106,6 +106,7 @@ for (yr in do.years.www2013){ # yr=2013
     # calculate scores 
     layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
                         layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
+    #conf   = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
     scores = CalculateAll(conf, layers, debug=T)
     write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)    
     
