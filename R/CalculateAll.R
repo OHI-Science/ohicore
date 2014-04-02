@@ -57,6 +57,7 @@ CalculateAll = function(conf, layers, debug=F){
   goals_X = goals_X[order(nchar(goals_X$goal), decreasing=T),] # order by length of goal id so subgoals first
   for (i in 1:nrow(goals_X)){ # i=2
     cat(sprintf('Calculating Status and Trend for %s...\n', goals_X$goal[i]))
+    #if (goals_X$goal[i]=='MAR') browser()
     scores_X = eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)[,c('goal','dimension','region_id','score')]
     scores = rbind(scores, scores_X)    
   }

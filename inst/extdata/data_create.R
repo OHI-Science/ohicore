@@ -1,17 +1,15 @@
 # Create package datasets for lazy loading. Document in R/data.R.
-library(devtools)
-library(plyr)
 
-#load ohicore wd = '~/../Github/ohicore' # '~/Code/ohicore' setwd(wd) 
-# if opening
-# ohicore as the RStudio versioned project (using Github) then should auto set to
-# correct working directory.
+library(devtools)
 load_all()
 
+# if opening ohicore as the RStudio versioned project (using Github) then should auto set to correct working directory.
+
 # flags for turning on/off time consuming code
-do.years.www2013 = 2013 # c(2012,2013)
+do.years.www2013 = c(2012,2013)
 do.spatial.www2013 = F
 do.layers.Global2012.Nature2012ftp = F
+results.source = 'calculate' # 'calculate' OR path, eg 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv'
 
 # conf.* ----
 # Create conf.[scenario] dataset for all conf.[scenario] directories.
@@ -39,7 +37,12 @@ dir_conf = list(
   'AMPHITRITE'=list(  # BB's Windows 8 on MacBook Pro VMWare
     dir_git   = 'G:/ohigit',
     dir_annex = 'Z:/bbest On My Mac/neptune_cyberduck'),
-  'salacia.nceas.ucsb.edu'=list(  # Melanie's Windows 8 on MacBook Pro VMWare
+  'salacia.local'=list(  # BB's Mac
+    dir_ohicore       = getwd(),
+    dir_neptune_data  = '/Volumes/data_edit',
+    dir_neptune_local = '/Volumes/local_edit',
+    dir_annex         = '/Volumes/data_edit/git-annex'),
+  'salacia.nceas.ucsb.edu'=list(  # BB's Mac
     dir_ohicore       = getwd(),
     dir_neptune_data  = '/Volumes/data_edit',
     dir_neptune_local = '/Volumes/local_edit',
@@ -55,21 +58,17 @@ dir_conf = list(
 # load Google spreadsheet
 g.url = 'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv'
      #  'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv&single=true&gid=0
-g = subset(read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings=''), ingest==T )
-
-# load results
-results.csv = file.path(dir_conf$dir_neptune_local, 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv')
-# TODO: update results to 10-09, not 10-08, per HAB +saltmarsh in OHI_results_for_Radical_2013-10-09.csv
-r = plyr::rename(read.csv(results.csv), c('value'='score'))
-r$dimension = plyr::revalue(r$dimension, c('likely_future_state'='future'))
-#table(r[,c('dimension','goal')])
+g0 = read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings='')
+write.csv(g0, 'inst/extdata/tmp/layers_navigation_2012a_2013a.csv', na='', row.names=F)
+g = subset(g0, ingest==T )
 
 # iterate over scenarios
 for (yr in do.years.www2013){ # yr=2013
-  cat(sprintf('\n---------\nScenario: %da\n', yr))
+  scenario=sprintf('Global%d.www2013', yr)
+  cat(sprintf('\n---------\nscenario: %sa\n', scenario))
   
   # copy files
-  dir.to     = sprintf('inst/extdata/layers.Global%d.www2013', yr)
+  dir.to     = sprintf('inst/extdata/layers.%s', scenario)
   dir.create(dir.to, showWarnings=F)
   cat(sprintf('  copy to %s\n', dir.to))
   g$filename = g[, sprintf('fn_%da' , yr)]
@@ -87,6 +86,10 @@ for (yr in do.years.www2013){ # yr=2013
       write.csv(d, f.to, row.names=F, na='')
     }
   }
+  
+  # delete extraneous files
+  files.used = as.character(g[, sprintf('fn_%da' , yr)])
+  unlink(sprintf('%s/%s', dir.to, setdiff(list.files(dir.to), files.used)))
             
   # create conforming layers navigation csv  
   layers.csv = sprintf('%s.csv', dir.to)
@@ -96,12 +99,32 @@ for (yr in do.years.www2013){ # yr=2013
   write.csv(g[,c('targets','layer','name','description','citation','units','filename','fld_value')], layers.csv, row.names=F, na='')
   
   # run checks on layers
-  conf   = ohicore::Conf(sprintf('inst/extdata/conf.Global%d.www2013', yr))
+  conf   = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
   CheckLayers(layers.csv, dir.to, flds_id=conf$config$layers_id_fields)
   
-  # create scores
-  scores.csv = sprintf('inst/extdata/scores.Global%d.www2013.csv', yr)
-  write.csv(r[r$scenario==yr, c('goal', 'dimension','region_id','score')], scores.csv, row.names=F, na='')
+  if (results.source == 'calculate'){
+    # calculate scores 
+    layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
+                        layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
+    #conf   = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
+    scores = CalculateAll(conf, layers, debug=T)
+    write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)    
+    
+  } else {    
+    # create scores from published results
+    
+    # load results
+    results.csv = file.path(dir_conf$dir_neptune_local, results.source)
+    # eg results.source='src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv'
+    # TODO: update results to 10-09, not 10-08, per HAB +saltmarsh in OHI_results_for_Radical_2013-10-09.csv
+    r = plyr::rename(read.csv(results.csv), c('value'='score'))
+    r$dimension = plyr::revalue(r$dimension, c('likely_future_state'='future'))
+    #table(r[,c('dimension','goal')])
+
+    scores.csv = sprintf('inst/extdata/scores.Global%d.www2013.csv', yr)
+    write.csv(r[r$scenario==yr, c('goal', 'dimension','region_id','score')], scores.csv, row.names=F, na='')
+  }
+  
 }
 
 # spatial.v2013web ----

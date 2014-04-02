@@ -7,12 +7,16 @@
 library(devtools)
 library(RPostgreSQL)
 
-wd = '~/Code/ohicore'
-setwd(wd)
-load_all(wd)
+#wd = '~/Code/ohicore'
+#setwd(wd)
+load_all()
 
 #library(RCurl)
 library(dplyr)
+
+# paths
+dir_data  = '/Volumes/data_edit'
+dir_local = '/Volumes/local_edit'
 
 #pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_nature2012', user='bbest') # assumes password in ~/.pgpass
 pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_global2013', user='bbest') # assumes password in ~/.pgpass
@@ -753,9 +757,9 @@ for (yr in c(2012, 2013)){
 
 # ohicore
 library(devtools)
-wd = '~/Code/ohicore'
-setwd(wd)
-load_all(wd)
+#wd = '~/GitHub_Mac/ohicore'
+#setwd(wd)
+load_all()
 
 # other libraries
 library(RPostgreSQL)
@@ -1112,81 +1116,37 @@ head(status_score   ); dim(status_score   ); summary(status_score   )
 head(status_score_pg); dim(status_score_pg); summary(status_score_pg)
 ```
 
-```{r LIV.ECO.2014 reverse clean & new}
+```{r LIV.ECO.2013 reverse clean & new}
 
-yr = 2013
 
-# inputs
-status_model_curref = read.csv(file.path(dir_data,  sprintf('model/GL-NCEAS-Livelihoods_2012/data_%d/global_li_status_model_curref.csv', yr)), na.strings='') # head(status_model_curref)
-ppp                 = read.csv(file.path(dir_data, 'model/GL-NCEAS-Livelihoods_v2013a/data/country_gdppcppp_2013a.csv'), na.strings='') # head(ppp); dim(ppp); summary(ppp)
 
-# status_model_combined: jobs, rev
-status_jobs_rev = status_model_curref %.%
-  filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
-  group_by(metric, iso3166) %.%
-  summarise(
-    score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
-    n_sector = n()) %.%
-  arrange(metric, iso3166)
+  # aggregate countries to regions by country workforce size for livelihood
+  w_liv = subset(cy, year==liv_adj_year & !is.na(workforce), c(country_id,workforce))
+  
+  s_liv = aggregate_by_country_weighted(df=subset(s, component=='livelihood'), w=w_liv,
+                                        col.value='score', col.country='country_id', col.weight='workforce') # ABW workforce==NA  # summary(s_liv)
+  # TODO: look for difference in LIV between ftp Nature2012 and global2012
+  # s_liv.a = dbGetQuery(pg, "SELECT id, value*100 AS status FROM global_li.status_region WHERE component = 'livelihood'"); head(s_liv.a)
+  #ck.LIV = contrast(s_liv, s_liv.a, by.x='region_id', by.y='id', on.x='score', on.y='status', precision=4)  
+  # all y in x success: 171 
+  # all x in y success: 171 
+  # score.equ success
+  #ck.LIV = contrast(x=s_liv, by.x='region_id', by.y='id', on.x='score', on.y='status',
+  #                     y=subset(results_global_data, goal.subgoal=='LIV'), precision=2)
+  # dropping mutual NAs: 1 / 172 
+  # all y in x success: 172 
+  # all x in y FAIL!: 3 / 171 
+  #     region_id            score
+  # 79         79 93.6637698071856
+  # 110       110 93.6637698071856
+  # 114       114 93.6637698071856
+  # score.equ  FAIL! on 3 / 171 
+  #  region_id            score  score.y          score.dif
+  #        121 68.3349668096027 66.75735  1.577616809602731
+  #        122 58.4077369325363 55.57214  2.835596932536262
+  #        171 82.5785097996376 83.16348 -0.584970200362378
 
-# status_model_combined: wage t0
-t0 = status_model_curref %.%
-  filter(metric=='wage' & ref_base_value != 0 & ref_adj_value != 0) %.%
-  mutate(w_prime_i = (cur_base_value / ref_base_value) / (cur_adj_value / ref_adj_value)) %.%
-  select(metric, iso3166, sector, w_prime_i) %.%
-  group_by(metric, iso3166) %.%
-  summarise(w_prime  = mean(w_prime_i, na.rm=T),
-            n_sector = n()) %.%
-  arrange(metric, iso3166)
 
-# status_model_combined: wage p
-p = ppp %.%
-  rename(c(ISO3166='iso3166',YEAR='year',VALUE='value')) %.%
-  arrange(iso3166, year) %.%
-  group_by(iso3166) %.%
-  summarise(year      = last(year),
-            ppp_value = last(value)) %.%
-  filter(!is.na(ppp_value)) %.%
-  arrange(iso3166)
-
-# status_model_combined: wage t2 = t0 + p
-t2 = t0 %.%
-  merge(p, by='iso3166') %.%
-  mutate(score = w_prime * ppp_value) %.%
-  select(metric, iso3166, score, n_sector) %.%
-  arrange(metric, iso3166)
-
-# status_model_combined: wage
-max_wage_score = max(t2$score, na.rm=T)
-status_wage = t2 %.%
-  mutate(score = score / max_wage_score)
-
-# status_model_combined: wage union with jobs, rev
-status_model_combined = status_jobs_rev %.%
-  rbind(status_wage)
-
-# status_score R
-status_score = status_model_combined %.%
-  # liv
-  dcast(iso3166 ~ metric, value.var='score') %.%
-  group_by(iso3166) %.%
-  mutate(
-    value     = mean(c(jobs, wage), na.rm=T),
-    component = 'livelihood') %.%
-  select(iso3166, component, value) %.%
-  # eco
-  rbind(
-    status_model_combined %.%
-      filter(metric=='rev') %.%
-      mutate(
-        value     = score,
-        component = 'economy') %.%
-      select(iso3166, component, value)) %.%
-  # order
-  subset(!is.na(value)) %.%
-  arrange(iso3166, component) %.%
-  # clamp
-  mutate(score = min(value, 1))
 ```
 
 ```{r other actuals}

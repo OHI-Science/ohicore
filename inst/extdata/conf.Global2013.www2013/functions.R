@@ -1,8 +1,6 @@
 FIS = function(layers, status_year=2011){
-  
-  library(plyr)
-  library(dplyr)
-    
+  # layers used: snk_fis_meancatch, fnk_fis_b_bmsy, snk_fis_proparea_saup2rgn
+      
   # catch data
   c = SelectLayersData(layers, layer='snk_fis_meancatch', narrow=T) %.%
     select(
@@ -10,6 +8,7 @@ FIS = function(layers, status_year=2011){
       taxon_name_key = category,
       year,
       catch          = val_num)  
+  
   # separate out the region ids:
   c$fao_id    <- as.numeric(sapply(strsplit(as.character(c$fao_saup_id), "_"), function(x)x[1]))
   c$saup_id   <- as.numeric(sapply(strsplit(as.character(c$fao_saup_id), "_"), function(x)x[2]))
@@ -196,6 +195,7 @@ FIS = function(layers, status_year=2011){
 }
 
 MAR = function(layers, status_years=2005:2011){  
+  # layers used: mar_harvest_tonnes, mar_harvest_species, mar_sustainability_score, mar_coastalpopn_inland25mi, mar_trend_years
   
   harvest_tonnes = rename(
     SelectLayersData(layers, layers='mar_harvest_tonnes', narrow=T),
@@ -278,15 +278,16 @@ MAR = function(layers, status_years=2005:2011){
     })
 
   # return scores
-  scores = rbind(
-    within(status, { 
-      region_id = rgn_id
-      score     = status
-      dimension = 'status'})[,c('region_id','dimension','score')],
-    within(trend, { 
-      region_id = rgn_id
-      score     = trend
-      dimension = 'trend'})[,c('region_id','dimension','score')])
+  scores = status %.%
+    select(region_id = rgn_id,
+           score     = status) %.%
+    mutate(dimension='status') %.%
+    rbind(
+      trend %.%
+        select(region_id = rgn_id,
+               score     = trend) %.%
+        mutate(dimension='trend')) %.%
+    mutate(goal='MAR')
   return(scores)
   # NOTE: some differences to www2013 are due to 4_yr species only previously getting trend calculated to 4 years (instead of 5)
 }
@@ -338,27 +339,32 @@ AO = function(layers,
   r.status = subset(ry, year==year_max, c(region_id, status)); summary(r.status); dim(r.status)
   
   # trend
-  r.trend = ddply(
-    subset(ry, year >= year_min), .(region_id), summarize,      
-    trend = 
-      if(length(na.omit(status))>1) {
+  r.trend = ddply(subset(ry, year >= year_min), .(region_id), function(x)
+    {
+      if (length(na.omit(x$status))>1) {
         # use only last valid 5 years worth of status data since year_min
-        d = data.frame(status=status, year=year)[tail(which(!is.na(status)), 5),]
-        lm(status ~ year, d)$coefficients[['year']] / 100
+        d = data.frame(status=x$status, year=x$year)[tail(which(!is.na(x$status)), 5),]
+        trend = coef(lm(status ~ year, d))[['year']] / 100
       } else {
-        NA
-      }); # summary(r.trend); summary(subset(scores_www, goal=='AO' & dimension=='trend'))
+        trend = NA
+      }
+      return(data.frame(trend=trend))
+    })
   
   # return scores
-  #browser()
-  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status')); head(s.status)
-  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend')); head(s.trend)
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='AO')); dlply(scores, .(dimension), summary)
+  scores = r.status %.%
+    select(region_id, score=status) %.%
+    mutate(dimension='status') %.%
+    rbind(
+      r.trend %.%
+        select(region_id, score=trend) %.%
+        mutate(dimension='trend')) %.%
+    mutate(goal='AO') # dlply(scores, .(dimension), summary)
   return(scores)  
 }
 
 
-NP = function(layers, 
+NP = function(scores, layers, 
               status_year=2008, 
               trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
                                  'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
@@ -368,8 +374,7 @@ NP = function(layers,
   # layers
   lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
               'rk'  = c('rnk_np_sustainability_score' = 'S',
-                        'rnk_np_weights_combo'        = 'w'),
-              'r'   = c('rn_fis_status'               = 'fis_status'))
+                        'rnk_np_weights_combo'        = 'w'))
   lyr_names = sub('^\\w*\\.', '', names(unlist(lyrs))) 
   
   # cast data
@@ -378,8 +383,11 @@ NP = function(layers,
                c('id_num'='region_id', 'category'='product', lyrs[['rky']]))
   rk  = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
                c('id_num'='region_id', 'category'='product', lyrs[['rk']]))
-  r   = rename(dcast(D, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['r']]))),
-               c('id_num'='region_id', lyrs[['r']]))
+  
+  # get FIS status
+  r = scores %.%
+    filter(goal=='FIS' & dimension=='status') %.%
+    select(region_id, fis_status=score)
   
   # turn rn_fis_status to S for fish_oil
   r$product = 'fish_oil'
@@ -408,9 +416,15 @@ NP = function(layers,
                   trend = min(1, max(-1, sum(w * trend.k) / sum(w))))
   
   # return scores
-  s.status = cbind(rename(r.status, c('status'='score')), data.frame('dimension'='status'))
-  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend'))
-  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='NP'))
+  scores = r.status %.%
+    select(region_id, score=status) %.%
+    mutate(dimension='status') %.%
+    rbind(
+      r.trend %.%
+        select(region_id, score=trend) %.%
+        mutate(dimension='trend')) %.%
+    mutate(goal='NP') %.%
+    rbind(scores)
   return(scores)  
 }
 
@@ -946,6 +960,120 @@ LIV.ECO.2012n = function(){
   
 }
 
+LIV.ECO.2013 = function(layers){
+    
+  # DEBUG: initialize -----
+  
+  # arguments
+  yr = 2013
+  
+  library(devtools)
+  library(RPostgreSQL)
+  
+  #wd = '~/Code/ohicore'
+  #setwd(wd)
+  load_all()
+  
+  #library(RCurl)
+  library(dplyr)
+  
+  # paths
+  dir_data  = '/Volumes/data_edit'
+  dir_local = '/Volumes/local_edit'
+  
+  # db for comparison
+  pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_global2013', user='bbest') # assumes password in ~/.pgpass
+  dbSendQuery(pg, 'SET search_path TO global_li, global; SET ROLE TO ohi;')
+    
+  # inputs
+  status_model_curref = read.csv(file.path(dir_data,  sprintf('model/GL-NCEAS-Livelihoods_2012/data_%d/global_li_status_model_curref.csv', yr)), na.strings='') # head(status_model_curref)
+  ppp                 = read.csv(file.path(dir_data, 'model/GL-NCEAS-Livelihoods_v2013a/data/country_gdppcppp_2013a.csv'), na.strings='') # head(ppp); dim(ppp); summary(ppp)
+  
+  
+  # model... ----
+  
+  # status_model_combined: jobs, rev
+  status_jobs_rev = status_model_curref %.%
+    filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
+    group_by(metric, iso3166) %.%
+    summarise(
+      score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
+      n_sector = n()) %.%
+    arrange(metric, iso3166)
+  
+  # status_model_combined: wage t0
+  t0 = status_model_curref %.%
+    filter(metric=='wage' & ref_base_value != 0 & ref_adj_value != 0) %.%
+    mutate(w_prime_i = (cur_base_value / ref_base_value) / (cur_adj_value / ref_adj_value)) %.%
+    select(metric, iso3166, sector, w_prime_i) %.%
+    group_by(metric, iso3166) %.%
+    summarise(w_prime  = mean(w_prime_i, na.rm=T),
+              n_sector = n()) %.%
+    arrange(metric, iso3166)
+  
+  # status_model_combined: wage p
+  p = ppp %.%
+    rename(c(ISO3166='iso3166',YEAR='year',VALUE='value')) %.%
+    arrange(iso3166, year) %.%
+    group_by(iso3166) %.%
+    summarise(year      = last(year),
+              ppp_value = last(value)) %.%
+    filter(!is.na(ppp_value)) %.%
+    arrange(iso3166)
+  
+  # status_model_combined: wage t2 = t0 + p
+  t2 = t0 %.%
+    merge(p, by='iso3166') %.%
+    mutate(score = w_prime * ppp_value) %.%
+    select(metric, iso3166, score, n_sector) %.%
+    arrange(metric, iso3166)
+  
+  # status_model_combined: wage
+  max_wage_score = max(t2$score, na.rm=T)
+  status_wage = t2 %.%
+    mutate(score = score / max_wage_score)
+  
+  # status_model_combined: wage union with jobs, rev
+  status_model_combined = ungroup(status_jobs_rev) %.%
+    rbind(status_wage)
+  
+  # status_score R
+  status_score = status_model_combined %.%
+    # liv
+    dcast(iso3166 ~ metric, value.var='score') %.%
+    group_by(iso3166) %.%
+    mutate(
+      value     = mean(c(jobs, wage), na.rm=T),
+      component = 'livelihood') %.%
+    select(iso3166, component, value) %.%
+    ungroup() %.% 
+    arrange(iso3166, component, value) %.%
+    # eco
+    rbind(status_model_combined %.%
+            filter(metric=='rev') %.%
+            mutate(
+              value     = score,
+              component = 'economy') %.%
+            select(iso3166, component, value)) %.%
+    # order
+    filter(!is.na(value)) %.%
+    arrange(iso3166, component) %.%
+    # clamp
+    mutate(score = pmin(value, 1))
+  
+  # DEBUG: status_score compare ---
+  status_score_pg = dbGetQuery(pg, "SELECT * FROM status_score ORDER BY iso3166, component")
+  head(status_score   ); dim(status_score   ); summary(status_score   )
+  head(status_score_pg); dim(status_score_pg); summary(status_score_pg)
+  
+  # TODO NEXT: 
+  #  * aggregate country_2012 to region_2012
+  #    - original: /Volumes/local_edit/src/model/global2013/livelihoods/status
+  #    - new: aggregate_by_country_weighted(), eg above
+  #  * disaggregate region_2012 to region_2013
+  #    - /Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/digest_disaggregate.R
+  
+}
 
 LIV = function(layers){
   
@@ -975,13 +1103,16 @@ ECO = function(layers){
 LE = function(scores, layers){
   
   # calculate LE scores
-  scores.LE = within(dcast(scores, 
-                        region_id + dimension ~ goal, value.var='score', 
-                        subset=.(goal %in% c('LIV','ECO') & !dimension %in% c('pressures','resilience'))), {
-    goal = 'LE'
-    score = rowMeans(cbind(ECO, LIV), na.rm=T)
-  })
-  scores = rbind(scores, scores.LE[c('region_id','goal','dimension','score')])
+  scores.LE = scores %.% 
+    filter(goal %in% c('LIV','ECO') & dimension %in% c('status','trend')) %.% # did old use likely future?
+    dcast(region_id + dimension ~ goal, value.var='score') %.%
+    mutate(score = rowMeans(cbind(ECO, LIV), na.rm=T)) %.%
+    select(region_id, dimension, score) %.%
+    mutate(goal  = 'LE')
+
+  # rbind to all scores
+  scores = scores %.%
+    rbind(scores.LE)  
   
   # LIV, ECO and LE: nullify unpopulated regions and those of the Southern Ocean Islands
   r_s_islands   = subset(SelectLayersData(layers, layers='rnk_rgn_georegions', narrow=T), 
@@ -1087,9 +1218,9 @@ LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_y
   r.status = r.yrs[r.yrs$year==status_year, c('region_id','status')]; head(r.status)
   
   # calculate trend
-  r.trend = ddply(subset(r.yrs, year %in% trend_years), .(region_id), summarize,
-                  annual = lm(pct_pa ~ year)[['coefficients']][['year']],
-                  trend = min(1, max(0, 5 * annual)))
+  r.trend = ddply(subset(r.yrs, year %in% trend_years), .(region_id), function(x){
+    data.frame(
+      trend = min(1, max(0, 5 * coef(lm(pct_pa ~ year, data=x))[['year']])))})      
   
   # return scores
   scores = rbind.fill(
