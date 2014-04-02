@@ -276,7 +276,7 @@ MAR = function(layers, status_years=2005:2011){
     return(data.frame(
       trend = round(min(lm(status ~ year, data=y)$coefficients[['year']] * 5,1), 2)))  
     })
-
+  
   # return scores
   scores = status %.%
     select(region_id = rgn_id,
@@ -1105,7 +1105,7 @@ LE = function(scores, layers){
   
   # calculate LE scores
   scores.LE = scores %.% 
-    filter(goal %in% c('LIV','ECO') & dimension %in% c('status','trend')) %.% # did old use likely future?
+    filter(goal %in% c('LIV','ECO') & dimension %in% c('status','trend','score','future')) %.%
     dcast(region_id + dimension ~ goal, value.var='score') %.%
     mutate(score = rowMeans(cbind(ECO, LIV), na.rm=T)) %.%
     select(region_id, dimension, score) %.%

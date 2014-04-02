@@ -26,7 +26,7 @@ do.layers.www2013 = F
 do.spatial.www2013 = F
 do.layers.Global2012.Nature2012ftp = F
 scores.source = 'calculate'  # 'calculate' OR path, eg 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv'
-scores.compare = file.path(dir_conf$local, 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv')
+scores.compare = 'by year'   # file.path(dir_conf$local, 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-09.csv') # OHI_results_for_Radical_2013-12-13.csv')
 
 # conf.* ----
 # Create conf.[scenario] dataset for all conf.[scenario] directories.
@@ -101,16 +101,23 @@ for (yr in do.years.www2013){ # yr=2013
     scores = CalculateAll(conf, layers, debug=T)
     write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
     
+    # archive scores on disk (out of github, for easy retrieval later)
+    csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores.%s_%s.csv', dir_conf$annex, scenario, format(Sys.Date(), '%Y-%m-%d'))
+    write.csv(scores, csv, na='', row.names=F)
+    
     # compare with published results
     if (length(scores.compare) > ''){
             
-      # compare with scores published on website
-      #scores = read.csv('inst/extdata/scores.Global2012.www2013.csv', na.strings='')
-      scores_old = read.csv(scores.compare, na.strings='') %.%
-        filter(scenario==yr) %.%
-        select(goal, dimension, region_id, score_old=value) %.%
-        mutate(dimension = revalue(dimension, c('likely_future_state'='future')))        
-        #head(scores_old); table(scores_old[,c('dimension','goal')])      
+      # Radical format scores_old
+      # scores_old = read.csv(scores.compare, na.strings='') %.%
+      #   filter(scenario==yr) %.%
+      #   select(goal, dimension, region_id, score_old=value) %.%
+      #   mutate(dimension = revalue(dimension, c('likely_future_state'='future')))        
+      #   #head(scores_old); table(scores_old[,c('dimension','goal')])
+      
+      # toolbox generated scores_old
+      csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores.%s_2014-04-02a_pre-pressures-new.csv', dir_conf$annex, scenario)
+      scores_old = read.csv(csv, na.strings='')
       
       # merge new and old scores, with region labels
       rgn_labels = SelectLayersData(layers, layers=conf$config$layer_region_labels) %.%
@@ -135,7 +142,8 @@ for (yr in do.years.www2013){ # yr=2013
               select(goal, dimension, region_id, region_label, score, score_old)
             , row.names=F)
 
-      cat('----\nCompare Values\n\n')      
+      cat('----\nCompare Values\n\n')
+      cat('Table. Differences (new - old) summarized by goal and dimension.\n')
       print(v %.%
               filter(!is.na(score) & !is.na(score_old) & (abs(score_dif) > 0.1)) %.%
               group_by(goal, dimension) %.%
@@ -146,8 +154,9 @@ for (yr in do.years.www2013){ # yr=2013
                 dif_max  = max(score_dif)), 
             row.names=F)
       
-      # Major differences for 2012: MAR status diff't data?, LIV / ECO score OK w/ Eritrea n other subs      
-      
+      if (yr=='2012'){
+        #cat('\nDiscussion. Major differences for 2012 with LIV / ECO / LE score seem OK b/c of ECO Eritrea and other LIV substitutions.\n')
+      }
     }
     
   } else {    

@@ -89,7 +89,6 @@ CalculateAll = function(conf, layers, debug=F){
     
     # bind to other scores
     scores = rbind(scores, scores_G)
-    print(table(scores[ ,c('goal','dimension')]))
   }
 
   # post-Index functions: supragoals
