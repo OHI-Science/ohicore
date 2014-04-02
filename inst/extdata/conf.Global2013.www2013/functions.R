@@ -387,7 +387,8 @@ NP = function(scores, layers,
   # get FIS status
   r = scores %.%
     filter(goal=='FIS' & dimension=='status') %.%
-    select(region_id, fis_status=score)
+    mutate(fis_status = score / 100) %.%
+    select(region_id, fis_status)
   
   # turn rn_fis_status to S for fish_oil
   r$product = 'fish_oil'
@@ -416,17 +417,17 @@ NP = function(scores, layers,
                   trend = min(1, max(-1, sum(w * trend.k) / sum(w))))
   
   # return scores
-  scores = r.status %.%
+  scores.NP = r.status %.%
     select(region_id, score=status) %.%
     mutate(dimension='status') %.%
     rbind(
       r.trend %.%
         select(region_id, score=trend) %.%
         mutate(dimension='trend')) %.%
-    mutate(goal='NP') %.%
-    rbind(scores)
-  return(scores)  
+    mutate(goal='NP')
+  return(scores.NP)  
 }
+
 
 
 CS = function(layers){

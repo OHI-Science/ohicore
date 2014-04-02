@@ -369,6 +369,7 @@ NP = function(scores, layers,
                                  'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
   # 2013: NP(layers, status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
   # 2012: NP(layers, status_year=2008, trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007, 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008))
+  #browser()
   
   # layers
   lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
@@ -386,7 +387,8 @@ NP = function(scores, layers,
   # get FIS status
   r = scores %.%
     filter(goal=='FIS' & dimension=='status') %.%
-    select(region_id, fis_status=score)
+    mutate(fis_status = score / 100) %.%
+    select(region_id, fis_status)
   
   # turn rn_fis_status to S for fish_oil
   r$product = 'fish_oil'
@@ -415,16 +417,15 @@ NP = function(scores, layers,
                   trend = min(1, max(-1, sum(w * trend.k) / sum(w))))
   
   # return scores
-  scores = r.status %.%
+  scores.NP = r.status %.%
     select(region_id, score=status) %.%
     mutate(dimension='status') %.%
     rbind(
       r.trend %.%
         select(region_id, score=trend) %.%
         mutate(dimension='trend')) %.%
-    mutate(goal='NP') %.%
-    rbind(scores)
-  return(scores)  
+    mutate(goal='NP')
+  return(scores.NP)  
 }
 
 
@@ -585,7 +586,7 @@ LE = function(scores, layers){
 
   # calculate LE scores
   scores.LE = scores %.% 
-    filter(goal %in% c('LIV','ECO') & dimension %in% c('status','trend')) %.% # did old use likely future?
+    filter(goal %in% c('LIV','ECO') & dimension %in% c('status','trend','score','future')) %.% # did old use likely future?
     dcast(region_id + dimension ~ goal, value.var='score') %.%
     mutate(score = rowMeans(cbind(ECO, LIV), na.rm=T)) %.%
     select(region_id, dimension, score) %.%

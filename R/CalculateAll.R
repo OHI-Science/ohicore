@@ -31,6 +31,7 @@
 #' names(d)
 #' d[,c('id','score','xF')]
 #' }
+#' @import dplyr
 #' 
 #' @export
 CalculateAll = function(conf, layers, debug=F){
@@ -40,26 +41,20 @@ CalculateAll = function(conf, layers, debug=F){
   
   # Pressures, all goals
   cat(sprintf('Calculating Pressures...\n'))
-  scores_P = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
-  #write.csv(scores_P, '~/Downloads/scores_P.csv', na='', row.names=F)
-  #scores_P = read.csv('~/Downloads/scores_P.csv', na.strings='', stringsAsFactors=F)
-  scores = scores_P
+  scores = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
   
   # Resilience, all goals
   cat(sprintf('Calculating Resilience...\n'))
-  scores_R = CalculateResilienceAll(layers, conf, debug)
-  #write.csv(scores_R, '~/Downloads/scores_R.csv', na='', row.names=F)
-  #scores_R = read.csv('~/Downloads/scores_R.csv', na.strings='', stringsAsFactors=F)
-  scores = rbind(scores, scores_R)
+  scores = rbind(scores, CalculateResilienceAll(layers, conf, debug))
   
   # pre-Index functions: Status and Trend, by goal  
-  goals_X = subset(conf$goals, !is.na(preindex_function))
-  goals_X = goals_X[order(nchar(goals_X$goal), decreasing=T),] # order by length of goal id so subgoals first
+  goals_X = conf$goals %.%
+    filter(!is.na(preindex_function)) %.%
+    arrange(order_calculate)
   for (i in 1:nrow(goals_X)){ # i=2
     cat(sprintf('Calculating Status and Trend for %s...\n', goals_X$goal[i]))
-    #if (goals_X$goal[i]=='MAR') browser()
-    scores_X = eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)[,c('goal','dimension','region_id','score')]
-    scores = rbind(scores, scores_X)    
+    assign('scores', scores, envir=conf$functions)
+    scores = rbind(scores, eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)[,c('goal','dimension','region_id','score')])
   }
 
   # Goal Score and Likely Future
@@ -68,11 +63,7 @@ CalculateAll = function(conf, layers, debug=F){
     cat(sprintf('Calculating Goal Score and Likely Future for %s...\n', g))
     
     # cast data
-    v = dcast(
-      scores, 
-      region_id ~ dimension, 
-      subset = .(goal==g),
-      value.var='score')
+    v = dcast(scores, region_id ~ dimension, subset = .(goal==g), value.var='score')
   
     # calculate Goal Score and Likely Future
     x = CalculateGoalIndex(
@@ -98,11 +89,11 @@ CalculateAll = function(conf, layers, debug=F){
     
     # bind to other scores
     scores = rbind(scores, scores_G)
+    print(table(scores[ ,c('goal','dimension')]))
   }
 
   # post-Index functions: supragoals
   goals_Y = subset(conf$goals, !is.na(postindex_function))
-  assign('layers', layers, envir=conf$functions)
   for (i in 1:nrow(goals_Y)){ # i=2
     
     cat(sprintf('Calculating post-Index function for %s...\n', goals_Y$goal[i]))
@@ -115,25 +106,23 @@ CalculateAll = function(conf, layers, debug=F){
   # regional Index score by goal weights
   cat(sprintf('Calculating regional Index score by goal weights...\n'))
   supragoals = subset(conf$goals, is.na(parent), goal, drop=T); supragoals
-  scores_I = ddply(
+  scores = rbind(scores, ddply(
     merge(subset(scores, dimension=='score' & goal %in% supragoals),
       conf$goals[,c('goal','weight')]), 
     .(region_id), summarize,
     goal='Index',
     dimension='score',
-    score = weighted.mean(score, weight, na.rm=T))
-  scores = rbind(scores, scores_I)
+    score = weighted.mean(score, weight, na.rm=T)))
 
   # regional Future score by goal weights
   cat(sprintf('Calculating regional Future score by goal weights...\n'))
-  scores_F = ddply(
+  scores = rbind(scores, ddply(
     merge(subset(scores, dimension=='future' & goal %in% supragoals),
           conf$goals[,c('goal','weight')]), 
     .(region_id), summarize,
     goal='Index',
     dimension='future',
-    score = weighted.mean(score, weight, na.rm=T))
-  scores = rbind(scores, scores_F)
+    score = weighted.mean(score, weight, na.rm=T)))
 
   # post-process scores, but pre-global calculation
   cat(sprintf('Calculating post-process function...\n'))
@@ -146,15 +135,17 @@ CalculateAll = function(conf, layers, debug=F){
                         c('id_num'='region_id','val_num'='area')); head(region_areas); subset(region_areas, region_id==213)
   data_0 = merge(subset(scores, dimension %in% c('score','status','future')), 
                  region_areas); head(data_0)
-  scores_0 = ddply(
+  scores = rbind(scores, ddply(
     data_0, .(goal, dimension), summarize,
     region_id = 0,
-    score = weighted.mean(score, area, na.rm=T))
-  scores = rbind(scores, scores_0)
+    score = weighted.mean(score, area, na.rm=T)))
 
   # post-process
   cat(sprintf('Calculating FinalizeScores function...\n'))
   scores = conf$functions$FinalizeScores(layers, conf, scores)
+  
+  # check scores
+  stopifnot(sum(duplicated(scores[,c('region_id','goal','dimension')]))==0)
   
   # return scores
   return(scores)
