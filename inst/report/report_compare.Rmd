@@ -75,6 +75,14 @@ for (scen in names(scenarios)){ # scen = names(scenarios)[1]
           mutate(scenario=scen))
   }
   
+  cat(sprintf('\n### %s: GLOBAL Difference Sorted by Max Absolute Difference\n', scen))
+  cat('\nLimiting to just the GLOBAL scores (region_id=0), sorted by the maximum absolute difference.\n')
+  w = v %.%
+    filter(region_id==0) %.%
+    select(goal, dimension, score, score_old, score_dif, score_dif_abs) %.%
+    arrange(desc(score_dif_abs), goal, dimension)
+  kable(w, format='markdown')
+  
   # summarize differences by goal, dimension
   x = v %.%
     filter(!is.na(score) & !is.na(score_old) & (abs(score_dif) > 0.1)) %.%
@@ -86,7 +94,7 @@ for (scen in names(scenarios)){ # scen = names(scenarios)[1]
       dif_max     = max(score_dif),
       dif_abs_max = max(score_dif_abs)) %.%
     arrange(desc(dif_abs_max), goal, dimension)
-
+  
   cat(sprintf('\n### %s: Summary of Value Differences Sorted by Max Absolute Difference\n', scen))
   cat('Differences (new - old) are summarized by goal and dimension if greater than 0.1, and do not count any differences between NAs.\n\n')  
   kable(as.data.frame(x), format='markdown')
@@ -107,7 +115,7 @@ for (scen in names(scenarios)){ # scen = names(scenarios)[1]
           filter(is.na(score) != is.na(score_old)) %.%
           select(goal, dimension, region_id, region_label, score, score_old) %.%
     arrange(goal, dimension, region_id)
-  kable(z, format='markdown', output=T)
+  kable(z, format='markdown')
   # Error in rep.int(string[i], times[i]) : invalid 'times' value
   #   see [kable chokes on table with NAs -- something to do with padding #720](https://github.com/yihui/knitr/issues/720): fixed in dev version
   #   devtools::install_github('yihui/knitr')
@@ -116,7 +124,7 @@ for (scen in names(scenarios)){ # scen = names(scenarios)[1]
   cat(sprintf('These differences can be quite numerous, so are not listed in this report. Please open the spreadsheet `%s` and sort or filter by `score_dif` or other fields.\n\n', basename(f_csv)))
 }
 
-#write.csv(V, f_csv, row.names=F, na='')
+write.csv(V, f_csv, row.names=F, na='')
 ```
 
 
