@@ -53,7 +53,7 @@ g = subset(g0, ingest==T )
 # iterate over scenarios
 for (yr in do.years.www2013){ # yr=2013
   scenario=sprintf('Global%d.www2013', yr)
-  cat(sprintf('\n---------\nscenario: %sa\n', scenario))
+  cat(sprintf('\n\n\n## Scenario: %sa\n', scenario))
   conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
   
   if (do.layers.www2013){
@@ -102,7 +102,7 @@ for (yr in do.years.www2013){ # yr=2013
     write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
     
     # archive scores on disk (out of github, for easy retrieval later)
-    csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores.%s_%s.csv', dir_conf$annex, scenario, format(Sys.Date(), '%Y-%m-%d'))
+    csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_%s.csv', dir_conf$annex, scenario, format(Sys.Date(), '%Y-%m-%d'))
     write.csv(scores, csv, na='', row.names=F)
     
     # compare with published results
@@ -116,8 +116,9 @@ for (yr in do.years.www2013){ # yr=2013
       #   #head(scores_old); table(scores_old[,c('dimension','goal')])
       
       # toolbox generated scores_old
-      csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores.%s_2014-04-02a_pre-pressures-new.csv', dir_conf$annex, scenario)
-      scores_old = read.csv(csv, na.strings='')
+      csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_2014-04-02a_pre-pressures-new.csv', dir_conf$annex, scenario)
+      scores_old = read.csv(csv, na.strings='') %.%
+        select(goal, dimension, region_id, score_old=score); head(scores_old)
       
       # merge new and old scores, with region labels
       rgn_labels = SelectLayersData(layers, layers=conf$config$layer_region_labels) %.%
@@ -129,21 +130,23 @@ for (yr in do.years.www2013){ # yr=2013
         select(goal, dimension, region_id, region_label, score, score_old, score_dif) %.%
         arrange(goal, dimension, region_id)      
         #head(v); dim(scores); dim(scores_old); dim(v)
-
-      # print outputs      
-      cat('----\nCompare NAs\n\n')
+      csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_%s_new-pressures-dif.csv', dir_conf$annex, scenario, format(Sys.Date(), '%Y-%m-%d'))
+      write.csv(v, csv, row.names=F, na='')
       
-      cat('Table. Compare number of non-NA values (new - old) by goal and dimension.\n')
+      # print outputs      
+      cat('\n\n### Compare NAs\n\n')
+      
+      cat('\nTable. Compare number of non-NA values (new - old) by goal and dimension.\n')
       print(table(v[!is.na(v$score), c('goal','dimension')]) - table(v[!is.na(v$score_old), c('goal','dimension')]), zero.print='.')
       
-      cat('Table. Rows without matching NA (old vs new).\n')
+      cat('\nTable. Rows without matching NA (old vs new).\n')
       print(v %.%
               filter(is.na(score) != is.na(score_old)) %.%
               select(goal, dimension, region_id, region_label, score, score_old)
             , row.names=F)
 
-      cat('----\nCompare Values\n\n')
-      cat('Table. Differences (new - old) summarized by goal and dimension.\n')
+      cat('\n### Compare Values\n\n')
+      cat('\nTable. Differences (new - old) summarized by goal and dimension.\n')
       print(v %.%
               filter(!is.na(score) & !is.na(score_old) & (abs(score_dif) > 0.1)) %.%
               group_by(goal, dimension) %.%
@@ -153,6 +156,8 @@ for (yr in do.years.www2013){ # yr=2013
                 dif_min  = min(score_dif),
                 dif_max  = max(score_dif)), 
             row.names=F)
+      # TODO: as.data.frame for above so doesn't print row.names.
+      # TODO: move to .Rmd and kable() the table outputs. pandoc to get TOC.
       
       if (yr=='2012'){
         #cat('\nDiscussion. Major differences for 2012 with LIV / ECO / LE score seem OK b/c of ECO Eritrea and other LIV substitutions.\n')
