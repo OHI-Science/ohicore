@@ -23,17 +23,17 @@ dir_scores = file.path(dir_conf$annex, 'Global/NCEAS-OHI-Scores-Archive/scores')
 scenarios = list(
   '2012' = c(
     scores.csv     = sprintf('%s/scores.Global2012.www2013_2014-04-02.csv', dir_scores),
-    scores_old.csv = sprintf('%s/scores.Global2012.www2013_2013-09-30.csv', dir_scores)),
+    scores_old.csv = sprintf('%s/scores.Global2012.www2013_2013-10-08.csv', dir_scores)),
   '2013' = c(
     scores.csv     = sprintf('%s/scores.Global2013.www2013_2014-04-02.csv', dir_scores),
-    scores_old.csv = sprintf('%s/scores.Global2013.www2013_2013-09-30.csv', dir_scores)))
+    scores_old.csv = sprintf('%s/scores.Global2013.www2013_2013-10-08.csv', dir_scores)))
 dir_report  = file.path(dir_conf$annex, 'Global/NCEAS-OHI-Scores-Archive/reports')
-html        = 'Comparison_Global_2014-04-02_vs_2013-09-30.html'
-title       = 'Comparison Global: 2014-04-02 vs 2013-09-30'
+html        = 'Comparison_Global_2014-04-02_vs_2013-10-08.html'
+title       = 'Comparison Global: 2014-04-02 vs 2013-10-08'
 changelog   = '
 * 2014-04-02: fixed pressures rescaling ([issue #48](https://github.com/OHI-Science/ohicore/issues/48))\n
 ...
-* 2014-09-30: handed results to Radical for website\n'
+* 2014-10-08: handed results to Radical for website\n'
 #cat('\nDiscussion. Major differences for 2012 with LIV / ECO / LE score seem OK b/c of ECO Eritrea and other LIV substitutions.\n')
 open_html = T
 rgn_labels = read.csv('inst/extdata/layers.Global2013.www2013/rgn_labels.csv') %.%
