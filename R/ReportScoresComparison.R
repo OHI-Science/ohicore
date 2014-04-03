@@ -1,6 +1,6 @@
-#' Report Scores
+#' Report Scores Comparison
 #' 
-#' Generate report on calculated scores of the Ocean Health Index.
+#' TODO: Generate report on comparison of scores. So far just a copy of Report Scores.
 #' 
 #' @param scenario list of (conf, layers, scores, spatial)
 #' @param directory output directory of report
@@ -32,7 +32,6 @@ ReportScores = function(scenario = list(conf   = ohicore::conf.Global2013.www201
                         debug=F, ...){
   
 
-  require(knitr); require(markdown)
   #setwd('~/Code/ohicore'); load_all(); launchApp()
 
   # TODO: read scenario.R for this info

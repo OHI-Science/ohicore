@@ -1,0 +1,122 @@
+```{r debug_load, echo=F, eval=F, dependson=NULL}
+require(knitr); require(markdown)
+
+# output files
+f      = tools::file_path_sans_ext(f_report)
+f_md   = sprintf('%s/%s.md'  , dir_report, f)
+f_html = sprintf('%s/%s.html', dir_report, f)
+```
+
+```{r init, dependson=NULL, echo=F, cache=F, message=F}
+# DEBUG: dependson='debug_load'
+
+require(knitr)
+require(markdown)
+require(stringr)
+
+# knitr options
+opts_chunk$set(dependson='init',echo=F,cache=F,fig.width=8,fig.height=5)
+options(markdown.HTML.options=c('hard_wrap','use_xhtml','smartypants','toc')) # exclude 'base64_images'
+ohi.markdown.css = ifelse(file.exists(system.file('report/markdown.css', package='ohicore')),
+                          system.file(     'report/markdown.css', package='ohicore'),
+                          system.file('inst/report/markdown.css', package='ohicore'))
+
+ohi.options <- function() {
+    double.digits <- 7 # <- floor(log10(.Machine$double.base^.Machine$double.digits)) 
+    options(digits=double.digits)
+    options(stringsAsFactors=FALSE) # to prevent factors
+    options(width=120) # for outputting wide columns
+    options(rstudio.markdownToHTML = 
+              function(inputFile, outputFile) {      
+                # example: eg /var/data/ohi/model/GL-NCEAS-Pressures_Matrix/report9.Rmd
+                # see: http://www.rstudio.com/ide/docs/authoring/markdown_custom_rendering
+                # original: '/Applications/RStudio.app/Contents/Resources/resources/markdown.css'
+                markdownToHTML(inputFile, options=getOption('markdown.HTML.options'), outputFile, stylesheet=ohi.markdown.css)   
+              })
+    options()
+}
+opt_old = options(ohi.options())
+```
+
+# `r title`
+
+## Changelog
+`r changelog`
+
+
+```{r main, eval=T, echo=FALSE, results='asis'}
+if (exists('V')) rm(V)
+for (scen in names(scenarios)){ # scen = names(scenarios)[1]
+  
+  cat(sprintf('\n## %s\n', scen))
+  
+  # get scores
+  scores     = read.csv(scenarios[[scen]][['scores.csv']], na.strings='')
+  scores_old = read.csv(scenarios[[scen]][['scores_old.csv']], na.strings=c('','NA')) %.%
+    select(goal, dimension, region_id, score_old=score)
+  
+  # merge new and old scores, with region labels
+  v = scores %.%
+    merge(scores_old, by=c('goal','dimension','region_id'), all=T) %.%
+    mutate(score_dif     = score - score_old,
+           score_dif_abs = abs(score - score_old)) %.%
+    merge(rgn_labels, by='region_id') %.%
+    select(goal, dimension, region_id, region_label, score, score_old, score_dif, score_dif_abs) %.%
+    arrange(goal, dimension, region_id)
+  #head(v); dim(scores); dim(scores_old); dim(v)
+  stopifnot( (nrow(v) >= nrow(scores)) | (nrow(v) >= nrow(scores_old)) )
+  if (!exists('V')){
+    V = v %.%
+      mutate(scenario=scen)
+  } else {
+    V = V %.%
+      rbind(
+        v %.%
+          mutate(scenario=scen))
+  }
+  
+  # summarize differences by goal, dimension
+  x = v %.%
+    filter(!is.na(score) & !is.na(score_old) & (abs(score_dif) > 0.1)) %.%
+    group_by(goal, dimension) %.%
+    summarize(
+      n=n(),
+      dif_mean    = round(mean(score_dif), 2),
+      dif_min     = min(score_dif),
+      dif_max     = max(score_dif),
+      dif_abs_max = max(score_dif_abs)) %.%
+    arrange(desc(dif_abs_max), goal, dimension)
+
+  cat(sprintf('\n### %s: Summary of Value Differences Sorted by Max Absolute Difference\n', scen))
+  cat('Differences (new - old) are summarized by goal and dimension if greater than 0.1, and do not count any differences between NAs.\n\n')  
+  kable(as.data.frame(x), format='markdown')
+
+  cat(sprintf('\n### %s: Summary of Value Differences Sorted by Goal, Dimension\n', scen))
+  cat('Differences (new - old) are summarized by goal and dimension if greater than 0.1, and do not count any differences between NAs.\n\n')  
+  kable(as.data.frame(arrange(x, goal, dimension)), row.names=F, format='markdown')
+  
+  cat(sprintf('\n### %s: Summary of NA Mismatches\n', scen))
+  cat('Differences are counted when NAs are not matched based on equal goal, dimension and region_id.\n\n')
+  y = table(v[!is.na(v$score), c('goal','dimension')]) - table(v[!is.na(v$score_old), c('goal','dimension')])
+  y[y==0] = NA
+  s = str_replace_all(kable(y, format='markdown', output=F), 'NA', '')
+  cat(paste(s, collapse='\n')) # zero.print='.'
+  
+  cat(sprintf('\n### %s: Detailed Rows with NA Mismatched\n', scen))
+  z = v %.%
+          filter(is.na(score) != is.na(score_old)) %.%
+          select(goal, dimension, region_id, region_label, score, score_old) %.%
+    arrange(goal, dimension, region_id)
+  kable(z, format='markdown', output=T)
+  # Error in rep.int(string[i], times[i]) : invalid 'times' value
+  #   see [kable chokes on table with NAs -- something to do with padding #720](https://github.com/yihui/knitr/issues/720): fixed in dev version
+  #   devtools::install_github('yihui/knitr')
+
+  cat(sprintf('\n### %s: Detailed Rows with Values Differing\n', scen))
+  cat(sprintf('These differences can be quite numerous, so are not listed in this report. Please open the spreadsheet `%s` and sort or filter by `score_dif` or other fields.\n\n', basename(f_csv)))
+}
+
+#write.csv(V, f_csv, row.names=F, na='')
+```
+
+

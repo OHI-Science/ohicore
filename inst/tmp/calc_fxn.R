@@ -1,3 +1,5 @@
+# to test individual new functions
+
 # setwd('/Users/bbest/Code/ohicore')
 devtools::load_all()
 # 
