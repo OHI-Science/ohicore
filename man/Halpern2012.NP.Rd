@@ -2,7 +2,7 @@
 \alias{Halpern2012.NP}
 \title{Calculate Natural Products. (Needs work)}
 \usage{
-  Halpern2012.NP(N, wp, Hp, E, R, Nv, Nk, w, ...)
+Halpern2012.NP(N, wp, Hp, E, R, Nv, Nk, w, ...)
 }
 \arguments{
   \item{placeholder}{placeholder N number of products that
@@ -29,9 +29,9 @@
   k category of exploitation status}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Natural Products. (Needs work)
+Calculate Natural Products. (Needs work)
 }
 

@@ -2,15 +2,15 @@
 \alias{Halpern2012.BD.HAB}
 \title{Calculate Habitats subgoal of Biodiversity.}
 \usage{
-  Halpern2012.BD.HAB(Cc, Cr, ...)
+Halpern2012.BD.HAB(Cc, Cr, ...)
 }
 \arguments{
   \item{placeholder}{placeholder}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Habitats subgoal of Biodiversity.
+Calculate Habitats subgoal of Biodiversity.
 }
 

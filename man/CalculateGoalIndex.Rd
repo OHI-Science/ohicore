@@ -2,9 +2,8 @@
 \alias{CalculateGoalIndex}
 \title{Calculate Goal Index}
 \usage{
-  CalculateGoalIndex(id, status, trend, resilience,
-    pressure, DISCOUNT = 1, BETA = 0.67, default_trend = 0,
-    xlim = c(0, 1))
+CalculateGoalIndex(id, status, trend, resilience, pressure, DISCOUNT = 1,
+  BETA = 0.67, default_trend = 0, xlim = c(0, 1))
 }
 \arguments{
   \item{id}{is the subregion identifier}
@@ -29,18 +28,18 @@
   region has NA.}
 }
 \value{
-  Returns a data.frame with the input data, a likely future
-  status and OHI score, containing columns: status (x),
-  trend (t), resilience (r), pressure (p), future status
-  (xF) and goal score (score).
+Returns a data.frame with the input data, a likely future
+status and OHI score, containing columns: status (x), trend
+(t), resilience (r), pressure (p), future status (xF) and
+goal score (score).
 }
 \description{
-  Goal-level computation function to goal score ("component
-  indicators for public goals") based on status, trend,
-  resilience, pressure
+Goal-level computation function to goal score ("component
+indicators for public goals") based on status, trend,
+resilience, pressure
 }
 \details{
-  Parameters:
+Parameters:
 }
 \examples{
 \dontrun{

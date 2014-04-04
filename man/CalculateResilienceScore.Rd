@@ -3,8 +3,8 @@
 \alias{resilience_categories}
 \title{Calculate Resilience Score}
 \usage{
-  CalculateResilienceScore(r, t, w = NA, gamma = 0.5,
-    resilience_categories = c("environmental", "regulatory", "social"))
+CalculateResilienceScore(r, t, w = NA, gamma = 0.5,
+  resilience_categories = c("environmental", "regulatory", "social"))
 }
 \arguments{
   \item{r}{the resilience value matrix \code{[region_id x
@@ -30,40 +30,38 @@
   should include layer, and \code{FALSE} otherwise.}
 }
 \value{
-  \code{ohi.model.resilience} returns resilience score for
-  each region. \code{ohi.model.resilience.matrix} returns a
-  weighting matrix suitable for
-  \code{ohi.model.resilience}.
+\code{ohi.model.resilience} returns resilience score for
+each region. \code{ohi.model.resilience.matrix} returns a
+weighting matrix suitable for \code{ohi.model.resilience}.
 }
 \description{
-  The resilience model function computes a resilience score
-  for each region given a weighting matrix for a goal and
-  the individual resilience values.
+The resilience model function computes a resilience score
+for each region given a weighting matrix for a goal and the
+individual resilience values.
 }
 \details{
-  To calculate Resilience for each goal \emph{g} and region
-  \emph{i} (\eqn{r(g, i)}) we assess three types of
-  resilience measures \emph{j}: ecological integrity
-  (\eqn{Y_{E}(g, i)}), goal-specific regulations aimed at
-  addressing ecological pressures (\eqn{G(g, i)}), and
-  social integrity (\eqn{Y_{S}(g, i)}). The first two
-  measures address ecological resilience while the third
-  addresses social resilience. When all three aspects are
-  relevant to a goal, Resilience is calculated for each
-  goal \emph{g} and each region \emph{i}:
+To calculate Resilience for each goal \emph{g} and region
+\emph{i} (\eqn{r(g, i)}) we assess three types of
+resilience measures \emph{j}: ecological integrity
+(\eqn{Y_{E}(g, i)}), goal-specific regulations aimed at
+addressing ecological pressures (\eqn{G(g, i)}), and social
+integrity (\eqn{Y_{S}(g, i)}). The first two measures
+address ecological resilience while the third addresses
+social resilience. When all three aspects are relevant to a
+goal, Resilience is calculated for each goal \emph{g} and
+each region \emph{i}:
 
-  \deqn{r(g, i) = \gamma*\left(\frac{Y_{E}(g, i) + G(g,
-  i)}{2}\right) + (1 - \gamma)*Y_{S}(g, i)}
+\deqn{r(g, i) = \gamma*\left(\frac{Y_{E}(g, i) + G(g,
+i)}{2}\right) + (1 - \gamma)*Y_{S}(g, i)}
 
-  where each goal \emph{g} is comprised of several
-  resilience layers \emph{j} where \eqn{w_j} is a
-  configuration-time weight to aggregate across resilience
-  categories:
+where each goal \emph{g} is comprised of several resilience
+layers \emph{j} where \eqn{w_j} is a configuration-time
+weight to aggregate across resilience categories:
 
-  \deqn{G(g, i) = \frac{\sum_{j \in g} w_j G(i, j)}{\sum_{j
-  \in g} w_j}} \deqn{Y_{E}(g, i) = \frac{\sum_{j \in g}
-  Y_{E}(i,j)}{N}} \deqn{Y_{S}(g, i) = \frac{\sum_{j \in g}
-  Y_{S}(i,j)}{N}}
+\deqn{G(g, i) = \frac{\sum_{j \in g} w_j G(i, j)}{\sum_{j
+\in g} w_j}} \deqn{Y_{E}(g, i) = \frac{\sum_{j \in g}
+Y_{E}(i,j)}{N}} \deqn{Y_{S}(g, i) = \frac{\sum_{j \in g}
+Y_{S}(i,j)}{N}}
 }
 \examples{
 \dontrun{

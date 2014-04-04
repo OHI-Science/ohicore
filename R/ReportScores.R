@@ -12,6 +12,8 @@
 #' # installr::install.ImageMagick() # doesn't seem to work
 #' installr::install.URL('http://www.imagemagick.org/download/binaries/ImageMagick-6.8.7-10-Q16-x86-dll.exe')}
 #' @keywords ohi report
+#' @import knitr markdown
+#' 
 #' @export
 ReportScores = function(scenario = list(conf   = ohicore::conf.Global2013.www2013, 
                                         layers = ohicore::layers.Global2013.www2013, 

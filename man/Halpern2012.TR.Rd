@@ -2,7 +2,7 @@
 \alias{Halpern2012.TR}
 \title{Calculate Tourism and Recreation.}
 \usage{
-  Halpern2012.TR(D, t, V, S, ...)
+Halpern2012.TR(D, t, V, S, ...)
 }
 \arguments{
   \item{placeholder}{placeholder D number of tourist-days}
@@ -15,9 +15,9 @@
   \item{placeholder}{placeholder S sustainability factor}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Tourism and Recreation.
+Calculate Tourism and Recreation.
 }
 

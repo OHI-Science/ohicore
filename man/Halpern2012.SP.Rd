@@ -2,7 +2,7 @@
 \alias{Halpern2012.SP}
 \title{Calculate Sense of Place.}
 \usage{
-  Halpern2012.SP(S, w, CMPA, tCMPA, CP, tCP, ...)
+Halpern2012.SP(S, w, CMPA, tCMPA, CP, tCP, ...)
 }
 \arguments{
   \item{placeholder}{placeholder S number of assessed
@@ -22,9 +22,9 @@
   \item{placeholder}{placeholder tCP total coastline}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Sense of Place.
+Calculate Sense of Place.
 }
 

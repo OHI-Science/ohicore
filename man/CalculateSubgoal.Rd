@@ -2,10 +2,9 @@
 \alias{CalculateSubgoal}
 \title{Compute a single subgoal.}
 \usage{
-  CalculateSubgoal(current.data, eco.pressures,
-    social.pressures, gs.regulations, social.integrity,
-    eco.integrity, fun = stats::weighted.mean,
-    trend.Years = 5)
+CalculateSubgoal(current.data, eco.pressures, social.pressures, gs.regulations,
+  social.integrity, eco.integrity, fun = stats::weighted.mean,
+  trend.Years = 5)
 }
 \arguments{
   \item{DATA}{data.frame containing columns 'region',
@@ -18,9 +17,9 @@
   \item{w}{(optional) numeric vector describing the}
 }
 \value{
-  stuff
+stuff
 }
 \description{
-  Compute a single subgoal.
+Compute a single subgoal.
 }
 
