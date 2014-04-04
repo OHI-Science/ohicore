@@ -45,7 +45,9 @@ for (dir in list.files('inst/extdata', pattern=glob2rx('conf.*'), full.names=T))
 # [layers|scores].Global[2013|2012].v2013web ----
 
 # load Google spreadsheet
-g.url = 'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv'
+#g.url = 'https://docs.google.com/spreadsheet/pub?key=0At9FvPajGTwJdEJBeXlFU2ladkR6RHNvbldKQjhiRlE&output=csv'
+# layers_2014_HighSeas
+g.url = 'https://docs.google.com/spreadsheet/pub?key=0ArcIhYsFwBeNdG9KVlJ6M0ZxV1dtVDJDQ3FLVWJQWFE&single=true&gid=0&output=csv'
 g0 = read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings='')
 write.csv(g0, 'inst/extdata/tmp/layers_navigation_2012a_2013a.csv', na='', row.names=F)
 g = subset(g0, ingest==T )
