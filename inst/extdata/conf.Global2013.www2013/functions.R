@@ -380,9 +380,9 @@ LSP = function(layers, ref_pct_cmpa=30, ref_pct_cp=30, status_year=2012, trend_y
   r.status = r.yrs[r.yrs$year==status_year, c('region_id','status')]; head(r.status)
   
   # calculate trend
-  r.trend = ddply(subset(r.yrs, year %in% trend_years), .(region_id), summarize,
-                  annual = lm(pct_pa ~ year)[['coefficients']][['year']],
-                  trend = min(1, max(0, 5 * annual)))
+  r.trend = ddply(subset(r.yrs, year %in% trend_years), .(region_id), function(x){
+    data.frame(
+      trend = min(1, max(0, 5 * coef(lm(pct_pa ~ year, data=x))[['year']])))}) 
   
   # return scores
   scores = rbind.fill(

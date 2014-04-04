@@ -190,7 +190,35 @@ write.csv(rm,'conf.Canada-CHONe2014/resilience_matrix.csv',row.names=FALSE)
 source("rawdata.Canada-CHONe2014/AN/AN_timeseries.R")
 
 # copies modified functions.R in rawdata.Canada-CHONe2014/ and to conf.Canada-CHONe2014/functions.R 
-file.copy('rawdata.Canada-CHONe2014/functions.R', 'conf.Canada-CHONe2014/functions.R', overwrite = T)
+#file.copy('rawdata.Canada-CHONe2014/functions.R', 'conf.Canada-CHONe2014/functions.R', overwrite = T)
+#file.copy('conf.Global2013.www2013/functions.R', 'conf.Canada-CHONe2014/functions.R', overwrite = T)
+
+AN = function(layers, 
+              Sustainability=1.0){
+  print("AN source works")
+  layers_data =rename(SelectLayersData(layers, layers='rny_an_timeseries'),c('id_num'='region_id','val_num'='score'))
+  
+  # status
+  r.status = subset(layers_data, year==max(layers_data$year, na.rm=T), c(region_id, score)); summary(r.status); dim(r.status)
+  r.status$score = r.status$score * 100 * Sustainability
+  
+  
+  # trend
+  r.trend = ddply(
+    layers_data, .(region_id), function(x){      
+        d = data.frame(status=x$score, year=x$year)[tail(which(!is.na(x$score)), 10),]
+        
+        data.frame(trend = lm(status ~ year, d)$coefficients[['year']])
+      }); # summary(r.trend); summary(subset(scores_www, goal=='AN' & dimension=='trend'))
+  
+  # return scores
+  #browser()
+  s.status = cbind(rename(r.status, c('score'='score')), data.frame('dimension'='status')); head(s.status)
+  s.trend  = cbind(rename(r.trend , c('trend' ='score')), data.frame('dimension'='trend')); head(s.trend)
+  scores = cbind(rbind(s.status, s.trend), data.frame('goal'='AN')); dlply(scores, .(dimension), summary)
+  return(scores)  
+}
+
 
 # rename Artisinal Opportunities to Aboriginal Needs
 goals = read.csv('conf.Canada-CHONe2014/goals.csv', stringsAsFactors=F); head(goals); 
