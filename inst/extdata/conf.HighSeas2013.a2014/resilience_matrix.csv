@@ -1,4 +1,4 @@
-goal,component,alien_species,cites,fishing_v1,fishing_v1_eez,fishing_v2_eez,fishing_v3,fishing_v3_eez,habitat,habitat_combo,habitat_combo_eez,li_gci,li_sector_evenness,mariculture,msi_gov,species_diversity,species_diversity_3nm,tourism,water,wgi_all
-BD,,alien_species,cites,,,fishing_v2_eez,,,,,habitat_combo_eez,,,mariculture,,,,tourism,water,wgi_all
-FP,,,,,,fishing_v2_eez,,,,,habitat_combo_eez,,,,,species_diversity,,,,wgi_all
-SP,,,cites,,,fishing_v2_eez,,,,,habitat_combo_eez,,,,,species_diversity,,,water,wgi_all
+goal,component,CBD_Nagoya,rfmo,UNFCCC_Kyoto
+SPP,,CBD_Nagoya,rfmo,UNFCCC_Kyoto
+FIS,,CBD_Nagoya,rfmo,
+ICO,,,rfmo,UNFCCC_Kyoto

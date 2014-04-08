@@ -222,7 +222,6 @@ FP = function(layers, scores){
 }
 
 
-## This is really ICO (but it becomes SP because there is no LSP)
 
 ICO = function(layers){
     # scores

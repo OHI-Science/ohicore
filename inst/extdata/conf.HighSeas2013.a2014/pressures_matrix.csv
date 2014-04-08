@@ -1,4 +1,4 @@
-goal,component,component_name,hd_subtidal_sb,hd_subtidal_hb,fp_com_hb,fp_com_lb,cc_sst,cc_acid,cc_uv
-FP,,,2,2,3,1,,,
-SP,,,,2,2,,1,1,
-BD,,,3,2,3,1,1,1,1
+goal,component,hd_subtidal_sb,fp_com_hb,fp_com_lb,cc_sst,cc_acid,cc_uv
+FIS,,2,3,1,,,
+ICO,,,2,,1,1,
+SPP,,3,3,1,1,1,1
