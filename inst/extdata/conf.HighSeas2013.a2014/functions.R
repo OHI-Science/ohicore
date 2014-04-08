@@ -1,5 +1,7 @@
 
 FIS = function(layers, status_year=2011){
+  library(stringr)
+  
   # layers used: snk_fis_meancatch, fnk_fis_b_bmsy, FAOregions
 
 #   #mel stuff
@@ -22,41 +24,35 @@ FIS = function(layers, status_year=2011){
       fao_saup_id    = id_chr,
       taxon_name_key = category,
       year,
-      mean_catch          = val_num)   
+      mean_catch     = val_num) %.%
+    mutate(
+      fao_id     = as.numeric(str_replace(fao_saup_id   , '^(.*)_(.*)$', '\\1')),
+      saup_id    = as.numeric(str_replace(fao_saup_id   , '^(.*)_(.*)$', '\\2')),
+      taxon_name =            str_replace(taxon_name_key, '^(.*)_(.*)$', '\\1'),
+      TaxonKey   = as.numeric(str_replace(taxon_name_key, '^(.*)_(.*)$', '\\2')),   
+      #Create Identifier for linking assessed stocks with country-level catches
+      stock_id   = sprintf('%s_%d', taxon_name, fao_id))
   
   # separate out the region ids:
-  c$fao_id    <- as.numeric(sapply(strsplit(as.character(c$fao_saup_id), "_"), function(x)x[1]))
-  c$saup_id   <- as.numeric(sapply(strsplit(as.character(c$fao_saup_id), "_"), function(x)x[2]))
-  c$taxon_name <- sapply(strsplit(as.character(c$taxon_name_key), "_"), function(x)x[1])
-  c$TaxonKey  <- as.numeric(sapply(strsplit(as.character(c$taxon_name_key), "_"), function(x)x[2]))
-  c$mean_catch     <- as.numeric(c$mean_catch)
-  c$year      <- as.numeric(as.character(c$year))
-  #Create Identifier for linking assessed stocks with country-level catches
-  c$stock_id <- paste(as.character(c$taxon_name),
-                      as.character(c$fao_id), sep="_")
   
   # b_bmsy data
   b = SelectLayersData(layers, layer='fnk_fis_b_bmsy', narrow=T) %.%
     select(
-      fao_id         = id_num,
-      taxon_name      = category,
+      fao_id      = id_num,
+      taxon_name  = category,
       year,
-      b_bmsy           = val_num)
+      b_bmsy      = val_num) %.%
+    mutate(
+      stock_id    = paste(taxon_name, fao_id, sep="_"))
+  
 
   # Identifier taxa/fao region:
-  b$stock_id <- paste(b$taxon_name, b$fao_id, sep="_")
-  b$b_bmsy     <- as.numeric(b$b_bmsy)
-  b$fao_id   <- as.numeric(as.character(b$fao_id))
-  b$year     <- as.numeric(as.character(b$year))
   
   # area data for saup to rgn conversion
-  a = SelectLayersData(layers, layer='snk_fis_proparea_saup2rgn', narrow=T) %.%
+  a = SelectLayersData(layers, layer='FAOregions', narrow=T) %.%
     select(
-      fao_id   = id_num,
-      rgn_id_2013    = category)
-
-  a$rgn_id_2013    <- as.numeric(as.character(a$rgn_id_2013))
-  a$fao_id    <- as.numeric(as.numeric(a$fao_id))
+      rgn_id = id_num,
+      fao_id = val_num)
   
   # ------------------------------------------------------------------------
   # STEP 1. Merge the species status data with catch data
@@ -172,8 +168,9 @@ FIS = function(layers, status_year=2011){
     
   # Join region names/ids to Geom data
   StatusData <- geomMean %.% 
-    left_join(a, by="fao_id") %.%
-    select(rgn_id = rgn_id_2013, year, Status)
+    mutate(fao_id = as.integer(fao_id)) %.%
+    left_join(a, by='fao_id') %.%
+    select(rgn_id = rgn_id, year, Status)
   
   # 2013 status is based on 2011 data (most recent data)
   status = StatusData %.%
@@ -204,49 +201,47 @@ FIS = function(layers, status_year=2011){
 
 
 FP = function(layers, scores){
-  # weights
-  w = rename(SelectLayersData(layers, layers='rn_fp_wildcaught_weight', narrow=T),
-             c('id_num'='region_id', 'val_num'='w_FIS')); head(w)
-  
+    
   # scores
-  s = dcast(scores, region_id + dimension ~ goal, value.var='score', subset=.(goal %in% c('FIS','MAR') & !dimension %in% c('pressures','resilience'))); head(s)
-  
-  # combine
-  d = merge(s, w)
-  d$w_MAR = 1 - d$w_FIS
-  d$score = apply(d[,c('FIS','MAR','w_FIS', 'w_MAR')], 1, function(x){ weighted.mean(x[1:2], x[3:4]) })
-  d$goal = 'FP'
+  s = scores %.%
+    filter(goal %in% c('FIS') & dimension %in% c('status','trend','future','score')) %.%
+    mutate(goal = 'FP')
   
   # return all scores
-  return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
+  return(rbind(scores, s))
 }
 
 
 
 ICO = function(layers){
-    # scores
-  scores = cbind(rename(SelectLayersData(layers, layers=c('rn_spp_status'='status','rn_spp_trend'='trend'), narrow=T),
-                        c(id_num='region_id', layer='dimension', val_num='score')), 
-                 data.frame('goal'='SPP'))
-  scores = mutate(scores, score=ifelse(dimension=='status', score*100, score))
+  
+  # scores
+  scores = SelectLayersData(
+    layers, 
+    layers=c(
+      'rnk_ico_spp_extinction_status' = 'status',
+      'rnk_ico_spp_popn_trend'        = 'trend'), narrow=T) %.%
+    select(
+      region_id = id_num,
+      dimension = layer,
+      score     = val_num) %.%
+    mutate(
+      goal      = 'ICO',
+      score     = ifelse(dimension=='status', score*100, score))
+  
   return(scores) 
   
 }
 
 SP = function(scores){
   
-  d = within(
-    dcast(
-      scores, 
-      region_id + dimension ~ goal, value.var='score', 
-      subset=.(goal %in% c('ICO','LSP') & !dimension %in% c('pressures','resilience')))
-    , {
-      goal = 'SP'
-      score = rowMeans(cbind(ICO, LSP), na.rm=T)})
-  
+  # scores
+  s = scores %.%
+    filter(goal %in% c('ICO') & dimension %in% c('status','trend','future','score')) %.%
+    mutate(goal = 'SP')
   
   # return all scores
-  return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
+  return(rbind(scores, s))
 }
 
 
@@ -254,26 +249,27 @@ SP = function(scores){
 SPP = function(layers){
 
   # scores
-  scores = cbind(rename(SelectLayersData(layers, layers=c('rn_spp_status'='status','rn_spp_trend'='trend'), narrow=T),
-                      c(id_num='region_id', layer='dimension', val_num='score')), 
-               data.frame('goal'='SPP'))
-  scores = mutate(scores, score=ifelse(dimension=='status', score*100, score))
+  scores = SelectLayersData(layers, layers=c('rn_spp_status'='status','rn_spp_trend'='trend'), narrow=T) %.%
+    select(
+      region_id = id_num,
+      dimension = layer,
+      score     = val_num) %.%
+    mutate(
+      goal      = 'SPP',
+      score     = ifelse(dimension=='status', score*100, score))
+  
   return(scores) 
 }
 
 BD = function(scores){
   
-  d = within(
-    dcast(
-      scores, 
-      region_id + dimension ~ goal, value.var='score', 
-      subset=.(goal %in% c('HAB','SPP') & !dimension %in% c('pressures','resilience'))), 
-{
-  goal = 'BD'
-  score = rowMeans(cbind(HAB, SPP), na.rm=T)})
-
-# return all scores
-return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
+  # scores
+  s = scores %.%
+    filter(goal %in% c('SPP') & dimension %in% c('status','trend','future','score')) %.%
+    mutate(goal = 'BD')
+  
+  # return all scores
+  return(rbind(scores, s))
 }
 
 
@@ -286,10 +282,6 @@ PreGlobalScores = function(layers, conf, scores){
   # limit to just desired regions and global (region_id==0)
   scores = subset(scores, region_id %in% c(rgns[,'id_num'], 0))
   
-  # apply NA to Antarctica
-  id_ant = subset(rgns, val_chr=='Antarctica', id_num, drop=T)
-  scores[scores$region_id==id_ant, 'score'] = NA
-    
   return(scores)
 }
 

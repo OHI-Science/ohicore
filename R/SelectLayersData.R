@@ -66,8 +66,8 @@ SelectLayersData = function(object, targets=NULL, layers=NULL, cast=TRUE, narrow
       
       # get field names from layers metadata
       layer = unique(as.character(x$layer))
-      flds = na.omit(unlist(object$meta[layer, c('fld_id_num','fld_id_chr','fld_category','fld_year','fld_val_num','fld_val_chr')]))
-      names(flds) = sub('fld_', '', names(flds))
+      flds.df = na.omit(t(object$meta[layer, c('fld_id_num','fld_id_chr','fld_category','fld_year','fld_val_num','fld_val_chr')]))
+      flds = setNames(flds.df[,1], sub('fld_', '', rownames(flds.df)))
       
       # rename data.frame
       x = plyr::rename(x, setNames(names(flds), flds))
