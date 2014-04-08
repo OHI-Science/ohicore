@@ -1,6 +1,5 @@
 
-## This is really FIS (but it becomes FP because there is no MAR)
-FP = function(layers, status_year=2011){
+FIS = function(layers, status_year=2011){
   # layers used: snk_fis_meancatch, fnk_fis_b_bmsy, FAOregions
 
 #   #mel stuff
@@ -204,9 +203,28 @@ FP = function(layers, status_year=2011){
 }
 
 
+FP = function(layers, scores){
+  # weights
+  w = rename(SelectLayersData(layers, layers='rn_fp_wildcaught_weight', narrow=T),
+             c('id_num'='region_id', 'val_num'='w_FIS')); head(w)
+  
+  # scores
+  s = dcast(scores, region_id + dimension ~ goal, value.var='score', subset=.(goal %in% c('FIS','MAR') & !dimension %in% c('pressures','resilience'))); head(s)
+  
+  # combine
+  d = merge(s, w)
+  d$w_MAR = 1 - d$w_FIS
+  d$score = apply(d[,c('FIS','MAR','w_FIS', 'w_MAR')], 1, function(x){ weighted.mean(x[1:2], x[3:4]) })
+  d$goal = 'FP'
+  
+  # return all scores
+  return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
+}
+
+
 ## This is really ICO (but it becomes SP because there is no LSP)
 
-SP = function(layers){
+ICO = function(layers){
     # scores
   scores = cbind(rename(SelectLayersData(layers, layers=c('rn_spp_status'='status','rn_spp_trend'='trend'), narrow=T),
                         c(id_num='region_id', layer='dimension', val_num='score')), 
@@ -216,9 +234,25 @@ SP = function(layers){
   
 }
 
+SP = function(scores){
+  
+  d = within(
+    dcast(
+      scores, 
+      region_id + dimension ~ goal, value.var='score', 
+      subset=.(goal %in% c('ICO','LSP') & !dimension %in% c('pressures','resilience')))
+    , {
+      goal = 'SP'
+      score = rowMeans(cbind(ICO, LSP), na.rm=T)})
+  
+  
+  # return all scores
+  return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
+}
 
-## This is really SPP (but it becomes BD because there is no HAB)
-BD = function(layers){
+
+
+SPP = function(layers){
 
   # scores
   scores = cbind(rename(SelectLayersData(layers, layers=c('rn_spp_status'='status','rn_spp_trend'='trend'), narrow=T),
@@ -227,6 +261,22 @@ BD = function(layers){
   scores = mutate(scores, score=ifelse(dimension=='status', score*100, score))
   return(scores) 
 }
+
+BD = function(scores){
+  
+  d = within(
+    dcast(
+      scores, 
+      region_id + dimension ~ goal, value.var='score', 
+      subset=.(goal %in% c('HAB','SPP') & !dimension %in% c('pressures','resilience'))), 
+{
+  goal = 'BD'
+  score = rowMeans(cbind(HAB, SPP), na.rm=T)})
+
+# return all scores
+return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
+}
+
 
 
 PreGlobalScores = function(layers, conf, scores){
@@ -243,6 +293,8 @@ PreGlobalScores = function(layers, conf, scores){
     
   return(scores)
 }
+
+
 
 FinalizeScores = function(layers, conf, scores){
   
