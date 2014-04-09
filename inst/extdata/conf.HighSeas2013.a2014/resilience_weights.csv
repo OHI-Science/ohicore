@@ -1,4 +1,1 @@
-layer,type,weight
-CBD_Nagoya,regulatory,1
-rfmo,regulatory,1
-UNFCCC_Kyoto,regulatory,1
+layer,type,weightCBD_Nagoya,regulatory,1rfmo,regulatory,1UNFCCC_Kyoto,regulatory,0.5UNEP_gap_report,regulatory,0.5

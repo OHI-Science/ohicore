@@ -205,6 +205,7 @@ FP = function(layers, scores){
   # scores
   s = scores %.%
     filter(goal %in% c('FIS') & dimension %in% c('status','trend','future','score')) %.%
+    # NOTE: resilience and pressure skipped for supra-goals
     mutate(goal = 'FP')
   
   # return all scores
