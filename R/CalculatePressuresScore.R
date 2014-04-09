@@ -184,6 +184,8 @@
 ##' 	> 
 ##' 
 ##' }
+##' @import stringr
+##' 
 ##' @export
 CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=F, pressures_categories=list(environmental=c('po','hd','fp','sp','cc'), social='ss')) {
   #' Computation of pressure
@@ -285,9 +287,13 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=F, pressures_categor
      j <- grep(paste('^', k, '_', sep=''), dimnames(p)[[2]], value=T)
      p_s <- score.clamp(apply(p[,j, drop=F], 1, mean, na.rm=T))
      names(p_s) <- rownames(p)
-     stopifnot(!all(is.nan(p_s)))
-     
-     # Step 5: apply gamma to environmental and social to yield score per region
-     p_x <- (GAMMA * p_e) + ((1-GAMMA) * p_s)
+
+     # Step 5: apply gamma to environmental and social to yield score per region     
+     if (all(is.nan(p_s))){
+       #warning('Skipping social pressures since none found in pressures matrix.')
+       p_x <- p_e
+     } else {
+       p_x <- (GAMMA * p_e) + ((1-GAMMA) * p_s)
+     }
      round(p_x * 100, 2)
 }
