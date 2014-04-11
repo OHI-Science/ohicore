@@ -194,6 +194,10 @@ FIS = function(layers, status_year=2011){
     select(region_id=rgn_id, dimension, score)
   # %.% semi_join(status, by='rgn_id')
   
+# hack: Arctic region has no status (due to no catch data for 2011, and basically the past 5 years)
+# given this, trend should be zero (It's not because 2007 had a catch of 1)
+trend[trend$rgn_id == 260] <- NA
+
   # assemble dimensions
   scores = rbind(status, trend) %.% mutate(goal='FIS')
   return(scores)  
