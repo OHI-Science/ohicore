@@ -37,6 +37,7 @@ Collate:
     'PlotFlower.R'
     'ReadWriteScenario.R'
     'ReportScores.R'
+    'ReportScoresComparison.R'
     'ScoreScaling.R'
     'SelectLayersData.R'
     'SpatialSchemes.R'

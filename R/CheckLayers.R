@@ -89,6 +89,10 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
         if (length(fld_id)==0){
           fld_id = names(d)[idx.ids[which.max(lapply(as.list(d[,idx.ids]), function(x) length(unique(x))))]]
         }
+        # if a lookup field where relationship is one to one, then use first column
+        if (length(fld_id)==2){
+          fld_id = names(d)[idx.ids[1]]
+        }        
       } else {
         fld_id = names(d)[idx.ids]
       }
@@ -100,12 +104,12 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
         m$fld_id_num[i] = fld_id
       }
       
-      # assign metadata check
-      #if (layer=='cn_cntry_rgn') browser()
+      # assign metadata check      
       m$num_ids_unique  = length(unique(d[[fld_id]]))
     }
     
     # units field
+    #if (layer=='FAOregions') browser()
     fld_value = tolower(chartr('/ ','..', m$fld_value[i])) # translate slash or space to a single dot
     if (!fld_value %in% names(d)){
       m$flds_missing[i] = paste(m$flds_missing[i], fld_value)
