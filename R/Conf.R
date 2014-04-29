@@ -82,13 +82,13 @@ Conf = methods::setRefClass(
       print(summary(.self$resilience_weights))
     })
 )
-#
-# @title Write the Conf to disk
-# @param dir path to directory where the Conf files should be output
-# @name Conf_write
-# @details Use this function to write the configuration to disk, like so \code{conf$write(dir)}. This is useful for modifying and then reloading with \code{\link{Conf}(dir)}.
-#NULL
-#
+
+#' @title Write the Conf to disk
+#' @param dir path to directory where the Conf files should be output
+#' @name Conf_write
+#' @details Use this function to write the configuration to disk, like so \code{conf$write(dir)}. This is useful for modifying and then reloading with \code{\link{Conf}(dir)}.
+NULL
+
 #conf = Conf('/Users/bbest/Code/ohicore/inst/extdata/conf.Global2013.www2013')
 #print(conf)
 #conf$config

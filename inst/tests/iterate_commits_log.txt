@@ -1,0 +1,15 @@
+starting iteration 2014-04-29 15:09:29
+====
+
+2014-04-09T16:45:29Z: 514134a72e9b182974586fdaeaa9eb22fd5403e2
+    Merge pull request #65 from Melsteroni/master
+
+initial High Seas 2013 scores
+
+Conf exists: FALSE
+
+----
+
+2014-04-08T22:42:35Z: 6430abb6bb62097d950c6aa0d59269b363405a5f
+    successfully calculated scores for HighSeas (having some dummy data: subtidal softbottom pressure; CBD and Kyoto resilience; resilience matrix). fixed various ohicore functions that were throwing errors or warnings.
+
