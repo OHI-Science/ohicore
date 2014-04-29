@@ -137,6 +137,7 @@ FIS = function(layers, status_year=2011){
   UnAssessedCatchesT6 <- subset(UnAssessedCatches, penalty==1)
   UnAssessedCatchesT6$score <- score(UnAssessedCatchesT6, "Medianb_bmsy")
   
+## was originally using: Minb_bmsy, changed to median
   UnAssessedCatches <- subset(UnAssessedCatches, penalty!=1)
   UnAssessedCatches$score <- score(UnAssessedCatches, "Minb_bmsy")
   
@@ -196,7 +197,7 @@ FIS = function(layers, status_year=2011){
   
 # hack: Arctic region has no status (due to no catch data for 2011, and basically the past 5 years)
 # given this, trend should be zero (It's not because 2007 had a catch of 1)
-trend[trend$rgn_id == 260] <- NA
+trend[trend$rgn_id == "260"] <- NA
 
   # assemble dimensions
   scores = rbind(status, trend) %.% mutate(goal='FIS')
