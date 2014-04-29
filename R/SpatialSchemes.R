@@ -37,7 +37,6 @@ SpatialSchemes = setRefClass(
     )
 )
 
-
 #setGeneric("SelectLayers", SelectLayers)
 
 setMethod("names", 'SpatialSchemes', 
