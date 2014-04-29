@@ -139,7 +139,7 @@ FIS = function(layers, status_year=2011){
   
 ## was originally using: Minb_bmsy, changed to median
   UnAssessedCatches <- subset(UnAssessedCatches, penalty!=1)
-  UnAssessedCatches$score <- score(UnAssessedCatches, "Minb_bmsy")
+  UnAssessedCatches$score <- score(UnAssessedCatches, "Medianb_bmsy")
   
   AllScores <- rbind(AssessedCatches[,c("taxon_name", "TaxonKey", "year", "fao_id", "saup_id", "mean_catch","score")],
                   UnAssessedCatchesT6[,c("taxon_name", "TaxonKey", "year", "fao_id", "saup_id", "mean_catch","score")],
