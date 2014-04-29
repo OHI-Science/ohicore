@@ -536,6 +536,7 @@ LIV.ECO.2012n = function(){
   #   ECO.trend.csv  = file.path(dir.results, sprintf('ECO_trend_%s.csv' , sfx.scenario)),
   #   liv_adj_year=2009, eco_adj_min_year=2000
   
+  library(sqldf)
   
   # database connection
   pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_nature2012', user='bbest') # assumes password in ~/.pgpass
@@ -546,7 +547,8 @@ LIV.ECO.2012n = function(){
   # i_eco_rev_adj_gdp     country_id,year,value_num            Economies model variable  revenue adjustment (GDP)	                   6F	  USD	    ECO	6F_eco_rev_adj_gdp.csv
   
   # since i_eco_rev_adj_gdp missing sector og for generating cny_eco_rev_adj_gdp, creating from filesystem
-  ohi.load('global_li_adjustments', dir='/var/data/ohi/model/GL-NCEAS-Livelihoods/data')
+  #ohi.load('global_li_adjustments', dir='/var/data/ohi/model/GL-NCEAS-Livelihoods/data')
+  global_li_adjustments = read.csv('/var/data/ohi/model/GL-NCEAS-Livelihoods/data/global_li_adjustments.csv', na.strings='')
   cnky_eco_rev_whence = sqldf(
     "SELECT iso3166 AS country_id, whence, year, value AS USD 
     FROM global_li_adjustments
@@ -985,15 +987,59 @@ LIV.ECO.2013 = function(layers){
   # db for comparison
   pg = dbConnect(dbDriver("PostgreSQL"), host='neptune.nceas.ucsb.edu', dbname='ohi_global2013', user='bbest') # assumes password in ~/.pgpass
   dbSendQuery(pg, 'SET search_path TO global_li, global; SET ROLE TO ohi;')
-    
+
+  
+  # END ----
   # inputs
   status_model_curref = read.csv(file.path(dir_data,  sprintf('model/GL-NCEAS-Livelihoods_2012/data_%d/global_li_status_model_curref.csv', yr)), na.strings='') # head(status_model_curref)
+  paste(names(status_model_curref), collapse=', ') # metric,sector,iso3166,cur_year,ref_year,cur_base_value,ref_base_value,cur_adj_value,ref_adj_value
+  
+  # generate layers for toolbox
+  for (yr in 2012:2013){
+    status_model_curref = read.csv(file.path(dir_data,  sprintf('model/GL-NCEAS-Livelihoods_2012/data_%d/global_li_status_model_curref.csv', yr)), na.strings='') # head(status_model_curref)
+    
+    d = status_model_curref %.%
+      melt(id.vars=c('metric','iso3166','sector')) %.%
+      select(metric, cntry_key=iso3166, sector, variable, value) %.%
+      arrange(metric, cntry_key, sector, variable)
+    write.csv()
+    
+    for (m in c('jobs','rev','wage')){
+      x = d %.%
+        filter(metric==m) %.%
+        select(cntry_key, sector, variable, value)
+      write.csv()
+
+    jobs = d %.%
+      filter(metric=='jobs') %.%
+      select(cntry_key, sector, variable, value)
+    
+    jobs = d %.%
+      filter(metric=='jobs') %.%
+      select(cntry_key, sector, variable, value)
+    
+    rev = status_model_curref %.%
+      filter(metric=='rev') %.%
+      select(
+        cntry_key=iso3166, 
+        sector, cur_year, ref_year, cur_base_value, ref_base_value, cur_adj_value, ref_adj_value) %.%
+      melt(id.vars=c('cntry_key','sector')) %.%
+      arrange(cntry_key, sector, variable)
+      
+  }
+  status_model_curref
+  
+  
+  wage
+  
+  #  use fields: metric, iso3166, cur_base_value, ref_base_value, cur_adj_value, ref_adj_value 
   ppp                 = read.csv(file.path(dir_data, 'model/GL-NCEAS-Livelihoods_v2013a/data/country_gdppcppp_2013a.csv'), na.strings='') # head(ppp); dim(ppp); summary(ppp)
+  
   
   
   # model... ----
   
-  # status_model_combined: jobs, rev
+  # compute the corrected relative value per metric per country, for JOBS
   status_jobs_rev = status_model_curref %.%
     filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
     group_by(metric, iso3166) %.%
@@ -1002,7 +1048,8 @@ LIV.ECO.2013 = function(layers){
       n_sector = n()) %.%
     arrange(metric, iso3166)
   
-  # status_model_combined: wage t0
+  # compute the corrected relative value per metric per country, for WAGE
+  # 0. extract w'_i = (w_c/w_r)/(W_c/W_r) for each sector i per country
   t0 = status_model_curref %.%
     filter(metric=='wage' & ref_base_value != 0 & ref_adj_value != 0) %.%
     mutate(w_prime_i = (cur_base_value / ref_base_value) / (cur_adj_value / ref_adj_value)) %.%
@@ -1012,7 +1059,8 @@ LIV.ECO.2013 = function(layers){
               n_sector = n()) %.%
     arrange(metric, iso3166)
   
-  # status_model_combined: wage p
+  # 1. let w' = unweighted mean(w'_i) across all sector i per country
+  # 2. multiple w' by the most recent purchasing power parity (PPP) value for the country  
   p = ppp %.%
     rename(c(ISO3166='iso3166',YEAR='year',VALUE='value')) %.%
     arrange(iso3166, year) %.%
@@ -1021,24 +1069,20 @@ LIV.ECO.2013 = function(layers){
               ppp_value = last(value)) %.%
     filter(!is.na(ppp_value)) %.%
     arrange(iso3166)
-  
-  # status_model_combined: wage t2 = t0 + p
   t2 = t0 %.%
     merge(p, by='iso3166') %.%
     mutate(score = w_prime * ppp_value) %.%
     select(metric, iso3166, score, n_sector) %.%
     arrange(metric, iso3166)
   
-  # status_model_combined: wage
+  # 3. set the best country (PPP-adjusted average wage) equal to 1.0 and then rescale all countries to that max
   max_wage_score = max(t2$score, na.rm=T)
   status_wage = t2 %.%
     mutate(score = score / max_wage_score)
   
-  # status_model_combined: wage union with jobs, rev
+  # combine the corrected relative values into a single status score
   status_model_combined = ungroup(status_jobs_rev) %.%
     rbind(status_wage)
-  
-  # status_score R
   status_score = status_model_combined %.%
     # liv
     dcast(iso3166 ~ metric, value.var='score') %.%
@@ -1064,8 +1108,16 @@ LIV.ECO.2013 = function(layers){
   
   # DEBUG: status_score compare ---
   status_score_pg = dbGetQuery(pg, "SELECT * FROM status_score ORDER BY iso3166, component")
-  head(status_score   ); dim(status_score   ); summary(status_score   )
-  head(status_score_pg); dim(status_score_pg); summary(status_score_pg)
+  status_score_vs = status_score %.%
+    merge(
+      status_score_pg %.%
+        select(iso3166, component, value, score_pg = score), 
+      by=c('iso3166','component','value')) %.%
+    mutate(
+      score_dif         = score - score_pg,
+      score_na_mismatch = ifelse(is.na(score)==is.na(score_pg), T, F))
+  summary(abs(status_score_vs$score_dif))
+  sum(status_score_vs$score_na_mismatch)
   
   # TODO NEXT: 
   #  * aggregate country_2012 to region_2012

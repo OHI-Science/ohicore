@@ -25,7 +25,7 @@
 aggregate_by_country = function(df, col.value='value', col.country='country_id', lyrs.dat.csv=layers_data.csv){  
   # debug: df = cn; col.value='status'; col.country='country_id'  
   
-  library(sqldf)
+#  library(sqldf)
   
   #rgn_georegions = setNames(rgn_georegions, c('region_id', 'n', 'r0', 'r1', 'r2'))
   load.regions.countries(lyrs.dat.csv) # makes: cntry_georegions
@@ -37,66 +37,70 @@ aggregate_by_country = function(df, col.value='value', col.country='country_id',
               JOIN cntry AS c USING (country_id)              
               WHERE value IS NOT NULL
               ORDER BY country_id", col.country, col.value)
-  d = sqldf(q)
-  
-  # aggregate into regional area-weighted averages based on actual data
-  t_regionals = sqldf(
-    "SELECT * FROM (
-    -- aggregate into r0 (world) georegion
-    SELECT r0, SUM(value * country_area_km2)/SUM(country_area_km2) AS r0_mean, COUNT(*) AS r0_n
-    FROM d
-    GROUP BY r0
-  ) AS t0 JOIN (
-    -- aggregate into r1 (continent) georegions
-    SELECT r0, r1, SUM(value * country_area_km2)/SUM(country_area_km2) AS r1_mean, COUNT(*) AS r1_n
-    FROM d
-    GROUP BY r0, r1
-  ) AS t1 USING (r0) JOIN (
-    -- aggregate into r2 (regional) georegions
-    SELECT r0, r1, r2, SUM(value * country_area_km2)/SUM(country_area_km2) AS r2_mean, COUNT(*) AS r2_n
-    FROM d
-    GROUP BY r0, r1, r2
-  ) AS t2 USING (r0, r1)")
-  
-  # calculate OHI region area weighted average of values using available data
-  t_actuals = sqldf("SELECT * FROM  (    
-                    -- first find actuals for regions with data for only a single country
-                    SELECT  region_id, 
-                    MIN(d.value) AS score, 1 AS n    -- note this means MIN == d.value
-                    FROM d
-                    JOIN cntry_rgn AS r USING (country_id)
-                    GROUP BY region_id
-                    HAVING COUNT(*) = 1
-                    UNION
-                    -- now aggregate (with weighted average by area) regions with data
-                    -- for more than one country
-                    SELECT  region_id, 
-                    SUM(d.value * d.country_area_km2)/SUM(d.country_area_km2) AS score, COUNT(*) AS n
-                    FROM d
-                    JOIN cntry_rgn AS r USING (country_id)
-                    GROUP BY region_id
-                    HAVING COUNT(*) > 1
-  ) ORDER BY region_id")
-  
-  # merge the results so that available data is used when present,
-  # otherwise use r2, r1, or r0 geomeans, in that order
-  t_scores = sqldf(
-    "SELECT r.region_id, 
-    CASE  WHEN d.score IS NOT NULL     THEN d.score
-    WHEN g.r2_mean IS NOT NULL   THEN g.r2_mean
-    WHEN g.r1_mean IS NOT NULL   THEN g.r1_mean
-    ELSE g.r0_mean
-    END AS score,
-    CAST(
-    CASE WHEN d.score IS NOT NULL THEN 'actual'
-    ELSE 'georegion'
-    END AS VARCHAR(80)) AS source
-    FROM rgn_georegions r
-    LEFT JOIN t_actuals d USING (region_id)
-    LEFT JOIN t_regionals g USING (r0, r1, r2)
-    WHERE (d.region_id IS NOT NULL OR g.r0 IS NOT NULL) -- must have *some* data
-    ORDER BY r.region_id")
-  
+#  d = sqldf(q)
+#  
+#   # aggregate into regional area-weighted averages based on actual data
+#   t_regionals = sqldf(
+#     "SELECT * FROM (
+#     -- aggregate into r0 (world) georegion
+#     SELECT r0, SUM(value * country_area_km2)/SUM(country_area_km2) AS r0_mean, COUNT(*) AS r0_n
+#     FROM d
+#     GROUP BY r0
+#   ) AS t0 JOIN (
+#     -- aggregate into r1 (continent) georegions
+#     SELECT r0, r1, SUM(value * country_area_km2)/SUM(country_area_km2) AS r1_mean, COUNT(*) AS r1_n
+#     FROM d
+#     GROUP BY r0, r1
+#   ) AS t1 USING (r0) JOIN (
+#     -- aggregate into r2 (regional) georegions
+#     SELECT r0, r1, r2, SUM(value * country_area_km2)/SUM(country_area_km2) AS r2_mean, COUNT(*) AS r2_n
+#     FROM d
+#     GROUP BY r0, r1, r2
+#   ) AS t2 USING (r0, r1)")
+#   
+#   # calculate OHI region area weighted average of values using available data
+#   t_actuals = sqldf("SELECT * FROM  (    
+#                     -- first find actuals for regions with data for only a single country
+#                     SELECT  region_id, 
+#                     MIN(d.value) AS score, 1 AS n    -- note this means MIN == d.value
+#                     FROM d
+#                     JOIN cntry_rgn AS r USING (country_id)
+#                     GROUP BY region_id
+#                     HAVING COUNT(*) = 1
+#                     UNION
+#                     -- now aggregate (with weighted average by area) regions with data
+#                     -- for more than one country
+#                     SELECT  region_id, 
+#                     SUM(d.value * d.country_area_km2)/SUM(d.country_area_km2) AS score, COUNT(*) AS n
+#                     FROM d
+#                     JOIN cntry_rgn AS r USING (country_id)
+#                     GROUP BY region_id
+#                     HAVING COUNT(*) > 1
+#   ) ORDER BY region_id")
+#   
+#   # merge the results so that available data is used when present,
+#   # otherwise use r2, r1, or r0 geomeans, in that order
+#   t_scores = sqldf(
+#     "SELECT r.region_id, 
+#     CASE  WHEN d.score IS NOT NULL     THEN d.score
+#     WHEN g.r2_mean IS NOT NULL   THEN g.r2_mean
+#     WHEN g.r1_mean IS NOT NULL   THEN g.r1_mean
+#     ELSE g.r0_mean
+#     END AS score,
+#     CAST(
+#     CASE WHEN d.score IS NOT NULL THEN 'actual'
+#     ELSE 'georegion'
+#     END AS VARCHAR(80)) AS source
+#     FROM rgn_georegions r
+#     LEFT JOIN t_actuals d USING (region_id)
+#     LEFT JOIN t_regionals g USING (r0, r1, r2)
+#     WHERE (d.region_id IS NOT NULL OR g.r0 IS NOT NULL) -- must have *some* data
+#     ORDER BY r.region_id")
+# TODO: update sqldf() with dplyr() since not exporting classes to namespace and during build check, getting: 
+#   checking package dependencies ... 
+#   ERROR Namespace dependency not required: ‘sqldf’
+stop('need to redo this function w/ dplyr and w/out sqldf dependency.')
+
   # return
   df.out = setNames(t_scores[,c('region_id','score')], c('region_id', col.value))
   attr(df.out, 'source') = t_scores[,'source']
@@ -104,7 +108,7 @@ aggregate_by_country = function(df, col.value='value', col.country='country_id',
 }
 
 aggregate_by_country_weighted = function(df, w, col.value='value', col.country='country_id', col.weight='weight', ld.csv=layers_data.csv){
-  library(sqldf)
+#  library(sqldf)
   
   # eg LIV in calc.LE:
   #  a = aggregate_weighted(df=subset(s, component='livelihood'),
@@ -129,68 +133,73 @@ aggregate_by_country_weighted = function(df, w, col.value='value', col.country='
               JOIN w USING (country_id)
               WHERE value IS NOT NULL
               ORDER BY country_id")
-  d = sqldf(q)
-  
-  # aggregate into regional area-weighted averages based on actual data
-  t_regionals = sqldf(
-    "SELECT * FROM (
-    -- aggregate into r0 (world) georegion
-    SELECT r0, SUM(value * w)/SUM(w) AS r0_mean, COUNT(*) AS r0_n
-    FROM d
-    GROUP BY r0
-  ) AS t0 JOIN (
-    -- aggregate into r1 (continent) georegions
-    SELECT r0, r1, SUM(value * w)/SUM(w) AS r1_mean, COUNT(*) AS r1_n
-    FROM d
-    GROUP BY r0, r1
-  ) AS t1 USING (r0) JOIN (
-    -- aggregate into r2 (regional) georegions
-    SELECT r0, r1, r2, SUM(value * w)/SUM(w) AS r2_mean, COUNT(*) AS r2_n
-    FROM d
-    GROUP BY r0, r1, r2
-  ) AS t2 USING (r0, r1) 
-    ORDER BY r0, r1, r2")  
-  
-  # TODO: generalize aggregate_*() functions to accept country, year, weights with code above, and use same code below.
-  
-  # calculate OHI region area weighted average of values using available data
-  t_actuals = sqldf(
-    "SELECT * FROM  (    
-    -- first find actuals for regions with data for only a single country
-    SELECT  region_id, 
-    MIN(d.value) AS score, 1 AS n    -- note this means MIN == d.value
-    FROM d
-    JOIN cntry_rgn AS r USING (country_id)
-    GROUP BY region_id
-    HAVING COUNT(*) = 1
-    UNION
-    -- now aggregate (with weighted average by area) regions with data
-    -- for more than one country
-    SELECT  region_id, 
-    SUM(d.value * d.w)/SUM(d.w) AS score, COUNT(*) AS n
-    FROM d
-    JOIN cntry_rgn AS r USING (country_id)
-    GROUP BY region_id
-    HAVING COUNT(*) > 1
-  ) ORDER BY region_id")
-  
-  # merge the results so that available data is used when present,
-  #   otherwise use r2, r1, or r0 geomeans, in that order
-  t_scores = sqldf(
-    "SELECT r.region_id, 
-    CASE  WHEN d.score IS NOT NULL     THEN d.score
-    WHEN g.r2_mean IS NOT NULL   THEN g.r2_mean
-    WHEN g.r1_mean IS NOT NULL   THEN g.r1_mean
-    ELSE g.r0_mean
-    END AS score,
-    CAST(CASE WHEN d.score IS NOT NULL THEN 'actual'
-    ELSE 'georegion'
-    END AS VARCHAR(80)) AS source
-    FROM rgn_georegions r
-    LEFT JOIN t_actuals d USING (region_id)
-    LEFT JOIN t_regionals g USING (r0, r1, r2)
-    WHERE (d.region_id IS NOT NULL OR g.r0 IS NOT NULL) -- must have *some* data
-    ORDER BY r.region_id")
+#   d = sqldf(q)
+#   
+#   # aggregate into regional area-weighted averages based on actual data
+#   t_regionals = sqldf(
+#     "SELECT * FROM (
+#     -- aggregate into r0 (world) georegion
+#     SELECT r0, SUM(value * w)/SUM(w) AS r0_mean, COUNT(*) AS r0_n
+#     FROM d
+#     GROUP BY r0
+#   ) AS t0 JOIN (
+#     -- aggregate into r1 (continent) georegions
+#     SELECT r0, r1, SUM(value * w)/SUM(w) AS r1_mean, COUNT(*) AS r1_n
+#     FROM d
+#     GROUP BY r0, r1
+#   ) AS t1 USING (r0) JOIN (
+#     -- aggregate into r2 (regional) georegions
+#     SELECT r0, r1, r2, SUM(value * w)/SUM(w) AS r2_mean, COUNT(*) AS r2_n
+#     FROM d
+#     GROUP BY r0, r1, r2
+#   ) AS t2 USING (r0, r1) 
+#     ORDER BY r0, r1, r2")  
+#   
+#   # TODO: generalize aggregate_*() functions to accept country, year, weights with code above, and use same code below.
+#   
+#   # calculate OHI region area weighted average of values using available data
+#   t_actuals = sqldf(
+#     "SELECT * FROM  (    
+#     -- first find actuals for regions with data for only a single country
+#     SELECT  region_id, 
+#     MIN(d.value) AS score, 1 AS n    -- note this means MIN == d.value
+#     FROM d
+#     JOIN cntry_rgn AS r USING (country_id)
+#     GROUP BY region_id
+#     HAVING COUNT(*) = 1
+#     UNION
+#     -- now aggregate (with weighted average by area) regions with data
+#     -- for more than one country
+#     SELECT  region_id, 
+#     SUM(d.value * d.w)/SUM(d.w) AS score, COUNT(*) AS n
+#     FROM d
+#     JOIN cntry_rgn AS r USING (country_id)
+#     GROUP BY region_id
+#     HAVING COUNT(*) > 1
+#   ) ORDER BY region_id")
+#   
+#   # merge the results so that available data is used when present,
+#   #   otherwise use r2, r1, or r0 geomeans, in that order
+#   t_scores = sqldf(
+#     "SELECT r.region_id, 
+#     CASE  WHEN d.score IS NOT NULL     THEN d.score
+#     WHEN g.r2_mean IS NOT NULL   THEN g.r2_mean
+#     WHEN g.r1_mean IS NOT NULL   THEN g.r1_mean
+#     ELSE g.r0_mean
+#     END AS score,
+#     CAST(CASE WHEN d.score IS NOT NULL THEN 'actual'
+#     ELSE 'georegion'
+#     END AS VARCHAR(80)) AS source
+#     FROM rgn_georegions r
+#     LEFT JOIN t_actuals d USING (region_id)
+#     LEFT JOIN t_regionals g USING (r0, r1, r2)
+#     WHERE (d.region_id IS NOT NULL OR g.r0 IS NOT NULL) -- must have *some* data
+#     ORDER BY r.region_id")
+# TODO: update sqldf() with dplyr() since not exporting classes to namespace and during build check, getting: 
+#   checking package dependencies ... 
+#   ERROR Namespace dependency not required: ‘sqldf’
+stop('need to redo this function w/ dplyr and w/out sqldf dependency.')
+
   
   # return
   df.out = setNames(t_scores[,c('region_id','score')], c('region_id', col.value))
@@ -199,7 +208,7 @@ aggregate_by_country_weighted = function(df, w, col.value='value', col.country='
 }
 
 aggregate_by_country_year = function(df, col.value='value', col.country='country_id'){
-  library(sqldf)
+#  library(sqldf)
   
   # debug: df = cny_k = subset(cnky, product=='fish_oil'); col.value='Xp'; col.country='country_id'
   #rgn_georegions = setNames(rgn_georegions, c('region_id', 'n', 'r0', 'r1', 'r2'))
@@ -212,66 +221,70 @@ aggregate_by_country_year = function(df, col.value='value', col.country='country
               JOIN cntry AS c USING (country_id)              
               WHERE value IS NOT NULL
               ORDER BY country_id", col.country, col.value)
-  d = sqldf(q)
-  
-  # aggregate into regional area-weighted averages based on actual data
-  t_regionals = sqldf(
-    "SELECT * FROM (
-    -- aggregate into r0 (world) georegion
-    SELECT year, r0, SUM(value * country_area_km2)/SUM(country_area_km2) AS r0_mean, COUNT(*) AS r0_n
-    FROM d
-    GROUP BY year, r0
-  ) AS t0 JOIN (
-    -- aggregate into r1 (continent) georegions
-    SELECT year, r0, r1, SUM(value * country_area_km2)/SUM(country_area_km2) AS r1_mean, COUNT(*) AS r1_n
-    FROM d
-    GROUP BY year, r0, r1
-  ) AS t1 USING (year, r0) JOIN (
-    -- aggregate into r2 (regional) georegions
-    SELECT year, r0, r1, r2, SUM(value * country_area_km2)/SUM(country_area_km2) AS r2_mean, COUNT(*) AS r2_n
-    FROM d
-    GROUP BY year, r0, r1, r2
-  ) AS t2 USING (year, r0, r1)")
-  
-  # calculate OHI region area weighted average of values using available data
-  t_actuals = sqldf("SELECT * FROM  (    
-                    -- first find actuals for regions with data for only a single country
-                    SELECT d.year, region_id, 
-                    MIN(d.value) AS score, 1 AS n    -- note this means MIN == d.value
-                    FROM d
-                    JOIN cntry_rgn AS r USING (country_id)
-                    GROUP BY region_id, d.year
-                    HAVING COUNT(*) = 1
-                    UNION
-                    -- now aggregate (with weighted average by area) regions with data
-                    -- for more than one country
-                    SELECT d.year, region_id, 
-                    SUM(d.value * d.country_area_km2)/SUM(d.country_area_km2) AS score, COUNT(*) AS n
-                    FROM d
-                    JOIN cntry_rgn AS r USING (country_id)
-                    GROUP BY region_id, d.year
-                    HAVING COUNT(*) > 1
-  ) ORDER BY region_id")
-  
-  # merge the results so that available data is used when present,
-  # otherwise use r2, r1, or r0 geomeans, in that order
-  t_scores = sqldf(
-    "SELECT d.year, r.region_id, 
-    CASE  WHEN d.score IS NOT NULL     THEN d.score
-    WHEN g.r2_mean IS NOT NULL   THEN g.r2_mean
-    WHEN g.r1_mean IS NOT NULL   THEN g.r1_mean
-    ELSE g.r0_mean
-    END AS score,
-    CAST(
-    CASE WHEN d.score IS NOT NULL THEN 'actual'
-    ELSE 'georegion'
-    END AS VARCHAR(80)) AS source
-    FROM rgn_georegions r
-    LEFT JOIN t_actuals d USING (region_id)
-    LEFT JOIN t_regionals g USING (year, r0, r1, r2)
-    WHERE (d.region_id IS NOT NULL OR g.r0 IS NOT NULL) -- must have *some* data
-    ORDER BY d.year, r.region_id")
-  
+#   d = sqldf(q)
+#   
+#   # aggregate into regional area-weighted averages based on actual data
+#   t_regionals = sqldf(
+#     "SELECT * FROM (
+#     -- aggregate into r0 (world) georegion
+#     SELECT year, r0, SUM(value * country_area_km2)/SUM(country_area_km2) AS r0_mean, COUNT(*) AS r0_n
+#     FROM d
+#     GROUP BY year, r0
+#   ) AS t0 JOIN (
+#     -- aggregate into r1 (continent) georegions
+#     SELECT year, r0, r1, SUM(value * country_area_km2)/SUM(country_area_km2) AS r1_mean, COUNT(*) AS r1_n
+#     FROM d
+#     GROUP BY year, r0, r1
+#   ) AS t1 USING (year, r0) JOIN (
+#     -- aggregate into r2 (regional) georegions
+#     SELECT year, r0, r1, r2, SUM(value * country_area_km2)/SUM(country_area_km2) AS r2_mean, COUNT(*) AS r2_n
+#     FROM d
+#     GROUP BY year, r0, r1, r2
+#   ) AS t2 USING (year, r0, r1)")
+#   
+#   # calculate OHI region area weighted average of values using available data
+#   t_actuals = sqldf("SELECT * FROM  (    
+#                     -- first find actuals for regions with data for only a single country
+#                     SELECT d.year, region_id, 
+#                     MIN(d.value) AS score, 1 AS n    -- note this means MIN == d.value
+#                     FROM d
+#                     JOIN cntry_rgn AS r USING (country_id)
+#                     GROUP BY region_id, d.year
+#                     HAVING COUNT(*) = 1
+#                     UNION
+#                     -- now aggregate (with weighted average by area) regions with data
+#                     -- for more than one country
+#                     SELECT d.year, region_id, 
+#                     SUM(d.value * d.country_area_km2)/SUM(d.country_area_km2) AS score, COUNT(*) AS n
+#                     FROM d
+#                     JOIN cntry_rgn AS r USING (country_id)
+#                     GROUP BY region_id, d.year
+#                     HAVING COUNT(*) > 1
+#   ) ORDER BY region_id")
+#   
+#   # merge the results so that available data is used when present,
+#   # otherwise use r2, r1, or r0 geomeans, in that order
+#   t_scores = sqldf(
+#     "SELECT d.year, r.region_id, 
+#     CASE  WHEN d.score IS NOT NULL     THEN d.score
+#     WHEN g.r2_mean IS NOT NULL   THEN g.r2_mean
+#     WHEN g.r1_mean IS NOT NULL   THEN g.r1_mean
+#     ELSE g.r0_mean
+#     END AS score,
+#     CAST(
+#     CASE WHEN d.score IS NOT NULL THEN 'actual'
+#     ELSE 'georegion'
+#     END AS VARCHAR(80)) AS source
+#     FROM rgn_georegions r
+#     LEFT JOIN t_actuals d USING (region_id)
+#     LEFT JOIN t_regionals g USING (year, r0, r1, r2)
+#     WHERE (d.region_id IS NOT NULL OR g.r0 IS NOT NULL) -- must have *some* data
+#     ORDER BY d.year, r.region_id")
+# TODO: update sqldf() with dplyr() since not exporting classes to namespace and during build check, getting: 
+#   checking package dependencies ... 
+#   ERROR Namespace dependency not required: ‘sqldf’
+stop('need to redo this function w/ dplyr and w/out sqldf dependency.')
+
   # return
   df.out = setNames(t_scores[,c('year','region_id','score')], c('year', 'region_id', col.value))
   attr(df.out, 'source') = t_scores[,'source']
