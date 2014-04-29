@@ -1,0 +1,16 @@
+\name{Conf_write}
+\alias{Conf_write}
+\title{Write the Conf to disk}
+\arguments{
+  \item{dir}{path to directory where the Conf files should
+  be output}
+}
+\description{
+Write the Conf to disk
+}
+\details{
+Use this function to write the configuration to disk, like
+so \code{conf$write(dir)}. This is useful for modifying and
+then reloading with \code{\link{Conf}(dir)}.
+}
+

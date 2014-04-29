@@ -1,0 +1,48 @@
+\name{PlotChloroplethMap}
+\alias{PlotChloroplethMap}
+\title{Plot Chloropleth Map}
+\usage{
+PlotChloroplethMap(var, color, legend.title, min = 0, max = 100)
+}
+\arguments{
+  \item{var}{a variable from the counties.RDS data set}
+
+  \item{color}{any character string you see in the output
+  of colors()}
+
+  \item{legend.title}{A character string}
+
+  \item{max}{A parameter for controlling shade range
+  (defaults to 100)}
+
+  \item{min}{A parameter for controlling shade range
+  (defaults to 0)}
+}
+\value{
+Returns a data.frame with the input data, a likely future
+status and OHI score, containing columns: status (x), trend
+(t), resilience (r), pressure (p), future status (xF) and
+goal score (score).
+}
+\description{
+map the percent of residents who are white (or black, or
+hispanic, or asian) for each county in the United States
+}
+\details{
+Note: percent map is designed to work with the counties
+data set It may not work correctly with other data sets if
+their row order does not exactly match the order in which
+the maps package plots counties
+}
+\examples{
+\dontrun{
+
+## When you run percent_map it will plot the counties data as a choropleth map
+counties <- readRDS("census-app/data/counties.RDS")
+percent_map(counties$white, "darkgreen", "\% white")
+}
+}
+\keyword{chloropleth}
+\keyword{map}
+\keyword{ohi}
+

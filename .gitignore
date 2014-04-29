@@ -4,7 +4,7 @@
 # Example code in package build process
 *-Ex.Rtestdata/layers testdata/layers.navigation.csv testdata/layers.navigation.csv.example.csv
 
-
+.~lock*
 
 .DS_Store
 test/data/*

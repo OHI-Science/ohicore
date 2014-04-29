@@ -2,7 +2,7 @@
 \alias{Halpern2012.ICO}
 \title{Calculate Iconic Species subgoal of Sense of Place.}
 \usage{
-  Halpern2012.ICO(S, w, ...)
+Halpern2012.ICO(S, w, ...)
 }
 \arguments{
   \item{placeholder}{placeholder S number of assessed
@@ -12,9 +12,9 @@
   per threat category}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Iconic Species subgoal of Sense of Place.
+Calculate Iconic Species subgoal of Sense of Place.
 }
 

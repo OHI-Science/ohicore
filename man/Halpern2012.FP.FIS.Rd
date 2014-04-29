@@ -2,7 +2,7 @@
 \alias{Halpern2012.FP.FIS}
 \title{Calculate Fisheries subgoal of Food Provision.}
 \usage{
-  Halpern2012.FP.FIS(mMSY, Bt, Tc, ...)
+Halpern2012.FP.FIS(mMSY, Bt, Tc, ...)
 }
 \arguments{
   \item{placeholder}{placeholder dBt absolute difference
@@ -18,9 +18,9 @@
   yield}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Fisheries subgoal of Food Provision.
+Calculate Fisheries subgoal of Food Provision.
 }
 

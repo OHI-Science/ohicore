@@ -2,26 +2,45 @@ Package: ohicore
 Version: 0.1
 Date: 2013-09-25
 Title: Ocean Health Index calculation package
-Author: Steve Hastings
-Maintainer: Steve Hastings <hastings@nceas.ucsb.edu>
+Author: Ben Best, Steve Hastings, Darren Hardy
+Maintainer: Ben Best <bbest@nceas.ucsb.edu>
 Depends:
     R (>= 2.14.0),
     plyr,
+    dplyr (>= 0.1.2),
     reshape2,
-    RJSONIO
+    RJSONIO,
+    knitr (>= 1.5),
+    markdown (>= 0.6.3),
+    psych
 Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
-License: GPL-2
+License: MIT
 Collate:
+    'AggregateLayers.R'
+    'CalculateAll.R'
+    'CalculateGoalIndex.R'
+    'CalculatePressuresAll.R'
     'CalculatePressuresComponent.R'
+    'CalculatePressuresMatrix.R'
+    'CalculatePressuresScore.R'
+    'CalculateResilienceAll.R'
     'CalculateResilienceComponent.R'
+    'CalculateResilienceScore.R'
     'CalculateStatusComponent.R'
     'CalculateSubgoal.R'
+    'CheckLayers.R'
+    'Conf.R'
     'Halpern2012Data.R'
-    'SelectLayers.R'
     'Layers.R'
+    'PlotChloroplethMap.R'
+    'PlotFlower.R'
+    'ReadWriteScenario.R'
+    'ReportScores.R'
+    'ReportScoresComparison.R'
+    'ScoreScaling.R'
+    'SelectLayersData.R'
     'SpatialSchemes.R'
     'TransformSpatialScheme.R'
     'data.R'
-    'Scores.R'
 LazyData: TRUE

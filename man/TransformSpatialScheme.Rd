@@ -2,14 +2,13 @@
 \alias{TransformSpatialScheme}
 \title{Transform data}
 \usage{
-  TransformSpatialScheme(object, data, target, origin,
-    categories)
+TransformSpatialScheme(object, data, target, origin, categories)
 }
 \arguments{
   \item{object}{instance of SpatialSchemes class}
 
   \item{data}{data.frame such as returned from
-  'SelectLayers' function}
+  'SelectLayersData' function}
 
   \item{target}{single spatial scheme to which data should
   be transformed}
@@ -22,9 +21,9 @@
   layers in param data)}
 }
 \value{
-  data.frame transformed data
+data.frame transformed data
 }
 \description{
-  Transform data
+Transform data
 }
 

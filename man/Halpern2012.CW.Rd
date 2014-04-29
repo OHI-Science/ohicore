@@ -2,7 +2,7 @@
 \alias{Halpern2012.CW}
 \title{Calculate Clean Waters.}
 \usage{
-  Halpern2012.CW(a, u, l, d, ...)
+Halpern2012.CW(a, u, l, d, ...)
 }
 \arguments{
   \item{placeholder}{placeholder a number of coastal people
@@ -16,9 +16,9 @@
   input)}
 }
 \value{
-  1
+1
 }
 \description{
-  Calculate Clean Waters.
+Calculate Clean Waters.
 }
 
