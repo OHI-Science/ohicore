@@ -22,7 +22,7 @@
 #' See also \code{\link{Conf_write}() to write the configuration back to disk.}
 #' @export
 
-Conf = setRefClass(
+Conf = methods::setRefClass(
   'Conf', fields = list(
     config_txt = 'character',
     functions_txt = 'character',

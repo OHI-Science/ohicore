@@ -1,9 +1,10 @@
 #' SpatialSchemes reference class.
 #' 
 #' @return object (non-instantiated) reference class of SpatialSchemes
-#' @export
 #' @include SelectLayersData.R
-SpatialSchemes = setRefClass(
+#' @export
+
+SpatialSchemes = methods::setRefClass(
     'SpatialSchemes',
     fields = list(
         scheme.maps = 'list',
