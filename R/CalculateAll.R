@@ -73,7 +73,7 @@ CalculateAll = function(conf, layers, debug=F){
       status     = v$status/100,
       trend      = v$trend,
       resilience = v$resilience/100,
-      pressure   = v$pressure/100,
+      pressure   = v$pressures/100,
       DISCOUNT      = conf$config$goal_discount, 
       BETA          = conf$config$goal_beta, 
       default_trend = conf$config$default_trend)
