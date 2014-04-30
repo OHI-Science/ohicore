@@ -18,11 +18,11 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   library(sqldf)
   options(sqldf.driver = 'SQLite')
   options(sqldf.verbose = F)
-    
+  
   # setup initial data.frame for column binding results by region
   D = rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), c('id_num'='region_id'))[,'region_id',drop=F]
   regions = D[['region_id']]
-    
+  
   # cast pressures layer data
   pm = conf$pressures_matrix
   pc = conf$config$pressures_components
@@ -33,7 +33,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   d.p = subset(d.p, region_id %in% regions)
   nr = length(regions)  # number of regions
   np = length(p.layers) # number of pressures
-            
+  
   # iterate goals
   subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
   for (g in subgoals){ # g=subgoals[1]   # g='NP' # g='LIV' # g='FIS'  # g='CP'
@@ -42,7 +42,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
     
     # reset components for so when debug==TRUE and saving, is per goal
     P = w = p = alpha = beta = NA
-        
+    
     # p: pressures value matrix [region_id x pressure: values]
     p = matrix(as.matrix(d.p[,-1]), nrow=nr, ncol=np, 
                dimnames = list(region_id=d.p[[1]], pressure=names(d.p)[-1]))
@@ -57,7 +57,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
       w <- matrix(rep(unlist(pm[pm$goal==g, p.layers]), nr*np), 
                   byrow=T, nrow=nr, ncol=np, 
                   dimnames = list(region_id=regions, pressure=p.layers))        
-            
+      
       # calculate pressures per region
       P = CalculatePressuresScore(p, w, pressures_categories=pk, GAMMA=gamma)
       
@@ -190,7 +190,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
     D = merge(D, setNames(data.frame(names(P), P), c('region_id', g)), all.x=T)
     
   }
-
+  
   # return scores
   scores = cbind(melt(D, id.vars='region_id', variable.name='goal', value.name='score'), dimension='pressures'); head(scores)
   return(scores)

@@ -20,8 +20,10 @@
 #'   \item{\emph{fld_value} - required field in the layer csv file containing the value, which is often best named as a shorthand for the units without spaces or special characters}
 #' }
 #' The layers.dir directory should contain all the csv filenames listed in the layers.csv file.
-#' @export
-Layers = setRefClass(
+#' @export Layers
+#' @exportClass Layers
+
+Layers = methods::setRefClass(
   'Layers',
   fields = list(
     data = 'list',

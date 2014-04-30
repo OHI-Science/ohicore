@@ -1,0 +1,1027 @@
+starting iteration 2014-04-29 20:59:50
+====
+
+1 of 89
+starting : 2014-04-29 20:59:50
+committed: 2014-04-09T16:45:29Z
+sha: 514134a72e9b182974586fdaeaa9eb22fd5403e2
+message: Merge pull request #65 from Melsteroni/master
+
+initial High Seas 2013 scores
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:00:27
+----
+
+2 of 89
+starting : 2014-04-29 21:00:27
+committed: 2014-04-08T22:42:35Z
+sha: 6430abb6bb62097d950c6aa0d59269b363405a5f
+message: successfully calculated scores for HighSeas (having some dummy data: subtidal softbottom pressure; CBD and Kyoto resilience; resilience matrix). fixed various ohicore functions that were throwing errors or warnings.
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:01:05
+----
+
+3 of 89
+starting : 2014-04-29 21:01:05
+committed: 2014-04-08T17:06:13Z
+sha: 2f1456abf3e91f2c2c1b411feac9740381bf8dd7
+message: Updates to high seas data
+
+
+finished: 2014-04-29 21:01:36
+----
+
+4 of 89
+starting : 2014-04-29 21:01:36
+committed: 2014-04-08T00:03:09Z
+sha: 26964ec1e5f4c2ce7f7baa9bc9b00b8fd839a5e4
+message: Adding back the BD, SP, FP functions and reverting back to original function names for FIS, ICO, SPP
+
+
+finished: 2014-04-29 21:02:08
+----
+
+5 of 89
+starting : 2014-04-29 21:02:08
+committed: 2014-04-07T23:17:01Z
+sha: e40e7de712a21da1457eef1dd17cb2ff3d96a939
+message: Setting up files for HS analysis
+
+
+finished: 2014-04-29 21:02:41
+----
+
+6 of 89
+starting : 2014-04-29 21:02:41
+committed: 2014-04-04T23:16:25Z
+sha: 327b804d8134d0827689e5b620c6a61c298546e3
+message: Merge pull request #61 from Melsteroni/master
+
+new HighSeas files
+
+
+finished: 2014-04-29 21:03:13
+----
+
+7 of 89
+starting : 2014-04-29 21:03:13
+committed: 2014-04-04T22:18:10Z
+sha: 8161e181c4b5e207ded56145c6865fc3fa5f7b11
+message: inserted layers_2014_HighSeas google doc
+
+
+finished: 2014-04-29 21:03:48
+----
+
+8 of 89
+starting : 2014-04-29 21:03:48
+committed: 2014-04-04T22:11:59Z
+sha: bc22957aa05dea82a23c88570f6e8d9e08c423eb
+message: adding initial HighSeas extdata files as copy from Global2013.www2013 files
+
+
+finished: 2014-04-29 21:04:25
+----
+
+9 of 89
+starting : 2014-04-29 21:04:25
+committed: 2014-04-04T19:00:50Z
+sha: eeff3cbe5ddd2fc646171a62ab1c2a5b66b03eb1
+message: Merge pull request #1 from OHI-Science/master
+
+updated your repo with latest
+
+
+finished: 2014-04-29 21:05:00
+----
+
+10 of 89
+starting : 2014-04-29 21:05:00
+committed: 2014-04-03T20:51:02Z
+sha: d7ab84aacf56261730c0b517aa844689847cedd3
+message: Merge pull request #59 from bbest/master
+
+updated comparison report to 2013-10-08 and added GLOBAL comparison (res...
+
+
+finished: 2014-04-29 21:05:34
+----
+
+11 of 89
+starting : 2014-04-29 21:05:34
+committed: 2014-04-03T20:49:59Z
+sha: a1e8c32215ab70b7d738c7c871f365cd377532ae
+message: updated comparison report to 2013-10-08 and added GLOBAL comparison (resolves #57)
+
+
+finished: 2014-04-29 21:06:09
+----
+
+12 of 89
+starting : 2014-04-29 21:06:09
+committed: 2014-04-03T20:28:37Z
+sha: d843dbb496c5205ce78c9f1318df1dbc073e56ca
+message: Merge pull request #58 from bbest/master
+
+added comparison report (#57), fixed pressures rescaling (#48) and enabled order_calculate in goals.csv (#52)
+
+
+finished: 2014-04-29 21:06:44
+----
+
+13 of 89
+starting : 2014-04-29 21:06:44
+committed: 2014-04-03T20:26:28Z
+sha: ba215bd10b719e8e399dce328b3d4e4cda41c5f7
+message: added comparison report (resolves #57) and new pressures properly rescaled (resolves #48)
+
+
+finished: 2014-04-29 21:07:18
+----
+
+14 of 89
+starting : 2014-04-29 21:07:18
+committed: 2014-04-02T23:58:29Z
+sha: a2c571adc9b4d1f996bdb4370cace8cb346811a3
+message: archiving scores on neptune before running with new pressures fixed (#48)
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:08:00
+----
+
+15 of 89
+starting : 2014-04-29 21:08:00
+committed: 2014-04-02T22:40:43Z
+sha: 9733a842916547d74afc37a27a563896e04a4ac9
+message: Incorporated `order_calculate` into goals.csv and CalculateAll.R so that NP function for status and trend calculation can use FIS status scores. Updated data_create.R with smarter `dir_conf`, deletion of extraneous layer files, saving of calculated scores and comparison section (#48, #52). Added dplyr dependency to CalculateAll with `@import dplyr`. Fixed NP redundant scores.
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:08:44
+----
+
+16 of 89
+starting : 2014-04-29 21:08:44
+committed: 2014-04-02T01:42:40Z
+sha: 1d2d58c0cf2f5c8e3dd976c2d220d60a0678e05a
+message: Merge pull request #55 from bbest/master
+
+fixed problems in functions.R with new lm() behavior for trends: LSP, AO, NP...
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:09:25
+----
+
+17 of 89
+starting : 2014-04-29 21:09:25
+committed: 2014-04-02T01:40:29Z
+sha: 81826f7fe9ca4c44f45bb75bf3b6be34b1287f13
+message: updated LE 2012 Eritrea LIV ECO hack to use ddply, checking in scores as calculated (vs off filesystem previously: src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv) to note differences pre pressures fix (#48)
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:10:06
+----
+
+18 of 89
+starting : 2014-04-29 21:10:06
+committed: 2014-04-02T01:02:37Z
+sha: 85aa8b5613ac985f0199360a4d85e78b16f07995
+message: updated AO() with ddply(...lm()) issue (#52), moved NP() to post-Index goal execution in goals.csv to use FIS status from scores and not a seperate layer (#33), fixed LE()
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:10:47
+----
+
+19 of 89
+starting : 2014-04-29 21:10:47
+committed: 2014-04-01T22:57:50Z
+sha: 24cd967f57e955e2e5a5a6414352b6f5929fab45
+message: resolved #52 by updating trend lm() calculation to use ddply with custom function vs summarize() argument. not sure why or at which versions stats::lm() or plyr::ddply() changed to dissallow the old method.
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:11:27
+----
+
+20 of 89
+starting : 2014-04-29 21:11:27
+committed: 2014-04-01T21:57:15Z
+sha: 4a3d5032b0d61643bdfa2e7e572afc9aca1358c3
+message: fixed MAR functions, added dplyr dependency
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:12:06
+----
+
+21 of 89
+starting : 2014-04-29 21:12:06
+committed: 2014-04-01T21:18:51Z
+sha: 7bccc675cdb70d6cf828bd1ff8fab369db407aa8
+message: added FIS, MAR layers for Global2012.www2013 (#33), and deleting extraneous files in layers* folders within data_create.R script
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:12:45
+----
+
+22 of 89
+starting : 2014-04-29 21:12:45
+committed: 2014-04-01T23:08:12Z
+sha: ac85f6d6b884c0ecdce8e07a7d598d9e4049410a
+message: placeholder README.md for #30
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:13:23
+----
+
+23 of 89
+starting : 2014-04-29 21:13:23
+committed: 2014-04-01T20:48:29Z
+sha: 947cc30fd7ece26204ed53476a18ee22905db056
+message: added detailed FIS and MAR for Global2012.www2013 (#33), added layers_navigation_2012a_2013a.csv to inst/extdata/tmp as raw download tracking differences (#48)
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:14:02
+----
+
+24 of 89
+starting : 2014-04-29 21:14:02
+committed: 2014-03-27T00:50:26Z
+sha: 0de7606fbd59cdcfdfc0fec62829eb6819a16fde
+message: #29. initial LIV.ECO function, equivalent only up to country_Nature2012. Still need to update inputs prior (from base data), and outputs subsequent (aggregate to regions_Nature2012, disaggregate to regions_Web2013).
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:14:43
+----
+
+25 of 89
+starting : 2014-04-29 21:14:43
+committed: 2014-03-26T23:19:34Z
+sha: 9e1cd9e9d0a7d3d88aa57b63864c11aa3311c15c
+message: Merge pull request #47 from bbest/master
+
+updated FIS(). closes #33
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:15:22
+----
+
+26 of 89
+starting : 2014-04-29 21:15:22
+committed: 2014-03-26T22:30:09Z
+sha: e0d205cb396ad214fb8894126d25dbd16a20bbcd
+message: working FIS() function with cleaned up dplyr calls towards end. Resolves #33.
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:16:02
+----
+
+27 of 89
+starting : 2014-04-29 21:16:02
+committed: 2014-03-26T01:38:02Z
+sha: 283faa59f60e2b6db738b2e48eb45654a067e163
+message: almost finished with FIS (#33). just getting Error: object 'year' not found at:
+
+```{r}
+Trend = ddply(StatusData, .(rgn_id), summarize,
++     Trend = lm(round(Status, 2) ~ year)$coefficients[['year']] * 5)
+```
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:16:41
+----
+
+28 of 89
+starting : 2014-04-29 21:16:41
+committed: 2014-03-10T22:12:49Z
+sha: d2ca18951be232fa25fe3d1b8a40e1a239335261
+message: Merge pull request #27 from bbest/master
+
+fixed #26 by explicitly adding export(Conf) to NAMESPACE
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:17:20
+----
+
+29 of 89
+starting : 2014-04-29 21:17:20
+committed: 2014-03-10T22:05:06Z
+sha: 84797c0974083e3ce3337cee7fd5cfc545640864
+message: another attempt at explicitly adding export of Conf and Layers to fix #26
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:18:01
+----
+
+30 of 89
+starting : 2014-04-29 21:18:01
+committed: 2014-03-10T21:34:01Z
+sha: e0b751c82410dc5b9711ade473c862800b772c28
+message: reran devtools::document() and load_all() to clean up DESCRIPTION and NAMESPACE to fix error #26
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:18:40
+----
+
+31 of 89
+starting : 2014-04-29 21:18:40
+committed: 2014-03-10T20:42:59Z
+sha: 01f96c4a9d2b14d131067570b73aee2198be649a
+message: Merge pull request #2 from OHI-Science/master
+
+clear erroneous files
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:19:19
+----
+
+32 of 89
+starting : 2014-04-29 21:19:19
+committed: 2014-03-10T20:41:16Z
+sha: c95f7f14de953cb86a1adfb72150760a10b23a15
+message: Delete status_model_curref.csv
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:20:01
+----
+
+33 of 89
+starting : 2014-04-29 21:20:01
+committed: 2014-03-10T20:41:00Z
+sha: 130558d367be8662461bceaf7c9fbf180280a75b
+message: Delete tmp_dput.txt
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:20:41
+----
+
+34 of 89
+starting : 2014-04-29 21:20:41
+committed: 2014-03-10T20:40:21Z
+sha: ea50014d1d5cd0174a5ad1ba4e351dec9a4f980a
+message: Delete mexico-bs.csv
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:21:21
+----
+
+35 of 89
+starting : 2014-04-29 21:21:21
+committed: 2014-03-07T20:21:39Z
+sha: 2fc9ea66c2af58799a1d222c8e2fcab13d196a96
+message: Merge pull request #23 from bbest/master
+
+merging bbest stuff
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:22:02
+----
+
+36 of 89
+starting : 2014-04-29 21:22:02
+committed: 2014-03-07T20:17:19Z
+sha: 409b9cf6dcdc2f8fa0819160d618189e0ae3431d
+message: merging Mel's latest with mine
+
+Merge branch 'master' of https://github.com/OHI-Science/ohicore into OHI-Science-master
+
+Conflicts:
+	inst/extdata/data_create.R
+	inst/extdata/layers.Global2012.www2013.csv
+	inst/extdata/layers.Global2013.www2013.csv
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:22:44
+----
+
+37 of 89
+starting : 2014-04-29 21:22:44
+committed: 2014-03-07T19:30:49Z
+sha: 350c7c77692a919d3992a9a6897b566d11df5686
+message: Merge pull request #22 from Melsteroni/master
+
+Cutting sea ice data for countries without persistent sea ice
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:23:17
+----
+
+38 of 89
+starting : 2014-04-29 21:23:17
+committed: 2014-03-07T19:28:10Z
+sha: 990842e3a260604bfc5e4e3f51937a8cf0b5991c
+message: Saving data with current sea ice score (some issue last time I did this...am now correcting)
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:23:52
+----
+
+39 of 89
+starting : 2014-04-29 21:23:52
+committed: 2014-03-07T01:17:26Z
+sha: a316a1ed7781b734772811c7fe99ebc0190eeeab
+message: housekeeping
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:24:27
+----
+
+40 of 89
+starting : 2014-04-29 21:24:27
+committed: 2014-03-07T01:17:00Z
+sha: fe85d42b735b5fbbc8ac635db85afef71bce8025
+message: Removed sea ice data for countires with limited sea ice coverage for 2013/2013 data
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:25:01
+----
+
+41 of 89
+starting : 2014-04-29 21:25:01
+committed: 2014-03-07T01:03:15Z
+sha: 8c44f2067d8de53d9e933a4391cf96a181282b02
+message: Removed sea ice data for countries with small sea ice areas and no (or limited) observations of sea ice during past 6 years
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:25:34
+----
+
+42 of 89
+starting : 2014-04-29 21:25:34
+committed: 2014-03-06T21:16:56Z
+sha: ee68c2c51134f1484260fbda3c26b9ec73674b49
+message: committing before merging Melanie's latest
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:26:15
+----
+
+43 of 89
+starting : 2014-04-29 21:26:15
+committed: 2014-03-06T21:13:40Z
+sha: beb4025c908c8b0557db7186b0bb614540d160df
+message: Merge pull request #21 from Melsteroni/master
+
+Updating Global2013www2012 data
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:26:46
+----
+
+44 of 89
+starting : 2014-04-29 21:26:46
+committed: 2014-03-06T19:32:51Z
+sha: 9e9aba5b50f97d40fe7ca8c534c33037c4010212
+message: New Global2012www2013.csv with changes in
+BD, CP, HAB (due to sea ice updates)
+ECO, LIV, LE (due to changes in 2012 data)
+And corresponding changes in the overall Index
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:27:20
+----
+
+45 of 89
+starting : 2014-04-29 21:27:20
+committed: 2014-03-06T19:27:21Z
+sha: 39ef371f6d80b416310cbba0900db16cb621caf6
+message: deleting old habitat files
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:27:57
+----
+
+46 of 89
+starting : 2014-04-29 21:27:57
+committed: 2014-03-06T19:24:59Z
+sha: 1aa1286e936eb8520c8a68bbec5db695de54b1ab
+message: Adding new habitat layers with new 2012 sea ice data
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:28:28
+----
+
+47 of 89
+starting : 2014-04-29 21:28:28
+committed: 2014-03-06T00:38:30Z
+sha: 6e60eaee23220ac13f7cec0a13c6f05bf996bc51
+message: fixed LSP input year arguments for Global2012.www2013 in goals.csv
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:29:02
+----
+
+48 of 89
+starting : 2014-04-29 21:29:02
+committed: 2014-03-05T23:11:31Z
+sha: 4dee3860fbfa3ebccaaf3c2207d7aefddbfe665c
+message: Update of Global2012.www2013 data
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:29:37
+----
+
+49 of 89
+starting : 2014-04-29 21:29:37
+committed: 2014-03-05T22:49:04Z
+sha: b06fa1e53aed30055b0716a1b8234dba4d03df55
+message: Code added to LE function to switch 2012 scores for ECO and LIV with 2013 scores for a few select regions
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:30:12
+----
+
+50 of 89
+starting : 2014-04-29 21:30:12
+committed: 2014-03-05T21:55:19Z
+sha: df58f83afa063b9c2f1a44a72d317718ad0f6270
+message: Continuing to trouble shoot
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:30:48
+----
+
+51 of 89
+starting : 2014-04-29 21:30:48
+committed: 2014-03-05T21:51:10Z
+sha: 3d27b678dffda731b9b266e28b556215e47d4d9a
+message: add browser to test
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:31:24
+----
+
+52 of 89
+starting : 2014-04-29 21:31:24
+committed: 2014-03-05T21:37:18Z
+sha: a79151943088dbc592622e8ac70c1502c0fd3dfd
+message: Updating LE goal: replacing 2012 data with 2013 data for select countries
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:32:00
+----
+
+53 of 89
+starting : 2014-04-29 21:32:00
+committed: 2014-03-05T18:44:09Z
+sha: 85cb4434237b3908f5c0ee33463f80a179c35ef9
+message: Merge pull request #19 from Melsteroni/master
+
+Updating Global2013www2013 data with new sea ice
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:32:35
+----
+
+54 of 89
+starting : 2014-04-29 21:32:35
+committed: 2014-03-05T18:31:42Z
+sha: 5b98e61db55b7fd155040fe987a223bf5496be1f
+message: New scores for 2013www2013 with updated sea ice
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:33:10
+----
+
+55 of 89
+starting : 2014-04-29 21:33:10
+committed: 2014-03-05T18:17:28Z
+sha: 459c952aac8cf5b0d73f39aaf7e3c3d65d9db099
+message: deleted old layers
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:33:45
+----
+
+56 of 89
+starting : 2014-04-29 21:33:45
+committed: 2014-03-04T22:49:13Z
+sha: 8ffd777eaacb753350c20b03d74e08e724ba846a
+message: Updating Habitat layers with new sea ice data
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:34:19
+----
+
+57 of 89
+starting : 2014-04-29 21:34:19
+committed: 2014-03-04T22:16:57Z
+sha: 875fc5d3b7a2ebe4fc74bb399d88c9df9ef51493
+message: Merge branch 'master' of https://github.com/Melsteroni/ohicore
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:34:55
+----
+
+58 of 89
+starting : 2014-04-29 21:34:55
+committed: 2014-03-04T22:16:01Z
+sha: 732571c28517cffe9f8054ad64f445118cd2caf1
+message: working on sea ice updates for 2013 with BB
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:35:28
+----
+
+59 of 89
+starting : 2014-04-29 21:35:28
+committed: 2014-03-04T21:33:56Z
+sha: 1464fa3fcb27c3d76421e230a31dc9e2063ef83b
+message: updated sea ice and other habitat related layers
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:36:04
+----
+
+60 of 89
+starting : 2014-04-29 21:36:04
+committed: 2014-03-04T21:28:30Z
+sha: 1ea69ef71fd68305a66eb64cc1c372f09a3469e5
+message: Create README.md
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:36:34
+----
+
+61 of 89
+starting : 2014-04-29 21:36:34
+committed: 2014-02-21T01:13:35Z
+sha: 545e3cce5a5bbfc163d7a1277020bd21de43bc8e
+message: Revert "updated ICO to use a new layer with Canada's range weighted COSEWIC extinction risk status values. Note that the range weights and COSEWIC status weights should be updated to real values (see inst/extdata/layers_Canada-CHONe2014.R). Then the scores should be calculated again using the OHI app."
+
+This reverts commit c651657db3e42f4afe7f986b095f6a73effdc712.
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:37:08
+----
+
+62 of 89
+starting : 2014-04-29 21:37:08
+committed: 2014-02-21T00:44:04Z
+sha: c651657db3e42f4afe7f986b095f6a73effdc712
+message: updated ICO to use a new layer with Canada's range weighted COSEWIC extinction risk status values. Note that the range weights and COSEWIC status weights should be updated to real values (see inst/extdata/layers_Canada-CHONe2014.R). Then the scores should be calculated again using the OHI app.
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:37:44
+----
+
+63 of 89
+starting : 2014-04-29 21:37:44
+committed: 2014-02-06T00:52:14Z
+sha: 001e89a37bc22f73a32cc069f97e852e833ef32a
+message: updated documentation since adding AggregateLayers.R
+
+Conf exists: FALSE
+
+finished: 2014-04-29 21:38:24
+----
+
+64 of 89
+starting : 2014-04-29 21:38:24
+committed: 2014-02-06T00:50:06Z
+sha: 88b136a6f32dd20160b3b3d28e30794ac66f69c5
+message: in process with LE function, moved ohigui's AggregateLayers.R into ohicore
+
+
+finished: 2014-04-29 21:38:58
+----
+
+65 of 89
+starting : 2014-04-29 21:38:58
+committed: 2014-01-23T00:04:25Z
+sha: cdfcd7b33ae057af857151ce475aa893ad0662c6
+message: MAR really working with layers now
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:39:35
+----
+
+66 of 89
+starting : 2014-04-29 21:39:35
+committed: 2014-01-22T23:24:47Z
+sha: 5467f5e8d0a117193d08da74121f7fc0074ff945
+message: MAR updated, FIS in progress
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:40:14
+----
+
+67 of 89
+starting : 2014-04-29 21:40:14
+committed: 2014-01-17T23:48:46Z
+sha: a08bc5c17807189c58f0ad8d2c1aef1e328049f3
+message: MAR incorporated with Rmd
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:40:54
+----
+
+68 of 89
+starting : 2014-04-29 21:40:54
+committed: 2014-01-17T17:31:01Z
+sha: 5642547752271d8c565c5c699436e898013b4d2e
+message: working MAR function with new layers
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:41:33
+----
+
+69 of 89
+starting : 2014-04-29 21:41:33
+committed: 2014-01-16T23:56:59Z
+sha: 6cfd1d4ee5ddca13a04e431be81135ffcf6c3110
+message: adding MAR layers, plus China data creation
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:42:08
+----
+
+70 of 89
+starting : 2014-04-29 21:42:08
+committed: 2014-01-15T19:24:51Z
+sha: befefa3d225b5bb47074b620d1ac970793191449
+message: Merge pull request #15 from bbest/master
+
+getting CHN example to work
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:42:43
+----
+
+71 of 89
+starting : 2014-04-29 21:42:43
+committed: 2014-01-15T19:20:48Z
+sha: 1368f5c31f1b9aed309fa82965ec8e7a59444d95
+message: getting CHN example to work
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:43:15
+----
+
+72 of 89
+starting : 2014-04-29 21:43:15
+committed: 2014-01-15T18:01:22Z
+sha: d5f15fc2038da3a0be453abffb9a42a6640e302c
+message: Merge pull request #14 from bbest/master
+
+fix fld_id lookup for CheckLayers.R
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:43:49
+----
+
+73 of 89
+starting : 2014-04-29 21:43:49
+committed: 2014-01-15T18:00:28Z
+sha: 98c37e921cdd2b4eaea89881a58e708dcef5859d
+message: fix fld_id lookup for CheckLayers.R
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:44:23
+----
+
+74 of 89
+starting : 2014-04-29 21:44:23
+committed: 2014-01-01T22:46:48Z
+sha: ef039fa3b91af38490a6dc06c0af0219a239667c
+message: fixed WriteScenario() permissions for Mac launchApp.command
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:45:00
+----
+
+75 of 89
+starting : 2014-04-29 21:45:00
+committed: 2014-01-01T22:41:09Z
+sha: ca3132911ca16ee08c6a539c6bd66affe7e24c5f
+message: trying Suggests:sqldf
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:45:36
+----
+
+76 of 89
+starting : 2014-04-29 21:45:36
+committed: 2014-01-01T22:40:20Z
+sha: d00e9ec050ea4516f006666b8a739e7611cdcace
+message: Merge pull request #13 from bbest/master
+
+fixed sqldf suggests dependency, launchApp for Mac
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:46:09
+----
+
+77 of 89
+starting : 2014-04-29 21:46:09
+committed: 2014-01-01T22:37:27Z
+sha: 7bce5ca76ff72c55713ae2dbda54075c59f0f41a
+message: fixed documentation bugs
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:46:43
+----
+
+78 of 89
+starting : 2014-04-29 21:46:43
+committed: 2014-01-01T21:58:45Z
+sha: 574ab5f36fb23188ea648b616dcced29cf2b40c9
+message: updated WriteScenario() to use working Rscript.exe on Windows and only write launchApp.* specific to platform (*.bat for Windows and *.command for Mac)
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:47:18
+----
+
+79 of 89
+starting : 2014-04-29 21:47:18
+committed: 2014-01-01T21:49:37Z
+sha: fb5001a3e1c98615734f321f3c594b4d2f51980b
+message: Merge pull request #12 from bbest/master
+
+updated WriteScenario() to use working Rscript.exe on Windows and only w...
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:47:50
+----
+
+80 of 89
+starting : 2014-04-29 21:47:50
+committed: 2014-01-01T20:59:39Z
+sha: 9b8fae7e4c649a94558b2ded5cf5e95c1c0a2593
+message: added sqldf dependency
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:48:27
+----
+
+81 of 89
+starting : 2014-04-29 21:48:27
+committed: 2014-01-01T20:50:12Z
+sha: 97a8bc01cf00b98774997020e80549cc793bfa21
+message: Merge pull request #11 from bbest/master
+
+added sqldf dependency
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:49:03
+----
+
+82 of 89
+starting : 2014-04-29 21:49:03
+committed: 2013-12-29T20:30:59Z
+sha: ff69b0425306487baf2f380c8f7679293ed2e6fe
+message: added spatial.Global2012-2013.www2013.zip
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:49:38
+----
+
+83 of 89
+starting : 2014-04-29 21:49:38
+committed: 2013-12-24T06:52:46Z
+sha: 86c30f2df7e7afe077fb55fab7babaeb9c54ddab
+message: added layers and scenario zips for Global2013.www2013
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:50:04
+----
+
+84 of 89
+starting : 2014-04-29 21:50:04
+committed: 2013-12-24T06:49:19Z
+sha: 8bc53d9017d565bf09a79f27e30dafefdb54adf9
+message: Merge pull request #10 from bbest/master
+
+added layers and scenario zips for Global2013.www2013
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:50:33
+----
+
+85 of 89
+starting : 2014-04-29 21:50:33
+committed: 2013-12-24T06:28:21Z
+sha: 2fb67eb052e22b1749f118019d571a327d7fcc44
+message: Merge pull request #9 from bbest/master
+
+major update with revamped Data navigation and working Report
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:51:00
+----
+
+86 of 89
+starting : 2014-04-29 21:51:00
+committed: 2013-12-24T06:18:54Z
+sha: 59519e0b5140839ed610c6f80a2cca494047e23a
+message: minors
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:51:25
+----
+
+87 of 89
+starting : 2014-04-29 21:51:25
+committed: 2013-12-24T06:16:28Z
+sha: adb38574e9081d49038e548db7db20d7e4995a30
+message: trying knitr::kable in report.Rmd
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:51:50
+----
+
+88 of 89
+starting : 2014-04-29 21:51:50
+committed: 2013-12-24T06:00:37Z
+sha: 09fdf33750b74aa18b5a31f4d61edde5ee2170fd
+message: adding knitr and markdown dependencies
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:52:15
+----
+
+89 of 89
+starting : 2014-04-29 21:52:15
+committed: 2013-12-24T05:39:37Z
+sha: 4f69c086add6ffbc6ba76f692e6366fc3a5e408e
+message: added config_txt and functions_txt to Conf() for easier read. cleaned up config.R and functions.R for 2012 and 2013 scenarios.
+
+Conf exists: TRUE
+
+finished: 2014-04-29 21:52:41
+----
+
