@@ -13,7 +13,8 @@ Depends:
     knitr (>= 1.5),
     markdown (>= 0.6.3),
     psych
-Suggests: testthat
+Suggests:
+    testthat
 Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
 License: MIT

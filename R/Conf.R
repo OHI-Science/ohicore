@@ -20,7 +20,8 @@
 #'   \item{\emph{resilienceweights.csv}}
 #' }
 #' See also \code{\link{Conf_write}() to write the configuration back to disk.}
-#' @export
+#' @export Conf
+#' @exportClass Conf
 
 Conf = methods::setRefClass(
   'Conf', fields = list(
