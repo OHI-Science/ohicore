@@ -1,5 +1,3 @@
-# TODO: validation, equations.csv, export method
-
 #' Conf reference class.
 #' 
 #' @param dir path to directory containing necessary files 
@@ -22,8 +20,10 @@
 #'   \item{\emph{resilienceweights.csv}}
 #' }
 #' See also \code{\link{Conf_write}() to write the configuration back to disk.}
-#' @export
-Conf = setRefClass(
+#' @export Conf
+#' @exportClass Conf
+
+Conf = methods::setRefClass(
   'Conf', fields = list(
     config_txt = 'character',
     functions_txt = 'character',
@@ -95,3 +95,5 @@ NULL
 #conf$config
 #conf = conf.Global2013.www2013
 #conf$write('~/Downloads/conf.test')
+#
+# TODO: validation, equations.csv, export method

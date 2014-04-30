@@ -25,7 +25,7 @@
 #' } 
 #' @export
 PlotChloroplethMap <- function(var, color, legend.title, min = 0, max = 100) {
-
+  
   require(maps)
   require(mapproj)
   
