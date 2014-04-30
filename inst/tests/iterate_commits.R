@@ -20,13 +20,12 @@ for (i in 1:length(d)){ # i=length(d) # 89
   # get commit info
   x = d[[i]]
   sha = x$sha # secure hash algorithm (SHA)
-  cat(sprintf('%s: %s\n    %s\n\n', 
-              x$commit$author['date'], x$sha, x$commit$message), file=log.txt, append=T)
+  cat(sprintf('%d of %d\nstarting : %s\ncommitted: %s\nsha: %s\n    %s\n\n', 
+              i, length(d), Sys.time(), x$commit$author['date'], x$sha, x$commit$message), file=log.txt, append=T)
   
   try({
     # install package based on SHA
-    Sys.sleep(80) # rate limit
-    install_github('ohi-science/ohicore', ref=sha, quiet=T)
+    install_github('ohi-science/ohicore', ref=sha, quiet=T) # install_github('bbest/ohicore')
     
     # load library
     if ('ohicore' %in% loadedNamespaces()) unloadNamespace('ohicore')
@@ -37,4 +36,5 @@ for (i in 1:length(d)){ # i=length(d) # 89
   })
   
   cat(sprintf('\nfinished: %s\n----\n\n', Sys.time()), file=log.txt, append=T)
+  Sys.sleep(120) # rate limit  
 }
