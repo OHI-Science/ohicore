@@ -9,7 +9,7 @@ library(devtools)
 
 # fetch list of commits since last working Conf.R
 url = 'https://api.github.com/repos/ohi-science/ohicore/commits?since=2013-12-24T05:39:37Z&per_page=100'
-d = fromJSON(getURL(url, useragent='bbest'))
+d = fromJSON(getURL(url, useragent='bbest', ssl.verifypeer=F))
 
 # initiate log
 log.txt = 'inst/tests/iterate_commits_log.txt'
@@ -20,21 +20,25 @@ for (i in 1:length(d)){ # i=length(d) # 89
   # get commit info
   x = d[[i]]
   sha = x$sha # secure hash algorithm (SHA)
-  cat(sprintf('%d of %d\nstarting : %s\ncommitted: %s\nsha: %s\n    %s\n\n', 
-              i, length(d), Sys.time(), x$commit$author['date'], x$sha, x$commit$message), file=log.txt, append=T)
+  msg = sprintf('%d of %d\nstarting : %s\ncommitted: %s\nsha: %s\nmessage: %s\n\n', 
+                i, length(d), Sys.time(), x$commit$author['date'], x$sha, x$commit$message)
+  cat(msg)
+  cat(msg, file=log.txt, append=T)
   
   try({
     # install package based on SHA
-    install_github('ohi-science/ohicore', ref=sha, quiet=T) # install_github('bbest/ohicore')
+    install_github(sprintf('ohi-science/ohicore@%s', sha)) #, ref=sha, quiet=T) # install_github('bbest/ohicore')
     
     # load library
     if ('ohicore' %in% loadedNamespaces()) unloadNamespace('ohicore')
     library(ohicore)
     
     # test for Conf class
-    cat(sprintf('Conf exists: %s\n', exists('Conf')), file=log.txt, append=T)
+    msg = sprintf('Conf exists: %s\n', exists('Conf'))
+    cat(msg)
+    cat(msg, file=log.txt, append=T)
   })
   
   cat(sprintf('\nfinished: %s\n----\n\n', Sys.time()), file=log.txt, append=T)
-  Sys.sleep(120) # rate limit  
+  #Sys.sleep(80) # rate limit  
 }
