@@ -1,8 +1,21 @@
+Setup(){
+  
+  # install packages if needed
+  extra.packages.required = c('zoo') # zoo for MAR()
+  for (p in extra.packages.required){
+    if (!suppressWarnings(library('zoo', character.only=T, logical.return=T))){
+      cat(sprintf('\n\nInstalling %s...\n', p))
+      install.packages(p)
+      require(p, character.only=T)
+    }
+  }
+}
+
 FIS = function(layers, status_year=2011){
   # layers used: snk_fis_meancatch, fnk_fis_b_bmsy, snk_fis_proparea_saup2rgn
       
   # catch data
-  c = SelectLayersData(layers, layer='snk_fis_meancatch', narrow=T) %.%
+  c = SelectLayersData(layers, layers='snk_fis_meancatch', narrow=T) %.%
     select(
       fao_saup_id    = id_chr,
       taxon_name_key = category,
@@ -527,9 +540,9 @@ TR = function(layers){
                data.frame('goal'='TR')))
 }
 
-LIV_ECO = function(layers){
+LIV_ECO = function(layers, liv_workforcesize_year=2009, eco_rev_adj_min_year=2000){
 
-  # get layers
+  # get status_model
   status_model_long = SelectLayersData(
     layers, narrow=T,
     layers=c('le_jobs_cur_base_value','le_jobs_ref_base_value','le_jobs_cur_adj_value','le_jobs_ref_adj_value',
@@ -539,50 +552,54 @@ LIV_ECO = function(layers){
     select(cntry_key = id_chr, sector = category, val_num, layer) %.%
     mutate(metric = str_replace(layer, 'le_(jobs|rev|wage)_(.*)', '\\1'),
            field  = str_replace(layer, 'le_(jobs|rev|wage)_(.*)', '\\2')) %.% 
-    dcast(metric + cntry_key + sector ~ field, value.var='val_num') %.%
-                       
-  #  use fields: metric, iso3166, cur_base_value, ref_base_value, cur_adj_value, ref_adj_value 
-  ppp                 = read.csv(file.path(dir_data, 'model/GL-NCEAS-Livelihoods_v2013a/data/country_gdppcppp_2013a.csv'), na.strings='') # head(ppp); dim(ppp); summary(ppp)
+    dcast(metric + cntry_key + sector ~ field, value.var='val_num')
+           
+  # get gdp per capita, at ppp
+  ppp = SelectLayersData(layers, layers='le_gdp_pc_ppp') %.%
+    select(cntry_key=id_chr, year, usd=val_num)
   
+  # country to region aggregation weight for livelihood
+  workforce_adj = SelectLayersData(layers, layers='le_workforcesize_adj') %.%
+    select(cntry_key=id_chr, year, jobs=val_num)
   
-  
-  # model... ----
+  # country to region aggregation weight for economy
+  rev_adj = SelectLayersData(layers, layers='le_revenue_adj') %.%
+    select(cntry_key=id_chr, year, usd=val_num)
   
   # compute the corrected relative value per metric per country, for JOBS
-  status_jobs_rev = status_model_curref %.%
+  status_jobs_rev = status_model %.%
     filter(ref_base_value != 0 & ref_adj_value != 0 & metric %in% c('jobs', 'rev')) %.%
-    group_by(metric, iso3166) %.%
+    group_by(metric, cntry_key) %.%
     summarise(
       score    = (sum(cur_base_value, na.rm=T) / sum(ref_base_value, na.rm=T)) / (mean(cur_adj_value, na.rm=T) / mean(ref_adj_value, na.rm=T)),
       n_sector = n()) %.%
-    arrange(metric, iso3166)
+    arrange(metric, cntry_key)
   
   # compute the corrected relative value per metric per country, for WAGE
   # 0. extract w'_i = (w_c/w_r)/(W_c/W_r) for each sector i per country
-  t0 = status_model_curref %.%
+  t0 = status_model %.%
     filter(metric=='wage' & ref_base_value != 0 & ref_adj_value != 0) %.%
     mutate(w_prime_i = (cur_base_value / ref_base_value) / (cur_adj_value / ref_adj_value)) %.%
-    select(metric, iso3166, sector, w_prime_i) %.%
-    group_by(metric, iso3166) %.%
+    select(metric, cntry_key, sector, w_prime_i) %.%
+    group_by(metric, cntry_key) %.%
     summarise(w_prime  = mean(w_prime_i, na.rm=T),
               n_sector = n()) %.%
-    arrange(metric, iso3166)
+    arrange(metric, cntry_key)
   
   # 1. let w' = unweighted mean(w'_i) across all sector i per country
   # 2. multiple w' by the most recent purchasing power parity (PPP) value for the country  
   p = ppp %.%
-    rename(c(ISO3166='iso3166',YEAR='year',VALUE='value')) %.%
-    arrange(iso3166, year) %.%
-    group_by(iso3166) %.%
-    summarise(year      = last(year),
-              ppp_value = last(value)) %.%
-    filter(!is.na(ppp_value)) %.%
-    arrange(iso3166)
+    arrange(cntry_key, year) %.%
+    group_by(cntry_key) %.%
+    summarise(year     = last(year),
+              ppp_last = last(usd)) %.%
+    filter(!is.na(ppp_last)) %.%
+    arrange(cntry_key)
   t2 = t0 %.%
-    merge(p, by='iso3166') %.%
-    mutate(score = w_prime * ppp_value) %.%
-    select(metric, iso3166, score, n_sector) %.%
-    arrange(metric, iso3166)
+    merge(p, by='cntry_key') %.%
+    mutate(score = w_prime * ppp_last) %.%
+    select(metric, cntry_key, score, n_sector) %.%
+    arrange(metric, cntry_key)
   
   # 3. set the best country (PPP-adjusted average wage) equal to 1.0 and then rescale all countries to that max
   max_wage_score = max(t2$score, na.rm=T)
@@ -594,39 +611,67 @@ LIV_ECO = function(layers){
     rbind(status_wage)
   status_score = status_model_combined %.%
     # liv
-    dcast(iso3166 ~ metric, value.var='score') %.%
-    group_by(iso3166) %.%
+    dcast(cntry_key ~ metric, value.var='score') %.%
+    group_by(cntry_key) %.%
     mutate(
       value     = mean(c(jobs, wage), na.rm=T),
       component = 'livelihood') %.%
-    select(iso3166, component, value) %.%
+    select(cntry_key, component, value) %.%
     ungroup() %.% 
-    arrange(iso3166, component, value) %.%
+    arrange(cntry_key, component, value) %.%
     # eco
     rbind(status_model_combined %.%
             filter(metric=='rev') %.%
             mutate(
               value     = score,
               component = 'economy') %.%
-            select(iso3166, component, value)) %.%
+            select(cntry_key, component, value)) %.%
     # order
     filter(!is.na(value)) %.%
-    arrange(iso3166, component) %.%
+    arrange(cntry_key, component) %.%
     # clamp
     mutate(score = pmin(value, 1))
   
+  # aggregate countries to regions by country workforce size for livelihood  
+#   SELECT  iso3166, value
+#   FROM    srcdata_adj_workforcesize
+#   WHERE   year = 2009
+# TODO: liv_workforcesize_year
+  a = aggregate_weighted(df=subset(s, component='livelihood'),
+                        w=subset(cy, year==workforce_year & !is.na(workforce), c(country_id,workforce)), 
+                       col.value='score', col.country='country_id', col.weight='workforce') # ABW workforce==NA
+
+  w_liv = subset(cy, year==liv_adj_year & !is.na(workforce), c(country_id,workforce))
+  
+  s_liv = aggregate_by_country_weighted(df=subset(s, component=='livelihood'), w=w_liv,
+                                        col.value='score', col.country='country_id', col.weight='workforce') # ABW workforce==NA  # summary(s_liv)
+    
+  # aggregate countries to regions by country adjusted revenue size for economy
+# SELECT  iso3166, value
+# FROM    adjustments d
+# JOIN    (
+#   SELECT  iso3166, MAX(year) AS year
+#   FROM    adjustments 
+#   WHERE   WHENce = 'actual' AND metric = 'rev_adj' AND year >= 2000
+#   GROUP BY iso3166
+# ) max USING (iso3166, year)
+# WHERE   metric = 'rev_adj'
+# TODO: eco_rev_adj_min_year
+
+
+
   # DEBUG: status_score compare ---
-  status_score_pg = dbGetQuery(pg, "SELECT * FROM status_score ORDER BY iso3166, component")
-  status_score_vs = status_score %.%
-    merge(
-      status_score_pg %.%
-        select(iso3166, component, value, score_pg = score), 
-      by=c('iso3166','component','value')) %.%
-    mutate(
-      score_dif         = score - score_pg,
-      score_na_mismatch = ifelse(is.na(score)==is.na(score_pg), T, F))
-  summary(abs(status_score_vs$score_dif))
-  sum(status_score_vs$score_na_mismatch)
+#   status_score_pg = dbGetQuery(pg, "SELECT * FROM status_score ORDER BY iso3166, component")
+#   status_score_vs = status_score %.%
+#     merge(
+#       status_score_pg %.%
+#         select(cntry_key=iso3166, component, value, score_pg = score), 
+#       by=c('cntry_key','component','value')) %.%
+#     mutate(
+#       score_dif         = score - score_pg,
+#       score_na_mismatch = ifelse(is.na(score)==is.na(score_pg), T, F))
+#   summary(abs(status_score_vs$score_dif))
+#   sum(status_score_vs$score_na_mismatch)
   
   # TODO NEXT: 
   #  * aggregate country_2012 to region_2012

@@ -25,22 +25,64 @@ dimensions, except trend (-1 to 1)} }
 \description{
 Calculate all scores, given layers and configuration.
 }
+\details{
+Performs the following sequence of functions, some of which
+are [optional]: \enumerate{ \item
+[functions.R:\code{SetupFunction}()] - execute function
+\code{SetupFunction}() if defined in file functions.R.
+This function typically installs extra packages upon which
+the other functions in functions.R depend.  \item
+\code{\link{CalculatePressuresAll}()} - calculate pressures
+across all goals using pressures_matrix.csv.  \item
+\code{\link{CalculateResilienceAll}()} - calculate
+resilience across all goals using resilience_matrix.csv and
+resilience_weights.csv.  \item
+goals.csv:\code{preindex_functions} - execute code in the
+\code{preindex_function} column of the goals.csv file based
+on \code{order_calculate} using functions defined in
+functions.R.  These funcutions are usually for calculating
+the goal's status and trend dimensions, ie the additional
+dimensions beyond pressures and resilience needed to
+calculate a goal index score.  \item
+\code{\link{CalculateGoalIndex}()} - run function for every
+goal having a status dimension assigned from the
+\code{preindex_functions}.  \item
+goals.csv:\code{postindex_functions} - execute code in the
+\code{postindex_function} column of the goals.csv file
+based on \code{order_calculate} using functions defined in
+functions.R. These functions are usually for goals
+containing subgoals, ie those without their own directly
+calculated index scores, but rather scores representing
+averages of subgoals.  \item regional index - calculate
+regional index score as weighted mean using
+goals.csv:\code{weight}.  \item regional likely future for
+supragoals - calculate regional likely future score for
+supragoals as average of subgoals.  \item
+functions.R:\code{PreGlobalScores}() - execute function
+\code{PreGlobalScores}() if defined in file functions.R.
+This function could perform a variety of operations on the
+regional scores, strategically before calculating the
+global scores.  \item global (region_id=0) scores -
+calculate scores for global (region_id=0) with regional
+values weighted by config.R:\code{layer_region_areas}.
+\item functions.R:\code{FinalizeScores}() - execute
+function \code{FinalizeScores}() if defined in file
+functions.R.  This function could perform a variety of
+operations on the regional and global scores. }
+}
 \examples{
 \dontrun{
-## run a model with 50 regions using random data,
-## using 5 year 1-percent discount rate and beta=0.67
+## run a scenario assuming setwd() to directory containing default names for directories and files
+## setup
 require(ohi)
-d <- ohi.model.goal(id=1:50,
-                    status=runif(50, 0, 1),
-                    trend=runif(50, -1, 1),
-                    resilience=runif(50, 0, 1),
-                    pressure=runif(50, 0, 1),
-                    DISCOUNT = (1 + 0.01)^-5,
-                    BETA = 0.67,
-                    default_trend = 0.0)
-## view model output
-names(d)
-d[,c('id','score','xF')]
+conf       = Conf('conf')
+layers     = Layers(layers.csv = 'layers.csv',
+                    layers.dir = 'layers')
+## calculate
+scores = CalculateAll(conf, layers, debug=T)
+
+## write
+write.csv(scores, 'scores.csv', na='', row.names=F)
 }
 }
 \keyword{ohi}
