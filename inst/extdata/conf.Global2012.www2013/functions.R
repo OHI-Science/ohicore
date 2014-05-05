@@ -1,3 +1,16 @@
+Setup = function(){
+  
+  # install packages if needed
+  extra.packages.required = c('zoo') # zoo for MAR()
+  for (p in extra.packages.required){
+    if (!suppressWarnings(library('zoo', character.only=T, logical.return=T))){
+      cat(sprintf('\n\nInstalling %s...\n', p))
+      install.packages(p)
+      require(p, character.only=T)
+    }
+  }
+}
+
 FIS = function(layers, status_year=2010){
   
   # catch data
