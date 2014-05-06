@@ -1,9 +1,10 @@
 Setup = function(){
   
-  # install packages if needed
   extra.packages.required = c('zoo') # zoo for MAR()
+  
+  # install packages if needed
   for (p in extra.packages.required){
-    if (!suppressWarnings(library('zoo', character.only=T, logical.return=T))){
+    if (!suppressWarnings(library(p, character.only=T, logical.return=T))){
       cat(sprintf('\n\nInstalling %s...\n', p))
       install.packages(p)
       require(p, character.only=T)

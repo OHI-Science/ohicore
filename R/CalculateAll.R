@@ -178,7 +178,7 @@ CalculateAll = function(conf, layers, debug=F){
     scores = conf$functions$FinalizeScores(layers, conf, scores)
   }
   
-  # check scores not duplicated
+  # check that scores are not duplicated
   stopifnot(sum(duplicated(scores[,c('region_id','goal','dimension')]))==0)
   
   # return scores
