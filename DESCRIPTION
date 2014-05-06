@@ -12,7 +12,9 @@ Depends:
     RJSONIO,
     knitr (>= 1.5),
     markdown (>= 0.6.3),
-    psych
+    psych,
+    zoo,
+    stringr
 Suggests:
     testthat
 Description: A collection of functions for generically calculating the Ocean
