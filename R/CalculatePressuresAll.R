@@ -4,7 +4,7 @@
 #' @param conf object \code{\link{Conf}}
 #' @param gamma (optional) if not specified defaults to 0.5
 #' @return data.frame containing columns 'region_id' and per subgoal pressures score 
-#' @import ddplyr
+#' @import dplyr
 #' @export
 CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   # DEBUG: load_all(); conf=conf.Global2013.www2013; layers=layers.Global2013.www2013; debug=T; scores = scores.Global2013.www2013
