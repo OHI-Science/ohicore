@@ -21,7 +21,6 @@ Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
 License: MIT
 Collate:
-    'AggregateLayers.R'
     'CalculateAll.R'
     'CalculateGoalIndex.R'
     'CalculatePressuresAll.R'
@@ -47,4 +46,5 @@ Collate:
     'SpatialSchemes.R'
     'TransformSpatialScheme.R'
     'data.R'
+    'gapfill_georegions.R'
 LazyData: TRUE
