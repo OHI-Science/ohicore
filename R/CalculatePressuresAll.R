@@ -4,21 +4,14 @@
 #' @param conf object \code{\link{Conf}}
 #' @param gamma (optional) if not specified defaults to 0.5
 #' @return data.frame containing columns 'region_id' and per subgoal pressures score 
-#' @import sqldf
+#' @import dplyr
 #' @export
-
 CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   # DEBUG: load_all(); conf=conf.Global2013.www2013; layers=layers.Global2013.www2013; debug=T; scores = scores.Global2013.www2013
   # P.scores = CalculatePressuresAll(layers, conf, debug=F); dim(P.scores); head(P.scores)
   # subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
   # head(dcast(subset(scores$data, dimension=='pressures' & goal %in% subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)), region_id ~ goal)[,c('region_id',subgoals)])
-  
-  # sqldf options (NOTE: cannot include sqldf dependancy in DESCRIPTION b/c tries to load X11)
-  options(gsubfn.engine='R')
-  library(sqldf)
-  options(sqldf.driver = 'SQLite')
-  options(sqldf.verbose = F)
-  
+    
   # setup initial data.frame for column binding results by region
   D = rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), c('id_num'='region_id'))[,'region_id',drop=F]
   regions = D[['region_id']]
@@ -97,7 +90,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
                       dimnames = list(region_id=regions, pressure=p.layers))
           
           # calculate pressures per region, component
-          rp.k = data.frame(category=k, region_id=dimnames(p)$region_id, 
+          rp.k = data.frame(category=k, region_id=as.integer(dimnames(p)$region_id), 
                             p = CalculatePressuresScore(p, w, pressures_categories=pk, GAMMA=gamma))
           if (exists('krp')){
             krp = rbind(krp, rp.k)
@@ -107,13 +100,15 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
         }
         
         # join region, category, pressure to weighting matrix
-        krpw = sqldf("
-                     SELECT CAST(region_id AS INTEGER) AS region_id, category, krp.p, d_w.value AS w 
-                     FROM krp 
-                     INNER JOIN d_w USING (region_id, category) 
-                     ORDER BY CAST(region_id AS INTEGER), category")
+        krpw = krp %.%
+          inner_join(d_w, by=c('region_id', 'category')) %.%
+          arrange(region_id, category) %.%
+          select(region_id, category, p, w=value)          
         d_region_ids = D[,'region_id',drop=F]
-        krpwp = sqldf("SELECT region_id, SUM(w*p)/SUM(w) AS p FROM d_region_ids LEFT JOIN krpw USING (region_id) GROUP BY region_id")
+        krpwp = d_region_ids %.%
+          left_join(krpw, by='region_id') %.%
+          group_by('region_id') %.%
+          summarize(p = sum(w*p)/sum(w))
         P = round(krpwp$p, 2)
         names(P) = krpwp$region_id      
         
@@ -127,7 +122,10 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
           # this condition seems to no onger apply, since all but NP (handled above if level is 'region_id-category')
           stop('surprise, layers_data_bycountry used')
           if (debug) cat(sprintf("  using layers_data='layers_data_bycountry'\n"))
-          d_w_r = sqldf(paste("SELECT DISTINCT region_id, category, country_id, country_area_km2 value FROM d_w JOIN regions_countries_areas USING(country_id) WHERE region_id IN (",paste(regions, collapse=','),")"))        
+          d_w_r = d_w %.%
+            inner_join(regions_countries_areas, by='country_id') %.%
+            filter(region_id %in% regions) %.%
+            select(region_id, category, country_id, country_area_km2)
           m_w = dcast(d_w_r, region_id ~ category, sum)  # function(x) sum(x, na.rm=T)>0)
         } else { # presume layers_data == 'layers_data'    
           if (debug) cat(sprintf("  using layers_data='layers_data'\n"))
