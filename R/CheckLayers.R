@@ -147,7 +147,7 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
     }
   }
   files.missing = subset(m, file_exists==F)
-  if (nrow(files.missing)>0) warning(paste(c('Missing files...', sprintf('    %s: %s/%s', files.missing$layer, files.missing$directory, files.missing$filename)), collapse='\n'))
+  if (nrow(files.missing)>0) warning(paste(c('Missing files...', sprintf('    %s: %s', files.missing$layer, files.missing$filename)), collapse='\n'))
   flds.missing = subset(m, file_exists==T & !is.na(flds_missing))
   if (nrow(flds.missing)>0) warning(paste(c('Missing fields...', sprintf('    %s: %s', flds.missing$layer, flds.missing$flds_missing)), collapse='\n'))
   flds.unused = subset(m, file_exists==T & !is.na(flds_unused))
