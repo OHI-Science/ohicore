@@ -7,7 +7,7 @@ load_all()
 #source('inst/extdata/data_create.R')
 
 # load layers and conf ----
-for (scenario in c('Global2013.www2013','Global2012.www2013')){
+for (scenario in c('Global2013.www2013','Global2012.www2013')){ # scenario='Global2013.www2013'
   conf       = Conf(sprintf('inst/extdata/conf.%s', scenario))
   layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
                       layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))

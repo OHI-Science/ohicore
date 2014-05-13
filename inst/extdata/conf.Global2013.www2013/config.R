@@ -1,7 +1,14 @@
+assessment_key = 'www2013'
+scenario_key = 'Global2013'
+#scenario_assessment_key = paste(assessment_key, scenario_key, collapse='.') 
+  
 # layers ----
-layers_id_fields = c('rgn_id','cntry_key','saup_id','fao_id','fao_saup_id')
-layer_region_labels = 'rnk_rgn_global'
-layer_region_areas  = 'rn_rgn_area'
+layers_id_fields        = c('rgn_id','cntry_key','country_id','saup_id','fao_id','fao_saup_id') # note: cntry_key for www2013, country_id for nature2012
+layer_region_labels     = 'rnk_rgn_global'
+layer_region_areas      = 'rn_rgn_area'
+#layer_country_georegion = 'cnk_cntry_georegions'
+#layer_region_georegion  = 'rnk_rgn_georegions'
+#layer_country_region    = 'cn_cntry_rgn'
 
 # pressures & resilience matrices ----
 # components describe the layer and level with which to aggregate resilience and pressures matrices for goals with categories
