@@ -48,11 +48,8 @@ FIS = function(layers, status_year=2011){
   b$year     <- as.numeric(as.character(b$year))
   
   # area data for saup to rgn conversion
-  a = SelectLayersData(layers, layer='snk_fis_proparea_saup2rgn', narrow=T) %.%
-    select(
-      saup_id   = id_num,
-      rgn_id    = category,
-      prop_area = val_num)
+  a = layers$data[['fis_proparea_saup2rgn']] %.%
+    select(saup_id, rgn_id, prop_area)
   a$prop_area <- as.numeric(a$prop_area)
   a$saup_id   <- as.numeric(as.character(a$saup_id))
   a$rgn_id    <- as.numeric(as.character(a$rgn_id))
@@ -188,7 +185,6 @@ FIS = function(layers, status_year=2011){
       score     = round(Status*100),
       dimension = 'status') %.%
     select(region_id=rgn_id, dimension, score)
-    
     
   # ------------------------------------------------------------------------
   # STEP 6. Calculate trend  
