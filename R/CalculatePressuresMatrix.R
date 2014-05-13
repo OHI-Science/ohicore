@@ -80,7 +80,7 @@ CalculatePressuresMatrix <- function(alpha, beta, calc='avg') {
      for (i in dimnames(w)$region_id) { # i=dimnames(w)$region_id[1]
        for (j in dimnames(w)$pressure) { # j=dimnames(w)$pressure[1]
          if (calc=='avg'){
-           w[i,j] <- sum(t(alpha)[j,] * beta[i,], na.rm=T) / sum(beta[i,], na.rm=T)        
+           w[i,j] <- sum(t(alpha)[j,][dimnames(beta)$category] * beta[i,], na.rm=T) / sum(beta[i,], na.rm=T)        
          } else if (calc=='mean') {
            # eg HAB (see /var/data/ohi/model/GL-NCEAS-Pressures_Matrix/report7.R)
            # TODO: check whether bug in HAB calculation or intentional since beta [region_id x category] only ever 1 or NA

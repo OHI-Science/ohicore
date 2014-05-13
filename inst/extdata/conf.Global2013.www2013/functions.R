@@ -288,7 +288,7 @@ MAR = function(layers, status_years=2005:2011){
                  (yr_max-5):(yr_max))   # 5_yr
     y = subset(x, year %in% yrs)
     return(data.frame(
-      trend = round(min(lm(status ~ year, data=y)$coefficients[['year']] * 5,1), 2)))  
+      trend = round(max(min(lm(status ~ year, data=y)$coefficients[['year']] * 5, 1), -1), 2)))  
     })
   
   # return scores
@@ -300,8 +300,9 @@ MAR = function(layers, status_years=2005:2011){
       trend %.%
         select(region_id = rgn_id,
                score     = trend) %.%
-        mutate(dimension='trend')) %.%
+        mutate(dimension = 'trend')) %.%
     mutate(goal='MAR')
+  
   return(scores)
   # NOTE: some differences to www2013 are due to 4_yr species only previously getting trend calculated to 4 years (instead of 5)
 }
@@ -493,11 +494,19 @@ CP = function(layers){
   D = SelectLayersData(layers, layers=lyr_names)
   
   # for habitat extent do not use all mangrove, but sum of mangrove_offshore1km + mangrove_inland1km = mangrove to match with extent and trend
-  m = dcast(D, layer + id_num ~ category, value.var='val_num', subset = .(layer=='rnk_hab_extent' & category %in% c('mangrove_inland1km','mangrove_offshore1km')))
-  m$val_num = rowSums(m[,c('mangrove_inland1km','mangrove_offshore1km')], na.rm=T)
-  m$category = as.factor('mangrove')
   d = subset(D, !(layer=='rnk_hab_extent' & category %in% c('mangrove','mangrove_inland1km','mangrove_offshore1km')))
-  D = rbind.fill(m, d)
+  m = D %.%
+    filter(layer=='rnk_hab_extent' & category %in% c('mangrove_inland1km','mangrove_offshore1km'))
+  if (nrow(m)>0){ # eg no mangrove in Baltic
+    m = m %.%
+      dcast(layer + id_num ~ category, value.var='val_num') %.%
+      mutate(
+        val_num  = sum(mangrove_inland1km, mangrove_offshore1km, na.rm=T),
+        category = 'mangrove')    
+    D = rbind.fill(m, d)
+  } else {
+    D = d
+  }
   
   # cast
   rk = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
@@ -636,8 +645,8 @@ LIV_ECO = function(layers, subgoal, liv_workforcesize_year=2009, eco_rev_adj_min
     mutate(score = pmin(value, 1))
   
   # countries to regions
-  cntry_rgn = SelectLayersData(layers, layers='cn_cntry_rgn') %.%
-    select(cntry_key=id_chr, rgn_id=val_num) %.%
+  cntry_rgn = layers$data[['cntry_rgn']] %.%
+    select(rgn_id, cntry_key) %.%
     merge(
       SelectLayersData(layers, layers='rtk_rgn_labels') %.%
         select(rgn_id=id_num, rgn_name=val_chr),
@@ -682,7 +691,6 @@ LIV_ECO = function(layers, subgoal, liv_workforcesize_year=2009, eco_rev_adj_min
         mutate(component='economy'))
   
   # aggregate countries to regions by weights
-  browser()
   s_r = status_score %.%
     merge(cntry_rgn, by='cntry_key', all.x=T) %.%
     merge(weights, by=c('cntry_key','component'), all.x=T) %.%

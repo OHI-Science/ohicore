@@ -38,7 +38,13 @@ Layers = methods::setRefClass(
       
       .self$data = plyr::dlply(meta, 'layer', function (m) {
         d = read.csv(file.path(layers.dir, m[['filename']]), header = T)
-        d$layer = m[['layer']]
+        if (nrow(d)>0){
+          d$layer = m[['layer']]
+        } else {
+          d[1,] = rep(NA, ncol(d))
+          d$layer = m[['layer']]
+          warning(sprintf('Layer %s has no rows of data.', m[['layer']]))
+        }
         return(d)})
     
       .self$targets = plyr::dlply(meta, 'layer', function(m){

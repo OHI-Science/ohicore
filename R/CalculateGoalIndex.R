@@ -58,15 +58,10 @@ CalculateGoalIndex = function(id, status, trend, resilience, pressure,
      
      # enforce domains
      stopifnot(min(d$x, na.rm=T) >= 0  && max(d$x, na.rm=T) <= xlim[2])   #  [ 0, 1]
+     if(! (min(d$t, na.rm=T) >= -1 && max(d$t, na.rm=T) <= 1) ) browser()
      stopifnot(min(d$t, na.rm=T) >= -1 && max(d$t, na.rm=T) <= 1)         #  [-1, 1]
      stopifnot(min(d$r, na.rm=T) >= 0  && max(d$r, na.rm=T) <= xlim[2])   #  [ 0, 1]
      stopifnot(min(d$p, na.rm=T) >= 0  && max(d$p, na.rm=T) <= xlim[2])   #  [ 0, 1]
-    
-     # rescale 0 to 1 if already going 0 to 100
-     #if (g=='AO') browser()
-     #if (identical(xlim, c(0,100))){
-     #  d[,c('x','r','p')] = d[,c('x','r','p')]/100
-     #}
      
      # compute "future" status, using all dimensions
      d$xF <- with(d, (DISCOUNT * (1 + (BETA * t) + ((1-BETA) * (r - p)))) * x)
