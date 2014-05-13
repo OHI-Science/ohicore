@@ -38,7 +38,7 @@ scenario=sprintf('HighSeas%d.a2014', yr)
 # layers registry: layers_2014_HighSeas Google spreadshee ----
 g.url = 'https://docs.google.com/spreadsheet/pub?key=0ArcIhYsFwBeNdG9KVlJ6M0ZxV1dtVDJDQ3FLVWJQWFE&single=true&gid=0&output=csv'
 g0 = read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings='')
-write.csv(g0, 'inst/extdata/tmp/layers_navigation_2012a_2013a.csv', na='', row.names=F)
+write.csv(g0, 'inst/extdata/tmp/layers_navigation_HighSeas2013.a2014.csv', na='', row.names=F)
 g = subset(g0, ingest==T )
 
 # layers ----
