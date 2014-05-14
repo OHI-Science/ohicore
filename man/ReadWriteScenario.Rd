@@ -8,7 +8,7 @@ WriteScenario(scenario = list(conf = ohicore::conf.Global2013.www2013, layers
   = ohicore::layers.Global2013.www2013, scores =
   ohicore::scores.Global2013.www2013, spatial =
   system.file("extdata/spatial.www2013", package = "ohicore"), dir =
-  path.expand("~/myohi/scenario.Global2013.www2013")))
+  path.expand("~/myohi/scenario.Global2013.www2013")), make_all_launchApp = F)
 }
 \arguments{
   \item{scenario}{list of (conf, layers, scores, spatial,
