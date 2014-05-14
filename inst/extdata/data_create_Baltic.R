@@ -101,6 +101,12 @@ for (f in conf_files){ # f = conf_files[2]
   for (i in 1:nrow(lyrs)){ # i=1
     s = gsub(lyrs$layer_old[i], lyrs$layer[i], s, fixed=T)
   }
+  
+  # set map coordinates and zoom level
+  if (f=='config.R'){
+    s = gsub('map_lat=0; map_lon=0; map_zoom=3', 'map_lat=59; map_lon=19; map_zoom=5', s)
+  }
+  
   writeLines(s, f_out)
 }
 
@@ -124,3 +130,6 @@ write.csv(scores, sprintf('%s/scores.csv', dir_out), na='', row.names=F)
 #     scores = scores,
 #     spatial = sprintf('%s/spatial', dir_out),
 #     dir    = dir_out))
+
+# launch on Mac
+system(sprintf('open %s/launchApp.command', dir_out))

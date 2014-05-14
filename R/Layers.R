@@ -43,7 +43,7 @@ Layers = methods::setRefClass(
         } else {
           d[1,] = rep(NA, ncol(d))
           d$layer = m[['layer']]
-          warning(sprintf('Layer %s has no rows of data.', m[['layer']]))
+          message(sprintf('Layer %s has no rows of data.', m[['layer']]))
         }
         return(d)})
     
