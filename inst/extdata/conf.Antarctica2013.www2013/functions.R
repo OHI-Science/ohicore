@@ -1260,21 +1260,23 @@ SP = function(scores){
 
 
 CW = function(layers){
-  
+  browser()
   # layers
-  lyrs = c('po_pathogens' = 'a',
-           'po_nutrients' = 'u',
-           'po_chemicals' = 'l',
+  lyrs = c('po_chemicals' = 'l',
            'po_trash'     = 'd',
-           'rn_cw_pesticide_trend'   = 'pest_trend',
-           'rn_cw_fertilizer_trend'  = 'fert_trend',
-           'rn_cw_coastalpopn_trend' = 'popn_trend',
-           'rn_cw_pathogen_trend'    = 'path_trend')
+           'rn_cw_chemical_trend'   = 'chem_trend',
+           'rn_cw_trash_trend'  = 'trash_trend')
+  
+  #testing
+  l <- read.csv("N:\\model\\GL-HS-AQ-PressuresSummary_v2013\\data\\po_chemicals_2013_AQ.csv")
+  d <- read.csv("N:\\model\\GL-HS-AQ-PressuresSummary_v2013\\data\\po_trash_2013_AQ.csv")
+  chem_trend <- ("N:\\model\\GL-AQ-CleanWaters_v2013\\data\\cw_chem_trend.csv")
+  trash_trend <- ("N:\\model\\GL-AQ-CleanWaters_v2013\\data\\cw_trash_trend.csv")
   
   # cast data
   d = SelectLayersData(layers, layers=names(lyrs))  
   r = rename(dcast(d, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs))),
-              c('id_num'='region_id', lyrs)); head(r); summary(r)
+              c('id_num'='sp_id', lyrs)); head(r); summary(r)
   
   # invert pressures
   r$a = 1 - r$a
@@ -1290,7 +1292,7 @@ CW = function(layers){
   r$status = psych::geometric.mean(t(r[,c('a','u','l','d')]), na.rm=T) * 100
   
   # trend
-  r$trend = rowMeans(r[,c('pest_trend','fert_trend','popn_trend','path_trend')], na.rm=T)
+  r$trend = rowMeans(r[,c('chem_trend','trash_trend','popn_trend','path_trend')], na.rm=T)
   
   # return scores
   scores = rbind(

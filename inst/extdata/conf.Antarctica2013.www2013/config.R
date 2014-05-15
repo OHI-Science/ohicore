@@ -1,5 +1,5 @@
 # layers ----
-layers_id_fields = c('rgn_id','cntry_key','saup_id','fao_id','fao_saup_id')
+layers_id_fields = c('rgn_id','cntry_key','saup_id','fao_id','fao_saup_id', 'sp_id')
 layer_region_labels = 'rnk_rgn_global'
 layer_region_areas  = 'rn_rgn_area'
 
