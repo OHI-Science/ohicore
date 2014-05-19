@@ -41,6 +41,7 @@ g0 = read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip
 write.csv(g0, 'inst/extdata/tmp/layers_navigation_Antarctica2013.a2014.csv', na='', row.names=F)
 g = subset(g0, ingest==T )
 
+
 # layers ----
 
 # iterate over scenarios
@@ -86,6 +87,8 @@ layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario)
                     layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
 # load_all()
 conf   = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
+
+
 scores = CalculateAll(conf, layers, debug=T)
 
 
