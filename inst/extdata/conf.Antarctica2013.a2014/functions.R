@@ -2,12 +2,12 @@
 FIS = function(layers){
   # scores
   return(cbind(rename(SelectLayersData(layers, layers=c('fis_status'='status','fis_trend'='trend'), narrow=T),
-                      c(id_num='sp_id', layer='dimension', val_num='score')), 
+                      c(id_num='region_id', layer='dimension', val_num='score')), 
                data.frame('goal'='FIS')))
 }
 
 
-FP = function(layers, scores){
+FP = function(scores){
   
   # scores
 s = scores %.%
@@ -23,7 +23,7 @@ s = scores %.%
 NP = function(layers){
   # scores
   return(cbind(rename(SelectLayersData(layers, layers=c('np_status'='status','np_trend'='trend'), narrow=T),
-                      c(id_num='sp_id', layer='dimension', val_num='score')), 
+                      c(id_num='region_id', layer='dimension', val_num='score')), 
                data.frame('goal'='NP')))
 }
 
@@ -41,7 +41,7 @@ CP = function(layers){
   D = SelectLayersData(layers, layers=lyr_names)
     # cast
   rk = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
-              c('id_num'='sp_id', 'category'='habitat', lyrs[['rk']]))
+              c(id_num='region_id', 'category'='habitat', lyrs[['rk']]))
   
   # limit to CP habitats and add rank
   habitat.rank = c('coral'            = 4,
@@ -57,13 +57,13 @@ CP = function(layers){
   rk$extent[rk$extent==0] = NA
   
   # status  
-  r.status = ddply(na.omit(rk[,c('sp_id','habitat','rank','extent','health')]), .(sp_id), summarize,
+  r.status = ddply(na.omit(rk[,c('region_id','habitat','rank','extent','health')]), .(region_id), summarize,
                    goal = 'CP',
                    dimension = 'status',
                    score = min(1, sum(rank * health * extent) / (sum(extent) * max(rank)) ) * 100 )    
   
   # trend
-  r.trend = ddply(na.omit(rk[,c('sp_id','habitat','rank','extent','trend')]), .(sp_id), summarize,
+  r.trend = ddply(na.omit(rk[,c('region_id','habitat','rank','extent','trend')]), .(region_id), summarize,
                   goal = 'CP',
                   dimension = 'trend',
                   score = sum(rank * trend * extent) / (sum(extent)* max(rank)) )
@@ -77,22 +77,89 @@ TR = function(layers){
   
   # scores
   return(cbind(rename(SelectLayersData(layers, layers=c('rn_tr_status'='status','rn_tr_trend'='trend'), narrow=T),
-                      c(id_num='sp_id', layer='dimension', val_num='score')), 
+                      c(id_num='region_id', layer='dimension', val_num='score')), 
                data.frame('goal'='TR')))
-}
-
-
-
-LIV = function(layers){
   
-  # scores
-  return(cbind(rename(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
-                      c(id_num='sp_id', layer='dimension', val_num='score')), 
-               data.frame('goal'='LIV')))
+  
+  
 }
 
 
-LE = function(layers, scores){
+
+LIV = function(layers, status_year){
+  #status_year=2013
+  trend_years <-  (status_year-4):status_year
+  D <- SelectLayersData(layers, layers=c('rn_liv'))
+  D <- D %.%
+    select(sp_id = id_num, category, year, crew=val_num)
+  
+  # calculate status of fisheries
+  D$status <- NA
+  
+  for(i in 1:dim(D)[1]){
+    #i <- 8 #testing
+    sp_id_tmp <- D[i, 1]
+    year_curr <- D[i, 3]
+    category <- D[i,2]
+    year_ref <- year_curr-4
+    
+    
+    D$status[i] <- ifelse(identical(D$crew[i]/D$crew[D$sp_id == sp_id_tmp & D$year==year_ref & D$category==category], numeric(0)), 
+                                         NA,
+                                         D$crew[i]/D$crew[D$sp_id == sp_id_tmp & D$year==year_ref& D$category==category])  
+  }
+  
+  D$status <- ifelse(D$status %in% "NaN", NA,  D$status) # these are zero divided by zero
+  D$status <- ifelse(D$status %in% "Inf", 1,  D$status) # these are value divided by zero (should this be NA?)
+  D$status <- ifelse(D$status > 1, 1,  D$status)
+
+  status <- dcast(D, sp_id + year ~ category, value.var="status")
+  
+  weights <- dcast(D, sp_id + year ~ category, value.var="crew")
+  weights$cf[is.na(weights$cf)] <- 0
+  weights$tour[is.na(weights$tour)] <- 0
+  
+  weights <- weights %.%
+    mutate(f_weight = cf/(cf + tour),
+           tr_weight = 1-f_weight) %.%
+    select(sp_id, year, f_weight, tr_weight)%.%
+    left_join(status, by=c("sp_id", "year")) %.%
+    mutate(status = ifelse(is.na(cf*f_weight), 0, cf*f_weight) + ifelse(is.na(tour*tr_weight), 0, tour*tr_weight))
+  
+  ##### Status & trend
+  status.scores <- weights %.%
+  filter(year==status_year) %.%
+    mutate(goal="LIV", 
+           dimension="status") %.%
+    select(region_id=sp_id, goal, dimension, score=status)
+  
+  trend.data <- weights %.%
+    filter(year %in% trend_years)
+  
+    lm = dlply(
+    trend.data, .(sp_id),
+    function(x) lm(status ~ year, x))
+  
+  trend_lm <- ldply(lm, coef)
+  
+  trend.scores <- trend_lm %.%
+   mutate(goal="LIV",
+          dimension="trend") %.%
+    mutate(score=year*5) %.%
+    select(region_id=sp_id, goal, dimension, score) %.%
+    mutate(score=ifelse(score>1, 1, score))
+  
+  
+  #testing:
+  #lm(status ~ year, data=subset(trend.data, sp_id == "248500")) ## only one value....
+  
+  # return scores
+  return(rbind(trend.scores, status.scores))  
+  
+}
+
+
+LE = function(scores){
   
   # scores
   s = scores %.%
@@ -109,7 +176,7 @@ ICO = function(layers){
   
   # scores
   scores = cbind(rename(SelectLayersData(layers, layers=c('rn_ico_status'='status','rn_ico_trend'='trend'), narrow=T),
-                         c(id_num='sp_id', layer='dimension', val_num='score')), 
+                         c(id_num='region_id', layer='dimension', val_num='score')), 
                  data.frame('goal'='ICO'))
   return(scores) 
 }
@@ -119,7 +186,7 @@ LSP = function(layers){
   
   # scores
   scores = cbind(rename(SelectLayersData(layers, layers=c('rny_lsp_prot_area_status'='status','rny_lsp_prot_area_trend'='trend'), narrow=T),
-                        c(id_num='sp_id', layer='dimension', val_num='score')), 
+                        c(id_num='region_id', layer='dimension', val_num='score')), 
                  data.frame('goal'='LSP'))
   return(scores) 
 }
@@ -129,7 +196,7 @@ SP = function(scores){
   d = within(
     dcast(
       scores, 
-      sp_id + dimension ~ goal, value.var='score', 
+      region_id + dimension ~ goal, value.var='score', 
       subset=.(goal %in% c('ICO','LSP') & !dimension %in% c('pressures','resilience')))
     , {
       goal = 'SP'
@@ -137,12 +204,11 @@ SP = function(scores){
   
   
   # return all scores
-  return(rbind(scores, d[,c('sp_id','goal','dimension','score')]))
+  return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
 }
 
 
 CW = function(layers){
-  browser()
   # layers
   lyrs = c('po_chemicals' = 'l',
            'po_trash'     = 'd',
@@ -152,7 +218,7 @@ CW = function(layers){
   # cast data
   d = SelectLayersData(layers, layers=names(lyrs))  
   r = rename(dcast(d, id_num ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs))),
-              c('id_num'='sp_id', lyrs)); head(r); summary(r)
+              c(id_num='region_id', lyrs)); head(r); summary(r)
   
   # invert pressures
   r$l = 1 - r$l
@@ -173,7 +239,7 @@ CW = function(layers){
     within(r, {
       goal      = 'CW'
       dimension = 'trend'
-      score     = trend}))[,c('sp_id','goal','dimension','score')]
+      score     = trend}))[,c('region_id','goal','dimension','score')]
   return(scores)  
 }
 
@@ -190,7 +256,7 @@ HAB = function(layers){
   # cast data
   d = SelectLayersData(layers, layers=names(lyrs))  
   rk = rename(dcast(d, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs))),
-              c('id_num'='sp_id', 'category'='habitat', lyrs))
+              c(id_num='region_id', 'category'='habitat', lyrs))
   
   # limit to HAB habitats
   rk = subset(rk, habitat %in% c('coral','mangrove','saltmarsh','seaice_extent','seagrass','soft_bottom'))  
@@ -199,13 +265,13 @@ HAB = function(layers){
   rk$w = ifelse(!is.na(rk$extent) & rk$extent>0, 1, NA)
   
   # status
-  r.status = ddply(na.omit(rk[,c('sp_id','habitat','w','health')]), .(sp_id), summarize,
+  r.status = ddply(na.omit(rk[,c('region_id','habitat','w','health')]), .(region_id), summarize,
                    goal      = 'HAB',
                    dimension = 'status',
                    score     = min(1, sum(w * health) / sum(w)) * 100); summary(r.status)
   
   # trend
-  r.trend = ddply(na.omit(rk[,c('sp_id','habitat','w','trend')]), .(sp_id), summarize,
+  r.trend = ddply(na.omit(rk[,c('region_id','habitat','w','trend')]), .(region_id), summarize,
                   goal      = 'HAB',
                   dimension = 'trend',
                   score     = sum(w * trend) / sum(w))
@@ -220,7 +286,7 @@ SPP = function(layers){
 
   # scores
   scores = cbind(rename(SelectLayersData(layers, layers=c('rn_spp_status'='status','rn_spp_trend'='trend'), narrow=T),
-                      c(id_num='sp_id', layer='dimension', val_num='score')), 
+                      c(id_num='region_id', layer='dimension', val_num='score')), 
                data.frame('goal'='SPP'))
   return(scores) 
 }
@@ -230,14 +296,14 @@ BD = function(scores){
   d = within(
     dcast(
       scores, 
-      sp_id + dimension ~ goal, value.var='score', 
+      region_id + dimension ~ goal, value.var='score', 
       subset=.(goal %in% c('HAB','SPP') & !dimension %in% c('pressures','resilience'))), 
     {
       goal = 'BD'
       score = rowMeans(cbind(HAB, SPP), na.rm=T)})
   
   # return all scores
-  return(rbind(scores, d[,c('sp_id','goal','dimension','score')]))
+  return(rbind(scores, d[,c('region_id','goal','dimension','score')]))
 }
 
 PreGlobalScores = function(layers, conf, scores){
@@ -246,12 +312,8 @@ PreGlobalScores = function(layers, conf, scores){
   rgns = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T)
   
   # limit to just desired regions and global (region_id==0)
-  scores = subset(scores, sp_id %in% c(rgns[,'id_num'], 0))
-  
-  # apply NA to Antarctica
-  id_ant = subset(rgns, val_chr=='Antarctica', id_num, drop=T)
-  scores[scores$sp_id==id_ant, 'score'] = NA
-    
+  scores = subset(scores, id_num %in% c(rgns[,'id_num'], 0))
+      
   return(scores)
 }
 
@@ -262,16 +324,16 @@ FinalizeScores = function(layers, conf, scores){
     
   # add NAs to missing combos (region_id, goal, dimension)
   d = expand.grid(list(score_NA  = NA,
-                       sp_id = c(rgns[,'id_num'], 0),
+                       region_id = c(rgns[,'id_num'], 0),
                        dimension = c('pressures','resilience','status','trend','future','score'), 
                        goal      = c(conf$goals$goal, 'Index')), stringsAsFactors=F); head(d)
   d = subset(d, 
-             !(dimension %in% c('pressures','resilience','trend') & sp_id==0) & 
+             !(dimension %in% c('pressures','resilience','trend') & region_id==0) & 
              !(dimension %in% c('pressures','resilience','status','trend') & goal=='Index'))
-  scores = merge(scores, d, all=T)[,c('goal','dimension','sp_id','score')]
+  scores = merge(scores, d, all=T)[,c('goal','dimension','region_id','score')]
       
   # order
-  scores = arrange(scores, goal, dimension, sp_id)
+  scores = arrange(scores, goal, dimension, region_id)
   
   # round scores
   scores$score = round(scores$score, 2)

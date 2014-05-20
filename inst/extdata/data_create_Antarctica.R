@@ -45,6 +45,7 @@ g = subset(g0, ingest==T )
 # layers ----
 
 # iterate over scenarios
+
 cat(sprintf('\n\n\n## Scenario: %sa\n', scenario))
 conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
 
@@ -87,10 +88,7 @@ layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario)
                     layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
 # load_all()
 conf   = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
-
-
 scores = CalculateAll(conf, layers, debug=T)
-
 
 write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
 
