@@ -70,7 +70,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
       
       # ensure that all components are in the aggregation layer category
       if (!all(p.components %in% unique(d_w$category))){
-        stop(sprintf('The following components for %s are not in the aggregation layer %s categories (%s): %s', g, pressures_components[[g]][['layer']], 
+        message(sprintf('The following components for %s are not in the aggregation layer %s categories (%s): %s', g, pc[[g]][['layer']], 
                      paste(unique(d_w$category), collapse=', '),
                      paste(p.components[!p.components %in% d_w$category], collapse=', ')))
       }
@@ -155,7 +155,8 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
                          matrix(0, nrow=length(region_ids.missing), ncol=ncol(w)+length(pressures.missing))),
                    nrow=nrow(w)+length(region_ids.missing), ncol=ncol(w)+length(pressures.missing),
                    dimnames = list('region_id'=c(dimnames(w)$region_id, region_ids.missing), 
-                                   'pressure'=c(dimnames(w)$pressure, pressures.missing)))[as.character(regions), p.layers]    
+                                   'pressure'=c(dimnames(w)$pressure, pressures.missing)))[as.character(regions), p.layers]
+        w = w[dimnames(p)$region_id,] # align w with p
         
         # check matrices
         stopifnot(all(dimnames(w)$pressure == dimnames(w)$pressure))

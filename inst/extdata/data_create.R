@@ -11,7 +11,7 @@ dir_conf = list(
   'salacia'=list(  # BB's Mac
     neptune_data    = '/Volumes/data_edit',
     neptune_local   = '/Volumes/local_edit'),    
-  'beastie3'=list(  # Melanie's Windows 8 on MacBook Pro VMWare
+  'beastie3'=list(  # Melanie's Windows
     neptune_data  = '//neptune.nceas.ucsb.edu/data_edit',
     neptune_local = '//neptune.nceas.ucsb.edu/local_edit')
 )[[ tolower(sub('\\..*', '', Sys.info()[['nodename']])) ]]
@@ -20,6 +20,7 @@ dir_conf$ohiprep = '../ohiprep'
 # variables and flags for turning on/off time consuming code
 do.years.www2013 = c(2012,2013)
 do.layers.www2013 = T
+do.scores.www2013 = F
 do.spatial.www2013 = F
 do.layers.Global2012.Nature2012ftp = F
 scores.source = 'calculate'  # 'calculate' OR path, eg 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv'
@@ -64,7 +65,7 @@ for (yr in do.years.www2013){ # yr=2013
     g$directory = sapply(str_split(g[, sprintf('dir_%da', yr)], ':'),
                          function(x){ sprintf('%s/%s', dir_conf[x[1]], x[2])})
     g$path = sprintf('%s/%s', g$directory, g$filename)
-    file.exists(g$path)
+    if(!all(file.exists(g$path))) stop('files not found:\n  ', paste(g$path[!file.exists(g$path)], '\n  '))
     for (f in sort(g$path)){ # f = sort(g$path)[1]
       cat(sprintf('    copying %s\n', f))
       stopifnot(file.copy(f, file.path(dir.to, basename(f)), overwrite=T))
@@ -93,7 +94,7 @@ for (yr in do.years.www2013){ # yr=2013
     CheckLayers(layers.csv, dir.to, flds_id=conf$config$layers_id_fields)
   }
   
-  if (scores.source == 'calculate'){
+  if (scores.source == 'calculate' & do.scores.www2013){
     # calculate scores 
     layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
                         layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
@@ -164,7 +165,7 @@ for (yr in do.years.www2013){ # yr=2013
       }
     }
     
-  } else {    
+  } else if (do.scores.www2013) {    
     # create scores from published results
     
     # load results

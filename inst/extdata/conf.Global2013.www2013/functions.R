@@ -48,11 +48,8 @@ FIS = function(layers, status_year=2011){
   b$year     <- as.numeric(as.character(b$year))
   
   # area data for saup to rgn conversion
-  a = SelectLayersData(layers, layer='snk_fis_proparea_saup2rgn', narrow=T) %.%
-    select(
-      saup_id   = id_num,
-      rgn_id    = category,
-      prop_area = val_num)
+  a = layers$data[['fis_proparea_saup2rgn']] %.%
+    select(saup_id, rgn_id, prop_area)
   a$prop_area <- as.numeric(a$prop_area)
   a$saup_id   <- as.numeric(as.character(a$saup_id))
   a$rgn_id    <- as.numeric(as.character(a$rgn_id))
@@ -189,7 +186,6 @@ FIS = function(layers, status_year=2011){
       dimension = 'status') %.%
     select(region_id=rgn_id, dimension, score)
     
-    
   # ------------------------------------------------------------------------
   # STEP 6. Calculate trend  
   # -----------------------------------------------------------------------
@@ -288,7 +284,7 @@ MAR = function(layers, status_years=2005:2011){
                  (yr_max-5):(yr_max))   # 5_yr
     y = subset(x, year %in% yrs)
     return(data.frame(
-      trend = round(min(lm(status ~ year, data=y)$coefficients[['year']] * 5,1), 2)))  
+      trend = round(max(min(lm(status ~ year, data=y)$coefficients[['year']] * 5, 1), -1), 2)))  
     })
   
   # return scores
@@ -300,8 +296,9 @@ MAR = function(layers, status_years=2005:2011){
       trend %.%
         select(region_id = rgn_id,
                score     = trend) %.%
-        mutate(dimension='trend')) %.%
+        mutate(dimension = 'trend')) %.%
     mutate(goal='MAR')
+  
   return(scores)
   # NOTE: some differences to www2013 are due to 4_yr species only previously getting trend calculated to 4 years (instead of 5)
 }
@@ -493,11 +490,19 @@ CP = function(layers){
   D = SelectLayersData(layers, layers=lyr_names)
   
   # for habitat extent do not use all mangrove, but sum of mangrove_offshore1km + mangrove_inland1km = mangrove to match with extent and trend
-  m = dcast(D, layer + id_num ~ category, value.var='val_num', subset = .(layer=='rnk_hab_extent' & category %in% c('mangrove_inland1km','mangrove_offshore1km')))
-  m$val_num = rowSums(m[,c('mangrove_inland1km','mangrove_offshore1km')], na.rm=T)
-  m$category = as.factor('mangrove')
   d = subset(D, !(layer=='rnk_hab_extent' & category %in% c('mangrove','mangrove_inland1km','mangrove_offshore1km')))
-  D = rbind.fill(m, d)
+  m = D %.%
+    filter(layer=='rnk_hab_extent' & category %in% c('mangrove_inland1km','mangrove_offshore1km'))
+  if (nrow(m)>0){ # eg no mangrove in Baltic
+    m = m %.%
+      dcast(layer + id_num ~ category, value.var='val_num') %.%
+      mutate(
+        val_num  = sum(mangrove_inland1km, mangrove_offshore1km, na.rm=T),
+        category = 'mangrove')    
+    D = rbind.fill(m, d)
+  } else {
+    D = d
+  }
   
   # cast
   rk = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
@@ -541,8 +546,10 @@ TR = function(layers){
                data.frame('goal'='TR')))
 }
 
-LIV_ECO = function(layers, liv_workforcesize_year=2009, eco_rev_adj_min_year=2000){
+LIV_ECO = function(layers, subgoal, liv_workforcesize_year=2009, eco_rev_adj_min_year=2000){
 
+  g.component = c('LIV'='livelihood','ECO'='economy')[[subgoal]]
+  
   # get status_model
   status_model_long = SelectLayersData(
     layers, narrow=T,
@@ -633,78 +640,120 @@ LIV_ECO = function(layers, liv_workforcesize_year=2009, eco_rev_adj_min_year=200
     # clamp
     mutate(score = pmin(value, 1))
   
-  # aggregate countries to regions by country workforce size for livelihood  
-#   SELECT  iso3166, value
-#   FROM    srcdata_adj_workforcesize
-#   WHERE   year = 2009
-# TODO: liv_workforcesize_year
-  a = aggregate_weighted(df=subset(s, component='livelihood'),
-                        w=subset(cy, year==workforce_year & !is.na(workforce), c(country_id,workforce)), 
-                       col.value='score', col.country='country_id', col.weight='workforce') # ABW workforce==NA
-
-  w_liv = subset(cy, year==liv_adj_year & !is.na(workforce), c(country_id,workforce))
+  # countries to regions
+  cntry_rgn = layers$data[['cntry_rgn']] %.%
+    select(rgn_id, cntry_key) %.%
+    merge(
+      SelectLayersData(layers, layers='rtk_rgn_labels') %.%
+        select(rgn_id=id_num, rgn_name=val_chr),
+      by='rgn_id', all.x=T) %.%
+    arrange(rgn_name, cntry_key) %.%
+    select(rgn_id, rgn_name, cntry_key)
   
-  s_liv = aggregate_by_country_weighted(df=subset(s, component=='livelihood'), w=w_liv,
-                                        col.value='score', col.country='country_id', col.weight='workforce') # ABW workforce==NA  # summary(s_liv)
+  # fix missing countries
+  cntry_missing = unique(status_score$cntry_key[!status_score$cntry_key %in% cntry_rgn$cntry_key])
+  if (length(cntry_missing)>0){
+    cat(sprintf('\n  missing countries: %s. Trying replacement.\n', paste(cntry_missing, collapse=',')))
+    # 2013: ABW,ANT,BRN,HKG,MNE,MYS
+    cntry_rgn$cntry_key = revalue(
+      cntry_rgn$cntry_key,
+      c('SCG'            = 'MNE',  # used to be Serbia (no coast) and Montenegro (has coast) in Nature 2012
+        'Aruba'          = 'ABW',  # ABW and ANT EEZs got split...
+        'Bonaire'        = 'ANT',
+        'Curacao'        = 'ANT',
+        'Sint Eustatius' = 'ANT',
+        'Saba'           = 'ANT',
+        'Brunei'         = 'BRN',  # Brunei new country in Malaysia
+        'Malaysia'       = 'MYS'))
+    cntry_rgn = rbind.fill(
+      cntry_rgn,
+      data.frame(rgn_id=209, rgn_name='China', cntry_key='HKG')) # add Hong Kong
+    status_score = subset(status_score, cntry_key!='SCG')        # drop SCG since Serbia has no coast
+    stopifnot(sum(!status_score$cntry_key %in% cntry_rgn$cntry_key)==0)
+  }
+  
+  # get weights, for 1) aggregating to regions and 2) georegionally gap filling
+  weights = workforce_adj %.%
+    filter(year==liv_workforcesize_year) %.%
+    select(cntry_key, w=jobs) %.%
+    mutate(component='livelihood') %.%
+    rbind(
+      rev_adj %.%
+        select(cntry_key, year, w=usd) %.%
+        filter(year >= eco_rev_adj_min_year) %.%
+        arrange(cntry_key, year) %.%
+        group_by(cntry_key) %.%
+        summarize(w=last(w)) %.%
+        mutate(component='economy'))
+  
+  # aggregate countries to regions by weights
+  s_r = status_score %.%
+    merge(cntry_rgn, by='cntry_key', all.x=T) %.%
+    merge(weights, by=c('cntry_key','component'), all.x=T) %.%
+    select(component, rgn_id, rgn_name, cntry_key, score, w) %.%
+    arrange(component, rgn_name, cntry_key) %.%
+    group_by(component, rgn_id, rgn_name) %.%
+    summarize(cntry_w     = paste(cntry_key[!is.na(w)], collapse=','),
+              cntry_w_na  = paste(cntry_key[is.na(w)], collapse=','),
+              n           = n(),
+              n_w_na      = sum(is.na(w)),
+              score_w_avg = weighted.mean(score, w),
+              score_avg   = mean(score),
+              w_sum       = sum(w, na.rm=T)) %.%
+    mutate(score = ifelse(!is.na(score_w_avg), score_w_avg, score_avg))
+  #print(filter(s_r, n>1) %.% as.data.frame())
+  # 2013:
+  #    component rgn_id                                            rgn_name           cntry_w cntry_w_na n n_w_na score_w_avg score_avg        w_sum     score
+  # 1    economy    116 Puerto Rico and Virgin Islands of the United States           PRI,VIR            2      0   0.8764356 0.4977907 1.012454e+11 0.8764356
+  # 2    economy    140                           Guadeloupe and Martinique           GLP,MTQ            2      0   0.3550632 0.3572914 1.876348e+10 0.3550632
+  # 3    economy    163                                       United States USA,Alaska,Hawaii            3      0   0.9982232 0.9437773 1.499130e+13 0.9982232
+  # 4    economy    209                                               China               CHN        HKG 2      1          NA 0.9925451 7.603540e+12 0.9925451
+  # 5    economy    224                                               Chile CHL,Easter Island            2      0   1.0000000 1.0000000 2.485850e+11 1.0000000
+  # 6 livelihood    116 Puerto Rico and Virgin Islands of the United States           PRI,VIR            2      0   0.5212928 0.5484682 1.508586e+06 0.5212928
+  # 7 livelihood    140                           Guadeloupe and Martinique                      GLP,MTQ 2      2          NA 0.9650846 0.000000e+00 0.9650846
+  # 8 livelihood    209                                               China           CHN,HKG            2      0   0.7381191 0.8684414 7.868545e+08 0.7381191
+  #s_r = select(s_r, component, region_id=rgn_id, rgn_name, score, w=w_sum) %.% head()
+  
+  # setup georegions gapfill by region
+  georegions = SelectLayersData(layers, layers='rnk_rgn_georegions') %.%
+    select(rgn_id=id_num, level=category, georgn_id=val_num) %.%
+    dcast(rgn_id ~ level, value.var='georgn_id')
     
-  # aggregate countries to regions by country adjusted revenue size for economy
-# SELECT  iso3166, value
-# FROM    adjustments d
-# JOIN    (
-#   SELECT  iso3166, MAX(year) AS year
-#   FROM    adjustments 
-#   WHERE   WHENce = 'actual' AND metric = 'rev_adj' AND year >= 2000
-#   GROUP BY iso3166
-# ) max USING (iso3166, year)
-# WHERE   metric = 'rev_adj'
-# TODO: eco_rev_adj_min_year
-
-
-
-  # DEBUG: status_score compare ---
-#   status_score_pg = dbGetQuery(pg, "SELECT * FROM status_score ORDER BY iso3166, component")
-#   status_score_vs = status_score %.%
-#     merge(
-#       status_score_pg %.%
-#         select(cntry_key=iso3166, component, value, score_pg = score), 
-#       by=c('cntry_key','component','value')) %.%
-#     mutate(
-#       score_dif         = score - score_pg,
-#       score_na_mismatch = ifelse(is.na(score)==is.na(score_pg), T, F))
-#   summary(abs(status_score_vs$score_dif))
-#   sum(status_score_vs$score_na_mismatch)
+  # georegional gap fill ----
+  data = s_r %.%
+    filter(component==g.component) %.%
+    as.data.frame() %.%
+    select(rgn_id, score, w_sum)
   
-  # TODO NEXT: 
-  #  * aggregate country_2012 to region_2012
-  #    - original: /Volumes/local_edit/src/model/global2013/livelihoods/status
-  #    - new: aggregate_by_country_weighted(), eg above
-  #  * disaggregate region_2012 to region_2013
-  #    - /Volumes/data_edit/model/GL-NCEAS-LayersDisaggregated_v2013a/digest_disaggregate.R
+  s_r_g = gapfill_georegions(data, georegions, fld_weight='w_sum')
+  #print(head(attr(s_r_g, 'gapfill_georegions')), row.names=F)
+  # r0 r1 r2 id         w         v      r2_v     r1_v      r0_v r2_n r1_n r0_n z_n z_level         z
+  # 1  2 11 56  214221.6 1.0000000 0.9268667 0.912682 0.7019455   11   36  166   1       v 1.0000000
+  # 1  2 11 64        NA        NA 0.9268667 0.912682 0.7019455   11   36  166  11      r2 0.9268667
+  # 1  2 11 65  765581.2 1.0000000 0.9268667 0.912682 0.7019455   11   36  166   1       v 1.0000000
+  # 1  2 11 66 5404582.6 1.0000000 0.9268667 0.912682 0.7019455   11   36  166   1       v 1.0000000
+  # 1  2 11 96 2141155.0 0.8587912 0.9268667 0.912682 0.7019455   11   36  166   1       v 0.8587912
+  # 1  2 11 97 1610531.7 1.0000000 0.9268667 0.912682 0.7019455   11   36  166   1       v 1.0000000
   
-}
-
-LIV = function(layers){
+  # TODO: output diagnostic tables: 1) country to region and 2) region to georegion
   
-  # scores
-  scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
-                    category=='livelihood'),
-             c(id_num='region_id', category='goal', layer='dimension', val_num='score'))
-  scores = mutate(scores, 
-                  score = ifelse(dimension=='status', score * 100, score),
-                  goal  = 'LIV')
-  return(scores)  
-}
+  status = s_r_g %.% 
+    select(region_id=rgn_id, score) %.%    
+    mutate(
+      goal      = subgoal,
+      dimension = 'status',
+      score     = score * 100) %.%
+    arrange(region_id)
+  
+  # TODO: trend individual layers
+  trend = SelectLayersData(layers, layers='rn_liveco_trend') %.%
+    filter(category==g.component) %.%
+    select(region_id=id_num, score=val_num) %.%
+    mutate(goal=subgoal, dimension='trend') %.%
+    arrange(region_id)
 
-
-ECO = function(layers){
-
-  # scores
-  scores = rename(subset(SelectLayersData(layers, layers=c('rn_liveco_status'='status','rn_liveco_trend'='trend'), narrow=T),
-                         category=='economy'),
-                  c(id_num='region_id', category='goal', layer='dimension', val_num='score'))
-  scores = mutate(scores, 
-                  score = ifelse(dimension=='status', score * 100, score),
-                  goal  = 'ECO')
+  scores = rbind(status, trend)
+  attr(scores, sprintf('%s_status_gapfill_georegions', subgoal)) = attr(s_r_g, 'gapfill_georegions')
   return(scores)
 }
 
