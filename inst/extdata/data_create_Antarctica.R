@@ -10,6 +10,9 @@
 library(devtools)
 load_all()
 
+# cd ""C:\Program Files\R\R-3.1.0\bin\x64""
+# R --vanilla CMD INSTALL "C:\Users\Melanie\AppData\Local\Temp\RtmpgjiC2q\devtools549427e967cb\ohicore-master"  --library="C:/Users/Melanie/Documents/R/win-library/3.1" --install-tests
+
 # get paths based on host machine name, as lowercase name (without domain suffix)
 dir_conf = list(
   'amphitrite'=list(  # BB's Windows 8 on MacBook Pro VMWare
@@ -67,6 +70,17 @@ for (f in sort(g$path)){ # f = sort(g$path)[1]
   cat(sprintf('    copying %s\n', f))
   stopifnot(file.copy(f, file.path(dir.to, basename(f)), overwrite=T))
 }
+
+# trim extraneous columns from region layers
+x = list(
+  'rgn_labels_ccamlr.csv'   = c('sp_id','label'),
+  'rgn_area_ccamlr_eez.csv' = c('sp_id','area_km2'))
+for (f in names(x)){
+  p = file.path(dir.to, basename(f))
+  d = read.csv(p, na.strings='')[,x[[f]]]
+  write.csv(d, p, row.names=F, na='')
+}
+
 
 # delete extraneous files
 files.used = as.character(g[, sprintf('fn_%da' , yr)])
