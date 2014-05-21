@@ -1,3 +1,6 @@
+Setup = function(){
+  # empty for now
+}
 
 FIS = function(layers){
   # scores
@@ -66,7 +69,7 @@ CP = function(layers){
   r.trend = ddply(na.omit(rk[,c('region_id','habitat','rank','extent','trend')]), .(region_id), summarize,
                   goal = 'CP',
                   dimension = 'trend',
-                  score = sum(rank * trend * extent) / (sum(extent)* max(rank)) )
+                  score = sum(rank * trend * extent) / (sum(extent)* max(rank)) * 5)
   
   # return scores
   return(rbind(r.status, r.trend))  
@@ -78,22 +81,19 @@ TR = function(layers){
   # scores
   return(cbind(rename(SelectLayersData(layers, layers=c('rn_tr_status'='status','rn_tr_trend'='trend'), narrow=T),
                       c(id_num='region_id', layer='dimension', val_num='score')), 
-               data.frame('goal'='TR')))
-  
-  
-  
+               data.frame('goal'='TR')))  
 }
 
 
 
 LIV = function(layers, status_year){
   #status_year=2013
-  trend_years <-  (status_year-4):status_year
+  trend_years <-  (status_year-3):status_year
   D <- SelectLayersData(layers, layers=c('rn_liv'))
   D <- D %.%
     select(sp_id = id_num, category, year, crew=val_num)
   
-  # calculate status of fisheries
+  # calculate status (current year divided by current year minus 4 years)
   D$status <- NA
   
   for(i in 1:dim(D)[1]){
@@ -124,7 +124,8 @@ LIV = function(layers, status_year){
            tr_weight = 1-f_weight) %.%
     select(sp_id, year, f_weight, tr_weight)%.%
     left_join(status, by=c("sp_id", "year")) %.%
-    mutate(status = ifelse(is.na(cf*f_weight), 0, cf*f_weight) + ifelse(is.na(tour*tr_weight), 0, tour*tr_weight))
+    mutate(status = ifelse(is.na(cf*f_weight), 0, cf*f_weight) + ifelse(is.na(tour*tr_weight), 0, tour*tr_weight)) %.%
+    mutate(status = status*100)
   
   ##### Status & trend
   status.scores <- weights %.%
@@ -138,7 +139,7 @@ LIV = function(layers, status_year){
   
     lm = dlply(
     trend.data, .(sp_id),
-    function(x) lm(status ~ year, x))
+    function(x) lm(I(status/100) ~ year, x))
   
   trend_lm <- ldply(lm, coef)
   
@@ -149,13 +150,12 @@ LIV = function(layers, status_year){
     select(region_id=sp_id, goal, dimension, score) %.%
     mutate(score=ifelse(score>1, 1, score))
   
-  
   #testing:
-  #lm(status ~ year, data=subset(trend.data, sp_id == "248500")) ## only one value....
+  lm(I(status/100) ~ year, data=subset(trend.data, sp_id == "248500")) ## only one value....
+  lm(I(status/100) ~ year, data=subset(trend.data, sp_id == "248100")) ## only one value....
   
   # return scores
   return(rbind(trend.scores, status.scores))  
-  
 }
 
 
@@ -274,7 +274,7 @@ HAB = function(layers){
   r.trend = ddply(na.omit(rk[,c('region_id','habitat','w','trend')]), .(region_id), summarize,
                   goal      = 'HAB',
                   dimension = 'trend',
-                  score     = sum(w * trend) / sum(w))
+                  score     = sum(w * trend) / sum(w) * 5)
   ### should these be multiplied by 5?
   # return scores
   scores = cbind(rbind(r.status, r.trend))
@@ -312,7 +312,7 @@ PreGlobalScores = function(layers, conf, scores){
   rgns = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T)
   
   # limit to just desired regions and global (region_id==0)
-  scores = subset(scores, id_num %in% c(rgns[,'id_num'], 0))
+  scores = subset(scores, region_id %in% c(rgns$id_num, 0))
       
   return(scores)
 }
