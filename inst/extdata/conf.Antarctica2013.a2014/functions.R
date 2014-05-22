@@ -86,10 +86,10 @@ TR = function(layers){
 
 
 
-LIV = function(layers, status_year){
+ECO = function(layers, status_year){
   #status_year=2013
   trend_years <-  (status_year-3):status_year
-  D <- SelectLayersData(layers, layers=c('rn_liv'))
+  D <- SelectLayersData(layers, layers=c('rn_eco'))
   D <- D %.%
     select(sp_id = id_num, category, year, crew=val_num)
   
@@ -130,7 +130,7 @@ LIV = function(layers, status_year){
   ##### Status & trend
   status.scores <- weights %.%
   filter(year==status_year) %.%
-    mutate(goal="LIV", 
+    mutate(goal="ECO", 
            dimension="status") %.%
     select(region_id=sp_id, goal, dimension, score=status)
   
@@ -144,7 +144,7 @@ LIV = function(layers, status_year){
   trend_lm <- ldply(lm, coef)
   
   trend.scores <- trend_lm %.%
-   mutate(goal="LIV",
+   mutate(goal="ECO",
           dimension="trend") %.%
     mutate(score=year*5) %.%
     select(region_id=sp_id, goal, dimension, score) %.%
@@ -163,7 +163,7 @@ LE = function(scores){
   
   # scores
   s = scores %.%
-    filter(goal %in% c('LIV') & dimension %in% c('status','trend','future','score')) %.%
+    filter(goal %in% c('ECO') & dimension %in% c('status','trend','future','score')) %.%
     # NOTE: resilience and pressure skipped for supra-goals
     mutate(goal = 'LE')
   
