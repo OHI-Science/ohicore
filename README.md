@@ -6,3 +6,4 @@ This is the core library of funtions for calculating the Ocean Health Index. For
 [OHI-Science.org](http://ohi-science.org)
 
 This README will be updated with a thorough overview in the near future (issue [#30](https://github.com/OHI-Science/ohicore/issues/30)).
+
