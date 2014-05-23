@@ -60,7 +60,7 @@ CalculateAll = function(conf, layers, debug=F){
   if (exists('scores', envir=.GlobalEnv)) rm(scores, envir=.GlobalEnv)
   
   # Run Setup, all goals
-  if (exists('conf$functions$Setups')){
+  if ('Setup' %in% ls(conf$functions)){
     cat('Running Setup()...\n')
     conf$functions$Setup()
   }
@@ -155,7 +155,7 @@ CalculateAll = function(conf, layers, debug=F){
       score = weighted.mean(score, weight, na.rm=T)))
 
   # post-process scores, but pre-global calculation
-  if (exists('conf$functions$FinalizeScores')){
+  if ('PreGlobalScores' %in% ls(conf$functions)){
     cat(sprintf('Calculating post-process PreGlobalScores() function...\n'))
     scores = conf$functions$PreGlobalScores(layers, conf, scores)
   }
@@ -173,7 +173,7 @@ CalculateAll = function(conf, layers, debug=F){
     score = weighted.mean(score, area, na.rm=T)))
 
   # post-process
-  if (exists('conf$functions$FinalizeScores')){
+  if ('FinalizeScores' %in% ls(conf$functions)){
     cat(sprintf('Calculating FinalizeScores function...\n'))
     scores = conf$functions$FinalizeScores(layers, conf, scores)
   }
