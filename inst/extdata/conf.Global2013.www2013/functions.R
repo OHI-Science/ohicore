@@ -538,12 +538,166 @@ CP = function(layers){
 }
 
 
-TR = function(layers){
+TR.old = function(layers){
   
   # scores
   return(cbind(rename(SelectLayersData(layers, layers=c('rn_tr_status'='status','rn_tr_trend'='trend'), narrow=T),
                       c(id_num='region_id', layer='dimension', val_num='score')), 
                data.frame('goal'='TR')))
+}
+
+TR = function(layers){
+    
+  # from <jstewart@nceas.ucsb.edu> on 2013-08-20 re: Tourism Model...
+  #
+  # formula:
+  #   E = Ed / (L - (L*U))
+  #   Xtr = E * (V/P) * S 
+  #
+  # Ed = Direct employment in tourism (tr_jobs_tourism): ** this has not been gapfilled. We thought it would make more sense to do at the status level.
+  # L = Total labor force (tr_jobs_total) 2013: max(year)=2011; 2012: max(year)=2010
+  # U = Unemployment (tr_unemployment) 2013: max(year)=2011; 2012: max(year)=2010 
+  # so E is tourism  / employed
+  # V = Coastal population (tr_popn_coastal)
+  # P = Total population(rny_le_popn). note same file for 2012 and 2013
+  # S = Sustainability index (tr_sustainability)
+  
+  # DEBUG
+  library(devtools); load_all()
+  yr=2013
+  scenario=sprintf('Global%d.www2013', yr)
+  conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
+  layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
+                      layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
+  
+  # get regions
+  rgns = layers$data[[conf$config$layer_region_labels]] %.%
+    select(rgn_id, rgn_label = label)
+  
+  d = layers$data[['tr_jobs_tourism']] %.%
+    select(rgn_id, year, Ed=count) %.%
+    arrange(rgn_id, year) %.%
+    merge(
+      layers$data[['tr_jobs_total']] %.%
+        select(rgn_id, year, L=count),
+      by=c('rgn_id','year'), all=T) %.%
+    merge(
+      layers$data[['tr_unemployment']] %.%
+        select(rgn_id, year, U=percent) %.%
+        mutate(U = U/100),
+      by=c('rgn_id','year'), all=T) %.%    
+    merge(
+      layers$data[['tr_popn_inland25mi']] %.%
+        select(rgn_id, V=popn),
+      by='rgn_id', all=T) %.%
+    merge(
+      layers$data[['rny_le_popn']] %.%
+        select(rgn_id, year, P=count),
+      by=c('rgn_id','year'), all=T) %.%
+    merge(
+      layers$data[['tr_sustainability']] %.%
+        select(rgn_id, S=score),
+      by=c('rgn_id'), all=T)  %.%
+    mutate(
+      E   = Ed / (L - (L * U)),
+      Xtr = E * (V/P) * S ) %.%
+    merge(rgns, by='rgn_id') %.%
+    select(rgn_id, rgn_label, year, Ed, L, U, V, P, S, E, Xtr)
+  
+  # compare with pre-gapfilled data from BH
+  o = read.csv('/Volumes/data_edit/model/GL-NCEAS-TR_v2013a/raw/TR_status_pregap_Sept23.csv', na.strings='') %.%
+    melt(id='rgn_id', variable.name='year', value.name='Xtr_o') %.%
+    mutate(year = as.integer(sub('x_TR_','', year, fixed=T))) %.%
+    arrange(rgn_id, year)
+  vs = o %.%
+    merge(
+      expand.grid(list(
+        rgn_id = rgns$rgn_id,
+        year   = 2006:2011)),
+      by=c('rgn_id', 'year'), all=T) %.%
+    merge(d, by=c('rgn_id','year')) %.%
+    mutate(Xtr_dif = Xtr - Xtr_o) %.% 
+    select(rgn_id, rgn_label, year, Xtr_o, Xtr, Xtr_dif, E, Ed, L, U, V, P, S) %.%
+    arrange(rgn_id, year)
+  if (!file.exists( sprintf('inst/extdata/reports%d.www2013', yr))) dir.create(sprintf('inst/extdata/reports%d.www2013', yr))
+  write.csv(vs, sprintf('inst/extdata/reports%d.www2013/tr-%d_vs_details.csv', yr, yr), row.names=F, na='')
+  vs_rgn = vs %.%
+    group_by(rgn_id) %.%
+    summarize(
+      n_notna_o   = sum(!is.na(Xtr_o)),
+      n_notna     = sum(!is.na(Xtr)),
+      dif_avg     = mean(Xtr, na.rm=T) - mean(Xtr_o, na.rm=T),
+      Xtr_2011_o  = last(Xtr_o),
+      Xtr_2011    = last(Xtr),
+      dif_2011    = Xtr_2011 - Xtr_2011_o) %.%
+    filter(n_notna_o !=0 | n_notna!=0) %.%
+    arrange(desc(abs(dif_2011)), Xtr_2011, Xtr_2011_o)
+  write.csv(vs_rgn, sprintf('inst/extdata/reports%d.www2013/tr-%d_vs_summary.csv', yr, yr), row.names=F, na='')
+  options('scipen'=100, 'digits'=4)
+  print(dc)
+  
+  
+  d %.%
+    filter(rgn_id==6, year==2009)
+
+  # Coastal population (V) using mar_coastalpopn_inland25mi:
+  #   rgn_id rgn_label year    Ed      L     U      V      P   S      E   Xtr
+  #        6   Vanuatu 2009 10500 101392 0.046 254142 230833 4.2 0.1086 0.502  
+  #   V = Coastal population (mar_coastalpopn_inland25mi)
+  #   P = Total population(rny_le_popn). note same file for 2012 and 2013
+  #   Coastal population (V = 254,142) > Total population (P = 230833) ???
+  # Coastal population (V) using tr_popn_inland25mi:
+  #   rgn_id rgn_label year    Ed      L     U      V      P   S      E    Xtr
+  #        6   Vanuatu 2009 10500 101392 0.046 278840 230833 4.2 0.1086 0.5508
+    
+  # add NAs to missing combos (rgn_id, year) for all regions and year 2006:2011
+  d1 = d %.%
+    merge(
+      expand.grid(list(
+        rgn_id = rgns$rgn_id,
+        year   = 2006:2011)),
+      by=c('rgn_id', 'year'), all=T) %.%
+    merge(
+      rgns %.%
+        select(rgn_id, rgn_label), 
+      by='rgn_id') %.%
+    arrange(rgn_id, year)
+  
+  # try getting most recent data
+  d2 = d1 %.%
+    group_by(rgn_id) %.%
+    summarize(
+      Ed_year = max(which(!is.na(Ed)))
+      )
+  head(d)
+    
+  d %.%
+    filter(year %in% 2006:2011)    
+    
+  
+  # examining model/GL-NCEAS-TR_v2013a: TRgapfill.R, TRcalc.R...
+  # spatial gapfill simply avg, not weighted by total jobs or country population?
+  
+    
+  # setup georegions for gapfilling
+  georegions = layers$data[['rnk_rgn_georegions']] %.%
+    dcast(rgn_id ~ level, value.var='georgn_id')
+  
+
+  d_g = gapfill_georegions(d, georegions)
+  
+  
+  # georegional gap fill ----
+  data = d %.%
+    filter(component==g.component) %.%
+    as.data.frame() %.%
+    select(rgn_id, score, w_sum)
+  
+  s_r_g = gapfill_georegions(data, georegions, fld_weight='w_sum')
+  #print(head(attr(s_r_g, 'gapfill_georegions')), row.names=F)
+  
+  
+  
 }
 
 LIV_ECO = function(layers, subgoal, liv_workforcesize_year=2009, eco_rev_adj_min_year=2000){
