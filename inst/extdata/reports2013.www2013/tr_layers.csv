@@ -1,0 +1,7 @@
+target,layer,name,fld_value,units,dir_2012a,fn_2012a,dir_2013a,fn_2013a
+LIV_ECO_TR,rny_le_popn,Total population by subregion,count,count,neptune_data:model/GL-WorldBank-Statistics_v2012/data,rgn_wb_pop_2013a_updated.csv,neptune_data:model/GL-WorldBank-Statistics_v2012/data,rgn_wb_pop_2013a_updated.csv
+TR,tr_jobs_tourism,Direct employment in tourism,count,jobs,neptune_data:model/GL-WTTC-Tourism_v2011/data,rgn_wttc_empd_2013a_avgduplicates.csv,neptune_data:model/GL-WTTC-Tourism_v2011/data,rgn_wttc_empd_2013a_avgduplicates.csv
+TR,tr_jobs_total,Total labor force,count,jobs,neptune_data:model/GL-WorldBank-Statistics_v2012/data,rgn_wb_lab_2013a_avgduplicates.csv,neptune_data:model/GL-WorldBank-Statistics_v2012/data,rgn_wb_lab_2013a_avgduplicates.csv
+TR,tr_unemployment,Percent unemployment,percent,percent unemployed,neptune_data:model/GL-WorldBank-Statistics_v2012/data,rgn_wb_uem_2013a_avgduplicates.csv,neptune_data:model/GL-WorldBank-Statistics_v2012/data,rgn_wb_uem_2013a_avgduplicates.csv
+TR,tr_sustainability,Sustainability index,score,score,neptune_data:model/GL-WEF-Economics_v2013/data,rgn_wef_ttci_2013a_lyr.csv,neptune_data:model/GL-WEF-Economics_v2013/data,rgn_wef_ttci_2013a_lyr.csv
+TR,tr_popn_inland25mi,Coastal population inland 25 mi for 2013,popn,population,neptune_data:model/GL-NCEAS-CoastalPopulation_v2013/data,rgn_popsum2013_inland25mi_complete_lyr.csv,neptune_data:model/GL-NCEAS-CoastalPopulation_v2013/data,rgn_popsum2013_inland25mi_complete_lyr.csv

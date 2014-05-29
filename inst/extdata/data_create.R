@@ -93,6 +93,7 @@ for (yr in do.years.www2013){ # yr=2013
     # run checks on layers
     CheckLayers(layers.csv, dir.to, flds_id=conf$config$layers_id_fields)
   }
+}
   
   if (scores.source == 'calculate' & do.scores.www2013){
     # calculate scores 
