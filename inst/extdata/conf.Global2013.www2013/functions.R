@@ -548,19 +548,18 @@ TR.old = function(layers){
 
 TR = function(layers){
     
-  # from <jstewart@nceas.ucsb.edu> on 2013-08-20 re: Tourism Model...
-  #
   # formula:
   #   E = Ed / (L - (L*U))
-  #   Xtr = E * (V/P) * S 
-  #
+  #   Xtr = E * S 
+  # 
   # Ed = Direct employment in tourism (tr_jobs_tourism): ** this has not been gapfilled. We thought it would make more sense to do at the status level.
   # L = Total labor force (tr_jobs_total) 2013: max(year)=2011; 2012: max(year)=2010
   # U = Unemployment (tr_unemployment) 2013: max(year)=2011; 2012: max(year)=2010 
   # so E is tourism  / employed
-  # V = Coastal population (tr_popn_coastal)
-  # P = Total population(rny_le_popn). note same file for 2012 and 2013
   # S = Sustainability index (tr_sustainability)
+  #
+  # based on model/GL-NCEAS-TR_v2013a: TRgapfill.R, TRcalc.R...
+  # spatial gapfill simply avg, not weighted by total jobs or country population?
   
   # DEBUG
   library(devtools); load_all()
@@ -569,6 +568,7 @@ TR = function(layers){
   conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
   layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
                       layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
+  year_max = 2011 # for 2013; 2010 for 2012
   
   # get regions
   rgns = layers$data[[conf$config$layer_region_labels]] %.%
@@ -588,22 +588,14 @@ TR = function(layers){
         mutate(U = U/100),
       by=c('rgn_id','year'), all=T) %.%    
     merge(
-      layers$data[['tr_popn_inland25mi']] %.%
-        select(rgn_id, V=popn),
-      by='rgn_id', all=T) %.%
-    merge(
-      layers$data[['rny_le_popn']] %.%
-        select(rgn_id, year, P=count),
-      by=c('rgn_id','year'), all=T) %.%
-    merge(
       layers$data[['tr_sustainability']] %.%
         select(rgn_id, S=score),
       by=c('rgn_id'), all=T)  %.%
     mutate(
       E   = Ed / (L - (L * U)),
-      Xtr = E * (V/P) * S ) %.%
+      Xtr = E * S ) %.%
     merge(rgns, by='rgn_id') %.%
-    select(rgn_id, rgn_label, year, Ed, L, U, V, P, S, E, Xtr)
+    select(rgn_id, rgn_label, year, Ed, L, U, S, E, Xtr)
   
   # compare with pre-gapfilled data
   if (!file.exists( sprintf('inst/extdata/reports%d.www2013', yr))) dir.create(sprintf('inst/extdata/reports%d.www2013', yr))
@@ -621,9 +613,9 @@ TR = function(layers){
       by=c('rgn_id', 'year'), all=T) %.%
     merge(d, by=c('rgn_id','year')) %.%
     mutate(Xtr_dif = Xtr - Xtr_o) %.% 
-    select(rgn_id, rgn_label, year, Xtr_o, Xtr, Xtr_dif, E, Ed, L, U, V, P, S) %.%
+    select(rgn_id, rgn_label, year, Xtr_o, Xtr, Xtr_dif, E, Ed, L, U, S) %.%
     arrange(rgn_id, year)
-  write.csv(vs, sprintf('inst/extdata/reports%d.www2013/tr-%d_vs_details.csv', yr, yr), row.names=F, na='')
+  write.csv(vs, sprintf('inst/extdata/reports%d.www2013/tr-%d_0-vs-o_details.csv', yr, yr), row.names=F, na='')
   
   vs_rgn = vs %.%
     group_by(rgn_id) %.%
@@ -636,9 +628,9 @@ TR = function(layers){
       dif_2011    = Xtr_2011 - Xtr_2011_o) %.%
     filter(n_notna_o !=0 | n_notna!=0) %.%
     arrange(desc(abs(dif_2011)), Xtr_2011, Xtr_2011_o)
-  write.csv(vs_rgn, sprintf('inst/extdata/reports%d.www2013/tr-%d_vs_summary.csv', yr, yr), row.names=F, na='')
-        
-  # setup georegions for gapfilling
+  write.csv(vs_rgn, sprintf('inst/extdata/reports%d.www2013/tr-%d_0-vs-o_summary.csv', yr, yr), row.names=F, na='')
+  
+  # get georegions for gapfilling
   georegions = layers$data[['rnk_rgn_georegions']] %.%
     dcast(rgn_id ~ level, value.var='georgn_id')
   
@@ -648,61 +640,56 @@ TR = function(layers){
       filter(rgn_id!=213) %.%
       select(rgn_id, year, Xtr),
     georegions)
-  write.csv(attr(d_g, 'gapfill_georegions'), sprintf('inst/extdata/reports%d.www2013/tr-%d_gapfilling.csv', yr, yr), row.names=F, na='')
-
-  # calculate status using 95 %ile value
-  TRgapfill$tr_pct_95<-TRgapfill$TRs_gapfill/quantile(TRgapfill$TRs_gapfill,probs=0.95,na.rm=T) # rescaled status by 95 %ile value
-
-# examining model/GL-NCEAS-TR_v2013a: TRgapfill.R, TRcalc.R...
-# spatial gapfill simply avg, not weighted by total jobs or country population?
-# TODO from TRcalc.R...
-
-## calculate status using 95 %ile value
-TRgapfill$tr_pct_95<-TRgapfill$TRs_gapfill/quantile(TRgapfill$TRs_gapfill,probs=0.95,na.rm=T) # rescaled status by 95 %ile value
-TRgapfill$tr_pct_95<-ifelse(TRgapfill$tr_pct_95>1,1,TRgapfill$tr_pct_95) # capped values >1 to be =1
-
-## to calculate trend, first rescale to max value
-Max_St<-max(TRgapfill$TRs_gapfill, na.rm=T) # find the maximum
-TRgapfill$tr_max<-TRgapfill$TRs_gapfill/Max_St # rescale by max value
-
-# from the gapfilled values, select rgn_id, year, rgn_nam, tr_max - use the value divided by max bc that way it's rescaled but not capped to a lower percentile (otherwise the trend calculated for regions with capped scores, i.e. those at or above the percentile value, would be spurious)
-tr_st<-TRgapfill[,c(4,5,2,13)]
-tr_st_2013a<-tr_st[tr_st$year>2006 & !is.na(tr_st$tr_max),]
-tr_st_2012a<-tr_st[tr_st$year<2011 & !is.na(tr_st$tr_max),]
-
-#### calculate Trend for v2013a and v2012a, respectively
-TR_Delta2013 = ddply(
-  tr_st_2013a, .(rgn_id), summarize,
-  trend = min(lm(tr_max ~ year)$coefficients[['year']] * 5,1)
-)
-summary(TR_Delta2013$trend) # check if needs capping trend values to be within (-1, 1) - in this case: no need
-# TR_Delta2013$trend1<-ifelse(TR_Delta2013[,2]< -1,-1,TR_Delta2013[,2]) # cap values that are below -1
-TR_95_2013<-TR_Delta2013
-names(TR_95_2013)<-c("rgn_id","trend_2013")
-
-TR_Delta2012 = ddply(
-  tr_st_2012a, .(rgn_id), summarize,
-  trend = min(lm(tr_max ~ year)$coefficients[['year']] * 5,1)
-)
-summary(TR_Delta2013$trend) # check if needs capping trend values to be within (-1, 1) - in this case: no need
-# TR_Delta2012$trend1<-ifelse(TR_Delta2012[,2]< -1,-1,TR_Delta2012[,2]) # cap values that are below -1
-TR_95_2012<-TR_Delta2012
-names(TR_95_2012)<-c("rgn_id","trend_2012")
-
-TR_Trend<-merge(TR_95_2012,TR_95_2013,by="rgn_id")
-
-####  post-processing 
-## assign a NA for uninhabited islands
-# TR_status_data = 'Data' # set path to data file 'uninhabited_ohi2013.csv', here is same path as tourism input data
-uninhabited<-read.csv(file.path(TR_status_datapath, 'uninhabited_ohi2013.csv'), na='')
-
-TR_Trend$trend_2012<-ifelse(TR_Trend$rgn_id%in%uninhabited[,1],NA,TR_Trend$trend_2012)
-TR_Trend$trend_2013<-ifelse(TR_Trend$rgn_id%in%uninhabited[,1],NA,TR_Trend$trend_2013)
-TRgapfill$tr_pct_95<-ifelse(TRgapfill$rgn_id %in%uninhabited[,1],NA,TRgapfill$tr_pct_95)
-
-# replace North Korea value with 0
-TRgapfill$tr_pct_95[TRgapfill$rgn_id == 21]<-0
+  write.csv(attr(d_g, 'gapfill_georegions'), sprintf('inst/extdata/reports%d.www2013/tr-%d_1-gapfilling.csv', yr, yr), row.names=F, na='')
   
+  # filter: limit to 5 intervals (6 years worth of data)
+  #   NOTE: original 2012 only used 2006:2010 whereas now we're using 2005:2010
+  # rescale for
+  #   status: 95 percentile value across all regions and filtered years
+  #   trend: use the value divided by max bc that way it's rescaled but not capped to a lower percentile (otherwise the trend calculated for regions with capped scores, i.e. those at or above the percentile value, would be spurious)
+  Xtr_95  = quantile(d_g_f$Xtr, probs=0.95, na.rm=T)
+  Xtr_max = max(d_g_f$Xtr, na.rm=T)
+  d_g_r = d_g %.%
+    filter((year <= year_max) & (year >= (year_max - 5)) ) %.%
+    mutate(
+      Xtr_r95  = ifelse(Xtr / Xtr_95 > 1, 1, Xtr / Xtr_95), # rescale to 95th percentile, cap at 1
+      Xtr_rmax = Xtr / Xtr_max )                            # rescale to max value   
+  write.csv(d_g_r, sprintf('inst/extdata/reports%d.www2013/tr-%d_2-filtered-rescaled.csv', yr, yr), row.names=F, na='')
+
+  # calculate trend
+  d_t = d_g_r %.%
+    arrange(year, rgn_id) %.%
+    group_by(rgn_id) %.%
+    do(mod = lm(Xtr_rmax ~ year, data = .)) %>%
+    do(data.frame(
+      rgn_id = .$rgn_id,
+      dimension = 'trend',
+      score = max(min(coef(.$mod)[['year']] * 5, 1), -1)))
+  
+  # get status (as last year's value)
+  d_s = d_g_r %.%
+    arrange(year, rgn_id) %.%
+    group_by(rgn_id) %.%
+    summarize(
+      dimension = 'status',
+      score = last(Xtr_r95) * 100)
+  
+  # bind rows
+  d_b = rbind(d_t, d_s) %.%
+    mutate(goal = 'TR')  
+  
+  # assign NA for uninhabitated islands
+  unpopulated = layers$data[['rny_le_popn']] %.%
+    group_by(rgn_id) %.%
+    filter(count==0) %.%
+    select(rgn_id)  
+  d_b_u = mutate(d_b, score = ifelse(rgn_id %in% unpopulated$rgn_id, NA, score))  
+
+  # replace North Korea value with 0
+  d_b_u$score[d_b_u$rgn_id == 21] = 0
+  
+  write.csv(d_b_u, sprintf('inst/extdata/reports%d.www2013/tr-%d_3-scores.csv', yr, yr), row.names=F, na='')
+  return(d_b_u)
 }
 
 LIV_ECO = function(layers, subgoal, liv_workforcesize_year=2009, eco_rev_adj_min_year=2000){
