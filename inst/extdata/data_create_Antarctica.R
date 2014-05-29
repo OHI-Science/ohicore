@@ -2,7 +2,6 @@
 #
 # If opening ohicore.Rproj as RStudio project, then working directory should be properly set.
 
-
 # options(warn=2) # debug: turn warnings into errors
 
 # setup ----
@@ -102,6 +101,8 @@ layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario)
                     layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
 # load_all()
 conf   = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
+
+## This is the money function!  Calculates all the final scores:
 scores = CalculateAll(conf, layers, debug=T)
 
 write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
