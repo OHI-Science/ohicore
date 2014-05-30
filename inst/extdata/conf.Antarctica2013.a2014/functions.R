@@ -86,12 +86,15 @@ TR = function(layers){
 
 
 
-LIV = function(layers, status_year){
+ECO = function(layers, status_year){
   #status_year=2013
   trend_years <-  (status_year-3):status_year
-  D <- SelectLayersData(layers, layers=c('rn_liv'))
+  D <- SelectLayersData(layers, layers=c('rn_eco'))
   D <- D %.%
     select(sp_id = id_num, category, year, crew=val_num)
+  
+  ## change this year to a zero (based on catch data, this seems unlikely)
+  D$crew[(D$sp_id=="248500" & D$category=="cf" & D$year=="2013")] <- 0
   
   # calculate status (current year divided by current year minus 4 years)
   D$status <- NA
@@ -112,29 +115,40 @@ LIV = function(layers, status_year){
   D$status <- ifelse(D$status %in% "NaN", NA,  D$status) # these are zero divided by zero
   D$status <- ifelse(D$status %in% "Inf", 1,  D$status) # these are value divided by zero (should this be NA?)
   D$status <- ifelse(D$status > 1, 1,  D$status)
+  
+  
+  ## weights are the average crew between 2010-2013
+  weights <- D %.%
+    filter(year %in% 2010:2013) %.%
+    group_by(sp_id, category) %.%
+    summarize(meanCrew=mean(crew, na.rm=TRUE))
+  
+  ## merge with other data
+  D <- merge(D, weights, all.x=TRUE, by=c("sp_id", "category"))
+  
+  status_melt <- melt(D, id=c("sp_id", "category", "year"))
+  status <- dcast(status_melt, sp_id + year ~ category + variable, mean)
+  
+  status <- status[status$year %in% trend_years, ]
 
-  status <- dcast(D, sp_id + year ~ category, value.var="status")
+  status$cf_meanCrew[status$cf_meanCrew %in% "NaN"] <- 0
+  status$tour_meanCrew[status$tour_meanCrew %in% "NaN"] <- 0
   
-  weights <- dcast(D, sp_id + year ~ category, value.var="crew")
-  weights$cf[is.na(weights$cf)] <- 0
-  weights$tour[is.na(weights$tour)] <- 0
   
-  weights <- weights %.%
-    mutate(f_weight = cf/(cf + tour),
+  status <- status %.%
+    mutate(f_weight = cf_meanCrew/(cf_meanCrew + tour_meanCrew),
            tr_weight = 1-f_weight) %.%
-    select(sp_id, year, f_weight, tr_weight)%.%
-    left_join(status, by=c("sp_id", "year")) %.%
-    mutate(status = ifelse(is.na(cf*f_weight), 0, cf*f_weight) + ifelse(is.na(tour*tr_weight), 0, tour*tr_weight)) %.%
+    mutate(status = ifelse(is.na(cf_status*f_weight), 0, cf_status*f_weight) + ifelse(is.na(tour_status*tr_weight), 0, tour_status*tr_weight)) %.%
     mutate(status = status*100)
   
   ##### Status & trend
-  status.scores <- weights %.%
+  status.scores <- status %.%
   filter(year==status_year) %.%
-    mutate(goal="LIV", 
+    mutate(goal="ECO", 
            dimension="status") %.%
     select(region_id=sp_id, goal, dimension, score=status)
   
-  trend.data <- weights %.%
+  trend.data <- status %.%
     filter(year %in% trend_years)
   
     lm = dlply(
@@ -144,15 +158,16 @@ LIV = function(layers, status_year){
   trend_lm <- ldply(lm, coef)
   
   trend.scores <- trend_lm %.%
-   mutate(goal="LIV",
+   mutate(goal="ECO",
           dimension="trend") %.%
     mutate(score=year*5) %.%
     select(region_id=sp_id, goal, dimension, score) %.%
-    mutate(score=ifelse(score>1, 1, score))
+    mutate(score=ifelse(score>1, 1, score)) %.%
+    mutate(score=ifelse(score<(-1), -1, score))
   
   #testing:
-  lm(I(status/100) ~ year, data=subset(trend.data, sp_id == "248500")) ## only one value....
-  lm(I(status/100) ~ year, data=subset(trend.data, sp_id == "248100")) ## only one value....
+  #lm(I(status/100) ~ year, data=subset(trend.data, sp_id == "248500")) ## only one value....
+  #lm(I(status/100) ~ year, data=subset(trend.data, sp_id == "248100")) ## only one value....
   
   # return scores
   return(rbind(trend.scores, status.scores))  
@@ -163,7 +178,7 @@ LE = function(scores){
   
   # scores
   s = scores %.%
-    filter(goal %in% c('LIV') & dimension %in% c('status','trend','future','score')) %.%
+    filter(goal %in% c('ECO') & dimension %in% c('status','trend','future','score')) %.%
     # NOTE: resilience and pressure skipped for supra-goals
     mutate(goal = 'LE')
   

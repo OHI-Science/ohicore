@@ -1,7 +1,7 @@
 
 FIS = function(layers, status_year=2011){
   library(stringr)
-  
+
   # layers used: snk_fis_meancatch, fnk_fis_b_bmsy, FAOregions
 
 #   #mel stuff
@@ -14,12 +14,13 @@ FIS = function(layers, status_year=2011){
 #   b <- fnk_fis_b_bmsy
 #   a <- FAOregions
 #   
-#   status_year=2011
+
+#status_year=2011
 #   
 #     # end: mel stuff
   
   # catch data
-  c = SelectLayersData(layers, layer='snk_fis_meancatch', narrow=T) %.%
+ c = SelectLayersData(layers, layer='snk_fis_meancatch', narrow=T) %.%
     select(
       fao_saup_id    = id_chr,
       taxon_name_key = category,
@@ -66,6 +67,12 @@ FIS = function(layers, status_year=2011){
   # include only taxa with species-level data
   AssessedCatches <- AssessedCatches[as.numeric(AssessedCatches$TaxonKey)>=600000, ]
   AssessedCatches$penalty <- 1
+
+# DataCheck <- AssessedCatches %.%
+#   filter(year %in% 2011) %.%
+#   select(fao_id, taxon_name, year, b_bmsy, mean_catch) %.%
+#   arrange(fao_id, b_bmsy)
+# write.csv(DataCheck, "C:\\Users\\Melanie\\Desktop\\HS Explore\\FIS_bmsy.csv", row.names=FALSE)
   
   # ------------------------------------------------------------------------
   # STEP 2. Estimate status data for catch taxa without species status
@@ -105,7 +112,15 @@ FIS = function(layers, status_year=2011){
                              penalty=c(0.01, 0.1, 0.25, 0.5, 0.75, 1))
   # 2d.Merge with data
   UnAssessedCatches <- join(UnAssessedCatches, penaltyTable, by="TaxonPenaltyCode")
-  
+
+#  DataCheck <- UnAssessedCatches %.%
+#   filter(year %in% 2011) %.%
+#   mutate(b_bmsy = Medianb_bmsy*penalty) %.%
+#   select(fao_id, taxon_name, year, b_bmsy, mean_catch) %.%
+#   arrange(fao_id, b_bmsy)
+# write.csv(DataCheck, "C:\\Users\\Melanie\\Desktop\\HS Explore\\FIS_bmsy_Unassessed_full.csv", row.names=FALSE)
+
+
   # ------------------------------------------------------------------------
   # STEP 3. Calculate score for all taxa based on status (b/bmsy) and taxa
   # -----------------------------------------------------------------------
@@ -197,7 +212,7 @@ FIS = function(layers, status_year=2011){
   
 # hack: Arctic region has no status (due to no catch data for 2011, and basically the past 5 years)
 # given this, trend should be zero (It's not because 2007 had a catch of 1)
-trend[trend$rgn_id == "260"] <- NA
+trend$score[trend$region_id == "260"] <- NA
 
   # assemble dimensions
   scores = rbind(status, trend) %.% mutate(goal='FIS')
@@ -233,7 +248,7 @@ ICO = function(layers){
       score     = val_num) %.%
     mutate(
       goal      = 'ICO',
-      score     = ifelse(dimension=='status', score*100, score))
+      score     = ifelse(dimension=='status', score, score))
   
   return(scores) 
   
@@ -262,7 +277,7 @@ SPP = function(layers){
       score     = val_num) %.%
     mutate(
       goal      = 'SPP',
-      score     = ifelse(dimension=='status', score*100, score))
+      score     = ifelse(dimension=='status', score, score))
   
   return(scores) 
 }
