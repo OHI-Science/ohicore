@@ -57,7 +57,7 @@ gapfill_georegions = function(
   data, georegions, 
   fld_id =intersect(names(data), names(georegions)),
   fld_weight = NULL,
-  fld_year = ifelse('year' %in% names(data), 'year', NULL),
+  fld_year = ifelse('year' %in% names(data), 'year', NA),
   fld_value = setdiff(names(data), c(fld_id, fld_weight, 'year'))
 ){
   # TODO: provide aggregate_by_country_year() functionality of old [AggregateLayers.R](https://github.com/OHI-Science/ohicore/blob/88b136a6f32dd20160b3b3d28e30794ac66f69c5/R/AggregateLayers.R)
@@ -68,7 +68,7 @@ gapfill_georegions = function(
   stopifnot(length(fld_value) == 1, fld_value %in% names(data))
   stopifnot(all(c('r0','r1','r2') %in% names(georegions)))
   stopifnot(all(data[[fld_id]] %in% georegions[[fld_id]]))
-  stopifnot( is.null(fld_year) || (!is.null(fld_year) && fld_year %in% names(data)) )
+  stopifnot( is.na(fld_year) || (!is.na(fld_year) && fld_year %in% names(data)) )
      
   # rename fields
   g = rename(georegions, setNames('id', fld_id))
@@ -83,15 +83,15 @@ gapfill_georegions = function(
      
   # remove NAs
   if (sum(is.na(d$v))>0){
-    warning(sprintf('\n  data values are NA so removed: %d of %d rows', sum(is.na(d$v)), nrow(d) ))
+    message(sprintf('\n  data values are NA so removed: %d of %d rows', sum(is.na(d$v)), nrow(d) ))
     d = subset(d, !is.na(v))
   }
   if (sum(is.na(d$w))>0){
-    warning(sprintf('\n  weights are NA (where values reported) so removed: %d of %d rows\n    %s', sum(is.na(d$w)), nrow(d), paste(unique(d$id[is.na(d$w)]), collapse=',') ))
+    message(sprintf('\n  weights are NA (where values reported) so removed: %d of %d rows\n    %s', sum(is.na(d$w)), nrow(d), paste(unique(d$id[is.na(d$w)]), collapse=',') ))
     d = subset(d, !is.na(w))
   }
 
-  if (is.null(fld_year)){
+  if (is.na(fld_year)){
     # merge georegions with data
     x = merge(g, d, by='id', all.x=T) %.%
       arrange(id)
@@ -122,7 +122,7 @@ gapfill_georegions = function(
             r0_n = n()),
         by='r0') %.%
       arrange(r0, r1, r2, id) %.%
-      select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, z_n, z_level, z)    
+      select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n)    
   } else {
     # using year
     d = rename(d, setNames('yr', fld_year))
@@ -185,7 +185,7 @@ gapfill_georegions = function(
                                ifelse(!is.na(r0_v), r0_v, NA)))))
   
   # return result
-  if (is.null(fld_year)){
+  if (is.na(fld_year)){
     r = z %.%
       select(id, z) %.%
       arrange(id) %.%
