@@ -532,14 +532,6 @@ CP = function(layers){
 }
 
 
-TR.old = function(layers){
-  
-  # scores
-  return(cbind(rename(SelectLayersData(layers, layers=c('rn_tr_status'='status','rn_tr_trend'='trend'), narrow=T),
-                      c(id_num='region_id', layer='dimension', val_num='score')), 
-               data.frame('goal'='TR')))
-}
-
 TR = function(layers, year_max){
   
   # formula:
@@ -555,14 +547,13 @@ TR = function(layers, year_max){
   # based on model/GL-NCEAS-TR_v2013a: TRgapfill.R, TRcalc.R...
   # spatial gapfill simply avg, not weighted by total jobs or country population?
   
-  # DEBUG
+  #   # DEBUG
   #   library(devtools); load_all()
-  #   yr=2013
+  #   yr=2012; year_max = 2010 # yr=2013; year_max = 2011
   #   scenario=sprintf('Global%d.www2013', yr)
   #   conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
   #   layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
   #                       layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
-  #   year_max = 2011 # for 2013; 2010 for 2012
   
   # get regions
   rgns = layers$data[[conf$config$layer_region_labels]] %.%
@@ -592,7 +583,13 @@ TR = function(layers, year_max){
     select(rgn_id, rgn_label, year, Ed, L, U, S, E, Xtr)
   
   # compare with pre-gapfilled data
-  if (!file.exists( sprintf('inst/extdata/reports%d.www2013', yr))) dir.create(sprintf('inst/extdata/reports%d.www2013', yr))
+  dir.create(sprintf('inst/extdata/reports%d.www2013', yr), showWarnings=F)
+  
+  # cast to wide format (rows:rgn, cols:year, vals: Xtr) similar to original
+  d_c = d %.%
+    filter(year %in% (year_max-5):year_max) %.%
+    dcast(rgn_id ~ year, value.var='Xtr')
+  write.csv(d_c, sprintf('inst/extdata/reports%d.www2013/tr-%d_0-pregap_wide.csv', yr, yr), row.names=F, na='')
   
   o = read.csv('/Volumes/data_edit/model/GL-NCEAS-TR_v2013a/raw/TR_status_pregap_Sept23.csv', na.strings='') %.%
     melt(id='rgn_id', variable.name='year', value.name='Xtr_o') %.%
@@ -628,7 +625,7 @@ TR = function(layers, year_max){
   georegions = layers$data[['rnk_rgn_georegions']] %.%
     dcast(rgn_id ~ level, value.var='georgn_id')
   
-  # setup data for georegional gapfilling (remove Antarctica rgn_id=213) # load_all()
+  # setup data for georegional gapfilling (remove Antarctica rgn_id=213)
   d_g = gapfill_georegions(
     d %.%
       filter(rgn_id!=213) %.%
@@ -709,7 +706,6 @@ TR = function(layers, year_max){
   
   # output comparison
   write.csv(vs, sprintf('inst/extdata/reports%d.www2013/tr-%d_3-scores-vs.csv', yr, yr), row.names=F, na='')
-  
   
   return(scores)
 }
