@@ -48,7 +48,7 @@ FIS = function(layers, status_year=2011){
   b$year     <- as.numeric(as.character(b$year))
   
   # area data for saup to rgn conversion
-  a = layers$data[['fis_proparea_saup2rgn']] %.%
+  a = layers$data[['snk_fis_proparea_saup2rgn']] %.%
     select(saup_id, rgn_id, prop_area)
   a$prop_area <- as.numeric(a$prop_area)
   a$saup_id   <- as.numeric(as.character(a$saup_id))
@@ -546,7 +546,7 @@ TR.old = function(layers){
                data.frame('goal'='TR')))
 }
 
-TR = function(layers){
+TR = function(layers, year_max){
     
   # formula:
   #   E = Ed / (L - (L*U))
@@ -561,14 +561,13 @@ TR = function(layers){
   # based on model/GL-NCEAS-TR_v2013a: TRgapfill.R, TRcalc.R...
   # spatial gapfill simply avg, not weighted by total jobs or country population?
   
-  # DEBUG
-  library(devtools); load_all()
-  yr=2013
-  scenario=sprintf('Global%d.www2013', yr)
-  conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
-  layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
-                      layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
-  year_max = 2011 # for 2013; 2010 for 2012
+#   # DEBUG
+#   library(devtools); load_all()
+#   yr=2012; year_max = 2010 # for 2013; 2010 for 2012
+#   scenario=sprintf('Global%d.www2013', yr)
+#   conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
+#   layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
+#                       layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
   
   # get regions
   rgns = layers$data[[conf$config$layer_region_labels]] %.%
@@ -598,7 +597,13 @@ TR = function(layers){
     select(rgn_id, rgn_label, year, Ed, L, U, S, E, Xtr)
   
   # compare with pre-gapfilled data
-  if (!file.exists( sprintf('inst/extdata/reports%d.www2013', yr))) dir.create(sprintf('inst/extdata/reports%d.www2013', yr))
+  dir.create(sprintf('inst/extdata/reports%d.www2013', yr), showWarnings=F)
+  
+  # cast to wide format (rows:rgn, cols:year, vals: Xtr) similar to original
+  d_c = d %.%
+    filter(year %in% (year_max-5):year_max) %.%
+    dcast(rgn_id ~ year, value.var='Xtr')
+  write.csv(d_c, sprintf('inst/extdata/reports%d.www2013/tr-%d_0-pregap_wide.csv', yr, yr), row.names=F, na='')
   
   o = read.csv('/Volumes/data_edit/model/GL-NCEAS-TR_v2013a/raw/TR_status_pregap_Sept23.csv', na.strings='') %.%
     melt(id='rgn_id', variable.name='year', value.name='Xtr_o') %.%
@@ -615,7 +620,7 @@ TR = function(layers){
     mutate(Xtr_dif = Xtr - Xtr_o) %.% 
     select(rgn_id, rgn_label, year, Xtr_o, Xtr, Xtr_dif, E, Ed, L, U, S) %.%
     arrange(rgn_id, year)
-  write.csv(vs, sprintf('inst/extdata/reports%d.www2013/tr-%d_0-vs-o_details.csv', yr, yr), row.names=F, na='')
+  write.csv(vs, sprintf('inst/extdata/reports%d.www2013/tr-%d_0-pregap-vs_details.csv', yr, yr), row.names=F, na='')
   
   vs_rgn = vs %.%
     group_by(rgn_id) %.%
@@ -628,7 +633,7 @@ TR = function(layers){
       dif_2011    = Xtr_2011 - Xtr_2011_o) %.%
     filter(n_notna_o !=0 | n_notna!=0) %.%
     arrange(desc(abs(dif_2011)), Xtr_2011, Xtr_2011_o)
-  write.csv(vs_rgn, sprintf('inst/extdata/reports%d.www2013/tr-%d_0-vs-o_summary.csv', yr, yr), row.names=F, na='')
+  write.csv(vs_rgn, sprintf('inst/extdata/reports%d.www2013/tr-%d_0-pregap-vs_summary.csv', yr, yr), row.names=F, na='')
   
   # get georegions for gapfilling
   georegions = layers$data[['rnk_rgn_georegions']] %.%
@@ -644,20 +649,22 @@ TR = function(layers){
   
   # filter: limit to 5 intervals (6 years worth of data)
   #   NOTE: original 2012 only used 2006:2010 whereas now we're using 2005:2010
+  d_g_f = d_g %.%
+    filter((year <= year_max) & (year >= (year_max - 5)) )
+  
   # rescale for
   #   status: 95 percentile value across all regions and filtered years
   #   trend: use the value divided by max bc that way it's rescaled but not capped to a lower percentile (otherwise the trend calculated for regions with capped scores, i.e. those at or above the percentile value, would be spurious)
   Xtr_95  = quantile(d_g_f$Xtr, probs=0.95, na.rm=T)
   Xtr_max = max(d_g_f$Xtr, na.rm=T)
-  d_g_r = d_g %.%
-    filter((year <= year_max) & (year >= (year_max - 5)) ) %.%
+  d_g_f_r = d_g_f %.%    
     mutate(
       Xtr_r95  = ifelse(Xtr / Xtr_95 > 1, 1, Xtr / Xtr_95), # rescale to 95th percentile, cap at 1
       Xtr_rmax = Xtr / Xtr_max )                            # rescale to max value   
-  write.csv(d_g_r, sprintf('inst/extdata/reports%d.www2013/tr-%d_2-filtered-rescaled.csv', yr, yr), row.names=F, na='')
+  write.csv(d_g_f_r, sprintf('inst/extdata/reports%d.www2013/tr-%d_2-filtered-rescaled.csv', yr, yr), row.names=F, na='')
 
   # calculate trend
-  d_t = d_g_r %.%
+  d_t = d_g_f_r %.%
     arrange(year, rgn_id) %.%
     group_by(rgn_id) %.%
     do(mod = lm(Xtr_rmax ~ year, data = .)) %>%
@@ -667,7 +674,7 @@ TR = function(layers){
       score = max(min(coef(.$mod)[['year']] * 5, 1), -1)))
   
   # get status (as last year's value)
-  d_s = d_g_r %.%
+  d_s = d_g_f_r %.%
     arrange(year, rgn_id) %.%
     group_by(rgn_id) %.%
     summarize(
@@ -688,8 +695,34 @@ TR = function(layers){
   # replace North Korea value with 0
   d_b_u$score[d_b_u$rgn_id == 21] = 0
   
-  write.csv(d_b_u, sprintf('inst/extdata/reports%d.www2013/tr-%d_3-scores.csv', yr, yr), row.names=F, na='')
-  return(d_b_u)
+  # final scores
+  scores = d_b_u %.%
+    select(region_id=rgn_id, goal, dimension, score)
+  
+  # compare with original scores
+  csv_o = '/Volumes/data_edit/git-annex/Global/NCEAS-OHI-Scores-Archive/scores/scores.Global2013.www2013_2013-10-09.csv'
+  o = read.csv(csv_o, na.strings='NA', row.names=1) %.% 
+    filter(goal %in% c('TR') & dimension %in% c('status','trend') & region_id!=0) %.% 
+    select(goal, dimension, region_id, score_o=score)
+  
+  vs = scores %.%
+    merge(o, all=T, by=c('goal','dimension','region_id')) %.%
+    merge(
+      rgns %.%
+        select(region_id=rgn_id, region_label=rgn_label), 
+      all.x=T) %.%
+    mutate(
+      score_dif    = score - score_o,
+      score_notna  = is.na(score)!=is.na(score_o)) %.%  
+    filter(abs(score_dif) > 0.01 | score_notna == T) %.%
+    arrange(desc(dimension), desc(abs(score_dif))) %.%
+    select(dimension, region_id, region_label, score_o, score, score_dif)
+  
+  # output comparison
+  write.csv(vs, sprintf('inst/extdata/reports%d.www2013/tr-%d_3-scores-vs.csv', yr, yr), row.names=F, na='')
+  
+  
+  return(scores)
 }
 
 LIV_ECO = function(layers, subgoal, liv_workforcesize_year=2009, eco_rev_adj_min_year=2000){
@@ -787,7 +820,7 @@ LIV_ECO = function(layers, subgoal, liv_workforcesize_year=2009, eco_rev_adj_min
     mutate(score = pmin(value, 1))
   
   # countries to regions
-  cntry_rgn = layers$data[['cntry_rgn']] %.%
+  cntry_rgn = layers$data[['cn_cntry_rgn']] %.%
     select(rgn_id, cntry_key) %.%
     merge(
       SelectLayersData(layers, layers='rtk_rgn_labels') %.%
