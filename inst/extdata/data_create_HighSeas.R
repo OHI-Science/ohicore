@@ -44,6 +44,7 @@ g = subset(g0, ingest==T )
 # layers ----
 
 # iterate over scenarios
+
 cat(sprintf('\n\n\n## Scenario: %sa\n', scenario))
 conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
 
@@ -64,6 +65,15 @@ g$path = file.path(dir_conf$data, g$directory, g$filename)
 for (f in sort(g$path)){ # f = sort(g$path)[1]
   cat(sprintf('    copying %s\n', f))
   stopifnot(file.copy(f, file.path(dir.to, basename(f)), overwrite=T))
+}
+
+# trim extraneous columns from region layers
+x = list(
+  rgn_labels_fao.csv   = c('rgn_id', 'rgn_typ', 'label'))
+for (f in names(x)){
+  p = file.path(dir.to, basename(f))
+  d = read.csv(p, na.strings='')[,x[[f]]]
+  write.csv(d, p, row.names=F, na='')
 }
 
 # delete extraneous files
