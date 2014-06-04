@@ -8,8 +8,8 @@
 #' @param fld_weight optional weighting field in \code{data}
 #' @param fld_year optional year field in \code{data}
 #' @param fld_value value to gapfill in \code{data}
-#' @param georegion_labels with same dimensions as georegions having r0_label, r1_label, r2_label and v_label
-#' @param gapfill_scoring_weights used to determine gapfilling scoreset. should range 0 to 1. defaults to c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0).
+#' @param georegion_labels with same dimensions as georegions having fields: \code{r0_label}, \code{r1_label}, \code{r2_label} and \code{v_label}
+#' @param gapfill_scoring_weights used to determine gapfilling scoreset. should range 0 to 1. defaults to \code{c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0)}
 #' 
 #' @return Returns a data.frame of having all the \code{fld_id} from georegions filled in the following columns:
 #' \itemize{
@@ -35,7 +35,7 @@
 #'   \item \code{r0_n_notna} - count of region values that are not NA for level 0
 #'   \item \code{z_level} - finest level available
 #'   \item \code{z_n} - count of input values for finest level available
-#'   \item \code{z_n_pct} - percent of region values that not NA over all possible [0 to 1]
+#'   \item \code{z_n_pct} - percent of region values that are not NA over all possible [0 to 1]
 #'   \item \code{z_g_score} - gapfilling score (see details)
 #'   \item \code{z} - weighted.mean for finest level available
 #' }
@@ -46,7 +46,7 @@
 #' The gapfill score (z_g_score) in the attribute table is formulated such that the higher the score, the 
 #' more gapfilling performed. The maximal gapfill score is based on gapfilling at the global level (r0=1) and least
 #' if no gapfilling performed (ie z = v). But then some regional averages are applied with only a few regional values 
-#' others with all but the gapfilled region available. To account for this aspect, the difference between the next
+#' while others might have all but the gapfilled region available. To account for this aspect, the difference between the next
 #' finer level's weight is multiplied by the percent regions and subtracted from the level's weight, like so:
 #'
 #' \code{gapfill_scoring_weights[z_level] - z_n_pct * diff(gapfill_scoring_weights[z_level, z_level_finer])}
