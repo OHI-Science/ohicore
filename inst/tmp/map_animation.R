@@ -4,22 +4,25 @@ library(maps)
 library(dplyr)
 library(RColorBrewer)
 
+# vars
+regions_g8 = c('United States','United Kingdom','China','France','Australia','Canada','South Africa','Russia')
 shp = 'inst/extdata/spatial.www2013/shp/regions_gcs.shp'
+
+# setup temporary output folder
 dir_fig = 'inst/tmp/map_animation_fig'
 dir.create(dir_fig, showWarnings=F)
-setwd(wd)
 
+# read shp which extends beyond 180 limit
 set_ll_warn(FALSE)
 set_ll_TOL(0.01)
-rgn = readShapePoly(shp, proj4string=CRS("+proj=longlat"))
+rgn = readShapePoly(shp, proj4string=CRS('+proj=longlat'))
 
+# get sores and regions
 d = read.csv('/Volumes/data_edit/git-annex/Global/NCEAS-OHI-Scores-Archive/scores/scores.Global2013.www2013_2014-05-30.csv', na.strings='')
 
 region_names = read.csv('inst/extdata/layers.Global2013.www2013/rgn_labels.csv', na.strings='') %.%
   filter(type=='eez') %.%
   select(region_id=rgn_id, name=label)
-
-regions_g8 = c('United States','United Kingdom','China','France','Australia','Canada','South Africa','Russia')
 
 # limit to region scores
 v = d %.%
@@ -27,35 +30,39 @@ v = d %.%
   select(region_id, score) %.%
   merge(region_names)
 
-# get subsets of data and reassemble
+# get subsets of data
 v_g8 = v %.%
   inner_join(data.frame(
     name     = regions_g8, 
-    order    = 1:length(regions_g8), 
-    category = 'G8'), by='name') %.%
-  arrange(order)
+    seq      = 1:length(regions_g8), 
+    cat_key  = 'g8',
+    cat_name = 'G8'), by='name') %.%
+  arrange(seq)
 v_top10 = v %.%
   anti_join(v_g8, by='name') %.%
   arrange(desc(score)) %.%
   head(10) %.%
   mutate(
-    order    = 1:n() + nrow(v_g8),
-    category = 'Top 10')
+    seq      = 1:n(),
+    cat_key  = 'top10',
+    cat_name = 'Top 10')
 v_bot10 = v %.%
   anti_join(v_g8, by='name') %.%
   arrange(score) %.%
   head(10) %.%
   mutate(
-    order    = 1:n() + nrow(v_g8) + nrow(v_top10),
-    category = 'Bottom 10')
+    seq      = 1:n(),
+    cat_key  = 'bot10',
+    cat_name = 'Bottom 10')
 v_rest = v %.%
   anti_join(v_g8, by='name') %.%
   anti_join(v_top10, by='name') %.%
   anti_join(v_bot10, by='name') %.%
   arrange(desc(score)) %.%
   mutate(
-    order    = 1:n() + nrow(v_g8) + nrow(v_top10) + nrow(v_bot10),
-    category = 'Remaining (best to worst)')
+    seq      = 1:n(),
+    cat_key  = 'rest',
+    cat_name = 'Rest (top to bottom)')
 v_a = rbind_all(list(v_g8, v_top10, v_bot10, v_rest))
 
 map_fig = function(fname, dat=NULL, text_left='', text_center='', text_right=''){
@@ -97,17 +104,32 @@ map_fig = function(fname, dat=NULL, text_left='', text_center='', text_right='')
   dev.off()
 }
 
-map_fig(sprintf('%s/gl2013_ani_%03d.png', dir_fig, 0))
+map_fig(sprintf('%s/gl2013_beg_001.png', dir_fig))
 
-for (i in 1:nrow(v_a)){ # i=170
-  map_fig(
-    fname = sprintf('%s/gl2013_ani_%03d.png', dir_fig, i),
-    dat   = filter(v_a, order <= i),
-    text_left   = v_a$category[i], 
-    text_center = with(v_a[i,], sprintf('%s: %g', name, score)), 
-    text_right  = sprintf('%d/%d', i, nrow(v)))
+# make map images
+for (i in 1:nrow(v_a)){ # i=1
+  dat        = v_a[1:i,]
+  text_right = sprintf('%d/%d', i, nrow(v_a))
+  with (v_a[i,], {
+    map_fig(
+      fname = sprintf('%s/gl2013_%s_%03d.png', dir_fig, cat_key, seq),
+      dat   = dat,
+      text_left   = cat_name, 
+      text_center = ifelse(cat_key!='rest', sprintf('%s: %d', name, round(score)), ''), 
+      text_right  = text_right)
+  })
 }
 
-# create movie
-cmd = sprintf('ffmpeg -y -r 2 -i %s/gl2013_ani_%%03d.png -f mp4 -vcodec h264 -pix_fmt yuv420p %s/gl2013_animation.mp4', dir_fig, dirname(dir_fig))
-system(cmd)
+# make movies at specified frames per second (fps)
+fps = c(beg='1/1.5', g8='1/1.5', top10='1', bot10='1', rest='10')
+for (i in 1:length(fps)){ # i=2
+  sfx = names(fps)[i]
+  cmd = sprintf('ffmpeg -y -r %s -i %s/gl2013_%s_%%03d.png -r 10 -f mp4 -vcodec h264 -pix_fmt yuv420p %s/gl2013_%s.mp4', fps[i], dir_fig, sfx, dir_fig, sfx)
+  system(cmd)  
+}
+
+# paste movies together
+txt = file.path(dir_fig, 'gl2013_videos.txt')
+vid = sprintf('%s/gl2013_animation.mp4', dirname(dir_fig))
+writeLines(sprintf('file gl2013_%s.mp4', names(fps)), txt)
+system(sprintf('ffmpeg -y -f concat -i %s -c copy %s', txt, vid))
