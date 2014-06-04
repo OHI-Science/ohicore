@@ -2,6 +2,7 @@ require(ohicore)
 require(ohigui)
 
 setwd('~/Documents/ohigit/ohicore/inst/extdata')
+#setwd('/Users/bbest/Github_Mac/ohicore_Canada-CHONe/inst/extdata')
 unlink('conf/*');unlink('layers/*');unlink('spatial/*');unlink('conf.Canada-CHONe2014/*');unlink('layers.Canada-CHONe2014/*');unlink('spatial.Canada-CHONe2014/*')
 source("layers_Canada-CHONE2014.R")
 
@@ -20,7 +21,6 @@ fl=list.files('spatial.Canada-CHONe2014')
 file.copy(paste('spatial.Canada-CHONe2014/',fl,sep = ""),paste('spatial/',fl,sep = ""), overwrite = T)
 
 
-
 wd = getwd()
 ohigui::launchApp(scenario=list(
   conf   = ohicore::Conf("conf"),
@@ -29,3 +29,14 @@ ohigui::launchApp(scenario=list(
   spatial = file.path(wd, "spatial"),
   dir    = wd), launch.browser=T)
 
+# calculating scores independently of gui ----
+setwd('/Users/bbest/Github_Mac/ohicore_Canada-CHONe/inst/extdata')
+
+library(devtools)
+load_all('/Users/bbest/Github_Mac/ohicore')
+
+layers = Layers(layers.csv='layers.csv', layers.dir='layers')
+conf   = Conf('conf')
+# source layers_Canada-CHONe2014.R AN = function...
+
+scores = CalculateAll(conf, layers, debug=T)

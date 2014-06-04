@@ -2,6 +2,7 @@ library(plyr)
 library(dplyr)
 
 wd = '~/Documents/ohigit/ohicore/inst/extdata'
+#wd = '/Users/bbest/Github_Mac/ohicore_Canada-CHONe/inst/extdata'
 setwd(wd)
 
 # create new layers.csv, and layers folder for Canada-CHONe2014 ####################
@@ -30,7 +31,7 @@ pres=rbind(pres,newpres)
 ext=rbind(ext,data.frame(cbind(rgn_id=218,habitat=c('clathrates','permafrost'),km2=c(2517375.704,819702.5225))))
 
 # calculate temperature based on CO2
-co2 = read.csv("~/Documents/ohigit/ohicore/inst/extdata/rawdata.Canada-CHONe2014/HAB/CO2.csv")
+co2 = read.csv('rawdata.Canada-CHONe2014/HAB/CO2.csv')
 
 # set baseline to pre-industrial levels (280 ppm)
 co2$anomaly = co2$mean-280
