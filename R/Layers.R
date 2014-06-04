@@ -20,8 +20,10 @@
 #'   \item{\emph{fld_value} - required field in the layer csv file containing the value, which is often best named as a shorthand for the units without spaces or special characters}
 #' }
 #' The layers.dir directory should contain all the csv filenames listed in the layers.csv file.
-#' @export
-Layers = setRefClass(
+#' @export Layers
+#' @exportClass Layers
+
+Layers = methods::setRefClass(
   'Layers',
   fields = list(
     data = 'list',
@@ -36,7 +38,13 @@ Layers = setRefClass(
       
       .self$data = plyr::dlply(meta, 'layer', function (m) {
         d = read.csv(file.path(layers.dir, m[['filename']]), header = T)
-        d$layer = m[['layer']]
+        if (nrow(d)>0){
+          d$layer = m[['layer']]
+        } else {
+          d[1,] = rep(NA, ncol(d))
+          d$layer = m[['layer']]
+          message(sprintf('Layer %s has no rows of data.', m[['layer']]))
+        }
         return(d)})
     
       .self$targets = plyr::dlply(meta, 'layer', function(m){

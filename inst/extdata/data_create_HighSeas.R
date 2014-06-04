@@ -38,12 +38,13 @@ scenario=sprintf('HighSeas%d.a2014', yr)
 # layers registry: layers_2014_HighSeas Google spreadshee ----
 g.url = 'https://docs.google.com/spreadsheet/pub?key=0ArcIhYsFwBeNdG9KVlJ6M0ZxV1dtVDJDQ3FLVWJQWFE&single=true&gid=0&output=csv'
 g0 = read.csv(textConnection(RCurl::getURL(g.url, ssl.verifypeer = FALSE)), skip=1, na.strings='')
-write.csv(g0, 'inst/extdata/tmp/layers_navigation_2012a_2013a.csv', na='', row.names=F)
+write.csv(g0, 'inst/extdata/tmp/layers_navigation_HighSeas2013.a2014.csv', na='', row.names=F)
 g = subset(g0, ingest==T )
 
 # layers ----
 
 # iterate over scenarios
+
 cat(sprintf('\n\n\n## Scenario: %sa\n', scenario))
 conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
 
@@ -64,6 +65,15 @@ g$path = file.path(dir_conf$data, g$directory, g$filename)
 for (f in sort(g$path)){ # f = sort(g$path)[1]
   cat(sprintf('    copying %s\n', f))
   stopifnot(file.copy(f, file.path(dir.to, basename(f)), overwrite=T))
+}
+
+# trim extraneous columns from region layers
+x = list(
+  rgn_labels_fao.csv   = c('rgn_id', 'rgn_typ', 'label'))
+for (f in names(x)){
+  p = file.path(dir.to, basename(f))
+  d = read.csv(p, na.strings='')[,x[[f]]]
+  write.csv(d, p, row.names=F, na='')
 }
 
 # delete extraneous files

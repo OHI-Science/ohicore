@@ -1,7 +1,7 @@
 # layers ----
-layers_id_fields = c('rgn_id','cntry_key','saup_id','fao_id','fao_saup_id')
-layer_region_labels = 'rnk_rgn_global'
-layer_region_areas  = 'rn_rgn_area'
+layers_id_fields        = c('rgn_id','cntry_key','country_id','saup_id','fao_id','fao_saup_id') # note: cntry_key for www2013, country_id for nature2012
+layer_region_labels     = 'rnk_rgn_global'
+layer_region_areas      = 'rn_rgn_area'
 
 # pressures & resilience matrices ----
 # components describe the layer and level with which to aggregate resilience and pressures matrices for goals with categories
@@ -23,6 +23,9 @@ pressures_gamma = 0.5
 goal_discount = 1.0
 goal_beta = 0.67
 default_trend = 0
+
+# map configuration
+map_lat=0; map_lon=0; map_zoom=3
 
 # extra descriptions not covered by goals.description or layers.description, used in ohigui
 index_description = 'The overall Index represents the weighted average of all goal scores.'

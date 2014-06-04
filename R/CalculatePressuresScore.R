@@ -184,7 +184,6 @@
 ##' 	> 
 ##' 
 ##' }
-##' @import stringr
 ##' 
 ##' @export
 CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=F, pressures_categories=list(environmental=c('po','hd','fp','sp','cc'), social='ss')) {

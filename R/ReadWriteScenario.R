@@ -10,12 +10,16 @@
 ##' @keywords ohi
 ##' @export WriteScenario ReadScenario
 ##' @name ReadWriteScenario
-WriteScenario = function(scenario = list(conf   = ohicore::conf.Global2013.www2013, 
-                                         layers = ohicore::layers.Global2013.www2013, 
-                                         scores = ohicore::scores.Global2013.www2013,
-                                         spatial = system.file('extdata/spatial.www2013', package='ohicore'),
-#spatial = system.file('inst/extdata/spatial.www2013', package='ohicore'),
-                                         dir    = path.expand('~/myohi/scenario.Global2013.www2013'))) {
+WriteScenario = function(
+  scenario = list(
+    conf   = ohicore::conf.Global2013.www2013, 
+    layers = ohicore::layers.Global2013.www2013, 
+    scores = ohicore::scores.Global2013.www2013,
+    spatial = system.file('extdata/spatial.www2013', package='ohicore'),
+    #spatial = system.file('inst/extdata/spatial.www2013', package='ohicore'),
+    dir    = path.expand('~/myohi/scenario.Global2013.www2013')),
+  make_all_launchApp = F
+  ) {
   
   
 # load_all('~/Code/ohicore'); load_all('~/Code/ohigui')
@@ -75,13 +79,14 @@ WriteScenario = function(scenario = list(conf   = ohicore::conf.Global2013.www20
       '  dir    = wd), launch.browser=T)',
       sep='\n', file=file.path(dir_scenario, 'launchApp_code.R'))
   
-  if (.Platform$OS.type == 'windows'){
+  if (.Platform$OS.type == 'windows' | make_all_launchApp){
     Rscript = sprintf('%s/Rscript.exe', dirname(Sys.which('R')) )
     cat('REM on Microsoft Windows (adjust the path to R.exe as needed)',
         sprintf('%s "%%CD%%\\launchApp_code.R"', Rscript),
         'PAUSE',
         sep='\n', file=file.path(dir_scenario, 'launchApp.bat'))
-  } else {
+  }
+  if (!.Platform$OS.type == 'windows' | make_all_launchApp){
     cat('#!/bin/bash',
         'cd "$(dirname "$BASH_SOURCE")" || {',
         '  echo "Error getting script directory" >&2',

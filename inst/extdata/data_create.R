@@ -8,25 +8,23 @@ load_all()
 
 # get paths based on host machine name, as lowercase name (without domain suffix)
 dir_conf = list(
-  'amphitrite'=list(  # BB's Windows 8 on MacBook Pro VMWare
-    annex = 'Z:/bbest On My Mac/neptune_cyberduck'),
   'salacia'=list(  # BB's Mac
-    data  = '/Volumes/data_edit',
-    local = '/Volumes/local_edit',
-    annex = '/Volumes/data_edit/git-annex'),
-  'beastie3'=list(  # Melanie's Windows 8 on MacBook Pro VMWare
-    data  = '//neptune.nceas.ucsb.edu/data_edit',
-    local = '//neptune.nceas.ucsb.edu/local_edit',
-    annex = '//neptune.nceas.ucsb.edu/data_edit/git-annex')
-)[[tolower(sub('\\..*', '', Sys.info()['nodename']))]]
+    neptune_data    = '/Volumes/data_edit',
+    neptune_local   = '/Volumes/local_edit'),    
+  'beastie3'=list(  # Melanie's Windows
+    neptune_data  = '//neptune.nceas.ucsb.edu/data_edit',
+    neptune_local = '//neptune.nceas.ucsb.edu/local_edit')
+)[[ tolower(sub('\\..*', '', Sys.info()[['nodename']])) ]]
+dir_conf$ohiprep = '../ohiprep'
 
 # variables and flags for turning on/off time consuming code
 do.years.www2013 = c(2012,2013)
-do.layers.www2013 = F
+do.layers.www2013 = T
+do.scores.www2013 = T
 do.spatial.www2013 = F
 do.layers.Global2012.Nature2012ftp = F
 scores.source = 'calculate'  # 'calculate' OR path, eg 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv'
-scores.compare = 'by year'   # file.path(dir_conf$local, 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-09.csv') # OHI_results_for_Radical_2013-12-13.csv')
+scores.compare = file.path(dir_conf$neptune_local, 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-10-09.csv') # OHI_results_for_Radical_2013-12-13.csv')
 
 # conf.* ----
 # Create conf.[scenario] dataset for all conf.[scenario] directories.
@@ -64,7 +62,10 @@ for (yr in do.years.www2013){ # yr=2013
     cat(sprintf('  copy to %s\n', dir.to))
     g$filename = g[, sprintf('fn_%da' , yr)]
     stopifnot(nrow(subset(g, is.na(filename))) == 0)  
-    g$path = file.path(dir_conf$data, g[, sprintf('dir_%da', yr)], g$filename)
+    g$directory = sapply(str_split(g[, sprintf('dir_%da', yr)], ':'),
+                         function(x){ sprintf('%s/%s', dir_conf[x[1]], x[2])})
+    g$path = sprintf('%s/%s', g$directory, g$filename)
+    if(!all(file.exists(g$path))) stop('files not found:\n  ', paste(g$path[!file.exists(g$path)], '\n  '))
     for (f in sort(g$path)){ # f = sort(g$path)[1]
       cat(sprintf('    copying %s\n', f))
       stopifnot(file.copy(f, file.path(dir.to, basename(f)), overwrite=T))
@@ -93,7 +94,7 @@ for (yr in do.years.www2013){ # yr=2013
     CheckLayers(layers.csv, dir.to, flds_id=conf$config$layers_id_fields)
   }
   
-  if (scores.source == 'calculate'){
+  if (scores.source == 'calculate' & do.scores.www2013){
     # calculate scores 
     layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
                         layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
@@ -102,74 +103,51 @@ for (yr in do.years.www2013){ # yr=2013
     write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
     
     # archive scores on disk (out of github, for easy retrieval later)
-    csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_%s.csv', dir_conf$annex, scenario, format(Sys.Date(), '%Y-%m-%d'))
+    csv = sprintf('%s/git-annex/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_%s.csv', dir_conf$neptune_data, scenario, format(Sys.Date(), '%Y-%m-%d'))
     write.csv(scores, csv, na='', row.names=F)
     
     # compare with published results
     if (length(scores.compare) > ''){
             
       # Radical format scores_old
-      # scores_old = read.csv(scores.compare, na.strings='') %.%
-      #   filter(scenario==yr) %.%
-      #   select(goal, dimension, region_id, score_old=value) %.%
-      #   mutate(dimension = revalue(dimension, c('likely_future_state'='future')))        
-      #   #head(scores_old); table(scores_old[,c('dimension','goal')])
+      scores_old = read.csv(scores.compare, na.strings='') %.%
+        filter(scenario==yr) %.%
+        select(goal, dimension, region_id, score_old=value) %.%
+        mutate(dimension = revalue(dimension, c('likely_future_state'='future')))        
+        #head(scores_old); table(scores_old[,c('dimension','goal')])
       
-      # toolbox generated scores_old
-      csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_2014-04-02a_pre-pressures-new.csv', dir_conf$annex, scenario)
-      scores_old = read.csv(csv, na.strings='') %.%
-        select(goal, dimension, region_id, score_old=score); head(scores_old)
+      # # toolbox generated scores_old
+      # csv = sprintf('%s/git-annex/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_2014-04-02a_pre-pressures-new.csv', dir_conf$neptune_data, scenario)
+      # scores_old = read.csv(csv, na.strings='') %.%
+      #   select(goal, dimension, region_id, score_old=score); head(scores_old)
       
-      # merge new and old scores, with region labels
-      rgn_labels = SelectLayersData(layers, layers=conf$config$layer_region_labels) %.%
-        select(region_id=id_num, region_label=val_chr)
-      v = scores %.%
+      # region labels
+      rgn_labels = layers$data[[conf$config$layer_region_labels]] %.%
+        select(region_id=rgn_id, region_label=label) %.%
+        rbind(data.frame(region_id=0, region_label='GLOBAL')) %.%
+        arrange(region_id, region_label)
+      
+      # compare old vs new scores
+      vs = scores %.%
         merge(scores_old, by=c('goal','dimension','region_id'), all=T) %.%
-        mutate(score_dif = score - score_old) %.%
-        merge(rgn_labels, by='region_id') %.%
-        select(goal, dimension, region_id, region_label, score, score_old, score_dif) %.%
-        arrange(goal, dimension, region_id)      
-        #head(v); dim(scores); dim(scores_old); dim(v)
-      csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_%s_new-pressures-dif.csv', dir_conf$annex, scenario, format(Sys.Date(), '%Y-%m-%d'))
-      write.csv(v, csv, row.names=F, na='')
-      
-      # print outputs      
-      cat('\n\n### Compare NAs\n\n')
-      
-      cat('\nTable. Compare number of non-NA values (new - old) by goal and dimension.\n')
-      print(table(v[!is.na(v$score), c('goal','dimension')]) - table(v[!is.na(v$score_old), c('goal','dimension')]), zero.print='.')
-      
-      cat('\nTable. Rows without matching NA (old vs new).\n')
-      print(v %.%
-              filter(is.na(score) != is.na(score_old)) %.%
-              select(goal, dimension, region_id, region_label, score, score_old)
-            , row.names=F)
-
-      cat('\n### Compare Values\n\n')
-      cat('\nTable. Differences (new - old) summarized by goal and dimension.\n')
-      print(v %.%
-              filter(!is.na(score) & !is.na(score_old) & (abs(score_dif) > 0.1)) %.%
-              group_by(goal, dimension) %.%
-              summarize(
-                n=n(),
-                dif_mean = round(mean(score_dif), 2),
-                dif_min  = min(score_dif),
-                dif_max  = max(score_dif)), 
-            row.names=F)
-      # TODO: as.data.frame for above so doesn't print row.names.
-      # TODO: move to .Rmd and kable() the table outputs. pandoc to get TOC.
-      
-      if (yr=='2012'){
-        #cat('\nDiscussion. Major differences for 2012 with LIV / ECO / LE score seem OK b/c of ECO Eritrea and other LIV substitutions.\n')
-      }
+        merge(rgn_labels, by='region_id', all.x=T) %.%
+        mutate(
+          score_dif    = score - score_old,
+          score_notna  = is.na(score)!=is.na(score_old)) %.%  
+        filter(abs(score_dif) > 0.01 | score_notna == T) %.%
+        arrange(goal, desc(dimension), desc(score_notna), desc(abs(score_dif))) %.%
+        select(goal, dimension, region_id, region_label, score_old, score, score_dif)
+      csv = sprintf('%s/git-annex/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_%s_2013-10-09-dif.csv', dir_conf$neptune_data, scenario, format(Sys.Date(), '%Y-%m-%d'))
+      write.csv(vs, csv, row.names=F, na='')
+            
     }
     
-  } else {    
+  } else if (do.scores.www2013) {    
     # create scores from published results
     
     # load results
     # TODO: update results to 10-09, not 10-08, per HAB +saltmarsh in OHI_results_for_Radical_2013-10-09.csv
-    r = read.csv(file.path(dir_conf$local, scores.source), na.strings='') %.%
+    r = read.csv(file.path(dir_conf$neptune_local, scores.source), na.strings='') %.%
       filter(scenario==yr) %.%
       select(goal, dimension, region_id, score=value) %.%
       mutate(dimension = revalue(dimension, c('likely_future_state'='future')))        
@@ -183,7 +161,7 @@ for (yr in do.years.www2013){ # yr=2013
 if (do.spatial.www2013){
   
   # paths
-  shp.from   = file.path(dir_conf$data, 'model/GL-NCEAS-OceanRegions_v2013a/data/rgn_simple_gcs.shp')
+  shp.from   = file.path(dir_conf$neptune_data, 'model/GL-NCEAS-OceanRegions_v2013a/data/rgn_simple_gcs.shp')
   dir.to     = path.expand(file.path(wd, 'inst/extdata/spatial.www2013'))
   shp.to     = file.path(dir.to, 'regions_gcs.shp')
   geojson.to = file.path(dir.to, 'regions_gcs.geojson')

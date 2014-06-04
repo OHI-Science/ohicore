@@ -1,5 +1,80 @@
 # LE: Update Data Layers and Function
 
+
+## Finished status with georegional gapfill (TODO: trend)
+
+```{r agg}
+library(devtools)
+load_all()
+
+scenario='Global2013.www2013'
+conf       = Conf(sprintf('inst/extdata/conf.%s', scenario))
+layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
+                    layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
+
+#scores = CalculateAll(conf, layers, debug=T) ----
+if (exists('scores')){ rm(scores)}
+if (exists('georgndebug')){ rm(georgndebug)}
+for (g in c('LIV','ECO','LE')){ # g='LIV'
+  preindex_function = subset(conf$goals, goal==g, preindex_function, drop=T)
+  scores.g = eval(parse(text=preindex_function), envir=conf$functions)
+  
+  if (exists('scores')){ 
+    scores = rbind(scores, scores.g)
+  } else {
+    scores = scores.g
+  }
+
+  if (sprintf('%s_status_gapfill_georegions', g) %in% names(attributes(scores.g))){
+    georgndebug.g = attr(scores.g, sprintf('%s_status_gapfill_georegions', g)) %.%
+      mutate(
+        goal=g,
+        dimension='status')
+    if (exists('georgndebug')){ 
+      georgndebug = rbind(georgndebug, georgndebug.g)
+    } else {
+      georgndebug = georgndebug.g
+    }
+  }
+}
+
+# compare original scores (o) to most recent scores
+rgn_labels = SelectLayersData(layers, layers='rtk_rgn_labels') %.%
+  select(region_id=id_num, region_name=val_chr)
+
+csv_o = '/Users/bbest/Desktop/neptune_cache/git-annex/Global/NCEAS-OHI-Scores-Archive/scores/scores.Global2013.www2013_2013-10-09.csv'
+o = read.csv(csv_o, na.strings='NA', row.names=1) %.% 
+  filter(goal %in% c('LIV','ECO','LE') & dimension %in% c('status','trend') & region_id!=0) %.% 
+  select(goal, dimension, region_id, score_o=score)
+
+vs = scores %.%
+  merge(o, all=T, by=c('goal','dimension','region_id')) %.%
+  merge(rgn_labels, by='region_id', all.x=T) %.%
+  merge(georgndebug, by=c('goal','dimension','region_id')) %.%
+  mutate(
+    score_dif    = score - score_o,
+    score_notna  = is.na(score)!=is.na(score_o))
+
+vs_dif =  vs %.%
+  filter(abs(score_dif) > 0.01) %.%
+  arrange(goal, dimension, desc(abs(score_dif))) %.%
+  select(goal, dimension, region_id, region_name, score, score_o, score_dif)
+cat(sprintf('\nOf %d rows, %d rows had differing scores, ordered by goal, dimension, desc(abs(score_dif))\n', nrow(vs), nrow(vs_dif)))
+print(vs_dif, row.names=F)
+write.csv(vs_dif, sprintf('inst/tests/tmp_LE_o2013-10-09_vs_%s_dif.csv', format(Sys.Date(), '%Y-%m-%d')), na='', row.names=F)
+
+vs_na =  vs %.%
+  filter(score_notna == T) %.%
+  arrange(goal, dimension, desc(abs(score)), desc(abs(score_o))) %.%
+  select(goal, dimension, region_id, region_name, score, score_o)  
+cat(sprintf('\nOf %d rows, %d rows had differing scores, ordered by goal, dimension, desc(abs(score)), desc(abs(score_o))\n', 
+            nrow(vs), nrow(vs_na)))
+print(vs_na, row.names=F)
+write.csv(vs_na, sprintf('inst/tests/tmp_LE_o2013-10-09_vs_%s_na.csv', format(Sys.Date(), '%Y-%m-%d')), na='', row.names=F)
+
+```
+
+
 ## Try (unsuccessfully) to replicate Nature 2012
 
 1. Get Nature 2012 with Brazil data...
