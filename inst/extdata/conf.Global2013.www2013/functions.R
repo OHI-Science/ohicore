@@ -670,13 +670,13 @@ TR = function(layers, year_max){
   # based on model/GL-NCEAS-TR_v2013a: TRgapfill.R, TRcalc.R...
   # spatial gapfill simply avg, not weighted by total jobs or country population?
   
-  # DEBUG
-  library(devtools); load_all()
-  yr=2013; year_max = 2011 # yr=2012; year_max = 2010
-  scenario=sprintf('Global%d.www2013', yr)
-  conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
-  layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
-                      layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
+#   # DEBUG
+#   library(devtools); load_all()
+#   yr=2013; year_max = 2011 # yr=2012; year_max = 2010
+#   scenario=sprintf('Global%d.www2013', yr)
+#   conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
+#   layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
+#                       layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
   
   # get regions
   rgns = layers$data[[conf$config$layer_region_labels]] %.%
