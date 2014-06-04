@@ -1,6 +1,6 @@
 library(dplyr)
-food_gas_data=read.csv('~/Documents/ohigit/ohicore/inst/extdata/rawdata.Canada-CHONe2014/AN/aboriginal_food_gas.csv')
-ice_layer=read.csv("~/Documents/ohigit/ohicore/inst/extdata/rawdata.Canada-CHONe2014/AN/ice_layer.csv")
+food_gas_data=read.csv('rawdata.Canada-CHONe2014/AN/aboriginal_food_gas.csv')
+ice_layer=read.csv("rawdata.Canada-CHONe2014/AN/ice_layer.csv")
 
 #set 1979 baselines for each community
 ice_layer$pC_base=0
@@ -37,4 +37,4 @@ for(i in 1:l){
 }
 ANmean2=data.frame(cbind(rgn_id=rep(1:278,each = length(Year)),year=rep(Year,278),value=rep(0.5,278*length(Year))))
 ANmean2$value[ANmean2$rgn_id==218]=ANmean
-write.csv(ANmean2,'~/Documents/ohigit/ohicore/inst/extdata/rawdata.Canada-CHONe2014/AN/AN_timeseries.csv',row.names=F)
+write.csv(ANmean2,'rawdata.Canada-CHONe2014/AN/AN_timeseries.csv',row.names=F)
