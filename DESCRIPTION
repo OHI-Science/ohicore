@@ -33,7 +33,6 @@ Collate:
     'CalculateSubgoal.R'
     'CheckLayers.R'
     'Conf.R'
-    'Halpern2012Data.R'
     'Layers.R'
     'PlotChloroplethMap.R'
     'PlotFlower.R'

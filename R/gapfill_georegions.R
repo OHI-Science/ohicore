@@ -1,6 +1,6 @@
 #' Gapfill using georegional means
 #' 
-#' Gapfill using georegional means, providing the finest possible resolution from 3 hierarchies (r2 > r1 > r0).
+#' Gapfill using georegional means, providing the finest possible resolution from 3 hierarchies (r2 > r1 > r0) derived from \href{http://en.wikipedia.org/wiki/United_Nations_geoscheme}{United Nations geoscheme}.
 #' 
 #' @param data data.frame to gapfill having at least fields: \code{fld_id} and \code{fld_value}, and optionally \code{fld_weight}
 #' @param georegions data.frame having at least fields: \code{fld_id} and \code{r0}, \code{r1}, and \code{r2} with georegion id values
@@ -8,6 +8,8 @@
 #' @param fld_weight optional weighting field in \code{data}
 #' @param fld_year optional year field in \code{data}
 #' @param fld_value value to gapfill in \code{data}
+#' @param georegion_labels with same dimensions as georegions having fields: \code{r0_label}, \code{r1_label}, \code{r2_label} and \code{v_label}
+#' @param gapfill_scoring_weights used to determine gapfilling scoreset. should range 0 to 1. defaults to \code{c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0)}
 #' 
 #' @return Returns a data.frame of having all the \code{fld_id} from georegions filled in the following columns:
 #' \itemize{
@@ -24,17 +26,30 @@
 #'   \item \code{v} - original \code{fld_value} in \code{data}
 #'   \item \code{r2_v} - weighted.mean for level 2
 #'   \item \code{r1_v} - weighted.mean for level 1
-#'   \item \code{r0_v} - weighted.mean for level 0
-#'   \item \code{r2_n} - count of input values for level 2
-#'   \item \code{r1_n} - count of input values for level 1
-#'   \item \code{r0_n} - count of input values for level 0
-#'   \item \code{z_n} - count of input values for finest level available
+#'   \item \code{r0_v} - weighted.mean for level 0 (global)
+#'   \item \code{r2_n} - count of regions available for level 2
+#'   \item \code{r1_n} - count of regions available for level 1
+#'   \item \code{r0_n} - count of regions available for level 0
+#'   \item \code{r2_n_notna} - count of region values that are not NA for level 2
+#'   \item \code{r1_n_notna} - count of region values that are not NA for level 1
+#'   \item \code{r0_n_notna} - count of region values that are not NA for level 0
 #'   \item \code{z_level} - finest level available
+#'   \item \code{z_n} - count of input values for finest level available
+#'   \item \code{z_n_pct} - percent of region values that are not NA over all possible [0 to 1]
+#'   \item \code{z_g_score} - gapfilling score (see details)
 #'   \item \code{z} - weighted.mean for finest level available
 #' }
 #' 
 #' @details
 #' Gapfill using georegional means, providing the finest possible resolution from 3 hierarchies (r2 > r1 > r0).
+#' 
+#' The gapfill score (z_g_score) in the attribute table is formulated such that the higher the score, the 
+#' more gapfilling performed. The maximal gapfill score is based on gapfilling at the global level (r0=1) and least
+#' if no gapfilling performed (ie z = v). But then some regional averages are applied with only a few regional values 
+#' while others might have all but the gapfilled region available. To account for this aspect, the difference between the next
+#' finer level's weight is multiplied by the percent regions and subtracted from the level's weight, like so:
+#'
+#' \code{gapfill_scoring_weights[z_level] - z_n_pct * diff(gapfill_scoring_weights[z_level, z_level_finer])}
 #' 
 #' @keywords ohi
 #' @examples
@@ -54,11 +69,14 @@
 #' 
 #' @export
 gapfill_georegions = function(
-  data, georegions, 
-  fld_id =intersect(names(data), names(georegions)),
-  fld_weight = NULL,
-  fld_year = ifelse('year' %in% names(data), 'year', NA),
-  fld_value = setdiff(names(data), c(fld_id, fld_weight, 'year'))
+  data, 
+  georegions, 
+  fld_id            = intersect(names(data), names(georegions)),
+  fld_weight        = NULL,
+  fld_year          = ifelse('year' %in% names(data), 'year', NA),
+  fld_value         = setdiff(names(data), c(fld_id, fld_weight, 'year')),
+  georegion_labels  = NULL,
+  gapfill_scoring_weights = c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0)
 ){
   # TODO: provide aggregate_by_country_year() functionality of old [AggregateLayers.R](https://github.com/OHI-Science/ohicore/blob/88b136a6f32dd20160b3b3d28e30794ac66f69c5/R/AggregateLayers.R)
      
@@ -71,8 +89,18 @@ gapfill_georegions = function(
   stopifnot( is.na(fld_year) || (!is.na(fld_year) && fld_year %in% names(data)) )
      
   # rename fields
-  g = rename(georegions, setNames('id', fld_id))
-  d = rename(data        , setNames(c('id','v'),  c(fld_id, fld_value)))
+  g = rename(georegions      , setNames('id', fld_id))
+  d = rename(data            , setNames(c('id','v'),  c(fld_id, fld_value)))
+  l = rename(georegion_labels, setNames('id', fld_id))
+    
+  # get n regions per georegion for later calculating gapfill score
+  g = g %.%
+    group_by(r0) %.%
+    mutate(r0_n = n()) %.%  
+    group_by(r1) %.%
+    mutate(r1_n = n()) %.%
+    group_by(r2) %.%
+    mutate(r2_n = n())
   
   # add weight
   if (is.null(fld_weight)){
@@ -104,25 +132,25 @@ gapfill_georegions = function(
         y %.% 
           group_by(r2) %.%
           summarise(
-            r2_v = weighted.mean(v, w),
-            r2_n = n()),
+            r2_v       = weighted.mean(v, w),
+            r2_n_notna = n()),
         by='r2') %.%
       left_join(
         y %.% 
           group_by(r1) %.%
           summarise(
-            r1_v = weighted.mean(v, w),
-            r1_n = n()),
+            r1_v       = weighted.mean(v, w),
+            r1_n_notna = n()),
         by='r1') %.%
       left_join(
         y %.% 
           group_by(r0) %.%
           summarise(
-            r0_v = weighted.mean(v, w),
-            r0_n = n()),
+            r0_v       = weighted.mean(v, w),
+            r0_n_notna = n()),
         by='r0') %.%
       arrange(r0, r1, r2, id) %.%
-      select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n)    
+      select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna)    
   } else {
     # using year
     d = rename(d, setNames('yr', fld_year))
@@ -132,12 +160,12 @@ gapfill_georegions = function(
       yr = sort(unique(d$yr)),
       id = g$id)) %.%
       merge(g, by='id') %.%
-      select(yr, id, r0, r1, r2) %.%
+      select(yr, id, r0, r1, r2, r2_n, r1_n, r0_n) %.%
       arrange(yr, id)
     
     x = merge(gy, d, by=c('yr','id'), all.x=T) %.%
       arrange(yr, id) %.%
-      select(yr, id, r0, r1, r2, v, w)
+      select(yr, id, r0, r1, r2, r2_n, r1_n, r0_n, v, w)
     
     # georegion means
     y = x %.%
@@ -147,28 +175,28 @@ gapfill_georegions = function(
         y %.% 
           group_by(yr, r2) %.%
           summarise(
-            r2_v = weighted.mean(v, w),
-            r2_n = n()),
+            r2_v       = weighted.mean(v, w),
+            r2_n_notna = n()),
         by=c('yr','r2')) %.%
       left_join(
         y %.% 
           group_by(yr, r1) %.%
           summarise(
-            r1_v = weighted.mean(v, w),
-            r1_n = n()),
+            r1_v       = weighted.mean(v, w),
+            r1_n_notna = n()),
         by=c('yr','r1')) %.%
       left_join(
         y %.% 
           group_by(yr, r0) %.%
           summarise(
-            r0_v = weighted.mean(v, w),
-            r0_n = n()),
+            r0_v       = weighted.mean(v, w),
+            r0_n_notna = n()),
         by=c('yr','r0')) %.%
       arrange(yr, r0, r1, r2, id) %.%
-      select(yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n)    
+      select(yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna)    
   }
   
-  # select best available value
+  # select best available value and calcualte gapfilling score
   z = z %.%
     mutate(
       z_level = ifelse(!is.na(v), 'v',
@@ -179,10 +207,29 @@ gapfill_georegions = function(
                    ifelse(!is.na(r2_v), r2_n,
                           ifelse(!is.na(r1_v), r1_n,
                                  ifelse(!is.na(r0_v), r0_n, NA)))),
+      z_n_pct = ifelse(!is.na(v), 1,
+                       ifelse(!is.na(r2_v), r2_n_notna/r2_n,
+                              ifelse(!is.na(r1_v), r1_n_notna/r1_n,
+                                     ifelse(!is.na(r0_v), r0_n_notna/r0_n, NA)))),
+      z_g_score = ifelse(!is.na(v), 0,
+                         ifelse(!is.na(r2_v), gapfill_scoring_weights['r2'] - z_n_pct * diff(gapfill_scoring_weights[c('v','r2')]),
+                                ifelse(!is.na(r1_v), gapfill_scoring_weights['r1'] - z_n_pct * diff(gapfill_scoring_weights[c('r1','r2')]),
+                                       ifelse(!is.na(r0_v), gapfill_scoring_weights['r0'] - z_n_pct * diff(gapfill_scoring_weights[c('r0','r1')]), NA)))),
       z = ifelse(!is.na(v), v,
                  ifelse(!is.na(r2_v), r2_v,
                         ifelse(!is.na(r1_v), r1_v,
                                ifelse(!is.na(r0_v), r0_v, NA)))))
+    
+  # add labels if provided
+  if (!is.null(georegion_labels)){
+    z = z %.%
+      left_join(
+        l %.%
+          select(id=rgn_id, r0_label, r1_label, r2_label, v_label),
+        by='id') %.%
+      arrange(r0_label, r1_label, r2_label, v_label) %.%
+      select(r0_label, r1_label, r2_label, v_label, yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_n, z_n_pct, z_g_score, z)
+  }
   
   # return result
   if (is.na(fld_year)){

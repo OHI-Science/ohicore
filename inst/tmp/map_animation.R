@@ -133,3 +133,6 @@ txt = file.path(dir_fig, 'gl2013_videos.txt')
 vid = sprintf('%s/gl2013_animation.mp4', dirname(dir_fig))
 writeLines(sprintf('file gl2013_%s.mp4', names(fps)), txt)
 system(sprintf('ffmpeg -y -f concat -i %s -c copy %s', txt, vid))
+
+# remove temporary files
+unlink(dir_fig, recursive=T)
