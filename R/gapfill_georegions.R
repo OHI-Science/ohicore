@@ -79,7 +79,8 @@ gapfill_georegions = function(
   gapfill_scoring_weights = c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0)
 ){
   # TODO: provide aggregate_by_country_year() functionality of old [AggregateLayers.R](https://github.com/OHI-Science/ohicore/blob/88b136a6f32dd20160b3b3d28e30794ac66f69c5/R/AggregateLayers.R)
-     
+  # TODO: provide gapfilling with category data
+  
   # check arguments
   stopifnot(length(fld_id) == 1, fld_id %in% names(data), fld_id %in% names(georegions), !fld_id %in% c('r0','r1','r2'))
   stopifnot( is.null(fld_weight) || (!is.null(fld_weight) && fld_weight %in% names(data)) )
@@ -91,7 +92,11 @@ gapfill_georegions = function(
   # rename fields
   g = rename(georegions      , setNames('id', fld_id))
   d = rename(data            , setNames(c('id','v'),  c(fld_id, fld_value)))
-  l = rename(georegion_labels, setNames('id', fld_id))
+  if (!is.null(georegion_labels)){
+    stopifnot(fld_id %in% names(georegion_labels))
+    stopifnot(all(c('r0_label','r1_label','r2_label') %in% names(georegion_labels)))
+    l = rename(georegion_labels, setNames('id', fld_id))
+  }
     
   # get n regions per georegion for later calculating gapfill score
   g = g %.%
@@ -225,7 +230,7 @@ gapfill_georegions = function(
     z = z %.%
       left_join(
         l %.%
-          select(id=rgn_id, r0_label, r1_label, r2_label, v_label),
+          select(id=id, r0_label, r1_label, r2_label, v_label),
         by='id') %.%
       arrange(r0_label, r1_label, r2_label, v_label) %.%
       select(r0_label, r1_label, r2_label, v_label, yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_n, z_n_pct, z_g_score, z)
