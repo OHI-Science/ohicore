@@ -465,13 +465,72 @@ NP.new = function(scores, layers,
   # 
   # <small>$w_p$ = proportional peak US dollar value of product $p$</small>  
   # <small>$x_p$ = sustainable-harvest score for product $p$;  
-  # $Hp$ = harvest yield for product $p$  </small>
+  # $H_p$ = harvest yield for product $p$  </small>
   # <small>$Sp$ = sustainability of product $p$; </small>
   # <small>$E$ = exposure term; </small>
   # <small>$R$ = risk term</small>
   # 
   # **Global 2013**
   # <small>￼products:aquaria fishes, corals, sponges, shells, seaweeds, fish</small>
+
+# description
+# Status per product: 
+#   harvest scores
+#     log- transformed the harvest intensity scores because of a highly skewed distribution of per-country values
+#     max per country. For the Status of each product, we assessed the most recent harvest rate (in metric tons) per country relative to the maximum value (in 2008 USD) ever achieved in that country. This creates a reference point internal to each country. 
+#     buffer w/in 35% of peak set to 1, values below that rescaled to this 35% buffer value.
+#     For countries that never harvested a product, we assumed they cannot produce it (in general because the product does not exist there) and so treat that as a ‘no data’ rather than a zero value.
+#     For countries that harvested a product at any point in time, empty values are treated as zeros since the country clearly has the capacity to harvest that product.
+#
+#     Mismatches b/n harvest & monetary value reported, one or the other for any given year.
+#       Because of inconsistencies with how data are reported to FAO on the harvest and monetary value of each product (many countries report only one or the other of the two measures in a given year), there are many cases where harvest data but no value data are reported, and equal numbers of cases with value data but no harvest data.
+#       
+#
+#   Sustainability term for each product used to adjust harvest level.
+#     adjusted these harvest scores by estimates of the sustainability of the harvest rate
+#     It is based on the log-transformed intensity of harvest per km2 of coral and/or rocky reef, depending on the product, relative to the global maximum (its ‘exposure’), 
+#       and for ornamental fish and corals also the ‘risk’ that is associated with known unsustainable harvest practices 
+#         (i.e., the intensity of cyanide fishing for ornamental fish, and any harvest of corals since they are CITES protected species).
+#     Fish oil, exposure was calculated based on stock status assessments. 
+#        For each country we calculated the weighted proportion of species harvested sustainably. 
+#        We assigned each species an exploitation status based on its catch each year relative to its MSY 
+#        over the span of the database, 1950-2006, following the definitions in Table S6 which are based on 
+#        FAO definitions plus the ‘rebuilding’ category developed by the Sea Around Us Project40. 
+#        When insufficient information exist to assign a stock status, the stock was excluded from analyses.
+#
+#        S_t_p = sum(N_k * w_k) / N_k  where:
+#
+#        N_k = # of spp in ea k category of exploitation and 
+#        w = weight assigned by Table S6: c('Developing'=1, 'Fully exploited'=1, 'Overexploited'=0.5, Collapse='0', 'Rebuilding'=0.25)
+#
+#     The sustainability component for fish oil was changed for 2013
+#  
+#  X_p = H_p * S_p where:
+#    H_p = harvest level for a product relative to its own (buffered) peak reference point
+#    Sp = the sustainability of that harvest, with:
+#  S_p = 1 - (E + R) / N_v where:
+#    E = exposure term
+#    R = risk term. 
+#      corals = 1
+#      ornamental fish = relative intensity of cyanide fishing
+#    N_v = 1 or 2 depending on whether or not a viability term is used   
+#  S_p = 1 - mean(c(E,R), na.rm=T)
+#
+# Trend per product:
+#   calculated the Status score for each product for the previous five years
+#   used the slope of these Status scores to calculate the Trend for each product
+#   Note that for the Trend calculation, some regions have staggered years between products for the slope calculations:
+#     2003-2007 for Corals, Ornamental Fish, and Shells
+#     2004-2008 for the rest
+#
+# Score:
+#  To create a single score for the Natural Products goal (xNP) we then took the weighted average of the individual product scores, such that:
+#  x = sum(w_p * x_p) / N where:
+#   N = # of products
+#   w_p = proportional peak dollar value of ea product relative ot the total peak dollar value of all products (2008USD)
+#     If a product had a peak value, but was missing a harvest value for that product in a given year, then we used wp = 0 during the aggregation for that year.
+#   x_p = individual score: status or trend
+
 
 # LAYER PREP ohiprep
 np_harvest_ornamentalfish = read.csv('/Volumes/data_edit/model/GL-FAO-Commodities_v2009/data/rgn_fao_orn.csv', na='')
