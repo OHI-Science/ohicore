@@ -23,17 +23,18 @@ h_usd    = read.csv('../ohiprep/Global/FAO-Commodities_v2011/data/FAO-Commoditie
 stopifnot(nrow(group_by(h_tonnes, product, rgn_id) %.% summarize(year_max = max(year)) %.% filter(year_max!=yr_max)) == 0)
 stopifnot(nrow(group_by(h_usd   , product, rgn_id) %.% summarize(year_max = max(year)) %.% filter(year_max!=yr_max)) == 0)
 
-# merge harvest and filter by year_max per scenario
-h = merge(h_tonnes, h_usd, all=T) %.%
-  filter(year <= year_max)
-
 # show where NAs usd vs tonnes
-h_na = h %.% 
+h_na = merge(h_tonnes, h_usd, all=T) %.%
+  filter(year <= yr_max) %.% 
   filter(is.na(usd) | is.na(tonnes)) %.% 
   mutate(na = ifelse(is.na(usd), 'usd', 'tonnes'))
-table(h_na %.% select(na))
+addmargins(table(h_na %.% select(year, na)))
 # tonnes    usd 
-#    691    213
+#    691    214
+
+# merge harvest and filter by yr_max per scenario
+h = merge(h_tonnes, h_usd, all=T) %.%
+  filter(year <= yr_max)
 
 # get max per region, product
 h = h %.%
@@ -45,11 +46,11 @@ h = h %.%
     usd_rel      = ifelse(usd >= usd_peak, 1, usd / usd_peak),
     tonnes_max   = max(tonnes),
     tonnes_peak  = tonnes_max  * (1 - harvest_peak_buffer),
-    tonnes_rel   = ifelse(tonnes >= tonnes_peak, 1, tonnes / tonnes_peak),
-    w            = ifelse(!is.na(tonnes_rel), tonnes_rel, usd_rel)) %.%
+    tonnes_rel   = ifelse(tonnes >= tonnes_peak, 1, tonnes / tonnes_peak)) %.%
   ungroup() %.%
   mutate(
     # assign w_p_t based on tonnes_rel, unless NA then use usd_rel
+    w            = ifelse(!is.na(tonnes_rel), tonnes_rel, usd_rel)) %.%    
     )
 
 # for now, skipping smoothing done in PLoS 2013

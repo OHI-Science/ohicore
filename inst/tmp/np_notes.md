@@ -35,10 +35,116 @@ This is presumably because we are first summing across commodities to products, 
 ### Mismatches b/n quantity (tonnes) and value (USD)
 Of all the region-product-year data (nrow=**12694**), only the following # of rows were NA per variable (ie after initial begin of non-NA data and possible trailing extension):
 
-|var    | NAs|
-|:------|---:|
-|tonnes | 694|
-|usd    | 214|
+|year |var    | NAs|
+|:----|:------|---:|
+|1976 |tonnes |  15|
+|1977 |tonnes |   9|
+|1978 |tonnes |  11|
+|1979 |tonnes |  12|
+|1980 |tonnes |  12|
+|1981 |tonnes |  14|
+|1982 |tonnes |  13|
+|1983 |tonnes |  13|
+|1984 |tonnes |  13|
+|1985 |tonnes |  14|
+|1986 |tonnes |  15|
+|1987 |tonnes |  15|
+|1988 |tonnes |  17|
+|1989 |tonnes |  17|
+|1990 |tonnes |  24|
+|1991 |tonnes |  26|
+|1992 |tonnes |  27|
+|1993 |tonnes |  26|
+|1994 |tonnes |  26|
+|1995 |tonnes |  37|
+|1996 |tonnes |  42|
+|1997 |tonnes |  33|
+|1998 |tonnes |  28|
+|1999 |tonnes |  28|
+|2000 |tonnes |  33|
+|2001 |tonnes |  30|
+|2002 |tonnes |  31|
+|2003 |tonnes |  30|
+|2004 |tonnes |  21|
+|2005 |tonnes |  17|
+|2006 |tonnes |  11|
+|2007 |tonnes |  10|
+|2008 |tonnes |  13|
+|2009 |tonnes |   8|
+|2010 |tonnes |   3|
+|Sum  |tonnes | 694|
+|1976 |usd    |   2|
+|1977 |usd    |  11|
+|1978 |usd    |   9|
+|1979 |usd    |   9|
+|1980 |usd    |   9|
+|1981 |usd    |   9|
+|1982 |usd    |  10|
+|1983 |usd    |   9|
+|1984 |usd    |   9|
+|1985 |usd    |   7|
+|1986 |usd    |   7|
+|1987 |usd    |   7|
+|1988 |usd    |   7|
+|1989 |usd    |   7|
+|1990 |usd    |   6|
+|1991 |usd    |   6|
+|1992 |usd    |   7|
+|1993 |usd    |   6|
+|1994 |usd    |   7|
+|1995 |usd    |   6|
+|1996 |usd    |   5|
+|1997 |usd    |   6|
+|1998 |usd    |   5|
+|1999 |usd    |   4|
+|2000 |usd    |   4|
+|2001 |usd    |   5|
+|2002 |usd    |   5|
+|2003 |usd    |   7|
+|2004 |usd    |   5|
+|2005 |usd    |   5|
+|2006 |usd    |   7|
+|2007 |usd    |   2|
+|2008 |usd    |   2|
+|2009 |usd    |   1|
+|2010 |usd    |   1|
+|Sum  |usd    | 214|
+|1976 |Sum    |  17|
+|1977 |Sum    |  20|
+|1978 |Sum    |  20|
+|1979 |Sum    |  21|
+|1980 |Sum    |  21|
+|1981 |Sum    |  23|
+|1982 |Sum    |  23|
+|1983 |Sum    |  22|
+|1984 |Sum    |  22|
+|1985 |Sum    |  21|
+|1986 |Sum    |  22|
+|1987 |Sum    |  22|
+|1988 |Sum    |  24|
+|1989 |Sum    |  24|
+|1990 |Sum    |  30|
+|1991 |Sum    |  32|
+|1992 |Sum    |  34|
+|1993 |Sum    |  32|
+|1994 |Sum    |  33|
+|1995 |Sum    |  43|
+|1996 |Sum    |  47|
+|1997 |Sum    |  39|
+|1998 |Sum    |  33|
+|1999 |Sum    |  32|
+|2000 |Sum    |  37|
+|2001 |Sum    |  35|
+|2002 |Sum    |  36|
+|2003 |Sum    |  37|
+|2004 |Sum    |  26|
+|2005 |Sum    |  22|
+|2006 |Sum    |  18|
+|2007 |Sum    |  12|
+|2008 |Sum    |  15|
+|2009 |Sum    |   9|
+|2010 |Sum    |   4|
+|Sum  |Sum    | 908|
 
 
 ### FAO Commodities to NP Products
