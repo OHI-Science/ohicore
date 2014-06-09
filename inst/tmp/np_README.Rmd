@@ -41,7 +41,7 @@ h = merge(h_tonnes, h_usd, all=T) %.%
 ```
 
 ### Mismatches b/n quantity (tonnes) and value (USD)
-Of all the region-product-year data (nrow=**`r nrow(h)`**), the following # of rows were NA per variable:
+Of all the region-product-year data (nrow=**`r nrow(h)`**), only the following # of rows were NA per variable (ie after initial begin of non-NA data and possible trailing extension):
 ```{r, echo=FALSE, dependson='init', results='asis'}
 # show where NAs usd vs tonnes
 h_na = h %.% 
