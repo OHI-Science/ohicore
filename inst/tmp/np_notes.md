@@ -2,15 +2,25 @@
 
 ## Notes 2014
 
-With the latest FAO commodities data layers (processed by [data_prep.R](https://github.com/OHI-Science/ohiprep/blob/0c93a0fa0237ee706f6bd9056efc670ebacc0a4a/Global/FAO-Commodities_v2011/data_prep.R)), the following sequence of operations was performed on harvest, for both 1) value in **usd** normalized to the year 2000, and 2) quantity in metric **tonnes**:
+With the latest FAO commodities data layers (processed by [data_prep.R](https://github.com/OHI-Science/ohiprep/blob/master/Global/FAO-Commodities_v2011/data_prep.R)), the following sequence of operations was performed on harvest, for both 1) value in **usd** normalized to the year 2000, and 2) quantity in metric **tonnes**:
 - clean up files [remove Totals, translate FAO data codes (F, ..., -, 0 0, etc)]
+- fill in all NAs after the first data per commodity with a 0
 - carry previous year's value forward if value for max(year) is NA, at commodity level
 - merge with commodities lookup and sum to the aggregate product level (see table below)
-- convert country to rgn_id using new [`cbind_rgn()` function](https://github.com/OHI-Science/ohiprep/blob/9f1214785f8174b0d40cdb710c8c95787a1e6337/src/R/ohi_clean_fxns.R#L94-L199)
+- convert country to rgn_id using new [`name_to_rgn_id()`](https://github.com/OHI-Science/ohiprep/blob/master/src/R/ohi_clean_fxns.R#L100-L205) function
 
 Note that no georegional gapfilling has yet been applied.
 
-Comparing input and output files looks like:
+Comparing input and output files in ohiprep:Global/FAO-Commodities_v2011/:
+- raw/
+  + [FAO_raw_commodities_quant_1950_2011.csv](https://github.com/OHI-Science/ohiprep/blob/master/Global/FAO-Commodities_v2011/raw/FAO_raw_commodities_quant_1950_2011.csv)
+  + [FAO_raw_commodities_value_1950_2011.csv](https://github.com/OHI-Science/ohiprep/blob/master/Global/FAO-Commodities_v2011/raw/FAO_raw_commodities_value_1950_2011.csv)
+- tmp/
+  + [np_harvest_tonnes_wide.csv](https://github.com/OHI-Science/ohiprep/blob/master/Global/FAO-Commodities_v2011/tmp/np_harvest_tonnes_wide.csv)
+  + [np_harvest_usd_wide.csv](https://github.com/OHI-Science/ohiprep/blob/master/Global/FAO-Commodities_v2011/tmp/np_harvest_usd_wide.csv)
+- data/
+  + [FAO-Commodities_v2011_tonnes.csv](https://github.com/OHI-Science/ohiprep/blob/master/Global/FAO-Commodities_v2011/data/FAO-Commodities_v2011_tonnes.csv)
+  + [FAO-Commodities_v2011_usd.csv](https://github.com/OHI-Science/ohiprep/blob/master/Global/FAO-Commodities_v2011/data/FAO-Commodities_v2011_usd.csv)
 
 ![vs](https://raw.githubusercontent.com/OHI-Science/ohiprep/947e7488ee2aa67ac5aaf1d58c87d34001b5b41c/Global/FAO-Commodities_v2011/tmp/np_harvest_tonnes_wide_screen.png)
 
@@ -20,40 +30,69 @@ With these FAO harvest layers, we don't seem to have the same problems of the pa
 
 This is presumably because we are first summing across commodities to products, rather than dealing with individual commodities data. This in effect zeros out NA values of commodites as long as one of the commmodities within a region-year-product combo is available.
 
+
+
 ### Mismatches b/n quantity (tonnes) and value (USD)
+Of all the region-product-year data (nrow=**12694**), only the following # of rows were NA per variable (ie after initial begin of non-NA data and possible trailing extension):
 
-```{r init, echo=FALSE}
-# setwd('~/Github_Mac/ohicore/inst/tmp'); library(knitr)
-suppressPackageStartupMessages({
-  library(reshape2)
-  library(plyr)
-  library(dplyr)
-  })
-dir_fao = '../../../ohiprep/Global/FAO-Commodities_v2011'
-year_max = 2011 # 2014: year_max=2011 # 2013: year_max = 2010 # 2012: year_max = 2011
-
-# harvest in tonnes and dollars
-h_tonnes = read.csv(file.path(dir_fao, 'data/FAO-Commodities_v2011_tonnes.csv'), na.strings='')
-h_usd    = read.csv(file.path(dir_fao, 'data/FAO-Commodities_v2011_usd.csv'), na.strings='')
-
-# merge harvest and filter by year_max per scenario
-h = merge(h_tonnes, h_usd, all=T) %.%
-  filter(year <= year_max)
-```
-
-```{r, echo=FALSE, dependson='init', results='asis'}
-# show where NAs usd vs tonnes
-h_na = h %.% 
-  filter(is.na(usd) | is.na(tonnes)) %.% 
-  mutate(na = ifelse(is.na(usd), 'usd', 'tonnes'))
-kable(rename(as.data.frame(table(h_na %.% select(na))), c('Var1'='var', 'Freq'='NAs')))
-```
+|var    | NAs|
+|:------|---:|
+|tonnes | 694|
+|usd    | 214|
 
 
 ### FAO Commodities to NP Products
-```{r, results='asis', echo=FALSE, dependson='init'}
-kable(read.csv(file.path(dir_fao, 'commodities2products.csv')))
-```
+
+|product     |commodity                                              |
+|:-----------|:------------------------------------------------------|
+|sponges     |Natural sponges nei                                    |
+|sponges     |Natural sponges other than raw                         |
+|sponges     |Natural sponges raw                                    |
+|fish_oil    |Alaska pollack oil, nei                                |
+|fish_oil    |Anchoveta oil                                          |
+|fish_oil    |Capelin oil                                            |
+|fish_oil    |Clupeoid oils, nei                                     |
+|fish_oil    |Cod liver oil                                          |
+|fish_oil    |Fish body oils, nei                                    |
+|fish_oil    |Fish liver oils, nei                                   |
+|fish_oil    |Gadoid liver oils, nei                                 |
+|fish_oil    |Hake liver oil                                         |
+|fish_oil    |Halibuts, liver oils                                   |
+|fish_oil    |Herring oil                                            |
+|fish_oil    |Jack mackerel oil                                      |
+|fish_oil    |Menhaden oil                                           |
+|fish_oil    |Pilchard oil                                           |
+|fish_oil    |Redfish oil                                            |
+|fish_oil    |Sardine oil                                            |
+|fish_oil    |Shark liver oil                                        |
+|fish_oil    |Shark oil                                              |
+|fish_oil    |Squid oil                                              |
+|seaweeds    |Agar agar in powder                                    |
+|seaweeds    |Agar agar in strips                                    |
+|seaweeds    |Agar agar nei                                          |
+|seaweeds    |Carrageen (Chondrus crispus)                           |
+|seaweeds    |Green laver                                            |
+|seaweeds    |Hizikia fusiforme (brown algae)                        |
+|seaweeds    |Kelp                                                   |
+|seaweeds    |Kelp meal                                              |
+|seaweeds    |Laver, dry                                             |
+|seaweeds    |Laver, nei                                             |
+|seaweeds    |Other brown algae (laminaria, eisenia/ecklonia)        |
+|seaweeds    |Other edible seaweeds                                  |
+|seaweeds    |Other inedible seaweeds                                |
+|seaweeds    |Other red algae                                        |
+|seaweeds    |Other seaweeds and aquatic plants and products thereof |
+|seaweeds    |Undaria pinnafitida (brown algae)                      |
+|ornamentals |Ornamental saltwater fish                              |
+|ornamentals |Ornamental fish nei                                    |
+|corals      |Coral and the like                                     |
+|shells      |Abalone shells                                         |
+|shells      |Miscellaneous corals and shells                        |
+|shells      |Mother of pearl shells                                 |
+|shells      |Oyster shells                                          |
+|shells      |Sea snail shells                                       |
+|shells      |Shells nei                                             |
+|shells      |Trochus shells                                         |
 
 ## Summary PLoS 2013
 Level of protection of the coast from inundation and erosion compared to the local natural potential.
@@ -237,3 +276,20 @@ path: `neptune:local/src/model/global2013/NP/README.txt`
 
 The aggregation by country into reporting regions was limited to 4 regions (ID
 85 106 115 126).
+
+```sql
+CREATE TABLE product_weights AS
+SELECT  d.iso3166, d.product, 
+        CASE  WHEN total.value > 0
+              THEN d.value_peak/total.value  
+              ELSE 0
+        END AS value
+FROM  product_peaks d
+JOIN (
+    SELECT  iso3166, SUM(value_peak) AS value
+    FROM    product_peaks
+    GROUP BY iso3166
+) total USING (iso3166)
+ORDER BY d.iso3166, d.product
+;
+```
