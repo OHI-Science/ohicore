@@ -18,35 +18,14 @@ harvest_peak_buffer = 0.35
 h_tonnes = read.csv('../ohiprep/Global/FAO-Commodities_v2011/data/FAO-Commodities_v2011_tonnes.csv', na.strings='')
 h_usd    = read.csv('../ohiprep/Global/FAO-Commodities_v2011/data/FAO-Commodities_v2011_usd.csv', na.strings='')
 
+# add checks for previous dealings that don't seem necessary in latest FAO commodities layer prep (2014-06-09)
+# previosly differing max(year) per region, product
+stopifnot(nrow(group_by(h_tonnes, product, rgn_id) %.% summarize(year_max = max(year)) %.% filter(year_max!=yr_max)) == 0)
+stopifnot(nrow(group_by(h_usd   , product, rgn_id) %.% summarize(year_max = max(year)) %.% filter(year_max!=yr_max)) == 0)
+
 # merge harvest and filter by year_max per scenario
 h = merge(h_tonnes, h_usd, all=T) %.%
   filter(year <= year_max)
-
-# add checks for previous dealings that don't seem necessary in latest FAO commodities layer prep (2014-06-08)
-# differing max(year) per region, product
-group_by(h_tonnes, product, rgn_id) %.% summarize(year_max = max(year)) %.% filter(year_max!=yr_max)
-stopifnot( subset(, select='year_max', drop=T) == year_max )
-
-#        product rgn_id year_max
-# 1       corals     37     2009
-# 2       corals    113     2007
-# 3     fish_oil     32     1997
-# 4     fish_oil     50     2009
-# 5     fish_oil    108     2003
-# 6  ornamentals      7     2009
-# 7  ornamentals     29     2008
-# 8  ornamentals    140     1996
-# 9  ornamentals    169     1996
-# 10    seaweeds     31     2002
-# 11    seaweeds     50     2009
-# 12    seaweeds    231     2009
-# 13      shells     50     2009
-# 14     sponges     25     2006
-# 15     sponges     50     2008
-# 16     sponges     61     2009
-# 17     sponges    110     2008
-# 18     sponges    140     1996
-# 19     sponges    216     2006
 
 # show where NAs usd vs tonnes
 h_na = h %.% 
@@ -54,7 +33,7 @@ h_na = h %.%
   mutate(na = ifelse(is.na(usd), 'usd', 'tonnes'))
 table(h_na %.% select(na))
 # tonnes    usd 
-#   1119     38
+#    691    213
 
 # get max per region, product
 h = h %.%

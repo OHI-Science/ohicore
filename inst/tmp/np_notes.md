@@ -33,12 +33,12 @@ This is presumably because we are first summing across commodities to products, 
 
 
 ### Mismatches b/n quantity (tonnes) and value (USD)
-Of all the region-product-year data (nrow=**11137**), only the following # of rows were NA per variable (ie after initial begin of non-NA data and possible trailing extension):
+Of all the region-product-year data (nrow=**12694**), only the following # of rows were NA per variable (ie after initial begin of non-NA data and possible trailing extension):
 
-|var    |  NAs|
-|:------|----:|
-|tonnes | 1141|
-|usd    |   38|
+|var    | NAs|
+|:------|---:|
+|tonnes | 694|
+|usd    | 214|
 
 
 ### FAO Commodities to NP Products
