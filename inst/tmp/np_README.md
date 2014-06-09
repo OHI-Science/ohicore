@@ -4,6 +4,7 @@
 
 With the latest FAO commodities data layers (processed by [data_prep.R](https://github.com/OHI-Science/ohiprep/blob/0c93a0fa0237ee706f6bd9056efc670ebacc0a4a/Global/FAO-Commodities_v2011/data_prep.R)), the following sequence of operations was performed on harvest, for both 1) value in **usd** normalized to the year 2000, and 2) quantity in metric **tonnes**:
 - clean up files [remove Totals, translate FAO data codes (F, ..., -, 0 0, etc)]
+- fill in all NAs after the first data per commodity with a 0
 - carry previous year's value forward if value for max(year) is NA, at commodity level
 - merge with commodities lookup and sum to the aggregate product level (see table below)
 - convert country to rgn_id using new [`cbind_rgn()` function](https://github.com/OHI-Science/ohiprep/blob/9f1214785f8174b0d40cdb710c8c95787a1e6337/src/R/ohi_clean_fxns.R#L94-L199)
@@ -20,10 +21,10 @@ With these FAO harvest layers, we don't seem to have the same problems of the pa
 
 This is presumably because we are first summing across commodities to products, rather than dealing with individual commodities data. This in effect zeros out NA values of commodites as long as one of the commmodities within a region-year-product combo is available.
 
+
+
 ### Mismatches b/n quantity (tonnes) and value (USD)
-
-
-
+Of all the region-product-year data (nrow=**11137**), the following # of rows were NA per variable:
 
 |var    |  NAs|
 |:------|----:|
