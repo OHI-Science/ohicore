@@ -26,10 +26,11 @@ rgn_id = 0 # global only
 x = with(subset(scores, dimension=='score' & region_id==rgn_id & goal %in% names(wts)),
          setNames(score, goal))[names(wts)]
 
-# override scores # paste(sprintf('%s=%d', names(x), rep(0, length(x))), collapse=', ')
+# customize flower scores # paste(sprintf('%s=%d', names(x), rep(0, length(x))), collapse=', ')
 flowers = list(
-  blank = c(FIS=0, MAR=0, AO=0, NP=0, CS=0, CP=0 , TR=0, LIV=0, ECO=0, ICO=0, LSP=0, CW=0, HAB=0, SPP=0),
-  CP69  = c(FIS=0, MAR=0, AO=0, NP=0, CS=0, CP=69, TR=0, LIV=0, ECO=0, ICO=0, LSP=0, CW=0, HAB=0, SPP=0))
+  Global2013 = x,
+  blank      = c(FIS=0, MAR=0, AO=0, NP=0, CS=0, CP=0 , TR=0, LIV=0, ECO=0, ICO=0, LSP=0, CW=0, HAB=0, SPP=0),
+  CP69       = c(FIS=0, MAR=0, AO=0, NP=0, CS=0, CP=69, TR=0, LIV=0, ECO=0, ICO=0, LSP=0, CW=0, HAB=0, SPP=0))
 
 for (i in 1:length(flowers)){
   
