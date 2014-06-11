@@ -67,7 +67,8 @@ WriteScenario = function(
       sep='\n', file=file.path(dir_scenario, 'scenario.R'))  
   
   # launch app files
-  cat('require(ohicore)',
+  cat('require(methods)',
+      'require(ohicore)',
       'require(ohigui)',
       '',
       'wd = getwd()',
