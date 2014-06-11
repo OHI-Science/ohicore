@@ -78,7 +78,7 @@ gapfill_georegions = function(
   fld_value         = setdiff(names(data), c(fld_id, fld_weight, 'year')),
   georegion_labels  = NULL,
   gapfill_scoring_weights = c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0),
-  r0_to_NA          = True
+  r0_to_NA          = TRUE
 ){
   # TODO: provide gapfilling with category data
   
@@ -95,15 +95,15 @@ gapfill_georegions = function(
   d = rename(data            , setNames(c('id','v'),  c(fld_id, fld_value)))
   
   # check for duplicate georegion entries
-  stopifnot(anyDuplicated(g$id) != 0)
+  stopifnot(anyDuplicated(g$id) == 0)
   
   # georegion_labels
   if (!is.null(georegion_labels)){
     stopifnot(fld_id %in% names(georegion_labels))
     stopifnot(all(c('r0_label','r1_label','r2_label') %in% names(georegion_labels)))
-    stopifnot(nrow(georegion_labels) != nrow(georegions))
+    stopifnot(nrow(georegion_labels) == nrow(georegions))
     l = rename(georegion_labels, setNames('id', fld_id))
-    stopifnot(anyDuplicated(l$id) != 0)
+    stopifnot(anyDuplicated(l$id) == 0)
   }
     
   # get n regions per georegion for later calculating gapfill score
@@ -134,7 +134,7 @@ gapfill_georegions = function(
 
   if (is.na(fld_year)){
     # check for duplicates
-    stopifnot(anyDuplicated(d$id) != 0)
+    stopifnot(anyDuplicated(d$id) == 0)
     
     # merge georegions with data
     x = merge(g, d, by='id', all.x=T) %.%
@@ -172,7 +172,7 @@ gapfill_georegions = function(
     d = rename(d, setNames('yr', fld_year))
     
     # check for duplicates
-    stopifnot(anyDuplicated(d[,c('id','yr')] != 0))
+    stopifnot(anyDuplicated(d[,c('id','yr')]) == 0)
               
     # expand georegions to every possible year in data
     gy = expand.grid(list(
