@@ -31,33 +31,35 @@ With these FAO harvest layers, we don't seem to have the same problems of the pa
 This is presumably because we are first summing across commodities to products, rather than dealing with individual commodities data. This in effect zeros out NA values of commodites as long as one of the commmodities within a region-year-product combo is available.
 
 ```{r init, echo=FALSE}
-# setwd('~/Github_Mac/ohicore/inst/tmp'); library(knitr)
+# setwd('~/Github_Mac/ohicore/inst/tmp'); library(knitr) # setwd('~/Github_Mac/ohicore')
 suppressPackageStartupMessages({
   library(reshape2)
   library(plyr)
   library(dplyr)
   })
 dir_fao = '../../../ohiprep/Global/FAO-Commodities_v2011'
-year_max = 2011 # 2014: year_max=2011 # 2013: year_max = 2010 # 2012: year_max = 2011
+yr_max = 2011 # 2014: yr_max=2011 # 2013: yr_max = 2010 # 2012: yr_max = 2011
 
 # harvest in tonnes and dollars
 h_tonnes = read.csv(file.path(dir_fao, 'data/FAO-Commodities_v2011_tonnes.csv'), na.strings='')
 h_usd    = read.csv(file.path(dir_fao, 'data/FAO-Commodities_v2011_usd.csv'), na.strings='')
 
-# merge harvest and filter by year_max per scenario
+# merge harvest and filter by yr_max per scenario
 h = merge(h_tonnes, h_usd, all=T) %.%
-  filter(year <= year_max)
+  filter(year <= yr_max)
 ```
 
 ### Mismatches b/n quantity (tonnes) and value (USD)
-Of all the region-product-year data (nrow=**`r nrow(h)`**), only the following # of rows were NA per variable (ie after initial begin of non-NA data and possible trailing extension):
+Of all the region-product-year data (nrow=**`r nrow(h)`**), only the following # of rows were NA per variable when merged with each other:
 ```{r, echo=FALSE, dependson='init', results='asis'}
 # show where NAs usd vs tonnes
 h_na = h %.% 
   filter(is.na(usd) | is.na(tonnes)) %.% 
-  mutate(na = ifelse(is.na(usd) & is.na(tonnes), 'both', 
-                     ifelse(is.na(usd), 'usd', 'tonnes')))
-kable(rename(as.data.frame(table(h_na %.% select(na))), c('Var1'='var', 'Freq'='NAs')))
+  mutate(var = ifelse(is.na(usd) & is.na(tonnes), 'both', 
+                     ifelse(is.na(usd), 'usd', 'tonnes'))) %.%
+  group_by(var) %.%
+  summarize(NAs=n())
+kable(h_na)
 ```
 
 

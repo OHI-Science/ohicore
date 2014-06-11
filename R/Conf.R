@@ -22,6 +22,7 @@
 #' See also \code{\link{Conf_write}() to write the configuration back to disk.}
 #' @export Conf
 #' @exportClass Conf
+#' @import methods
 
 Conf = methods::setRefClass(
   'Conf', fields = list(

@@ -22,6 +22,7 @@
 #' The layers.dir directory should contain all the csv filenames listed in the layers.csv file.
 #' @export Layers
 #' @exportClass Layers
+#' @import methods
 
 Layers = methods::setRefClass(
   'Layers',
