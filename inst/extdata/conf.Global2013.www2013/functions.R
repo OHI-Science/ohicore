@@ -550,13 +550,13 @@ TR = function(layers, year_max){
   # based on model/GL-NCEAS-TR_v2013a: TRgapfill.R, TRcalc.R...
   # spatial gapfill simply avg, not weighted by total jobs or country population?
   
-  # DEBUG
-  library(devtools); load_all()
-  yr=2013; year_max = 2011 # yr=2012; year_max = 2010
-  scenario=sprintf('Global%d.www2013', yr)
-  conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
-  layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
-                      layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
+#   # DEBUG
+#   library(devtools); load_all()
+#   yr=2013; year_max = 2011 # yr=2012; year_max = 2010
+#   scenario=sprintf('Global%d.www2013', yr)
+#   conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
+#   layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
+#                       layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
   
   # get regions
   rgns = layers$data[[conf$config$layer_region_labels]] %.%
@@ -875,7 +875,8 @@ LIV_ECO = function(layers, subgoal, liv_workforcesize_year=2009, eco_rev_adj_min
               score_w_avg = weighted.mean(score, w),
               score_avg   = mean(score),
               w_sum       = sum(w, na.rm=T)) %.%
-    mutate(score = ifelse(!is.na(score_w_avg), score_w_avg, score_avg))
+    mutate(score = ifelse(!is.na(score_w_avg), score_w_avg, score_avg)) %.%
+    ungroup()
   #print(filter(s_r, n>1) %.% as.data.frame())
   # 2013:
   #    component rgn_id                                            rgn_name           cntry_w cntry_w_na n n_w_na score_w_avg score_avg        w_sum     score
