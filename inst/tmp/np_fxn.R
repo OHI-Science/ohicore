@@ -18,6 +18,10 @@ harvest_peak_buffer = 0.35
 h_tonnes = read.csv('../ohiprep/Global/FAO-Commodities_v2011/data/FAO-Commodities_v2011_tonnes.csv', na.strings='')
 h_usd    = read.csv('../ohiprep/Global/FAO-Commodities_v2011/data/FAO-Commodities_v2011_usd.csv', na.strings='')
 
+# cyanide fishing
+r_cyanide = read.csv('../ohiprep/Global/WRI-ReefsAtRisk_v2013/data/gl_thr_poison_3nm_rgn2013.csv', na.strings='')
+r_blast   = read.csv('../ohiprep/Global/WRI-ReefsAtRisk_v2013/data/gl_thr_blast_3nm_rgn2013.csv', na.strings='')
+
 # add checks for previous dealings that don't seem necessary in latest FAO commodities layer prep (2014-06-09)
 # previosly differing max(year) per region, product
 stopifnot(nrow(group_by(h_tonnes, product, rgn_id) %.% summarize(year_max = max(year)) %.% filter(year_max!=yr_max)) == 0)
@@ -36,38 +40,77 @@ addmargins(table(h_na %.% select(year, na)))
 h = merge(h_tonnes, h_usd, all=T) %.%
   filter(year <= yr_max)
 
-# get max per region, product
-h = h %.%
-  group_by(rgn_id, product) %.%
+# H: relativized harvest
+h = merge(
+  h_tonnes %.%
+    group_by(rgn_id, product) %.%
+    mutate(
+      tonnes_max   = max(tonnes),
+      tonnes_peak  = tonnes_max  * (1 - harvest_peak_buffer),
+      tonnes_rel   = ifelse(tonnes >= tonnes_peak, 1, tonnes / tonnes_peak)),
+  h_usd %.%
+    group_by(rgn_id, product) %.%
+    mutate(
+      usd_max      = max(usd),
+      usd_peak     = usd_max  * (1 - harvest_peak_buffer),
+      usd_rel      = ifelse(usd >= usd_peak, 1, usd / usd_peak)),
+  by=c('rgn_name','rgn_id','product','year')) %.%
   mutate(
-    # calculate max, peak and relative
-    usd_max      = max(usd),
-    usd_peak     = usd_max  * (1 - harvest_peak_buffer),
-    usd_rel      = ifelse(usd >= usd_peak, 1, usd / usd_peak),
-    tonnes_max   = max(tonnes),
-    tonnes_peak  = tonnes_max  * (1 - harvest_peak_buffer),
-    tonnes_rel   = ifelse(tonnes >= tonnes_peak, 1, tonnes / tonnes_peak)) %.%
-  ungroup() %.%
-  mutate(
-    # assign w_p_t based on tonnes_rel, unless NA then use usd_rel
-    w            = ifelse(!is.na(tonnes_rel), tonnes_rel, usd_rel)) %.%    
-    )
-
+    H = ifelse(!is.na(tonnes_rel), tonnes_rel,    usd_rel), # H: harvest yield
+    w = ifelse(!is.na(   usd_rel),    usd_rel, tonnes_rel)) # w: proportional peak value
 # for now, skipping smoothing done in PLoS 2013
-    
   
-
-group_by(h, rgn_id) %.%
-  summarize(n_product = n_distinct(product))
-  
+# S: sustainability of harvest
 
 
-  select(rgn_id, product, year, tonnes, tonnes, tonnes_max, tonnes_peak, usd_rel)
-    tonnes_max  = max(tonnes),
-    
-    tonnes_peak = tonnes_max * (1 - harvest_peak_buffer),
-     %.%
-  head()
+read.csv('../ohiprep/Global/WRI-ReefsAtRisk_v2013/data/gl_thr_poison_3nm_rgn2013.csv') %.% head()
+
+# risk for ornamentals set to 1 if blast or cyanide fishing present
+#  based on Nature 2012 code
+#  despite Nature 2012 Suppl saying R for ornamental fish is set to the "relative intensity of cyanide fishing"
+r_orn = r_cyanide %.%
+  filter(!is.na(score) & score > 0) %.%
+  select(rgn_id, cyanide=score) %.%  
+  merge(
+    r_blast %.%
+      filter(!is.na(score) & score > 0) %.%
+      select(rgn_id, blast=score),
+    all=T) %.%
+  mutate(
+    ornamentals = 1)
+
+# get FIS status for fish_oil S
+FIS_status = read.csv('inst/extdata/scores.Global2013.www2013.csv') %.% 
+  filter(goal=='FIS' & dimension=='status')
+
+# risk
+R = 
+  # fixed
+  data.frame(
+    rgn_id  = rgns$rgn_id,
+    corals  = 1,
+    sponges = 0,
+    shells  = 0) %.%
+  # ornamentals
+  left_join(
+    r_orn %.%
+      select(rgn_id, ornamentals),
+    by = 'rgn_id') %.%
+  mutate(
+    ornamentals = ifelse(is.na(ornamentals), 0, ornamentals)) %.%
+  # fish_oil
+  left_join(
+    FIS_status %.%
+      mutate(
+        fish_oil = score/100) %.%
+      select(
+        rgn_id=region_id, fish_oil),
+    by='rgn_id') %.%
+  mutate(
+    fish_oil = ifelse(is.na(fish_oil), 0, fish_oil))
+
+S = 1 - mean(c(E,R), na.rm=T)
+
   
 
 # buffer w/in 35% of peak

@@ -50,15 +50,16 @@ h = merge(h_tonnes, h_usd, all=T) %.%
 ```
 
 ### Mismatches b/n quantity (tonnes) and value (USD)
-Of all the region-product-year data (nrow=**`r nrow(h)`**), only the following # of rows were NA per variable (ie after initial begin of non-NA data and possible trailing extension):
+Of all the region-product-year data (nrow=**`r nrow(h)`**), only the following # of rows were NA per variable when merged with each other:
 ```{r, echo=FALSE, dependson='init', results='asis'}
 # show where NAs usd vs tonnes
 h_na = h %.% 
   filter(is.na(usd) | is.na(tonnes)) %.% 
-  mutate(na = ifelse(is.na(usd) & is.na(tonnes), 'both', 
+  mutate(var = ifelse(is.na(usd) & is.na(tonnes), 'both', 
                      ifelse(is.na(usd), 'usd', 'tonnes'))) %.%
-  select(year, na)
-kable(rename(as.data.frame(table(h_na)), c('na'='var', 'Freq'='NAs')))
+  group_by(var) %.%
+  summarize(NAs=n())
+kable(h_na)
 ```
 
 
