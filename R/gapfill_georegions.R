@@ -11,6 +11,7 @@
 #' @param georegion_labels with same dimensions as georegions having fields: \code{r0_label}, \code{r1_label}, \code{r2_label} and \code{v_label}
 #' @param gapfill_scoring_weights used to determine gapfilling scoreset. should range 0 to 1. defaults to \code{c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0)}
 #' @param r0_to_NA assign value of NA if only georegional average availabe at the global level (r0). defaults to True.
+#' @param attributes_csv optional path and filename to save attribute table. defaults to NULL
 #' 
 #' @return Returns a data.frame of having all the \code{fld_id} from georegions filled in the following columns:
 #' \itemize{
@@ -78,7 +79,8 @@ gapfill_georegions = function(
   fld_value         = setdiff(names(data), c(fld_id, fld_weight, 'year')),
   georegion_labels  = NULL,
   gapfill_scoring_weights = c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0),
-  r0_to_NA          = TRUE
+  r0_to_NA          = TRUE,
+  attributes_csv    = NULL 
 ){
   # TODO: provide gapfilling with category data
   
@@ -266,6 +268,12 @@ gapfill_georegions = function(
       rename(setNames(c(fld_year, fld_id, fld_value), c('yr', 'id', 'z')))
   }
     
+  # store attributes, with option to save as .csv
   attr(r, 'gapfill_georegions') = z
+  
+  if (!is.null(attributes_csv)){
+    write.csv(z, attributes_csv, na = '', row.names=FALSE)   
+  }
+  
   return(r)
 }
