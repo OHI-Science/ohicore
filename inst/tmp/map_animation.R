@@ -130,9 +130,12 @@ for (i in 1:length(fps)){ # i=2
 
 # paste movies together
 txt = file.path(dir_fig, 'gl2013_videos.txt')
-vid = sprintf('%s/gl2013_animation.mp4', dirname(dir_fig))
+vid = sprintf('%s/gl2013_animation', dirname(dir_fig))
 writeLines(sprintf('file gl2013_%s.mp4', names(fps)), txt)
-system(sprintf('ffmpeg -y -f concat -i %s -c copy %s', txt, vid))
+system(sprintf('ffmpeg -y -f concat -i %s -c copy %s.mp4', txt, vid))
+
+# also create *.mov since *.mp4 timing is super slow in PowerPoint 2010
+system(sprintf('ffmpeg -i %s.mp4 -acodec copy -vcodec copy -f mov %s.mov', vid)
 
 # remove temporary files
 unlink(dir_fig, recursive=T)
