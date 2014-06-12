@@ -44,6 +44,9 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
   # read in
   m = read.csv(layers.csv)
   
+  # checks
+  stopifnot(c('layer','filename') %in% names(m))
+  
   # fields used by SelectLayer()
   m$fld_id_num     = NA
   m$fld_id_chr     = NA
