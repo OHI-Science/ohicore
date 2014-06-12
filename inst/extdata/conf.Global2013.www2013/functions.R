@@ -438,126 +438,6 @@ NP = function(scores, layers,
   return(scores.NP)  
 }
 
-
-NP.new = function(scores, layers, 
-              status_year=2008, 
-              trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
-                                 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
-  # 2013: NP(layers, status_year=2009, trend_years = list('corals'=2004:2008,'ornamentals'=2004:2008,'shells'=2004:2008, 'fish_oil'=2005:2009,'seaweeds'=2005:2009,'sponges'=2005:2009))
-  # 2012: NP(layers, status_year=2008, trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007, 'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008))
-
-  # Natural Products
-  # ====
-  # <small>Level of protection of the coast from inundation and erosion compared to the local natural potential</small>
-  # 
-  # $$
-  # x_{NP} = \frac{\sum_{p=1}^{N} w_p * x_p}{N};  
-  # $$
-  # 
-  # $$
-  # x_{p} = H_{p} * S_{p};
-  # $$
-  # 
-  # $$
-  # S_{p} = 1 - (\frac{E + R}{N})  
-  # $$
-  # 
-  # 
-  # <small>$w_p$ = proportional peak US dollar value of product $p$</small>  
-  # <small>$x_p$ = sustainable-harvest score for product $p$;  
-  # $Hp$ = harvest yield for product $p$  </small>
-  # <small>$Sp$ = sustainability of product $p$; </small>
-  # <small>$E$ = exposure term; </small>
-  # <small>$R$ = risk term</small>
-  # 
-  # **Global 2013**
-  # <small>￼products:aquaria fishes, corals, sponges, shells, seaweeds, fish</small>
-
-# LAYER PREP ohiprep
-np_harvest_ornamentalfish = read.csv('/Volumes/data_edit/model/GL-FAO-Commodities_v2009/data/rgn_fao_orn.csv', na='')
-np_harvest_seaweed        = read.csv('/Volumes/data_edit/model/GL-FAO-Commodities_v2009/data/rgn_fao_swd.csv')
-np_harvest_shell          = read.csv('/Volumes/data_edit/model/GL-FAO-Commodities_v2009/data/rgn_fao_shl.csv')
-np_harvest_sponges        = read.csv('/Volumes/data_edit/model/GL-FAO-Commodities_v2009/data/rgn_fao_spg.csv')
-np_harvest_coral          = read.csv('/Volumes/data_edit/model/GL-FAO-Commodities_v2009/data/rgn_fao_crl.csv')
-np_harvest_fishoil        = read.csv('/Volumes/data_edit/model/GL-FAO-Commodities_v2009/data/rgn_fao_oil.csv')
-
-p.m$layer = gsub('OrnamentalFish', 'orn', p.m$layer) 
-p.m$layer = gsub('Seaweeds', 'swd', p.m$layer) 
-p.m$layer = gsub('Shells', 'shl', p.m$layer) 
-p.m$layer = gsub('Sponges', 'spg', p.m$layer) 
-p.m$layer = gsub('Coral', 'crl', p.m$layer) 
-p.m$layer = gsub('FishOil', 'oil', p.m$layer) 
-# ? converted from converted from nominal dollars as reported by FAO ("observed measure unit - US Dollar") into constant 2008 USD using CPI adjustment data (Sahr 2011 - http://oregonstate.edu/cla/polisci/sahr/sahr).
-
-
-  #   # DEBUG
-  #   library(devtools); load_all()
-  #   yr=2012; year_max = 2010 # yr=2013; year_max = 2011
-  #   scenario=sprintf('Global%d.www2013', yr)
-  #   conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
-  #   layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
-  #                       layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
-  
-  
-  # layers
-  lyrs = list('rky' = c('rnky_np_harvest_relative'    = 'H'),
-              'rk'  = c('rnk_np_sustainability_score' = 'S',
-                        'rnk_np_weights_combo'        = 'w'))
-  lyr_names = sub('^\\w*\\.', '', names(unlist(lyrs))) 
-  
-  # cast data
-  D = SelectLayersData(layers, layers=lyr_names)
-  rky = rename(dcast(D, id_num + category + year ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rky']]))),
-               c('id_num'='region_id', 'category'='product', lyrs[['rky']]))
-  rk  = rename(dcast(D, id_num + category ~ layer, value.var='val_num', subset = .(layer %in% names(lyrs[['rk']]))),
-               c('id_num'='region_id', 'category'='product', lyrs[['rk']]))
-  
-  # get FIS status
-  r = scores %.%
-    filter(goal=='FIS' & dimension=='status') %.%
-    mutate(fis_status = score / 100) %.%
-    select(region_id, fis_status)
-  
-  # turn rn_fis_status to S for fish_oil
-  r$product = 'fish_oil'
-  rk = merge(rk, r, all.x=T)
-  rk$S[rk$product=='fish_oil'] = rk$fis_status[rk$product=='fish_oil']
-  rk = rk[,names(rk)!='fis_status']
-  
-  # merge H with S & w
-  rky = merge(rky, rk, all.x=T)
-  
-  # get status across products, per region and year
-  rky$w = ifelse(is.na(rky$w), 0, rky$w)
-  rky = na.omit(rky)
-  ry = ddply(rky, .(region_id, year), summarize,
-             status = sum(w * H * S) / sum(w) * 100); head(ry)
-  r.status = subset(ry, year==status_year, c(region_id,status))
-  
-  # get trend per product based on product-specific trend_years
-  rk.trend = rename(ddply(rky, .(region_id, product), function(x){
-    lm(H * S ~ year, x[x$year %in% trend_years[[as.character(x$product[1])]],])$coefficients[['year']] * 5
-  }), c('V1'='trend.k')); head(rk.trend)  
-  
-  # summarize trend per region
-  rk.trend.w = na.omit(merge(rk.trend, rk)); summary(rk.trend.w)
-  r.trend = ddply(rk.trend.w, .(region_id), summarize,
-                  trend = min(1, max(-1, sum(w * trend.k) / sum(w))))
-  
-  # return scores
-  scores.NP = r.status %.%
-    select(region_id, score=status) %.%
-    mutate(dimension='status') %.%
-    rbind(
-      r.trend %.%
-        select(region_id, score=trend) %.%
-        mutate(dimension='trend')) %.%
-    mutate(goal='NP')
-  return(scores.NP)  
-}
-
-
-
 CS = function(layers){
   
   # layers
@@ -670,13 +550,13 @@ TR = function(layers, year_max){
   # based on model/GL-NCEAS-TR_v2013a: TRgapfill.R, TRcalc.R...
   # spatial gapfill simply avg, not weighted by total jobs or country population?
   
-  # DEBUG
-  library(devtools); load_all()
-  yr=2013; year_max = 2011 # yr=2012; year_max = 2010
-  scenario=sprintf('Global%d.www2013', yr)
-  conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
-  layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
-                      layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
+#   # DEBUG
+#   library(devtools); load_all()
+#   yr=2013; year_max = 2011 # yr=2012; year_max = 2010
+#   scenario=sprintf('Global%d.www2013', yr)
+#   conf = ohicore::Conf(sprintf('inst/extdata/conf.%s', scenario))
+#   layers     = Layers(layers.csv = sprintf('inst/extdata/layers.%s.csv', scenario), 
+#                       layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
   
   # get regions
   rgns = layers$data[[conf$config$layer_region_labels]] %.%
@@ -995,7 +875,8 @@ LIV_ECO = function(layers, subgoal, liv_workforcesize_year=2009, eco_rev_adj_min
               score_w_avg = weighted.mean(score, w),
               score_avg   = mean(score),
               w_sum       = sum(w, na.rm=T)) %.%
-    mutate(score = ifelse(!is.na(score_w_avg), score_w_avg, score_avg))
+    mutate(score = ifelse(!is.na(score_w_avg), score_w_avg, score_avg)) %.%
+    ungroup()
   #print(filter(s_r, n>1) %.% as.data.frame())
   # 2013:
   #    component rgn_id                                            rgn_name           cntry_w cntry_w_na n n_w_na score_w_avg score_avg        w_sum     score

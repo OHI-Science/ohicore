@@ -10,6 +10,7 @@
 #' @param fld_value value to gapfill in \code{data}
 #' @param georegion_labels with same dimensions as georegions having fields: \code{r0_label}, \code{r1_label}, \code{r2_label} and \code{v_label}
 #' @param gapfill_scoring_weights used to determine gapfilling scoreset. should range 0 to 1. defaults to \code{c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0)}
+#' @param r0_to_NA assign value of NA if only georegional average availabe at the global level (r0). defaults to True.
 #' 
 #' @return Returns a data.frame of having all the \code{fld_id} from georegions filled in the following columns:
 #' \itemize{
@@ -76,9 +77,9 @@ gapfill_georegions = function(
   fld_year          = ifelse('year' %in% names(data), 'year', NA),
   fld_value         = setdiff(names(data), c(fld_id, fld_weight, 'year')),
   georegion_labels  = NULL,
-  gapfill_scoring_weights = c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0)
+  gapfill_scoring_weights = c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0),
+  r0_to_NA          = TRUE
 ){
-  # TODO: provide aggregate_by_country_year() functionality of old [AggregateLayers.R](https://github.com/OHI-Science/ohicore/blob/88b136a6f32dd20160b3b3d28e30794ac66f69c5/R/AggregateLayers.R)
   # TODO: provide gapfilling with category data
   
   # check arguments
@@ -92,10 +93,17 @@ gapfill_georegions = function(
   # rename fields
   g = rename(georegions      , setNames('id', fld_id))
   d = rename(data            , setNames(c('id','v'),  c(fld_id, fld_value)))
+  
+  # check for duplicate georegion entries
+  stopifnot(anyDuplicated(g$id) == 0)
+  
+  # georegion_labels
   if (!is.null(georegion_labels)){
     stopifnot(fld_id %in% names(georegion_labels))
     stopifnot(all(c('r0_label','r1_label','r2_label') %in% names(georegion_labels)))
+    stopifnot(nrow(georegion_labels) == nrow(georegions))
     l = rename(georegion_labels, setNames('id', fld_id))
+    stopifnot(anyDuplicated(l$id) == 0)
   }
     
   # get n regions per georegion for later calculating gapfill score
@@ -125,6 +133,9 @@ gapfill_georegions = function(
   }
 
   if (is.na(fld_year)){
+    # check for duplicates
+    stopifnot(anyDuplicated(d$id) == 0)
+    
     # merge georegions with data
     x = merge(g, d, by='id', all.x=T) %.%
       arrange(id)
@@ -156,10 +167,13 @@ gapfill_georegions = function(
         by='r0') %.%
       arrange(r0, r1, r2, id) %.%
       select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna)    
-  } else {
+  } else {    
     # using year
     d = rename(d, setNames('yr', fld_year))
     
+    # check for duplicates
+    stopifnot(anyDuplicated(d[,c('id','yr')]) == 0)
+              
     # expand georegions to every possible year in data
     gy = expand.grid(list(
       yr = sort(unique(d$yr)),
@@ -224,7 +238,10 @@ gapfill_georegions = function(
                  ifelse(!is.na(r2_v), r2_v,
                         ifelse(!is.na(r1_v), r1_v,
                                ifelse(!is.na(r0_v), r0_v, NA)))))
-    
+
+  # if r0_to_NA, assign value of NA if only georegional average availabe at the global level (r0)
+  if (r0_to_NA) z$z = ifelse(z$z_level=='r0', NA, z$z)
+  
   # add labels if provided
   if (!is.null(georegion_labels)){
     z = z %.%

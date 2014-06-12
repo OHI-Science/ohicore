@@ -18,9 +18,9 @@ dir_conf = list(
 dir_conf$ohiprep = '../ohiprep'
 
 # variables and flags for turning on/off time consuming code
-do.years.www2013 = c(2012,2013)
-do.layers.www2013 = T
-do.scores.www2013 = T
+do.years.www2013   = c(2012,2013)
+do.layers.www2013  = T
+do.scores.www2013  = T
 do.spatial.www2013 = F
 do.layers.Global2012.Nature2012ftp = F
 scores.source = 'calculate'  # 'calculate' OR path, eg 'src/toolbox/scenarios/global_2013a/results/OHI_results_for_Radical_2013-12-13.csv'
