@@ -662,6 +662,7 @@ TR = function(layers, year_max){
 
   # calculate trend
   d_t = d_g_f_r %.%
+    filter(!is.na(Xtr_rmax)) %.%
     arrange(year, rgn_id) %.%
     group_by(rgn_id) %.%
     do(mod = lm(Xtr_rmax ~ year, data = .)) %>%
