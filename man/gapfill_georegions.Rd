@@ -8,7 +8,7 @@ gapfill_georegions(data, georegions, fld_id = intersect(names(data),
   names(data), "year", NA), fld_value = setdiff(names(data), c(fld_id,
   fld_weight, "year")), georegion_labels = NULL,
   gapfill_scoring_weights = c(r0 = 1, r1 = 0.8, r2 = 0.5, v = 0),
-  r0_to_NA = TRUE)
+  r0_to_NA = TRUE, attributes_csv = NULL)
 }
 \arguments{
 \item{data}{data.frame to gapfill having at least fields: \code{fld_id} and \code{fld_value}, and optionally \code{fld_weight}}
@@ -28,6 +28,8 @@ gapfill_georegions(data, georegions, fld_id = intersect(names(data),
 \item{gapfill_scoring_weights}{used to determine gapfilling scoreset. should range 0 to 1. defaults to \code{c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0)}}
 
 \item{r0_to_NA}{assign value of NA if only georegional average availabe at the global level (r0). defaults to True.}
+
+\item{attributes_csv}{optional path and filename to save attribute table. defaults to NULL}
 }
 \value{
 Returns a data.frame of having all the \code{fld_id} from georegions filled in the following columns:
