@@ -55,6 +55,7 @@ The returned data.frame also has an attribute "gapfill_georegions" which shows t
   \item \code{r1_n_notna} - count of region values that are not NA for level 1
   \item \code{r0_n_notna} - count of region values that are not NA for level 0
   \item \code{z_level} - finest level available
+  \item \code{z_ids} - ids for regions that are not NA which contributed to the score
   \item \code{z_n} - count of input values for finest level available
   \item \code{z_n_pct} - percent of region values that are not NA over all possible [0 to 1]
   \item \code{z_g_score} - gapfilling score (see details)
