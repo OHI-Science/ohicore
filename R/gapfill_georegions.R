@@ -36,6 +36,7 @@
 #'   \item \code{r1_n_notna} - count of region values that are not NA for level 1
 #'   \item \code{r0_n_notna} - count of region values that are not NA for level 0
 #'   \item \code{z_level} - finest level available
+#'   \item \code{z_ids} - ids for regions that are not NA which contributed to the score
 #'   \item \code{z_n} - count of input values for finest level available
 #'   \item \code{z_n_pct} - percent of region values that are not NA over all possible [0 to 1]
 #'   \item \code{z_g_score} - gapfilling score (see details)
@@ -151,21 +152,24 @@ gapfill_georegions = function(
           group_by(r2) %.%
           summarise(
             r2_v       = weighted.mean(v, w),
-            r2_n_notna = n()),
+            r2_n_notna = n(),
+            r2_ids     = paste(id, collapse=',')),
         by='r2') %.%
       left_join(
         y %.% 
           group_by(r1) %.%
           summarise(
             r1_v       = weighted.mean(v, w),
-            r1_n_notna = n()),
+            r1_n_notna = n(),
+            r1_ids     = paste(id, collapse=',')),
         by='r1') %.%
       left_join(
         y %.% 
           group_by(r0) %.%
           summarise(
             r0_v       = weighted.mean(v, w),
-            r0_n_notna = n()),
+            r0_n_notna = n(),
+            r0_ids     = paste(id, collapse=',')),
         by='r0') %.%
       arrange(r0, r1, r2, id) %.%
       select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna)    
@@ -197,49 +201,77 @@ gapfill_georegions = function(
           group_by(yr, r2) %.%
           summarise(
             r2_v       = weighted.mean(v, w),
-            r2_n_notna = n()),
+            r2_n_notna = n(),
+            r2_ids     = paste(id, collapse=',')),
         by=c('yr','r2')) %.%
       left_join(
         y %.% 
           group_by(yr, r1) %.%
           summarise(
             r1_v       = weighted.mean(v, w),
-            r1_n_notna = n()),
+            r1_n_notna = n(),
+            r1_ids     = paste(id, collapse=',')),
         by=c('yr','r1')) %.%
       left_join(
         y %.% 
           group_by(yr, r0) %.%
           summarise(
             r0_v       = weighted.mean(v, w),
-            r0_n_notna = n()),
+            r0_n_notna = n(),
+            r0_ids     = paste(id, collapse=',')),
         by=c('yr','r0')) %.%
       arrange(yr, r0, r1, r2, id) %.%
-      select(yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna)    
+      select(yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, r2_ids, r1_ids, r0_ids)    
   }
   
-  # select best available value and calcualte gapfilling score
+  # select best available value and calcualte gapfilling score  
   z = z %.%
     mutate(
       z_level = ifelse(!is.na(v), 'v',
                        ifelse(!is.na(r2_v), 'r2',
                               ifelse(!is.na(r1_v), 'r1',
-                                     ifelse(!is.na(r0_v), 'r0', NA)))),
-      z_n = ifelse(!is.na(v), 1,
-                   ifelse(!is.na(r2_v), r2_n,
-                          ifelse(!is.na(r1_v), r1_n,
-                                 ifelse(!is.na(r0_v), r0_n, NA)))),
-      z_n_pct = ifelse(!is.na(v), 1,
-                       ifelse(!is.na(r2_v), r2_n_notna/r2_n,
-                              ifelse(!is.na(r1_v), r1_n_notna/r1_n,
-                                     ifelse(!is.na(r0_v), r0_n_notna/r0_n, NA)))),
-      z_g_score = ifelse(!is.na(v), 0,
-                         ifelse(!is.na(r2_v), gapfill_scoring_weights['r2'] - z_n_pct * diff(gapfill_scoring_weights[c('v','r2')]),
-                                ifelse(!is.na(r1_v), gapfill_scoring_weights['r1'] - z_n_pct * diff(gapfill_scoring_weights[c('r1','r2')]),
-                                       ifelse(!is.na(r0_v), gapfill_scoring_weights['r0'] - z_n_pct * diff(gapfill_scoring_weights[c('r0','r1')]), NA)))),
-      z = ifelse(!is.na(v), v,
-                 ifelse(!is.na(r2_v), r2_v,
-                        ifelse(!is.na(r1_v), r1_v,
-                               ifelse(!is.na(r0_v), r0_v, NA)))))
+                                     ifelse(!is.na(r0_v), 'r0', NA)))))
+      
+  # assign attributes by georegion level (r#)
+  z  = rbind_list(
+    # rgn
+    z %.%
+      filter(z_level=='v') %.%
+      mutate(
+        z_ids     = as.character(id),
+        z_n       = 1,
+        z_n_pct   = 1,
+        z_g_score = 0,
+        z         = v),
+    # r2
+    z %.%
+      filter(z_level=='r2') %.%
+      mutate(
+        z_ids     = r2_ids,
+        z_n       = r2_n_notna,
+        z_n_pct   = r2_n_notna/r2_n,
+        z_g_score = gapfill_scoring_weights['r2'] - z_n_pct * diff(gapfill_scoring_weights[c('v','r2')]),
+        z         = r2_v),
+    # r1
+    z %.%
+      filter(z_level=='r1') %.%
+      mutate(
+        z_ids     = r1_ids,
+        z_n       = r1_n_notna,
+        z_n_pct   = r1_n_notna/r1_n,
+        z_g_score = gapfill_scoring_weights['r1'] - z_n_pct * diff(gapfill_scoring_weights[c('v','r1')]),
+        z         = r1_v),
+    # r0
+    z %.%
+      filter(z_level=='r0') %.%
+      mutate(
+        z_ids     = r0_ids,
+        z_n       = r0_n_notna,
+        z_n_pct   = r0_n_notna/r0_n,
+        z_g_score = gapfill_scoring_weights['r0'] - z_n_pct * diff(gapfill_scoring_weights[c('v','r0')]),
+        z         = r0_v)
+    ) %.%
+    select(-r2_ids, -r1_ids, -r0_ids)
 
   # if r0_to_NA, assign value of NA if only georegional average availabe at the global level (r0)
   if (r0_to_NA) z$z = ifelse(z$z_level=='r0', NA, z$z)
@@ -252,7 +284,7 @@ gapfill_georegions = function(
           select(id=id, r0_label, r1_label, r2_label, v_label),
         by='id') %.%
       arrange(r0_label, r1_label, r2_label, v_label) %.%
-      select(r0_label, r1_label, r2_label, v_label, yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_n, z_n_pct, z_g_score, z)
+      select(r0_label, r1_label, r2_label, v_label, yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_ids, z_n, z_n_pct, z_g_score, z)
   }
   
   # return result
