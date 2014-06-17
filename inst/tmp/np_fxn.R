@@ -27,42 +27,92 @@ r_blast   = read.csv('../ohiprep/Global/WRI-ReefsAtRisk_v2013/data/gl_thr_blast_
 stopifnot(nrow(group_by(h_tonnes, product, rgn_id) %.% summarize(year_max = max(year)) %.% filter(year_max!=yr_max)) == 0)
 stopifnot(nrow(group_by(h_usd   , product, rgn_id) %.% summarize(year_max = max(year)) %.% filter(year_max!=yr_max)) == 0)
 
-# show where NAs usd vs tonnes
-h_na = merge(h_tonnes, h_usd, all=T) %.%
-  filter(year <= yr_max) %.% 
-  filter(is.na(usd) | is.na(tonnes)) %.% 
-  mutate(na = ifelse(is.na(usd), 'usd', 'tonnes'))
-addmargins(table(h_na %.% select(year, na)))
-# tonnes    usd 
-#    691    214
-
-# merge harvest and filter by yr_max per scenario
-h = merge(h_tonnes, h_usd, all=T) %.%
-  filter(year <= yr_max)
-
-# H: relativized harvest
+# merge harvest in tonnes and usd
 h = merge(
-  h_tonnes %.%
-    group_by(rgn_id, product) %.%
-    mutate(
-      tonnes_max   = max(tonnes),
-      tonnes_peak  = tonnes_max  * (1 - harvest_peak_buffer),
-      tonnes_rel   = ifelse(tonnes >= tonnes_peak, 1, tonnes / tonnes_peak)),
-  h_usd %.%
-    group_by(rgn_id, product) %.%
-    mutate(
-      usd_max      = max(usd),
-      usd_peak     = usd_max  * (1 - harvest_peak_buffer),
-      usd_rel      = ifelse(usd >= usd_peak, 1, usd / usd_peak)),
-  by=c('rgn_name','rgn_id','product','year')) %.%
+  h_tonnes, 
+  h_usd,
+  by=c('rgn_name','rgn_id','product','year'), 
+  all=T) %.%
+  filter(year <= yr_max) %>%
+  arrange(rgn_id, product, year) %>%
+  group_by(rgn_id, product)
+
+# show where NAs usd vs tonnes
+h_na = h %.% 
+  filter(is.na(usd) | is.na(tonnes)) %.% 
+  mutate(var_na = ifelse(is.na(usd), 'usd', 'tonnes'))
+addmargins(table(ungroup(h_na) %.% select(year, var_na)))
+# tonnes    usd 
+#    694    214
+
+# handle NA mismatch b/n tonnes and usd with correlative model
+m_tonnes = h  %>%
+  mutate(tonnes_nas   = sum(is.na(tonnes))) %>%
+  filter(tonnes_nas > 0 & !is.na(usd) & !is.na(tonnes)) %>%
+  do(mdl = lm(tonnes ~ usd, data=.)) %>%
+  summarize(
+    rgn_id   = rgn_id,
+    product  = factor(levels(h$product)[product], levels(h$product)),
+    usd_ix0  = coef(mdl)['(Intercept)'],
+    usd_coef = coef(mdl)['usd'])
+m_usd = h %>%
+  mutate(usd_nas = sum(is.na(usd))) %>%
+  filter(usd_nas > 0 & !is.na(usd) & !is.na(tonnes)) %>%
+  do(mdl = lm(usd ~ tonnes, data=.)) %>%
+  summarize(
+    rgn_id      = rgn_id,
+    product     = factor(levels(h$product)[product], levels(h$product)),
+    tonnes_ix0  = coef(mdl)['(Intercept)'],
+    tonnes_coef = coef(mdl)['tonnes'])
+h = h %>%
+  left_join(m_tonnes, by=c('rgn_id','product')) %>%
   mutate(
-    H = ifelse(!is.na(tonnes_rel), tonnes_rel,    usd_rel), # H: harvest yield
-    w = ifelse(!is.na(   usd_rel),    usd_rel, tonnes_rel)) # w: proportional peak value
+    tonnes_mdl  = usd_ix0 + usd_coef * usd,
+    tonnes_orig = tonnes,
+    tonnes      = ifelse(is.na(tonnes), tonnes_mdl, tonnes)) %>%
+  left_join(m_usd, by=c('rgn_id','product')) %>%
+  mutate(
+    usd_mdl  = tonnes_ix0 + tonnes_coef * tonnes,
+    usd_orig = usd,
+    usd      = ifelse(is.na(usd), usd_mdl, usd))
+
+# relativize harvest
+h = h %>%
+  mutate(    
+    tonnes_max  = max(tonnes, na.rm=T),
+    tonnes_peak = tonnes_max  * (1 - harvest_peak_buffer),
+    tonnes_rel  = ifelse(tonnes >= tonnes_peak, 1, tonnes / tonnes_peak),
+    usd_max     = max(usd, na.rm=T),
+    usd_peak    = usd_max  * (1 - harvest_peak_buffer),
+    usd_rel     = ifelse(usd >= usd_peak, 1, usd / usd_peak),
+    # swap one with other if still NA even after correlative gapfilling above
+    tonnes_rel_orig = tonnes_rel,
+    usd_rel_orig    = usd_rel,
+    tonnes_rel      = ifelse(is.na(tonnes_rel), usd_rel   , tonnes_rel), # 109 rows
+    usd_rel         = ifelse(is.na(usd_rel)   , tonnes_rel, usd_rel))    #  99 rows
+
+# report whether region gapfilled for any product-year per var at either correlative or swap stages
+h_g = h %>%
+  # per region-product-year
+  mutate(
+    tonnes_gapfilled = ifelse( (is.na(tonnes_orig) & !is.na(tonnes_rel)) | (tonnes_rel_orig != tonnes_rel), T, F),
+    usd_gapfilled    = ifelse( (is.na(usd_orig)    & !is.na(usd_rel)   ) | (usd_rel_orig    != usd_rel)   , T, F)) %>%
+  # per region
+  group_by(rgn_id) %>%
+  summarize(
+    tonnes_gapfilled = ifelse(sum(tonnes_gapfilled) > 0, T, F),
+    usd_gapfilled    = ifelse(sum(usd_gapfilled) > 0, T, F))
+
+# debug output
+write.csv(h  , 'inst/tmp/np/np_harvest_gapfilled_data.csv', row.names=F, na='')
+write.csv(h_g, 'inst/tmp/np/np_harvest_gapfilled_summary.csv', row.names=F, na='')
+
+
+#    H = ifelse(!is.na(tonnes_rel), tonnes_rel,    usd_rel), # H: harvest yield
+#    w = ifelse(!is.na(   usd_rel),    usd_rel, tonnes_rel)) # w: proportional peak value
 # for now, skipping smoothing done in PLoS 2013
   
 # S: sustainability of harvest
-
-
 read.csv('../ohiprep/Global/WRI-ReefsAtRisk_v2013/data/gl_thr_poison_3nm_rgn2013.csv') %.% head()
 
 # risk for ornamentals set to 1 if blast or cyanide fishing present
@@ -113,12 +163,11 @@ S = 1 - mean(c(E,R), na.rm=T)
 
   
 
-# buffer w/in 35% of peak
-
 
 # log-transform
 
 # ? converted from converted from nominal dollars as reported by FAO ("observed measure unit - US Dollar") into constant 2008 USD using CPI adjustment data (Sahr 2011 - http://oregonstate.edu/cla/polisci/sahr/sahr).
+
 
 
 #   # DEBUG
@@ -130,7 +179,7 @@ S = 1 - mean(c(E,R), na.rm=T)
 #                       layers.dir = sprintf('inst/extdata/layers.%s'    , scenario))
 
 # function ----
-NP.new = function(scores, layers, 
+NP.old = function(scores, layers, 
                   status_year=2008, 
                   trend_years = list('corals'=2003:2007,'ornamentals'=2003:2007,'shells'=2003:2007,
                                      'fish_oil'=2004:2008,'seaweeds'=2004:2008,'sponges'=2004:2008)){
