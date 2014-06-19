@@ -108,5 +108,5 @@ scores = CalculateAll(conf, layers, debug=T)
 write.csv(scores, sprintf('inst/extdata/scores.%s.csv', scenario), na='', row.names=F)
 
 # archive scores on disk (out of github, for easy retrieval later)
-csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores/scores.%s_%s.csv', dir_conf$annex, scenario, format(Sys.Date(), '%Y-%m-%d'))
+csv = sprintf('%s/Global/NCEAS-OHI-Scores-Archive/scores/scores_antarctica2014.%s_%s.csv', dir_conf$annex, scenario, format(Sys.Date(), '%Y-%m-%d'))
 write.csv(scores, csv, na='', row.names=F)
