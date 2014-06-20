@@ -3,10 +3,10 @@
 \alias{launch_app}
 \title{Launch the browser application}
 \usage{
-launch_app(dir_scenario, debug = F)
+launch_app(dir_scenario = getwd(), debug = F, launch.browser = T, ...)
 }
 \arguments{
-\item{dir_scenario}{path to the scenario directory}
+\item{dir_scenario}{path to the scenario directory. defaults to working directory (\code{\link{getwd}}).}
 
 \item{...}{arguments passed to \code{shiny::runApp}}
 }

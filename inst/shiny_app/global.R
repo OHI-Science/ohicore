@@ -1,7 +1,12 @@
 # see launch_app(), makes global variables: conf, layers, scores, dir_spatial, dir_scenario
 
 # load_all('~/Code/ohicore'); load_all('~/Code/ohigui'); launchApp()
-require(shiny); require(RJSONIO); require(rCharts); require(RColorBrewer); require(ohicore); require(ohigui)
+require(shiny)
+require(RJSONIO)
+require(RColorBrewer)
+require(rCharts)
+require(ohicore)
+
 options(stringsAsFactors = F)
 options(error=NULL)
 
