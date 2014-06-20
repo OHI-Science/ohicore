@@ -5,7 +5,6 @@ require(shiny)
 require(RJSONIO)
 require(RColorBrewer)
 require(rCharts)
-require(ohicore)
 
 options(stringsAsFactors = F)
 options(error=NULL)
