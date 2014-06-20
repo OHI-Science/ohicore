@@ -18,7 +18,8 @@
 #' }
 #' @import shiny rCharts RJSONIO RColorBrewer
 #' @export launch_app
-launch_app = function(dir_scenario=getwd(), debug=F, launch.browser=T,...){  
+launch_app = function(dir_scenario=getwd(), debug=F, quiet=!debug, 
+                      launch.browser=T, port=NULL, display.mode='normal', ...){  
   # library(devtools); load_all('~/github/ohicore'); dir_scenario='~/github/ohi-global/eez2013'; debug=T; launch.browser=T
     
   # check for files/directories
@@ -45,7 +46,10 @@ launch_app = function(dir_scenario=getwd(), debug=F, launch.browser=T,...){
   # update path for devtools load_all() mode
   if (!file.exists(dir_app))  dir_app =  system.file('inst/shiny_app', package='ohicore')
   
-  if (debug) options(shiny.trace=TRUE)
+  if (debug) {
+    print(sprintf('dir_app: %s', dir_app))
+    options(shiny.trace=TRUE)
+  }
   
-  shiny::runApp(appDir=dir_app, launch.browser,...) # shiny::runApp(appDir=dir_app)
+  shiny::runApp(appDir=dir_app, launch.browser=launch.browser, quiet=quiet, port=port, display.mode=display.mode, ...) # shiny::runApp(appDir=dir_app)
 }

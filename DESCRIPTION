@@ -42,6 +42,7 @@ Collate:
     'SelectLayersData.R'
     'SpatialSchemes.R'
     'TransformSpatialScheme.R'
+    'aster.R'
     'data.R'
     'gapfill_georegions.R'
     'launch_app.R'

@@ -1,13 +1,18 @@
 # see launch_app(), makes global variables: conf, layers, scores, dir_spatial, dir_scenario
 
 # load_all('~/Code/ohicore'); load_all('~/Code/ohigui'); launchApp()
+print('in global.R...')
 require(shiny)
 require(RJSONIO)
 require(RColorBrewer)
 require(rCharts)
 
+print('  past require')
+
 options(stringsAsFactors = F)
-options(error=NULL)
+#options(error=NULL)
+
+print('  past options')
 
 # Data: select score ----
 sel_score_target_choices = c('0 Index'='Index', 

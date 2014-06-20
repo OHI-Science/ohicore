@@ -3,7 +3,8 @@
 \alias{launch_app}
 \title{Launch the browser application}
 \usage{
-launch_app(dir_scenario = getwd(), debug = F, launch.browser = T, ...)
+launch_app(dir_scenario = getwd(), debug = F, quiet = !debug,
+  launch.browser = T, port = NULL, display.mode = "normal", ...)
 }
 \arguments{
 \item{dir_scenario}{path to the scenario directory. defaults to working directory (\code{\link{getwd}}).}
