@@ -56,7 +56,7 @@ Conf = methods::setRefClass(
       
      },
     write = function(dir){
-      dir.create(dir)
+      if (!file.exists(dir)) dir.create(dir)
       
       # write R files
       writeLines(.self$config_txt   , file.path(dir, 'config.R'   ))

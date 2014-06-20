@@ -37,7 +37,7 @@ WriteScenario = function(
   sh_app       =  file.path(dir_scenario, 'run_app.sh') 
 
   # scenario dir
-  dir.create(dir_scenario, recursive=T, showWarnings=F)
+  if (!file.exists(dir_scenario)) dir.create(dir_scenario, recursive=T, showWarnings=F)
   
   # conf object
   scenario$conf$write(dir_conf)
@@ -49,7 +49,7 @@ WriteScenario = function(
   write.csv(scenario$scores, csv_scores, na='', row.names=F)
   
   # spatial dir
-  dir.create(dir_spatial, recursive=T, showWarnings=F)
+  if (!file.exists(dir_spatial)) dir.create(dir_spatial, recursive=T, showWarnings=F)
   for (f in list.files(scenario$spatial, full.names=T)){ # f = list.files(scenario$spatial, full.names=T)[1]
     file.copy(f, file.path(dir_spatial, basename(f)))
   }
