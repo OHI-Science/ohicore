@@ -2,7 +2,7 @@
 #'
 #' This function launches the OHI application into a web browser with the scenario data laoded.
 #'
-#' @param dir_scenario path to the scenario directory
+#' @param dir_scenario path to the scenario directory. defaults to working directory (\code{\link{getwd}}).
 #' @param ... arguments passed to \code{shiny::runApp}
 #' @details The dir_scenario is expected to have the following files and directories (*/), some of which are optional:
 #' \itemize{
@@ -18,8 +18,8 @@
 #' }
 #' @import shiny rCharts RJSONIO RColorBrewer
 #' @export launch_app
-launch_app = function(dir_scenario, debug=F){  
-  # library(devtools); load_all(); dir_scenario = '~/github/ohi-global/eez2013'
+launch_app = function(dir_scenario=getwd(), debug=F, launch.browser=T,...){  
+  # library(devtools); load_all('~/github/ohicore'); dir_scenario='~/github/ohi-global/eez2013'; debug=T; launch.browser=T
     
   # check for files/directories
   stopifnot(file.exists(sprintf('%s/conf'      , dir_scenario)))
@@ -47,5 +47,5 @@ launch_app = function(dir_scenario, debug=F){
   
   if (debug) options(shiny.trace=TRUE)
   
-  shiny::runApp(appDir=dir_app, ...) # shiny::runApp(appDir=dir_app)
+  shiny::runApp(appDir=dir_app, launch.browser,...) # shiny::runApp(appDir=dir_app)
 }

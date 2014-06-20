@@ -36,7 +36,6 @@ Collate:
     'Layers.R'
     'PlotChloroplethMap.R'
     'PlotFlower.R'
-    'ReadWriteScenario.R'
     'ReportScores.R'
     'ReportScoresComparison.R'
     'ScoreScaling.R'
@@ -46,4 +45,5 @@ Collate:
     'data.R'
     'gapfill_georegions.R'
     'launch_app.R'
+    'write_shorctuts.R'
 LazyData: TRUE
