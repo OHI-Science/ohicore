@@ -45,5 +45,5 @@ Collate:
     'data.R'
     'gapfill_georegions.R'
     'launch_app.R'
-    'write_shorctuts.R'
+    'write_shortcuts.R'
 LazyData: TRUE
