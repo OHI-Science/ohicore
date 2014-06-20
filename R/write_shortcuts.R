@@ -43,4 +43,23 @@ write_shortcuts = function(dir_scenario=getwd(), all_os = F) {
     Sys.chmod(file.path(dir_scenario, 'launch_app.command'), mode = "0777", use_umask = TRUE)    
   }
   
+  
+  # calculate_scores.R
+  cat("# presume that working directory in current scenario directory, eg:",
+      sprintf("# setwd('~/%s/%s')", basename(dirname(normalizePath(dir_scenario))), basename(dir_scenario)),
+      "",
+      "# load conf",
+      "conf = Conf('conf')",
+      "",
+      "# run checks on layers",
+      "CheckLayers('layers.csv', 'layers', flds_id=conf$config$layers_id_fields)",
+      "",
+      "# load layers",
+      "layers = Layers('layers.csv', 'layers')",
+      "",
+      "# calculate scores",
+      "scores = CalculateAll(conf, layers, debug=F)",
+      "write.csv(scores, 'scores.csv', na='', row.names=F)",
+      sep='\n', file=file.path(dir_scenario, 'calculate_scores.R'))
+  
 }

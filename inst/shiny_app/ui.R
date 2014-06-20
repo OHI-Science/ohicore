@@ -26,7 +26,7 @@ shinyUI(bootstrapPage(div(class='container-fluid',             # alternate to: p
     top=0, right=0, height=10, width=200, fixed=F,
     div(#style="padding: 8px; border-bottom: 1px solid #CCC; background: #FFFFEE;",
       HTML(markdownToHTML(fragment.only=TRUE, text=c(
-        sprintf('Scenario: %s/%s', basename(dirname(dir_scenario)), basename(dir_scenario))))))), 
+        sprintf('Scenario: %s/%s', basename(dirname(normalizePath(dir_scenario))), basename(dir_scenario))))))), 
 
   div(class = "row-fluid", tabsetPanel(id='tabsetFunction',    # alternate to: mainPanel                                                                             
     tabPanel('Data', value='data', conditionalPanel(condition="input.tabsetFunction == 'data'",
