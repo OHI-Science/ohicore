@@ -19,7 +19,7 @@
 #'   \item{\emph{resilience_matrix.csv}}
 #'   \item{\emph{resilienceweights.csv}}
 #' }
-#' See also \code{\link{Conf_write}() to write the configuration back to disk.}
+#' See also \code{\link{Conf_write}()} to write the configuration back to disk.
 #' @export Conf
 #' @exportClass Conf
 
@@ -56,7 +56,7 @@ Conf = methods::setRefClass(
       
      },
     write = function(dir){
-      dir.create(dir)
+      if (!file.exists(dir)) dir.create(dir)
       
       # write R files
       writeLines(.self$config_txt   , file.path(dir, 'config.R'   ))

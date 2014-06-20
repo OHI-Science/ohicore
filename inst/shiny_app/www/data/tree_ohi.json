@@ -1,0 +1,112 @@
+{"name": "Index","children":[
+    {"name": "Food provision","children":[
+        {"name": "Fisheries","children":[
+            {"name": "Status"},
+            {"name": "Trend"},
+            {"name": "Resilience"},
+            {"name": "Pressures"}]},
+        {"name": "Mariculture","children":[
+            {"name": "Status"},
+            {"name": "Trend"},
+            {"name": "Resilience"},
+            {"name": "Pressures"}]}]},
+    {"name": "Artisinal fishing opportunity","children":[
+        {"name": "Status"},
+        {"name": "Trend"},
+        {"name": "Resilience"},
+        {"name": "Pressures"}]},
+    {"name": "Natural products","children":[
+        {"name": "Status"},
+        {"name": "Trend"},
+        {"name": "Resilience"},
+        {"name": "Pressures","children":[
+            {"name": "corals","children":[
+                {"name": "global_np_product_weights_byid"}]},
+            {"name": "fish_oil","children":[
+                {"name": "global_np_product_weights_byid"}]},
+            {"name": "ornamentals"},
+            {"name": "seaweeds"},
+            {"name": "shells"},
+            {"name": "sponges"}]}]},
+    {"name": "Carbon storage","children":[
+        {"name": "Status"},
+        {"name": "Trend"},
+        {"name": "Resilience"},
+        {"name": "Pressures","children":[
+            {"name": "mangroves","children":[
+                {"name": "i_cs_extent"}]},
+            {"name": "salt_marshes"},
+            {"name": "seagrasses"}]}]},
+    {"name": "Coastal protection","children":[
+        {"name": "Status"},
+        {"name": "Trend"},
+        {"name": "Resilience"},
+        {"name": "Pressures","children":[
+            {"name": "corals","children":[
+                {"name": "i_cp_extent"}]},
+            {"name": "mangroves"},
+            {"name": "salt_marshes"},
+            {"name": "sea_ice_shoreline"},
+            {"name": "seagrasses"}]}]},
+    {"name": "Tourism and recreation","children":[
+        {"name": "Status"},
+        {"name": "Trend"},
+        {"name": "Resilience"},
+        {"name": "Pressures"}]},
+    {"name": "Coastal livelihoods and economies","children":[
+        {"name": "Livelihoods","children":[
+            {"name": "Status"},
+            {"name": "Trend"},
+            {"name": "Resilience"},
+            {"name": "Pressures","children":[
+                {"name": "cf","children":[
+                    {"name": "i_le_wp"}]},
+                {"name": "mar"},
+                {"name": "mmw"},
+                {"name": "ph"},
+                {"name": "tour"},
+                {"name": "tran"}]}]},
+        {"name": "Economies","children":[
+            {"name": "Status"},
+            {"name": "Trend"},
+            {"name": "Resilience"},
+            {"name": "Pressures","children":[
+                {"name": "aqf"},
+                {"name": "cf"},
+                {"name": "mar"},
+                {"name": "mmw"},
+                {"name": "tour"}]}]}]},
+    {"name": "Sense of place","children":[
+        {"name": "Iconic species","children":[
+            {"name": "Status"},
+            {"name": "Trend"},
+            {"name": "Resilience"},
+            {"name": "Pressures"}]},
+        {"name": "Lasting special places","children":[
+            {"name": "Status"},
+            {"name": "Trend"},
+            {"name": "Resilience"},
+            {"name": "Pressures"}]}]},
+    {"name": "Clean waters","children":[
+        {"name": "Status"},
+        {"name": "Trend"},
+        {"name": "Resilience"},
+        {"name": "Pressures"}]},
+    {"name": "Biodiversity","children":[
+        {"name": "Habitats","children":[
+            {"name": "Status"},
+            {"name": "Trend"},
+            {"name": "Resilience"},
+            {"name": "Pressures","children":[
+                {"name": "corals","children":[
+                    {"name": "i_hab_presence"}]},
+                {"name": "mangroves"},
+                {"name": "salt_marshes"},
+                {"name": "sea_ice_edge"},
+                {"name": "seagrasses"},
+                {"name": "soft_bottom"}]}]},
+        {"name": "Species","children":[
+            {"name": "Status"},
+            {"name": "Trend"},
+            {"name": "Resilience"},
+            {"name": "Pressures"}]}]}]}

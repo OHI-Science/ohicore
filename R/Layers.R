@@ -52,7 +52,7 @@ Layers = methods::setRefClass(
       },
     write = function(layers.csv, layers.dir){
       write.csv(.self$meta, layers.csv, row.names=F, na='')
-      dir.create(layers.dir)
+      if (!file.exists(layers.dir)) dir.create(layers.dir)
       for (i in 1:nrow(.self$meta)){
         lyr = .self$meta$layer[i]
         csv = .self$meta$filename[i]
