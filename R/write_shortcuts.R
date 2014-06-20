@@ -46,7 +46,7 @@ write_shortcuts = function(dir_scenario=getwd(), all_os = F) {
   
   # calculate_scores.R
   cat("# presume that working directory in current scenario directory, eg:",
-      "# setwd('~/github/ohi-global/eez2013')",
+      sprintf("# setwd('~/%s/%s')", basename(dirname(normalizePath(dir_scenario))), basename(dir_scenario)),
       "",
       "# load conf",
       "conf = Conf('conf')",
