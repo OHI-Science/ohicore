@@ -6,13 +6,12 @@ require(shiny)
 require(RJSONIO)
 require(RColorBrewer)
 require(rCharts)
+require(markdown)
 
-print('  past require')
+cat(sprintf('dir_scenario: %s\n', dir_scenario))
 
 options(stringsAsFactors = F)
-#options(error=NULL)
-
-print('  past options')
+options(error=recover) # 
 
 # Data: select score ----
 sel_score_target_choices = c('0 Index'='Index', 
