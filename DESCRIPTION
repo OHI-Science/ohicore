@@ -45,4 +45,5 @@ Collate:
     'TransformSpatialScheme.R'
     'data.R'
     'gapfill_georegions.R'
+    'launch_app.R'
 LazyData: TRUE

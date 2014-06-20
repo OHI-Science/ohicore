@@ -31,6 +31,6 @@ To create this object, \code{Conf(dir)}. The \code{dir} is expected to have the 
   \item{\emph{resilience_matrix.csv}}
   \item{\emph{resilienceweights.csv}}
 }
-See also \code{\link{Conf_write}() to write the configuration back to disk.}
+See also \code{\link{Conf_write}()} to write the configuration back to disk.
 }
 

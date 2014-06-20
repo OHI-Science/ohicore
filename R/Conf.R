@@ -19,7 +19,7 @@
 #'   \item{\emph{resilience_matrix.csv}}
 #'   \item{\emph{resilienceweights.csv}}
 #' }
-#' See also \code{\link{Conf_write}() to write the configuration back to disk.}
+#' See also \code{\link{Conf_write}()} to write the configuration back to disk.
 #' @export Conf
 #' @exportClass Conf
 
