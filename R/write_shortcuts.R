@@ -22,7 +22,7 @@ write_shortcuts = function(dir_scenario=getwd(), os_files = 1) {
   stopifnot(file.exists(sprintf('%s/conf'      , dir_scenario)))
   stopifnot(file.exists(sprintf('%s/layers'    , dir_scenario)))
   stopifnot(file.exists(sprintf('%s/layers.csv', dir_scenario)))
-  #stopifnot(file.exists(sprintf('%s/spatial'   , dir_scenario)))
+  stopifnot(file.exists(sprintf('%s/spatial'   , dir_scenario)))
   
   
   # launch_app_code.R
