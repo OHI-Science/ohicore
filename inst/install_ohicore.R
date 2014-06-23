@@ -3,7 +3,8 @@
 # remove old packages
 for (p in c('ohicore','ohigui','rCharts')){  
   if (p %in% rownames(installed.packages())){
-    remove.packages(p)  
+    lib = subset(as.data.frame(installed.packages()), Package==p, LibPath, drop=T)
+    remove.packages(p, lib)  
   }
 }
 
