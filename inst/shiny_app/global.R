@@ -1,14 +1,13 @@
 # see launch_app(), makes global variables: conf, layers, scores, dir_spatial, dir_scenario
+suppressPackageStartupMessages({
+  require(shiny)
+  require(RJSONIO)
+  require(RColorBrewer)
+  require(rCharts)
+  require(markdown)
+})
 
-# load_all('~/Code/ohicore'); load_all('~/Code/ohigui'); launchApp()
-print('in global.R...')
-require(shiny)
-require(RJSONIO)
-require(RColorBrewer)
-require(rCharts)
-require(markdown)
-
-cat(sprintf('dir_scenario: %s\n', dir_scenario))
+#cat(ls(), file='~/Downloads/ohicore_global_ls.txt'); system('open ~/Downloads/ohicore_global_ls.txt')
 
 options(stringsAsFactors = F)
 options(error=recover) # 

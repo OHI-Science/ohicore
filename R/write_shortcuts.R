@@ -40,7 +40,7 @@ write_shortcuts = function(dir_scenario=getwd(), all_os = F) {
         '}',
         'Rscript --vanilla launch_app_code.R', 
         sep='\n', file=file.path(dir_scenario, 'launch_app.command'))
-    Sys.chmod(file.path(dir_scenario, 'launch_app.command'), mode = "0777", use_umask = TRUE)    
+    Sys.chmod(file.path(dir_scenario, 'launch_app.command'), mode = "0777", use_umask = TRUE)
   }
   
   

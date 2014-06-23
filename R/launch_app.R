@@ -51,5 +51,7 @@ launch_app = function(dir_scenario=getwd(), debug=F, quiet=!debug,
     options(shiny.trace=TRUE)
   }
   
-  shiny::runApp(appDir=dir_app, launch.browser=launch.browser, quiet=quiet, port=port, display.mode=display.mode, ...) # shiny::runApp(appDir=dir_app)
+  if (launch.browser){
+    shiny::runApp(appDir=dir_app, launch.browser=launch.browser, quiet=quiet, port=port, display.mode=display.mode, ...) # shiny::runApp(appDir=dir_app)
+  }
 }
