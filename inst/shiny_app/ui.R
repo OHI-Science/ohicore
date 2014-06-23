@@ -1,5 +1,7 @@
 # see global.R
 
+#cat(ls(), file='~/Downloads/ohicore_ui_ls.txt'); system('open ~/Downloads/ohicore_ui_ls.txt')
+
 #---- customize for leaflet map
 customHeaderPanel <- function(title,windowTitle=title){
   tagList(tags$head(
