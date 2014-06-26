@@ -5,15 +5,17 @@ Title: Ocean Health Index calculation package
 Author: Ben Best, Steve Hastings, Darren Hardy
 Maintainer: Ben Best <bbest@nceas.ucsb.edu>
 Depends:
-    R (>= 2.14.0),
-    plyr,
-    dplyr (>= 0.1.2),
-    reshape2,
-    RJSONIO,
+    R (>= 3.1.0),
+    plyr (>= 1.8.0),
+    dplyr (>= 0.2),
+    shiny (>= 0.10.0),
     knitr (>= 1.5),
     markdown (>= 0.6.3),
+    reshape2,
+    RJSONIO,
     psych,
-    stringr
+    stringr,
+    RColorBrewer
 Suggests:
     testthat
 Description: A collection of functions for generically calculating the Ocean
@@ -45,6 +47,7 @@ Collate:
     'aster.R'
     'data.R'
     'gapfill_georegions.R'
+    'get_scenarios.R'
     'launch_app.R'
     'write_shortcuts.R'
 LazyData: TRUE
