@@ -21,7 +21,7 @@ for (p in c('ohicore','ohigui','rCharts')){
 }
 
 # install dependencies
-for (p in c('caTools','httpuv','httr','devtools')){
+for (p in c('httr','devtools')){
   if (!require(p, character.only=T)){
     install.packages(p)
     require(p, character.only=T)
@@ -34,7 +34,9 @@ install_local('ohicore-master.zip')
 
 # extract ohi-global scenarios
 dir = '~/ohi-global'
+if (file.exists(dir)) unlink(dir, recursive=T, force=T)
 unzip('ohi-global-master.zip', exdir=dirname(dir))
+
 file.rename(file.path(dirname(dir),'ohi-global-master'), dir)
 
 # write launch_app files specific to R install path and operating system (OS)
