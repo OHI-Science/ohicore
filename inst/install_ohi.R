@@ -9,7 +9,7 @@ for (p in c('ohicore','ohigui','rCharts')){
 }
 
 # install dependencies
-for (p in c('devtools','httr','RColorBrewer','shiny')){
+for (p in c('devtools')){
   if (!require(p, character.only=T)){
     install.packages(p)
     require(p, character.only=T)
