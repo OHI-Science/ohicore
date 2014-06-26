@@ -1,4 +1,4 @@
-# See: https://gist.github.com/bbest/ed6a03258c3815a3e2ba
+# See: https://gist.github.com/bbest/8173863
 
 # remove old packages
 for (p in c('ohicore','ohigui','rCharts')){  
@@ -9,7 +9,7 @@ for (p in c('ohicore','ohigui','rCharts')){
 }
 
 # install dependencies
-for (p in c('devtools','httr','RColorBrewer','shiny')){
+for (p in c('devtools')){
   if (!require(p, character.only=T)){
     install.packages(p)
     require(p, character.only=T)
