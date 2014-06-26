@@ -1,4 +1,4 @@
-# See: https://gist.github.com/bbest/ed6a03258c3815a3e2ba
+# See: https://gist.github.com/bbest/8173863
 
 # remove old packages
 for (p in c('ohicore','ohigui','rCharts')){  
