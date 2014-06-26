@@ -36,6 +36,8 @@ in layers.csv and updates the following field names, which can be NA for any exc
 Additional diagnostic fields are updated:
 \itemize{
   \item{\emph{file_exists} - input filename exists}
+  \item{\emph{year_min} - minimum year, if year present}
+  \item{\emph{year_max} - maximum year, if year present}
   \item{\emph{val_min} - minimum value, if numeric}
   \item{\emph{val_max} - maximum value, if numeric}
   \item{\emph{val_0to1} - TRUE if value ranges between 0 and 1}

@@ -23,6 +23,8 @@
 #' Additional diagnostic fields are updated:
 #' \itemize{
 #'   \item{\emph{file_exists} - input filename exists}
+#'   \item{\emph{year_min} - minimum year, if year present}
+#'   \item{\emph{year_max} - maximum year, if year present}
 #'   \item{\emph{val_min} - minimum value, if numeric}
 #'   \item{\emph{val_max} - maximum value, if numeric}
 #'   \item{\emph{val_0to1} - TRUE if value ranges between 0 and 1}
@@ -57,6 +59,8 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
 
   # diagnostic fields
   m$file_exists     = F
+  m$year_min        = NA
+  m$year_max        = NA
   m$val_min         = NA
   m$val_max         = NA
   m$val_0to1        = NA
@@ -130,7 +134,11 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
     }
     
     # year    
-    if ('year' %in% names(d)) m$fld_year[i] = 'year'
+    if ('year' %in% names(d)) {
+      m$fld_year[i] = 'year'
+      m$year_min[i] = min(d$year, na.rm=T)
+      m$year_max[i] = max(d$year, na.rm=T)
+    }
     
     # get other fields not assigned
     flds_assigned = as.vector(na.omit(t(m[i, c('fld_id_num','fld_id_chr','fld_category','fld_year','fld_val_num','fld_val_chr')])))
