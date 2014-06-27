@@ -92,7 +92,7 @@ gapfill_georegions = function(
   stopifnot(all(c('r0','r1','r2') %in% names(georegions)))
   stopifnot(all(data[[fld_id]] %in% georegions[[fld_id]]))
   stopifnot( is.na(fld_year) || (!is.na(fld_year) && fld_year %in% names(data)) )
-     
+  
   # rename fields
   g = rename(georegions      , setNames('id', fld_id))
   d = rename(data            , setNames(c('id','v'),  c(fld_id, fld_value)))
@@ -108,7 +108,7 @@ gapfill_georegions = function(
     l = rename(georegion_labels, setNames('id', fld_id))
     stopifnot(anyDuplicated(l$id) == 0)
   }
-    
+  
   # get n regions per georegion for later calculating gapfill score
   g = g %.%
     group_by(r0) %.%
@@ -124,7 +124,7 @@ gapfill_georegions = function(
   } else {
     d = rename(d, setNames('w', fld_weight))
   }
-     
+  
   # remove NAs
   if (sum(is.na(d$v))>0){
     message(sprintf('\n  data values are NA so removed: %d of %d rows', sum(is.na(d$v)), nrow(d) ))
@@ -134,7 +134,7 @@ gapfill_georegions = function(
     message(sprintf('\n  weights are NA (where values reported) so removed: %d of %d rows\n    %s', sum(is.na(d$w)), nrow(d), paste(unique(d$id[is.na(d$w)]), collapse=',') ))
     d = subset(d, !is.na(w))
   }
-
+  
   if (is.na(fld_year)){
     # check for duplicates
     stopifnot(anyDuplicated(d$id) == 0)
@@ -179,7 +179,7 @@ gapfill_georegions = function(
     
     # check for duplicates
     stopifnot(anyDuplicated(d[,c('id','yr')]) == 0)
-              
+    
     # expand georegions to every possible year in data
     gy = expand.grid(list(
       yr = sort(unique(d$yr)),
@@ -231,7 +231,7 @@ gapfill_georegions = function(
                        ifelse(!is.na(r2_v), 'r2',
                               ifelse(!is.na(r1_v), 'r1',
                                      ifelse(!is.na(r0_v), 'r0', NA)))))
-      
+  
   # assign attributes by georegion level (r#)
   z  = rbind_list(
     # rgn
@@ -270,9 +270,9 @@ gapfill_georegions = function(
         z_n_pct   = r0_n_notna/r0_n,
         z_g_score = gapfill_scoring_weights['r0'] - z_n_pct * diff(gapfill_scoring_weights[c('v','r0')]),
         z         = r0_v)
-    ) %.%
+  ) %.%
     select(-r2_ids, -r1_ids, -r0_ids)
-
+  
   # if r0_to_NA, assign value of NA if only georegional average availabe at the global level (r0)
   if (r0_to_NA) z$z = ifelse(z$z_level=='r0', NA, z$z)
   
@@ -284,17 +284,17 @@ gapfill_georegions = function(
           select(id=id, r0_label, r1_label, r2_label, v_label),
         by='id') %.%
       arrange(r0_label, r1_label, r2_label, v_label) 
-     if (is.na(fld_year)){
-    z = z %.%
-      select(r0_label, r1_label, r2_label, v_label, 
-             r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, 
-             r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_ids, z_n, z_n_pct, z_g_score, z)
-     } else {
-     z = z %.%
-      select(r0_label, r1_label, r2_label, v_label, yr, 
-             r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, 
-             r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_ids, z_n, z_n_pct, z_g_score, z)
-     }
+    if (is.na(fld_year)){
+      z = z %.%
+        select(r0_label, r1_label, r2_label, v_label, 
+               r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, 
+               r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_ids, z_n, z_n_pct, z_g_score, z)
+    } else {
+      z = z %.%
+        select(r0_label, r1_label, r2_label, v_label, yr, 
+               r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, 
+               r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_ids, z_n, z_n_pct, z_g_score, z)
+    }
   }
   
   # return result
@@ -309,7 +309,7 @@ gapfill_georegions = function(
       arrange(yr, id) %.%
       rename(setNames(c(fld_year, fld_id, fld_value), c('yr', 'id', 'z')))
   }
-    
+  
   # store attributes, with option to save as .csv
   attr(r, 'gapfill_georegions') = z
   
