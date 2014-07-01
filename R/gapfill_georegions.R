@@ -172,7 +172,7 @@ gapfill_georegions = function(
             r0_ids     = paste(id, collapse=',')),
         by='r0') %.%
       arrange(r0, r1, r2, id) %.%
-      select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna)    
+      select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, r2_ids, r1_ids, r0_ids)    
   } else {    
     # using year
     d = rename(d, setNames('yr', fld_year))
@@ -270,7 +270,7 @@ gapfill_georegions = function(
         z_n_pct   = r0_n_notna/r0_n,
         z_g_score = gapfill_scoring_weights['r0'] - z_n_pct * diff(gapfill_scoring_weights[c('v','r0')]),
         z         = r0_v)
-    ) %.%
+    ) %.% 
     select(-r2_ids, -r1_ids, -r0_ids)
 
   # if r0_to_NA, assign value of NA if only georegional average availabe at the global level (r0)
@@ -283,8 +283,7 @@ gapfill_georegions = function(
         l %.%
           select(id=id, r0_label, r1_label, r2_label, v_label),
         by='id') %.%
-      arrange(r0_label, r1_label, r2_label, v_label) %.%
-      select(r0_label, r1_label, r2_label, v_label, yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_ids, z_n, z_n_pct, z_g_score, z)
+      arrange(r0_label, r1_label, r2_label, v_label)
   }
   
   # return result

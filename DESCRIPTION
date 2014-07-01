@@ -49,5 +49,6 @@ Collate:
     'gapfill_georegions.R'
     'get_scenarios.R'
     'launch_app.R'
+    'read_git_csv.R'
     'write_shortcuts.R'
 LazyData: TRUE

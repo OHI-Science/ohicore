@@ -21,7 +21,11 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   pc = conf$config$pressures_components
   pk = conf$config$pressures_categories
   p.layers = sort(names(pm)[!names(pm) %in% c('goal','component','component_name')])
-  stopifnot(all(subset(layers$meta, layer %in% p.layers, val_0to1, drop=T)))
+  if (!all(subset(layers$meta, layer %in% p.layers, val_0to1, drop=T))){
+    warning('Error: Not all pressures layers range in value from 0 to 1!')
+    print(subset(layers$meta, layer %in% p.layers & val_0to1==F, c('val_min','val_max'), drop=F))
+    stop('')
+  }
   d.p = rename(dcast(SelectLayersData(layers, layers=p.layers), id_num ~ layer, value.var='val_num'), c('id_num'='region_id'))
   d.p = subset(d.p, region_id %in% regions)
   nr = length(regions)  # number of regions
