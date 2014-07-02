@@ -6,9 +6,14 @@
 #' @param hex SHA hex of commit
 #' @param path to csv file with the repository as root
 #' 
+#' @details If you have trouble running this function, please make sure:
+#' 1) your path resolves to a local Git repository, 
+#' 2) the hex is valid (see history in RStudio Git or on Github) and 
+#' 3) you have the latest git2r (try \code{devtools::install_github('ropensci/git2r')}).
+#'  
 #' @keywords git
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' # get csv from github repository by SHA hex of commit
 #' d = read_git_csv('~/github/ohi-global', 'a81a8213', 'scores.csv')
@@ -18,8 +23,12 @@
 #' @export
 read_git_csv = function(repo, hex, path, ...){  
   # DEBUG:  repo = '~/github/ohi-global'; hex = 'a81a82131f'; path = 'eez2013/layers/np_harvest_relative.csv'; path='scores.csv'
-  # TODO: get head
-  library(git2r) # need latest:  
+  # TODO: get head. see markdown_link function. head(repo)@hex
+  library(git2r) # need latest: devtools::install_github('ropensci/git2r')
+  
+#   repo = '~/github/ohicore'
+#   hex = 'ba215bd1'
+#   path = 'data/layers.Global2013.www2013.rda'
   
   # get tree of commit
   o = tree(lookup(repository(repo), hex)) # when(commit_old); show(commit_old); summary(commit_old)
@@ -33,8 +42,17 @@ read_git_csv = function(repo, hex, path, ...){
   
   # write and read csv content
   csv = tempfile(tools::file_path_sans_ext(basename(path)), fileext='csv')
-  cat(content(o[basename(path)]), file=csv, sep='\n')
-  d = read.csv(csv, ...)
-  unlink(csv)
+  #browser()
+  if (is_blob(o[basename(path)])){
+    
+#     rda = tempfile(tools::file_path_sans_ext(basename(path)), fileext='rda')
+#     cat(content(o[basename(path)], split=F), file=rda, sep='')
+    
+    cat(content(o[basename(path)]), file=csv, sep='\n')    
+    d = read.csv(csv, ...)
+    unlink(csv)
+  } else {
+    d = NULL
+  }
   return(d)
 }

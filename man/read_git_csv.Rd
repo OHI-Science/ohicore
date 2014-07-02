@@ -15,6 +15,12 @@ read_git_csv(repo, hex, path, ...)
 \description{
 Read CSV from local Git repository.
 }
+\details{
+If you have trouble running this function, please make sure:
+1) your path resolves to a local Git repository,
+2) the hex is valid (see history in RStudio Git or on Github) and
+3) you have the latest git2r (try \code{devtools::install_github('ropensci/git2r')}).
+}
 \examples{
 \dontrun{
 # get csv from github repository by SHA hex of commit
