@@ -51,7 +51,7 @@
 #' ## write
 #' write.csv(scores, 'scores.csv', na='', row.names=F)
 #' }
-#' @import dplyr
+#' @import plyr dplyr
 #' 
 #' @export
 CalculateAll = function(conf, layers, debug=F){
@@ -65,13 +65,19 @@ CalculateAll = function(conf, layers, debug=F){
     conf$functions$Setup()
   }
   
+  cat(sprintf('\n  getwd(): %s\n', getwd()))
+  
   # Pressures, all goals
   cat(sprintf('Calculating Pressures...\n'))
   scores = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
   
+  cat(sprintf('\n  getwd(): %s\n', getwd()))
+  
   # Resilience, all goals
   cat(sprintf('Calculating Resilience...\n'))
   scores = rbind(scores, CalculateResilienceAll(layers, conf, debug))
+  
+  cat(sprintf('\n  getwd(): %s\n', getwd()))
   
   # pre-Index functions: Status and Trend, by goal  
   goals_X = conf$goals %.%
@@ -81,8 +87,10 @@ CalculateAll = function(conf, layers, debug=F){
     g = goals_X$goal[i]
     cat(sprintf('Calculating Status and Trend for %s...\n', g))
     assign('scores', scores, envir=conf$functions)
-    if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))
+    if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))    
     scores = rbind(scores, eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)[,c('goal','dimension','region_id','score')])
+    cat(sprintf('\n  getwd(): %s\n', getwd()))
+    
   }
 
   # Goal Score and Likely Future
