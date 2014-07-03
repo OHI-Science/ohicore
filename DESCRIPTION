@@ -51,4 +51,5 @@ Collate:
     'launch_app.R'
     'read_git_csv.R'
     'write_shortcuts.R'
+    'zzz.R'
 LazyData: TRUE

@@ -26,12 +26,8 @@ read_git_csv = function(repo, hex, path, ...){
   # TODO: get head. see markdown_link function. head(repo)@hex
   library(git2r) # need latest: devtools::install_github('ropensci/git2r')
   
-#   repo = '~/github/ohicore'
-#   hex = 'ba215bd1'
-#   path = 'data/layers.Global2013.www2013.rda'
-  
   # get tree of commit
-  o = tree(lookup(repository(repo), hex)) # when(commit_old); show(commit_old); summary(commit_old)
+  o = tree(lookup(repository(repo), hex)) # when(commit_old); show(commit_old); summary(commit_old) # Error during wrapup: 'match' requires vector arguments
   
   # traverse tree, if in subdirectories
   if (dirname(path) != '.'){
