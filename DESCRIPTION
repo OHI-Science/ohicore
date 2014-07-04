@@ -50,6 +50,7 @@ Collate:
     'get_scenarios.R'
     'launch_app.R'
     'read_git_csv.R'
+    'trace_git_csv_value.R'
     'write_shortcuts.R'
     'zzz.R'
 LazyData: TRUE
