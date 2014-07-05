@@ -4,11 +4,11 @@
 \title{Gapfill using georegional means}
 \usage{
 gapfill_georegions(data, georegions, fld_id = intersect(names(data),
-  names(georegions)), fld_weight = NULL, fld_year = ifelse("year" \%in\%
-  names(data), "year", NA), fld_value = setdiff(names(data), c(fld_id,
-  fld_weight, "year")), georegion_labels = NULL,
-  gapfill_scoring_weights = c(r0 = 1, r1 = 0.8, r2 = 0.5, v = 0),
-  r0_to_NA = TRUE, attributes_csv = NULL)
+  names(georegions)), fld_year = ifelse("year" \%in\% names(data), "year",
+  NA), fld_value = setdiff(names(data), c(fld_id, fld_weight, "year")),
+  georegion_labels = NULL, fld_weight = NULL, rgn_weights = NULL,
+  ratio_weights = FALSE, gapfill_scoring_weights = c(r0 = 1, r1 = 0.8, r2 =
+  0.5, v = 0), r0_to_NA = TRUE, attributes_csv = NULL)
 }
 \arguments{
 \item{data}{data.frame to gapfill having at least fields: \code{fld_id} and \code{fld_value}, and optionally \code{fld_weight}}
@@ -18,6 +18,10 @@ gapfill_georegions(data, georegions, fld_id = intersect(names(data),
 \item{fld_id}{common spatial id field (eg region_id or country_key) between \code{data} and \code{georegions}}
 
 \item{fld_weight}{optional weighting field in \code{data}}
+
+\item{rgn_weights}{data frame of weights, expecting rgn_id in first column and weight in second}
+
+\item{ratio_weights}{if TRUE, multiply the gapfilled value by the ratio of the region's weight to the regional average weight. Defaults to FALSE. IMPORTANT to set to TRUE if dealing with values that SUM!}
 
 \item{fld_year}{optional year field in \code{data}}
 
@@ -82,7 +86,7 @@ finer level's weight is multiplied by the percent regions and subtracted from th
 require(ohicore)
 
 # gapfill
-g = gapfill_georegions(data, georegions, fld_weight='w_sum') # fld_id='rgn_id', fld_weight='w_sum', fld_value='score'
+g = gapfill_georegions(data, georegions, fld_weight='w_sum')
 
 # show result and table
 head(g)
