@@ -19,7 +19,7 @@
 #' d = read_git_csv('~/github/ohi-global', 'a81a8213', 'scores.csv')
 #' head(d)
 #' }
-#' 
+#' #import lubridate git2r
 #' @export
 read_git_csv = function(repo, hex, path, ...){  
   # DEBUG:  repo = '~/github/ohi-global'; hex = 'a81a82131f'; path = 'eez2013/layers/np_harvest_relative.csv'; path='scores.csv'
