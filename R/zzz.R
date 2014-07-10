@@ -1,12 +1,12 @@
 .onLoad <- function(libname, pkgname) {
   
-  # ensure dplyr functions preferentially used over plyr, ie mask plyr functions
-  suppressPackageStartupMessages({
-    if ('package:dplyr' %in% search()) detach('package:dplyr')
-    if ('package:plyr'  %in% search()) detach('package:plyr')
-    library(plyr)
-    library(dplyr)
-  })  
+  # ensure dplyr functions preferentially used over plyr, ie dplyr lower in search path order, ie mask plyr functions with dplyr version
+  if (which(search()=='package:dplyr') > which(search()=='package:plyr')){
+    suppressPackageStartupMessages({
+      detach('package:dplyr')
+      library(dplyr)
+    })  
+  }
   #   # plyr
   #   arrange   = dplyr::arrange
   #   desc      = dplyr::desc
