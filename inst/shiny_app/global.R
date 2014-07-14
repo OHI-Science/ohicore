@@ -10,7 +10,7 @@ suppressPackageStartupMessages({
 #cat(ls(), file='~/Downloads/ohicore_global_ls.txt'); system('open ~/Downloads/ohicore_global_ls.txt')
 
 options(stringsAsFactors = F)
-options(error=recover) # 
+# options(error=recover) # options(error=browser)
 
 # Data: select score ----
 sel_score_target_choices = c('0 Index'='Index', 
@@ -123,11 +123,22 @@ capitalize <- function(s) { # capitalize first letter
 
 # get data
 GetMapData = function(v){
+  
+  
+  #browser('GetMapData', expr=v$layer=='mar_harvest_tonnes')
+  
 
   # check for single value
-  if (n_distinct(v$data$val_num) < 2){
-    # arbitrarily extend color ramp range to get a legit set of breaks
-    rng = range(unique(v$data$val_num)*c(0.9999, 1, 1.0001), na.rm=T)    
+  if (n_distinct(v$data$val_num) == 1){
+    
+    # check for single zero value
+    if (unique(v$data$val_num) == 0){
+      rng = c(-1, 1) * 0.001    
+    } else {
+      # arbitrarily extend color ramp range to get a legit set of breaks
+      rng = range(unique(v$data$val_num)*c(0.9999, 1, 1.0001), na.rm=T)
+    }
+        
   } else {
     rng = range(v$data$val_num, na.rm=T)
   }
@@ -144,8 +155,13 @@ GetMapData = function(v){
 # plot map
 PlotMap = function(v, width='100%', height='600px', lon=0, lat=0, zoom=2){  # Baltic: c(59, 19), zoom = 5
   
+  #browser('PlotMap', expr=v$layer=='mar_harvest_tonnes')
+  
   if ( (length(na.omit(v$data$val_num))==0) | (!'rgn_id' %in% names(v$data)) ){
-    stop('Sorry, mappable data is not available for the selection.')
+    stop(sprintf('Sorry, the Map view is unavailable for the selected layer (%s) because
+      the field %s does not have associated spatial shapes available for mapping. 
+      Please choose a different view (Histogram or Table) or a different layer.', v$layer, v$fld_id))
+    #return()
   }
       
   d = GetMapData(v)

@@ -70,6 +70,7 @@ shinyServer(function(input, output, session) {
   # Layers: GetVar() ----
   GetVar <- reactive({
     v = list()
+    #browser('GetVar top', expr=input$sel_layer=='mar_harvest_tonnes')
     if (input$sel_type == 'Layer'){
       # reactives
       lyr          = input$sel_layer
@@ -82,6 +83,9 @@ shinyServer(function(input, output, session) {
       fld_id_num = subset(layers$meta, layer==lyr, fld_id_num, drop=T)
       if (!is.na(fld_id_num) && fld_id_num=='rgn_id'){
         d = rename(d, c('id_num'='rgn_id'))
+        v$fld_id = 'rgn_id'
+      } else {
+        v$fld_id = ifelse(!is.na(fld_id_num), fld_id_num, subset(layers$meta, layer==lyr, fld_id_chr, drop=T))
       }
   
       x = lyr_label = subset(layer_targets, layer==lyr & target==lyr_target, layer_label, drop=T)
@@ -102,15 +106,17 @@ shinyServer(function(input, output, session) {
         x = sprintf('%s : %s', x, as.character(lyr_year))
       }
       
-      v$data = d
-      v$name = x
+      v$data  = d
+      v$name  = x
       
       attr(v$name, 'target') = lyr_target
       v$description = paste0('<b>',lyr_label,'</b>: <em>', 
                              subset(layers$meta, layer==lyr, description, drop=T),
                              '</em>')# 'layer description coming soon'      
       v$details = ''
-      m = subset(layers$meta, layer==input$sel_layer)      
+      m = subset(layers$meta, layer==input$sel_layer)
+      v$layer = lyr
+      v$meta  = m
       for (f in names(m)){
         s = ifelse(is.numeric(m[[f]]), sprintf('%0.4g', m[[f]]), as.character(m[[f]]))
         v$details = paste0(v$details, sprintf('%s: %s\n', f, s))
@@ -146,7 +152,9 @@ shinyServer(function(input, output, session) {
   
   # Data: Map ----
   output$map_container <- renderMap({
-      PlotMap(v=GetVar(), 
+      v = GetVar()
+      #browser('Data: Map', expr=input$sel_layer=='mar_harvest_tonnes')
+      PlotMap(v=v, 
               lon=ifelse(is.null(conf$config$map_lon), 0, conf$config$map_lon), 
               lat=ifelse(is.null(conf$config$map_lat), 0, conf$config$map_lat), 
               zoom=ifelse(is.null(conf$config$map_zoom), 2, conf$config$map_zoom))
@@ -265,8 +273,15 @@ shinyServer(function(input, output, session) {
           state_btn_calc <<- input$btn_calc
           output$txt_calc_summary <- renderText({
             
-            cat(sprintf('Reading %s\n', file.path(dir_scenario, 'scenario.R')))
-            source(file.path(dir_scenario, 'scenario.R'))
+            #browser('server.R -- Calculate: txt_calc_summary')
+            
+            # set scenario vars (previously in scenario.R)
+            scenario=list(
+              conf    = ohicore::Conf(file.path(dir_scenario, "conf")),
+              layers  = ohicore::Layers(file.path(dir_scenario, "layers.csv"), file.path(dir_scenario, "layers")),
+              scores  = read.csv(file.path(dir_scenario, "scores.csv"), na.strings=""),
+              spatial = file.path(dir_scenario, "spatial"),
+              dir     = dir_scenario)
             layers <<- scenario$layers
             conf   <<- scenario$conf
             
@@ -278,8 +293,9 @@ shinyServer(function(input, output, session) {
             scenario$layers = layers <<- ohicore::Layers(file.path(dir_scenario, 'layers.csv'), file.path(dir_scenario, 'layers'))            
             
             # calculate scores
+            setwd(dir_scenario)
             scores <<- ohicore::CalculateAll(scenario$conf, scenario$layers, debug=F)
-            write.csv(scores, file.path(dir_scenario, 'scores.csv'), na='', row.names=F)
+            write.csv(scores, 'scores.csv', na='', row.names=F)
             
             sprintf('Scores calculated and output to: %s', file.path(dir_scenario, 'scores.csv'))
           })
