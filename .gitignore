@@ -10,3 +10,5 @@
 test/data/*
 
 .Rproj.user
+.RData
+**/*.png
