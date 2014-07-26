@@ -1,6 +1,7 @@
 require(ohicore)
 require(ohigui)
 
+rm(list=ls())
 setwd('~/Documents/ohigit/ohicore/inst/extdata')
 #setwd('/Users/bbest/Github_Mac/ohicore_Canada-CHONe/inst/extdata')
 unlink('conf/*');unlink('layers/*');unlink('spatial/*');unlink('conf.Canada-CHONe2014/*');unlink('layers.Canada-CHONe2014/*');unlink('spatial.Canada-CHONe2014/*')
@@ -22,7 +23,7 @@ weights=read.csv('rawdata.Canada-CHONe2014/weights/weights.csv')
 goals = read.csv('conf.Canada-CHONe2014/goals.csv', stringsAsFactors=F);
 
 #calculate weights, chose either "equal", "importance", "BWrank", "lmc", "lmc1", or "lmc10"
-goals$weight <- reweigh(weights,"importance")
+goals$weight <- reweigh(weights,"lmc10")
 
 # write back updated goals.csv
 write.csv(goals, 'conf.Canada-CHONe2014/goals.csv', na='', row.names=F)

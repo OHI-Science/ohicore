@@ -19,7 +19,7 @@
 
 |                                | score| status| future|
 |:-------------------------------|-----:|------:|------:|
-|Index                           | 60.29|     NA|  59.78|
+|Index                           | 61.34|     NA|  60.71|
 |Food Provision                  | 29.46|  27.64|  31.28|
 |. Fisheries                     | 30.14|  28.25|  32.03|
 |. Mariculture                   | 11.62|  11.39|  11.84|
@@ -53,7 +53,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  55.03|     NA|  56.23|    NA|        NA|         NA|
+|Index                           |  56.61|     NA|  57.77|    NA|        NA|         NA|
 |Food Provision                  |  20.81|  20.17|  21.45| -0.02|        NA|         NA|
 |. Fisheries                     |  23.70|  23.00|  24.39| -0.03|     32.11|      56.57|
 |. Mariculture                   |   5.11|   4.80|   5.42|  0.03|     35.91|      68.75|
@@ -87,7 +87,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  49.05|     NA|  48.00|    NA|        NA|         NA|
+|Index                           |  50.98|     NA|  49.94|    NA|        NA|         NA|
 |Food Provision                  |  23.60|  22.96|  24.24| -0.03|        NA|         NA|
 |. Fisheries                     |  23.64|  23.00|  24.29| -0.03|     32.87|      55.94|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     34.06|      58.33|
@@ -121,7 +121,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 56.70|     NA|  55.25|    NA|        NA|         NA|
+|Index                           | 57.21|     NA|  55.65|    NA|        NA|         NA|
 |Food Provision                  | 17.86|  17.00|  18.72|  0.02|        NA|         NA|
 |. Fisheries                     | 17.86|  17.00|  18.72|  0.02|     26.05|      52.66|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.79|      30.27|
@@ -155,7 +155,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  60.27|     NA|  61.42|    NA|        NA|         NA|
+|Index                           |  61.46|     NA|  62.46|    NA|        NA|         NA|
 |Food Provision                  |   2.11|   2.00|   2.21|  0.00|        NA|         NA|
 |. Fisheries                     |   2.11|   2.00|   2.21|  0.00|     25.39|      57.38|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.64|      70.34|
@@ -189,7 +189,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 55.35|     NA|  52.10|    NA|        NA|         NA|
+|Index                           | 55.56|     NA|  52.21|    NA|        NA|         NA|
 |Food Provision                  |  1.05|   1.00|   1.10|  0.00|        NA|         NA|
 |. Fisheries                     |  1.05|   1.00|   1.10|  0.00|     28.45|      58.27|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     29.13|      60.73|
@@ -223,7 +223,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 45.07|     NA|  39.52|    NA|        NA|         NA|
+|Index                           | 46.29|     NA|  40.54|    NA|        NA|         NA|
 |Food Provision                  | 10.44|  10.00|  10.87|  0.00|        NA|         NA|
 |. Fisheries                     | 10.44|  10.00|  10.87|  0.00|     28.46|      54.87|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.94|      62.50|
@@ -257,7 +257,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 46.22|     NA|  42.23|    NA|        NA|         NA|
+|Index                           | 46.95|     NA|  42.97|    NA|        NA|         NA|
 |Food Provision                  |  2.11|   2.00|   2.22|  0.01|        NA|         NA|
 |. Fisheries                     |  2.11|   2.00|   2.22|  0.01|     25.80|      57.21|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.89|      63.13|
@@ -325,7 +325,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.04|     NA|  64.12|    NA|        NA|         NA|
+|Index                           |  62.57|     NA|  63.53|    NA|        NA|         NA|
 |Food Provision                  |   1.05|   1.00|   1.11|  0.01|        NA|         NA|
 |. Fisheries                     |   1.05|   1.00|   1.11|  0.01|     26.58|      57.60|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     27.71|      63.54|
@@ -359,7 +359,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 56.68|     NA|  56.32|    NA|        NA|         NA|
+|Index                           | 57.75|     NA|  57.17|    NA|        NA|         NA|
 |Food Provision                  | 35.56|  34.99|  36.12| -0.08|        NA|         NA|
 |. Fisheries                     | 35.57|  35.00|  36.13| -0.08|     30.40|      56.45|
 |. Mariculture                   |  0.94|   0.90|   0.97|  0.01|     29.08|      50.73|
@@ -393,7 +393,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 61.68|     NA|  60.33|    NA|        NA|         NA|
+|Index                           | 61.98|     NA|  60.56|    NA|        NA|         NA|
 |Food Provision                  | 17.03|  16.00|  18.06|  0.04|        NA|         NA|
 |. Fisheries                     | 17.03|  16.00|  18.06|  0.04|     26.75|      57.56|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     28.31|      63.13|
@@ -427,7 +427,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 48.11|     NA|  47.12|    NA|        NA|         NA|
+|Index                           | 48.61|     NA|  47.51|    NA|        NA|         NA|
 |Food Provision                  | 23.29|  22.00|  24.58|  0.01|        NA|         NA|
 |. Fisheries                     | 23.29|  22.00|  24.58|  0.01|     25.32|      58.83|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.21|      70.34|
@@ -461,7 +461,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  65.09|     NA|  66.50|    NA|        NA|         NA|
+|Index                           |  65.82|     NA|  67.16|    NA|        NA|         NA|
 |Food Provision                  |  16.45|  15.41|  17.49|  0.04|        NA|         NA|
 |. Fisheries                     |  17.01|  16.00|  18.02|  0.03|     28.51|      60.66|
 |. Mariculture                   |  14.03|  12.86|  15.20|  0.10|     30.30|      65.25|
@@ -495,7 +495,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.39|     NA|  66.15|    NA|        NA|         NA|
+|Index                           |  63.71|     NA|  66.42|    NA|        NA|         NA|
 |Food Provision                  |  24.40|  23.00|  25.81|  0.04|        NA|         NA|
 |. Fisheries                     |  24.40|  23.00|  25.81|  0.04|     26.95|      55.81|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     29.88|      64.52|
@@ -529,7 +529,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  57.12|     NA|  52.90|    NA|        NA|         NA|
+|Index                           |  57.34|     NA|  53.03|    NA|        NA|         NA|
 |Food Provision                  |  14.92|  14.00|  15.84|  0.04|        NA|         NA|
 |. Fisheries                     |  14.92|  14.00|  15.84|  0.04|     26.12|      57.82|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     27.34|      63.54|
@@ -563,7 +563,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 53.00|     NA|  51.50|    NA|        NA|         NA|
+|Index                           | 53.65|     NA|  51.90|    NA|        NA|         NA|
 |Food Provision                  | 26.69|  26.00|  27.39| -0.03|        NA|         NA|
 |. Fisheries                     | 26.70|  26.00|  27.39| -0.03|     33.39|      55.71|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     31.38|      50.00|
@@ -597,7 +597,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.57|     NA|  62.99|    NA|        NA|         NA|
+|Index                           |  64.54|     NA|  64.95|    NA|        NA|         NA|
 |Food Provision                  |  27.13|  26.04|  28.22|  0.27|        NA|         NA|
 |. Fisheries                     |   0.00|   0.00|   0.00| -0.01|     32.70|      58.22|
 |. Mariculture                   |  96.14|  92.28| 100.00|  0.99|     38.16|      50.52|
@@ -631,7 +631,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  47.91|     NA|  47.74|    NA|        NA|         NA|
+|Index                           |  47.87|     NA|  47.65|    NA|        NA|         NA|
 |Food Provision                  |   1.05|   1.00|   1.11|  0.00|        NA|         NA|
 |. Fisheries                     |   1.05|   1.00|   1.11|  0.00|     25.91|      57.92|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     29.22|      67.71|
@@ -665,7 +665,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 63.42|     NA|  65.22|    NA|        NA|         NA|
+|Index                           | 65.05|     NA|  66.87|    NA|        NA|         NA|
 |Food Provision                  |    NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |    NA|     NA|     NA|    NA|     25.13|      56.63|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.79|      63.52|
@@ -699,7 +699,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  66.07|     NA|  67.45|    NA|        NA|         NA|
+|Index                           |  67.65|     NA|  69.12|    NA|        NA|         NA|
 |Food Provision                  |  24.35|  23.00|  25.69|  0.02|        NA|         NA|
 |. Fisheries                     |  24.35|  23.00|  25.69|  0.02|     30.18|      61.61|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     37.69|      67.71|
@@ -733,7 +733,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  65.47|     NA|  65.32|    NA|        NA|         NA|
+|Index                           |  65.73|     NA|  65.51|    NA|        NA|         NA|
 |Food Provision                  |  22.06|  20.97|  23.14|  0.03|        NA|         NA|
 |. Fisheries                     |   8.52|   8.00|   9.03|  0.03|     28.30|      61.29|
 |. Mariculture                   |  34.08|  32.50|  35.67|  0.03|     29.68|      53.12|
@@ -767,7 +767,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  61.76|     NA|  60.90|    NA|        NA|         NA|
+|Index                           |  61.15|     NA|  60.12|    NA|        NA|         NA|
 |Food Provision                  |  30.15|  29.00|  31.30| -0.01|        NA|         NA|
 |. Fisheries                     |  30.15|  29.00|  31.30| -0.01|     29.54|      55.56|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     31.84|      64.58|
@@ -801,7 +801,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 53.73|     NA|  55.01|    NA|        NA|         NA|
+|Index                           | 54.32|     NA|  55.47|    NA|        NA|         NA|
 |Food Provision                  |  4.21|   4.00|   4.41|  0.01|        NA|         NA|
 |. Fisheries                     |  4.21|   4.00|   4.41|  0.01|     26.03|      55.40|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.83|      63.13|
@@ -835,7 +835,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 64.93|     NA|  61.50|    NA|        NA|         NA|
+|Index                           | 65.62|     NA|  61.94|    NA|        NA|         NA|
 |Food Provision                  |    NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |    NA|     NA|     NA|    NA|     28.74|      58.05|
 |. Mariculture                   |  1.66|   1.56|   1.76|  0.02|     28.92|      63.13|
@@ -869,7 +869,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 48.62|     NA|  45.93|    NA|        NA|         NA|
+|Index                           | 49.87|     NA|  46.94|    NA|        NA|         NA|
 |Food Provision                  | 20.40|  19.76|  21.03| -0.03|        NA|         NA|
 |. Fisheries                     | 23.75|  23.00|  24.49| -0.03|     36.14|      61.91|
 |. Mariculture                   |  1.36|   1.35|   1.37| -0.01|     44.08|      51.04|
@@ -903,7 +903,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 50.25|     NA|  51.30|    NA|        NA|         NA|
+|Index                           | 51.68|     NA|  52.63|    NA|        NA|         NA|
 |Food Provision                  | 15.68|  15.00|  16.35| -0.03|        NA|         NA|
 |. Fisheries                     | 15.68|  15.00|  16.35| -0.03|     25.03|      58.42|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.47|      63.42|
@@ -937,7 +937,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.82|     NA|  61.59|    NA|        NA|         NA|
+|Index                           |  64.37|     NA|  63.03|    NA|        NA|         NA|
 |Food Provision                  |  23.47|  22.54|  24.39| -0.02|        NA|         NA|
 |. Fisheries                     |  27.07|  26.00|  28.13| -0.02|     28.75|      57.65|
 |. Mariculture                   |   5.44|   5.23|   5.65| -0.01|     33.66|      60.31|
@@ -971,7 +971,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  64.78|     NA|  64.11|    NA|        NA|         NA|
+|Index                           |  65.81|     NA|  65.08|    NA|        NA|         NA|
 |Food Provision                  |  31.98|  31.00|  32.96| -0.11|        NA|         NA|
 |. Fisheries                     |  31.98|  31.00|  32.96| -0.11|     25.24|      66.78|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     27.08|      69.23|
@@ -1005,7 +1005,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 51.16|     NA|  47.20|    NA|        NA|         NA|
+|Index                           | 52.17|     NA|  48.25|    NA|        NA|         NA|
 |Food Provision                  |  6.35|   6.00|   6.70|  0.02|        NA|         NA|
 |. Fisheries                     |  6.35|   6.00|   6.70|  0.02|     26.06|      57.25|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     28.18|      63.13|
@@ -1039,7 +1039,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 61.10|     NA|  57.07|    NA|        NA|         NA|
+|Index                           | 60.87|     NA|  56.59|    NA|        NA|         NA|
 |Food Provision                  | 17.11|  15.84|  18.37|  0.11|        NA|         NA|
 |. Fisheries                     | 17.28|  16.00|  18.56|  0.11|     32.34|      58.43|
 |. Mariculture                   |  6.13|   5.88|   6.38| -0.01|     31.76|      59.46|
@@ -1073,7 +1073,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  52.80|     NA|  50.77|    NA|        NA|         NA|
+|Index                           |  54.28|     NA|  52.13|    NA|        NA|         NA|
 |Food Provision                  |  27.35|  26.95|  27.75| -0.06|        NA|         NA|
 |. Fisheries                     |  24.41|  24.00|  24.82| -0.08|     28.62|      55.18|
 |. Mariculture                   |  99.78|  99.57| 100.00|  0.53|     36.34|      50.00|
@@ -1107,7 +1107,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 51.57|     NA|  45.34|    NA|        NA|         NA|
+|Index                           | 51.98|     NA|  45.53|    NA|        NA|         NA|
 |Food Provision                  |  5.40|   5.15|   5.66|  0.04|        NA|         NA|
 |. Fisheries                     |  5.24|   5.00|   5.49|  0.04|     37.85|      59.23|
 |. Mariculture                   |  8.15|   7.67|   8.63|  0.08|     29.52|      51.04|
@@ -1141,7 +1141,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  53.29|     NA|  50.40|    NA|        NA|         NA|
+|Index                           |  54.64|     NA|  51.53|    NA|        NA|         NA|
 |Food Provision                  |  22.82|  22.00|  23.64|  0.01|        NA|         NA|
 |. Fisheries                     |  22.82|  22.00|  23.64|  0.01|     35.35|      55.88|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     31.68|      62.50|
@@ -1175,7 +1175,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  60.72|     NA|  63.79|    NA|        NA|         NA|
+|Index                           |  62.69|     NA|  65.67|    NA|        NA|         NA|
 |Food Provision                  |  50.85|  47.25|  54.46| -0.02|        NA|         NA|
 |. Fisheries                     |  47.14|  43.00|  51.28|  0.02|     16.69|      71.01|
 |. Mariculture                   |  74.11|  73.88|  74.34| -0.26|     14.01|      68.68|
@@ -1209,7 +1209,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 59.13|     NA|  61.56|    NA|        NA|         NA|
+|Index                           | 59.33|     NA|  61.72|    NA|        NA|         NA|
 |Food Provision                  | 39.83|  38.00|  41.65|  0.01|        NA|         NA|
 |. Fisheries                     | 39.83|  38.00|  41.65|  0.01|     28.57|      55.65|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     29.14|      62.59|
@@ -1243,7 +1243,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  56.62|     NA|  56.60|    NA|        NA|         NA|
+|Index                           |  57.07|     NA|  56.95|    NA|        NA|         NA|
 |Food Provision                  |  33.40|  32.00|  34.81| -0.02|        NA|         NA|
 |. Fisheries                     |  33.40|  32.00|  34.81| -0.02|     25.83|      56.47|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     27.69|      51.04|
@@ -1277,7 +1277,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 56.23|     NA|  54.86|    NA|        NA|         NA|
+|Index                           | 57.96|     NA|  56.54|    NA|        NA|         NA|
 |Food Provision                  |  0.00|   0.00|   0.00|  0.00|        NA|         NA|
 |. Fisheries                     |  0.00|   0.00|   0.00|  0.00|     25.75|      57.96|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.00|      63.13|
@@ -1311,7 +1311,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.69|     NA|  64.83|    NA|        NA|         NA|
+|Index                           |  65.56|     NA|  66.62|    NA|        NA|         NA|
 |Food Provision                  |  57.57|  55.58|  59.55|  0.02|        NA|         NA|
 |. Fisheries                     |  47.46|  45.00|  49.92|  0.02|     29.74|      58.80|
 |. Mariculture                   | 100.00| 100.00| 100.00|  0.00|     27.11|      62.48|
@@ -1345,7 +1345,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 47.13|     NA|  45.90|    NA|        NA|         NA|
+|Index                           | 48.13|     NA|  46.87|    NA|        NA|         NA|
 |Food Provision                  | 23.65|  21.83|  25.47|  0.13|        NA|         NA|
 |. Fisheries                     | 15.54|  15.00|  16.08|  0.04|     45.77|      59.51|
 |. Mariculture                   | 28.55|  25.96|  31.15|  0.18|     38.62|      62.60|
@@ -1379,7 +1379,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 60.74|     NA|  61.37|    NA|        NA|         NA|
+|Index                           | 60.61|     NA|  61.15|    NA|        NA|         NA|
 |Food Provision                  |  2.11|   2.00|   2.21|  0.00|        NA|         NA|
 |. Fisheries                     |  2.11|   2.00|   2.21|  0.00|     27.28|      59.67|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.85|      74.61|
@@ -1413,7 +1413,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  47.01|     NA|  47.34|    NA|        NA|         NA|
+|Index                           |  47.77|     NA|  48.00|    NA|        NA|         NA|
 |Food Provision                  |  15.75|  15.00|  16.50|  0.00|        NA|         NA|
 |. Fisheries                     |  15.75|  15.00|  16.50|  0.00|     25.16|      55.48|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     25.28|      55.27|
@@ -1447,7 +1447,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 61.40|     NA|  62.53|    NA|        NA|         NA|
+|Index                           | 61.42|     NA|  62.47|    NA|        NA|         NA|
 |Food Provision                  |  4.22|   4.00|   4.45|  0.00|        NA|         NA|
 |. Fisheries                     |  4.22|   4.00|   4.45|  0.00|     26.37|      60.09|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.17|      74.61|
@@ -1481,7 +1481,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 57.47|     NA|  54.24|    NA|        NA|         NA|
+|Index                           | 57.48|     NA|  53.96|    NA|        NA|         NA|
 |Food Provision                  | 11.73|  11.12|  12.35|  0.02|        NA|         NA|
 |. Fisheries                     | 13.72|  13.00|  14.44|  0.02|     28.42|      57.83|
 |. Mariculture                   |  1.13|   1.08|   1.18|  0.01|     31.81|      58.85|
@@ -1515,7 +1515,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 61.95|     NA|  63.41|    NA|        NA|         NA|
+|Index                           | 62.00|     NA|  63.38|    NA|        NA|         NA|
 |Food Provision                  | 32.15|  32.00|  32.31| -0.14|        NA|         NA|
 |. Fisheries                     | 32.15|  32.00|  32.31| -0.14|     26.54|      57.87|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     28.50|      57.29|
@@ -1549,7 +1549,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 49.71|     NA|  49.87|    NA|        NA|         NA|
+|Index                           | 51.27|     NA|  51.32|    NA|        NA|         NA|
 |Food Provision                  | 18.94|  18.00|  19.88| -0.01|        NA|         NA|
 |. Fisheries                     | 18.94|  18.00|  19.88| -0.01|     25.42|      59.12|
 |. Mariculture                   |  0.00|   0.00|   0.00| -0.01|     26.71|      59.89|
@@ -1583,7 +1583,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 53.70|     NA|  49.61|    NA|        NA|         NA|
+|Index                           | 54.36|     NA|  50.08|    NA|        NA|         NA|
 |Food Provision                  | 22.01|  20.89|  23.12|  0.02|        NA|         NA|
 |. Fisheries                     | 24.23|  23.00|  25.45|  0.02|     29.35|      57.61|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     31.12|      60.42|
@@ -1617,7 +1617,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  69.93|     NA|  71.73|    NA|        NA|         NA|
+|Index                           |  70.17|     NA|  71.82|    NA|        NA|         NA|
 |Food Provision                  |  24.33|  23.88|  24.78| -0.04|        NA|         NA|
 |. Fisheries                     |  21.60|  21.00|  22.19| -0.02|     34.58|      55.88|
 |. Mariculture                   |  51.55|  52.62|  50.49| -0.23|     33.30|      67.71|
@@ -1651,7 +1651,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  68.23|     NA|  69.11|    NA|        NA|         NA|
+|Index                           |  69.49|     NA|  70.24|    NA|        NA|         NA|
 |Food Provision                  |  34.69|  34.00|  35.38| -0.10|        NA|         NA|
 |. Fisheries                     |  34.69|  34.00|  35.38| -0.10|     25.04|      57.64|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.01|      70.34|
@@ -1685,7 +1685,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  67.88|     NA|  69.31|    NA|        NA|         NA|
+|Index                           |  67.93|     NA|  69.35|    NA|        NA|         NA|
 |Food Provision                  |   5.33|   5.04|   5.63|  0.02|        NA|         NA|
 |. Fisheries                     |   6.35|   6.00|   6.71|  0.02|     28.89|      60.68|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     30.07|      67.71|
@@ -1719,7 +1719,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  66.71|     NA|  65.05|    NA|        NA|         NA|
+|Index                           |  67.58|     NA|  65.79|    NA|        NA|         NA|
 |Food Provision                  |     NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |     NA|     NA|     NA|    NA|     26.40|      57.59|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     28.45|      63.13|
@@ -1753,7 +1753,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 49.64|     NA|  50.83|    NA|        NA|         NA|
+|Index                           | 50.39|     NA|  51.49|    NA|        NA|         NA|
 |Food Provision                  | 16.57|  15.84|  17.30| -0.03|        NA|         NA|
 |. Fisheries                     | 19.88|  19.00|  20.76| -0.01|     29.42|      59.55|
 |. Mariculture                   |  0.61|   0.60|   0.62| -0.14|     30.84|      69.79|
@@ -1787,7 +1787,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  41.01|     NA|  38.81|    NA|        NA|         NA|
+|Index                           |  42.03|     NA|  39.77|    NA|        NA|         NA|
 |Food Provision                  |  14.53|  14.00|  15.06|  0.01|        NA|         NA|
 |. Fisheries                     |  14.53|  14.00|  15.06|  0.01|     37.00|      57.82|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     47.85|      56.25|
@@ -1821,7 +1821,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.83|     NA|  63.86|    NA|        NA|         NA|
+|Index                           |  63.88|     NA|  64.85|    NA|        NA|         NA|
 |Food Provision                  |  19.54|  18.62|  20.47|  0.04|        NA|         NA|
 |. Fisheries                     |  19.94|  19.00|  20.89|  0.04|     36.81|      58.82|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     37.01|      63.53|
@@ -1855,7 +1855,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  65.18|     NA|  65.55|    NA|        NA|         NA|
+|Index                           |  65.73|     NA|  65.96|    NA|        NA|         NA|
 |Food Provision                  |  20.88|  20.00|  21.75|  0.01|        NA|         NA|
 |. Fisheries                     |  20.88|  20.00|  21.75|  0.01|     32.34|      56.87|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     28.43|      50.00|
@@ -1889,7 +1889,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  43.81|     NA|  44.55|    NA|        NA|         NA|
+|Index                           |  43.70|     NA|  44.28|    NA|        NA|         NA|
 |Food Provision                  |   1.05|   1.00|   1.11|  0.01|        NA|         NA|
 |. Fisheries                     |   1.05|   1.00|   1.11|  0.01|     27.49|      57.68|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     29.30|      66.67|
@@ -1923,7 +1923,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  60.34|     NA|  57.14|    NA|        NA|         NA|
+|Index                           |  60.11|     NA|  56.60|    NA|        NA|         NA|
 |Food Provision                  |   5.66|   5.37|   5.95|  0.02|        NA|         NA|
 |. Fisheries                     |   6.33|   6.00|   6.65|  0.02|     28.18|      57.13|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     31.75|      64.58|
@@ -1957,7 +1957,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 54.15|     NA|  51.22|    NA|        NA|         NA|
+|Index                           | 53.55|     NA|  50.38|    NA|        NA|         NA|
 |Food Provision                  | 15.57|  15.00|  16.15|  0.00|        NA|         NA|
 |. Fisheries                     | 15.58|  15.00|  16.15|  0.00|     30.92|      54.21|
 |. Mariculture                   |  0.51|   0.49|   0.52|  0.00|     29.47|      50.00|
@@ -1991,7 +1991,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  55.47|     NA|  51.59|    NA|        NA|         NA|
+|Index                           |  56.81|     NA|  52.81|    NA|        NA|         NA|
 |Food Provision                  |  13.96|  13.19|  14.73|  0.02|        NA|         NA|
 |. Fisheries                     |  23.28|  22.00|  24.55|  0.03|     29.46|      58.55|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     28.78|      55.94|
@@ -2025,7 +2025,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  72.86|     NA|  75.33|    NA|        NA|         NA|
+|Index                           |  74.67|     NA|  77.21|    NA|        NA|         NA|
 |Food Provision                  |  71.11|  57.67|  84.55|  0.50|        NA|         NA|
 |. Fisheries                     |  15.75|  15.00|  16.50|  0.00|     30.02|      60.26|
 |. Mariculture                   |  80.57|  64.96|  96.18|  0.59|     31.29|      57.14|
@@ -2059,7 +2059,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  49.17|     NA|  46.12|    NA|        NA|         NA|
+|Index                           |  50.43|     NA|  47.32|    NA|        NA|         NA|
 |Food Provision                  |  18.43|  17.78|  19.08| -0.03|        NA|         NA|
 |. Fisheries                     |  19.70|  19.00|  20.39| -0.03|     29.68|      57.97|
 |. Mariculture                   |   0.13|   0.12|   0.13|  0.00|     34.62|      68.75|
@@ -2093,7 +2093,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 58.18|     NA|  56.18|    NA|        NA|         NA|
+|Index                           | 58.13|     NA|  56.00|    NA|        NA|         NA|
 |Food Provision                  | 18.87|  18.00|  19.74|  0.01|        NA|         NA|
 |. Fisheries                     | 18.87|  18.00|  19.74|  0.01|     26.10|      53.36|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     28.34|      50.00|
@@ -2127,7 +2127,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 54.12|     NA|  54.39|    NA|        NA|         NA|
+|Index                           | 54.48|     NA|  54.44|    NA|        NA|         NA|
 |Food Provision                  | 17.95|  17.00|  18.90|  0.02|        NA|         NA|
 |. Fisheries                     | 17.95|  17.00|  18.90|  0.02|     27.61|      57.39|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.30|      58.33|
@@ -2161,7 +2161,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  68.94|     NA|  69.95|    NA|        NA|         NA|
+|Index                           |  70.40|     NA|  71.39|    NA|        NA|         NA|
 |Food Provision                  |  31.97|  31.00|  32.95| -0.05|        NA|         NA|
 |. Fisheries                     |  31.97|  31.00|  32.95| -0.05|     31.09|      60.29|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     32.20|      69.79|
@@ -2195,7 +2195,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  50.74|     NA|  52.45|    NA|        NA|         NA|
+|Index                           |  52.49|     NA|  54.21|    NA|        NA|         NA|
 |Food Provision                  |  46.44|  45.96|  46.92| -0.04|        NA|         NA|
 |. Fisheries                     |  33.59|  33.00|  34.19| -0.05|     34.61|      55.65|
 |. Mariculture                   | 100.00| 100.00| 100.00|  0.00|     27.02|      63.53|
@@ -2229,7 +2229,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 53.15|     NA|  54.68|    NA|        NA|         NA|
+|Index                           | 53.82|     NA|  55.29|    NA|        NA|         NA|
 |Food Provision                  | 32.82|  32.00|  33.64| -0.08|        NA|         NA|
 |. Fisheries                     | 32.82|  32.00|  33.64| -0.08|     26.27|      58.02|
 |. Mariculture                   |  0.00|   0.00|   0.00| -0.41|     26.27|      70.34|
@@ -2263,7 +2263,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.39|     NA|  57.58|    NA|        NA|         NA|
+|Index                           |  63.85|     NA|  57.78|    NA|        NA|         NA|
 |Food Provision                  |  40.26|  35.99|  44.53|  0.23|        NA|         NA|
 |. Fisheries                     |  40.27|  36.00|  44.54|  0.23|     27.67|      52.85|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     28.14|      50.00|
@@ -2297,7 +2297,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  66.15|     NA|  67.66|    NA|        NA|         NA|
+|Index                           |  67.40|     NA|  68.77|    NA|        NA|         NA|
 |Food Provision                  |  27.29|  26.46|  28.13| -0.04|        NA|         NA|
 |. Fisheries                     |  30.95|  30.00|  31.89| -0.04|     34.18|      61.40|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     34.14|      62.92|
@@ -2331,7 +2331,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.61|     NA|  66.50|    NA|        NA|         NA|
+|Index                           |  64.03|     NA|  66.78|    NA|        NA|         NA|
 |Food Provision                  |  20.10|  19.20|  21.00|  0.00|        NA|         NA|
 |. Fisheries                     |  29.34|  28.00|  30.67|  0.01|     32.30|      59.20|
 |. Mariculture                   |   3.13|   3.03|   3.24| -0.03|     38.37|      65.23|
@@ -2365,7 +2365,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  60.47|     NA|  60.08|    NA|        NA|         NA|
+|Index                           |  61.54|     NA|  61.16|    NA|        NA|         NA|
 |Food Provision                  |   6.34|   6.00|   6.69|  0.02|        NA|         NA|
 |. Fisheries                     |   6.34|   6.00|   6.69|  0.02|     25.98|      56.52|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     28.53|      61.93|
@@ -2399,7 +2399,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.00|     NA|  63.92|    NA|        NA|         NA|
+|Index                           |  63.65|     NA|  64.46|    NA|        NA|         NA|
 |Food Provision                  |  22.77|  21.73|  23.81| -0.01|        NA|         NA|
 |. Fisheries                     |  26.20|  25.00|  27.40| -0.01|     27.15|      58.25|
 |. Mariculture                   |   0.00|   0.00|   0.00| -0.01|     26.26|      62.85|
@@ -2433,7 +2433,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 50.58|     NA|  45.55|    NA|        NA|         NA|
+|Index                           | 51.17|     NA|  45.89|    NA|        NA|         NA|
 |Food Provision                  | 29.27|  28.00|  30.54|  0.02|        NA|         NA|
 |. Fisheries                     | 29.27|  28.00|  30.54|  0.02|     30.13|      53.53|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.88|      50.00|
@@ -2467,7 +2467,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  64.70|     NA|  60.59|    NA|        NA|         NA|
+|Index                           |  64.23|     NA|  59.92|    NA|        NA|         NA|
 |Food Provision                  |  28.07|  27.00|  29.14| -0.01|        NA|         NA|
 |. Fisheries                     |  28.07|  27.00|  29.14| -0.01|     32.07|      58.13|
 |. Mariculture                   |   1.93|   1.81|   2.06|  0.00|     32.73|      73.96|
@@ -2501,7 +2501,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  54.10|     NA|  53.41|    NA|        NA|         NA|
+|Index                           |  55.43|     NA|  54.57|    NA|        NA|         NA|
 |Food Provision                  |  25.53|  25.00|  26.06| -0.08|        NA|         NA|
 |. Fisheries                     |  25.53|  25.00|  26.06| -0.08|     27.26|      56.30|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     31.97|      50.00|
@@ -2535,7 +2535,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.13|     NA|  62.28|    NA|        NA|         NA|
+|Index                           |  63.68|     NA|  63.79|    NA|        NA|         NA|
 |Food Provision                  |  17.74|  16.77|  18.71|  0.04|        NA|         NA|
 |. Fisheries                     |  19.04|  18.00|  20.09|  0.04|     35.80|      62.83|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     40.86|      65.21|
@@ -2569,7 +2569,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 51.49|     NA|  46.15|    NA|        NA|         NA|
+|Index                           | 51.57|     NA|  45.99|    NA|        NA|         NA|
 |Food Provision                  | 39.89|  39.00|  40.77| -0.06|        NA|         NA|
 |. Fisheries                     | 39.89|  39.00|  40.77| -0.06|     30.47|      56.44|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     31.31|      62.50|
@@ -2603,7 +2603,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.30|     NA|  62.37|    NA|        NA|         NA|
+|Index                           |  62.14|     NA|  62.10|    NA|        NA|         NA|
 |Food Provision                  |  19.64|  19.00|  20.27| -0.03|        NA|         NA|
 |. Fisheries                     |  19.64|  19.00|  20.27| -0.03|     32.87|      59.22|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     42.36|      70.50|
@@ -2637,7 +2637,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 64.18|     NA|  66.81|    NA|        NA|         NA|
+|Index                           | 66.06|     NA|  68.90|    NA|        NA|         NA|
 |Food Provision                  |    NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |    NA|     NA|     NA|    NA|     25.31|      57.26|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.66|      63.52|
@@ -2671,7 +2671,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 64.42|     NA|  66.88|    NA|        NA|         NA|
+|Index                           | 65.01|     NA|  67.40|    NA|        NA|         NA|
 |Food Provision                  | 18.26|  17.77|  18.76| -0.03|        NA|         NA|
 |. Fisheries                     | 25.69|  25.00|  26.39| -0.04|     33.57|      58.48|
 |. Mariculture                   |  0.52|   0.49|   0.54|  0.00|     31.00|      62.98|
@@ -2705,7 +2705,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.24|     NA|  64.92|    NA|        NA|         NA|
+|Index                           |  65.10|     NA|  66.78|    NA|        NA|         NA|
 |Food Provision                  |  35.79|  34.00|  37.57|  0.01|        NA|         NA|
 |. Fisheries                     |  35.79|  34.00|  37.57|  0.01|     27.12|      56.93|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.37|      63.53|
@@ -2739,7 +2739,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  51.15|     NA|  48.06|    NA|        NA|         NA|
+|Index                           |  51.42|     NA|  48.09|    NA|        NA|         NA|
 |Food Provision                  |  11.66|  11.00|  12.31|  0.02|        NA|         NA|
 |. Fisheries                     |  11.66|  11.00|  12.31|  0.02|     26.22|      58.28|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     29.17|      63.54|
@@ -2773,7 +2773,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 64.78|     NA|  64.94|    NA|        NA|         NA|
+|Index                           | 65.04|     NA|  65.13|    NA|        NA|         NA|
 |Food Provision                  |  1.05|   1.00|   1.11|  0.01|        NA|         NA|
 |. Fisheries                     |  1.05|   1.00|   1.11|  0.01|     27.95|      57.87|
 |. Mariculture                   |  1.13|   1.07|   1.19|  0.00|     28.21|      63.13|
@@ -2807,7 +2807,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.50|     NA|  60.91|    NA|        NA|         NA|
+|Index                           |  64.09|     NA|  62.41|    NA|        NA|         NA|
 |Food Provision                  |  27.20|  25.26|  29.14|  0.06|        NA|         NA|
 |. Fisheries                     |  44.15|  41.00|  47.30|  0.09|     28.71|      56.99|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     35.79|      47.29|
@@ -2841,7 +2841,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 52.98|     NA|  55.09|    NA|        NA|         NA|
+|Index                           | 53.68|     NA|  55.78|    NA|        NA|         NA|
 |Food Provision                  |    NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |    NA|     NA|     NA|    NA|     32.28|      58.40|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     31.77|      63.47|
@@ -2875,7 +2875,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  51.45|     NA|  48.99|    NA|        NA|         NA|
+|Index                           |  52.09|     NA|  49.58|    NA|        NA|         NA|
 |Food Provision                  |  27.29|  26.00|  28.58|  0.02|        NA|         NA|
 |. Fisheries                     |  27.29|  26.00|  28.58|  0.02|     28.77|      54.73|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     28.52|      63.54|
@@ -2909,7 +2909,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  43.84|     NA|  40.53|    NA|        NA|         NA|
+|Index                           |  44.36|     NA|  40.91|    NA|        NA|         NA|
 |Food Provision                  |  23.05|  22.00|  24.10| -0.01|        NA|         NA|
 |. Fisheries                     |  23.05|  22.00|  24.10| -0.01|     27.46|      58.36|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     27.66|      56.25|
@@ -2943,7 +2943,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 50.12|     NA|  45.27|    NA|        NA|         NA|
+|Index                           | 50.77|     NA|  45.64|    NA|        NA|         NA|
 |Food Provision                  |  2.10|   2.01|   2.20|  0.01|        NA|         NA|
 |. Fisheries                     |  2.10|   2.00|   2.19|  0.01|     29.09|      55.99|
 |. Mariculture                   |  4.36|   4.09|   4.62|  0.04|     31.17|      62.50|
@@ -2977,7 +2977,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  48.15|     NA|  41.50|    NA|        NA|         NA|
+|Index                           |  48.58|     NA|  41.73|    NA|        NA|         NA|
 |Food Provision                  |   1.04|   1.00|   1.09|  0.00|        NA|         NA|
 |. Fisheries                     |   1.04|   1.00|   1.09|  0.00|     27.58|      54.83|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     28.28|      50.00|
@@ -3011,7 +3011,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  84.46|     NA|  86.18|    NA|        NA|         NA|
+|Index                           |  86.04|     NA|  87.66|    NA|        NA|         NA|
 |Food Provision                  |  77.73|  73.00|  82.47|  0.02|        NA|         NA|
 |. Fisheries                     |  77.73|  73.00|  82.47|  0.02|     25.29|      60.52|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.78|      74.61|
@@ -3045,7 +3045,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  57.14|     NA|  53.02|    NA|        NA|         NA|
+|Index                           |  58.54|     NA|  54.16|    NA|        NA|         NA|
 |Food Provision                  |  68.53|  68.46|  68.60|  0.00|        NA|         NA|
 |. Fisheries                     |   4.22|   4.00|   4.44|  0.01|     27.72|      59.09|
 |. Mariculture                   | 100.00| 100.00| 100.00|  0.00|     31.82|      51.35|
@@ -3079,7 +3079,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 80.37|     NA|  81.35|    NA|        NA|         NA|
+|Index                           | 81.15|     NA|  82.02|    NA|        NA|         NA|
 |Food Provision                  | 62.06|  54.00|  70.12|  0.31|        NA|         NA|
 |. Fisheries                     | 62.06|  54.00|  70.12|  0.31|     25.55|      53.06|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     25.76|      30.27|
@@ -3113,7 +3113,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 53.15|     NA|  55.21|    NA|        NA|         NA|
+|Index                           | 54.03|     NA|  56.17|    NA|        NA|         NA|
 |Food Provision                  | 25.44|  24.91|  25.96| -0.03|        NA|         NA|
 |. Fisheries                     | 25.53|  25.00|  26.05| -0.03|     34.30|      53.14|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     27.89|      58.94|
@@ -3147,7 +3147,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  70.04|     NA|  70.29|    NA|        NA|         NA|
+|Index                           |  71.29|     NA|  71.51|    NA|        NA|         NA|
 |Food Provision                  |     NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |     NA|     NA|     NA|    NA|     25.15|      56.62|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.83|      63.52|
@@ -3181,7 +3181,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 57.25|     NA|  58.11|    NA|        NA|         NA|
+|Index                           | 58.38|     NA|  59.24|    NA|        NA|         NA|
 |Food Provision                  | 33.40|  33.00|  33.79| -0.12|        NA|         NA|
 |. Fisheries                     | 33.40|  33.00|  33.79| -0.12|     25.21|      56.85|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.15|      63.52|
@@ -3215,7 +3215,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 57.32|     NA|  54.36|    NA|        NA|         NA|
+|Index                           | 57.35|     NA|  54.18|    NA|        NA|         NA|
 |Food Provision                  | 12.97|  12.50|  13.44| -0.02|        NA|         NA|
 |. Fisheries                     | 13.49|  13.00|  13.99| -0.01|     33.72|      58.72|
 |. Mariculture                   |  0.00|   0.00|   0.00| -0.19|     39.31|      60.73|
@@ -3249,7 +3249,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 54.98|     NA|  52.83|    NA|        NA|         NA|
+|Index                           | 55.59|     NA|  53.23|    NA|        NA|         NA|
 |Food Provision                  | 20.15|  18.69|  21.62|  0.09|        NA|         NA|
 |. Fisheries                     | 25.89|  24.00|  27.77|  0.12|     35.10|      58.37|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     31.33|      55.52|
@@ -3283,7 +3283,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  50.99|     NA|  44.68|    NA|        NA|         NA|
+|Index                           |  51.93|     NA|  45.30|    NA|        NA|         NA|
 |Food Provision                  |  24.83|  24.23|  25.43| -0.07|        NA|         NA|
 |. Fisheries                     |  25.62|  25.00|  26.23| -0.05|     32.75|      57.84|
 |. Mariculture                   |   0.00|   0.00|   0.00| -0.86|     29.50|      57.50|
@@ -3317,7 +3317,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  55.16|     NA|  54.74|    NA|        NA|         NA|
+|Index                           |  55.50|     NA|  55.07|    NA|        NA|         NA|
 |Food Provision                  |  11.35|  11.00|  11.71|  0.00|        NA|         NA|
 |. Fisheries                     |  11.35|  11.00|  11.71|  0.00|     35.91|      55.36|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     55.22|      50.00|
@@ -3351,7 +3351,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  57.63|     NA|  59.38|    NA|        NA|         NA|
+|Index                           |  59.00|     NA|  60.73|    NA|        NA|         NA|
 |Food Provision                  |  35.10|  34.05|  36.16| -0.03|        NA|         NA|
 |. Fisheries                     |  40.21|  39.00|  41.41| -0.03|     32.74|      57.59|
 |. Mariculture                   |   0.01|   0.01|   0.01|  0.00|     34.92|      65.73|
@@ -3385,7 +3385,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  59.03|     NA|  61.99|    NA|        NA|         NA|
+|Index                           |  60.53|     NA|  63.58|    NA|        NA|         NA|
 |Food Provision                  |  12.36|  11.81|  12.90|  0.00|        NA|         NA|
 |. Fisheries                     |  15.69|  15.00|  16.39|  0.00|     30.19|      58.17|
 |. Mariculture                   |   0.65|   0.62|   0.68|  0.00|     42.10|      72.92|
@@ -3419,7 +3419,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  58.32|     NA|  60.97|    NA|        NA|         NA|
+|Index                           |  59.02|     NA|  61.61|    NA|        NA|         NA|
 |Food Provision                  |  11.44|  11.07|  11.82| -0.02|        NA|         NA|
 |. Fisheries                     |  20.68|  20.00|  21.35| -0.02|     31.30|      55.87|
 |. Mariculture                   |   0.03|   0.03|   0.03| -0.01|     35.24|      61.60|
@@ -3453,7 +3453,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  44.70|     NA|  42.57|    NA|        NA|         NA|
+|Index                           |  45.06|     NA|  42.78|    NA|        NA|         NA|
 |Food Provision                  |  37.32|  36.00|  38.63| -0.04|        NA|         NA|
 |. Fisheries                     |  37.32|  36.00|  38.63| -0.04|     27.22|      57.52|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     32.04|      73.96|
@@ -3487,7 +3487,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  58.64|     NA|  51.86|    NA|        NA|         NA|
+|Index                           |  59.01|     NA|  51.91|    NA|        NA|         NA|
 |Food Provision                  |   1.03|   0.99|   1.07|  0.00|        NA|         NA|
 |. Fisheries                     |   1.04|   1.00|   1.09|  0.00|     28.05|      54.07|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     28.92|      50.00|
@@ -3521,7 +3521,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 54.98|     NA|  57.48|    NA|        NA|         NA|
+|Index                           | 55.61|     NA|  58.10|    NA|        NA|         NA|
 |Food Provision                  | 27.15|  26.00|  28.30|  0.00|        NA|         NA|
 |. Fisheries                     | 27.15|  26.00|  28.30|  0.00|     30.93|      57.69|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     25.97|      63.42|
@@ -3555,7 +3555,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  60.22|     NA|  60.24|    NA|        NA|         NA|
+|Index                           |  61.80|     NA|  61.69|    NA|        NA|         NA|
 |Food Provision                  |  14.17|  13.67|  14.67|  0.00|        NA|         NA|
 |. Fisheries                     |  16.59|  16.00|  17.17|  0.00|     33.46|      55.68|
 |. Mariculture                   |   0.13|   0.12|   0.13|  0.00|     31.72|      59.23|
@@ -3589,7 +3589,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 67.07|     NA|  67.06|    NA|        NA|         NA|
+|Index                           | 67.47|     NA|  67.25|    NA|        NA|         NA|
 |Food Provision                  | 18.79|  18.00|  19.58|  0.00|        NA|         NA|
 |. Fisheries                     | 18.79|  18.00|  19.58|  0.00|     26.43|      53.04|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     25.32|      30.27|
@@ -3623,7 +3623,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 57.67|     NA|  60.00|    NA|        NA|         NA|
+|Index                           | 58.38|     NA|  60.69|    NA|        NA|         NA|
 |Food Provision                  |    NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |    NA|     NA|     NA|    NA|     30.22|      59.10|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     31.99|      63.47|
@@ -3657,7 +3657,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 63.42|     NA|  62.79|    NA|        NA|         NA|
+|Index                           | 63.82|     NA|  63.01|    NA|        NA|         NA|
 |Food Provision                  | 12.54|  12.00|  13.08|  0.00|        NA|         NA|
 |. Fisheries                     | 12.54|  12.00|  13.08|  0.00|     25.44|      52.71|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.31|      30.27|
@@ -3691,7 +3691,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 49.69|     NA|  46.43|    NA|        NA|         NA|
+|Index                           | 50.01|     NA|  46.41|    NA|        NA|         NA|
 |Food Provision                  |  4.10|   4.00|   4.21|  0.01|        NA|         NA|
 |. Fisheries                     |  4.10|   4.00|   4.21|  0.01|     44.88|      58.62|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     37.43|      65.62|
@@ -3725,7 +3725,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 64.30|     NA|  67.01|    NA|        NA|         NA|
+|Index                           | 66.20|     NA|  69.10|    NA|        NA|         NA|
 |Food Provision                  |    NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |    NA|     NA|     NA|    NA|     25.18|      57.09|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.76|      63.52|
@@ -3759,7 +3759,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 56.55|     NA|  53.37|    NA|        NA|         NA|
+|Index                           | 57.92|     NA|  54.57|    NA|        NA|         NA|
 |Food Provision                  | 14.80|  14.00|  15.60|  0.01|        NA|         NA|
 |. Fisheries                     | 14.80|  14.00|  15.60|  0.01|     26.76|      59.45|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     33.16|      69.79|
@@ -3793,7 +3793,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  70.21|     NA|  71.89|    NA|        NA|         NA|
+|Index                           |  72.13|     NA|  73.70|    NA|        NA|         NA|
 |Food Provision                  |  60.28|  57.00|  63.55|  0.01|        NA|         NA|
 |. Fisheries                     |  60.28|  57.00|  63.55|  0.01|     25.35|      58.15|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.93|      70.34|
@@ -3827,7 +3827,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  56.42|     NA|  56.12|    NA|        NA|         NA|
+|Index                           |  57.84|     NA|  57.48|    NA|        NA|         NA|
 |Food Provision                  |  39.33|  35.99|  42.66|  0.16|        NA|         NA|
 |. Fisheries                     |  39.34|  36.00|  42.67|  0.16|     30.49|      54.15|
 |. Mariculture                   |   3.12|   3.04|   3.21| -0.02|     26.51|      47.21|
@@ -3861,7 +3861,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  52.76|     NA|  52.12|    NA|        NA|         NA|
+|Index                           |  53.59|     NA|  52.79|    NA|        NA|         NA|
 |Food Provision                  |  17.45|  16.95|  17.95| -0.03|        NA|         NA|
 |. Fisheries                     |  17.50|  17.00|  18.01| -0.03|     31.97|      56.03|
 |. Mariculture                   |   1.17|   1.14|   1.20|  0.00|     32.89|      50.00|
@@ -3895,7 +3895,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.39|     NA|  65.22|    NA|        NA|         NA|
+|Index                           |  64.59|     NA|  66.46|    NA|        NA|         NA|
 |Food Provision                  |  31.88|  31.00|  32.75| -0.05|        NA|         NA|
 |. Fisheries                     |  31.88|  31.00|  32.75| -0.05|     32.17|      59.44|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     35.33|      71.88|
@@ -3929,7 +3929,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  55.51|     NA|  56.24|    NA|        NA|         NA|
+|Index                           |  56.08|     NA|  56.81|    NA|        NA|         NA|
 |Food Provision                  |  14.68|  14.00|  15.36|  0.00|        NA|         NA|
 |. Fisheries                     |  14.68|  14.00|  15.36|  0.00|     30.67|      60.19|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     37.30|      66.67|
@@ -3963,7 +3963,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  41.39|     NA|  38.76|    NA|        NA|         NA|
+|Index                           |  41.97|     NA|  39.21|    NA|        NA|         NA|
 |Food Provision                  |  26.16|  25.00|  27.32|  0.00|        NA|         NA|
 |. Fisheries                     |  26.16|  25.00|  27.32|  0.00|     26.88|      55.03|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     30.08|      63.54|
@@ -3997,7 +3997,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  50.77|     NA|  50.04|    NA|        NA|         NA|
+|Index                           |  51.89|     NA|  50.83|    NA|        NA|         NA|
 |Food Provision                  |  22.52|  21.82|  23.22| -0.02|        NA|         NA|
 |. Fisheries                     |  22.71|  22.00|  23.42| -0.02|     28.86|      52.44|
 |. Mariculture                   |   3.37|   3.27|   3.48|  0.00|     30.61|      50.00|
@@ -4031,7 +4031,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.17|     NA|  62.58|    NA|        NA|         NA|
+|Index                           |  63.84|     NA|  64.16|    NA|        NA|         NA|
 |Food Provision                  |     NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |     NA|     NA|     NA|    NA|     25.46|      53.53|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     25.53|      47.21|
@@ -4065,7 +4065,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  56.71|     NA|  56.58|    NA|        NA|         NA|
+|Index                           |  57.90|     NA|  57.63|    NA|        NA|         NA|
 |Food Provision                  |  31.86|  31.00|  32.72| -0.06|        NA|         NA|
 |. Fisheries                     |  31.86|  31.00|  32.72| -0.06|     31.48|      60.48|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     41.34|      67.71|
@@ -4099,7 +4099,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  68.47|     NA|  69.91|    NA|        NA|         NA|
+|Index                           |  68.88|     NA|  70.27|    NA|        NA|         NA|
 |Food Provision                  |  15.87|  15.00|  16.73| -0.01|        NA|         NA|
 |. Fisheries                     |  15.87|  15.00|  16.73| -0.01|     25.22|      62.21|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     27.09|      74.61|
@@ -4133,7 +4133,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  55.82|     NA|  54.02|    NA|        NA|         NA|
+|Index                           |  56.54|     NA|  54.51|    NA|        NA|         NA|
 |Food Provision                  |  19.38|  19.14|  19.62| -0.10|        NA|         NA|
 |. Fisheries                     |  20.25|  20.00|  20.51| -0.10|     29.19|      57.18|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     28.28|      55.42|
@@ -4167,7 +4167,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 64.27|     NA|  66.79|    NA|        NA|         NA|
+|Index                           | 64.56|     NA|  67.03|    NA|        NA|         NA|
 |Food Provision                  | 32.48|  31.00|  33.96|  0.00|        NA|         NA|
 |. Fisheries                     | 32.48|  31.00|  33.96|  0.00|     27.21|      56.13|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     29.12|      64.52|
@@ -4201,7 +4201,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 57.47|     NA|  54.07|    NA|        NA|         NA|
+|Index                           | 58.34|     NA|  54.89|    NA|        NA|         NA|
 |Food Provision                  | 14.87|  14.04|  15.70|  0.08|        NA|         NA|
 |. Fisheries                     | 16.95|  16.00|  17.90|  0.09|     40.91|      58.69|
 |. Mariculture                   |  2.20|   2.12|   2.28|  0.00|     37.29|      59.46|
@@ -4235,7 +4235,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  59.08|     NA|  57.64|    NA|        NA|         NA|
+|Index                           |  59.54|     NA|  57.90|    NA|        NA|         NA|
 |Food Provision                  |  33.95|  34.00|  33.90| -0.14|        NA|         NA|
 |. Fisheries                     |  33.95|  34.00|  33.90| -0.14|     26.52|      54.05|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.70|      50.00|
@@ -4269,7 +4269,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  68.35|     NA|  68.76|    NA|        NA|         NA|
+|Index                           |  68.98|     NA|  69.21|    NA|        NA|         NA|
 |Food Provision                  |  37.92|  37.40|  38.44| -0.02|        NA|         NA|
 |. Fisheries                     |  22.65|  22.00|  23.29| -0.03|     31.12|      54.99|
 |. Mariculture                   | 100.00| 100.00| 100.00|  0.02|     29.26|      67.71|
@@ -4303,7 +4303,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 69.45|     NA|  71.26|    NA|        NA|         NA|
+|Index                           | 70.33|     NA|  71.99|    NA|        NA|         NA|
 |Food Provision                  | 88.50|  77.00| 100.00|  0.36|        NA|         NA|
 |. Fisheries                     | 88.50|  77.00| 100.00|  0.36|     25.58|      53.71|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.96|      50.00|
@@ -4337,7 +4337,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  56.37|     NA|  57.48|    NA|        NA|         NA|
+|Index                           |  57.36|     NA|  58.43|    NA|        NA|         NA|
 |Food Provision                  |  26.25|  25.00|  27.49|  0.00|        NA|         NA|
 |. Fisheries                     |  26.25|  25.00|  27.49|  0.00|     29.14|      59.33|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     27.84|      57.29|
@@ -4371,7 +4371,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 64.78|     NA|  66.43|    NA|        NA|         NA|
+|Index                           | 65.47|     NA|  67.20|    NA|        NA|         NA|
 |Food Provision                  | 23.47|  22.61|  24.33| -0.04|        NA|         NA|
 |. Fisheries                     | 23.87|  23.00|  24.75| -0.04|     26.26|      57.38|
 |. Mariculture                   |  0.05|   0.05|   0.06|  0.00|     31.02|      70.83|
@@ -4405,7 +4405,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  64.21|     NA|  64.98|    NA|        NA|         NA|
+|Index                           |  65.77|     NA|  66.50|    NA|        NA|         NA|
 |Food Provision                  |  29.67|  29.56|  29.77| -0.18|        NA|         NA|
 |. Fisheries                     |  30.11|  30.00|  30.21| -0.18|     27.61|      66.30|
 |. Mariculture                   |   0.00|   0.00|   0.00| -0.02|     27.25|      63.52|
@@ -4439,7 +4439,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  59.16|     NA|  55.09|    NA|        NA|         NA|
+|Index                           |  59.95|     NA|  55.73|    NA|        NA|         NA|
 |Food Provision                  |  32.25|  30.38|  34.12|  0.04|        NA|         NA|
 |. Fisheries                     |  36.10|  34.00|  38.19|  0.05|     30.28|      57.48|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     30.14|      55.31|
@@ -4473,7 +4473,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 54.58|     NA|  53.96|    NA|        NA|         NA|
+|Index                           | 55.63|     NA|  54.90|    NA|        NA|         NA|
 |Food Provision                  |  2.10|   2.00|   2.20|  0.01|        NA|         NA|
 |. Fisheries                     |  2.10|   2.00|   2.20|  0.01|     25.94|      53.73|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     28.97|      50.00|
@@ -4507,7 +4507,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 62.57|     NA|  64.03|    NA|        NA|         NA|
+|Index                           | 63.40|     NA|  64.76|    NA|        NA|         NA|
 |Food Provision                  | 25.69|  25.00|  26.39| -0.03|        NA|         NA|
 |. Fisheries                     | 25.69|  25.00|  26.39| -0.03|     31.92|      54.83|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     35.41|      50.00|
@@ -4541,7 +4541,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 45.37|     NA|  43.31|    NA|        NA|         NA|
+|Index                           | 46.90|     NA|  44.55|    NA|        NA|         NA|
 |Food Provision                  | 23.93|  23.30|  24.57| -0.02|        NA|         NA|
 |. Fisheries                     | 24.65|  24.00|  25.30| -0.02|     31.29|      51.82|
 |. Mariculture                   |  2.52|   2.46|   2.57|  0.00|     31.50|      45.50|
@@ -4575,7 +4575,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 55.80|     NA|  47.78|    NA|        NA|         NA|
+|Index                           | 55.98|     NA|  47.81|    NA|        NA|         NA|
 |Food Provision                  |  1.05|   1.00|   1.10|  0.01|        NA|         NA|
 |. Fisheries                     |  1.05|   1.00|   1.10|  0.01|     29.62|      58.60|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     30.24|      63.13|
@@ -4609,7 +4609,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  65.62|     NA|  67.49|    NA|        NA|         NA|
+|Index                           |  66.74|     NA|  68.65|    NA|        NA|         NA|
 |Food Provision                  |  49.95|  47.98|  51.92|  0.01|        NA|         NA|
 |. Fisheries                     |  49.97|  48.00|  51.94|  0.01|     34.96|      57.83|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     34.38|      64.09|
@@ -4643,7 +4643,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  59.61|     NA|  58.88|    NA|        NA|         NA|
+|Index                           |  60.96|     NA|  60.10|    NA|        NA|         NA|
 |Food Provision                  |  27.38|  27.55|  27.21| -0.16|        NA|         NA|
 |. Fisheries                     |  27.82|  28.00|  27.64| -0.16|     28.96|      57.56|
 |. Mariculture                   |   3.88|   3.66|   4.11|  0.00|     29.81|      66.67|
@@ -4677,7 +4677,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  54.14|     NA|  51.32|    NA|        NA|         NA|
+|Index                           |  55.22|     NA|  52.26|    NA|        NA|         NA|
 |Food Provision                  |   3.51|   3.12|   3.89|  0.03|        NA|         NA|
 |. Fisheries                     |   0.00|   0.00|   0.00|  0.00|     35.46|      56.48|
 |. Mariculture                   |  90.14|  80.28| 100.00|  0.83|     28.52|      46.25|
@@ -4711,7 +4711,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  54.52|     NA|  53.67|    NA|        NA|         NA|
+|Index                           |  56.06|     NA|  54.99|    NA|        NA|         NA|
 |Food Provision                  |  21.80|  20.98|  22.62| -0.03|        NA|         NA|
 |. Fisheries                     |  21.82|  21.00|  22.65| -0.03|     27.25|      57.15|
 |. Mariculture                   |   2.03|   1.96|   2.10| -0.03|     27.46|      55.31|
@@ -4745,7 +4745,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 67.58|     NA|  68.72|    NA|        NA|         NA|
+|Index                           | 68.98|     NA|  70.13|    NA|        NA|         NA|
 |Food Provision                  | 83.21|  70.00|  96.41|  0.43|        NA|         NA|
 |. Fisheries                     | 83.21|  70.00|  96.41|  0.43|     26.26|      53.30|
 |. Mariculture                   |  0.00|   0.00|   0.00| -0.01|     27.34|      50.00|
@@ -4779,7 +4779,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  67.78|     NA|  69.08|    NA|        NA|         NA|
+|Index                           |  68.75|     NA|  70.02|    NA|        NA|         NA|
 |Food Provision                  |  15.13|  14.45|  15.81|  0.02|        NA|         NA|
 |. Fisheries                     |  20.94|  20.00|  21.89|  0.03|     36.09|      58.57|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     39.44|      65.83|
@@ -4813,7 +4813,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  67.96|     NA|  62.23|    NA|        NA|         NA|
+|Index                           |  68.22|     NA|  62.21|    NA|        NA|         NA|
 |Food Provision                  |  82.59|  78.38|  86.80|  0.05|        NA|         NA|
 |. Fisheries                     |  79.86|  75.00|  84.73|  0.06|     27.33|      54.46|
 |. Mariculture                   | 100.00| 100.00| 100.00|  0.00|     27.33|      51.22|
@@ -4847,7 +4847,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  66.33|     NA|  66.35|    NA|        NA|         NA|
+|Index                           |  67.11|     NA|  66.85|    NA|        NA|         NA|
 |Food Provision                  |  19.31|  18.55|  20.07| -0.03|        NA|         NA|
 |. Fisheries                     |  24.98|  24.00|  25.95| -0.04|     28.45|      61.24|
 |. Mariculture                   |   1.91|   1.81|   2.01|  0.02|     30.71|      59.89|
@@ -4881,7 +4881,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  46.22|     NA|  45.08|    NA|        NA|         NA|
+|Index                           |  47.43|     NA|  46.23|    NA|        NA|         NA|
 |Food Provision                  |  10.91|  10.26|  11.56|  0.03|        NA|         NA|
 |. Fisheries                     |  20.21|  19.00|  21.42|  0.06|     30.25|      56.63|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     30.75|      50.62|
@@ -4915,7 +4915,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  52.65|     NA|  51.70|    NA|        NA|         NA|
+|Index                           |  53.54|     NA|  52.52|    NA|        NA|         NA|
 |Food Provision                  |  15.26|  15.00|  15.52|  0.01|        NA|         NA|
 |. Fisheries                     |  15.26|  15.00|  15.52|  0.01|     44.78|      53.27|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     31.05|      48.33|
@@ -4949,7 +4949,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 55.71|     NA|  56.59|    NA|        NA|         NA|
+|Index                           | 56.68|     NA|  57.52|    NA|        NA|         NA|
 |Food Provision                  | 20.90|  20.00|  21.81| -0.03|        NA|         NA|
 |. Fisheries                     | 20.90|  20.00|  21.81| -0.03|     25.48|      58.94|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.67|      59.89|
@@ -4983,7 +4983,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  65.84|     NA|  67.17|    NA|        NA|         NA|
+|Index                           |  66.17|     NA|  67.43|    NA|        NA|         NA|
 |Food Provision                  |  11.65|  11.00|  12.29|  0.01|        NA|         NA|
 |. Fisheries                     |  11.65|  11.00|  12.29|  0.01|     25.49|      59.10|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.43|      74.61|
@@ -5017,7 +5017,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  48.71|     NA|  48.20|    NA|        NA|         NA|
+|Index                           |  50.33|     NA|  49.81|    NA|        NA|         NA|
 |Food Provision                  |  16.72|  16.14|  17.30|  0.00|        NA|         NA|
 |. Fisheries                     |  17.61|  17.00|  18.22|  0.00|     34.41|      56.07|
 |. Mariculture                   |   0.59|   0.56|   0.62|  0.00|     29.15|      60.31|
@@ -5051,7 +5051,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 56.64|     NA|  56.07|    NA|        NA|         NA|
+|Index                           | 57.05|     NA|  56.36|    NA|        NA|         NA|
 |Food Provision                  |  8.37|   8.00|   8.74|  0.03|        NA|         NA|
 |. Fisheries                     |  8.37|   8.00|   8.74|  0.03|     30.72|      52.55|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     27.94|      30.27|
@@ -5085,7 +5085,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  71.00|     NA|  73.16|    NA|        NA|         NA|
+|Index                           |  71.55|     NA|  73.65|    NA|        NA|         NA|
 |Food Provision                  |     NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |     NA|     NA|     NA|    NA|     29.94|      58.75|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     30.61|      63.13|
@@ -5119,7 +5119,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 61.07|     NA|  63.57|    NA|        NA|         NA|
+|Index                           | 62.34|     NA|  64.87|    NA|        NA|         NA|
 |Food Provision                  | 23.07|  22.13|  24.02|  0.02|        NA|         NA|
 |. Fisheries                     | 32.11|  31.00|  33.23| -0.01|     35.22|      59.04|
 |. Mariculture                   |  8.52|   7.84|   9.19|  0.08|     27.41|      63.42|
@@ -5153,7 +5153,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 51.64|     NA|  47.37|    NA|        NA|         NA|
+|Index                           | 52.10|     NA|  47.65|    NA|        NA|         NA|
 |Food Provision                  |    NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |    NA|     NA|     NA|    NA|     34.07|      54.14|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     32.20|      50.00|
@@ -5187,7 +5187,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  61.48|     NA|  61.27|    NA|        NA|         NA|
+|Index                           |  62.72|     NA|  62.24|    NA|        NA|         NA|
 |Food Provision                  |  32.83|  31.98|  33.68| -0.05|        NA|         NA|
 |. Fisheries                     |  32.85|  32.00|  33.70| -0.05|     27.42|      53.68|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     28.17|      50.00|
@@ -5221,7 +5221,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 42.85|     NA|  38.79|    NA|        NA|         NA|
+|Index                           | 43.79|     NA|  39.56|    NA|        NA|         NA|
 |Food Provision                  | 26.93|  25.99|  27.88| -0.02|        NA|         NA|
 |. Fisheries                     | 26.95|  26.00|  27.89| -0.02|     30.24|      56.33|
 |. Mariculture                   |  0.30|   0.29|   0.32|  0.00|     31.46|      57.81|
@@ -5255,7 +5255,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  68.69|     NA|  68.51|    NA|        NA|         NA|
+|Index                           |  70.27|     NA|  70.00|    NA|        NA|         NA|
 |Food Provision                  |  89.42|  78.93|  99.91|  0.38|        NA|         NA|
 |. Fisheries                     |  89.50|  79.00| 100.00|  0.38|     28.58|      57.37|
 |. Mariculture                   |   1.24|   1.17|   1.30| -0.01|     29.36|      65.62|
@@ -5289,7 +5289,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.60|     NA|  63.06|    NA|        NA|         NA|
+|Index                           |  64.01|     NA|  63.32|    NA|        NA|         NA|
 |Food Provision                  |  12.56|  12.00|  13.13|  0.00|        NA|         NA|
 |. Fisheries                     |  12.56|  12.00|  13.13|  0.00|     25.12|      53.53|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     25.61|      30.27|
@@ -5323,7 +5323,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  51.97|     NA|  49.14|    NA|        NA|         NA|
+|Index                           |  52.95|     NA|  49.94|    NA|        NA|         NA|
 |Food Provision                  |  34.95|  34.14|  35.76| -0.07|        NA|         NA|
 |. Fisheries                     |  35.83|  35.00|  36.65| -0.07|     30.58|      59.10|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     29.04|      58.33|
@@ -5357,7 +5357,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  65.96|     NA|  65.13|    NA|        NA|         NA|
+|Index                           |  66.88|     NA|  65.95|    NA|        NA|         NA|
 |Food Provision                  |  86.97|  74.99|  98.94|  0.36|        NA|         NA|
 |. Fisheries                     |  86.97|  75.00|  98.95|  0.36|     30.83|      54.50|
 |. Mariculture                   |   0.13|   0.13|   0.14|  0.00|     28.97|      50.00|
@@ -5391,7 +5391,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 52.84|     NA|  49.73|    NA|        NA|         NA|
+|Index                           | 53.25|     NA|  49.84|    NA|        NA|         NA|
 |Food Provision                  | 66.95|  63.40|  70.51|  0.04|        NA|         NA|
 |. Fisheries                     | 67.59|  64.00|  71.18|  0.04|     29.74|      55.60|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     29.81|      55.73|
@@ -5425,7 +5425,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 53.30|     NA|  49.44|    NA|        NA|         NA|
+|Index                           | 53.13|     NA|  49.03|    NA|        NA|         NA|
 |Food Provision                  | 14.54|  13.72|  15.36|  0.07|        NA|         NA|
 |. Fisheries                     | 18.02|  17.00|  19.04|  0.09|     40.29|      58.46|
 |. Mariculture                   |  0.73|   0.70|   0.75|  0.00|     31.84|      54.63|
@@ -5459,7 +5459,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  77.09|     NA|  77.85|    NA|        NA|         NA|
+|Index                           |  78.78|     NA|  79.45|    NA|        NA|         NA|
 |Food Provision                  |     NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |     NA|     NA|     NA|    NA|     25.27|      59.07|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     25.79|      47.21|
@@ -5493,7 +5493,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  59.58|     NA|  60.76|    NA|        NA|         NA|
+|Index                           |  60.71|     NA|  61.86|    NA|        NA|         NA|
 |Food Provision                  |  15.88|  15.00|  16.75|  0.01|        NA|         NA|
 |. Fisheries                     |  15.88|  15.00|  16.75|  0.01|     25.09|      58.49|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.01|      62.85|
@@ -5527,7 +5527,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  57.36|     NA|  57.59|    NA|        NA|         NA|
+|Index                           |  58.24|     NA|  58.25|    NA|        NA|         NA|
 |Food Provision                  |  31.03|  30.00|  32.06| -0.04|        NA|         NA|
 |. Fisheries                     |  31.03|  30.00|  32.06| -0.04|     32.14|      61.07|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     42.71|      60.10|
@@ -5561,7 +5561,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  66.65|     NA|  69.07|    NA|        NA|         NA|
+|Index                           |  67.17|     NA|  69.61|    NA|        NA|         NA|
 |Food Provision                  |  24.85|  23.73|  25.96|  0.02|        NA|         NA|
 |. Fisheries                     |  26.17|  25.00|  27.35|  0.02|     31.92|      56.32|
 |. Mariculture                   |   0.01|   0.01|   0.01|  0.00|     35.87|      64.52|
@@ -5595,7 +5595,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  69.29|     NA|  70.35|    NA|        NA|         NA|
+|Index                           |  70.88|     NA|  71.84|    NA|        NA|         NA|
 |Food Provision                  |  32.53|  31.00|  34.06| -0.03|        NA|         NA|
 |. Fisheries                     |  32.53|  31.00|  34.06| -0.03|     25.06|      61.08|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     29.65|      56.31|
@@ -5629,7 +5629,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.12|     NA|  62.64|    NA|        NA|         NA|
+|Index                           |  63.77|     NA|  63.20|    NA|        NA|         NA|
 |Food Provision                  |   8.42|   8.00|   8.84|  0.03|        NA|         NA|
 |. Fisheries                     |   8.42|   8.00|   8.84|  0.03|     27.39|      53.03|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     28.49|      38.13|
@@ -5663,7 +5663,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 64.46|     NA|  65.08|    NA|        NA|         NA|
+|Index                           | 64.89|     NA|  65.39|    NA|        NA|         NA|
 |Food Provision                  | 26.99|  26.00|  27.99| -0.03|        NA|         NA|
 |. Fisheries                     | 26.99|  26.00|  27.99| -0.03|     29.94|      59.19|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     32.28|      62.50|
@@ -5697,7 +5697,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 64.72|     NA|  68.12|    NA|        NA|         NA|
+|Index                           | 66.33|     NA|  69.72|    NA|        NA|         NA|
 |Food Provision                  | 31.91|  31.39|  32.42| -0.10|        NA|         NA|
 |. Fisheries                     | 32.52|  32.00|  33.04| -0.10|     26.80|      56.98|
 |. Mariculture                   |  1.05|   1.00|   1.11| -0.01|     28.31|      63.52|
@@ -5731,7 +5731,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 50.18|     NA|  48.02|    NA|        NA|         NA|
+|Index                           | 50.89|     NA|  48.70|    NA|        NA|         NA|
 |Food Provision                  | 24.07|  23.00|  25.14|  0.01|        NA|         NA|
 |. Fisheries                     | 24.07|  23.00|  25.14|  0.01|     30.48|      56.60|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.74|      50.00|
@@ -5765,7 +5765,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  58.43|     NA|  58.84|    NA|        NA|         NA|
+|Index                           |  60.06|     NA|  60.50|    NA|        NA|         NA|
 |Food Provision                  |  44.57|  43.00|  46.14| -0.05|        NA|         NA|
 |. Fisheries                     |  44.57|  43.00|  46.14| -0.05|     26.18|      58.49|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     36.19|      58.33|
@@ -5799,7 +5799,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.74|     NA|  64.60|    NA|        NA|         NA|
+|Index                           |  64.66|     NA|  66.55|    NA|        NA|         NA|
 |Food Provision                  |  15.68|  14.98|  16.39|  0.00|        NA|         NA|
 |. Fisheries                     |  15.71|  15.00|  16.41|  0.00|     28.55|      57.05|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     26.40|      56.98|
@@ -5833,7 +5833,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  74.08|     NA|  74.45|    NA|        NA|         NA|
+|Index                           |  75.05|     NA|  75.31|    NA|        NA|         NA|
 |Food Provision                  |     NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |     NA|     NA|     NA|    NA|     26.60|      58.24|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     29.39|      63.13|
@@ -5867,7 +5867,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 57.18|     NA|  58.34|    NA|        NA|         NA|
+|Index                           | 56.72|     NA|  57.73|    NA|        NA|         NA|
 |Food Provision                  | 16.84|  16.00|  17.67| -0.01|        NA|         NA|
 |. Fisheries                     | 16.84|  16.00|  17.67| -0.01|     25.49|      59.23|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.16|      70.34|
@@ -5901,7 +5901,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  55.04|     NA|  54.81|    NA|        NA|         NA|
+|Index                           |  55.18|     NA|  54.88|    NA|        NA|         NA|
 |Food Provision                  |   3.15|   3.00|   3.31|  0.01|        NA|         NA|
 |. Fisheries                     |   3.15|   3.00|   3.31|  0.01|     26.85|      56.03|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     30.17|      50.00|
@@ -5935,7 +5935,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  52.93|     NA|  53.18|    NA|        NA|         NA|
+|Index                           |  52.71|     NA|  52.90|    NA|        NA|         NA|
 |Food Provision                  |   2.11|   2.00|   2.23|  0.01|        NA|         NA|
 |. Fisheries                     |   2.11|   2.00|   2.23|  0.01|     27.34|      59.77|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     30.27|      70.83|
@@ -5969,7 +5969,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  63.51|     NA|  65.11|    NA|        NA|         NA|
+|Index                           |  64.01|     NA|  65.50|    NA|        NA|         NA|
 |Food Provision                  |  35.92|  34.00|  37.83|  0.04|        NA|         NA|
 |. Fisheries                     |  35.92|  34.00|  37.83|  0.04|     30.41|      56.45|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     28.89|      62.50|
@@ -6003,7 +6003,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 45.97|     NA|  46.12|    NA|        NA|         NA|
+|Index                           | 46.73|     NA|  46.79|    NA|        NA|         NA|
 |Food Provision                  |  3.17|   3.00|   3.34|  0.01|        NA|         NA|
 |. Fisheries                     |  3.17|   3.00|   3.34|  0.01|     26.15|      58.70|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     28.75|      57.29|
@@ -6037,7 +6037,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 46.29|     NA|  46.31|    NA|        NA|         NA|
+|Index                           | 47.42|     NA|  47.41|    NA|        NA|         NA|
 |Food Provision                  | 18.36|  17.00|  19.73|  0.08|        NA|         NA|
 |. Fisheries                     | 18.36|  17.00|  19.73|  0.08|     27.40|      59.77|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     27.42|      64.58|
@@ -6071,7 +6071,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  54.28|     NA|  54.30|    NA|        NA|         NA|
+|Index                           |  54.26|     NA|  54.15|    NA|        NA|         NA|
 |Food Provision                  |  10.47|  10.00|  10.94|  0.01|        NA|         NA|
 |. Fisheries                     |  10.47|  10.00|  10.94|  0.01|     26.92|      53.47|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     27.07|      50.00|
@@ -6105,7 +6105,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  56.35|     NA|  55.10|    NA|        NA|         NA|
+|Index                           |  57.70|     NA|  56.44|    NA|        NA|         NA|
 |Food Provision                  |  17.98|  17.11|  18.84|  0.00|        NA|         NA|
 |. Fisheries                     |  21.01|  20.00|  22.02|  0.00|     28.17|      58.78|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     29.28|      55.62|
@@ -6139,7 +6139,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  51.94|     NA|  48.50|    NA|        NA|         NA|
+|Index                           |  52.44|     NA|  48.82|    NA|        NA|         NA|
 |Food Provision                  |  26.90|  25.99|  27.82| -0.02|        NA|         NA|
 |. Fisheries                     |  26.91|  26.00|  27.82| -0.02|     31.85|      57.13|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     30.25|      56.15|
@@ -6173,7 +6173,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  64.95|     NA|  65.99|    NA|        NA|         NA|
+|Index                           |  66.96|     NA|  67.99|    NA|        NA|         NA|
 |Food Provision                  |  32.73|  32.00|  33.47| -0.09|        NA|         NA|
 |. Fisheries                     |  32.73|  32.00|  33.47| -0.09|     25.72|      57.89|
 |. Mariculture                   |   0.00|   0.00|   0.00| -1.00|     26.34|      70.83|
@@ -6207,7 +6207,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  50.60|     NA|  47.75|    NA|        NA|         NA|
+|Index                           |  50.17|     NA|  47.11|    NA|        NA|         NA|
 |Food Provision                  |  38.85|  37.00|  40.70|  0.01|        NA|         NA|
 |. Fisheries                     |  38.85|  37.00|  40.70|  0.01|     29.55|      57.82|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     31.06|      57.29|
@@ -6241,7 +6241,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  48.82|     NA|  48.18|    NA|        NA|         NA|
+|Index                           |  49.18|     NA|  48.44|    NA|        NA|         NA|
 |Food Provision                  |  16.58|  16.41|  16.75|  0.04|        NA|         NA|
 |. Fisheries                     |  18.19|  18.00|  18.38|  0.04|     57.14|      55.34|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     52.65|      68.75|
@@ -6275,7 +6275,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  68.54|     NA|  69.02|    NA|        NA|         NA|
+|Index                           |  69.36|     NA|  69.74|    NA|        NA|         NA|
 |Food Provision                  |     NA|     NA|     NA|    NA|        NA|         NA|
 |. Fisheries                     |     NA|     NA|     NA|    NA|     26.78|      58.31|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     30.96|      63.13|
@@ -6309,7 +6309,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  51.36|     NA|  51.17|    NA|        NA|         NA|
+|Index                           |  51.80|     NA|  51.55|    NA|        NA|         NA|
 |Food Provision                  |   4.19|   4.00|   4.39|  0.01|        NA|         NA|
 |. Fisheries                     |   4.19|   4.00|   4.39|  0.01|     30.84|      58.33|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     32.35|      63.13|
@@ -6343,7 +6343,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  59.36|     NA|  59.10|    NA|        NA|         NA|
+|Index                           |  60.42|     NA|  59.87|    NA|        NA|         NA|
 |Food Provision                  |  20.93|  19.98|  21.88|  0.01|        NA|         NA|
 |. Fisheries                     |  23.98|  23.00|  24.96| -0.02|     36.92|      66.74|
 |. Mariculture                   |  13.71|  12.82|  14.61|  0.08|     43.78|      69.79|
@@ -6377,7 +6377,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  64.60|     NA|  61.41|    NA|        NA|         NA|
+|Index                           |  65.71|     NA|  62.44|    NA|        NA|         NA|
 |Food Provision                  |  93.00|  86.00| 100.00|  0.45|        NA|         NA|
 |. Fisheries                     |  93.00|  86.00| 100.00|  0.45|     26.62|      57.73|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     28.94|      75.00|
@@ -6411,7 +6411,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 49.71|     NA|  43.10|    NA|        NA|         NA|
+|Index                           | 50.68|     NA|  43.84|    NA|        NA|         NA|
 |Food Provision                  | 26.79|  27.00|  26.58| -0.16|        NA|         NA|
 |. Fisheries                     | 26.79|  27.00|  26.58| -0.16|     26.07|      53.80|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.32|      50.00|
@@ -6445,7 +6445,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  60.82|     NA|  56.93|    NA|        NA|         NA|
+|Index                           |  62.27|     NA|  58.23|    NA|        NA|         NA|
 |Food Provision                  |  26.83|  25.90|  27.75| -0.04|        NA|         NA|
 |. Fisheries                     |  26.93|  26.00|  27.86| -0.04|     28.38|      58.17|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     31.90|      56.31|
@@ -6479,7 +6479,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  65.47|     NA|  68.49|    NA|        NA|         NA|
+|Index                           |  66.88|     NA|  69.77|    NA|        NA|         NA|
 |Food Provision                  |  19.82|  19.00|  20.64| -0.07|        NA|         NA|
 |. Fisheries                     |  19.82|  19.00|  20.64| -0.07|     25.08|      65.43|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     26.23|      70.34|
@@ -6513,7 +6513,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  53.37|     NA|  55.00|    NA|        NA|         NA|
+|Index                           |  54.18|     NA|  55.84|    NA|        NA|         NA|
 |Food Provision                  |   8.90|   8.36|   9.44|  0.04|        NA|         NA|
 |. Fisheries                     |   1.03|   1.00|   1.06|  0.00|     38.59|      57.24|
 |. Mariculture                   |  14.17|  13.29|  15.06|  0.06|     33.38|      61.52|
@@ -6547,7 +6547,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  58.84|     NA|  60.06|    NA|        NA|         NA|
+|Index                           |  59.38|     NA|  60.51|    NA|        NA|         NA|
 |Food Provision                  |  14.97|  14.36|  15.59|  0.00|        NA|         NA|
 |. Fisheries                     |  22.94|  22.00|  23.88|  0.01|     31.54|      55.47|
 |. Mariculture                   |   1.22|   1.17|   1.27| -0.01|     35.47|      62.59|
@@ -6581,7 +6581,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 59.77|     NA|  59.48|    NA|        NA|         NA|
+|Index                           | 59.76|     NA|  59.19|    NA|        NA|         NA|
 |Food Provision                  |  5.89|   5.69|   6.08|  0.00|        NA|         NA|
 |. Fisheries                     |  6.21|   6.00|   6.42|  0.00|     37.56|      58.62|
 |. Mariculture                   |  0.05|   0.05|   0.05|  0.00|     35.38|      61.25|
@@ -6615,7 +6615,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 54.73|     NA|  53.18|    NA|        NA|         NA|
+|Index                           | 55.93|     NA|  54.24|    NA|        NA|         NA|
 |Food Provision                  | 17.67|  17.00|  18.34| -0.02|        NA|         NA|
 |. Fisheries                     | 17.67|  17.00|  18.34| -0.02|     27.00|      54.89|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     27.85|      50.00|
@@ -6649,7 +6649,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.46|     NA|  62.64|    NA|        NA|         NA|
+|Index                           |  63.54|     NA|  63.60|    NA|        NA|         NA|
 |Food Provision                  |   1.07|   1.03|   1.12|  0.01|        NA|         NA|
 |. Fisheries                     |   1.05|   1.00|   1.09|  0.01|     27.63|      53.73|
 |. Mariculture                   |  10.63|  10.51|  10.75| -0.06|     31.04|      50.00|
@@ -6683,7 +6683,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  62.44|     NA|  61.99|    NA|        NA|         NA|
+|Index                           |  63.53|     NA|  62.93|    NA|        NA|         NA|
 |Food Provision                  |  30.54|  29.53|  31.56| -0.03|        NA|         NA|
 |. Fisheries                     |  31.03|  30.00|  32.06| -0.03|     32.73|      59.61|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     33.61|      66.35|
@@ -6717,7 +6717,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  56.75|     NA|  55.44|    NA|        NA|         NA|
+|Index                           |  57.10|     NA|  55.69|    NA|        NA|         NA|
 |Food Provision                  |  17.82|  17.00|  18.63|  0.00|        NA|         NA|
 |. Fisheries                     |  17.82|  17.00|  18.63|  0.00|     30.59|      59.70|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     41.29|      58.33|
@@ -6751,7 +6751,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 50.39|     NA|  50.91|    NA|        NA|         NA|
+|Index                           | 51.39|     NA|  51.85|    NA|        NA|         NA|
 |Food Provision                  |  6.73|   6.43|   7.02|  0.03|        NA|         NA|
 |. Fisheries                     |  7.32|   7.00|   7.64|  0.03|     37.20|      58.86|
 |. Mariculture                   |  0.05|   0.05|   0.05|  0.00|     35.54|      60.19|
@@ -6785,7 +6785,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  51.74|     NA|  46.28|    NA|        NA|         NA|
+|Index                           |  53.02|     NA|  47.40|    NA|        NA|         NA|
 |Food Provision                  |  13.41|  12.81|  14.01|  0.01|        NA|         NA|
 |. Fisheries                     |  13.61|  13.00|  14.22|  0.01|     32.09|      58.46|
 |. Mariculture                   |   2.38|   2.24|   2.52|  0.02|     28.60|      62.50|
@@ -6819,7 +6819,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  60.11|     NA|  58.24|    NA|        NA|         NA|
+|Index                           |  60.54|     NA|  58.45|    NA|        NA|         NA|
 |Food Provision                  |   2.92|   2.78|   3.06|  0.01|        NA|         NA|
 |. Fisheries                     |   8.41|   8.00|   8.81|  0.03|     33.77|      58.47|
 |. Mariculture                   |   0.02|   0.02|   0.02|  0.00|     32.77|      59.05|
@@ -6853,7 +6853,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  57.02|     NA|  55.91|    NA|        NA|         NA|
+|Index                           |  57.91|     NA|  56.67|    NA|        NA|         NA|
 |Food Provision                  |  45.00|  44.00|  45.99| -0.04|        NA|         NA|
 |. Fisheries                     |  45.00|  44.00|  45.99| -0.04|     32.52|      54.36|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     29.57|      62.50|
@@ -6887,7 +6887,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 59.68|     NA|  60.19|    NA|        NA|         NA|
+|Index                           | 60.82|     NA|  61.29|    NA|        NA|         NA|
 |Food Provision                  | 38.01|  35.00|  41.02|  0.09|        NA|         NA|
 |. Fisheries                     | 38.01|  35.00|  41.02|  0.09|     25.45|      59.27|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.38|      59.89|
@@ -6921,7 +6921,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  55.08|     NA|  50.70|    NA|        NA|         NA|
+|Index                           |  56.41|     NA|  51.91|    NA|        NA|         NA|
 |Food Provision                  |  17.09|  16.00|  18.18|  0.06|        NA|         NA|
 |. Fisheries                     |  17.09|  16.00|  18.18|  0.06|     25.62|      54.72|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     28.18|      47.50|
@@ -6955,7 +6955,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 62.17|     NA|  61.16|    NA|        NA|         NA|
+|Index                           | 62.81|     NA|  61.77|    NA|        NA|         NA|
 |Food Provision                  | 11.67|  11.00|  12.34|  0.03|        NA|         NA|
 |. Fisheries                     | 11.67|  11.00|  12.34|  0.03|     26.53|      57.29|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     31.63|      50.00|
@@ -6989,7 +6989,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 47.44|     NA|  46.61|    NA|        NA|         NA|
+|Index                           | 47.97|     NA|  47.04|    NA|        NA|         NA|
 |Food Provision                  | 17.01|  16.00|  18.02|  0.03|        NA|         NA|
 |. Fisheries                     | 17.01|  16.00|  18.02|  0.03|     25.11|      57.35|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.65|      70.34|
@@ -7023,7 +7023,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  56.31|     NA|  56.45|    NA|        NA|         NA|
+|Index                           |  57.55|     NA|  57.69|    NA|        NA|         NA|
 |Food Provision                  |  23.17|  22.44|  23.91| -0.02|        NA|         NA|
 |. Fisheries                     |  24.78|  24.00|  25.57| -0.02|     32.40|      56.27|
 |. Mariculture                   |   1.61|   1.54|   1.68| -0.01|     32.90|      62.50|
@@ -7057,7 +7057,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  50.34|     NA|  50.26|    NA|        NA|         NA|
+|Index                           |  52.55|     NA|  52.36|    NA|        NA|         NA|
 |Food Provision                  |  18.19|  17.78|  18.60| -0.05|        NA|         NA|
 |. Fisheries                     |  22.51|  22.00|  23.02| -0.06|     33.51|      59.69|
 |. Mariculture                   |   0.54|   0.52|   0.56| -0.01|     35.48|      58.14|
@@ -7091,7 +7091,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 60.36|     NA|  57.76|    NA|        NA|         NA|
+|Index                           | 61.30|     NA|  58.64|    NA|        NA|         NA|
 |Food Provision                  | 10.65|  10.00|  11.31|  0.05|        NA|         NA|
 |. Fisheries                     | 10.65|  10.00|  11.31|  0.05|     27.99|      57.45|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     27.31|      63.13|
@@ -7125,7 +7125,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  74.34|     NA|  74.12|    NA|        NA|         NA|
+|Index                           |  75.43|     NA|  75.15|    NA|        NA|         NA|
 |Food Provision                  |  89.48|  78.98|  99.98|  0.28|        NA|         NA|
 |. Fisheries                     |  89.50|  79.00| 100.00|  0.28|     27.97|      52.61|
 |. Mariculture                   |   7.96|   7.52|   8.39|  0.06|     27.03|      50.00|
@@ -7159,7 +7159,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 62.10|     NA|  62.45|    NA|        NA|         NA|
+|Index                           | 63.49|     NA|  63.88|    NA|        NA|         NA|
 |Food Provision                  | 34.48|  33.48|  35.47| -0.06|        NA|         NA|
 |. Fisheries                     | 35.01|  34.00|  36.02| -0.06|     27.93|      58.10|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     35.42|      57.71|
@@ -7193,7 +7193,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  65.81|     NA|  67.64|    NA|        NA|         NA|
+|Index                           |  67.18|     NA|  68.94|    NA|        NA|         NA|
 |Food Provision                  |  21.83|  20.99|  22.67|  0.00|        NA|         NA|
 |. Fisheries                     |  21.84|  21.00|  22.69|  0.00|     34.06|      58.42|
 |. Mariculture                   |   0.00|   0.00|   0.00| -0.07|     31.77|      62.50|
@@ -7227,7 +7227,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  57.64|     NA|  59.62|    NA|        NA|         NA|
+|Index                           |  58.97|     NA|  60.94|    NA|        NA|         NA|
 |Food Provision                  |  32.98|  31.80|  34.15|  0.00|        NA|         NA|
 |. Fisheries                     |  37.33|  36.00|  38.67|  0.00|     36.32|      58.78|
 |. Mariculture                   |   0.00|   0.00|   0.00| -0.01|     33.34|      63.47|
@@ -7261,7 +7261,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  59.48|     NA|  55.54|    NA|        NA|         NA|
+|Index                           |  60.61|     NA|  56.48|    NA|        NA|         NA|
 |Food Provision                  |  37.89|  36.49|  39.29|  0.00|        NA|         NA|
 |. Fisheries                     |  39.46|  38.00|  40.92|  0.00|     30.94|      54.23|
 |. Mariculture                   |   0.20|   0.19|   0.20|  0.00|     29.21|      46.94|
@@ -7295,7 +7295,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  56.43|     NA|  57.71|    NA|        NA|         NA|
+|Index                           |  58.52|     NA|  59.85|    NA|        NA|         NA|
 |Food Provision                  |  49.20|  48.00|  50.41| -0.05|        NA|         NA|
 |. Fisheries                     |  49.20|  48.00|  50.41| -0.05|     29.24|      54.58|
 |. Mariculture                   |   0.00|   0.00|   0.00|  0.00|     37.34|      51.04|
@@ -7329,7 +7329,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  74.05|     NA|  70.20|    NA|        NA|         NA|
+|Index                           |  74.06|     NA|  70.04|    NA|        NA|         NA|
 |Food Provision                  |  88.38|  76.89|  99.86|  0.36|        NA|         NA|
 |. Fisheries                     |  88.50|  77.00| 100.00|  0.36|     27.30|      55.19|
 |. Mariculture                   |   0.00|   0.00|   0.00| -0.05|     28.07|      59.38|
@@ -7363,7 +7363,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 50.87|     NA|  46.61|    NA|        NA|         NA|
+|Index                           | 51.88|     NA|  47.54|    NA|        NA|         NA|
 |Food Provision                  | 12.97|  12.27|  13.67|  0.04|        NA|         NA|
 |. Fisheries                     | 14.80|  14.00|  15.60|  0.04|     27.87|      54.40|
 |. Mariculture                   |  0.00|   0.00|   0.00|  0.00|     31.91|      52.50|
@@ -7397,7 +7397,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  49.93|     NA|  45.91|    NA|        NA|         NA|
+|Index                           |  50.76|     NA|  46.63|    NA|        NA|         NA|
 |Food Provision                  |   1.98|   1.91|   2.04| -0.15|        NA|         NA|
 |. Fisheries                     |   3.10|   3.00|   3.20|  0.01|     39.94|      58.14|
 |. Mariculture                   |   0.00|   0.00|   0.00| -0.42|     35.62|      58.02|
@@ -7431,7 +7431,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 58.09|     NA|  56.69|    NA|        NA|         NA|
+|Index                           | 58.77|     NA|  57.22|    NA|        NA|         NA|
 |Food Provision                  |  5.24|   5.00|   5.47|  0.01|        NA|         NA|
 |. Fisheries                     |  5.24|   5.00|   5.47|  0.01|     26.01|      52.74|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     26.20|      30.27|
@@ -7465,7 +7465,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  70.31|     NA|  73.42|    NA|        NA|         NA|
+|Index                           |  71.99|     NA|  75.15|    NA|        NA|         NA|
 |Food Provision                  |  85.50|  73.00|  98.00|  0.35|        NA|         NA|
 |. Fisheries                     |  85.50|  73.00|  98.00|  0.35|     25.63|      58.34|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     27.74|      62.85|
@@ -7499,7 +7499,7 @@
 
 |                                | score| status| future| trend| pressures| resilience|
 |:-------------------------------|-----:|------:|------:|-----:|---------:|----------:|
-|Index                           | 63.25|     NA|  62.77|    NA|        NA|         NA|
+|Index                           | 64.37|     NA|  63.82|    NA|        NA|         NA|
 |Food Provision                  | 34.22|  33.00|  35.44|  0.01|        NA|         NA|
 |. Fisheries                     | 34.22|  33.00|  35.44|  0.01|     29.14|      49.55|
 |. Mariculture                   |    NA|     NA|     NA|    NA|     28.01|      30.49|
@@ -7533,7 +7533,7 @@
 
 |                                |  score| status| future| trend| pressures| resilience|
 |:-------------------------------|------:|------:|------:|-----:|---------:|----------:|
-|Index                           |  51.24|     NA|  47.01|    NA|        NA|         NA|
+|Index                           |  52.32|     NA|  47.84|    NA|        NA|         NA|
 |Food Provision                  |  23.03|  22.00|  24.06|  0.01|        NA|         NA|
 |. Fisheries                     |  23.03|  22.00|  24.06|  0.01|     28.31|      54.69|
 |. Mariculture                   |     NA|     NA|     NA|    NA|     28.94|      50.00|
