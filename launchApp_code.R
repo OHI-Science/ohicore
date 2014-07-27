@@ -19,11 +19,11 @@ file.copy(paste('spatial.www2013/',fl,sep = ""),paste('spatial.Canada-CHONe2014/
 source("layers_Canada-CHONE2014.R")
 
 # set weights
-weights=read.csv('rawdata.Canada-CHONe2014/weights/weights.csv')
+weights=read.csv('rawdata.Canada-CHONe2014/weights/weights_55to64.csv')
 goals = read.csv('conf.Canada-CHONe2014/goals.csv', stringsAsFactors=F);
 
 #calculate weights, chose either "equal", "importance", "BWrank", "lmc", "lmc1", or "lmc10"
-goals$weight <- reweigh(weights,"lmc10")
+goals$weight <- reweigh(weights,"BWrank")
 
 # write back updated goals.csv
 write.csv(goals, 'conf.Canada-CHONe2014/goals.csv', na='', row.names=F)
