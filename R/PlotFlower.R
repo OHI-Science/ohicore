@@ -69,7 +69,7 @@
 ##' aster(lengths=scores, widths=weights, disk=0.5, main="Example 3",
 ##'     center="Hello world")
 ##' }
-##' 
+##' @import ggplot2
 ##' @export
 PlotFlower = function (lengths, widths, labels, disk=0.5, max.length,
                   center=NULL, main=NULL, fill.col=NULL, plot.outline=TRUE,
