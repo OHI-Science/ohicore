@@ -29,7 +29,6 @@ get_scenarios = function(github_url_suffix, destination_dir){
   unlink(zip)
   
   # write launch_app shortcuts specific to R install path and operating system (OS)
-  for (subdir in list.dirs(dir_dest, full.names=T, recursive=F)){
-    ohicore::write_shortcuts(subdir)
-  }
+  subdir = file.path(dir_dest, 'eez2013')
+  ohicore::write_shortcuts(subdir)
 }
