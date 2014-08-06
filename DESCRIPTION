@@ -11,6 +11,7 @@ Depends:
     shiny (>= 0.10.0),
     knitr (>= 1.5),
     markdown (>= 0.6.3),
+    ggplot (>= 1.0.0),
     reshape2,
     RJSONIO,
     psych,
