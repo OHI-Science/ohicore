@@ -71,6 +71,7 @@ CalculateAll = function(conf, layers, debug=F){
   
   # Resilience, all goals
   cat(sprintf('Calculating Resilience...\n'))
+  cat(sprintf('Note: each goal in resilience_matrix.csv must have at least one resilience field\n'))
   scores = rbind(scores, CalculateResilienceAll(layers, conf, debug))
   
   # pre-Index functions: Status and Trend, by goal  
