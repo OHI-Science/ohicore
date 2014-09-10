@@ -57,7 +57,10 @@
 #' 
 #' @export
 CalculateAll = function(conf, layers, debug=F){
-    
+  
+  # ensure dplyr functions override other packages
+  load_dplyr()
+  
   # remove global scores
   if (exists('scores', envir=.GlobalEnv)) rm(scores, envir=.GlobalEnv)
   

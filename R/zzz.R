@@ -11,10 +11,9 @@
   
   for (fxn in c('arrange','desc','failwith','id','mutate','summarize','summarise','filter','lag','intersect','setdiff','setequal','union')){
     if (environmentName(environment(get(fxn))) != 'dplyr'){
-      suppressWarnings( eval(parse(text=sprintf('%s = dplyr::%s', fxn, fxn))) )
+      suppressWarnings( eval(parse(text=sprintf('%s = dplyr::%s', fxn, fxn)), envir=.GlobalEnv) )
     }
   }
-  
   
 #   if (which(search()=='package:dplyr') > which(search()=='package:plyr')){
 #     suppressPackageStartupMessages({

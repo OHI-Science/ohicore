@@ -50,6 +50,7 @@ Collate:
     'gapfill_georegions.R'
     'get_scenarios.R'
     'launch_app.R'
+    'load_dplyr.R'
     'read_git_csv.R'
     'trace_git_csv_value.R'
     'write_shortcuts.R'

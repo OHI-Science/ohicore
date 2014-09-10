@@ -35,8 +35,8 @@ Conf = methods::setRefClass(
     resilience_weights = 'data.frame'
     ),
   methods = list(
-    initialize = function(dir) {
-      
+    initialize = function(dir) {      
+          
       # check for files in dir
       for (f in c('config.R', 'functions.R','goals.csv','pressures_matrix.csv','resilience_matrix.csv','resilience_weights.csv')){
         if (!file.exists(file.path(dir, f))) { stop(sprintf('Required Conf file not found: %s', file.path(dir, f))) }
@@ -44,9 +44,12 @@ Conf = methods::setRefClass(
       
       # read R files: config, functions
       .self$config_txt    = suppressWarnings(readLines(file.path(dir, 'config.R'   )))
-      .self$functions_txt = suppressWarnings(readLines(file.path(dir, 'functions.R')))      
+      .self$functions_txt = suppressWarnings(readLines(file.path(dir, 'functions.R')))    
       .self$config    = new.env(); source(file.path(dir, 'config.R'   ), local=.self$config)
-      .self$functions = new.env(); source(file.path(dir, 'functions.R'), local=.self$functions)
+      .self$functions = new.env(); source(file.path(dir, 'functions.R'), local=.self$functions)      
+      
+      # ensure dplyr functions override other packages
+      load_dplyr(.self$functions)      
       
       # set  data.frames: pressures_matrix, resilience_matrix, resilience_weights
       .self$goals              = read.csv(file.path(dir, 'goals.csv'             ), na.strings='', stringsAsFactors=F)

@@ -33,6 +33,9 @@ Layers = methods::setRefClass(
   methods = list(
     initialize = function (layers.csv, layers.dir) {
       
+      # ensure dplyr functions override other packages
+      load_dplyr()
+      
       .self$meta = read.csv(layers.csv, header = T, na='')
       row.names(.self$meta) = .self$meta$layer
       
