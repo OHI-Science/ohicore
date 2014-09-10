@@ -5,20 +5,20 @@ Title: Ocean Health Index calculation package
 Author: Ben Best, Steve Hastings, Darren Hardy
 Maintainer: Ben Best <bbest@nceas.ucsb.edu>
 Depends:
-    R (>= 3.1.0),
-    plyr (>= 1.8.0),
-    dplyr (>= 0.2),
-    shiny (>= 0.10.0),
-    knitr (>= 1.5),
-    markdown (>= 0.6.3),
-    ggplot2 (>= 1.0.0),
-    reshape2,
+    R (>= 3.1.0)
+Imports:
+    RColorBrewer,
     RJSONIO,
-    psych,
+    dplyr (>= 0.2),
+    ggplot2 (>= 1.0.0),
+    httr,
+    markdown (>= 0.6.3),
+    plyr (>= 1.8.0),
+    rCharts,
+    reshape2,
+    shiny (>= 0.10.0),
     stringr,
-    RColorBrewer
-Suggests:
-    testthat
+    knitr (>= 1.5)
 Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
 License: MIT
@@ -55,3 +55,5 @@ Collate:
     'write_shortcuts.R'
     'zzz.R'
 LazyData: TRUE
+Suggests:
+    testthat

@@ -27,7 +27,6 @@ If you have trouble running this function, please make sure:
 d = read_git_csv('~/github/ohi-global', 'a81a8213', 'scores.csv')
 head(d)
 }
-#import lubridate git2r
 }
 \keyword{git}
 

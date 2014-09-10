@@ -31,8 +31,6 @@ If you have trouble running this function, please make sure:
 d = trace_git_csv_value('~/github/ohicore', 'inst/extdata/scores.Global2013.www2013.csv', "goal=='ECO' & dimension=='status' & region_id==237", 'score')
 head(d)
 }
-
-#import lubridate git2r
 }
 \keyword{git}
 

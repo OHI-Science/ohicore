@@ -27,13 +27,15 @@ write_shortcuts = function(dir_scenario=getwd(), os_files = 1) {
   
   # launch_app_code.R
   cat('require(methods)',
-      'require(ohicore)',
+      'suppressWarnings(require(ohicore))',
       'launch_app()',
       sep='\n', file=file.path(dir_scenario, 'launch_app_code.R'))
   
   # calculate_scores.R
   cat("# presume that working directory in current scenario directory, eg:",
       sprintf("# setwd('~/%s/%s')", basename(dirname(normalizePath(dir_scenario))), basename(dir_scenario)),
+      "",
+      "suppressWarnings(require(ohicore))",
       "",
       "# load conf",
       "conf = Conf('conf')",
