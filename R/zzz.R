@@ -6,14 +6,14 @@
   
   #environmentName(environment(filter))
   
-  if (!'package:plyr' %in% search()) suppressWarnings( suppressPackageStartupMessages(require(plyr)) )
-  if (!'package:dplyr' %in% search()) suppressWarnings( suppressPackageStartupMessages(require(dplyr)) )
-  
-  for (fxn in c('arrange','desc','failwith','id','mutate','summarize','summarise','filter','lag','intersect','setdiff','setequal','union')){
-    if (environmentName(environment(get(fxn))) != 'dplyr'){
-      suppressWarnings( eval(parse(text=sprintf('%s = dplyr::%s', fxn, fxn)), envir=.GlobalEnv) )
-    }
-  }
+#   if (!'package:plyr' %in% search()) suppressWarnings( suppressPackageStartupMessages(require(plyr)) )
+#   if (!'package:dplyr' %in% search()) suppressWarnings( suppressPackageStartupMessages(require(dplyr)) )
+#   
+#   for (fxn in c('arrange','desc','failwith','id','mutate','summarize','summarise','filter','lag','intersect','setdiff','setequal','union')){
+#     if (environmentName(environment(get(fxn))) != 'dplyr'){
+#       suppressWarnings( eval(parse(text=sprintf('%s = dplyr::%s', fxn, fxn)), envir=.GlobalEnv) )
+#     }
+#   }
   
 #   if (which(search()=='package:dplyr') > which(search()=='package:plyr')){
 #     suppressPackageStartupMessages({

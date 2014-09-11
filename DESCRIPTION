@@ -1,9 +1,13 @@
 Package: ohicore
+Description: A collection of functions for generically calculating the Ocean
+    Health Index scores as well as individual goals and sub-goals.
 Version: 0.1
 Date: 2013-09-25
 Title: Ocean Health Index calculation package
 Author: Ben Best, Steve Hastings, Darren Hardy
 Maintainer: Ben Best <bbest@nceas.ucsb.edu>
+License: MIT
+LazyData: TRUE
 Depends:
     R (>= 3.1.0)
 Imports:
@@ -19,9 +23,8 @@ Imports:
     shiny (>= 0.10.0),
     stringr,
     knitr (>= 1.5)
-Description: A collection of functions for generically calculating the Ocean
-    Health Index scores as well as individual goals and sub-goals.
-License: MIT
+Suggests:
+    testthat
 Collate:
     'CalculateAll.R'
     'CalculateGoalIndex.R'
@@ -50,11 +53,7 @@ Collate:
     'gapfill_georegions.R'
     'get_scenarios.R'
     'launch_app.R'
-    'load_dplyr.R'
     'read_git_csv.R'
     'trace_git_csv_value.R'
     'write_shortcuts.R'
     'zzz.R'
-LazyData: TRUE
-Suggests:
-    testthat

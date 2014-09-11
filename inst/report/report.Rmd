@@ -49,7 +49,7 @@ f_pdf  = sprintf('%s/%s.pdf' , dir_report, f)
 # DEBUG: dependson='debug_load'
 
 # see ohicore::ReportScores() and system.file('shiny_app/server.R', package='ohigui') for running this template
-library(plyr)
+#library(plyr)
 
 # knitr options
 require(knitr); require(markdown)
@@ -167,6 +167,11 @@ for (rgn_id in rgns){ # rgn_id=0
     
     x = dcast(subset(scores, region_id==rgn_id), goal_label ~ dimension_label, value.var='score')
     row.names(x) = x$goal_label; x = x[, names(x)!='goal_label']
+    
+    #write.csv(x, '~/github/ohi-israel/med2014/tmp/x_kable.csv')
+    #x = read.csv('~/github/ohi-israel/med2014/tmp/x_kable.csv', row.names=1)
+    #x = sapply(as.chara)
+    #x = sapply(x, as.character)
     knitr::kable(x, format='markdown')  
   }
 }

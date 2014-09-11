@@ -63,11 +63,12 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
   m$year_max        = NA
   m$val_min         = NA
   m$val_max         = NA
-  m$val_0to1        = NA
+  m$val_0to1        = F
   m$flds_unused     = NA
   m$flds_missing    = NA
   m$rows_duplicated = NA
   m$num_ids_unique  = NA
+  m$data_na         = NA
   
   for (i in 1:nrow(m)){ # i=1
     
@@ -86,7 +87,7 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
     fld_types = sapply(as.list(d), class)
     
     # id field
-    #if (as.character(layer)=='snk_fis_meancatch'){ browser() }
+    #if (as.character(layer)=='fp_art_hb'){ browser() }
     idx.ids = which(tolower(names(d)) %in% flds_id)
     if (length(idx.ids)>0){
       # if more than one id field, then presume lookup table and get the id field entirely unique rows      
@@ -127,9 +128,15 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
         m$fld_val_num[i] = fld_value
         
         # add metadata checks
-        m$val_min[i]  = min(d[[fld_value]], na.rm=T)
-        m$val_max[i]  = max(d[[fld_value]], na.rm=T)
-        m$val_0to1[i] = m$val_min[i] >=0 & m$val_max[i]<=1
+        #if (as.character(layer)=='fp_art_hb'){ browser() }
+        if ( length(na.omit(d[[fld_value]])) == 0 ){
+          m$data_na[i] = TRUE
+        } else {
+          m$data_na[i] = FALSE
+          m$val_min[i]  = min(d[[fld_value]], na.rm=T)
+          m$val_max[i]  = max(d[[fld_value]], na.rm=T)
+          m$val_0to1[i] = m$val_min[i] >=0 & m$val_max[i]<=1          
+        }     
       }
     }
     
@@ -165,5 +172,7 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
   if (nrow(flds.unused)>0) warning(paste(c('Unused fields...', sprintf('    %s: %s', flds.unused$layer, flds.unused$flds_unused)), collapse='\n'))  
   rows.duplicated = subset(m, file_exists==T & !is.na(rows_duplicated))
   if (nrow(rows.duplicated)>0) warning(paste(c('Rows duplicated...', sprintf('    %s: %s', rows.duplicated$layer, rows.duplicated$rows_duplicated)), collapse='\n'))
+  data.missing = subset(m, data_na==T)
+  if (nrow(data.missing) > 0) warning(paste(c('Layers missing data, ie all NA ...', sprintf('    %s: %s', data.missing$layer, data.missing$filename)), collapse='\n'))
   write.csv(m, layers.csv, row.names=F, na='')
 }

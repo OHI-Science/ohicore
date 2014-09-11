@@ -18,6 +18,7 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
   rc = conf$config$resilience_components
   rk = conf$config$resilience_categories
   r.layers = setdiff(names(rm), c('goal','component','component_name'))
+  #browser()
   if (!all(subset(layers$meta, layer %in% r.layers, val_0to1, drop=T))){
     message('Error: Not all resilence layers range in value from 0 to 1!')
     print(subset(layers$meta, layer %in% r.layers & val_0to1==F, c('val_min','val_max'), drop=F))

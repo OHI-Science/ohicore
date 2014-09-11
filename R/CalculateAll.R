@@ -54,13 +54,23 @@
 #' @import reshape2
 #' @import plyr
 #' @import dplyr
-#' 
+#' @importFrom dplyr arrange
+#' @importFrom dplyr desc
+#' @importFrom dplyr failwith
+#' @importFrom dplyr id
+#' @importFrom dplyr mutate
+#' @importFrom dplyr summarize
+#' @importFrom dplyr summarise
+#' @importFrom dplyr filter
+#' @importFrom dplyr lag
+#' @importFrom dplyr intersect
+#' @importFrom dplyr setdiff
+#' @importFrom dplyr setequal
+#' @importFrom dplyr union
+#'  
 #' @export
 CalculateAll = function(conf, layers, debug=F){
-  
-  # ensure dplyr functions override other packages
-  load_dplyr()
-  
+    
   # remove global scores
   if (exists('scores', envir=.GlobalEnv)) rm(scores, envir=.GlobalEnv)
   
@@ -96,6 +106,8 @@ CalculateAll = function(conf, layers, debug=F){
   goals_G = as.character(unique(subset(scores, dimension=='status', goal, drop=T)))
   for (g in goals_G){ # g = goals_G[9]
     cat(sprintf('Calculating Goal Score and Likely Future for %s...\n', g))
+    
+    #if (g=='NP') browser()
     
     # cast data
     v = dcast(scores, region_id ~ dimension, subset = .(goal==g), value.var='score')

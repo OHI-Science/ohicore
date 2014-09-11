@@ -48,9 +48,6 @@ Conf = methods::setRefClass(
       .self$config    = new.env(); source(file.path(dir, 'config.R'   ), local=.self$config)
       .self$functions = new.env(); source(file.path(dir, 'functions.R'), local=.self$functions)      
       
-      # ensure dplyr functions override other packages
-      load_dplyr(.self$functions)      
-      
       # set  data.frames: pressures_matrix, resilience_matrix, resilience_weights
       .self$goals              = read.csv(file.path(dir, 'goals.csv'             ), na.strings='', stringsAsFactors=F)
       .self$pressures_matrix   = read.csv(file.path(dir, 'pressures_matrix.csv'  ), na.strings='', stringsAsFactors=F)
