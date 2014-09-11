@@ -33,6 +33,6 @@ get_scenarios = function(github_repo, destination_dir, scenarios){
   # write launch_app shortcuts specific to R install path and operating system (OS)
   for (s in scenarios){
     cat(sprintf('Writing launch_app.* shortcut to %s', file.path(dir_dest, s)))
-    ohicore::write_shortcuts(file.path(dir_dest, s))
+    write_shortcuts(file.path(dir_dest, s))
   }
 }
