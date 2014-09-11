@@ -8,18 +8,20 @@
 #' @keywords ohi
 #' @import httr
 #' @export
-get_scenarios = function(github_url_suffix, destination_dir){
+get_scenarios = function(github_repo, destination_dir, scenarios){
   library(httr)
   
   # dirs
-  url = sprintf('https://github.com/%s/archive/master.zip', github_url_suffix)
+  url = sprintf('https://github.com/%s/archive/master.zip', github_repo)
   dir_dest   = destination_dir
-  dir_master = sprintf('%s-master', dir_dest)  
+  dir_master = sprintf('%s-master', dir_dest)
   for (dir in c(dir_dest, dir_master)){
+    cat(sprintf('Deleting %s\n', dir))
     if (file.exists(dir)) unlink(dir, recursive=T, force=T)
   }
   
   # download zip
+  cat(sprintf('Downloading https://github.com/%s \n  to %s', github_repo, dir_dest))
   zip = tempfile(basename(dir_dest), fileext='zip')
   writeBin(content(GET(url)), zip)
   
@@ -29,6 +31,8 @@ get_scenarios = function(github_url_suffix, destination_dir){
   unlink(zip)
   
   # write launch_app shortcuts specific to R install path and operating system (OS)
-  subdir = file.path(dir_dest, 'eez2013')
-  ohicore::write_shortcuts(subdir)
+  for (s in scenarios){
+    cat(sprintf('Writing launch_app.* shortcut to %s', file.path(dir_dest, s)))
+    ohicore::write_shortcuts(file.path(dir_dest, s))
+  }
 }
