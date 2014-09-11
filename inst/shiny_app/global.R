@@ -1,5 +1,7 @@
 # see launch_app(), makes global variables: conf, layers, scores, dir_spatial, dir_scenario
 suppressPackageStartupMessages({
+  require(plyr)
+  require(dplyr)
   require(shiny)
   require(RJSONIO)
   require(RColorBrewer)
