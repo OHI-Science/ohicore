@@ -16,7 +16,7 @@
 #' \dontrun{
 #' launchApp('~/ohi-global/eez2013')
 #' }
-#' @import shiny rCharts RJSONIO RColorBrewer markdown
+#' @import shiny rCharts RJSONIO RColorBrewer markdown yaml
 #' @export launch_app
 launch_app = function(dir_scenario=getwd(), debug=F, quiet=!debug, 
                       launch.browser=T, port=NULL, display.mode='normal', ...){  
