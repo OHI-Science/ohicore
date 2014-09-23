@@ -10,7 +10,7 @@
 # shinyServer ----
 # Define server logic required to summarize and view the selected dataset
 shinyServer(function(input, output, session) {
-
+  
   # scenario directories. monitor filesystem every 5 seconds for folders in dir.conf
   observe({
     invalidateLater(5 * 1000, session)  # 5 seconds, in milliseconds
@@ -361,6 +361,33 @@ shinyServer(function(input, output, session) {
 #      }
 #    })
   
-  
-  
+
 })
+
+#                                                       tabPanel('Goals', value='goals', 
+#                                                                sidebarPanel(id='goal-sidbar', style='overflow:auto; height:850px; width:200px',                     
+#                                                                             strong('Food Provision:'),
+#                                                                             sliderInput("MAR","Mariculture:"                 , min=0, max=smax, value=0.5, step=0.1),br(),
+#                                                                             sliderInput("FIS","Fisheries:"                   , min=0, max=smax, value=0.5, step=0.1),br(),     
+#                                                                             sliderInput("AO",strong("Artisanal Opportunity:")  , min=0, max=smax, value=1, step=0.1),br(),
+#                                                                             sliderInput("NP",strong("Natural Products:")       , min=0, max=smax, value=1, step=0.1),br(),
+#                                                                             sliderInput("CS",strong("Carbon storage:")         , min=0, max=smax, value=1, step=0.1),br(),
+#                                                                             sliderInput("CP",strong("Coastal protection:")     , min=0, max=smax, value=1, step=0.1),br(),       
+#                                                                             sliderInput("TR",strong("Tourism & Recreation:")   , min=0, max=smax, value=1, step=0.1),br(),
+#                                                                             strong('Coastal Livelihoods & Economies:'),
+#                                                                             sliderInput("LIV","Livelihoods:"                 , min=0, max=smax, value=0.5, step=0.1),
+#                                                                             sliderInput("ECO","Economies:"                   , min=0, max=smax, value=0.5, step=0.1),br(),       
+#                                                                             strong('Sense of Place'),
+#                                                                             sliderInput("ICO","Iconic species:"              , min=0, max=smax, value=0.5, step=0.1),
+#                                                                             sliderInput("LSP","Lasting special places:"      , min=0, max=smax, value=0.5, step=0.1),br(),
+#                                                                             sliderInput("CW",strong("Clean waters:")           , min=0, max=smax, value=1, step=0.1),br(),
+#                                                                             strong('Biodiversity'),
+#                                                                             sliderInput("HAB","Habitats:"                    , min=0, max=smax, value=0.5, step=0.1),
+#                                                                             sliderInput("SPP","Species:"                     , min=0, max=smax, value=0.5, step=0.1)
+#                                                                ),
+#                                                                mainPanel(id='goal-main', style='overflow:auto; height:850px',
+#                                                                          plotOutput('aster', ))),
+#                                                       
+#                                                         tabPanel('Paths', value='paths', 
+#                                                           includeHTML('tree_body.html')),
+

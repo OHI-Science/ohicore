@@ -101,57 +101,6 @@ shinyUI(bootstrapPage(div(class='container-fluid',             # alternate to: p
                 value='data-histogram', 
                 plotOutput('histogram')),
               #tabPanel('Summary',   value='data-summary',   verbatimTextOutput('summary')),                     
-              tabPanel('Table',     value='data-table', dataTableOutput('table')))))),
-        
-        tabPanel(
-          'Calculate',
-          value='configure',
-          p(
-            'Scenario path exists:', 
-            verbatimTextOutput(outputId='dir_scenario_exists')),
-          conditionalPanel(
-            condition='output.dir_scenario_exists == "FALSE"',
-            textInput('dir_scenario', 'Scenario directory to output:', value=dir_scenario),
-            actionButton('btn_write','Write to disk')),
-          conditionalPanel(
-            condition='output.dir_scenario_exists == "TRUE"',
-            #uiOutput('sel_scenario_dir'), # generates dir_conf              
-            #verbatimTextOutput(outputId="txt_conf_summary"),
-            p(
-              'Scenario path', 
-              verbatimTextOutput(
-                outputId="show_dir_scenario")),
-                actionButton('btn_calc','Calculate'),
-                verbatimTextOutput(outputId="txt_calc_summary"))),
-        
-        tabPanel(
-          'Report',
-          value='report', 
-          conditionalPanel(
-            condition='output.dir_scenario_exists == "TRUE"',
-            p(
-              'Reports directory:',
-              verbatimTextOutput(outputId='dir_reports')),
-            textInput('txt_report_fn', 'Report filename to output:', value='report.html')),
-          br('Include:'),
-          checkboxInput('ck_flowers'    , 'Flowers'   , value = T),
-          checkboxInput('ck_tables'     , 'Tables'    , value = T),
-          br('Options:'),
-          checkboxInput('ck_open_html'  , 'Open in new window', value = T),
-          checkboxInput('ck_global_only', 'Global only (vs all regions which takes time)', value = T),
-          checkboxInput('ck_overwrite'  , 'Overwrite existing figures', value = F),
-           #             br('Not yet implemented...'),
-           #              uiOutput('sel_compare'), # generates dir_conf              
-           #              checkboxInput('ck_maps'       , 'Maps'      , value = F),
-           #              checkboxInput('ck_histograms' , 'Histograms', value = F),
-           #              checkboxInput('ck_equations'  , 'Equations' , value = F),             
-           #              checkboxInput('ck_paths'      , 'Paths'     , value = F),             
-           conditionalPanel(
-             condition='output.dir_scenario_exists == "TRUE"',
-             actionButton('btn_report','Generate Report'),
-             verbatimTextOutput(outputId="txt_report_summary")),
-             conditionalPanel(
-               condition='output.dir_scenario_exists == "FALSE"',
-               p('You must write this scenario to the filesystem (see Calculate tab) before generating a report.')))
+              tabPanel('Table',     value='data-table', dataTableOutput('table'))))))
       ))
   )))

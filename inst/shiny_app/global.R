@@ -7,12 +7,54 @@ suppressPackageStartupMessages({
   require(RColorBrewer)
   require(rCharts)
   require(markdown)
+  require(yaml)
+  require(ohicore)
 })
-
-#cat(ls(), file='~/Downloads/ohicore_global_ls.txt'); system('open ~/Downloads/ohicore_global_ls.txt')
 
 options(stringsAsFactors = F)
 # options(error=recover) # options(error=browser)
+debug = F
+
+# adding chunk for stand-alone shinyapp.io from launch_app function----
+if (!exists('dir_scenario')){
+  
+  # load configuration
+  y = yaml.load_file('app_config.yaml')
+  for (o in ls(y)){
+    assign(o, y[[o]], globalenv())
+  }
+  
+  # check for files/directories
+  stopifnot(file.exists(sprintf('%s/conf'      , dir_scenario)))
+  stopifnot(file.exists(sprintf('%s/layers'    , dir_scenario)))
+  stopifnot(file.exists(sprintf('%s/layers.csv', dir_scenario)))
+  stopifnot(file.exists(sprintf('%s/spatial'   , dir_scenario)))
+  
+  # make objects global in scope
+  conf         <<- Conf(sprintf('%s/conf', dir_scenario))
+  layers       <<- Layers(
+    layers.csv = sprintf('%s/layers.csv' , dir_scenario),
+    layers.dir = sprintf('%s/layers'     , dir_scenario))  
+  if (file.exists(sprintf('%s/scores.csv', dir_scenario))){
+    scores <<- read.csv(sprintf('%s/scores.csv'   , dir_scenario))
+  } else {
+    scores <<- NULL # TODO: handle NULL scores
+  }  
+  dir_spatial  <<- sprintf('%s/spatial'  , dir_scenario)
+  dir_scenario <<- dir_scenario
+  
+  dir_app = system.file('shiny_app', package='ohicore')
+  
+  # update path for devtools load_all() mode
+  if (!file.exists(dir_app))  dir_app =  system.file('inst/shiny_app', package='ohicore')  
+}
+
+# finished standalone ----
+
+if (debug) {
+  print(sprintf('dir_app: %s', dir_app))
+  options(shiny.trace=TRUE)
+}
 
 # Data: select score ----
 sel_score_target_choices = c('0 Index'='Index', 
