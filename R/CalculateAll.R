@@ -80,14 +80,19 @@ CalculateAll = function(conf, layers, debug=F){
     conf$functions$Setup()
   }
   
-  # Pressures, all goals
-  cat(sprintf('Calculating Pressures...\n'))
-  scores = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
-    
-  # Resilience, all goals
-  cat(sprintf('Calculating Resilience...\n'))
-  cat(sprintf('Note: each goal in resilience_matrix.csv must have at least one resilience field\n'))
-  scores = rbind(scores, CalculateResilienceAll(layers, conf, debug))
+  # TODO: derive layers
+#   goals_X = layers$goals %.%
+#     filter(!is.na(preindex_function)) %.%
+#     arrange(order_calculate)
+#   for (i in 1:nrow(goals_X)){ # i=1
+#     g = goals_X$goal[i]
+#     cat(sprintf('Calculating Status and Trend for %s...\n', g))
+#     
+#     assign('scores', scores, envir=conf$functions)
+#     if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))    
+#     scores = rbind(scores, eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)[,c('goal','dimension','region_id','score')])    
+#   }
+  
   
   # pre-Index functions: Status and Trend, by goal  
   goals_X = conf$goals %.%
@@ -102,6 +107,15 @@ CalculateAll = function(conf, layers, debug=F){
     scores = rbind(scores, eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)[,c('goal','dimension','region_id','score')])    
   }
 
+  # Pressures, all goals
+  cat(sprintf('Calculating Pressures...\n'))
+  scores = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
+  
+  # Resilience, all goals
+  cat(sprintf('Calculating Resilience...\n'))
+  cat(sprintf('Note: each goal in resilience_matrix.csv must have at least one resilience field\n'))
+  scores = rbind(scores, CalculateResilienceAll(layers, conf, debug))
+  
   # Goal Score and Likely Future
   goals_G = as.character(unique(subset(scores, dimension=='status', goal, drop=T)))
   for (g in goals_G){ # g = goals_G[9]
