@@ -6,26 +6,24 @@
 #' @param fld_name field name of the region from the dataset
 #' @param flds_unique field name for the dataset
 #' @param fld_value field with value, defaults to 'value'
+#' @param collapse_fxn function to collapse duplicate regions into one (exampl: China, Macau, Hong Kong)
+#' @param collapse_csv optional .csv file provided to collapse duplicate regions
+#' @param collapse_flds_join optional list of fields identified to collapse duplicate regions
+#' @param dir_lookup directory of name-to-region look up tables
+#' @param rgn_master.csv .csv file of eez-to-region combinations
+#' @param rgn_synonyms.csv .csv file of synonyms of eez-to-region combinations
+#' @param add_rgn_name T or F whether to include a column with the region name
+#' @param add_rgn_type T of F whether to include the region type (eez...)
 #' 
 #' @details This function translates name to region id with a lookup.
-#' 
-#' TEMPORARY. More notes here on documenting and including new functions in ohicore.
-#' See http://r-pkgs.had.co.nz/man.html for function documentation details.
-#' TODO: finish out parameters above.
-#' FINISH: After any documentation edits or a new function file added, you'll need to do the following:
-#' library(devtools)
-#' document() # writes R documentation file (man/name_to_rgn.Rd), updates DESCRIPTION and NAMESPACE files of ohicore package
-#' build() # to ensure works
-#' install() # to ensure installs
-#' 
-#' finally git it to github: commit, push, done.
-#' 
+#'  
 #' @keywords ohi
-#' 
 #' @export
 
 name_to_rgn = function(
-  d, fld_name = 'country', flds_unique=fld_name, fld_value='value', 
+  d, fld_name = 'country', 
+  flds_unique=fld_name, 
+  fld_value='value', 
   collapse_fxn = c('sum_na','mean','weighted.mean')[1],
   collapse_csv = NULL,
   collapse_flds_join = NULL,

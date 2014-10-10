@@ -19,23 +19,28 @@ name_to_rgn(d, fld_name = "country", flds_unique = fld_name,
 \item{flds_unique}{field name for the dataset}
 
 \item{fld_value}{field with value, defaults to 'value'}
+
+\item{collapse_fxn}{function to collapse duplicate regions into one (exampl: China, Macau, Hong Kong)}
+
+\item{collapse_csv}{optional .csv file provided to collapse duplicate regions}
+
+\item{collapse_flds_join}{optional list of fields identified to collapse duplicate regions}
+
+\item{dir_lookup}{directory of name-to-region look up tables}
+
+\item{rgn_master.csv}{.csv file of eez-to-region combinations}
+
+\item{rgn_synonyms.csv}{.csv file of synonyms of eez-to-region combinations}
+
+\item{add_rgn_name}{T or F whether to include a column with the region name}
+
+\item{add_rgn_type}{T of F whether to include the region type (eez...)}
 }
 \description{
 Get scenarios from Github.
 }
 \details{
 This function translates name to region id with a lookup.
-
-TEMPORARY. More notes here on documenting and including new functions in ohicore.
-See http://r-pkgs.had.co.nz/man.html for function documentation details.
-TODO: finish out parameters above.
-FINISH: After any documentation edits or a new function file added, you'll need to do the following:
-library(devtools)
-document() # updates DESCRIPTION and NAMESPACE files of ohicore package
-# test() # might bonk, but can still build usually
-build()
-
-commit, push, done.
 }
 \keyword{ohi}
 
