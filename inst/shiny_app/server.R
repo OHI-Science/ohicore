@@ -6,7 +6,7 @@
 # values$dirs_scenario <- grep('^scenario\\.', list.dirs(path=dir_scenarios, recursive=F), value=T)
 #dirs_scenario = reactiveValues()
 #sel_layer_choices = reactiveValues()
-  
+
 # shinyServer ----
 # Define server logic required to summarize and view the selected dataset
 shinyServer(function(input, output, session) {
@@ -108,10 +108,10 @@ shinyServer(function(input, output, session) {
       
       v$data  = d
       v$name  = x
-      
       attr(v$name, 'target') = lyr_target
       v$description = paste0('<b>',lyr_label,'</b>: <em>', 
-                             subset(layers$meta, layer==lyr, description, drop=T),
+                             renderMarkdown(text=subset(layers$meta, layer==lyr, description, drop=T)),
+                             #subset(layers$meta, layer==lyr, description, drop=T),
                              '</em>')# 'layer description coming soon'      
       v$details = ''
       m = subset(layers$meta, layer==input$sel_layer)

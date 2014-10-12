@@ -108,10 +108,10 @@ shinyServer(function(input, output, session) {
       
       v$data  = d
       v$name  = x
-      
       attr(v$name, 'target') = lyr_target
       v$description = paste0('<b>',lyr_label,'</b>: <em>', 
-                             subset(layers$meta, layer==lyr, description, drop=T),
+                             #subset(layers$meta, layer==lyr, description, drop=T),
+                             renderMarkdown(text=subset(layers$meta, layer==lyr, description, drop=T)),
                              '</em>')# 'layer description coming soon'      
       v$details = ''
       m = subset(layers$meta, layer==input$sel_layer)
