@@ -53,6 +53,7 @@ Collate:
     'gapfill_georegions.R'
     'get_scenarios.R'
     'launch_app.R'
+    'launch_cmp.R'
     'name_to_rgn.R'
     'read_git_csv.R'
     'trace_git_csv_value.R'
