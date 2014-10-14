@@ -62,7 +62,6 @@
 #' @importFrom dplyr summarize
 #' @importFrom dplyr summarise
 #' @importFrom dplyr filter
-#' @importFrom dplyr lag
 #' @importFrom dplyr intersect
 #' @importFrom dplyr setdiff
 #' @importFrom dplyr setequal

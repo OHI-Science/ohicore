@@ -26,6 +26,9 @@ read_git_csv = function(repo, hex, path, ...){
   # DEBUG:  repo = '~/github/ohi-global'; hex = 'a81a82131f'; path = 'eez2013/layers/np_harvest_relative.csv'; path='scores.csv'
   # TODO: get head. see markdown_link function. head(repo)@hex
   library(git2r) # need latest: devtools::install_github('ropensci/git2r')
+  require(stringr)
+  
+  
   
   # get tree of commit
   o = tree(lookup(repository(repo), hex)) # when(commit_old); show(commit_old); summary(commit_old) # Error during wrapup: 'match' requires vector arguments
@@ -44,8 +47,9 @@ read_git_csv = function(repo, hex, path, ...){
     
 #     rda = tempfile(tools::file_path_sans_ext(basename(path)), fileext='rda')
 #     cat(content(o[basename(path)], split=F), file=rda, sep='')
+    # content(tree(commits(repo)[[1]])["example.txt"])
     
-    cat(content(o[basename(path)]), file=csv, sep='\n')    
+    cat(git2r::content(o[basename(path)]), file=csv, sep='\n')    
     d = read.csv(csv, ...)
     unlink(csv)
   } else {
