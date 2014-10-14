@@ -3,6 +3,7 @@ require(git2r)  # need latest: devtools::install_github('ropensci/git2r')
 require(stringr)
 require(ggvis)
 require(dplyr)
+require(ohicore)
 
 #devtools::load_all()
 #options(error = browser); options(error = utils::recover); options(error = NULL)
