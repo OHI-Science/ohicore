@@ -56,6 +56,7 @@ Collate:
     'launch_cmp.R'
     'name_to_rgn.R'
     'read_git_csv.R'
+    'shp_to_geojson.R'
     'trace_git_csv_value.R'
     'write_shortcuts.R'
     'zzz.R'
