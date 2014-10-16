@@ -6,7 +6,7 @@
 #' @param fld_name field name of the region from the dataset
 #' @param flds_unique field name for the dataset
 #' @param fld_value field with value, defaults to 'value'
-#' @param collapse_fxn function to collapse duplicate regions into one (exampl: China, Macau, Hong Kong)
+#' @param collapse_fxn function to collapse duplicate regions into one (example: China, Macau, Hong Kong)
 #' @param collapse_csv optional .csv file provided to collapse duplicate regions
 #' @param collapse_flds_join optional list of fields identified to collapse duplicate regions
 #' @param dir_lookup directory of name-to-region look up tables
@@ -60,7 +60,7 @@ name_to_rgn = function(
       rgn_type = first(rgn_type)) %.%
     ungroup()
   
-  #browser()
+  
   #filter(d, country=='Albania' & year==1990)
   
   # combine to have a unique tmp_name to rgn_id lookup
@@ -95,11 +95,13 @@ name_to_rgn = function(
     filter(!tmp_type %in% c('eez','ohi_region')) %.%
     mutate(tmp_name = factor(as.character(tmp_name)))
   
+  
   # if any rgn_type is NA, then presume not matched in lookups and error out
   if (sum(is.na(m_r$tmp_type)) > 0){
+    toprint = m_r %>% 
+      filter(is.na(tmp_type))
     cat('\nThese data were removed for not having any match in the lookup tables:\n')  
-    print(table(subset(m_r, is.na(tmp_type), tmp_name)))
-    # stop('FIX region lookups.') # commented out because larger regions (eg Middle East) would cause this to stop with an error. Check printed table instead. 
+    print(table(as.character(unique(toprint$country))))
   }
   
   # show table of others filtered out
@@ -141,7 +143,7 @@ name_to_rgn = function(
       # sum with na.rm=T, but if all NAs return NA and not 0
       # eg weighted_avg(x, csv='~/github/ohiprep/Global/WorldBank-Statistics_v2012/data/country_total_pop.csv')
       #print(names(list(...)))
-      browser()
+      
       
       #w = read.csv(collapse_csv)
       #  inner_join(
