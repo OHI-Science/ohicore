@@ -66,6 +66,7 @@
 #' @importFrom dplyr setdiff
 #' @importFrom dplyr setequal
 #' @importFrom dplyr union
+#' @importFrom plyr rename
 #'  
 #' @export
 CalculateAll = function(conf, layers, debug=F){
