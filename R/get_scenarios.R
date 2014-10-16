@@ -4,11 +4,13 @@
 #' 
 #' @param github_url_suffix suffix of Github URL in the form 'user/repo'
 #' @param destination_dir destination directory
+#' 
 #' @details The scenario files from the containing folder are downloaded and shortcuts specific to R path and OS generated.
+#' 
 #' @keywords ohi
 #' @import httr
 #' @export
-get_scenarios = function(github_repo, destination_dir, scenarios){
+get_scenarios = function(github_repo, destination_dir){
   library(httr)
   
   # dirs
@@ -31,6 +33,7 @@ get_scenarios = function(github_repo, destination_dir, scenarios){
   unlink(zip)
   
   # write launch_app shortcuts specific to R install path and operating system (OS)
+  scenarios = dirname(list.files(destination_dir, 'layers.csv', recursive=T, full.names=T))
   for (s in scenarios){
     cat(sprintf('Writing launch_app.* shortcut to %s', file.path(dir_dest, s)))
     write_shortcuts(file.path(dir_dest, s))

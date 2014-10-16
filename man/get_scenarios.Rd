@@ -3,7 +3,7 @@
 \alias{get_scenarios}
 \title{Get scenarios}
 \usage{
-get_scenarios(github_repo, destination_dir, scenarios)
+get_scenarios(github_repo, destination_dir)
 }
 \arguments{
 \item{destination_dir}{destination directory}
