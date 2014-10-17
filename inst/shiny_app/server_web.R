@@ -110,8 +110,9 @@ shinyServer(function(input, output, session) {
       v$name  = x
       attr(v$name, 'target') = lyr_target
       v$description = paste0('<b>',lyr_label,'</b>:', 
-      #                       renderMarkdown(text=subset(layers$meta, layer==lyr, description, drop=T)))
-                             markdownToHTML(text=subset(layers$meta, layer==lyr, description, drop=T), options=c('fragment_only')))
+                             #renderMarkdown(text=subset(layers$meta, layer==lyr, description, drop=T)))
+                             #markdownToHTML(text=subset(layers$meta, layer==lyr, description, drop=T), options=c('fragment_only')))
+                             renderMarkdown(file=NULL, text=subset(layers$meta, layer==lyr, description, drop=T)))
       v$details = ''
       m = subset(layers$meta, layer==input$sel_layer)
       v$layer = lyr
