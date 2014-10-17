@@ -1,7 +1,7 @@
 ohicore
 =======
 
-This is the core library of funtions for calculating the Ocean Health Index. For more, please visit:
+This is the dev branch of the core library of funtions for calculating the Ocean Health Index. For more, please visit:
 
 [OHI-Science.org](http://ohi-science.org)
 
