@@ -80,8 +80,8 @@ CalculateAll = function(conf, layers, debug=F){
   }
   
   # TODO: derive layers
-#   goals_X = layers$goals %.%
-#     filter(!is.na(preindex_function)) %.%
+#   goals_X = layers$goals %>%
+#     filter(!is.na(preindex_function)) %>%
 #     arrange(order_calculate)
 #   for (i in 1:nrow(goals_X)){ # i=1
 #     g = goals_X$goal[i]
@@ -94,22 +94,35 @@ CalculateAll = function(conf, layers, debug=F){
   
   
   # pre-Index functions: Status and Trend, by goal  
-  goals_X = conf$goals %.%
-    filter(!is.na(preindex_function)) %.%
+  goals_X = conf$goals %>%
+    filter(!is.na(preindex_function)) %>%
     arrange(order_calculate)
+
+  # setup scores
+  scores = data.frame(
+    goal      = character(0),
+    dimension = character(0),
+    region_id = integer(0),
+    score     = numeric())
+
+  # status and trend
   for (i in 1:nrow(goals_X)){ # i=1
     g = goals_X$goal[i]
     cat(sprintf('Calculating Status and Trend for %s...\n', g))
     
     assign('scores', scores, envir=conf$functions)
     if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))    
-    scores = rbind(scores, eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)[,c('goal','dimension','region_id','score')])    
+    scores_g = eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)    
+    if (nrow(scores_g) > 0){
+      scores = rbind(scores, scores_g[,c('goal','dimension','region_id','score')])
+    }    
   }
 
   # Pressures, all goals
   cat(sprintf('Calculating Pressures...\n'))
-  scores = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
-  
+  scores_P = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
+  scores = rbind(scores, scores_P)
+
   # Resilience, all goals
   cat(sprintf('Calculating Resilience...\n'))
   cat(sprintf('Note: each goal in resilience_matrix.csv must have at least one resilience field\n'))

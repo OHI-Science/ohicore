@@ -105,14 +105,14 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
         }
         
         # join region, category, pressure to weighting matrix
-        krpw = krp %.%
-          inner_join(d_w, by=c('region_id', 'category')) %.%
-          arrange(region_id, category) %.%
+        krpw = krp %>%
+          inner_join(d_w, by=c('region_id', 'category')) %>%
+          arrange(region_id, category) %>%
           select(region_id, category, p, w=value)          
         d_region_ids = D[,'region_id',drop=F]
-        krpwp = d_region_ids %.%
-          left_join(krpw, by='region_id') %.%
-          group_by('region_id') %.%
+        krpwp = d_region_ids %>%
+          left_join(krpw, by='region_id') %>%
+          group_by(region_id) %>%
           summarize(p = sum(w*p)/sum(w))
         P = round(krpwp$p, 2)
         names(P) = krpwp$region_id      
@@ -127,9 +127,9 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
           # this condition seems to no onger apply, since all but NP (handled above if level is 'region_id-category')
           stop('surprise, layers_data_bycountry used')
           if (debug) cat(sprintf("  using layers_data='layers_data_bycountry'\n"))
-          d_w_r = d_w %.%
-            inner_join(regions_countries_areas, by='country_id') %.%
-            filter(region_id %in% regions) %.%
+          d_w_r = d_w %>%
+            inner_join(regions_countries_areas, by='country_id') %>%
+            filter(region_id %in% regions) %>%
             select(region_id, category, country_id, country_area_km2)
           m_w = dcast(d_w_r, region_id ~ category, sum)  # function(x) sum(x, na.rm=T)>0)
         } else { # presume layers_data == 'layers_data'    
