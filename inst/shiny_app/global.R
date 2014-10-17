@@ -2,6 +2,7 @@
 suppressPackageStartupMessages({
   require(plyr)
   require(dplyr)
+  rename = plyr::rename
   require(shiny)
   require(RJSONIO)
   require(RColorBrewer)

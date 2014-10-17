@@ -11,6 +11,7 @@
 #' @import httr
 #' @export
 get_scenarios = function(github_repo, destination_dir){
+  # github_repo = 'ohi-science/ohi-global'; destination_dir='~/ohi-global'
   library(httr)
   
   # dirs
@@ -23,7 +24,7 @@ get_scenarios = function(github_repo, destination_dir){
   }
   
   # download zip
-  cat(sprintf('Downloading https://github.com/%s \n  to %s', github_repo, dir_dest))
+  cat(sprintf('Downloading https://github.com/%s \n  to %s\n', github_repo, dir_dest))
   zip = tempfile(basename(dir_dest), fileext='zip')
   writeBin(content(GET(url)), zip)
   
@@ -33,9 +34,9 @@ get_scenarios = function(github_repo, destination_dir){
   unlink(zip)
   
   # write launch_app shortcuts specific to R install path and operating system (OS)
-  scenarios = dirname(list.files(destination_dir, 'layers.csv', recursive=T, full.names=T))
-  for (s in scenarios){
-    cat(sprintf('Writing launch_app.* shortcut to %s', file.path(dir_dest, s)))
+  scenarios = basename(dirname(list.files(destination_dir, 'layers.csv', recursive=T, full.names=T)))
+  for (s in scenarios){ # s=scenarios[1]
+    cat(sprintf('Writing launch_app.* shortcut to %s\n', file.path(dir_dest, s)))
     write_shortcuts(file.path(dir_dest, s))
   }
 }
