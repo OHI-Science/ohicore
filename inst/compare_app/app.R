@@ -8,6 +8,9 @@ require(ohicore)
 #devtools::load_all()
 #options(error = browser); options(error = utils::recover); options(error = NULL)
 
+ohi_dimensions = c('score','status','trend','resilience','future')
+ohi_goals      = c('Index','FIS','FP','MAR','AO','NP','CS','CP','TR','LIV','LE','ECO','ICO','SP','LSP','CW','HAB','BD','SPP')
+
 ui <- shinyUI(fluidPage(  
   sidebarLayout(
     sidebarPanel(
@@ -17,10 +20,17 @@ ui <- shinyUI(fluidPage(
       uiOutput('ui_a_csv'),
       uiOutput('ui_a_commit'),
       uiOutput('ui_b_csv'),
-      uiOutput('ui_b_commit')),
-#       sliderInput("n", "Number of points", min = 1, max = nrow(mtcars),
-#                   value = 10, step = 1),
-#      uiOutput("ui_plot")),
+      uiOutput('ui_b_commit'),
+    
+      checkboxGroupInput(
+        'ck_dimensions', 'Dimensions', 
+        choices  = ohi_dimensions,
+        selected = ohi_dimensions),
+      checkboxGroupInput(
+        'ck_goals', 'Goals', 
+        choices  = ohi_goals,
+        selected = ohi_goals)),
+  
     mainPanel(
       tabsetPanel(
         tabPanel(
@@ -141,12 +151,14 @@ server <- function(input, output, session) {
   }
 
   observe({
-    
-    if (all(!is.null(input$a_csv), !is.null(input$b_csv), !is.null(input$a_commit), !is.null(input$b_commit))){  
+    if (all(c('a_csv','b_csv','a_commit','b_commit') %in% names(input))){  
       
       data %>%
         #filter(!is.na(score.dif) & dimension=='score') %>%
-        filter(!is.na(score.dif)) %>%
+        filter(!is.na(score.dif) & goal %in% input$ck_goals & dimension %in% input$ck_dimensions) %>%
+        mutate(
+          goal      = as.character(goal),
+          dimension = as.character(dimension)) %>%
         ggvis(~goal, ~score.dif) %>% 
         #layer_boxplots(pars = list(outpch=NA)) %>%
         layer_points(key := ~id, fill = ~factor(dimension)) %>%    
