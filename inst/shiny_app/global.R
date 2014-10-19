@@ -2,7 +2,6 @@
 suppressPackageStartupMessages({
   require(plyr)
   require(dplyr)
-  rename = plyr::rename
   require(shiny)
   require(RJSONIO)
   require(RColorBrewer)
@@ -10,6 +9,7 @@ suppressPackageStartupMessages({
   require(markdown)
   require(yaml)
   require(ohicore)
+  rename = plyr::rename
 })
 
 options(stringsAsFactors = F)
@@ -23,6 +23,11 @@ if (!exists('dir_scenario')){
   y = yaml.load_file('app_config.yaml')
   for (o in ls(y)){
     assign(o, y[[o]], globalenv())
+  }
+  if (!exists('tabs_hide')){
+    tabs_hide <<- '' 
+  } else {
+    tabs_hide <<- tolower(stringr::str_trim(stringr::str_split(tabs_hide, ',')[[1]]))
   }
   
   # check for files/directories

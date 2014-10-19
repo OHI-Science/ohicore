@@ -145,7 +145,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
                       dimnames = list(region_id=m_w$region_id, category=names(m_w)[-1]))
         
         # for LIV/ECO, limit beta columns to alpha rows
-        beta = beta[, intersect(rownames(alpha), colnames(beta))]
+        beta = beta[, intersect(rownames(alpha), colnames(beta)), drop=F]
         
         # calculate weighting matrix
         if (debug) cat(sprintf("  CalculatePressuresMatrix(alpha, beta, calc='avg')\n"))

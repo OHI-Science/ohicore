@@ -9,6 +9,7 @@
 
 # shinyServer ----
 # Define server logic required to summarize and view the selected dataset
+
 shinyServer(function(input, output, session) {
   
   # scenario directories. monitor filesystem every 5 seconds for folders in dir.conf
@@ -16,9 +17,155 @@ shinyServer(function(input, output, session) {
     invalidateLater(5 * 1000, session)  # 5 seconds, in milliseconds
     dirs_scenario <<- grep('^[^\\.]', basename(list.dirs(path=dir_scenarios, recursive=F)), value=T)
   })
+    
+  # tab_data ----
+  tab_data = 
+    tabPanel(
+      'Data', value='data', 
+      conditionalPanel(
+        condition="input.tabsetFunction == 'data'",
+        sidebarPanel(
+          id='data-sidebar',
+          selectInput(
+            'sel_type',
+            label='1. Choose variable type:', 
+            choices=c('Input Layer'='Layer', 'Output Score'='Score'), 
+            selected='Score', multiple=F, selectize=T),
+          
+          # data layer
+          conditionalPanel(
+            "input.sel_type == 'Layer'",
+            selectInput(
+              'sel_layer_target',
+              label    = '2. Choose target (goal, pressures, resilience or spatial):',
+              selected = sel_layer_target_choices[1],
+              choices  = sel_layer_target_choices, multiple=F, selectize=T),
+            selectInput(
+              'sel_layer', 
+              label    = '3. Choose layer:',
+              selected = sel_layer_choices[1],
+              choices  = sel_layer_choices, multiple=F, selectize=T),          
+            conditionalPanel(
+              "input.sel_layer_category != 'NA'",
+              selectInput(
+                'sel_layer_category',
+                label    = '4. Choose category:',
+                choices  = sel_layer_category_choices,
+                selected = sel_layer_category_choices[1])),          
+            conditionalPanel(
+              "input.sel_layer_year != 'NA'",
+              selectInput(
+                'sel_layer_year', 
+                label    = '5. Choose year:',
+                choices  = sel_layer_year_choices,
+                selected = sel_layer_year_choices[1]))),
+          
+          # data score
+          conditionalPanel(
+            "input.sel_type == 'Score'",
+            selectInput(
+              'sel_score_target',
+              label='2. Choose target (index or goal):', 
+              choices=sel_score_target_choices, 
+              selected='Index'),
+            selectInput(
+              'sel_score_dimension', 
+              label='3. Choose dimension:', 
+              choices=sel_score_dimension_choices,
+              selected='score')),        
+          p(htmlOutput('var_description')),
+          verbatimTextOutput(outputId="var_details")),        
+      
+        # TODO: use Select2 combo boxes and search field, see https://github.com/mostly-harmless/select2shiny                    
+        
+        # data main
+        mainPanel(
+          id='data-main',
+          tabsetPanel(
+            id='tabsetMap',          
+            tabPanel(
+              'Map',
+              value='data-map', 
+              mapOutput('map_container')),
+            tabPanel(
+              'Histogram', 
+              value='data-histogram', 
+              plotOutput('histogram')),
+            #tabPanel('Summary',   value='data-summary',   verbatimTextOutput('summary')),                     
+            tabPanel('Table',     value='data-table', dataTableOutput('table'))))))
+  
+  # tab_calculate ----
+  tab_calculate = tabPanel(
+    'Calculate',
+    value='configure',
+    p(
+      'Scenario path exists:', 
+      verbatimTextOutput(outputId='dir_scenario_exists')),
+    conditionalPanel(
+      condition="output.dir_scenario_exists == 'FALSE'",
+      textInput('dir_scenario', 'Scenario directory to output:', value=dir_scenario),
+      actionButton('btn_write','Write to disk')),
+    conditionalPanel(
+      condition='output.dir_scenario_exists == "TRUE"',
+      #uiOutput('sel_scenario_dir'), # generates dir_conf              
+      #verbatimTextOutput(outputId="txt_conf_summary"),
+      p(
+        'Scenario path', 
+        verbatimTextOutput(
+          outputId="show_dir_scenario")),
+      actionButton('btn_calc','Calculate'),
+      verbatimTextOutput(outputId="txt_calc_summary")))
+                
+
+  # tab_report ----
+  if (file.exists(dir_scenario)){
+    tab_report = tabPanel(
+      'Report',
+      value='report',
+      p('Reports directory:', verbatimTextOutput(outputId='dir_reports')),
+      textInput('txt_report_fn', 'Report filename to output:', value='report.html'),
+      br('Include:'),
+      checkboxInput('ck_flowers'    , 'Flowers'   , value = T),
+      checkboxInput('ck_tables'     , 'Tables'    , value = T),
+      br('Options:'),
+      checkboxInput('ck_open_html'  , 'Open in new window', value = T),
+      checkboxInput('ck_global_only', 'Global only (vs all regions which takes time)', value = T),
+      checkboxInput('ck_overwrite'  , 'Overwrite existing figures', value = F),
+      # br('Not yet implemented...'),
+      # uiOutput('sel_compare'), # generates dir_conf              
+      # checkboxInput('ck_maps'       , 'Maps'      , value = F),
+      # checkboxInput('ck_histograms' , 'Histograms', value = F),
+      # checkboxInput('ck_equations'  , 'Equations' , value = F),             
+      # checkboxInput('ck_paths'      , 'Paths'     , value = F), 
+      actionButton('btn_report','Generate Report'),
+      verbatimTextOutput(outputId="txt_report_summary"))
+  } else {
+    tab_report = tabPanel(
+      'Report',
+      value='report',
+      p('You must write this scenario to the filesystem (see Calculate tab) before generating a report.'))      
+  }
+  
+  # render tabsetpanel ----
+  output$ui_tabsetpanel = renderUI({
+    
+    tab_panels = list(tab_data)
+    #browser()
+    if (!'report' %in% tabs_hide){
+      tab_panels = c(tab_panels, list(tab_report))
+    }
+    if (!'calculate' %in% tabs_hide){
+      tab_panels = c(tab_panels, list(tab_calculate))
+    }
+    do.call(tabsetPanel, c(list(id='tabsetFunction'), tab_panels))
+    
+  })
+    
   
   # select layer ----
   observe({
+    if (all(c('sel_layer_target') %in% names(input))){
+      
     sel_layer_choices = with(subset(layer_targets, target==input$sel_layer_target), 
                              setNames(layer, layer_label))    
     updateSelectInput(session, 'sel_layer', 
@@ -27,10 +174,13 @@ shinyServer(function(input, output, session) {
                       selected=ifelse(length(sel_layer_choices)>0, 
                                       sel_layer_choices[1], 
                                       NULL))    
+    }
   }, priority=1)
   
   # select layer category ----
-  observe({
+  observe({    
+    if (all(c('sel_layer') %in% names(input))){
+      
     lyr = input$sel_layer
     lyr_fld_category = subset(layers$meta, layer==lyr, fld_category, drop=T)
     if (is.na(lyr_fld_category)){
@@ -42,29 +192,33 @@ shinyServer(function(input, output, session) {
     updateSelectInput(session,  'sel_layer_category', 
                       label    = sprintf('4. Choose %s category:', lyr_fld_category),  
                       choices  = sel_layer_category_choices)
+    }
   }, priority=2)
   
   # select layer year ----
-  observe({
-    # reactives
-    lyr          = input$sel_layer
-    lyr_category = input$sel_layer_category
-    
-    lyr_fld_year = subset(layers$meta, layer==lyr, fld_year, drop=T)
-    # TODO: with Layers > NP > rnky_np_harvest_relative, getting "Error in names(choices) <- choiceNames : attempt to set an attribute on NULL", should be fixed in future based on https://groups.google.com/forum/?pli=1#!topic/shiny-discuss/K7chwrMCvkU
-    if (is.na(lyr_fld_year)){
-      sel_layer_year_choices = NA
-    } else {
-      d = ohicore::SelectLayersData(layers, layers=lyr, narrow=T) # layers$data[[lyr]]            
-      if ('category' %in% names(d) && lyr_category != 'NA'){ # !is.na(input$sel_layer_category & input$sel_layer_category!='')){
-        d = subset(d, category==lyr_category)
+  observe({    
+    if (all(c('sel_layer','sel_layer_category') %in% names(input))){
+      
+      # reactives
+      lyr          = input$sel_layer
+      lyr_category = input$sel_layer_category
+      
+      lyr_fld_year = subset(layers$meta, layer==lyr, fld_year, drop=T)
+      # TODO: with Layers > NP > rnky_np_harvest_relative, getting "Error in names(choices) <- choiceNames : attempt to set an attribute on NULL", should be fixed in future based on https://groups.google.com/forum/?pli=1#!topic/shiny-discuss/K7chwrMCvkU
+      if (is.na(lyr_fld_year)){
+        sel_layer_year_choices = NA
+      } else {
+        d = ohicore::SelectLayersData(layers, layers=lyr, narrow=T) # layers$data[[lyr]]            
+        if ('category' %in% names(d) && lyr_category != 'NA'){ # !is.na(input$sel_layer_category & input$sel_layer_category!='')){
+          d = subset(d, category==lyr_category)
+        }
+        sel_layer_year_choices = as.character(sort(unique(d$year), decreasing=T))
       }
-      sel_layer_year_choices = as.character(sort(unique(d$year), decreasing=T))
-    }
-    updateSelectInput(session,  'sel_layer_year', 
-                      label    = '5. Choose year:',  
-                      choices  = sel_layer_year_choices,
-                      selected = sel_layer_year_choices[1])
+      updateSelectInput(session,  'sel_layer_year', 
+                        label    = '5. Choose year:',  
+                        choices  = sel_layer_year_choices,
+                        selected = sel_layer_year_choices[1])
+    }    
   }, priority=3)
   
   # Layers: GetVar() ----
@@ -141,9 +295,6 @@ shinyServer(function(input, output, session) {
     v$summary = sprintf('%s\n\n  count, not NA: %s\n  min: %0.4g\n  mean: %0.4g\n  max: %0.4g\n\n', v$name, length(na.omit(v$data$val_num)), signif(min(v$data$val_num, na.rm=T), 4), mean(v$data$val_num, na.rm=T), max(v$data$val_num, na.rm=T))    
     return(v)
   })
-  
-  
-  
 
   # Data: info
   output$var_description = renderUI({ HTML(GetVar()$description) })
@@ -221,28 +372,30 @@ shinyServer(function(input, output, session) {
   # Calculate: write ----
   output$show_dir_scenario = renderText({ cat(dir_scenario) })
   observe({
-    input$btn_write
-    output$dir_scenario_exists = renderText({file.exists(input$dir_scenario)})
-    output$show_dir_scenario   = renderText({input$dir_scenario})
-    if (input$btn_write == 0){
-      state_btn_write <<- 0
-      #output$dir_scenario_exists = as.character()
-    } else if (input$btn_write != state_btn_write){
-      #output$dir_scenario_exists = as.character(file.exists(dir_scenario))
-      isolate({
-        state_btn_write <<- input$btn_write
-        dir_scenario <<- input$dir_scenario
-        ohicore::WriteScenario(
-          scenario = list(
-            conf = conf, 
-            layers = layers, 
-            scores = scores,
-            spatial = dir_spatial,
-            dir    = dir_scenario))
-      })
-      # = file.exists(dir_scenario)
+    if (all(!'calculate' %in% tabs_hide & file.exists(dir_scenario), c('btn_write') %in% names(input))){      
+      input$btn_write
+      output$dir_scenario_exists = renderText({file.exists(input$dir_scenario)})
+      output$show_dir_scenario   = renderText({input$dir_scenario})
+      if (input$btn_write == 0){
+        state_btn_write <<- 0
+        #output$dir_scenario_exists = as.character()
+      } else if (input$btn_write != state_btn_write){
+        #output$dir_scenario_exists = as.character(file.exists(dir_scenario))
+        isolate({
+          state_btn_write <<- input$btn_write
+          dir_scenario <<- input$dir_scenario
+          ohicore::WriteScenario(
+            scenario = list(
+              conf = conf, 
+              layers = layers, 
+              scores = scores,
+              spatial = dir_spatial,
+              dir    = dir_scenario))
+        })
+        # = file.exists(dir_scenario)
+      }
     }
-  })
+  })  
 
 #   # Calculate: sel_scenario_dir ----
 #   output$sel_scenario_dir <- renderUI({
@@ -263,47 +416,52 @@ shinyServer(function(input, output, session) {
 #   })
    
    # Calculate: txt_calc_summary ----
-    observe({      
-      input$btn_calc      
-      if (input$btn_calc == 0){
-        state_btn_calc <<- 0
-        output$txt_calc_summary <- renderText({''})
-      } else if (input$btn_calc != state_btn_calc){
-        isolate({
-          state_btn_calc <<- input$btn_calc
-          output$txt_calc_summary <- renderText({
-            
-            #browser('server.R -- Calculate: txt_calc_summary')
-            
-            # set scenario vars (previously in scenario.R)
-            scenario=list(
-              conf    = ohicore::Conf(file.path(dir_scenario, "conf")),
-              layers  = ohicore::Layers(file.path(dir_scenario, "layers.csv"), file.path(dir_scenario, "layers")),
-              scores  = read.csv(file.path(dir_scenario, "scores.csv"), na.strings=""),
-              spatial = file.path(dir_scenario, "spatial"),
-              dir     = dir_scenario)
-            layers <<- scenario$layers
-            conf   <<- scenario$conf
-            
-            cat(sprintf('Checking layers: %s)\n  having conf/Config.R/layers_id_fields: %s', file.path(dir_scenario, 'layers.csv'),paste(conf$config$layers_id_fields, collapse=', ')))
-            cat(sprintf('   layers: %s)\n', file.path(dir_scenario, 'layers.csv')))
-            
-            # check and reload layers
-            CheckLayers(file.path(dir_scenario, 'layers.csv'), file.path(dir_scenario, 'layers'), conf$config$layers_id_fields)
-            scenario$layers = layers <<- ohicore::Layers(file.path(dir_scenario, 'layers.csv'), file.path(dir_scenario, 'layers'))            
-            
-            # calculate scores
-            setwd(dir_scenario)
-            scores <<- ohicore::CalculateAll(scenario$conf, scenario$layers, debug=F)
-            write.csv(scores, 'scores.csv', na='', row.names=F)
-            
-            sprintf('Scores calculated and output to: %s', file.path(dir_scenario, 'scores.csv'))
-          })
-        })
+    observe({
+      
+      if (all(!'calculate' %in% tabs_hide, 'btn_calc' %in% names(input))){
         
+        input$btn_calc      
+        if (input$btn_calc == 0){
+          state_btn_calc <<- 0
+          output$txt_calc_summary <- renderText({''})
+        } else if (input$btn_calc != state_btn_calc){
+          isolate({
+            state_btn_calc <<- input$btn_calc
+            output$txt_calc_summary <- renderText({
+              
+              #browser('server.R -- Calculate: txt_calc_summary')
+              
+              # set scenario vars (previously in scenario.R)
+              scenario=list(
+                conf    = ohicore::Conf(file.path(dir_scenario, "conf")),
+                layers  = ohicore::Layers(file.path(dir_scenario, "layers.csv"), file.path(dir_scenario, "layers")),
+                scores  = read.csv(file.path(dir_scenario, "scores.csv"), na.strings=""),
+                spatial = file.path(dir_scenario, "spatial"),
+                dir     = dir_scenario)
+              layers <<- scenario$layers
+              conf   <<- scenario$conf
+              
+              cat(sprintf('Checking layers: %s)\n  having conf/Config.R/layers_id_fields: %s', file.path(dir_scenario, 'layers.csv'),paste(conf$config$layers_id_fields, collapse=', ')))
+              cat(sprintf('   layers: %s)\n', file.path(dir_scenario, 'layers.csv')))
+              
+              # check and reload layers
+              CheckLayers(file.path(dir_scenario, 'layers.csv'), file.path(dir_scenario, 'layers'), conf$config$layers_id_fields)
+              scenario$layers = layers <<- ohicore::Layers(file.path(dir_scenario, 'layers.csv'), file.path(dir_scenario, 'layers'))            
+              
+              # calculate scores
+              setwd(dir_scenario)
+              scores <<- ohicore::CalculateAll(scenario$conf, scenario$layers, debug=F)
+              write.csv(scores, 'scores.csv', na='', row.names=F)
+              
+              sprintf('Scores calculated and output to: %s', file.path(dir_scenario, 'scores.csv'))
+            })
+          })
+          
+        }
       }
     })  
   
+    
   # Report: sel_compare ----
   output$sel_compare <- renderUI({
     selectInput("dir_compare", "Compare with scenario:",                 
@@ -313,34 +471,38 @@ shinyServer(function(input, output, session) {
   
   # Report: btn_report ----
   output$dir_reports  = renderText({ file.path(dir_scenario, 'reports') })
-  observe({      
-    input$btn_report      
-    if (input$btn_report == 0){
-      state_btn_report <<- 0
-      output$txt_report_summary <- renderText({''})
-    } else if (input$btn_report != state_btn_report){
-      isolate({
-        state_btn_report <<- input$btn_report
-        ohicore::ReportScores(scenario = list(
-                    conf = conf, 
-                    layers = layers, 
-                    scores = scores,
-                    spatial = ifelse(file.exists(system.file('extdata/spatial.www2013', package='ohicore')),
-                                           system.file('extdata/spatial.www2013', package='ohicore'),
-                                           system.file('inst/extdata/spatial.www2013', package='ohicore'))),
-                    directory = file.path(dir_scenario,'reports'),
-                    filename = input$txt_report_fn, 
-                    open_html=input$ck_open_html,
-                    do_flowers=input$ck_flowers, do_tables=input$ck_tables,
-                    overwrite=input$ck_overwrite, global_only=input$ck_global_only, 
-                    # TODO: implement...                         
-                    do_maps=input$ck_maps, do_histograms=input$ck_histograms, do_equations=input$ck_equations, do_paths=input$ck_paths, 
-                    debug=F) 
-        output$txt_report_summary <- renderText({
-          #browser()
-          cat('success')
-        })
-      })
+  observe({
+    
+    if (all(!'report' %in% tabs_hide & file.exists(dir_scenario), c('btn_report','btn_write','btn_calc') %in% names(input))){      
+        
+      input$btn_report      
+      if (input$btn_report == 0){
+        state_btn_report <<- 0
+        output$txt_report_summary <- renderText({''})
+      } else if (input$btn_report != state_btn_report){
+        isolate({
+          state_btn_report <<- input$btn_report
+          ohicore::ReportScores(scenario = list(
+                      conf = conf, 
+                      layers = layers, 
+                      scores = scores,
+                      spatial = ifelse(file.exists(system.file('extdata/spatial.www2013', package='ohicore')),
+                                             system.file('extdata/spatial.www2013', package='ohicore'),
+                                             system.file('inst/extdata/spatial.www2013', package='ohicore'))),
+                      directory = file.path(dir_scenario,'reports'),
+                      filename = input$txt_report_fn, 
+                      open_html=input$ck_open_html,
+                      do_flowers=input$ck_flowers, do_tables=input$ck_tables,
+                      overwrite=input$ck_overwrite, global_only=input$ck_global_only, 
+                      # TODO: implement...                         
+                      do_maps=input$ck_maps, do_histograms=input$ck_histograms, do_equations=input$ck_equations, do_paths=input$ck_paths, 
+                      debug=F) 
+          output$txt_report_summary <- renderText({
+            #browser()
+            cat('success')
+          })
+        })      
+      }
       
     }
   })  

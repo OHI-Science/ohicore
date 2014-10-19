@@ -20,7 +20,7 @@ name_to_rgn(d, fld_name = "country", flds_unique = fld_name,
 
 \item{fld_value}{field with value, defaults to 'value'}
 
-\item{collapse_fxn}{function to collapse duplicate regions into one (exampl: China, Macau, Hong Kong)}
+\item{collapse_fxn}{function to collapse duplicate regions into one (example: China, Macau, Hong Kong)}
 
 \item{collapse_csv}{optional .csv file provided to collapse duplicate regions}
 
