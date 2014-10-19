@@ -9,11 +9,12 @@ suppressPackageStartupMessages({
   require(markdown)
   require(yaml)
   require(ohicore)
+  require(ggvis) # needed this line here to install on shinyapps
   rename = plyr::rename
 })
 
 options(stringsAsFactors = F)
-# options(error=recover) # options(error=browser)
+# options(error=recover) # options(error=traceback) # options(error=browser)
 debug = F
 
 # adding chunk for stand-alone shinyapp.io from launch_app function----
@@ -29,6 +30,22 @@ if (!exists('dir_scenario')){
   } else {
     tabs_hide <<- tolower(stringr::str_trim(stringr::str_split(tabs_hide, ',')[[1]]))
   }
+  
+  # Clone the github repository using git2r from variables set in app_config.yaml
+  library(git2r)
+  tag   = shiny::tag
+  tags  = shiny::tags
+  merge = base::merge
+  diff  = base::diff
+  
+  if ( !file.exists('github/.git') ){
+    repo = clone(git_repo, 'github')
+  }
+  repo = git2r::repository('github')
+  cfg = git2r::config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
+  git2r::pull(repo)
+  git_head <<- git2r::commits(repo)[[1]]
+  dir_scenario <<- file.path('github',dir_scenario)
   
   # check for files/directories
   stopifnot(file.exists(sprintf('%s/conf'      , dir_scenario)))

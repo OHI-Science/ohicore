@@ -31,6 +31,9 @@ shinyUI(bootstrapPage(div(class='container-fluid',             # alternate to: p
       HTML(markdownToHTML(fragment.only=TRUE, text=c(
         sprintf('Scenario: %s/%s', basename(dirname(normalizePath(dir_scenario))), basename(dir_scenario))))))), 
 
+  htmlOutput('git_commit'),
+  htmlOutput('ls_files'),
+  
   div(
     class = "row-fluid",
     uiOutput('ui_tabsetpanel'))

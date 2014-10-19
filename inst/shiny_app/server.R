@@ -12,9 +12,21 @@
 
 shinyServer(function(input, output, session) {
   
+  output$git_commit = renderUI({
+    git_commit = sprintf('[%s] %s: %s', substr(git_head@sha, 1, 7), git2r::when(git_head), git_head@summary)
+    tags$input(id='git_commit', type='hidden', value=git_commit) })
+  
+  output$ls_files = renderUI({
+    ls_files = paste(list.files(dir_scenario), collapse='\n')
+    tags$input(id='ls_files', type='hidden', value=ls_files) })
+  
   # scenario directories. monitor filesystem every 5 seconds for folders in dir.conf
   observe({
-    invalidateLater(5 * 1000, session)  # 5 seconds, in milliseconds
+    invalidateLater(60 * 1000, session)  # 5 seconds, in milliseconds
+    if (exists('git_repo')){
+      git2r::pull(repo)
+      git_head <<- git2r::commits(repo)[[1]]
+    }
     dirs_scenario <<- grep('^[^\\.]', basename(list.dirs(path=dir_scenarios, recursive=F)), value=T)
   })
     
