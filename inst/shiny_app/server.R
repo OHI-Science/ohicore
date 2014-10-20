@@ -23,7 +23,7 @@ shinyServer(function(input, output, session) {
   # scenario directories. monitor filesystem every 5 seconds for folders in dir.conf
   observe({
     invalidateLater(60 * 1000, session)  # 5 seconds, in milliseconds
-    if (exists('git_repo')){
+    if (exists('git_url')){
       git2r::pull(repo)
       git_head <<- git2r::commits(repo)[[1]]
     }
@@ -109,7 +109,7 @@ shinyServer(function(input, output, session) {
   # tab_calculate ----
   tab_calculate = tabPanel(
     'Calculate',
-    value='configure',
+    value='calculate',
     p(
       'Scenario path exists:', 
       verbatimTextOutput(outputId='dir_scenario_exists')),
@@ -158,22 +158,57 @@ shinyServer(function(input, output, session) {
       p('You must write this scenario to the filesystem (see Calculate tab) before generating a report.'))      
   }
   
+  
+  # tab_compare ----
+  tab_compare = tabPanel(
+    'Compare',
+    value='compare',
+    sidebarLayout(
+      sidebarPanel(
+        textInput('dir_repo', 'Repository:', value = 'github'),
+        textInput('csv_rgns', 'Regions csv:', value='github/eez2013/layers/rgn_labels.csv'),
+        textInput('csv_goals', 'Goals csv:', value='github/eez2013/conf/goals.csv'),
+        uiOutput('ui_a_csv'),
+        uiOutput('ui_a_commit'),
+        uiOutput('ui_b_csv'),
+        uiOutput('ui_b_commit'),
+        
+        checkboxGroupInput(
+          'ck_dimensions', 'Dimensions', 
+          choices  = ohi_dimensions,
+          selected = ohi_dimensions),
+        checkboxGroupInput(
+          'ck_goals', 'Goals', 
+          choices  = ohi_goals,
+          selected = ohi_goals)),
+      
+      mainPanel(
+        tabsetPanel(
+          id='cmp_tabset',
+          tabPanel(
+            title='Plot',
+            htmlOutput('cmp_plot')),
+          tabPanel(
+            title='Table',
+            dataTableOutput('cmp_table'))))))
+    
   # render tabsetpanel ----
   output$ui_tabsetpanel = renderUI({
     
     tab_panels = list(tab_data)
-    #browser()
     if (!'report' %in% tabs_hide){
       tab_panels = c(tab_panels, list(tab_report))
     }
     if (!'calculate' %in% tabs_hide){
       tab_panels = c(tab_panels, list(tab_calculate))
     }
+    if (!'compare' %in% tabs_hide){
+      tab_panels = c(tab_panels, list(tab_compare))
+    }
     do.call(tabsetPanel, c(list(id='tabsetFunction'), tab_panels))
     
   })
-    
-  
+      
   # select layer ----
   observe({
     if (all(c('sel_layer_target') %in% names(input))){
@@ -518,7 +553,147 @@ shinyServer(function(input, output, session) {
       
     }
   })  
-  
+
+
+  # compare server ----
+
+  if (!'compare' %in% tabs_hide){
+    
+    # reactive drop-downs of csv's based on dir_repo  
+    csv_paths = reactive({
+      p = list.files(input$dir_repo, 'scores\\.csv$', recursive=T)
+      return(p)
+    })  
+    
+    output$ui_a_csv <- renderUI({
+      selectInput(
+        'a_csv', 'A - scores.csv', 
+        choices = csv_paths(),
+        selected = 1)})
+    
+    output$ui_b_csv <- renderUI({
+      selectInput(
+        'b_csv', 'B - scores.csv', 
+        choices = csv_paths(),
+        selected = 1)})
+    
+    # reactive drop-down of commits based on dir_repo
+    repo_commits = reactive({
+      k = commits(repository(input$dir_repo), topological=F, time=T, reverse=F)
+      kn = setNames(
+        sapply(k, function(x) x@sha),
+        sapply(k, function(x) sprintf('%s: %s...', when(x), str_sub(x@message, 1, 25))))    
+      kn
+    })
+    
+    output$ui_a_commit <- renderUI({
+      selectInput(
+        'a_commit', 'A - commit', 
+        choices = repo_commits(),
+        selected = 1)})
+    
+    output$ui_b_commit <- renderUI({
+      selectInput(
+        'b_commit', 'B - commit', 
+        choices = repo_commits(),
+        selected = 2)})
+    
+    # reactive data: difference of A and B
+    data <- reactive({
+      
+      # # debug
+      # input = list()
+      # input$dir_repo = '~/github/ohi-global'
+      # input$csv_rgns = '~/github/ohi-global/eez2013/layers/rgn_labels.csv'
+      # input$a_commit = kn[1]
+      # input$b_commit = kn[2]
+      # input$a_csv    = 'eez2013/scores.csv' # p[3]
+      # input$b_csv    = 'eez2013/scores.csv' # p[3]
+      # input$csv_rgns = 'eez2013/layers/rgn_labels.csv'
+      
+      #if (!'a_csv' %in% names(input)) return(reactive({NA}))
+      g_csv = isolate(sprintf('%s/conf/goals.csv', dirname(input$a_csv)))
+      
+      # read in data
+      a = read_git_csv(input$dir_repo, input$a_commit, input$a_csv, stringsAsFactors=F)
+      b = read_git_csv(input$dir_repo, input$b_commit, input$b_csv, stringsAsFactors=F)
+      r = read.csv(input$csv_rgns, stringsAsFactors=F)
+      g = read.csv(input$csv_goals, stringsAsFactors=F) %>% arrange(order_color)
+      
+      # check column names
+      stopifnot(names(a) == c('goal','dimension','region_id','score'))
+      stopifnot(names(b) == c('goal','dimension','region_id','score'))
+      stopifnot(c('rgn_id','label') %in% names(r))
+      
+      # merge
+      #browser()
+      d = a %>%
+        base::merge(
+          b, 
+          by=c('goal','dimension','region_id'), 
+          suffixes=c('.a','.b')) %>%
+        dplyr::rename(rgn_id=region_id) %>%
+        mutate(
+          score.dif = score.a - score.b,
+          score.na = is.na(score.a)!=is.na(score.b)) %>%      
+        left_join(
+          rbind_list(
+            r %>%
+              select(rgn_id, rgn_name=label),
+            data.frame(rgn_id=0, rgn_name='GLOBAL')),
+          by='rgn_id') %>%
+        # filter(abs(score_dif) > 0.01 | score_na == T) %>%
+        arrange(rgn_id!=0, goal!='Index', dimension!='score', goal, desc(dimension), desc(abs(score.dif)), is.na(score.a), is.na(score.b)) %>%
+        select(goal, dimension, rgn_id, rgn_name, score.a, score.b, score.dif) %>%
+        mutate(
+          goal      = factor(goal, c('Index', g$goal)),
+          dimension = factor(dimension, c('score','status','trend','pressure','resilience','future')),
+          id        = row_number())
+      
+      d
+    })
+    
+    
+    # ggvis plot ----
+    
+    output$cmp_plot <- renderUI({
+      ggvisOutput('cmp_ggvis')
+    })
+    
+    hover_tip <- function(x) {
+      if(is.null(x)) return(NULL)
+      row = data()[data()$id == x$id, ]
+      return(with(row, sprintf('%s (%d): %g<br />%s %s<br />score.a: %g<br />score.b: %g', rgn_name, rgn_id, score.dif, goal, dimension, score.a, score.b)))
+    }
+    
+    observe({
+      if (all(c('a_csv','b_csv','a_commit','b_commit') %in% names(input))){  
+        
+        data %>%
+          #filter(!is.na(score.dif) & dimension=='score') %>%
+          filter(!is.na(score.dif) & goal %in% input$ck_goals & dimension %in% input$ck_dimensions) %>%
+          mutate(
+            goal      = as.character(goal),
+            dimension = as.character(dimension)) %>%
+          ggvis(~goal, ~score.dif) %>% 
+          #layer_boxplots(pars = list(outpch=NA)) %>%
+          layer_points(key := ~id, fill = ~factor(dimension)) %>%    
+          group_by(goal) %>%    
+          add_tooltip(hover_tip, 'hover') %>%
+          bind_shiny('cmp_ggvis')    
+        
+        # table ----       
+        output$cmp_table <- renderDataTable(
+          data(),
+          options = list(pageLength = 10)
+        )
+        
+      }
+    })  
+
+  } # end if compare tab
+
+})
 
 #    output$txt_calc_summary <- renderText({
 #      #cat('input$btn_conf_calc:',input$btn_conf_calc,'\n')
@@ -534,9 +709,6 @@ shinyServer(function(input, output, session) {
 #                 'TODO: integrate with execution of sequence of functions and display calculated summary.\n'))     
 #      }
 #    })
-  
-
-})
 
 #                                                       tabPanel('Goals', value='goals', 
 #                                                                sidebarPanel(id='goal-sidbar', style='overflow:auto; height:850px; width:200px',                     

@@ -1,3 +1,4 @@
+# setwd('~/tmp/ohi-global_shinyapp')
 # see launch_app(), makes global variables: conf, layers, scores, dir_spatial, dir_scenario
 suppressPackageStartupMessages({
   require(plyr)
@@ -11,16 +12,21 @@ suppressPackageStartupMessages({
   require(ohicore)
   require(ggvis) # needed this line here to install on shinyapps
   rename = plyr::rename
+  require(stringr)
 })
 
 options(stringsAsFactors = F)
 # options(error=recover) # options(error=traceback) # options(error=browser)
 debug = F
 
+ohi_dimensions <<- c('score','status','trend','resilience','future')
+ohi_goals      <<- c('Index','FIS','FP','MAR','AO','NP','CS','CP','TR','LIV','LE','ECO','ICO','SP','LSP','CW','HAB','BD','SPP')
+
 # adding chunk for stand-alone shinyapp.io from launch_app function----
 if (!exists('dir_scenario')){
   
   # load configuration
+  #browser()
   y = yaml.load_file('app_config.yaml')
   for (o in ls(y)){
     assign(o, y[[o]], globalenv())
@@ -39,12 +45,16 @@ if (!exists('dir_scenario')){
   diff  = base::diff
   
   if ( !file.exists('github/.git') ){
-    repo = clone(git_repo, 'github')
+    repo = clone(git_url, 'github')    
   }
   repo = git2r::repository('github')
   cfg = git2r::config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
   git2r::pull(repo)
   git_head <<- git2r::commits(repo)[[1]]
+  
+  # TODO: switch to specified git_branch, perhaps modify git_csv
+  branch = branches(repo)[[which(sapply(branches(repo), function(x) x@name) == sprintf('origin/%s', git_branch))]]  
+  
   dir_scenario <<- file.path('github',dir_scenario)
   
   # check for files/directories
