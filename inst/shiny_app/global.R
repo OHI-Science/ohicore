@@ -53,7 +53,7 @@ if (!exists('dir_scenario')){
   git_head <<- git2r::commits(repo)[[1]]
   
   # TODO: switch to specified git_branch, perhaps modify git_csv
-  branch = branches(repo)[[which(sapply(branches(repo), function(x) x@name) == sprintf('origin/%s', git_branch))]]  
+  #branch = branches(repo)[[which(sapply(branches(repo), function(x) x@name) == sprintf('origin/%s', git_branch))]]  
   
   dir_scenario <<- file.path('github',dir_scenario)
   
