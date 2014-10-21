@@ -15,6 +15,7 @@ Imports:
     RJSONIO,
     dplyr (>= 0.2),
     ggplot2 (>= 1.0.0),
+    ggvis (>= 0.4),
     httr,
     markdown (>= 0.6.3),
     plyr (>= 1.8.0),
