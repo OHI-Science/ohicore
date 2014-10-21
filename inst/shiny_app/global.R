@@ -19,7 +19,7 @@ options(stringsAsFactors = F)
 # options(error=recover) # options(error=traceback) # options(error=browser)
 debug = F
 
-ohi_dimensions <<- c('score','status','trend','resilience','future')
+ohi_dimensions <<- c('score','status','trend','pressure','resilience','future')
 ohi_goals      <<- c('Index','FIS','FP','MAR','AO','NP','CS','CP','TR','LIV','LE','ECO','ICO','SP','LSP','CW','HAB','BD','SPP')
 
 # adding chunk for stand-alone shinyapp.io from launch_app function----
