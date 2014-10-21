@@ -647,7 +647,7 @@ shinyServer(function(input, output, session) {
         select(goal, dimension, rgn_id, rgn_name, score.a, score.b, score.dif) %>%
         mutate(
           goal      = factor(goal, c('Index', g$goal)),
-          dimension = factor(dimension, c('score','status','trend','pressure','resilience','future')),
+          dimension = factor(dimension, ohi_dimensions),
           id        = row_number())
       
       d
