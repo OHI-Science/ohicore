@@ -13,8 +13,8 @@ Depends:
 Imports:
     RColorBrewer,
     RJSONIO,
-    dplyr (>= 0.2),
-    ggplot2 (>= 1.0.0),
+    dplyr (>= 0.3),
+    ggplot2 (>= 1.0.0), 
     ggvis (>= 0.4),
     httr,
     markdown (>= 0.6.3),
