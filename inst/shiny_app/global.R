@@ -52,9 +52,15 @@ if (!exists('dir_scenario')){
   git2r::pull(repo)
   git_head <<- git2r::commits(repo)[[1]]
   
+  # get repository branches, just "origin/" ones
+  #git_branches = lapply(git2r::branches(repo, flags='remote'), function(x) x@name)
+  #repo_branches = git2r::branches(repo, flags='remote')  
+  #repo_branch = repo_branches[[which(sapply(repo_branches, function(x) x@name == git_branch))]]
+  #setwd('github')
+  #checkout(repo_branch@repo)  
+  
   # TODO: switch to specified git_branch, perhaps modify git_csv
   #branch = branches(repo)[[which(sapply(branches(repo), function(x) x@name) == sprintf('origin/%s', git_branch))]]  
-  
   dir_scenario <<- file.path('github',dir_scenario)
   
   # check for files/directories
@@ -102,23 +108,29 @@ layer_targets = data.frame(target=character(0), layer=character(0))
 for (i in 1:length(layers$targets)){ # i=1
   targets = layers$targets[[i]]
   layer   = names(layers$targets[i])
-  layer_targets = rbind(layer_targets, 
-                    data.frame(target = targets,
-                               layer = rep(layer, length(targets))))
+  layer_targets = rbind(
+    layer_targets, 
+    data.frame(
+      target = targets,
+      layer = rep(layer, length(targets))))
 }
-layer_targets = merge(layer_targets,
-                  rbind(rename(conf$goals[,c('goal','name','order_hierarchy','parent')],
-                               c('goal'='target','name'='target_name','order_hierarchy'='target_order','parent'='target_parent')),
-                        data.frame(target        = c('pressures','resilience','spatial'),
-                                   target_name   = c('Pressures','Resilience','Spatial'),
-                                   target_order  = c(       100 ,        101 ,     102), 
-                                   target_parent = c(        NA ,         NA ,      NA), stringsAsFactors=F)),
-                  all.x=T)
+layer_targets = merge(
+  layer_targets,
+  rbind(
+    rename(
+      conf$goals[,c('goal','name','order_hierarchy','parent')],
+      c('goal'='target','name'='target_name','order_hierarchy'='target_order','parent'='target_parent')),
+    data.frame(
+      target        = c('pressures','resilience','spatial'),
+      target_name   = c('Pressures','Resilience','Spatial'),
+      target_order  = c(       100 ,        101 ,     102), 
+      target_parent = c(        NA ,         NA ,      NA), stringsAsFactors=F)),
+  all.x=T)
 layer_targets = arrange(merge(layer_targets, layers$meta, by='layer', all.x=T), target_order, name)
 layer_targets = within(layer_targets, {
   target_label = sprintf('%s %s', target_order, target_name)
   layer_label  = sprintf('%s (%s)', name, layer)
-  }) # [,c('label','value')]
+}) # [,c('label','value')]
 
 # get unique layer targets
 sel_layer_target_choices = with(unique(layer_targets[,c('target','target_label')]), setNames(target, target_label))
@@ -142,7 +154,7 @@ if (is.na(lyr_fld_year)){
 # Layers: get_var() ----
 # reactiveValues ----
 dir_scenarios = dirname(dir_scenario)
-  
+
 # index or goal
 # conf$goals = within(arrange(
 #   conf$goals, order_hierarchy), {
@@ -187,7 +199,7 @@ get_wts = function(input){
           CW=input$CW,
           HAB=input$HAB,
           SPP=input$SPP)
-
+  
   # rescale so sums to 1
   wts = wts / sum(wts)
   return(wts)
@@ -204,7 +216,7 @@ GetMapData = function(v){
   
   #browser('GetMapData', expr=v$layer=='mar_harvest_tonnes')
   
-
+  
   # check for single value
   if (n_distinct(v$data$val_num) == 1){
     
@@ -215,7 +227,7 @@ GetMapData = function(v){
       # arbitrarily extend color ramp range to get a legit set of breaks
       rng = range(unique(v$data$val_num)*c(0.9999, 1, 1.0001), na.rm=T)
     }
-        
+    
   } else {
     rng = range(v$data$val_num, na.rm=T)
   }
@@ -236,11 +248,11 @@ PlotMap = function(v, width='100%', height='600px', lon=0, lat=0, zoom=2){  # Ba
   
   if ( (length(na.omit(v$data$val_num))==0) | (!'rgn_id' %in% names(v$data)) ){
     stop(sprintf('Sorry, the Map view is unavailable for the selected layer (%s) because
-      the field %s does not have associated spatial shapes available for mapping. 
-      Please choose a different view (Histogram or Table) or a different layer.', v$layer, v$fld_id))
+                 the field %s does not have associated spatial shapes available for mapping. 
+                 Please choose a different view (Histogram or Table) or a different layer.', v$layer, v$fld_id))
     #return()
   }
-      
+  
   d = GetMapData(v)
   
   lmap <- Leaflet$new()
@@ -339,4 +351,5 @@ PlotMap = function(v, width='100%', height='600px', lon=0, lat=0, zoom=2){  # Ba
               colors   =  names(d$legend), 
               labels   =  as.vector(d$legend))
   return(lmap)
-}
+  }
+
