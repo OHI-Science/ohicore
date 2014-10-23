@@ -160,8 +160,8 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
                          matrix(0, nrow=length(region_ids.missing), ncol=ncol(w)+length(pressures.missing))),
                    nrow=nrow(w)+length(region_ids.missing), ncol=ncol(w)+length(pressures.missing),
                    dimnames = list('region_id'=c(dimnames(w)$region_id, region_ids.missing), 
-                                   'pressure'=c(dimnames(w)$pressure, pressures.missing)))[as.character(regions), p.layers]
-        w = w[dimnames(p)$region_id,] # align w with p
+                                   'pressure'=c(dimnames(w)$pressure, pressures.missing)))[as.character(regions), p.layers, drop=F]
+        w = w[dimnames(p)$region_id,,drop=F] # align w with p
         
         # check matrices
         stopifnot(all(dimnames(w)$pressure == dimnames(w)$pressure))

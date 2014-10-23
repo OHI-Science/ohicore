@@ -233,6 +233,8 @@ CalculateAll = function(conf, layers, debug=F){
   }
   
   # check that scores are not duplicated
+  #browser()
+  #scores[duplicated(scores[,c('region_id','goal','dimension')]),]
   stopifnot(sum(duplicated(scores[,c('region_id','goal','dimension')]))==0)
   
   # return scores
