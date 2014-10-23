@@ -140,6 +140,14 @@ CalculateAll = function(conf, layers, debug=F){
     v = dcast(scores, region_id ~ dimension, subset = .(goal==g), value.var='score')
     
     # calculate Goal Score and Likely Future
+    #if (g=='CS') browser()
+    for (col in c('status','trend','pressures','resilience')){
+      if (!col %in% names(v)){
+        cat(sprintf('  missing %s dimension, assigning NA!\n', col))
+        v[col] = NA
+      }
+    }
+    
     x = CalculateGoalIndex(
       id         = v$region_id,
       status     = v$status/100,
