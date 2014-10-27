@@ -165,9 +165,9 @@ shinyServer(function(input, output, session) {
     value='compare',
     sidebarLayout(
       sidebarPanel(
-        textInput('dir_repo', 'Repository:', value = 'github'),
-        textInput('csv_rgns', 'Regions csv:', value='github/eez2013/layers/rgn_labels.csv'),
-        textInput('csv_goals', 'Goals csv:', value='github/eez2013/conf/goals.csv'),
+        textInput('dir_repo',  'Repository:' , value = dir_repo),
+        textInput('csv_rgns',  'Regions csv:', value = sprintf('%s/layers/rgn_labels.csv', dir_scenario)),
+        textInput('csv_goals', 'Goals csv:'  , value = sprintf('%s/conf/goals.csv', dir_scenario)),
         uiOutput('ui_a_csv'),
         uiOutput('ui_a_commit'),
         uiOutput('ui_b_csv'),

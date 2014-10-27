@@ -1,4 +1,4 @@
-# setwd('~/tmp/ohi-global_shinyapp')
+# setwd('/Volumes/data_edit/git-annex/clip-n-ship/Ecuador/shinyapps.io')
 # see launch_app(), makes global variables: conf, layers, scores, dir_spatial, dir_scenario
 suppressPackageStartupMessages({
   require(plyr)
@@ -36,6 +36,8 @@ if (!exists('dir_scenario')){
   } else {
     tabs_hide <<- tolower(stringr::str_trim(stringr::str_split(tabs_hide, ',')[[1]]))
   }
+  dir_repo <<- str_split(git_url, '/')[[1]][5]
+  dir_scenario <<- file.path(dir_repo, dir_scenario)
   
   # Clone the github repository using git2r from variables set in app_config.yaml
   library(git2r)
@@ -44,10 +46,10 @@ if (!exists('dir_scenario')){
   merge = base::merge
   diff  = base::diff
   
-  if ( !file.exists('github/.git') ){
-    repo = clone(git_url, 'github')    
+  if ( !file.exists( file.path(dir_repo, '.git')) ){
+    repo = clone(git_url, dir_repo)    
   }
-  repo = git2r::repository('github')
+  repo = git2r::repository(dir_repo)
   cfg = git2r::config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
   git2r::pull(repo)
   git_head <<- git2r::commits(repo)[[1]]
@@ -61,7 +63,6 @@ if (!exists('dir_scenario')){
   
   # TODO: switch to specified git_branch, perhaps modify git_csv
   #branch = branches(repo)[[which(sapply(branches(repo), function(x) x@name) == sprintf('origin/%s', git_branch))]]  
-  dir_scenario <<- file.path('github',dir_scenario)
   
   # check for files/directories
   stopifnot(file.exists(sprintf('%s/conf'      , dir_scenario)))
