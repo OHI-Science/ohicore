@@ -13,6 +13,11 @@ suppressPackageStartupMessages({
   require(ggvis) # needed this line here to install on shinyapps
   rename = plyr::rename
   require(stringr)
+  require(git2r)
+  tag   = shiny::tag
+  tags  = shiny::tags
+  merge = base::merge
+  diff  = base::diff  
 })
 
 options(stringsAsFactors = F)
@@ -22,7 +27,7 @@ debug = F
 ohi_dimensions <<- c('score','status','trend','pressures','resilience','future')
 ohi_goals      <<- c('Index','FIS','FP','MAR','AO','NP','CS','CP','TR','LIV','LE','ECO','ICO','SP','LSP','CW','HAB','BD','SPP')
 
-# adding chunk for stand-alone shinyapp.io from launch_app function----
+# adding chunk for stand-alone shinyapp.io vs from ohicore::launch_app() function----
 if (!exists('dir_scenario')){
   
   # load configuration
@@ -40,11 +45,6 @@ if (!exists('dir_scenario')){
   dir_scenario <<- file.path(dir_repo, dir_scenario)
   
   # Clone the github repository using git2r from variables set in app_config.yaml
-  library(git2r)
-  tag   = shiny::tag
-  tags  = shiny::tags
-  merge = base::merge
-  diff  = base::diff
   
   if ( !file.exists( file.path(dir_repo, '.git')) ){
     repo = clone(git_url, dir_repo)    
@@ -87,6 +87,12 @@ if (!exists('dir_scenario')){
   
   # update path for devtools load_all() mode
   if (!file.exists(dir_app))  dir_app =  system.file('inst/shiny_app', package='ohicore')  
+} else {
+  # set defaults if launched locally
+  tabs_hide <<- ''
+  dir_repo  <<- dirname(dir_scenario)
+  repo = git2r::repository(dir_repo)
+  git_head <<- git2r::commits(repo)[[1]]
 }
 
 # finished standalone ----
