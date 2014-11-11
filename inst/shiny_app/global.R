@@ -17,7 +17,7 @@ suppressPackageStartupMessages({
   tag   = shiny::tag
   tags  = shiny::tags
   merge = base::merge
-  diff  = base::diff  
+  diff  = base::diff
 })
 
 options(stringsAsFactors = F)
@@ -29,64 +29,65 @@ ohi_goals      <<- c('Index','FIS','FP','MAR','AO','NP','CS','CP','TR','LIV','LE
 
 # adding chunk for stand-alone shinyapp.io vs from ohicore::launch_app() function----
 if (!exists('dir_scenario')){
-  
+
   # load configuration
   #browser()
-  y = yaml.load_file('app_config.yaml')
+  y = yaml.load_file('app.yml')
   for (o in ls(y)){
     assign(o, y[[o]], globalenv())
   }
   if (!exists('tabs_hide')){
-    tabs_hide <<- '' 
+    tabs_hide <<- ''
   } else {
-    tabs_hide <<- tolower(stringr::str_trim(stringr::str_split(tabs_hide, ',')[[1]]))
+    tabs_hide <<- tolower(tabs_hide)
   }
-  dir_repo <<- str_split(git_url, '/')[[1]][5]
-  dir_scenario <<- file.path(dir_repo, dir_scenario)
-  
+  dir_repo     <<- git_repo
+  dir_scenario <<- file.path(dir_repo, default_scenario)
+
   # Clone the github repository using git2r from variables set in app_config.yaml
-  
-  if ( !file.exists( file.path(dir_repo, '.git')) ){
-    repo = clone(git_url, dir_repo)    
+  if ( !file.exists( dir_repo) ){
+    repo = clone(git_url, dir_repo)
+  } else {
+    repo = repository(dir_repo)
   }
-  repo = git2r::repository(dir_repo)
-  cfg = git2r::config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
-  git2r::pull(repo)
-  git_head <<- git2r::commits(repo)[[1]]
-  
+  checkout(repo, default_branch)
+  cfg  = config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
+  pull(repo)
+  git_head <<- commits(repo)[[1]]
+
   # get repository branches, just "origin/" ones
   #git_branches = lapply(git2r::branches(repo, flags='remote'), function(x) x@name)
-  #repo_branches = git2r::branches(repo, flags='remote')  
+  #repo_branches = git2r::branches(repo, flags='remote')
   #repo_branch = repo_branches[[which(sapply(repo_branches, function(x) x@name == git_branch))]]
   #setwd('github')
-  #checkout(repo_branch@repo)  
-  
+  #checkout(repo_branch@repo)
+
   # TODO: switch to specified git_branch, perhaps modify git_csv
-  #branch = branches(repo)[[which(sapply(branches(repo), function(x) x@name) == sprintf('origin/%s', git_branch))]]  
-  
+  #branch = branches(repo)[[which(sapply(branches(repo), function(x) x@name) == sprintf('origin/%s', git_branch))]]
+
   # check for files/directories
   stopifnot(file.exists(sprintf('%s/conf'      , dir_scenario)))
   stopifnot(file.exists(sprintf('%s/layers'    , dir_scenario)))
   stopifnot(file.exists(sprintf('%s/layers.csv', dir_scenario)))
   stopifnot(file.exists(sprintf('%s/spatial'   , dir_scenario)))
-  
+
   # make objects global in scope
   conf         <<- Conf(sprintf('%s/conf', dir_scenario))
   layers       <<- Layers(
     layers.csv = sprintf('%s/layers.csv' , dir_scenario),
-    layers.dir = sprintf('%s/layers'     , dir_scenario))  
+    layers.dir = sprintf('%s/layers'     , dir_scenario))
   if (file.exists(sprintf('%s/scores.csv', dir_scenario))){
     scores <<- read.csv(sprintf('%s/scores.csv'   , dir_scenario))
   } else {
     scores <<- NULL # TODO: handle NULL scores
-  }  
+  }
   dir_spatial  <<- sprintf('%s/spatial'  , dir_scenario)
   dir_scenario <<- dir_scenario
-  
+
   dir_app = system.file('shiny_app', package='ohicore')
-  
+
   # update path for devtools load_all() mode
-  if (!file.exists(dir_app))  dir_app =  system.file('inst/shiny_app', package='ohicore')  
+  if (!file.exists(dir_app))  dir_app =  system.file('inst/shiny_app', package='ohicore')
 } else {
   # set defaults if launched locally
   tabs_hide <<- ''
@@ -103,8 +104,8 @@ if (debug) {
 }
 
 # Data: select score ----
-sel_score_target_choices = c('0 Index'='Index', 
-                             setNames(conf$goals$goal, 
+sel_score_target_choices = c('0 Index'='Index',
+                             setNames(conf$goals$goal,
                                       sprintf('%g %s (%s)', conf$goals$order_hierarchy, conf$goals$name, conf$goals$goal))); # print(names(varGoals))
 sel_score_dimension_choices = as.vector(unique(scores$dimension))
 
@@ -116,7 +117,7 @@ for (i in 1:length(layers$targets)){ # i=1
   targets = layers$targets[[i]]
   layer   = names(layers$targets[i])
   layer_targets = rbind(
-    layer_targets, 
+    layer_targets,
     data.frame(
       target = targets,
       layer = rep(layer, length(targets))))
@@ -130,7 +131,7 @@ layer_targets = merge(
     data.frame(
       target        = c('pressures','resilience','spatial'),
       target_name   = c('Pressures','Resilience','Spatial'),
-      target_order  = c(       100 ,        101 ,     102), 
+      target_order  = c(       100 ,        101 ,     102),
       target_parent = c(        NA ,         NA ,      NA), stringsAsFactors=F)),
   all.x=T)
 layer_targets = arrange(merge(layer_targets, layers$meta, by='layer', all.x=T), target_order, name)
@@ -165,12 +166,12 @@ dir_scenarios = dirname(dir_scenario)
 # index or goal
 # conf$goals = within(arrange(
 #   conf$goals, order_hierarchy), {
-#     indented_label = ifelse(!is.na(parent), 
+#     indented_label = ifelse(!is.na(parent),
 #                             sprintf('. %s', name),
 #                             name)})
 # varGoals      = c('0. Index'='Index', setNames(conf$goals$goal, conf$goals$indented_label)); # print(names(varGoals))
 
-# 
+#
 
 # add dir for regions
 addResourcePath('spatial', path.expand(dir_spatial))
@@ -193,7 +194,7 @@ names(cols.goals.all) = goals.all
 get_wts = function(input){
   #return rescaled goal weights so sums to 1
   wts = c(MAR=input$MAR,
-          FIS=input$FIS,    
+          FIS=input$FIS,
           AO=input$AO,
           NP=input$NP,
           CS=input$CS,
@@ -206,7 +207,7 @@ get_wts = function(input){
           CW=input$CW,
           HAB=input$HAB,
           SPP=input$SPP)
-  
+
   # rescale so sums to 1
   wts = wts / sum(wts)
   return(wts)
@@ -219,22 +220,22 @@ capitalize <- function(s) { # capitalize first letter
 
 # get data
 GetMapData = function(v){
-  
-  
+
+
   #browser('GetMapData', expr=v$layer=='mar_harvest_tonnes')
-  
-  
+
+
   # check for single value
   if (n_distinct(v$data$val_num) == 1){
-    
+
     # check for single zero value
     if (unique(v$data$val_num) == 0){
-      rng = c(-1, 1) * 0.001    
+      rng = c(-1, 1) * 0.001
     } else {
       # arbitrarily extend color ramp range to get a legit set of breaks
       rng = range(unique(v$data$val_num)*c(0.9999, 1, 1.0001), na.rm=T)
     }
-    
+
   } else {
     rng = range(v$data$val_num, na.rm=T)
   }
@@ -243,25 +244,25 @@ GetMapData = function(v){
   regions = plyr::dlply(v$data, 'rgn_id', function(x) {
     return(list(val_num = x$val_num,
                 color   = cut(x$val_num, breaks=brks, labels=colors, include.lowest=TRUE)))
-  })                        
+  })
   legend = setNames(signif(brks, digits=4), cut(brks, breaks=brks, labels=colors, include.lowest=TRUE)) #; cat(toJSON(legend))
   return(list(regions=regions, legend=legend))
 }
 
 # plot map
 PlotMap = function(v, width='100%', height='600px', lon=0, lat=0, zoom=2){  # Baltic: c(59, 19), zoom = 5
-  
+
   #browser('PlotMap', expr=v$layer=='mar_harvest_tonnes')
-  
+
   if ( (length(na.omit(v$data$val_num))==0) | (!'rgn_id' %in% names(v$data)) ){
     stop(sprintf('Sorry, the Map view is unavailable for the selected layer (%s) because
-                 the field %s does not have associated spatial shapes available for mapping. 
+                 the field %s does not have associated spatial shapes available for mapping.
                  Please choose a different view (Histogram or Table) or a different layer.', v$layer, v$fld_id))
     #return()
   }
-  
+
   d = GetMapData(v)
-  
+
   lmap <- Leaflet$new()
   lmap$mapOpts(worldCopyJump = TRUE)
   lmap$tileLayer(provide='Stamen.TonerLite')
@@ -307,10 +308,10 @@ PlotMap = function(v, width='100%', height='600px', lon=0, lat=0, zoom=2){  # Ba
         };
         info.addTo(map);
       };
-  
+
       // mouse events
       layer.on({
-  
+
         // mouseover to highlightFeature
     	  mouseover: function (e) {
           var layer = e.target;
@@ -324,17 +325,17 @@ PlotMap = function(v, width='100%', height='600px', lon=0, lat=0, zoom=2){  # Ba
         	}
   	      info.update(layer.feature.properties);
         },
-  
+
         // mouseout to resetHighlight
   		  mouseout: function (e) {
           geojsonLayer.resetStyle(e.target);
   	      info.update();
         },
-  
+
         // click to zoom
   		  click: function (e) {
-          var layer = e.target;        
-          if ( feature.geometry.type === 'MultiPolygon' ) {        
+          var layer = e.target;
+          if ( feature.geometry.type === 'MultiPolygon' ) {
           // for multipolygons get true extent
             var bounds = layer.getBounds(); // get the bounds for the first polygon that makes up the multipolygon
             // loop through coordinates array, skip first element as the bounds var represents the bounds for that element
@@ -354,8 +355,8 @@ PlotMap = function(v, width='100%', height='600px', lon=0, lat=0, zoom=2){  # Ba
         }
   	  });
       } !#", HTML(v$name)))
-  lmap$legend(position = 'bottomright', 
-              colors   =  names(d$legend), 
+  lmap$legend(position = 'bottomright',
+              colors   =  names(d$legend),
               labels   =  as.vector(d$legend))
   return(lmap)
   }
