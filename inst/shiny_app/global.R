@@ -31,39 +31,51 @@ ohi_goals      <<- c('Index','FIS','FP','MAR','AO','NP','CS','CP','TR','LIV','LE
 if (!exists('dir_scenario')){
 
   # load configuration
-  #browser()
   y = yaml.load_file('app.yml')
   for (o in ls(y)){
     assign(o, y[[o]], globalenv())
   }
-  if (!exists('tabs_hide')){
-    tabs_hide <<- ''
-  } else {
-    tabs_hide <<- tolower(tabs_hide)
-  }
-  dir_repo     <<- git_repo
-  dir_scenario <<- file.path(dir_repo, default_scenario)
+  # paste(names(y), collapse=', '): git_owner, git_repo, git_slug, git_url, default_branch, default_scenario, debug, last_updated, ohicore_app, tabs_hide
+  tabs_hide <<- tolower(tabs_hide)
+  dir_repo  <<- 'github'
 
-  # Clone the github repository using git2r from variables set in app_config.yaml
+  # clone or update github repository
   if ( !file.exists( dir_repo) ){
     repo = clone(git_url, dir_repo)
+    cfg  = config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
   } else {
     repo = repository(dir_repo)
+    cfg  = config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
+    fetch(repo, 'origin')
+    pull(repo)
+  }
+  repo <<- repo
+
+  # archive to repository/branch/scenario
+  dir_archive <<- git_repo
+  unlink(dir_archive, recursive=T)
+  git_branches = setdiff(sapply(git2r::branches(repo, flags='remote'), function(x) str_replace(x@name, 'origin/', '')), c('gh-pages','app'))
+  branch_commits = list()
+  for (branch in git_branches){ # branch = 'published'
+
+    checkout(repo, branch=branch, force=T)
+    branch_commits[[branch]] = commits(repo)
+
+    dir_branch = file.path(dir_archive, branch)
+
+    files = list.files(dir_repo, recursive=T)
+    for (f in files){ # f = shiny_files[1]
+      dir.create(dirname(file.path(dir_branch, f)), showWarnings=F, recursive=T)
+      file.copy(file.path(dir_repo, f), file.path(dir_branch, f), overwrite = T, copy.mode=T, copy.date=T) # suppressWarnings)
+    }
   }
   checkout(repo, default_branch)
-  cfg  = config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
-  pull(repo)
-  git_head <<- commits(repo)[[1]]
+  branch_commits     <<- branch_commits
+  git_head           <<- commits(repo)[[1]]
+  dir_scenario       <<- file.path(dir_archive, default_branch, default_scenario)
+  branches_scenarios <<- dirname(list.files(dir_archive, 'scores\\.csv$', recursive=T))
+  repo_head          <<- branch_commits[['draft']][[1]]
 
-  # get repository branches, just "origin/" ones
-  #git_branches = lapply(git2r::branches(repo, flags='remote'), function(x) x@name)
-  #repo_branches = git2r::branches(repo, flags='remote')
-  #repo_branch = repo_branches[[which(sapply(repo_branches, function(x) x@name == git_branch))]]
-  #setwd('github')
-  #checkout(repo_branch@repo)
-
-  # TODO: switch to specified git_branch, perhaps modify git_csv
-  #branch = branches(repo)[[which(sapply(branches(repo), function(x) x@name) == sprintf('origin/%s', git_branch))]]
 
   # check for files/directories
   stopifnot(file.exists(sprintf('%s/conf'      , dir_scenario)))
@@ -84,12 +96,13 @@ if (!exists('dir_scenario')){
   dir_spatial  <<- sprintf('%s/spatial'  , dir_scenario)
   dir_scenario <<- dir_scenario
 
-  dir_app = system.file('shiny_app', package='ohicore')
+  #dir_app = system.file('shiny_app', package='ohicore')
 
   # update path for devtools load_all() mode
-  if (!file.exists(dir_app))  dir_app =  system.file('inst/shiny_app', package='ohicore')
+  #if (!file.exists(dir_app))  dir_app =  system.file('inst/shiny_app', package='ohicore')
 } else {
   # set defaults if launched locally
+  default_branch <<- 'draft'
   tabs_hide <<- ''
   dir_repo  <<- dirname(dir_scenario)
   repo = git2r::repository(dir_repo)
@@ -99,7 +112,7 @@ if (!exists('dir_scenario')){
 # finished standalone ----
 
 if (debug) {
-  print(sprintf('dir_app: %s', dir_app))
+  #print(sprintf('dir_app: %s', dir_app))
   options(shiny.trace=TRUE)
 }
 
