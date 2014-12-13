@@ -146,7 +146,7 @@ gapfill_georegions = function(
     g = g %>%
       left_join(
         rgn_weights %>%
-          rename(
+          plyr::rename(
             setNames('w', names(rgn_weights)[2])) %>%
           select(id=rgn_id, w),
         by='id')
@@ -365,12 +365,12 @@ gapfill_georegions = function(
     r = z %>%
       select(id, z) %>%
       arrange(id) %>%
-      rename(setNames(c(fld_id, fld_value), c('id','z')))
+      plyr::rename(setNames(c(fld_id, fld_value), c('id','z')))
   } else {
     r = z %>%
       select(yr, id, z) %>%
       arrange(yr, id) %>%
-      rename(setNames(c(fld_year, fld_id, fld_value), c('yr', 'id', 'z')))
+      plyr::rename(setNames(c(fld_year, fld_id, fld_value), c('yr', 'id', 'z')))
   }
   
   # store attributes, with option to save as .csv
