@@ -112,12 +112,12 @@ gapfill_georegions = function(
     stopifnot(fld_id %in% names(georegion_labels))
     stopifnot(all(c('r0_label','r1_label','r2_label') %in% names(georegion_labels)))
     stopifnot(nrow(georegion_labels) == nrow(georegions))
-    l = rename(georegion_labels, setNames('id', fld_id))
+    l = plyr::rename(georegion_labels, setNames('id', fld_id))
     stopifnot(anyDuplicated(l$id) == 0)
   }
   
   # get n regions per georegion for later calculating gapfill score
-  g = g %.%
+  g = g %>%
     group_by(r0) %>%
     mutate(r0_n = n()) %>%  
     group_by(r1) %>%
@@ -134,7 +134,7 @@ gapfill_georegions = function(
   } else if (!is.null(fld_weight)){
     
     # weights in data
-    d = rename(d, setNames('w', fld_weight))
+    d = plyr::rename(d, setNames('w', fld_weight))
     
     if (sum(is.na(d$w))>0){
       message(sprintf('\n  data[[fld_weights]] are NA (where values reported) so removed: %d of %d rows\n    %s', sum(is.na(d$w)), nrow(d), paste(unique(d$id[is.na(d$w)]), collapse=',') ))
@@ -212,7 +212,7 @@ gapfill_georegions = function(
       select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_w_avg, r1_w_avg, r0_w_avg, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, r2_ids, r1_ids, r0_ids)    
   } else {    
     # using year
-    d = rename(d, setNames('yr', fld_year))
+    d = plyr::rename(d, setNames('yr', fld_year))
     
     # check for duplicates
     stopifnot(anyDuplicated(d[,c('id','yr')]) == 0)
@@ -225,8 +225,8 @@ gapfill_georegions = function(
       id = g$id)) %>%
       merge(
         g, 
-        by='id') %.%
-      #select(yr, id, r0, r1, r2, r2_n, r1_n, r0_n, w) %.%
+        by='id') %>%
+      #select(yr, id, r0, r1, r2, r2_n, r1_n, r0_n, w) %>%
       arrange(yr, id)
     
     # merge with data
