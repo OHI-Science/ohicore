@@ -51,13 +51,13 @@ name_to_rgn = function(
   stopifnot( sum( duplicated(d[,flds_unique]) ) == 0 )
   
   # get authoritative rgn_id and rgn_name
-  rgns = read.csv(rgn_master.csv, na='', stringsAsFactors=F) %.% 
-    select(rgn_id=rgn_id_2013, rgn_name=rgn_nam_2013, rgn_type=rgn_typ) %.% 
-    arrange(rgn_type, rgn_id, rgn_name) %.% 
-    group_by(rgn_id) %.% 
+  rgns = read.csv(rgn_master.csv, na='', stringsAsFactors=F) %>% 
+    select(rgn_id=rgn_id_2013, rgn_name=rgn_nam_2013, rgn_type=rgn_typ) %>% 
+    arrange(rgn_type, rgn_id, rgn_name) %>% 
+    group_by(rgn_id) %>% 
     summarize(
       rgn_name = first(rgn_name),
-      rgn_type = first(rgn_type)) %.%
+      rgn_type = first(rgn_type)) %>%
     ungroup()
   
   
@@ -65,18 +65,18 @@ name_to_rgn = function(
   
   # combine to have a unique tmp_name to rgn_id lookup
   r = rbind_list(
-    rgns %.%
+    rgns %>%
       select(rgn_id, tmp_name = rgn_name, tmp_type = rgn_type),
-    read.csv(rgn_synonyms.csv, na='') %.%
-      select(rgn_id=rgn_id_2013, tmp_name=rgn_nam_2013, tmp_type=rgn_typ)) %.%
-    group_by(tmp_name) %.%
+    read.csv(rgn_synonyms.csv, na='') %>%
+      select(rgn_id=rgn_id_2013, tmp_name=rgn_nam_2013, tmp_type=rgn_typ)) %>%
+    group_by(tmp_name) %>%
     summarize(
       rgn_id = first(rgn_id),
       tmp_type = first(tmp_type))
   
   # remove accents from data
   d['tmp_name'] = d[fld_name]
-  d = d %.%
+  d = d %>%
     mutate(
       tmp_name = str_replace(tmp_name, "^'"           , ''),                      # get rid of beginning quote
       tmp_name = str_replace(tmp_name, '.+voire'      , 'Ivory Coast'),           # Ivory Coast
@@ -87,12 +87,12 @@ name_to_rgn = function(
       tmp_name = str_replace(tmp_name, '.+Principe'   , 'Sao Tome and Principe')) # Sao Tome and Principe
   
   # merge data and regions
-  m = merge(d, r, by='tmp_name') %.%
+  m = merge(d, r, by='tmp_name') %>%
     filter(tmp_type %in% c('eez','ohi_region')) # exclude: disputed, fao, landlocked, largescale
   
   # check the regions removed
-  m_r = left_join(d, r, by='tmp_name') %.%
-    filter(!tmp_type %in% c('eez','ohi_region')) %.%
+  m_r = left_join(d, r, by='tmp_name') %>%
+    filter(!tmp_type %in% c('eez','ohi_region')) %>%
     mutate(tmp_name = factor(as.character(tmp_name)))
   
   
@@ -163,18 +163,18 @@ name_to_rgn = function(
     #collapse_fxn='weighted_avg', collapse_csv=pop_csv, collapse_flds_join
     if (collapse_fxn=='sum_na'){
       
-      m_dup = m_dup %.%
-        filter(!is.na(tmp_value)) %.%
-        regroup(as.list(flds_unique_rgn_id)) %.% 
-        summarize(tmp_value = sum_na(tmp_value)) %.%            
+      m_dup = m_dup %>%
+        filter(!is.na(tmp_value)) %>%
+        regroup(as.list(flds_unique_rgn_id)) %>% 
+        summarize(tmp_value = sum_na(tmp_value)) %>%            
         rename(setNames(fld_value, 'tmp_value')); head(m_dup)         
 
     } else if (collapse_fxn=='mean'){
       
-      m_dup = m_dup %.%
-        filter(!is.na(tmp_value)) %.%
-        regroup(as.list(flds_unique_rgn_id)) %.% 
-        summarize(tmp_value = mean(tmp_value, na.rm=T)) %.%            
+      m_dup = m_dup %>%
+        filter(!is.na(tmp_value)) %>%
+        regroup(as.list(flds_unique_rgn_id)) %>% 
+        summarize(tmp_value = mean(tmp_value, na.rm=T)) %>%            
         rename(setNames(fld_value, 'tmp_value')); head(m_dup)               
       
     } else if (collapse_fxn=='weighted.mean'){
@@ -187,11 +187,11 @@ name_to_rgn = function(
       w['tmp_weight'] = w[fld]
       w = w[, c(flds, 'tmp_weight')]
       
-      m_dup = m_dup %.%
-        filter(!is.na(tmp_value)) %.%
-        regroup(as.list(flds_unique_rgn_id)) %.% 
+      m_dup = m_dup %>%
+        filter(!is.na(tmp_value)) %>%
+        regroup(as.list(flds_unique_rgn_id)) %>% 
         left_join(w, by=flds) %>%
-        summarize(tmp_value = weighted.mean(tmp_value, tmp_weight, na.rm=T)) %.%            
+        summarize(tmp_value = weighted.mean(tmp_value, tmp_weight, na.rm=T)) %>%            
         rename(setNames(fld_value, 'tmp_value')); head(m_dup)               
 
     } else {
