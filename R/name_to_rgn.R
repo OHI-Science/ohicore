@@ -212,8 +212,8 @@ name_to_rgn = function(
   m_d = m_d[, c(flds_unique_rgn_id, fld_value)]
   
   # add fields if explicitly requested
-  if (add_rgn_type) m_d = left_join(m_d, rgns %.% select(rgn_id, rgn_type), by='rgn_id')
-  if (add_rgn_name) m_d = left_join(m_d, rgns %.% select(rgn_id, rgn_name), by='rgn_id')
+  if (add_rgn_type) m_d = left_join(m_d, rgns %>% select(rgn_id, rgn_type), by='rgn_id')
+  if (add_rgn_name) m_d = left_join(m_d, rgns %>% select(rgn_id, rgn_name), by='rgn_id')
   
   # check to ensure no duplicates
   stopifnot(duplicated(m_d[, c(flds_unique_rgn_id)]) == 0) 
