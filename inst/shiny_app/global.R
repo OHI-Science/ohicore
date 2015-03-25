@@ -42,10 +42,10 @@ if (!exists('dir_scenario')){
   # clone or update github repository
   if ( !file.exists( dir_repo) ){
     repo = clone(git_url, dir_repo)
-    cfg  = config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
+    cfg  = git2r::config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
   } else {
     repo = repository(dir_repo)
-    cfg  = config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
+    cfg  = git2r::config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
     fetch(repo, 'origin')
     pull(repo)
   }
