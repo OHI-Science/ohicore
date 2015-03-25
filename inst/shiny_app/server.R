@@ -290,8 +290,9 @@ shinyServer(function(input, output, session) {
     #read.csv(file.path(dir_scenario, "scores.csv"), na.strings="") %>% filter(goal=='Index' & dimension=='score')
     #read.csv('ecu/draft/subcountry2014/scores.csv', na.strings='') %>% filter(goal=='Index' & dimension=='score')
     #read.csv('ecu/published/subcountry2014/scores.csv', na.strings='') %>% filter(goal=='Index' & dimension=='score')
-    read.csv('github/subcountry2014/scores.csv', na.strings='') %>% filter(goal=='Index' & dimension=='score')
-
+    #read.csv('github/subcountry2014/scores.csv', na.strings='') %>% filter(goal=='Index' & dimension=='score')
+    read.csv(file.path(dir_scenario, "scores.csv"), na.strings="") %>% filter(goal=='Index' & dimension=='score')
+    
     v = list()
     #browser('GetVar top', expr=input$sel_layer=='mar_harvest_tonnes')
     if (input$sel_type == 'Layer'){
