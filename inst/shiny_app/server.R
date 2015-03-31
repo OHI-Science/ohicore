@@ -716,8 +716,11 @@ shinyServer(function(input, output, session) {
       # check column names
       stopifnot(names(a) == c('goal','dimension','region_id','score'))
       stopifnot(names(b) == c('goal','dimension','region_id','score'))
-      stopifnot(c('rgn_id','label') %in% names(r))
-
+      
+      # hard code names(r) to override ohi-global/antarcticaYYYY having sp_id, label
+      #stopifnot(c('rgn_id','label') %in% names(r))
+      names(r) = c('rgn_id','label')
+      
       # merge
       d = a %>%
         base::merge(
