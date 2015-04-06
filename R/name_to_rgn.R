@@ -27,7 +27,7 @@ name_to_rgn = function(
   collapse_fxn = c('sum_na','mean','weighted.mean')[1],
   collapse_csv = NULL,
   collapse_flds_join = NULL,
-  dir_lookup = '../ohiprep/src/LookupTables',
+  dir_lookup = '~/github/ohiprep/src/LookupTables',
   rgn_master.csv   = file.path(dir_lookup, 'eez_rgn_2013master.csv'),
   rgn_synonyms.csv = file.path(dir_lookup, 'rgn_eez_v2013a_synonyms.csv'),
   add_rgn_name=F, add_rgn_type=F) {
