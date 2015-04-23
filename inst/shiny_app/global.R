@@ -51,9 +51,14 @@ if (file.exists('app.yml')){
   y = yaml.load_file(file.path(dir_wd, '.travis.yml'))
   # TODO!!!: change all .travis.yml from = to indented:
 
+  # extract default_branch_scenario, study_area from .travis.yml$env$global
+  y = yaml.load_file('.travis.yml')
+  v = unlist(y$env$global)
+  for (n in names(v)){ # var = travis_yaml$env$global[[2]]
+    assign(n, v[[n]])
+  }
+
   # set defaults otherwise set in app.yml of app branch
-  default_branch_scenario <<- y$env$global$default_branch_scenario
-  study_area              <<- y$env$global$study_area
   git_owner               <<- 'OHI-Science'
   git_repo                <<- basename(dir_wd)
   git_slug                <<- sprintf('%s/%s', git_owner, git_repo)
