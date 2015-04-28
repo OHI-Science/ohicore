@@ -52,7 +52,7 @@ if (file.exists('app.yml')){
   # TODO!!!: change all .travis.yml from = to indented:
 
   # extract default_branch_scenario, study_area from .travis.yml$env$global
-  y = yaml.load_file('.travis.yml')
+  y = yaml.load_file(file.path(dir_wd, '.travis.yml'))
   v = unlist(y$env$global)
   for (n in names(v)){ # var = travis_yaml$env$global[[2]]
     assign(n, v[[n]])
@@ -78,7 +78,7 @@ setwd(dir_wd)
 # clone or update github repository
 dir_repo  <<- 'github'
 if ( !file.exists(dir_repo) ){
-  repo = clone(git_url, dir_repo)
+  repo = git2r::clone(git_url, dir_repo)
   cfg  = git2r::config(repo, user.name='OHI ShinyApps', user.email='bbest@nceas.ucsb.edu')
 } else {
   repo = repository(dir_repo)
