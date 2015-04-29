@@ -38,7 +38,7 @@ if (file.exists('app.yml')){
   # paste(names(y), collapse=', '): git_owner, git_repo, git_slug, git_url, default_branch, default_scenario, debug, last_updated, ohicore_app, tabs_hide
   tabs_hide <<- tolower(tabs_hide)
 
-  dir_wd <<- wd()
+  dir_wd <<- getwd()
 
 } else {
   # assuming launching from draft branch having .travis.yml with env$global$default_branch_scenario & env$global$study_area
