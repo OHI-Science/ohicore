@@ -27,7 +27,7 @@ name_to_rgn = function(
   collapse_fxn = c('sum_na','mean','weighted.mean')[1],
   collapse_csv = NULL,
   collapse_flds_join = NULL,
-  dir_lookup = '../ohiprep/src/LookupTables',
+  dir_lookup = '~/github/ohiprep/src/LookupTables',
   rgn_master.csv   = file.path(dir_lookup, 'eez_rgn_2013master.csv'),
   rgn_synonyms.csv = file.path(dir_lookup, 'rgn_eez_v2013a_synonyms.csv'),
   add_rgn_name=F, add_rgn_type=F) {
@@ -163,6 +163,16 @@ name_to_rgn = function(
   } else {
     m_d = m
   }
+
+  # limit to same subset of fields for consistent behavior regardless of duplicates presents
+  m_d = m_d[, c(flds_unique_rgn_id, fld_value)]
+  
+  # add fields if explicitly requested
+  if (add_rgn_type) m_d = left_join(m_d, rgns %>% select(rgn_id, rgn_type), by='rgn_id')
+  if (add_rgn_name) m_d = left_join(m_d, rgns %>% select(rgn_id, rgn_name), by='rgn_id')
+  
+  # check to ensure no duplicates
+  stopifnot(duplicated(m_d[, c(flds_unique_rgn_id)]) == 0) 
   
   m_d = m_d[, c(flds_unique_rgn_id, fld_value)]
   if (add_rgn_type) 
