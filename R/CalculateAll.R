@@ -133,13 +133,14 @@ CalculateAll = function(conf, layers, debug=F){
 
   # Goal Score and Likely Future
   goals_G = as.character(unique(subset(scores, dimension=='status', goal, drop=T)))
-  for (g in goals_G){ # g = goals_G[9]
+  for (g in goals_G){ # g = 'FIS'
     cat(sprintf('Calculating Goal Score and Likely Future for %s...\n', g))
 
     #if (g=='NP') browser()
 
     # cast data
-    v = dcast(scores, region_id ~ dimension, subset = .(goal==g), value.var='score')
+    # v = reshape2::dcast(scores, region_id ~ dimension, subset = .(goal==g), value.var='score')
+    v = spread(scores[scores$goal == g,], dimension, score)
 
     # calculate Goal Score and Likely Future
     #if (g=='CS') browser()
@@ -163,7 +164,7 @@ CalculateAll = function(conf, layers, debug=F){
     x$xF    = x$xF * 100
 
     # melt to scores format
-    scores_G = melt(rename(x[,c('id','xF','score')],
+    scores_G = reshape2::melt(plyr::rename(x[,c('id','xF','score')],
                     c('id'='region_id',
                       'xF'='future')),
              id.vars='region_id',
@@ -177,7 +178,7 @@ CalculateAll = function(conf, layers, debug=F){
 
   # post-Index functions: supragoals
   goals_Y = subset(conf$goals, !is.na(postindex_function))
-  for (i in 1:nrow(goals_Y)){ # i=2
+  for (i in 1:nrow(goals_Y)){ # i= 4
 
     cat(sprintf('Calculating post-Index function for %s...\n', goals_Y$goal[i]))
 
