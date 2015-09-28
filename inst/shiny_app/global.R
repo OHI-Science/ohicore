@@ -196,6 +196,7 @@ sel_layer_target_choices = with(unique(layer_targets[,c('target','target_label')
 
 # initialize layer variables
 lyr_df = subset(layer_targets, target==sel_layer_target_choices[[1]])
+lyr_df = lyr_df[1,] # added by JSL Sept 28 to avoid error in sel_layer_year_choices below
 sel_layer_choices = with(lyr_df, setNames(layer, layer_label))
 lyr_fld_category = lyr_df$fld_category
 if (is.na(lyr_fld_category)){
@@ -208,7 +209,12 @@ if (is.na(lyr_fld_year)){
   sel_layer_year_choices = NA
 } else {
   sel_layer_year_choices = sort(unique(layers$data[[lyr_df$layer]][[lyr_fld_year]]), decreasing=T)
-}
+#   JSL: if (is.na(lyr_fld_year)) > 1, 
+#   Error in layers$data[[lyr_df$layer]] : no such index at level 2
+#   In addition: Warning message:
+#     In if (is.na(lyr_fld_year)) { :
+#         the condition has length > 1 and only the first element will be used
+  }
 
 # Layers: get_var() ----
 # reactiveValues ----
