@@ -215,7 +215,8 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=F, pressures_categor
      stopifnot(all(dimnames(w)$pressure %in% dimnames(p)$pressure))
      
      # align
-     w <- with(dimnames(p), w[region_id,pressure])
+     #browser()
+     w <- with(dimnames(p), w[region_id,pressure,drop=F])
      
      # create tree for hierarchy of pressures categories
      stopifnot(all(grepl('_', dimnames(p)$pressure)))

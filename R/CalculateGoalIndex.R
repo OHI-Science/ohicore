@@ -58,7 +58,7 @@ CalculateGoalIndex = function(id, status, trend, resilience, pressure,
      
      # enforce domains
      stopifnot(min(d$x, na.rm=T) >= 0  && max(d$x, na.rm=T) <= xlim[2])   #  [ 0, 1]
-     if(! (min(d$t, na.rm=T) >= -1 && max(d$t, na.rm=T) <= 1) )
+     #if(! (min(d$t, na.rm=T) >= -1 && max(d$t, na.rm=T) <= 1) ) browser()
      stopifnot(min(d$t, na.rm=T) >= -1 && max(d$t, na.rm=T) <= 1)         #  [-1, 1]
      stopifnot(min(d$r, na.rm=T) >= 0  && max(d$r, na.rm=T) <= xlim[2])   #  [ 0, 1]
      stopifnot(min(d$p, na.rm=T) >= 0  && max(d$p, na.rm=T) <= xlim[2])   #  [ 0, 1]

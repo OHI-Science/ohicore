@@ -6,152 +6,44 @@
 customHeaderPanel <- function(title,windowTitle=title){
   tagList(tags$head(
     tags$title(windowTitle),
-    #tags$link(rel="stylesheet", type="text/css", href="/css/tree.css"),
     tags$script(src='spatial/regions_gcs.js')))}      # assume regions geojson variable set by spatial/regions_gcs.js
-      
-#---- define ui
-shinyUI(bootstrapPage(div(class='container-fluid',             # alternate to: pageWithSidebar                          
-                          
-  # Put this script in the header, and use the HTML() function to make
-  # sure that characters like '<' don't get escaped.
-  tags$head(tags$script(HTML('
 
-    // debug message
-    Shiny.addCustomMessageHandler("layer_fld_category",
-      function(message) {
-        alert(JSON.stringify(message));
-      }
-    );'))), 
-    
-  div(class= "row-fluid", customHeaderPanel("OHI App")), # alternate to: headerPanel  
-   
-  absolutePanel(
-    top=0, right=0, height=10, width=200, fixed=F,
-    div(#style="padding: 8px; border-bottom: 1px solid #CCC; background: #FFFFEE;",
-      HTML(markdownToHTML(fragment.only=TRUE, text=c(
-        sprintf('Scenario: %s/%s', basename(dirname(normalizePath(dir_scenario))), basename(dir_scenario))))))), 
+#---- define ui
+shinyUI(bootstrapPage(div(
+  class='container-fluid',
+
+  # browser title
+  div(
+    class= "row-fluid",
+    customHeaderPanel(sprintf('OHI App for %s', study_area))),
 
   div(
     class = "row-fluid",
-    tabsetPanel(id='tabsetFunction',
-      tabPanel(
-        'Data', value='data', 
-        conditionalPanel(
-          condition="input.tabsetFunction == 'data'",
-          sidebarPanel(
-            id='data-sidebar',
-            selectInput(
-              'sel_type', 
-              label='1. Choose variable type:', 
-              choices=c('Input Layer'='Layer', 'Output Score'='Score'), 
-              selected='Score', multiple=F, selectize=T),
-            conditionalPanel(
-              "input.sel_type == 'Layer'",
-              selectInput(
-                'sel_layer_target',
-                label    = '2. Choose target (goal, pressures, resilience or spatial):',
-                selected = sel_layer_target_choices[1],
-                choices  = sel_layer_target_choices, multiple=F, selectize=T),
-              selectInput(
-                'sel_layer', 
-                label    = '3. Choose layer:',
-                selected = sel_layer_choices[1],
-                choices  = sel_layer_choices, multiple=F, selectize=T),          
-              conditionalPanel(
-                "input.sel_layer_category != 'NA'",
-                selectInput(
-                  'sel_layer_category',
-                  label    = '4. Choose category:',
-                  choices  = sel_layer_category_choices,
-                  selected = sel_layer_category_choices[1])),          
-              conditionalPanel(
-                "input.sel_layer_year != 'NA'",
-                selectInput(
-                  'sel_layer_year', 
-                  label    = '5. Choose year:',
-                  choices  = sel_layer_year_choices,
-                  selected = sel_layer_year_choices[1]))),        
-            conditionalPanel(
-              "input.sel_type == 'Score'",
-              selectInput(
-                'sel_score_target',
-                label='2. Choose target (index or goal):', 
-                choices=sel_score_target_choices, 
-                selected='Index'),
-              selectInput(
-                'sel_score_dimension', 
-                label='3. Choose dimension:', 
-                choices=sel_score_dimension_choices,
-                selected='score')),        
-            p(htmlOutput('var_description')),
-            verbatimTextOutput(outputId="var_details")),
-          
-          # TODO: use Select2 combo boxes and search field, see https://github.com/mostly-harmless/select2shiny
-          
-          mainPanel(
-            id='data-main',
-            tabsetPanel(
-              id='tabsetMap',          
-              tabPanel(
-                'Map',
-                value='data-map', 
-                mapOutput('map_container')),
-              tabPanel(
-                'Histogram', 
-                value='data-histogram', 
-                plotOutput('histogram')),
-              #tabPanel('Summary',   value='data-summary',   verbatimTextOutput('summary')),                     
-              tabPanel('Table',     value='data-table', dataTableOutput('table')))))),
-        
-        tabPanel(
-          'Calculate',
-          value='configure',
-          p(
-            'Scenario path exists:', 
-            verbatimTextOutput(outputId='dir_scenario_exists')),
-          conditionalPanel(
-            condition='output.dir_scenario_exists == "FALSE"',
-            textInput('dir_scenario', 'Scenario directory to output:', value=dir_scenario),
-            actionButton('btn_write','Write to disk')),
-          conditionalPanel(
-            condition='output.dir_scenario_exists == "TRUE"',
-            #uiOutput('sel_scenario_dir'), # generates dir_conf              
-            #verbatimTextOutput(outputId="txt_conf_summary"),
-            p(
-              'Scenario path', 
-              verbatimTextOutput(
-                outputId="show_dir_scenario")),
-                actionButton('btn_calc','Calculate'),
-                verbatimTextOutput(outputId="txt_calc_summary"))),
-        
-        tabPanel(
-          'Report',
-          value='report', 
-          conditionalPanel(
-            condition='output.dir_scenario_exists == "TRUE"',
-            p(
-              'Reports directory:',
-              verbatimTextOutput(outputId='dir_reports')),
-            textInput('txt_report_fn', 'Report filename to output:', value='report.html')),
-          br('Include:'),
-          checkboxInput('ck_flowers'    , 'Flowers'   , value = T),
-          checkboxInput('ck_tables'     , 'Tables'    , value = T),
-          br('Options:'),
-          checkboxInput('ck_open_html'  , 'Open in new window', value = T),
-          checkboxInput('ck_global_only', 'Global only (vs all regions which takes time)', value = T),
-          checkboxInput('ck_overwrite'  , 'Overwrite existing figures', value = F),
-           #             br('Not yet implemented...'),
-           #              uiOutput('sel_compare'), # generates dir_conf              
-           #              checkboxInput('ck_maps'       , 'Maps'      , value = F),
-           #              checkboxInput('ck_histograms' , 'Histograms', value = F),
-           #              checkboxInput('ck_equations'  , 'Equations' , value = F),             
-           #              checkboxInput('ck_paths'      , 'Paths'     , value = F),             
-           conditionalPanel(
-             condition='output.dir_scenario_exists == "TRUE"',
-             actionButton('btn_report','Generate Report'),
-             verbatimTextOutput(outputId="txt_report_summary")),
-             conditionalPanel(
-               condition='output.dir_scenario_exists == "FALSE"',
-               p('You must write this scenario to the filesystem (see Calculate tab) before generating a report.')))
-      ))
-  )))
+    HTML('<table><tr><td>Branch/Scenario:</td><td>'),
+    selectInput(
+      'sel_branch_scenario', label='',
+      choices=branches_scenarios,
+      selected=sprintf('%s/%s', default_branch, default_scenario), multiple=F, selectize=T),
+    HTML('</td></tr></table>')),
+
+  htmlOutput('git_commit'),
+  htmlOutput('ls_files'),
+
+  div(
+    class = "row-fluid",
+    uiOutput('ui_tabsetpanel')),
+
+  div(
+    class = "row-fluid",
+    HTML(renderMarkdown(
+      file=NULL,
+      text=paste0(
+        with(
+          ohicore_app,
+          sprintf(
+            'Versions -- App: [%s@%.7s](https://github.com/%s/%s/commit/%.7s)',
+            git_repo, git_commit, git_owner, git_repo, git_commit)),
+        sprintf(
+          ', Data: [%s@%.7s](https://github.com/%s/%s/commit/%.7s)',
+          git_repo, repo_head@sha, git_owner, git_repo, repo_head@sha)))))
+)))
