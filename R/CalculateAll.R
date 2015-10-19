@@ -79,7 +79,7 @@ CalculateAll = function(conf, layers, debug=F){
     filter(!is.na(preindex_function)) %>%
     arrange(order_calculate)
 
-  ## Setup scores
+  ## Setup scores variable; many rbinds to follow
   scores = data.frame(
     goal      = character(0),
     dimension = character(0),
@@ -110,7 +110,7 @@ CalculateAll = function(conf, layers, debug=F){
   scores = rbind(scores, CalculateResilienceAll(layers, conf, debug))
   scores = data.frame(scores)
 
-  ## Calculate Goal Score and Likely Future
+  ## Calculate Goal Score and Likely Future, all goals
   goals_G = as.character(unique(subset(scores, dimension=='status', goal, drop=T)))
   for (g in goals_G){ # g = 'FIS'
     cat(sprintf('Calculating Goal Score and Likely Future for %s...\n', g))
@@ -170,7 +170,7 @@ CalculateAll = function(conf, layers, debug=F){
   ## Calculate Region Index Scores using goal weights
   cat(sprintf('Calculating Region Index score for supragoals using goal weights...\n'))
 
-  # calculate weighted-mean Index scores from goal scores and rbind to 'scores'
+  # calculate weighted-mean Index scores from goal scores and rbind to 'scores' variable
   scores = 
     rbind(scores, 
           scores %>%
@@ -191,7 +191,7 @@ CalculateAll = function(conf, layers, debug=F){
   ## Calculate Region Likely Future State Scores using goal weights
   cat(sprintf('Calculating Region Likely Future State for supragoals using goal weights...\n'))
  
-  # calculate weighted-mean Likely Future State scores and rbind to 'scores'
+  # calculate weighted-mean Likely Future State scores and rbind to 'scores' variable
   scores = 
     rbind(scores, 
           scores %>%
@@ -214,20 +214,19 @@ CalculateAll = function(conf, layers, debug=F){
     scores = conf$functions$PreGlobalScores(layers, conf, scores)
   }
 
-  ## Assessment Areas ('global', region_id-0) scores by area weighting
+  ## Assessment Areas (sometimes known as 'global', region_id-0) scores by area weighting
   cat(sprintf('Calculating ASSESSMENT AREA (region_id=0) scores by area weighting...\n'))
-  region_areas = SelectLayersData(layers, layers=conf$config$layer_region_areas, narrow=T) %>%
-                                    dplyr::select(region_id = id_num,
-                                                  area =val_num); # subset(region_areas, region_id==213)
   
   ## Calculate area-weighted Assessment Area scores and rbind to all scores 
   scores = rbind(
     scores,
     scores %>%
       
-      # filter only score, status, future dimensions, merge to region_areas
+      # filter only score, status, future dimensions, merge to the area (km2) of each region
       filter(dimension %in% c('score','status','future')) %>%
-      merge(region_areas) %>%
+      merge(SelectLayersData(layers, layers=conf$config$layer_region_areas, narrow=T) %>%
+              dplyr::select(region_id = id_num,
+                            area      = val_num)) %>%
       
       # calculate weighted mean by area
       group_by(goal, dimension) %>%
@@ -242,7 +241,6 @@ CalculateAll = function(conf, layers, debug=F){
   }
 
   ## check that scores are not duplicated
-  #scores[duplicated(scores[,c('region_id','goal','dimension')]),]
   stopifnot(sum(duplicated(scores[,c('region_id','goal','dimension')]))==0)
 
   # return scores
