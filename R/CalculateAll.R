@@ -74,12 +74,6 @@ CalculateAll = function(conf, layers, debug=F){
   # remove global scores
   if (exists('scores', envir=.GlobalEnv)) rm(scores, envir=.GlobalEnv)
 
-  # Run Setup, all goals
-  if ('Setup' %in% ls(conf$functions)){
-    cat('Running Setup()...\n')
-    conf$functions$Setup()
-  }
-
   # TODO: derive layers
 #   goals_X = layers$goals %>%
 #     filter(!is.na(preindex_function)) %>%
