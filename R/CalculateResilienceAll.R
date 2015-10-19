@@ -27,7 +27,9 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
   stopifnot(all(r.layers %in% rw$layer))
   
   # setup initial data.frame for column binding results by region
-  D = rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), c('id_num'='region_id'))[,'region_id',drop=F]
+ 
+  D = dplyr::rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), 
+                    region_id = id_num)[,'region_id',drop=F]
   regions = D[['region_id']]
   
   # w.layers: weighting vector [layer]

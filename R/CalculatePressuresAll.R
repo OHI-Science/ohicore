@@ -13,7 +13,8 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   # head(dcast(subset(scores$data, dimension=='pressures' & goal %in% subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)), region_id ~ goal)[,c('region_id',subgoals)])
     
   # setup initial data.frame for column binding results by region
-  D = rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), c('id_num'='region_id'))[,'region_id',drop=F]
+  D = dplyr::rename(SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T), 
+                    region_id = id_num)[,'region_id',drop=F]
   regions = D[['region_id']]
   
   # cast pressures layer data
