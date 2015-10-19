@@ -74,20 +74,6 @@ CalculateAll = function(conf, layers, debug=F){
   # remove global scores
   if (exists('scores', envir=.GlobalEnv)) rm(scores, envir=.GlobalEnv)
 
-  # TODO: derive layers
-#   goals_X = layers$goals %>%
-#     filter(!is.na(preindex_function)) %>%
-#     arrange(order_calculate)
-#   for (i in 1:nrow(goals_X)){ # i=1
-#     g = goals_X$goal[i]
-#     cat(sprintf('Calculating Status and Trend for %s...\n', g))
-#
-#     assign('scores', scores, envir=conf$functions)
-#     if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))
-#     scores = rbind(scores, eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)[,c('goal','dimension','region_id','score')])
-#   }
-
-
   # pre-Index functions: Status and Trend, by goal
   goals_X = conf$goals %>%
     filter(!is.na(preindex_function)) %>%
