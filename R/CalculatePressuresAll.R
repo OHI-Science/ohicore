@@ -22,20 +22,26 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   pc = conf$config$pressures_components
   pk = conf$config$pressures_categories
   p.layers = sort(names(pm)[!names(pm) %in% c('goal','component','component_name')])
-  #browser()
+
   if (!all(subset(layers$meta, layer %in% p.layers, val_0to1, drop=T))){
     warning('Error: Not all pressures layers range in value from 0 to 1!')
     print(subset(layers$meta, layer %in% p.layers & val_0to1==F, c('val_min','val_max'), drop=F))
     stop('')
   }
-  d.p = rename(dcast(SelectLayersData(layers, layers=p.layers), id_num ~ layer, value.var='val_num'), c('id_num'='region_id'))
-  d.p = subset(d.p, region_id %in% regions)
+  
+  d.p = SelectLayersData(layers, layers=p.layers) %>% 
+           select(region_id = id_num,
+                  val_num,
+                  layer) %>%
+             spread(layer, val_num) %>%
+    filter(region_id %in% regions)
+
   nr = length(regions)  # number of regions
   np = length(p.layers) # number of pressures
   
   # iterate goals
   subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
-  for (g in subgoals){ # g=subgoals[1]   # g='NP' # g='LIV' # g='FIS'  # g='CP'
+  for (g in subgoals){ # g=subgoals[1]  
     
     if (debug) cat(sprintf('goal: %s\n', g))
     
@@ -71,9 +77,10 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
       # get data layer for determining the weights by region, which could be from layers_data or layers_data_bycountry
       stopifnot(g %in% names(pc))
       stopifnot(pc[[g]][['layer']] %in% names(layers))
-      d_w = rename(SelectLayersData(layers, layers=pc[[g]][['layer']], narrow=T),
-                   c('id_num'='region_id','val_num'='value'))
-      
+      d_w = SelectLayersData(layers, layers=pc[[g]][['layer']], narrow=T) %>%
+        dplyr::rename(region_id = id_num,
+                      value = val_num)
+
       # ensure that all components are in the aggregation layer category
       if (!all(p.components %in% unique(d_w$category))){
         message(sprintf('The following components for %s are not in the aggregation layer %s categories (%s): %s', g, pc[[g]][['layer']], 
@@ -109,12 +116,15 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
         krpw = krp %>%
           inner_join(d_w, by=c('region_id', 'category')) %>%
           arrange(region_id, category) %>%
-          select(region_id, category, p, w=value)          
+          select(region_id, category, p, w=value)  
+        
         d_region_ids = D[,'region_id',drop=F]
+        
         krpwp = d_region_ids %>%
           left_join(krpw, by='region_id') %>%
           group_by(region_id) %>%
-          summarize(p = sum(w*p)/sum(w))
+          summarize(p = sum(w*p)/sum(w)) 
+        
         P = round(krpwp$p, 2)
         names(P) = krpwp$region_id      
         
@@ -132,12 +142,19 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
             inner_join(regions_countries_areas, by='country_id') %>%
             filter(region_id %in% regions) %>%
             select(region_id, category, country_id, country_area_km2)
-          m_w = dcast(d_w_r, region_id ~ category, sum)  # function(x) sum(x, na.rm=T)>0)
+          
+          m_w = subset(d_w, region_id %in% regions) %>%
+            spread(category, value) %>% 
+            mutate(sum = rowSums(.[,-1], na.rm = TRUE))
         } else { # presume layers_data == 'layers_data'    
           if (debug) cat(sprintf("  using layers_data='layers_data'\n"))
           # for CS: matrix of weights by category based on proportion of regional total for all categories
-          m_w = dcast(subset(d_w, region_id %in% regions), region_id ~ category, sum, margins=c('category'))
-          m_w = cbind(m_w[,'region_id',drop=F], m_w[,2:(ncol(m_w)-1)] / m_w[,'(all)'])  #print(summary(m_w))        
+          
+          m_w = subset(d_w, region_id %in% regions) %>%
+            spread(category, value) %>% 
+            mutate(sum = rowSums(.[,-1], na.rm = TRUE))
+            
+          m_w = cbind(m_w[,'region_id',drop=F], m_w[,2:(ncol(m_w)-1)] / m_w[,'sum']) 
         }      
         
         # beta [region_id x category]: aggregation matrix 
@@ -197,6 +214,9 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   }
   
   # return scores
-  scores = cbind(melt(D, id.vars='region_id', variable.name='goal', value.name='score'), dimension='pressures'); head(scores)
+  scores = D %>%
+    gather(goal, score, 2:15) %>%
+    mutate(dimension = "pressure") 
+    
   return(scores)
 }
