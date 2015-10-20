@@ -13,7 +13,7 @@
 #' 
 #' The related revalue function works only on character vectors and factors, but this function works 
 #' on vectors of any type and factors.
-#' @keywords 
+#' @keywords ohicore
 #' @examples
 #' \dontrun{
 #' } 

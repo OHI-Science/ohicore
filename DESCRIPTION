@@ -14,7 +14,7 @@ Imports:
     RColorBrewer,
     RJSONIO,
     dplyr (>= 0.3),
-    ggplot2 (>= 1.0.0), 
+    ggplot2 (>= 1.0.0),
     ggvis (>= 0.4),
     httr,
     markdown (>= 0.6.3),
@@ -56,10 +56,10 @@ Collate:
     'get_scenarios.R'
     'launch_app.R'
     'launch_cmp.R'
+    'mapvalues.R'
     'name_to_rgn.R'
     'read_git_csv.R'
     'shp_to_geojson.R'
     'trace_git_csv_value.R'
     'write_shortcuts.R'
     'zzz.R'
-    'mapvalues.R'
