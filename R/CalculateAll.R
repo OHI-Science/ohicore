@@ -89,7 +89,7 @@ CalculateAll = function(conf, layers, debug=F){
   ## Calculate Status and Trend, all goals
   for (i in 1:nrow(goals_X)){ # i=3
     g = goals_X$goal[i]
-    cat(sprintf('Calculating Status and Trend for %s...\n', g))
+    cat(sprintf('Calculating Status and Trend for each region for %s...\n', g))
 
     assign('scores', scores, envir=conf$functions)
     if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))
@@ -100,12 +100,12 @@ CalculateAll = function(conf, layers, debug=F){
   }
 
   ## Calculate Pressures, all goals
-  cat(sprintf('Calculating Pressures...\n'))
+  cat(sprintf('Calculating Pressures for each region...\n'))
   scores_P = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
   scores = rbind(scores, scores_P)
 
   ## Calculate Resilience, all goals
-  cat(sprintf('Calculating Resilience...\n'))
+  cat(sprintf('Calculating Resilience for each region...\n'))
   cat(sprintf('Note: each goal in resilience_matrix.csv must have at least one resilience field\n'))
   scores = rbind(scores, CalculateResilienceAll(layers, conf, debug))
   scores = data.frame(scores)
@@ -113,7 +113,7 @@ CalculateAll = function(conf, layers, debug=F){
   ## Calculate Goal Score and Likely Future, all goals
   goals_G = as.character(unique(subset(scores, dimension=='status', goal, drop=T)))
   for (g in goals_G){ # g = 'FIS'
-    cat(sprintf('Calculating Goal Score and Likely Future for %s...\n', g))
+    cat(sprintf('Calculating Goal Score and Likely Future for each region for %s...\n', g))
     
     ## spread the scores by dimension
     v = scores %>%
@@ -160,7 +160,7 @@ CalculateAll = function(conf, layers, debug=F){
   
   for (i in 1:nrow(goals_Y)){ # i = 1
 
-    cat(sprintf('Calculating post-Index function for %s...\n', goals_Y$goal[i]))
+    cat(sprintf('Calculating post-Index function for each region for %s...\n', goals_Y$goal[i]))
 
     ## load environment and run function from functions.r
     assign('scores', scores, envir=conf$functions)
@@ -168,7 +168,7 @@ CalculateAll = function(conf, layers, debug=F){
   }
 
   ## Calculate Region Index Scores using goal weights
-  cat(sprintf('Calculating Region Index score for supragoals using goal weights...\n'))
+  cat(sprintf('Calculating Index score for each region for supragoals using goal weights...\n'))
 
   # calculate weighted-mean Index scores from goal scores and rbind to 'scores' variable
   scores = 
@@ -189,7 +189,7 @@ CalculateAll = function(conf, layers, debug=F){
       
 
   ## Calculate Region Likely Future State Scores using goal weights
-  cat(sprintf('Calculating Region Likely Future State for supragoals using goal weights...\n'))
+  cat(sprintf('Calculating Likely Future State for each region for supragoals using goal weights...\n'))
  
   # calculate weighted-mean Likely Future State scores and rbind to 'scores' variable
   scores = 
@@ -210,12 +210,12 @@ CalculateAll = function(conf, layers, debug=F){
 
   ## Post-process scores, but pre-global calculation: for global assessment only
   if ('PreGlobalScores' %in% ls(conf$functions)){
-    cat(sprintf('Calculating post-process PreGlobalScores() function...\n'))
+    cat(sprintf('Calculating Post-process PreGlobalScores() function for each region...\n'))
     scores = conf$functions$PreGlobalScores(layers, conf, scores)
   }
 
   ## Assessment Areas (sometimes known as 'global', region_id-0) scores by area weighting
-  cat(sprintf('Calculating ASSESSMENT AREA (region_id=0) scores by area weighting...\n'))
+  cat(sprintf('Calculating scores for ASSESSMENT AREA (region_id=0) by area weighting...\n'))
   
   ## Calculate area-weighted Assessment Area scores and rbind to all scores 
   scores = rbind(
