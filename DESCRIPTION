@@ -62,3 +62,4 @@ Collate:
     'trace_git_csv_value.R'
     'write_shortcuts.R'
     'zzz.R'
+    'mapvalues.R'
