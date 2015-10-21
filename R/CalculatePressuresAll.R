@@ -19,8 +19,9 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   pk = conf$config$pressures_categories
   p.layers = sort(names(pm)[!names(pm) %in% c('goal','component','component_name')])
 
+  # ensure layer value range is correct
   if (!all(subset(layers$meta, layer %in% p.layers, val_0to1, drop=T))){
-    warning('pressures layers must all range in value from 0 to 1.')
+    warning('Pressures layers must all range in value from 0 to 1.')
     print(subset(layers$meta, layer %in% p.layers & val_0to1==F, c('val_min','val_max'), drop=F))
     stop('Not all pressures layers range in value from 0 to 1!')
   }
@@ -39,8 +40,8 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   
   ## iterate goals to calculate pressures scores by region by goal
   subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
+  
   for (g in subgoals){ # g=subgoals[1]  
-    
     if (debug) cat(sprintf('goal: %s\n', g))
     
     ## reset components for so when debug==TRUE and saving, is per goal
