@@ -44,7 +44,7 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
   subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
   for (g in subgoals){ # g=subgoals[1]
     if (debug) cat(sprintf('goal: %s\n', g))
-
+    
     ## setup: subset g row from resilience_matrix
     r.g = subset(rm, goal==g)
 
@@ -61,7 +61,9 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
                    select(region_id = id_num, 
                           val_num, 
                           layer),
-                 layer, val_num) %>%  
+                 layer, val_num) 
+      row.names(r)  = r$region_id 
+      r = r %>%
         select(-region_id) %>%
         as.matrix()
       names(dimnames(r)) <- c('region_id', 'layer')
@@ -182,11 +184,13 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
                      select(region_id = id_num, 
                             val_num, 
                             layer),
-                   layer, val_num) %>%
+                   layer, val_num) 
+        row.names(r)  = r$region_id 
+        r = r %>%
           select(-region_id) %>%
           as.matrix()
-        dimnames(r)[1] = as.character(id)
         names(dimnames(r)) <- c('region_id', 'layer')
+        
         
         if (nrow(r)==0) next # eg for g=CP, id=162 (Antarctica), condition='sea_ice_shoreline only'
 
@@ -231,10 +235,11 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
                        select(region_id = id_num, 
                               val_num, 
                               layer),
-                     layer, val_num) %>%
+                     layer, val_num) 
+          row.names(r)  = r$region_id 
+          r = r %>%
             select(-region_id) %>%
             as.matrix()
-          dimnames(r)[1] = as.character(id)
           names(dimnames(r)) <- c('region_id', 'layer')
 
           if (nrow(r)==0) next # eg for g=CP, id=162 (Antarctica), condition='sea_ice_shoreline only'
