@@ -7,7 +7,7 @@
 CalculateResilienceAll = function(layers, conf, debug=FALSE){
 
   
-  ## get resilience matrix, components, weights, categories, layerslayers
+  ## get resilience matrix, components, weights, categories, layers
   rm = conf$resilience_matrix
   rm = within(rm, {component[is.na(component)] = ''})
   rw = conf$resilience_weights
@@ -18,10 +18,13 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
   ## error unless layer value range is correct
   if (!all(subset(layers$meta, layer %in% r.layers, val_0to1, drop=T))){
     stop(sprintf('These resilience layers do not range in value from 0 to 1:\n%s',
-                 layers$meta %>%
+                 paste(
+                   unlist(
+                     layers$meta %>%
                    filter(layer %in% r.layers & val_0to1==F) %>%
-                   select(layer)))
-  }
+                   select(layer)),
+                   collapse = ', ')))
+    
 
   ## error unless all layers identified in resilience_matrix.csv are entered in resilience_weights.csv
   if (!all(r.layers %in% rw$layer)){
