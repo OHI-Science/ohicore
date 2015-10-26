@@ -86,9 +86,9 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
       }
       
       ## error unless layer component is identified in config.R
-      if (!rc[[g]][['layer']] %in% names(layers)){
+      if (!pc[[g]][['layer']] %in% names(layers)){
         stop(sprintf('This layer identified in config.R must be registered in layers.csv:\n%s', 
-                     paste(rc[[g]][['layer']], collapse = ', ')))
+                     paste(pc[[g]][['layer']], collapse = ', ')))
       }
       
       ## setup 
