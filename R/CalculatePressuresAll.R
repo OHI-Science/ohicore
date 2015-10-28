@@ -19,11 +19,15 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   pk = conf$config$pressures_categories
   p.layers = sort(names(pm)[!names(pm) %in% c('goal','component','component_name')])
 
-  # ensure layer value range is correct
+  # error if layer value range is incorrect
   if (!all(subset(layers$meta, layer %in% p.layers, val_0to1, drop=T))){
-    warning('Pressures layers must all range in value from 0 to 1.')
-    print(subset(layers$meta, layer %in% p.layers & val_0to1==F, c('val_min','val_max'), drop=F))
-    stop('Not all pressures layers range in value from 0 to 1!')
+    stop(sprintf('These pressures layers must range in value from 0 to 1:\n%s',
+                 paste(
+                   unlist(
+                     layers$meta %>%
+                       filter(layer %in% p.layers & val_0to1==F) %>%
+                       select(layer)), 
+                   collapse = ', ')))
   }
   
   ## spread pressures layers data
@@ -38,10 +42,9 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   nr = length(regions)  
   np = length(p.layers) 
   
-  ## iterate goals to calculate pressures scores by region by goal
+  ## iterate goals to calculate pressures scores by region by goal. Has Case 1a and Case 1b
   subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
-  
-  for (g in subgoals){ # g=subgoals[1]  
+  for (g in subgoals) { # g=subgoals[1]  
     if (debug) cat(sprintf('goal: %s\n', g))
     
     ## reset components for so when debug==TRUE and saving, is per goal
@@ -54,6 +57,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
     ## components
     p.components = pm$component[pm$goal==g]
     
+    ## Case 1a: simple single component goal has 1 row (Case 1b else statement follows) ----
     if (length(p.components)==1){
       if (debug) cat('  no components\n')
       
@@ -65,6 +69,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
       ## calculate pressures per region
       P = CalculatePressuresScore(p, w, pressures_categories=pk, GAMMA=gamma)
       
+    ## Case 1b: Goals that have components ----
     } else { 
       if (debug) cat(' ',length(p.components),'components:', paste(p.components,collapse=', '), '\n')
       
@@ -74,22 +79,35 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
                       dimnames = list(category=p.components, pressure=p.layers))
       
       ## get data layer for determining the weights by region, which could be from layers_data or layers_data_bycountry
-      stopifnot(g %in% names(pc))
-      stopifnot(pc[[g]][['layer']] %in% names(layers))
-      d_w = SelectLayersData(layers, layers=pc[[g]][['layer']], narrow=T) %>%
-        dplyr::rename(region_id = id_num,
-                      value = val_num)
-
-      ## ensure that all components are in the aggregation layer category
-      if (!all(p.components %in% unique(d_w$category))){
-        message(sprintf('The following components for %s are not in the aggregation layer %s categories (%s): %s', g, pc[[g]][['layer']], 
-                     paste(unique(d_w$category), collapse=', '),
-                     paste(p.components[!p.components %in% d_w$category], collapse=', ')))
+      
+      ## error unless g is in components list in config.R
+      if (!g %in% names(pc)){
+        stop(sprintf('This goal must have registered pressures_components in config.R:\n%s', g))
       }
       
-      ## based on sequence of aggregation
+      ## error unless layer component is identified in config.R
+      if (!pc[[g]][['layer']] %in% names(layers)){
+        stop(sprintf('This layer identified in config.R must be registered in layers.csv:\n%s', 
+                     paste(pc[[g]][['layer']], collapse = ', ')))
+      }
+      
+      ## setup 
+      d_w = SelectLayersData(layers, layers=pc[[g]][['layer']], narrow=T) %>%
+        dplyr::select(region_id = id_num,
+                      category,
+                      value = val_num)
+
+      ## error unless all components are in the aggregation layer category
+      if (!all(p.components %in% unique(d_w$category))){
+        message(sprintf('These %s components are not registered in config.r:\n%s.\n(Components are identified in %s: %s)', 
+                        g, 
+                        paste(p.components[!p.components %in% d_w$category], collapse=', '),
+                        pc[[g]][['layer']], 
+                        paste(unique(d_w$category), collapse=', ')))
+      }
+      
+      ## if config.r level == region_id-category, eg NP: aggregate using pressures_component_aggregation:layer_id.
       if (pc[[g]][['level']]=='region_id-category'){
-        # eg NP: calculate a pressure by region_id (like a subgoal pressure per category), Then aggregate using pressures_component_aggregation:layer_id.
         if (debug) cat(sprintf("  scoring pressures seperately by region and category, like a subgoal (pressures_calc_level=='region_id-category')\n"))
         
         ## get pressure per component
@@ -127,8 +145,8 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
         P = round(krpwp$p, 2)
         names(P) = krpwp$region_id      
         
+      ## if config.r level == region_id. Most goals like this: collapse weights across categories first, then calculate pressures per region
       } else if (pc[[g]][['level']]=='region_id'){
-        ## most goals like this: collapse weights across categories first, then calculate pressures per region
         if (debug) cat(sprintf("  aggregating across categories to region (pressures_calc_level=='region_id')\n"))
         
         ## cast and get sum of categories per region
@@ -144,6 +162,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
           m_w = subset(d_w, region_id %in% regions) %>%
             spread(category, value) %>% 
             mutate(sum = rowSums(.[,-1], na.rm = TRUE))
+          
         } else { # presume layers_data == 'layers_data'    
           if (debug) cat(sprintf("  using layers_data='layers_data'\n"))
           ## for CS: matrix of weights by category based on proportion of regional total for all categories
@@ -188,14 +207,17 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
         P = CalculatePressuresScore(p, w, pressures_categories=pk, GAMMA=gamma)
         
       } else {
-        stop(sprintf("pressures_component_aggregation.csv : pressures_calc_level of '%s' not handled. Must be either 'region_id' or 'region_id-category'.", agg$aggregation_sequence))
+        stop(sprintf("pressures_component_aggregation.csv : pressures_calc_level of '%s' not handled. Must be either 'region_id' or 'region_id-category'.", 
+                     agg$aggregation_sequence))
       }    
+      
     } # end if (length(p.components)==1)
     
     ## bind to results
     D = merge(D, setNames(data.frame(names(P), P), c('region_id', g)), all.x=T)
     
-  }
+  } # end iterate goals # for (g in subgoals)
+  
   
   ## return scores
   scores = D %>%
