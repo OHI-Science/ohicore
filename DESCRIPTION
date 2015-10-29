@@ -41,6 +41,7 @@ Collate:
     'CheckLayers.R'
     'Conf.R'
     'Layers.R'
+    'PlotFlower.R'
     'ScoreScaling.R'
     'SelectLayersData.R'
     'SpatialSchemes.R'
