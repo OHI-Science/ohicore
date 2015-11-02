@@ -48,6 +48,7 @@ Collate:
     'TransformSpatialScheme.R'
     'aster.R'
     'compare_scores_df.R'
+    'data.R'
     'gapfill_georegions.R'
     'get_scenarios.R'
     'launch_app.R'
