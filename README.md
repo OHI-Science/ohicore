@@ -1,7 +1,7 @@
 ohicore
 =======
 
-These are the core funtions for calculating the Ocean Health Index. For more, please visit:
+These are the core functions for calculating the Ocean Health Index. For more, please visit:
 
 [OHI-Science.org](http://ohi-science.org)
 
@@ -9,7 +9,7 @@ These are the core funtions for calculating the Ocean Health Index. For more, pl
 
 ```R
 # install.packages("devtools")
-devtools::install_github("hadley/ggplot2")
+devtools::install_github("ohi-science/ohi-core")
 ```
 
 ###
