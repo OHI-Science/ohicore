@@ -1,3 +1,25 @@
+#' Get scenarios - NOTE THIS IS THE OLD DOCUMENTATION!!!
+#' 
+#' Get scenarios from Github.
+#' 
+#' @param d dataset
+#' @param fld_name field name of the region from the dataset
+#' @param flds_unique field name for the dataset
+#' @param fld_value field with value, defaults to 'value'
+#' @param collapse_fxn function to collapse duplicate regions into one (example: China, Macau, Hong Kong)
+#' @param collapse_csv optional .csv file provided to collapse duplicate regions
+#' @param collapse_flds_join optional list of fields identified to collapse duplicate regions
+#' @param dir_lookup directory of name-to-region look up tables
+#' @param rgn_master.csv .csv file of eez-to-region combinations
+#' @param rgn_synonyms.csv .csv file of synonyms of eez-to-region combinations
+#' @param add_rgn_name T or F whether to include a column with the region name
+#' @param add_rgn_type T of F whether to include the region type (eez...)
+#' 
+#' @details This function translates name to region id with a lookup.
+#'  
+#' @keywords ohi
+#' @export
+
 name2rgn <- function(df_in, 
                      fld_name      = 'country', 
                      dir_lookup    = '~/github/ohiprep/src/LookupTables',

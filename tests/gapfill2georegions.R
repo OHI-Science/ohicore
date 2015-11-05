@@ -1,4 +1,80 @@
-gapfill_georegions2 <- function(
+#' Gapfill using georegional means - NOTE THIS IS DOCUMENTATION FROM OLD VERSION
+#' 
+#' Gapfill using georegional means, providing the finest possible resolution from 3 hierarchies (r2 > r1 > r0) derived from \href{http://en.wikipedia.org/wiki/United_Nations_geoscheme}{United Nations geoscheme}.
+#' 
+#' @param data data.frame to gapfill having at least fields: \code{fld_id} and \code{fld_value}, and optionally \code{fld_weight}
+#' @param georegions data.frame having at least fields: \code{fld_id} and \code{r0}, \code{r1}, and \code{r2} with georegion id values
+#' @param fld_id common spatial id field (eg region_id or country_key) between \code{data} and \code{georegions}
+#' @param fld_weight optional weighting field in \code{data}
+#' @param rgn_weights data frame of weights, expecting rgn_id in first column and weight in second
+#' @param ratio_weights if TRUE, multiply the gapfilled value by the ratio of the region's weight to the regional average weight. Defaults to FALSE. IMPORTANT to set to TRUE if dealing with values that SUM!
+#' @param fld_year optional year field in \code{data}
+#' @param fld_value value to gapfill in \code{data}
+#' @param georegion_labels with same dimensions as georegions having fields: \code{r0_label}, \code{r1_label}, \code{r2_label} and \code{v_label}
+#' @param gapfill_scoring_weights used to determine gapfilling scoreset. should range 0 to 1. defaults to \code{c('r0'=1, 'r1'=0.8, 'r2'=0.5, 'v'=0)}
+#' @param r0_to_NA assign value of NA if only georegional average availabe at the global level (r0). defaults to True.
+#' @param attributes_csv optional path and filename to save attribute table. defaults to NULL
+#' 
+#' @return Returns a data.frame of having all the \code{fld_id} from georegions filled in the following columns:
+#' \itemize{
+#'   \item \code{fld_id} - spatial id (eg region_id or country_key).
+#'   \item \code{fld_value} - the gapfilled value (eg score).
+#' }
+#' The returned data.frame also has an attribute "gapfill_georegions" which shows the calculated georegional means and which levels were chosen:
+#' \itemize{
+#'   \item \code{r0} - georegional id for level 0, ie global.
+#'   \item \code{r1} - georegional id for level 1.
+#'   \item \code{r2} - georegional id for level 2, the finest resolution of georegions.
+#'   \item \code{id} - spatial id (eg region_id or country_key).
+#'   \item \code{w} - weight used to apply \code{\link{weighted.mean}}. Defaults to 1 if not supplied as \code{fld_weight} parameter.
+#'   \item \code{v} - original \code{fld_value} in \code{data}
+#'   \item \code{r2_v} - weighted.mean for level 2
+#'   \item \code{r1_v} - weighted.mean for level 1
+#'   \item \code{r0_v} - weighted.mean for level 0 (global)
+#'   \item \code{r2_n} - count of regions available for level 2
+#'   \item \code{r1_n} - count of regions available for level 1
+#'   \item \code{r0_n} - count of regions available for level 0
+#'   \item \code{r2_n_notna} - count of region values that are not NA for level 2
+#'   \item \code{r1_n_notna} - count of region values that are not NA for level 1
+#'   \item \code{r0_n_notna} - count of region values that are not NA for level 0
+#'   \item \code{z_level} - finest level available
+#'   \item \code{z_ids} - ids for regions that are not NA which contributed to the score
+#'   \item \code{z_n} - count of input values for finest level available
+#'   \item \code{z_n_pct} - percent of region values that are not NA over all possible [0 to 1]
+#'   \item \code{z_g_score} - gapfilling score (see details)
+#'   \item \code{z} - weighted.mean for finest level available
+#' }
+#' 
+#' @details
+#' Gapfill using georegional means, providing the finest possible resolution from 3 hierarchies (r2 > r1 > r0).
+#' 
+#' The gapfill score (z_g_score) in the attribute table is formulated such that the higher the score, the 
+#' more gapfilling performed. The maximal gapfill score is based on gapfilling at the global level (r0=1) and least
+#' if no gapfilling performed (ie z = v). But then some regional averages are applied with only a few regional values 
+#' while others might have all but the gapfilled region available. To account for this aspect, the difference between the next
+#' finer level's weight is multiplied by the percent regions and subtracted from the level's weight, like so:
+#'
+#' \code{gapfill_scoring_weights[z_level] - z_n_pct * diff(gapfill_scoring_weights[z_level, z_level_finer])}
+#' 
+#' @keywords ohi
+#' @examples
+#' 
+#' \dontrun{
+#' ## setup
+#' require(ohicore)
+#' 
+#' # gapfill
+#' g = gapfill_georegions(data, georegions, fld_weight='w_sum')
+#' 
+#' # show result and table
+#' head(g)
+#' head(attr(g, 'gapfill_georegions'))
+#' }
+#' @import dplyr
+#' 
+#' @export
+
+gapfill2georegion <- function(
   data,                       ### data.frame to be gapfilled
   fld_value,                  ### field name of value to be gapfilled
                               ### removed default: this is important for the user to pay attention to
