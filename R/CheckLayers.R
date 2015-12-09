@@ -165,14 +165,38 @@ CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent=' 
     }
   }
   files.missing = subset(m, file_exists==F)
-  if (nrow(files.missing)>0) warning(paste(c('Missing files...', sprintf('    %s: %s', files.missing$layer, files.missing$filename)), collapse='\n'))
+  
+  ## warning if not all files are registered
+  if (nrow(files.missing)>0) { 
+    warning(paste(
+      c('Missing files...these files are not found in the layers folder', 
+        sprintf('    %s: %s', files.missing$layer, files.missing$filename)), collapse='\n'))
+  }
   flds.missing = subset(m, file_exists==T & !is.na(flds_missing))
-  if (nrow(flds.missing)>0) warning(paste(c('Missing fields...', sprintf('    %s: %s', flds.missing$layer, flds.missing$flds_missing)), collapse='\n'))
+  
+  ## error if not all layer column headers match layers.csv
+  if (nrow(flds.missing)>0) { 
+    stop(paste(
+      c('Missing fields...column headers in these layers must be registered in layers.csv:', 
+        sprintf('    %s: %s', flds.missing$layer, flds.missing$flds_missing)), collapse='\n')) 
+    }
   flds.unused = subset(m, file_exists==T & !is.na(flds_unused))
-  if (nrow(flds.unused)>0) warning(paste(c('Unused fields...', sprintf('    %s: %s', flds.unused$layer, flds.unused$flds_unused)), collapse='\n'))  
+  
+  ## warning if unused fields
+  if (nrow(flds.unused)>0) {
+    warning(paste(
+      c('Unused fields...', sprintf('    %s: %s', flds.unused$layer, flds.unused$flds_unused)), collapse='\n'))  
+  }
   rows.duplicated = subset(m, file_exists==T & !is.na(rows_duplicated))
-  if (nrow(rows.duplicated)>0) warning(paste(c('Rows duplicated...', sprintf('    %s: %s', rows.duplicated$layer, rows.duplicated$rows_duplicated)), collapse='\n'))
+  
+  ## warning if duplicated rows
+  if (nrow(rows.duplicated)>0) {
+    warning(paste(
+      c('Rows duplicated...', sprintf('    %s: %s', rows.duplicated$layer, rows.duplicated$rows_duplicated)), collapse='\n'))
+  }
   data.missing = subset(m, data_na==T)
+  
+  ## warning if layers missing data
   if (nrow(data.missing) > 0) warning(paste(c('Layers missing data, ie all NA ...', sprintf('    %s: %s', data.missing$layer, data.missing$filename)), collapse='\n'))
   write.csv(m, layers.csv, row.names=F, na='')
 }

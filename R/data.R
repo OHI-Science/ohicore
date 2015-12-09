@@ -1,76 +1,83 @@
-#' Layers accompanying Nature 2012 publication on the FTP site for Global 2012 analysis.
+#' United Nations Regional Groups
 #'
-#' These layers get used to calculate the Ocean Health Index.
+#' United Nations geopolitical regions.
+#' In some cases, when data were not available for a country, 
+#' we estimated the values using georegional averages at the smallest 
+#' possible spatial scale. There are three spatial scales in these data
+#' (general to specific regions: r0_label, r1_label, r2_label).
 #'
-#' @docType data
-#' @name layers.Global2012.Nature2012ftp
-#' @usage layers.Global2012.Nature2012ftp
-#' @format a \code{\link{Layers}} object
-#' @references \url{http://ohi-science.org}
-#' @keywords datasets
-NULL
-
-#' Layers used for the 2013 web launch applied to Global 2012 analysis.
-#'
-#' These layers get used to calculate the Ocean Health Index.
-#'
-#' @docType data
-#' @name layers.Global2012.www2013
-#' @usage layers.Global2012.www2013
-#' @format a \code{\link{Layers}} object
-#' @references \url{http://ohi-science.org}
-#' @keywords datasets
-NULL
-
-#' Layers used for the 2013 web launch applied to Global 2013 analysis.
-#'
-#' These layers get used to calculate the Ocean Health Index.
-#'
-#' @docType data
-#' @name layers.Global2013.www2013
-#' @usage layers.Global2013.www2013
-#' @format a \code{\link{Layers}} object
-#' @references \url{http://ohi-science.org}
-#' @keywords datasets
-NULL
-
-#' Scores resulting from the 2013 web launch applied to Global 2012 analysis.
-#'
-#' These scores are the results of the Ocean Health Index.
-#'
-#' @docType data
-#' @name scores.Global2012.www2013
-#' @usage scores.Global2012.www2013
-#' @format a \code{\link{Scores}} object
-#' @references \url{http://ohi-science.org}
-#' @keywords datasets
-NULL
-
-#' Scores resulting from the 2013 web launch applied to Global 2013 analysis.
-#'
-#' These scores are the results of the Ocean Health Index.
-#'
-#' @docType data
-#' @name scores.Global2013.www2013
-#' @usage scores.Global2013.www2013
-#' @format a \code{\link{Scores}} object
-#' @references \url{http://ohi-science.org}
-#' @keywords datasets
-NULL
-
-#' scores data.frame format
-#' 
-#' Expected data frame format for scores. 
-#' 
-#' @name scores
-#' @details The expected scores format is the following columns:
+#' @format A data frame with 220 rows and 5 variables:
 #' \itemize{
-#'   \item{\emph{region_id} - unique numeric region identifier, reserving 0 as the region_id for the area-weighted average of the entire study area}
-#'   \item{\emph{goal} - the goal code or Index}
-#'   \item{\emph{dimension} - the dimension code, one of: status, trend, pressures, resilience, future, score}
-#'   \item{\emph{score} - the numeric score: 0-100 for all dimensions, except trend (-1 to 1)}
+#'   \item rgn_id: numeric region id used for Ocean Health Index (1-250)
+#'   \item r0_label: general regional groups (1 group: World)
+#'   \item r1_label: more specific regional groups (7 groups: Africa, Americas, etc.)
+#'   \item r2_label: most specific regional groups (22 groups: Caribbean, Central America, etc.)
+#'   \item rgn_label: region name used for Ocean Health Index (Albania, Angola, etc.)
 #' }
-#' To get the wide view (many columns, with one row per region and columns having combination of goal and dimension), 
-#' use something like: \code{reshape2::dcast(.self$long, region_id ~ goal + dimension, value.var='score')}.
-#' @keywords data
-NULL
+"georegion_labels"
+
+#' United Nations Regional Groups (streamlined)
+#'
+#' United Nations geopolitical regions (version of the georegion_labels data).
+#' In some cases, when data were not available for a country, 
+#' we estimated the values using georegional averages at the smallest 
+#' possible spatial scale. There are three spatial scales in these data
+#' (general to specific regions: r0_label, r1_label, r2_label).
+#'
+#' @format A data frame with 220 rows and 5 variables:
+#' \itemize{
+#'   \item rgn_id: numeric region id used for Ocean Health Index (1-250)
+#'   \item r0: general regional groups (1 group: World)
+#'   \item r1: more specific regional groups (7 groups: Africa, Americas, etc.)
+#'   \item r2: most specific regional groups (22 groups: Caribbean, Central America, etc.)
+#' }
+"georegions"
+
+#' Territories 
+#'
+#' Identifies a country's territories.
+#'
+#' This information is used to assign data to a country's territories.
+#'
+#' @format A data frame with 220 rows and 5 variables:
+#' \itemize{
+#'   \item rgn_id: numeric region id used for Ocean Health Index (1-250)
+#'   \item r0_label: sovreign country name
+#'   \item r1_label: sovreign country name
+#'   \item r2_label: sovreign country name
+#'   \item rgn_label: region name used for Ocean Health Index (Albania, Angola, etc.)
+#' }
+"sovregion_labels"
+
+#' Territories (streamlined)
+#'
+#' This information is used to assign data to a country's territories.
+#' (This is a version of the sovregion_labels data)
+#'
+#'
+#' @format A data frame with 220 rows and 5 variables:
+#' \itemize{
+#'   \item rgn_id: region id used for Ocean Health Index (1-250)
+#'   \item r0: sovreign country region id
+#'   \item r1: sovreign country region id
+#'   \item r2: sovreign country region id
+#'   \item fld_wt: identifies territory countries (0) and sovreign regions (1) 
+#' }
+"sovregions"
+
+#' Region synonyms
+#'
+#' Synonyms for countries included in Ocean Health Index.
+#' These data are used to translate region names to region ids.'
+#'
+#' @format A data frame with 262 rows and 6 variables:
+#' \itemize{
+#'   \item region_id_2012: numeric region id used for 2012 Ocean Health Index (1-187)
+#'   \item rgn_id_2013: numeric region id used for Ocean Health Index after 2012 (1-255) 
+#'   \item rgn_nam_2013: country names and synonyms (e.g., 'Federated State of Micronesia', 'Micronesia, FS')
+#'   \item rgn_key_2013: 2 letter key for countries (e.g., US, BA)
+#'   \item eez_iso3: 3 letter key for countries (e.g., USA, FSM)
+#'   \item rgn_typ: identifies whether a region is an Ocean Health Index region ('ohi_region'),
+#'                  'landlocked', 'disputed', or 'largescale' (includes regions: Total and World)
+#' }
+"rgn_synonyms"

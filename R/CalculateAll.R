@@ -71,79 +71,62 @@
 #' @export
 CalculateAll = function(conf, layers, debug=F){
 
-  # remove global scores
+  ## Remove global scores
   if (exists('scores', envir=.GlobalEnv)) rm(scores, envir=.GlobalEnv)
 
-  # Run Setup, all goals
-  if ('Setup' %in% ls(conf$functions)){
-    cat('Running Setup()...\n')
-    conf$functions$Setup()
-  }
-
-  # TODO: derive layers
-#   goals_X = layers$goals %>%
-#     filter(!is.na(preindex_function)) %>%
-#     arrange(order_calculate)
-#   for (i in 1:nrow(goals_X)){ # i=1
-#     g = goals_X$goal[i]
-#     cat(sprintf('Calculating Status and Trend for %s...\n', g))
-#
-#     assign('scores', scores, envir=conf$functions)
-#     if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))
-#     scores = rbind(scores, eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)[,c('goal','dimension','region_id','score')])
-#   }
-
-
-  # pre-Index functions: Status and Trend, by goal
+ ## Run Setup, all goals
+    if ('Setup' %in% ls(conf$functions)){
+      cat('Running Setup()...\n')
+      conf$functions$Setup()
+    }
+  
+  ## Pre-Index functions: Status and Trend, by goal
   goals_X = conf$goals %>%
     filter(!is.na(preindex_function)) %>%
     arrange(order_calculate)
 
-  # setup scores
+  ## Setup scores variable; many rbinds to follow
   scores = data.frame(
     goal      = character(0),
     dimension = character(0),
     region_id = integer(0),
     score     = numeric())
 
-  # status and trend
-  for (i in 1:nrow(goals_X)){ # i=1
+  ## Calculate Status and Trend, all goals
+  for (i in 1:nrow(goals_X)){ # i=3
     g = goals_X$goal[i]
-    cat(sprintf('Calculating Status and Trend for %s...\n', g))
+    cat(sprintf('Calculating Status and Trend for each region for %s...\n', g))
 
     assign('scores', scores, envir=conf$functions)
     if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))
     scores_g = eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)
-    cat(sprintf('%s \n', sapply(scores_g, class)))
     if (nrow(scores_g) > 0){
       scores = rbind(scores, scores_g[,c('goal','dimension','region_id','score')])
     }
   }
 
-  # Pressures, all goals
-  cat(sprintf('Calculating Pressures...\n'))
+  ## Calculate Pressures, all goals
+  cat(sprintf('Calculating Pressures for each region...\n'))
   scores_P = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
   scores = rbind(scores, scores_P)
 
-  # Resilience, all goals
-  cat(sprintf('Calculating Resilience...\n'))
+  ## Calculate Resilience, all goals
+  cat(sprintf('Calculating Resilience for each region...\n'))
   cat(sprintf('Note: each goal in resilience_matrix.csv must have at least one resilience field\n'))
   scores = rbind(scores, CalculateResilienceAll(layers, conf, debug))
   scores = data.frame(scores)
 
-  # Goal Score and Likely Future
+  ## Calculate Goal Score and Likely Future, all goals
   goals_G = as.character(unique(subset(scores, dimension=='status', goal, drop=T)))
   for (g in goals_G){ # g = 'FIS'
-    cat(sprintf('Calculating Goal Score and Likely Future for %s...\n', g))
-
-    #if (g=='NP') browser()
-
-    # cast data
-    # v = reshape2::dcast(scores, region_id ~ dimension, subset = .(goal==g), value.var='score')
-    v = spread(scores[scores$goal == g,], dimension, score)
-
-    # calculate Goal Score and Likely Future
-    #if (g=='CS') browser()
+    cat(sprintf('Calculating Goal Score and Likely Future for each region for %s...\n', g))
+    
+    ## spread the scores by dimension
+    v = scores %>%
+      filter(goal == g) %>%
+      spread(dimension, score)
+    
+   ## message if missing dimension, assign NA
     for (col in c('status','trend','pressures','resilience')){
       if (!col %in% names(v)){
         cat(sprintf('  missing %s dimension, assigning NA!\n', col))
@@ -151,6 +134,7 @@ CalculateAll = function(conf, layers, debug=F){
       }
     }
 
+    ## Calculations and Scaling
     x = CalculateGoalIndex(
       id         = v$region_id,
       status     = v$status/100,
@@ -163,81 +147,106 @@ CalculateAll = function(conf, layers, debug=F){
     x$score = x$score * 100
     x$xF    = x$xF * 100
 
-    # melt to scores format
-    scores_G = reshape2::melt(plyr::rename(x[,c('id','xF','score')],
-                    c('id'='region_id',
-                      'xF'='future')),
-             id.vars='region_id',
-             variable.name='dimension',
-             value.name='score')
-    scores_G$goal = g
+    ## Gather to scores format: goal, dimension, region_id, score
+    scores_G = x %>%
+        dplyr::select(region_id = id,
+                      future    = xF, 
+                      score) %>% 
+      gather(dimension, score, 2:3) %>%
+      mutate(goal = g) %>%
+      select(goal, dimension, region_id, score)
 
-    # bind to other scores
+    ## bind to other scores
     scores = rbind(scores, scores_G)
   }
 
-  # post-Index functions: supragoals
+  ## Post-Index functions: supragoals
   goals_Y = subset(conf$goals, !is.na(postindex_function))
-  for (i in 1:nrow(goals_Y)){ # i= 4
+  supragoals = subset(conf$goals, is.na(parent), goal, drop=T); supragoals
+  
+  for (i in 1:nrow(goals_Y)){ # i = 1
 
-    cat(sprintf('Calculating post-Index function for %s...\n', goals_Y$goal[i]))
+    cat(sprintf('Calculating post-Index function for each region for %s...\n', goals_Y$goal[i]))
 
-    # load environment and run function
+    ## load environment and run function from functions.r
     assign('scores', scores, envir=conf$functions)
     scores = eval(parse(text=goals_Y$postindex_function[i]), envir=conf$functions)
   }
 
-  # regional Index score by goal weights
-  cat(sprintf('Calculating regional Index score by goal weights...\n'))
-  supragoals = subset(conf$goals, is.na(parent), goal, drop=T); supragoals
-  scores = rbind(scores, ddply(
-    merge(subset(scores, dimension=='score' & goal %in% supragoals),
-      conf$goals[,c('goal','weight')]),
-    .(region_id), summarize,
-    goal='Index',
-    dimension='score',
-    score = weighted.mean(score, weight, na.rm=T)))
+  ## Calculate Region Index Scores using goal weights
+  cat(sprintf('Calculating Index score for each region for supragoals using goal weights...\n'))
 
-  # regional Future score by goal weights
-  cat(sprintf('Calculating regional Future score by goal weights for supragoals...\n'))
-  scores = rbind(
-    scores,
-    ddply(
-      merge(
-        subset(scores, dimension=='future' & goal %in% supragoals),
-        conf$goals[,c('goal','weight')]),
-      .(region_id), summarize,
-      goal='Index',
-      dimension='future',
-      score = weighted.mean(score, weight, na.rm=T)))
+  # calculate weighted-mean Index scores from goal scores and rbind to 'scores' variable
+  scores = 
+    rbind(scores, 
+          scores %>%
+            
+            # filter only supragoal scores, merge with supragoal weightings
+            filter(dimension=='score',  goal %in% supragoals) %>%
+            merge(conf$goals %>%
+                    select(goal, weight)) %>%
+            
+            # calculate the weighted mean of supragoals, add goal and dimension column
+            group_by(region_id) %>%
+            dplyr::summarise(score = weighted.mean(score, weight, na.rm=T)) %>%
+            mutate(goal      = 'Index',
+                   dimension = 'score') %>%
+            data.frame())
+      
 
-  # post-process scores, but pre-global calculation
+  ## Calculate Region Likely Future State Scores using goal weights
+  cat(sprintf('Calculating Likely Future State for each region for supragoals using goal weights...\n'))
+ 
+  # calculate weighted-mean Likely Future State scores and rbind to 'scores' variable
+  scores = 
+    rbind(scores, 
+          scores %>%
+            
+            # filter only supragoal scores, merge with supragoal weightings
+            filter(dimension=='future',  goal %in% supragoals) %>%
+            merge(conf$goals %>%
+                    select(goal, weight)) %>%
+            
+            # calculate the weighted mean of supragoals, add goal and dimension column
+            group_by(region_id) %>%
+            dplyr::summarise(score = weighted.mean(score, weight, na.rm=T)) %>%
+            mutate(goal      = 'Index',
+                   dimension = 'future') %>%
+            data.frame()) 
+
+  ## Post-process scores, but pre-global calculation: for global assessment only
   if ('PreGlobalScores' %in% ls(conf$functions)){
-    cat(sprintf('Calculating post-process PreGlobalScores() function...\n'))
+    cat(sprintf('Calculating Post-process PreGlobalScores() function for each region...\n'))
     scores = conf$functions$PreGlobalScores(layers, conf, scores)
   }
 
-  # global (region_id-0) scores by area weighting
-  cat(sprintf('Calculating GLOBAL (region_id=0) scores by area weighting...\n'))
-  # NOTE: Index.future.0 (goal.dimension.region_id) is now 65.61 vs previous 64.71 which was just the mean, not area weighted
-  region_areas = rename(SelectLayersData(layers, layers=conf$config$layer_region_areas, narrow=T),
-                        c('id_num'='region_id','val_num'='area')); head(region_areas); subset(region_areas, region_id==213)
-  data_0 = merge(subset(scores, dimension %in% c('score','status','future')),
-                 region_areas); head(data_0)
-  scores = rbind(scores, ddply(
-    data_0, .(goal, dimension), summarize,
-    region_id = 0,
-    score = weighted.mean(score, area, na.rm=T)))
-
-  # post-process
+  ## Assessment Areas (sometimes known as 'global', region_id-0) scores by area weighting
+  cat(sprintf('Calculating scores for ASSESSMENT AREA (region_id=0) by area weighting...\n'))
+  
+  ## Calculate area-weighted Assessment Area scores and rbind to all scores 
+  scores = rbind(
+    scores,
+    scores %>%
+      
+      # filter only score, status, future dimensions, merge to the area (km2) of each region
+      filter(dimension %in% c('score','status','future')) %>%
+      merge(SelectLayersData(layers, layers=conf$config$layer_region_areas, narrow=T) %>%
+              dplyr::select(region_id = id_num,
+                            area      = val_num)) %>%
+      
+      # calculate weighted mean by area
+      group_by(goal, dimension) %>%
+      summarise(score = weighted.mean(score, area, na.rm=T),
+                region_id = 0)) 
+    
+  
+  ## post-process
   if ('FinalizeScores' %in% ls(conf$functions)){
     cat(sprintf('Calculating FinalizeScores function...\n'))
     scores = conf$functions$FinalizeScores(layers, conf, scores)
   }
 
-  # check that scores are not duplicated
-  #browser()
-  #scores[duplicated(scores[,c('region_id','goal','dimension')]),]
+  ## check that scores are not duplicated
   stopifnot(sum(duplicated(scores[,c('region_id','goal','dimension')]))==0)
 
   # return scores
