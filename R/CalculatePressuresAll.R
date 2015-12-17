@@ -56,6 +56,11 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
     
     ## components
     p.components = pm$component[pm$goal==g]
+    if (length(p.components) > 1) {
+      message(sprintf('These %s components are registered in pressures_matrix.csv:\n%s.',
+                      g,
+                      paste(p.components, collapse=', ')))
+    }
     
     ## Case 1a: simple single component goal has 1 row (Case 1b else statement follows) ----
     if (length(p.components)==1){
@@ -159,6 +164,11 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
             filter(region_id %in% regions) %>%
             select(region_id, category, country_id, country_area_km2)
           
+          ## error if category columns have NAs. To prevent 'Error: All columns must be named' in m_w below
+          if (sum(is.na(d_w$category)) > 0){
+            stop(sprintf('NAs detected in %s; please correct this before proceeding', pc[[g]][['layer']]))
+          }
+          
           m_w = subset(d_w, region_id %in% regions) %>%
             spread(category, value) %>% 
             mutate(sum = rowSums(.[,-1], na.rm = TRUE))
@@ -166,6 +176,11 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
         } else { # presume layers_data == 'layers_data'    
           if (debug) cat(sprintf("  using layers_data='layers_data'\n"))
           ## for CS: matrix of weights by category based on proportion of regional total for all categories
+          
+           ## error if category columns have NAs. To prevent 'Error: All columns must be named' in m_w below
+          if (sum(is.na(d_w$category)) > 0){
+            stop(sprintf('NAs detected in %s; please correct this before proceeding', pc[[g]][['layer']]))
+          }
           
           m_w = subset(d_w, region_id %in% regions) %>%
             spread(category, value) %>% 
