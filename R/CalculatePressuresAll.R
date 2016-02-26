@@ -236,7 +236,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   
   ## return scores
   scores = D %>%
-    gather(goal, score, 2:15) %>%
+    gather(goal, score, -region_id) %>%
     mutate(dimension = "pressures") %>%
     select(goal, dimension, region_id, score)
     
