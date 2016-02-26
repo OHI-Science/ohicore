@@ -187,18 +187,18 @@
 ##' 
 ##' @export
 CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=F, pressures_categories=list(environmental=c('po','hd','fp','sp','cc'), social='ss')) {
-  #' Computation of pressure
-  #'
-  #' The weighting matrix and the pressure scores matrix are of the form
-  #' [region_id] x [pressure]
-  #'
-  #' The pressure names must be of the form "category"_"pressure". 
-  #' Use "ss" to denote the social category.
-  #'    
-  #' Parameters:
+  # Computation of pressure
+  #
+  # The weighting matrix and the pressure scores matrix are of the form
+  # [region_id] x [pressure]
+  #
+  # The pressure names must be of the form "category"_"pressure". 
+  # Use "ss" to denote the social category.
+  #    
+  # Parameters:
   #' @param p is the pressures value matrix [region_id x pressure]
      #' @param w is the weighting matrix of the form [region_id x pressure]
-     #'
+     #
      #' @return pressures scores as a named vector.
      
      # verify parameters
