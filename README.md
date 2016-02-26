@@ -7,9 +7,7 @@ ohicore
 
 ```R
 # install.packages("devtools")
-devtools::install_github("ohi-science/ohi-core")
-=======
-To install: 
+devtools::install_github("ohi-science/ohicore")
 
 ```
 # install dependencies
