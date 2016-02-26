@@ -7,9 +7,10 @@
 gapfill_georegions(data, georegions, fld_id = intersect(names(data),
   names(georegions)), fld_year = ifelse("year" \%in\% names(data), "year",
   NA), fld_value = setdiff(names(data), c(fld_id, fld_weight, "year")),
-  georegion_labels = NULL, fld_weight = NULL, rgn_weights = NULL,
-  ratio_weights = FALSE, gapfill_scoring_weights = c(r0 = 1, r1 = 0.8, r2 =
-  0.5, v = 0), r0_to_NA = TRUE, attributes_csv = NULL)
+  georegion_labels = georegion_labels, fld_weight = NULL,
+  rgn_weights = NULL, ratio_weights = FALSE,
+  gapfill_scoring_weights = c(r0 = 1, r1 = 0.8, r2 = 0.5, v = 0),
+  r0_to_NA = TRUE, attributes_csv = NULL)
 }
 \arguments{
 \item{data}{data.frame to gapfill having at least fields: \code{fld_id} and \code{fld_value}, and optionally \code{fld_weight}}
