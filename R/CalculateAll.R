@@ -152,7 +152,7 @@ CalculateAll = function(conf, layers, debug=F){
         dplyr::select(region_id = id,
                       future    = xF, 
                       score) %>% 
-      gather(dimension, score, 2:3) %>%
+      gather(dimension, score, -region_id) %>%
       mutate(goal = g) %>%
       select(goal, dimension, region_id, score)
 
