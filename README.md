@@ -5,13 +5,8 @@ ohicore
 
 ## Installation
 
-```R
-# install.packages("devtools")
-devtools::install_github("ohi-science/ohi-core")
-=======
-To install: 
 
-```
+```R
 # install dependencies
 for (p in c('devtools', 'zoo', 'psych')){
   if (!require(p, character.only=T)){
@@ -21,6 +16,7 @@ for (p in c('devtools', 'zoo', 'psych')){
 }
 
 # install packages
+install.packages(c('zoo', 'psych', 'tidyr'))
 install_github('ohi-science/rCharts')
 install_github('ohi-science/ohicore')
 require(ohicore)
