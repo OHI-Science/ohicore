@@ -23,8 +23,7 @@ Imports:
     reshape2,
     shiny (>= 0.10.0),
     stringr,
-    knitr (>= 1.5),
-    tidyr
+    knitr (>= 1.5)
 Suggests:
     testthat
 Collate:
@@ -61,4 +60,3 @@ Collate:
     'trace_git_csv_value.R'
     'write_shortcuts.R'
     'zzz.R'
-RoxygenNote: 5.0.1
