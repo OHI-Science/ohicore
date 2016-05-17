@@ -10,20 +10,20 @@
 ##' @param disk relative radius of a central donut hole
 ##' @param max.length ...
 ##' @param center center value
-##' @param main
-##' @param fill.col
-##' @param plot.outline
-##' @param label.offset
-##' @param xlim
-##' @param ylim
-##' @param uin
-##' @param tol
-##' @param cex
-##' @param bty
-##' @param lty
-##' @param label.col
-##' @param label.font
-##' @param label.cex
+##' @param main middle value
+##' @param fill.col petal color
+##' @param plot.outline formatting
+##' @param label.offset formatting
+##' @param xlim formatting
+##' @param ylim formatting
+##' @param uin formatting
+##' @param tol tolerance
+##' @param cex size of middle value
+##' @param bty formatting
+##' @param lty formatting
+##' @param label.col label color
+##' @param label.font label font
+##' @param label.cex label size
 ##' @return Generate something akin to a rose plot in which the width and
 ##' length of each petal are directly specified by the user. Or to put it
 ##' differently, this is somewhat like a pie chart in which the radius of each
