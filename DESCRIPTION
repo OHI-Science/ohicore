@@ -60,3 +60,4 @@ Collate:
     'trace_git_csv_value.R'
     'write_shortcuts.R'
     'zzz.R'
+RoxygenNote: 5.0.1
