@@ -22,6 +22,34 @@ aster(lengths, widths, labels, disk = 0.5, max.length, center = NULL,
 \item{max.length}{...}
 
 \item{center}{center value}
+
+\item{main}{middle value}
+
+\item{fill.col}{petal color}
+
+\item{plot.outline}{formatting}
+
+\item{label.offset}{formatting}
+
+\item{xlim}{formatting}
+
+\item{ylim}{formatting}
+
+\item{uin}{formatting}
+
+\item{tol}{tolerance}
+
+\item{cex}{size of middle value}
+
+\item{bty}{formatting}
+
+\item{lty}{formatting}
+
+\item{label.col}{label color}
+
+\item{label.font}{label font}
+
+\item{label.cex}{label size}
 }
 \value{
 Generate something akin to a rose plot in which the width and

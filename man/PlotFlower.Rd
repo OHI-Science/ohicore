@@ -22,6 +22,34 @@ PlotFlower(lengths, widths, labels, disk = 0.5, max.length, center = NULL,
 \item{max.length}{...}
 
 \item{center}{center value}
+
+\item{main}{middle value}
+
+\item{fill.col}{fill colors}
+
+\item{plot.outline}{size of plot outline}
+
+\item{label.offset}{label offset}
+
+\item{xlim}{formatting}
+
+\item{ylim}{formatting}
+
+\item{uin}{formatting}
+
+\item{tol}{formatting}
+
+\item{cex}{size of middle text}
+
+\item{bty}{formatting}
+
+\item{lty}{line thickness}
+
+\item{label.col}{label color}
+
+\item{label.font}{label font}
+
+\item{label.cex}{size of label text}
 }
 \value{
 Generate something akin to a rose plot in which the width and
