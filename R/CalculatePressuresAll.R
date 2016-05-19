@@ -36,7 +36,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
            select(region_id = id_num,
                   val_num,
                   layer) %>%
-             dplyr::spread(layer, val_num) %>%
+             tidyr::spread(layer, val_num) %>%
     filter(region_id %in% regions)
 
   ## identify number of regions and pressures layers
@@ -171,7 +171,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
           }
           
           m_w = subset(d_w, region_id %in% regions) %>%
-            dplyr::spread(category, value) %>% 
+            tidyr::spread(category, value) %>% 
             mutate(sum = rowSums(.[,-1], na.rm = TRUE))
           
         } else { # presume layers_data == 'layers_data'    
@@ -184,7 +184,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
           }
           
           m_w = subset(d_w, region_id %in% regions) %>%
-            dplyr::spread(category, value) %>% 
+            tidyr::spread(category, value) %>% 
             mutate(sum = rowSums(.[,-1], na.rm = TRUE))
             
           m_w = cbind(m_w[,'region_id',drop=F], m_w[,2:(ncol(m_w)-1)] / m_w[,'sum']) 
