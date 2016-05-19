@@ -8,9 +8,16 @@ ohicore
 
 ```R
 # install packages
-install.packages(c('zoo', 'psych', 'tidyr'))
+
+# devtools is needed for installing packages from Github:
+install.packages('devtools')
+library(devtools)
+
 install_github('ohi-science/ohicore')
 library(ohicore)
+
+# these packages are used by the repository (conf/functions.R) 
+install.packages(c('zoo', 'psych')) # these are used in functions.R
 ```
 
 

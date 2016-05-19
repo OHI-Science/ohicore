@@ -19,7 +19,8 @@ Imports:
     git2r,
     rgdal,
     sp,
-    methods
+    methods,
+    tidyr
 Suggests:
     testthat
 Collate:
