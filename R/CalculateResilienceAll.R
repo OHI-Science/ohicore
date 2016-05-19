@@ -3,6 +3,8 @@
 #' @param layers object \code{\link{Layers}}
 #' @param conf object \code{\link{Conf}}
 #' @return data.frame containing columns 'region_id' and per subgoal resilience score
+#' @import tidyr
+#' @import dplyr
 #' @export
 CalculateResilienceAll = function(layers, conf, debug=FALSE){
   

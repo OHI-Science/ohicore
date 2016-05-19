@@ -54,6 +54,7 @@
 #' @import reshape2
 #' @import plyr
 #' @import dplyr
+#' @import tidyr
 #' @importFrom dplyr arrange
 #' @importFrom dplyr desc
 #' @importFrom dplyr failwith
