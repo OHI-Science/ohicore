@@ -15,12 +15,6 @@ collapse across each category.}
 
 \item{calc}{type of calculation, whether avg (default), mean (diff't from
 avg?) or presence (results in 1 or 0).}
-
-\item{alpha}{weighting matrix of the form [category x pressure]}
-
-\item{beta}{aggregation matrix of the form [region_id x category] to collapse across each category}
-
-\item{calc}{type of calculation, whether avg (default), mean (diff't from avg?) or presence (results in 1 or 0)}
 }
 \value{
 Returns a weight matrix \emph{w} [region_id x pressure] suitable

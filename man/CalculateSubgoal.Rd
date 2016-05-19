@@ -9,11 +9,9 @@ CalculateSubgoal(current.data, eco.pressures, social.pressures, gs.regulations,
   trend.Years = 5)
 }
 \arguments{
+\item{current.data}{data.frame containing columns 'region', 'value'}
+
 \item{fun}{(optional) function for calculating the subgoal value, if not specified it will default to a weighted average}
-
-\item{DATA}{data.frame containing columns 'region', 'value', and (optionally) 'w'}
-
-\item{w}{(optional) numeric vector describing the}
 }
 \value{
 stuff

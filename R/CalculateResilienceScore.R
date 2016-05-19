@@ -30,12 +30,7 @@
 ##'   \code{resilience_categories}.
 ##' @param w the weighting matrix of the form \code{[region_id x layer]}. Each 
 ##'   rank weight must be a real number >= 0, or NA for even weighting.
-##' @param w.layers the weighting vector of the form \code{[layer]}. Each rank 
-##'   weight must be a real number >= 0, or NA for even weighting.
 ##' @param gamma the gamma constant for \eqn{r_{i,x}} calculation.
-##' @param b a boolean value matrix \code{[region_id x layer]} which is 
-##'   \code{TRUE} if the given region_id should include layer, and \code{FALSE} 
-##'   otherwise.
 ##' @return \code{ohi.model.resilience} returns resilience score for each 
 ##'   region. \code{ohi.model.resilience.matrix} returns a weighting matrix 
 ##'   suitable for \code{ohi.model.resilience}.

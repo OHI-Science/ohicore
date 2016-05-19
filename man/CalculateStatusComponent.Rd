@@ -11,8 +11,6 @@ CalculateStatusComponent(DATA, fun, trend.Years = 5, c.name = "year",
 \item{DATA}{data.frame containing columns 'region', 'value', and (optionally) 'w'}
 
 \item{fun}{(optional) function for calculating the subgoal value, if not specified it will default to a weighted average}
-
-\item{w}{(optional) numeric vector describing the}
 }
 \value{
 stuff

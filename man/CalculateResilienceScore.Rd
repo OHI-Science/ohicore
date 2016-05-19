@@ -19,13 +19,6 @@ must be a real number between 0 and 1 inclusive, or NA.}
 rank weight must be a real number >= 0, or NA for even weighting.}
 
 \item{gamma}{the gamma constant for \eqn{r_{i,x}} calculation.}
-
-\item{w.layers}{the weighting vector of the form \code{[layer]}. Each rank 
-weight must be a real number >= 0, or NA for even weighting.}
-
-\item{b}{a boolean value matrix \code{[region_id x layer]} which is 
-\code{TRUE} if the given region_id should include layer, and \code{FALSE} 
-otherwise.}
 }
 \value{
 \code{ohi.model.resilience} returns resilience score for each 

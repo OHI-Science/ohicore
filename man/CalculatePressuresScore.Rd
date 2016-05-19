@@ -28,16 +28,10 @@ NA 2 2 1 0.5 NA 3 2 1 2.1 NA 4 2 1 3.0 NA 5 2 1 2.8 1 6 2 1 2.2 1 7 2 1 1.3
 1 8 2 1 1.7 NA 9 2 1 3.0 NA 10 2 1 1.2 1 }}
 
 \item{GAMMA}{Multiplier used to combine environmental and social pressures.}
-
-\item{p}{is the pressures value matrix [region_id x pressure]}
-
-\item{w}{is the weighting matrix of the form [region_id x pressure]}
 }
 \value{
 Returns a named vector with the pressures score for each named
 region.
-
-pressures scores as a named vector.
 }
 \description{
 The pressures score is calculated for each region

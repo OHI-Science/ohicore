@@ -70,11 +70,6 @@
 #' @keywords ohi
 #' @export
 CalculatePressuresMatrix <- function(alpha, beta, calc='avg') {
-  # Parameters:
-  #' @param alpha weighting matrix of the form [category x pressure]
-     #' @param beta aggregation matrix of the form [region_id x category] to collapse across each category
-     #' @param calc type of calculation, whether avg (default), mean (diff't from avg?) or presence (results in 1 or 0)
-     
      w <- matrix(NA, nrow=dim(beta)[[1]], ncol=dim(alpha)[[2]], 
                  dimnames=list(region_id=dimnames(beta)[[1]], pressure=dimnames(alpha)[[2]]))
      for (i in dimnames(w)$region_id) { # i=dimnames(w)$region_id[1]

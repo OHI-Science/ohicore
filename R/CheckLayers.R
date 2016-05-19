@@ -7,7 +7,7 @@
 #' @param layers.dir full path to the directory containing the layers files.
 #' @param flds_id character vector of unique identifiers, typically
 #' spatial, eg c('region_id', 'country_id', 'saup_id'), described in your \code{\link{Conf}$layers_id_fields}.
-#' @param if True (default), extra diagnostics are output
+#' @param verbose if True (default), extra diagnostics are output
 #' @return warning messages
 #' @details The CheckLayers() function iterates through all the layers
 #' in layers.csv and updates the following field names, which can be NA for any except flds:

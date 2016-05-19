@@ -14,7 +14,7 @@ CheckLayers(layers.csv, layers.dir, flds_id, verbose = T, msg.indent = "  ")
 \item{flds_id}{character vector of unique identifiers, typically
 spatial, eg c('region_id', 'country_id', 'saup_id'), described in your \code{\link{Conf}$layers_id_fields}.}
 
-\item{if}{True (default), extra diagnostics are output}
+\item{verbose}{if True (default), extra diagnostics are output}
 }
 \value{
 warning messages
