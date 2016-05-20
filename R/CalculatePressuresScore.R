@@ -211,18 +211,8 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_cat
        category <- gsub('^([a-z]+)_.*$', '\\1', tolower(pressure))
      })
      pcat$pressure <- as.character(pcat$pressure)
-     # all.cats <- unlist(pressures_categories, use.names=F)
-     # stopifnot(all(pcat$category %in% all.cats))
-     
-     # # Step 1: apply rank weights
-     # w <- ifelse(w == 0, NA, w) # exclude any 0 or NoData weights
-     # p_w <- p * w
-     # p_w <- merge(reshape2::melt(p_w), pcat, all.x=T, by='pressure')
-     # # plyr::daply(p_w, .(region_id, category, pressure), function(x) x$value)
-     # # xtabs(value ~ region_id + category + pressure, p_w)
-     # p_w <- reshape2::acast(p_w, region_id ~ category ~ pressure)
-     
-# Step 2: rescale and save the max rank weight per category for later
+
+# Step 1: format p and w data
      p_df <- data.frame(p)
      p_df$region_id <- row.names(p_df)
      p_df_long <- tidyr::gather(p_df, "pressure", "intensity", -region_id)
@@ -233,7 +223,7 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_cat
      w_df_long <- tidyr::gather(w_df, "pressure", "weight", -region_id)
      w_df_long <- dplyr::left_join(w_df_long, pcat, by="pressure")
 
-     # determine the maximum weight in each pressure category and region
+# Step 2: determine the maximum weight in each pressure category and region
      p_w_max <- w_df_long %>%
                 dplyr::group_by(region_id, category) %>%
                 dplyr::summarize(max_w = ifelse(all(is.na(weight)), NA, max(weight, na.rm=TRUE))) %>%
@@ -244,7 +234,7 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_cat
                 data.frame()
      p_w_max <- p_w_max[, -which(names(p_w_max) == pressures_categories$social)]
     
-     # Equation S8 in 2012 supplement
+# Step 3: Equation S8 in 2012 supplement
      p_k <- p_df_long %>%
        dplyr::left_join(w_df_long, by=c("region_id", "pressure", "category")) %>%
        dplyr::mutate(p_w = intensity * weight) %>%
@@ -258,61 +248,22 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_cat
        data.frame()
      p_k <- p_k[, -which(names(p_k) == pressures_categories$social)]
      
-     # p_w_max <- array(NA, 
-     #                  dim=c(dim(p_w)[[1]], length(pressures_categories$environmental)), 
-     #                  dimnames=list(region_id=dimnames(p)[[1]], 
-     #                                category=pressures_categories$environmental))
-     # p_k <- p_w_max
-     # for (k in dimnames(p_k)$category) { # k='po'
-     #   j <- grep(paste('^', k, '_', sep=''), dimnames(w)[[2]], value=T)
-     #   wj <- w[,j, drop=F]
-     #   pj <- p[,j, drop=F]
-     #   
-     #   p_w_max[,k] <- apply(wj, 1, function(x) { 
-     #     if (all(is.na(x))) {
-     #       NA
-     #     } else {
-     #       max(x, na.rm=T)
-     #     }
-     #   })
-     #   
-     #   # Eq (8) from Nature 2012
-     #   p_k[,k] <- apply(pj * wj, 1, function(x) { # Refs #26 - fix problem when all stressors within a category are NA
-     #     if (all(is.na(x))) {
-     #       NA
-     #     } else {
-     #       sum(x, na.rm=T)
-     #     }
-     #   })  # sum over all pressures
-     #   
-     #   
-     #   # DEBUG
-     #   if (browse & k=='po') browser(); range(p_k[,k])      
-     #   
-     #   p_k[,k] <- score.rescale(p_k[,k], xlim=c(0,3)) # rescale from rank weight max
-     #   p_k[,k] <- score.clamp(p_k[,k]) # clamp to [0,1]
-     #   # BB quick fix, since example of Ascension 2012a (id 85) was getting a po of 1. NOPE: getting value > 1.
-     #   #p_k[,k] <- score.rescale(p_k[,k], xlim=c(0,1)) # rescale from rank weight max      
-     # }
-     
-     # Step 3: compute environmental pressures score using weights from max ranks
+# Step 4: compute environmental pressures scores (Eq S9 from Nature 2012)
      k <- pressures_categories$environmental
      p_e <- rep(NA, nrow(p_k))
      for (i in 1:nrow(p_k)) { #i=1
-       # Eq (S9) from Nature 2012
        p_e[i] <- sum(p_k[i,k] * p_w_max[i,k], na.rm=T) / sum(ifelse(is.na(p_k[i,k]), NA, 1) * p_w_max[i,k], na.rm=T)
      }
      names(p_e) <- p_k$region_id
      
-     # Step 4: compute social pressures score using unweighted pressures
-     # Eq (S10) from Nature 2012
+# Step 5: compute social pressures score using unweighted pressures (Eq S10 from Nature 2012)
      k <- pressures_categories$social
      j <- grep(paste('^', k, '_', sep=''), dimnames(p)[[2]], value=T)
      p_s <- apply(p[,j, drop=F], 1, mean, na.rm=T)
      p_s <- score.clamp(p_s) # if scores are > 1 make 1
      names(p_s) <- rownames(p)
 
-     # Step 5: apply gamma to environmental and social to yield score per region     
+# Step 6: apply gamma to environmental and social to yield score per region     
      if (all(is.nan(p_s))){
        #warning('Skipping social pressures since none found in pressures matrix.')
        p_x <- p_e
