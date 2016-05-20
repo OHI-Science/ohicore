@@ -70,7 +70,7 @@
 #' @importFrom plyr rename
 #'
 #' @export
-CalculateAll = function(conf, layers, debug=F){
+CalculateAll = function(conf, layers, debug){
 
   ## Remove global scores
   if (exists('scores', envir=.GlobalEnv)) rm(scores, envir=.GlobalEnv)

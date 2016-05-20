@@ -26,18 +26,18 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
                  paste(
                    unlist(
                      layers$meta %>%
-                       filter(layer %in% p.layers & val_0to1==F) %>%
-                       select(layer)), 
+                       dplyr::filter(layer %in% p.layers & val_0to1==F) %>%
+                       dplyr::select(layer)), 
                    collapse = ', ')))
   }
   
   ## spread pressures layers data
   d.p = SelectLayersData(layers, layers=p.layers) %>% 
-           select(region_id = id_num,
+           dplyr::select(region_id = id_num,
                   val_num,
                   layer) %>%
              tidyr::spread(layer, val_num) %>%
-    filter(region_id %in% regions)
+             dplyr::filter(region_id %in% regions)
 
   ## identify number of regions and pressures layers
   nr = length(regions)  
