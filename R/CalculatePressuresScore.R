@@ -237,7 +237,7 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_cat
      # determine the maximum weight in each pressure category and region
      p_w_max <- w_df_long %>%
                 dplyr::group_by(region_id, category) %>%
-                dplyr::summarize(max_w = max(weight, na.rm=TRUE)) %>%
+                dplyr::summarize(max_w = ifelse(all(is.na(weight)), NA, max(weight, na.rm=TRUE))) %>%
                 dplyr::ungroup() %>%
                 tidyr::spread(category, max_w) %>%
                 dplyr::mutate(region_id = as.numeric(region_id)) %>%
@@ -250,7 +250,7 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_cat
        dplyr::left_join(w_df_long, by=c("region_id", "pressure", "category")) %>%
        dplyr::mutate(p_w = intensity * weight) %>%
        dplyr::group_by(region_id, category) %>%
-       dplyr::summarize(cat_p_w = sum(p_w, na.rm=TRUE)/3) %>%
+       dplyr::summarize(cat_p_w = ifelse(all(is.na(p_w)), NA, sum(p_w, na.rm=TRUE)/3)) %>%
        dplyr::ungroup() %>%
        dplyr::mutate(cat_p_w = ifelse(cat_p_w > 1, 1, cat_p_w)) %>%
        tidyr::spread(category, cat_p_w) %>%
