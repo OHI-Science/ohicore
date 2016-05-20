@@ -242,7 +242,7 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_cat
                 tidyr::spread(category, max_w) %>%
                 dplyr::mutate(region_id = as.numeric(region_id)) %>%
                 dplyr::arrange(region_id) %>%
-                dplyr::select(-cc) %>%
+                dplyr::select(-ss) %>%
                 data.frame()
     
      # Equation S8 in 2012 supplement
@@ -256,7 +256,7 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_cat
        tidyr::spread(category, cat_p_w) %>%
        dplyr::mutate(region_id = as.numeric(region_id)) %>%
        dplyr::arrange(region_id) %>%
-       dplyr::select(-cc) %>%
+       dplyr::select(-ss) %>%
        data.frame()
         
      # p_w_max <- array(NA, 
