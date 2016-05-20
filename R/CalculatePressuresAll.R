@@ -43,9 +43,9 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
   nr = length(regions)  
   np = length(p.layers) 
   
-  ## iterate goals to calculate pressures scores by region by goal. Has Case 1a and Case 1b
+  ## iterate goals to calculate pressures scores by region by goal
   subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
-  for (g in subgoals) { # g=subgoals[1]  
+  for (g in subgoals) { # g="CS"  
     if (debug) cat(sprintf('goal: %s\n', g))
     
     ## reset components for so when debug==TRUE and saving, is per goal
@@ -63,8 +63,11 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
                       paste(p.components, collapse=', ')))
     }
     
-    ## Case 1a: simple single component goal has 1 row (Case 1b else statement follows) ----
-    if (length(p.components)==1){
+    ########################################################################################
+    ## Case 1: simple single component goal has 1 row (Case 1b else statement follows) ----
+    ########################################################################################
+    
+        if (length(p.components)==1){
       if (debug) cat('  no components\n')
       
       ## pressure weighting matrix applied to all regions [region_id x pressure: weights]
@@ -74,8 +77,11 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
       
       ## calculate pressures per region
       P = CalculatePressuresScore(p, w, pressures_categories=pk, GAMMA=gamma)
+    
+    ######################################################  
+    ## Case 2: Goals that have components ----
+    ######################################################  
       
-    ## Case 1b: Goals that have components ----
     } else { 
       if (debug) cat(' ',length(p.components),'components:', paste(p.components,collapse=', '), '\n')
       
@@ -112,11 +118,8 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
                         paste(unique(d_w$category), collapse=', ')))
       }
       
-  #mrf:start    ## if config.r level == region_id-category, eg NP: aggregate using pressures_component_aggregation:layer_id.
-#        if (pc[[g]][['level']]=='region_id-category'){
-       # if (debug) cat(sprintf("  scoring pressures seperately by region and category, like a subgoal (pressures_calc_level=='region_id-category')\n"))
-        
-        ## get pressure per component
+
+        ## loop to calculate pressure for each component of the goal (and save as krp):
         if (exists('krp')) rm(krp)
         for (k in p.components){ # k = p.components[1]
           
@@ -137,111 +140,33 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
         
         ## join region, category, pressure to weighting matrix
         krpw = krp %>%
-          inner_join(d_w, by=c('region_id', 'category')) %>%
-          arrange(region_id, category) %>%
-          select(region_id, category, p, w=value)  
+          dplyr::inner_join(d_w, by=c('region_id', 'category')) %>%
+          dplyr::arrange(region_id, category) %>%
+          dplyr::select(region_id, category, p, w=value)  
         
         d_region_ids = D[,'region_id',drop=F]
         
         krpwp = d_region_ids %>%
-          left_join(krpw, by='region_id') %>%
-          group_by(region_id) %>%
-          summarize(p = sum(w*p)/sum(w)) 
+          dplyr::left_join(krpw, by='region_id') %>%
+          dplyr::group_by(region_id) %>%
+          dplyr::summarize(p = sum(w*p)/sum(w)) 
         
         P = round(krpwp$p, 2)
         names(P) = krpwp$region_id      
-#        } 
-## mrf: end        
-               
-      ## if config.r level == region_id. Most goals like this: collapse weights across categories first, then calculate pressures per region
-      # } else if (pc[[g]][['level']]=='region_id'){
-      #   if (debug) cat(sprintf("  aggregating across categories to region (pressures_calc_level=='region_id')\n"))
-      #   
-      #   ## cast and get sum of categories per region
-      #   if (!is.na(subset(layers$meta, layer==pc[[g]][['layer']], fld_id_chr, drop=T))){
-      #     # this condition seems to no onger apply, since all but NP (handled above if level is 'region_id-category')
-      #     stop('surprise, layers_data_bycountry used')
-      #     if (debug) cat(sprintf("  using layers_data='layers_data_bycountry'\n"))
-      #     d_w_r = d_w %>%
-      #       inner_join(regions_countries_areas, by='country_id') %>%
-      #       filter(region_id %in% regions) %>%
-      #       select(region_id, category, country_id, country_area_km2)
-      #     
-      #     ## error if category columns have NAs. To prevent 'Error: All columns must be named' in m_w below
-      #     if (sum(is.na(d_w$category)) > 0){
-      #       stop(sprintf('NAs detected in %s; please correct this before proceeding', pc[[g]][['layer']]))
-      #     }
-      #     
-      #     m_w = subset(d_w, region_id %in% regions) %>%
-      #       tidyr::spread(category, value) %>% 
-      #       mutate(sum = rowSums(.[,-1], na.rm = TRUE))
-      #     
-      #   } else { # presume layers_data == 'layers_data'    
-      #     if (debug) cat(sprintf("  using layers_data='layers_data'\n"))
-      #     ## for CS: matrix of weights by category based on proportion of regional total for all categories
-      #     
-      #      ## error if category columns have NAs. To prevent 'Error: All columns must be named' in m_w below
-      #     if (sum(is.na(d_w$category)) > 0){
-      #       stop(sprintf('NAs detected in %s; please correct this before proceeding', pc[[g]][['layer']]))
-      #     }
-      #     
-      #     m_w = subset(d_w, region_id %in% regions) %>%
-      #       tidyr::spread(category, value) %>% 
-      #       mutate(sum = rowSums(.[,-1], na.rm = TRUE))
-      #       
-      #     m_w = cbind(m_w[,'region_id',drop=F], m_w[,2:(ncol(m_w)-1)] / m_w[,'sum']) 
-      #   }      
-      #   
-      #   ## beta [region_id x category]: aggregation matrix 
-      #   beta = matrix(as.matrix(m_w[,-1]), 
-      #                 nrow=nrow(m_w), ncol=ncol(m_w)-1, 
-      #                 dimnames = list(region_id=m_w$region_id, category=names(m_w)[-1]))
-      #   
-      #   ## for LIV/ECO, limit beta columns to alpha rows
-      #   beta = beta[, intersect(rownames(alpha), colnames(beta)), drop=F]
-      #   
-      #   ## calculate weighting matrix
-      #   if (debug) cat(sprintf("  CalculatePressuresMatrix(alpha, beta, calc='avg')\n"))
-      #   w = CalculatePressuresMatrix(alpha, beta, calc='avg')
-      #   # TODO: test calc type of calculation, whether avg (default), mean (diff't from avg?) or presence (results in 1 or 0)
-      #   
-      #   ## append missing regions with NA
-      #   region_ids.missing = setdiff(regions, dimnames(w)$region_id)
-      #   pressures.missing = setdiff(p.layers, dimnames(w)$pressure)
-      #   w = matrix(rbind(cbind(w, 
-      #                          matrix(0, nrow=nrow(w), ncol=length(pressures.missing))), 
-      #                    matrix(0, nrow=length(region_ids.missing), ncol=ncol(w)+length(pressures.missing))),
-      #              nrow=nrow(w)+length(region_ids.missing), ncol=ncol(w)+length(pressures.missing),
-      #              dimnames = list('region_id'=c(dimnames(w)$region_id, region_ids.missing), 
-      #                              'pressure'=c(dimnames(w)$pressure, pressures.missing)))[as.character(regions), p.layers, drop=F]
-      #   w = w[dimnames(p)$region_id,,drop=F] # align w with p
-      #   
-      #   ## check matrices
-      #   stopifnot(all(dimnames(w)$pressure == dimnames(w)$pressure))
-      #   stopifnot(!is.null(dimnames(w)$region_id))
-      #   stopifnot(all(dimnames(p)$region_id == dimnames(w)$region_id))
-      #   
-      #   ## calculate pressures per region
-      #   P = CalculatePressuresScore(p, w, pressures_categories=pk, GAMMA=gamma)
-      #   
-      # } else {
-      #   stop(sprintf("pressures_component_aggregation.csv : pressures_calc_level of '%s' not handled. Must be either 'region_id' or 'region_id-category'.", 
-      #                agg$aggregation_sequence))
-      # }    
-      # 
-    } # end if (length(p.components)==1)
+
     
     ## bind to results
-    D = merge(D, setNames(data.frame(names(P), P), c('region_id', g)), all.x=T)
+    P <- setNames(data.frame(names(P), P), c('region_id', g))
+    D <- merge(D, P, all.x=T)
     
   } # end iterate goals # for (g in subgoals)
   
   
   ## return scores
   scores = D %>%
-    gather(goal, score, -region_id) %>%
-    mutate(dimension = "pressures") %>%
-    select(goal, dimension, region_id, score)
+    tidyr::gather(goal, score, -region_id) %>%
+    dplyr::mutate(dimension = "pressures") %>%
+    dplyr::select(goal, dimension, region_id, score)
     
   return(scores)
 }
