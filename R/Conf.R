@@ -1,6 +1,6 @@
 #' Conf reference class.
 #' 
-#' @param dir path to directory containing necessary files 
+#' @param dir path to directory containing necessary files, e.g., eez2015/conf  
 #' @return object reference class of Config containing:
 #' \itemize{
 #'   \item{\emph{config}}
@@ -10,7 +10,9 @@
 #'   \item{\emph{resilience_matrix}}
 #'   \item{\emph{resilienceweights}}
 #' }
-#' @details To create this object, \code{Conf(dir)}. The \code{dir} is expected to have the following files:
+#' @details This function creates an R object that combines into a single object all the information 
+#' from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv.
+#' To create this object, \code{Conf(dir)}. The \code{dir} is expected to have the following files:
 #' \itemize{
 #'   \item{\emph{config.R}}
 #'   \item{\emph{functions.R}}

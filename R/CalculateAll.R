@@ -83,8 +83,8 @@ CalculateAll = function(conf, layers, debug=F){
   
   ## Pre-Index functions: Status and Trend, by goal
   goals_X = conf$goals %>%
-    filter(!is.na(preindex_function)) %>%
-    arrange(order_calculate)
+    dplyr::filter(!is.na(preindex_function)) %>%
+    dplyr::arrange(order_calculate)
 
   ## Setup scores variable; many rbinds to follow
   scores = data.frame(
@@ -124,8 +124,8 @@ CalculateAll = function(conf, layers, debug=F){
     
     ## spread the scores by dimension
     v = scores %>%
-      filter(goal == g) %>%
-      spread(dimension, score)
+      dplyr::filter(goal == g) %>%
+      tidyr::spread(dimension, score)
     
    ## message if missing dimension, assign NA
     for (col in c('status','trend','pressures','resilience')){
@@ -153,9 +153,9 @@ CalculateAll = function(conf, layers, debug=F){
         dplyr::select(region_id = id,
                       future    = xF, 
                       score) %>% 
-      gather(dimension, score, -region_id) %>%
-      mutate(goal = g) %>%
-      select(goal, dimension, region_id, score)
+      tidyr::gather(dimension, score, -region_id) %>%
+      dplyr::mutate(goal = g) %>%
+      dplyr::select(goal, dimension, region_id, score)
 
     ## bind to other scores
     scores = rbind(scores, scores_G)
@@ -183,14 +183,14 @@ CalculateAll = function(conf, layers, debug=F){
           scores %>%
             
             # filter only supragoal scores, merge with supragoal weightings
-            filter(dimension=='score',  goal %in% supragoals) %>%
+            dplyr::filter(dimension=='score',  goal %in% supragoals) %>%
             merge(conf$goals %>%
                     select(goal, weight)) %>%
             
             # calculate the weighted mean of supragoals, add goal and dimension column
-            group_by(region_id) %>%
+            dplyr::group_by(region_id) %>%
             dplyr::summarise(score = weighted.mean(score, weight, na.rm=T)) %>%
-            mutate(goal      = 'Index',
+            dplyr::mutate(goal      = 'Index',
                    dimension = 'score') %>%
             data.frame())
       
@@ -204,14 +204,14 @@ CalculateAll = function(conf, layers, debug=F){
           scores %>%
             
             # filter only supragoal scores, merge with supragoal weightings
-            filter(dimension=='future',  goal %in% supragoals) %>%
+            dplyr::filter(dimension=='future',  goal %in% supragoals) %>%
             merge(conf$goals %>%
                     select(goal, weight)) %>%
             
             # calculate the weighted mean of supragoals, add goal and dimension column
-            group_by(region_id) %>%
+            dplyr::group_by(region_id) %>%
             dplyr::summarise(score = weighted.mean(score, weight, na.rm=T)) %>%
-            mutate(goal      = 'Index',
+            dplyr::mutate(goal      = 'Index',
                    dimension = 'future') %>%
             data.frame()) 
 
@@ -230,14 +230,14 @@ CalculateAll = function(conf, layers, debug=F){
     scores %>%
       
       # filter only score, status, future dimensions, merge to the area (km2) of each region
-      filter(dimension %in% c('score','status','future')) %>%
+      dplyr::filter(dimension %in% c('score','status','future')) %>%
       merge(SelectLayersData(layers, layers=conf$config$layer_region_areas, narrow=T) %>%
               dplyr::select(region_id = id_num,
                             area      = val_num)) %>%
       
       # calculate weighted mean by area
-      group_by(goal, dimension) %>%
-      summarise(score = weighted.mean(score, area, na.rm=T),
+      dplyr::group_by(goal, dimension) %>%
+      dplyr::summarise(score = weighted.mean(score, area, na.rm=T),
                 region_id = 0)) 
     
   

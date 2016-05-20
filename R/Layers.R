@@ -1,14 +1,16 @@
 #' Layers reference class.
 #' 
-#' @param layers.csv path to comma-seperated value file with row of metadata per layer
-#' @param layers.dir path of directory containing individual layer files
+#' @param layers.csv path to comma-seperated value file with row of metadata for each dataset used in OHI analysis.
+#' @param layers.dir full path to the directory containing the layers files (csv files that correspond to each entry in layers.csv).
 #' @return object (non-instantiated) reference class of Layers containing
 #' \itemize{
 #'  \item{\emph{meta} - metadata data frame of original layers.csv}
 #'  \item{\emph{data} - named list of data frames, one per layer}
 #'  \item{\emph{targets} - named list of character vector indicating a layer's targets, goal (status, trend) or dimension (pressures, resilience)}
 #' }
-#' @details To instantiate this object, \code{Layers(layers.csv, layers.dir)} is used. The \code{layers.csv} is expected to have the following columns:
+#' @details This function creates an R object that combines into a single object all the information 
+#' from the layers files and the layers.csv metadata. Individual layers can be accessed as: layer_object_name$data$layer_name
+#' To create this object, \code{Conf(dir)}. The \code{dir} is expected to have the following files:
 #' \itemize{
 #'   \item{\emph{layer} - unique layer identifier (no spaces or special characters)}
 #'   \item{\emph{targets} - a space delimited list of targets (goal code, 'Pressures', 'Resilience' or 'Regions') for which this layer is applied}
