@@ -47,7 +47,8 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
   
   ## iterate goals to calculate resilience scores by region by goal. Will encounter 3 Cases. 
   subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
-  for (g in subgoals){ # g="CS"
+  
+  for (g in subgoals){ # g="NP"
     if (debug) cat(sprintf('goal: %s\n', g))
     
     ## setup: subset g row from resilience_matrix
@@ -89,10 +90,6 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
       # assign R score for all regions to resilience data frame
       D = merge(D, setNames(data.frame(as.integer(names(R)), R), c('region_id', g)))
 
-      ####################################################################################
-      ## Case 2: Goals with components (e.g., mangrove, seagrass, etc.)
-      ####################################################################################
-      
        } else {
       
       ## error unless g is in components list in config.R
@@ -224,8 +221,8 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
     # 
     # 
     # ## Case 3: multiple components within goal (for NP only) ----
-    # if (nrow(r.g) > 1 && rc[[g]][['level']]=='region_id-category'){
-    #   
+    #if (nrow(r.g) > 1){
+
       ## iterate regions; not all regions have all categories within the components (ie products within product groups)
       for (id in D$region_id){ # id=11
         
@@ -273,14 +270,14 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
           ## R: resilience score [region_id]
           R <-  CalculateResilienceScore(r, t=types[dimnames(b)[[2]]], w)
           R.id.k  <-  c(R.id.k, setNames(R, k))
-        }
+        } # end of k components
         
         ## assign to resilience matrix
         if (!g %in% names(D)) D[[g]] = NA
         D[D$region_id==id,g] = round(weighted.mean(R.id.k, subset(lyr_agg, region_id==id, value, drop=T)), 2)
-      }
-     } 
-  # } # end for g in...
+      } ## end of each region
+     } ## end of else on line 93 
+   } # end for goal
   
   
   ## return scores
