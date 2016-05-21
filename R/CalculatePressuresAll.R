@@ -158,7 +158,7 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=F){
     ## bind to results
     P <- setNames(data.frame(names(P), P), c('region_id', g))
     D <- merge(D, P, all.x=T)
-    
+    }
   } # end iterate goals # for (g in subgoals)
   
   

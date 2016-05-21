@@ -107,8 +107,7 @@ CalculateResilienceScore <- function(r, t, w=NA, gamma=0.5, resilience_categorie
   stopifnot(all(t %in% resilience_categories))
   stopifnot(all(names(dimnames(r)) == c('region_id', 'layer')))    
   stopifnot(all(dimnames(r)$layer %in% names(t)))
-
-  # weights default to one if not specified in the resilience_weights.csv  
+  
   if (missing(w)) {
     w <- rep(1, dim(r)[[2]])
     names(w) <- dimnames(r)$layer
@@ -133,8 +132,8 @@ CalculateResilienceScore <- function(r, t, w=NA, gamma=0.5, resilience_categorie
   stopifnot(all(dimnames(r)$layer == dimnames(w)$layer))
   stopifnot(all(dimnames(r)$layer == names(t)))
   
-  # compute by category: resilience sum(score * weight)/sum(weights): replace this to do by category
-  for (k in resilience_categories) { # k="regulatory"
+  # compute by category
+  for (k in resilience_categories) {
     l <- paste('r', k, sep='_')
     if (k %in% t) {
       l.r <- r[,names(t)[t == k], drop=F]
