@@ -91,7 +91,12 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
       D = merge(D, setNames(data.frame(as.integer(names(R)), R), c('region_id', g)))
       
     } else {
+
+      ####################################################################################
+      ## Case 2: Goal has components (e.g., coral, seagrass, etc)
+      ####################################################################################
       
+            
       ## error unless g is in components list in config.R
       if (!g %in% names(rc)){
         stop(sprintf('This goal must have registered resilience_components in config.R:\n%s', g))
@@ -121,109 +126,7 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
         cat(sprintf('...based on the following components from resilience_matrix.csv for %s:\n %s', g, paste(r.g$component, collapse=',  ')))
       }
       
-      #}     # end Case 1 if (nrow(r.g)==1)
-      
-      # ## Case 2: multiple components within goal, config.r 'level'=='region_id' ----
-      # if (nrow(r.g) > 1 && rc[[g]][['level']]=='region_id'){
-      #   
-      #   ## check for valid component conditions
-      #   cond = with(r.g,
-      #               data.frame(
-      #                 component    = component,
-      #                 cond.default = ifelse(component=='', TRUE, NA),
-      #                 cond.only    = grepl('(.*) only',          component),
-      #                 cond.with    = grepl('(.*), with (.*)',    component),
-      #                 cond.without = grepl('(.*), without (.*)', component), stringsAsFactors=F))
-      #   class(cond$component)
-      #   
-      #   ## error unless only one TRUE per condition column
-      #   if (!all.equal(apply(cond[,-1], 1, sum, na.rm=T), rep(1,length(r.g$component)))){
-      #     stop(sprintf('The %s components identified in resilience_matrix.csv are not unique\n', g))
-      #   }
-      #   
-      #   ## break down condition into individual components needed for later evaluation
-      #   cond = cbind(
-      #     cond,
-      #     cond.only.1     = ifelse(cond$cond.only==TRUE, gsub("(.*) only",             "\\1", r.g$component), NA),
-      #     cond.with.1     = ifelse(cond$cond.with==TRUE, gsub("(.*), with (.*)",       "\\1", r.g$component), NA),
-      #     cond.with.2     = ifelse(cond$cond.with==TRUE, gsub("(.*), with (.*)",       "\\2", r.g$component), NA),
-      #     cond.without.1  = ifelse(cond$cond.without==TRUE, gsub("(.*), without (.*)", "\\1", r.g$component), NA),
-      #     cond.without.2  = ifelse(cond$cond.without==TRUE, gsub("(.*), without (.*)", "\\2", r.g$component), NA))
-      #   
-      #   ## iterate regions; not all regions have all categories within the components (ie habitats within the habitat groups)
-      #   for (id in D$region_id){ # id=3
-      #     
-      #     ## get components in given region
-      #     components = subset(lyr_agg, region_id==id, category, drop=T)
-      #     
-      #     if (length(components)==0) next
-      #     # ?: CS default '' needs components or ok if 0 when having default?
-      #     
-      #     ## get condition for region "to see what condition my condition was in" :)
-      #     cond.components = cond[,c('cond.default','cond.only.1','cond.with.1','cond.with.2','cond.without.1','cond.without.2')]
-      #     components.in.cond = as.data.frame(apply(cond.components, c(1,2), function(x) x %in% components), 
-      #                                        row.names=cond[['component']])
-      #     
-      #     # TODO: for HAB, seems wrong that for regions to qualify for "* only" component conditions, they can only have that component, even if other like sea_ice_edge included
-      #     components.in.cond[['cond.only.1']] = ifelse(components.in.cond[['cond.only.1']]==T & length(components)==1, T, F)
-      #     components.in.cond[['cond.without.2']] = !components.in.cond[['cond.without.2']] # invert without predicate
-      #     components.in.cond[is.na(cond.components)] = NA
-      #     
-      #     ## assign condition to default if default ('') row exists and no other condition found to be TRUE
-      #     if ('' %in% rownames(components.in.cond)){
-      #       if(!any(apply(components.in.cond[''!=rownames(components.in.cond),], 1, function(x) all(x==T,na.rm=T)))){
-      #         components.in.cond['','cond.default'] = TRUE
-      #       }
-      #     }
-      #     
-      #     ## get condition based on which is true
-      #     condition = rownames(components.in.cond)[apply(components.in.cond, 1, function(x) all(x==T,na.rm=T))]
-      #     #if (identical(condition, character(0))) condition = NA
-      #     if (identical(condition, character(0))){
-      #       if (debug) cat(sprintf('  skipping region %s for %s since no matching conditions, but having components: %s\n', id, g, paste(components, collapse=', ')))
-      #       next # Wierd: with layers.Global2013.www2013, g=HAB, id=35, get condition=NA. and for HAB then lyrs bonks
-      #     }
-      #     
-      #     lyrs <- na.omit(as.character(subset(rm, goal==g & component==condition)[,c(-1,-2)]))
-      #     
-      #     ## r: resilience value matrix [region_id x layer: value] per region
-      #     r = spread(SelectLayersData(layers, layers=lyrs) %>%
-      #                  filter(id_num == id) %>%
-      #                  select(region_id = id_num, 
-      #                         val_num, 
-      #                         layer),
-      #                layer, val_num) 
-      #     row.names(r)  = r$region_id 
-      #     r = r %>%
-      #       select(-region_id) %>%
-      #       as.matrix()
-      #     names(dimnames(r)) <- c('region_id', 'layer')
-      #     
-      #     
-      #     if (nrow(r)==0) next # eg for g=CP, id=162 (Antarctica), condition='sea_ice_shoreline only'
-      #     
-      #     ## b: boolean value matrix [region_id x layer]
-      #     b <- ifelse(!is.na(r),T,F)
-      #     
-      #     ## w: weighting matrix [region_id x layer]
-      #     w <- CalculateResilienceMatrix(b, weights[dimnames(b)[[2]]])
-      #     
-      #     ## R: resilience score [region_id]
-      #     R = CalculateResilienceScore(r, types[dimnames(b)[[2]]], w)
-      #     
-      #     ## assign R score for id to resilience data frame
-      #     if (!g %in% names(D)) D[[g]] = NA
-      #     D[D$region_id==id,g] = R
-      #     
-      #   } # end iterate regions: for (id in D$region_id)
-      #   
-      # } # end Case 2: if (nrow(r.g) > 1 && rc[[g]][['level']]=='region_id')
-      # 
-      # 
-      # ## Case 3: multiple components within goal (for NP only) ----
-      #if (nrow(r.g) > 1){
-      
-      ## iterate regions; not all regions have all categories within the components (ie products within product groups)
+         ## iterate regions; not all regions have all categories within the components (ie products within product groups)
       for (id in D$region_id){ # id=11
         
         ## get components in given region
@@ -276,7 +179,7 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
         if (!g %in% names(D)) D[[g]] = NA
         D[D$region_id==id,g] = round(weighted.mean(R.id.k, subset(lyr_agg, region_id==id, value, drop=T)), 2)
       } ## end of each region
-    } ## end of else on line 93 
+    } ## end of goals with components 
   } # end for goal
   
   
