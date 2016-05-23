@@ -4,7 +4,7 @@
 \alias{CalculatePressuresScore}
 \title{Calculate Pressures Score}
 \usage{
-CalculatePressuresScore(p, w, GAMMA = 0.5, browse = F,
+CalculatePressuresScore(p, w, GAMMA = 0.5, browse = FALSE,
   pressures_categories = list(environmental = c("po", "hd", "fp", "sp", "cc"),
   social = "ss"))
 }

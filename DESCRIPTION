@@ -28,7 +28,6 @@ Collate:
     'CalculateGoalIndex.R'
     'CalculatePressuresAll.R'
     'CalculatePressuresComponent.R'
-    'CalculatePressuresMatrix.R'
     'CalculatePressuresScore.R'
     'CalculateResilienceAll.R'
     'CalculateResilienceComponent.R'
