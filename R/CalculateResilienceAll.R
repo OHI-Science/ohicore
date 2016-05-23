@@ -60,7 +60,8 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
     if (nrow(r.g)==1){
       
       ## extract relavant resilience layers to goal
-      lyrs = na.omit(as.character(r.g[!names(r.g) %in% c('goal','component','component_name')]))
+      lyrs = names(r.g)[!is.na(r.g)]
+      lyrs = lyrs[! lyrs %in%  c('goal','component','component_name')]
       
       ## r: resilience value matrix [region_id x layer: value]
       r = tidyr::spread(SelectLayersData(layers, layers=lyrs) %>%
@@ -138,8 +139,10 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
         for (k in components){ # k=components[1]
           
           ## extract relavant resilience layers to goal
-          lyrs <- na.omit(as.character(subset(rm, goal==g & component==k)[,c(-1,-2)]))
-          
+          lyrs <- subset(rm, goal==g & component==k)
+          lyrs = names(lyrs)[!is.na(lyrs)]
+          lyrs = lyrs[! lyrs %in%  c('goal','component','component_name')]
+                
           ## r: resilience value matrix [region_id x layer: value] per region
           r <- tidyr::spread(SelectLayersData(layers, layers=lyrs) %>%
                                dplyr::filter(id_num == id) %>%
