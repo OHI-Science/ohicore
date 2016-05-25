@@ -10,8 +10,14 @@ CalculateResilienceAll(layers, conf, debug = FALSE)
 \item{layers}{object \code{\link{Layers}}}
 
 \item{conf}{object \code{\link{Conf}}}
+
+\item{layers}{object \code{\link{Layers}}}
+
+\item{conf}{object \code{\link{Conf}}}
 }
 \value{
+data.frame containing columns 'region_id' and per subgoal resilience score
+
 data.frame containing columns 'region_id' and per subgoal resilience score
 }
 \description{

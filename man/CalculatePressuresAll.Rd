@@ -4,7 +4,7 @@
 \alias{CalculatePressuresAll}
 \title{Calculate all the pressures score for each (sub)goal.}
 \usage{
-CalculatePressuresAll(layers, conf, gamma = 0.5, debug = F)
+CalculatePressuresAll(layers, conf, gamma = 0.5, debug = FALSE)
 }
 \arguments{
 \item{layers}{object \code{\link{Layers}}}

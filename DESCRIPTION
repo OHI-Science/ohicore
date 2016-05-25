@@ -29,7 +29,6 @@ Collate:
     'CalculatePressuresAll.R'
     'CalculatePressuresScore.R'
     'CalculateResilienceAll.R'
-    'CalculateResilienceScore.R'
     'CheckLayers.R'
     'Conf.R'
     'Layers.R'

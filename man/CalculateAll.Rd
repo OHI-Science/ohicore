@@ -4,7 +4,7 @@
 \alias{CalculateAll}
 \title{Calculate All}
 \usage{
-CalculateAll(conf, layers, debug)
+CalculateAll(conf, layers, debug = FALSE)
 }
 \arguments{
 \item{conf}{of class \code{\link{Conf}}}
