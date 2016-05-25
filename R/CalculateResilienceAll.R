@@ -113,14 +113,14 @@ CalculateResilienceAll = function(layers, conf){
   
   ## combine ecological and social based on resilience gamma weighting
   calc_resil <- calc_resil %>%
-    dplyr::left_join(eco_soc_weighting, by="category") %>%
+    dplyr::left_join(eco_soc_weight, by="category") %>%
     dplyr::group_by(goal, component, region_id) %>%
     dplyr::summarise(val_num = weighted.mean(val_num, weight)) %>%
     data.frame()
   
   ## For goals with components, get the relevant data layers used for weights
   r_component_layers <- SelectLayersData(layers, layers=r_components$layer) %>%
-    dplyr::filter(id_num %in% regions) %>%
+    dplyr::filter(id_num %in% regions_vector) %>%
     dplyr::select(region_id = id_num,
                   component = category, 
                   component_wt = val_num, 
