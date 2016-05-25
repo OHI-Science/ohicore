@@ -10,11 +10,10 @@
 #'
 #' @keywords git
 #' @examples
-#' old_data <- read_git_csv('OHI-Science/ohi-global', 'c7c7329', 'eez2015/scores.csv')
 #' \dontrun{
 #' # get csv from github repository by SHA hex of commit
-#' d = read_git_csv('~/github/ohi-global', 'a81a8213', 'scores.csv')
-#' head(d)
+#' old_data <- read_git_csv('OHI-Science/ohi-global', 'c7c7329', 'eez2015/scores.csv')
+#' head(old_data)
 #' }
 #'
 #' @export
