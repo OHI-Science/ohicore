@@ -22,9 +22,9 @@
 #'
 #' @export
 read_git_csv = function(repo, hex, path, ...){
- 
+
   # get tree of commit
-  o = tree(lookup(repository(repo), hex)) # when(commit_old); show(commit_old); summary(commit_old) # Error during wrapup: 'match' requires vector arguments
+  o = git2r::tree(lookup(repository(repo), hex)) # when(commit_old); show(commit_old); summary(commit_old) # Error during wrapup: 'match' requires vector arguments
 
   # traverse tree, if in subdirectories
   if (dirname(path) != '.'){

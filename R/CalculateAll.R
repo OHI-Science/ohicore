@@ -55,6 +55,7 @@
 #' @import plyr
 #' @import dplyr
 #' @import tidyr
+#' @import git2r
 #' @importFrom dplyr arrange
 #' @importFrom dplyr desc
 #' @importFrom dplyr failwith

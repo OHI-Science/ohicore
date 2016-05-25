@@ -6,16 +6,15 @@
 #' @import tidyr
 #' @import dplyr
 #' @export
+#' Calculate all the resilience score for each (sub)goal.
+#'
+#' @param layers object \code{\link{Layers}}
+#' @param conf object \code{\link{Conf}}
+#' @return data.frame containing columns 'region_id' and per subgoal resilience score
+#' @import tidyr
+#' @import dplyr
+#' @export
 CalculateResilienceAll = function(layers, conf, debug=FALSE){
-  
-  
-  ## get resilience matrix, components, weights, categories, layers
-  rm = conf$resilience_matrix
-  rm = within(rm, {component[is.na(component)] = ''})
-  rw = conf$resilience_weights
-  rc = conf$config$resilience_components
-  rk = conf$config$resilience_categories
-  r.layers = setdiff(names(rm), c('goal','component','component_name'))
   
   ## error unless layer value range is correct
   if (!all(subset(layers$meta, layer %in% r.layers, val_0to1, drop=T))){
@@ -28,167 +27,114 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
                    collapse = ', ')))
   }
   
-  ## error unless all layers identified in resilience_matrix.csv are entered in resilience_weights.csv
-  if (!all(r.layers %in% rw$layer)){
-    stop(sprintf('These resilience layers must have weights in resilience_weights.csv:\n%s', 
-                 paste(setdiff(r.layers,rw$layer), collapse = ', ')))
-  }
+  
+  ## get resilience matrix, components, weights, categories, layers
+  rc = conf$config$resilience_components                                 # weighting data for goals with components
+  rc = plyr::ldply(resilience_components)
+  names(rc) <- c('goal', 'layer')
+  
+  rg = conf$config$resilience_gamma                                      # gamma weighting for social vs. ecological resilience categories
+  
+  rm = conf$resilience_matrix
+  rm = within(rm, {component[is.na(component)] = ''})                    # resilience matrix  
+  
+  rw = conf$resilience_weights                                           # resilience weights table
+  
+  r.layers = setdiff(names(rm), c('goal','component','component_name'))  # list of resilience layers from matrix
   
   ## setup initial data.frame for column binding results by region
   D = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T) %>%
     dplyr::select(region_id = id_num)
   regions = D[['region_id']]
   
-  ## w.layers: weighting vector [layer]
-  weights = setNames(rw$weight, rw$layer)
-  
-  ## t: typing vector [layer]
-  types = setNames(rw$type, rw$layer)
-  
-  ## iterate goals to calculate resilience scores by region by goal. Will encounter 3 Cases. 
-  subgoals = subset(conf$goals, !goal %in% unique(conf$goals$parent), goal, drop=T)
-  
-  for (g in subgoals){ # g="NP"
-    if (debug) cat(sprintf('goal: %s\n', g))
-    
-    ## setup: subset g row from resilience_matrix
-    r.g = subset(rm, goal==g)
-    
-    ####################################################################################
-    ## Case 1: simple single component goal has 1 row (see Case 2: when a goal has components)
-    ####################################################################################
-    if (nrow(r.g)==1){
-      
-      ## extract relavant resilience layers to goal
-      lyrs = names(r.g)[!is.na(r.g)]
-      lyrs = lyrs[! lyrs %in%  c('goal','component','component_name')]
-      
-      ## r: resilience value matrix [region_id x layer: value]
-      r = tidyr::spread(SelectLayersData(layers, layers=lyrs) %>%
-                          dplyr::filter(id_num %in% regions) %>%
-                          dplyr::select(region_id = id_num, 
-                                        val_num, 
-                                        layer),
-                        layer, val_num) 
-      
-      row.names(r)  = r$region_id 
-      
-      r = r %>%
-        dplyr::select(-region_id) %>%
-        as.matrix()
-      names(dimnames(r)) <- c('region_id', 'layer')
-      
-      
-      ## b: boolean value matrix [region_id x layer]
-      b <- ifelse(!is.na(r), TRUE, FALSE); head(b)
-      
-      ## w: weighting matrix [region_id x layer]
-      w <- CalculateResilienceMatrix(b, w.layers=weights[dimnames(b)[[2]]]); head(w)
-      
-      ## R: resilience score [region_id]
-      R = CalculateResilienceScore(r, t=types[dimnames(b)[[2]]], w, resilience_categories=conf$config$resilience_categories)
-      
-      # assign R score for all regions to resilience data frame
-      D = merge(D, setNames(data.frame(as.integer(names(R)), R), c('region_id', g)))
-      
-    } else {
-
-      ####################################################################################
-      ## Case 2: Goal has components (e.g., coral, seagrass, etc)
-      ####################################################################################
-      
-            
-      ## error unless g is in components list in config.R
-      if (!g %in% names(rc)){
-        stop(sprintf('This goal must have registered resilience_components in config.R:\n%s', g))
-      }
-      
-      ## error unless layer component is identified in config.R
-      if (!rc[[g]][['layer']] %in% layers$meta$layer){
-        stop(sprintf('This layer identified in config.R must be registered in layers.csv:\n%s', 
-                     paste(rc[[g]][['layer']], collapse = ', ')))
-      }
-      
-      # aggregate all categories and values from layers for all regions
-      lyr_agg = SelectLayersData(layers, layers=rc[[g]][['layer']], narrow=T) %>%  
-        filter(id_num %in% regions) %>%
-        dplyr::select(region_id = id_num,
-                      category,
-                      value = val_num)
-      
-      # check that all components are in lyr_agg
-      cond.1 = sub('(.*)( only|, with |, without )(.*)', '\\1', r.g$component)
-      cond.2 = sub('(.*)( only|, with |, without )(.*)', '\\3', r.g$component)
-      component_categories = unique(na.omit(c(ifelse(nchar(cond.1)>0, cond.1, NA),
-                                              ifelse(nchar(cond.2)>0, cond.2, NA))))
-      
-      # message regarding g's components
-      if (!all(component_categories %in% unique(lyr_agg$category))){
-        cat(sprintf('...based on the following components from resilience_matrix.csv for %s:\n %s', g, paste(r.g$component, collapse=',  ')))
-      }
-      
-         ## iterate regions; not all regions have all categories within the components (ie products within product groups)
-      for (id in D$region_id){ # id=11
-        
-        ## get components in given region
-        components = subset(lyr_agg, region_id==id, category, drop=T)
-        if (length(components)==0) next
-        
-        ## iterate components
-        R.id.k <-  numeric()
-        for (k in components){ # k=components[1]
-          
-          ## extract relavant resilience layers to goal
-          lyrs <- subset(rm, goal==g & component==k)
-          lyrs = names(lyrs)[!is.na(lyrs)]
-          lyrs = lyrs[! lyrs %in%  c('goal','component','component_name')]
-                
-          ## r: resilience value matrix [region_id x layer: value] per region
-          r <- tidyr::spread(SelectLayersData(layers, layers=lyrs) %>%
-                               dplyr::filter(id_num == id) %>%
-                               dplyr::select(region_id = id_num, 
-                                             val_num, 
-                                             layer),
-                             layer, val_num) 
-          
-          r <- SelectLayersData(layers, layers=lyrs) %>%
-            dplyr::filter(id_num == id) %>%
-            dplyr::select(region_id = id_num, val_num, layer)
-          
-          r <- tidyr::spread(r, layer, val_num)
-          
-          row.names(r)  = r$region_id 
-          
-          r = r %>%
-            dplyr::select(-region_id) %>%
-            as.matrix()
-          
-          names(dimnames(r)) <- c('region_id', 'layer')
-          
-          if (nrow(r)==0) next # eg for g=CP, id=162 (Antarctica), condition='sea_ice_shoreline only'
-          
-          ## b: boolean value matrix [region_id x layer]
-          b <- ifelse(!is.na(r), TRUE, FALSE)
-          
-          ## w: weighting matrix [region_id x layer]
-          w <- CalculateResilienceMatrix(b, weights[dimnames(b)[[2]]])
-          
-          ## R: resilience score [region_id]
-          R <-  CalculateResilienceScore(r, t=types[dimnames(b)[[2]]], w)
-          R.id.k  <-  c(R.id.k, setNames(R, k))
-        } # end of k components
-        
-        ## assign to resilience matrix
-        if (!g %in% names(D)) D[[g]] = NA
-        D[D$region_id==id,g] = round(weighted.mean(R.id.k, subset(lyr_agg, region_id==id, value, drop=T)), 2)
-      } ## end of each region
-    } ## end of goals with components 
-  } # end for goal
+  ## create the weighting scheme
+  eco_soc_weighting <- data.frame(category = c("ecological", "social"),
+                                  weight = c(rg, 1-rg))
+  eco_soc_weighting$category <- as.character(eco_soc_weighting$category) 
   
   
-  ## return scores
-  scores = D %>%
-    gather(goal, score, -region_id) %>% 
-    mutate(dimension = 'resilience') 
+  ### get the regional data for each resilience layer:
+  r_tmp <- SelectLayersData(layers, layers=r.layers) %>%
+    dplyr::filter(id_num %in% regions) %>%
+    dplyr::select(region_id = id_num,
+                  val_num, 
+                  layer) %>%
+    dplyr::filter(!is.na(val_num))
+  
+  
+  ### format the resilience matrix so it is a dataframe    
+  rm_tmp <- tidyr::gather(rm, layer, included, 3:ncol(rm)) %>%
+    dplyr::filter(!is.na(included)) %>%
+    dplyr::select(goal, component, layer)
+  
+  
+  ## error check: matrix and data layers include the same resilience factors
+  setdiff(r.layers, r_tmp$layer)
+  setdiff(r_tmp$layer, r.layers)
+  
+  test2 <- dplyr::left_join(rm_tmp, r_tmp, by="layer")
+  
+  ## check that matrix and weights table include the same resilience factors
+  setdiff(r.layers, rw$layer)
+  setdiff(rw$layer, r.layers)
+  
+  test2 <- dplyr::left_join(test2, rw, by="layer")
+  
+  ## average subcategories of resilience layers
+  test3 <- test2 %>%
+    dplyr::group_by(goal, component, region_id, category, category_type, subcategory) %>%
+    dplyr::summarize(max_subcategory = max(weight),
+                     val_num = weighted.mean(val_num, weight)) %>%
+    data.frame()
+  
+  ## average category types of resilience layers (weight by max weight in each subcategory)
+  test4 <- test3 %>%
+    dplyr::group_by(goal, component, region_id, category, category_type) %>%
+    dplyr::summarize(val_num = weighted.mean(val_num, max_subcategory)) %>%
+    data.frame()
+  
+  ## average ecological components (ecosystem and regulatory)
+  test5 <- test4 %>%
+    dplyr::group_by(goal, component, region_id, category) %>%
+    dplyr::summarize(val_num = mean(val_num)) %>%
+    data.frame()
+  
+  
+  ## combine ecological and social based on resilience gamma weighting
+  test6 <- test5 %>%
+    dplyr::left_join(eco_soc_weighting, by="category") %>%
+    dplyr::group_by(goal, component, region_id) %>%
+    dplyr::summarise(val_num = weighted.mean(val_num, weight)) %>%
+    data.frame()
+  
+  ## For goals with components, get the relevant data layers used for weights
+  components <- SelectLayersData(layers, layers=rc$layer) %>%
+    dplyr::filter(id_num %in% regions) %>%
+    dplyr::select(region_id = id_num,
+                  component = category, 
+                  component_wt = val_num, 
+                  layer) %>%
+    dplyr::filter(!is.na(component)) %>%
+    dplyr::filter(!is.na(component_wt)) %>%
+    dplyr::left_join(rc, by="layer") %>%
+    dplyr::select(region_id, goal, component, component_wt) %>%
+    dplyr::mutate(component = as.character(component))
+  
+  
+  ## A weighted average of the components:
+  test7 <- test6 %>%
+    dplyr::left_join(components, by=c('region_id', 'goal', 'component')) %>%
+    dplyr::filter(!(is.na(component_wt) & goal %in% rc$goal))  %>%
+    dplyr::mutate(component_wt = ifelse(is.na(component_wt), 1, component_wt)) %>%
+    dplyr::group_by(goal, region_id) %>%
+    dplyr::summarize(val_num = weighted.mean(val_num, component_wt)) 
+  
+  # return scores    
+  scores <- D %>%
+    dplyr::left_join(test7, by="region_id") %>%
+    dplyr::mutate(dimension="resilience") %>%
+    select(goal, dimension, region_id, score=val_num) %>%
+    mutate(score = round(score*100, 2))
   return(scores)
+  
 }
