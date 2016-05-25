@@ -11,7 +11,7 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
   
   ## get resilience matrix, components, weights, categories, layers
   rc = conf$config$resilience_components                                 # weighting data for goals with components
-  rc = plyr::ldply(resilience_components)
+  rc = plyr::ldply(rc)
   names(rc) <- c('goal', 'layer')
   
   rg = conf$config$resilience_gamma                                      # gamma weighting for social vs. ecological resilience categories
