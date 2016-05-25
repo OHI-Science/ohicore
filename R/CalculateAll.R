@@ -115,7 +115,7 @@ CalculateAll = function(conf, layers, debug=FALSE){
   ## Calculate Resilience, all goals
   cat(sprintf('Calculating Resilience for each region...\n'))
   cat(sprintf('Note: each goal in resilience_matrix.csv must have at least one resilience field\n'))
-  scores = rbind(scores, CalculateResilienceAll(layers, conf, debug))
+  scores = rbind(scores, CalculateResilienceAll(layers, conf))
   scores = data.frame(scores)
 
   ## Calculate Goal Score and Likely Future, all goals
