@@ -42,5 +42,4 @@ Collate:
     'shp_to_geojson.R'
     'trace_git_csv_value.R'
     'mapvalues.R'
-    'zzz.R'
 RoxygenNote: 5.0.1
