@@ -6,14 +6,6 @@
 #' @import tidyr
 #' @import dplyr
 #' @export
-#' Calculate all the resilience score for each (sub)goal.
-#'
-#' @param layers object \code{\link{Layers}}
-#' @param conf object \code{\link{Conf}}
-#' @return data.frame containing columns 'region_id' and per subgoal resilience score
-#' @import tidyr
-#' @import dplyr
-#' @export
 CalculateResilienceAll = function(layers, conf, debug=FALSE){
   
   ## error unless layer value range is correct
