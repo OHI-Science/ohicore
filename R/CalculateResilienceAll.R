@@ -8,17 +8,6 @@
 #' @export
 CalculateResilienceAll = function(layers, conf, debug=FALSE){
   
-  ## error unless layer value range is correct
-  if (!all(subset(layers$meta, layer %in% r.layers, val_0to1, drop=T))){
-    stop(sprintf('These resilience layers do not range in value from 0 to 1:\n%s',
-                 paste(
-                   unlist(
-                     layers$meta %>%
-                       filter(layer %in% r.layers & val_0to1==F) %>%
-                       select(layer)),
-                   collapse = ', ')))
-  }
-  
   
   ## get resilience matrix, components, weights, categories, layers
   rc = conf$config$resilience_components                                 # weighting data for goals with components
@@ -33,6 +22,19 @@ CalculateResilienceAll = function(layers, conf, debug=FALSE){
   rw = conf$resilience_weights                                           # resilience weights table
   
   r.layers = setdiff(names(rm), c('goal','component','component_name'))  # list of resilience layers from matrix
+  
+  ## error unless layer value range is correct
+  if (!all(subset(layers$meta, layer %in% r.layers, val_0to1, drop=T))){
+    stop(sprintf('These resilience layers do not range in value from 0 to 1:\n%s',
+                 paste(
+                   unlist(
+                     layers$meta %>%
+                       filter(layer %in% r.layers & val_0to1==F) %>%
+                       select(layer)),
+                   collapse = ', ')))
+  }
+  
+  
   
   ## setup initial data.frame for column binding results by region
   D = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T) %>%
