@@ -41,7 +41,7 @@ CalculateResilienceAll = function(layers, conf){
   ## setup initial data.frame for column binding results by region
   regions_dataframe = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T) %>%
     dplyr::select(region_id = id_num)
-  regions_vector = D[['region_id']]
+  regions_vector = regions_dataframe[['region_id']]
   
   ## create the weighting scheme
   eco_soc_weight <- data.frame(category = c("ecological", "social"),
