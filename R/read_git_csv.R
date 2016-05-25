@@ -2,18 +2,15 @@
 #'
 #' Read CSV from local Git repository.
 #'
-#' @param repo path to local repository
-#' @param hex SHA hex of commit
-#' @param path to csv file with the repository as root
+#' @param repo: organization and repostiory name (e.g., 'OHI-Science/ohi-global')
+#' @param hex: hex SHA hex of commit (e.g., 'c7c7329')
+#' @param path: path to csv file (e.g., 'eez2015/scores.csv')
 #'
-#' @details If you have trouble running this function, please make sure:
-#' 1) your path resolves to a local Git repository,
-#' 2) the hex is valid (see history in RStudio Git or on Github) and
-#' 3) you have the latest git2r (try \code{devtools::install_github('ropensci/git2r')}).
+#' @details This function reads a csv file from a commit from a git repository.
 #'
 #' @keywords git
 #' @examples
-#'
+#' old_data <- read_git_csv('OHI-Science/ohi-global', 'c7c7329', 'eez2015/scores.csv')
 #' \dontrun{
 #' # get csv from github repository by SHA hex of commit
 #' d = read_git_csv('~/github/ohi-global', 'a81a8213', 'scores.csv')
@@ -21,26 +18,9 @@
 #' }
 #'
 #' @export
-read_git_csv = function(repo, hex, path, ...){
-
-  # get tree of commit
-  o = git2r::tree(lookup(repository(repo), hex)) # when(commit_old); show(commit_old); summary(commit_old) # Error during wrapup: 'match' requires vector arguments
-
-  # traverse tree, if in subdirectories
-  if (dirname(path) != '.'){
-    for (dir in str_split(dirname(path), '/')[[1]]){
-      o = o[dir]
-    }
-  }
-
-  # write and read csv content
-  csv = tempfile(tools::file_path_sans_ext(basename(path)), fileext='csv')
-  if (is_blob(o[basename(path)])){
-    cat(git2r::content(o[basename(path)]), file=csv, sep='\n')
-    d = read.csv(csv, ...)
-    unlink(csv)
-  } else {
-    d = NULL
-  }
-  return(d)
+read_git_csv = function(repo, hex=NA, path, ...){
+  
+  data <- read.csv(file.path('https://raw.githubusercontent.com', repo, hex, path))
+  
+  return(data)
 }
