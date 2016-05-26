@@ -165,8 +165,7 @@ CalculatePressuresAll = function(layers, conf){
   ## A weighted average of the components:
   calc_pressure <- calc_pressure %>%
     dplyr::left_join(p_component_layers, by=c('region_id', 'goal', 'component')) %>%
-    #    dplyr::filter(!(is.na(component_wt) & goal %in% p_components$goal))  %>%
-    dplyr::filter(!(is.na(component_wt)))  %>%
+    dplyr::filter(!(is.na(component_wt) & goal %in% p_components$goal))  %>%
     dplyr::mutate(component_wt = ifelse(is.na(component_wt), 1, component_wt)) %>%
     dplyr::group_by(goal, region_id) %>%
     dplyr::summarize(val_num = weighted.mean(pressure, component_wt)) %>%
