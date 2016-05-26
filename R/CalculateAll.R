@@ -71,7 +71,7 @@
 #' @importFrom plyr rename
 #'
 #' @export
-CalculateAll = function(conf, layers, debug=FALSE){
+CalculateAll = function(conf, layers){
 
   ## Remove global scores
   if (exists('scores', envir=.GlobalEnv)) rm(scores, envir=.GlobalEnv)
@@ -109,7 +109,7 @@ CalculateAll = function(conf, layers, debug=FALSE){
 
   ## Calculate Pressures, all goals
   cat(sprintf('Calculating Pressures for each region...\n'))
-  scores_P = CalculatePressuresAll(layers, conf, gamma=conf$config$pressures_gamma, debug)
+  scores_P = CalculatePressuresAll(layers, conf)
   scores = rbind(scores, scores_P)
 
   ## Calculate Resilience, all goals

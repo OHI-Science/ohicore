@@ -98,13 +98,13 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=FALSE){
       }
 
       ## error unless layer component is identified in config.R
-      if (!pc[[g]][['layer']] %in% names(layers)){
+      if (!pc[[g]] %in% names(layers)){
         stop(sprintf('This layer identified in config.R must be registered in layers.csv:\n%s',
-                     paste(pc[[g]][['layer']], collapse = ', ')))
+                     paste(pc[[g]], collapse = ', ')))
       }
 
       ## get the "weighting file"
-      d_w = SelectLayersData(layers, layers=pc[[g]][['layer']], narrow=T) %>%
+      d_w = SelectLayersData(layers, layers=pc[[g]], narrow=T) %>%
         dplyr::select(region_id = id_num,
                       category,
                       value = val_num) %>%
@@ -115,32 +115,12 @@ CalculatePressuresAll = function(layers, conf, gamma=0.5, debug=FALSE){
         message(sprintf('These %s components are not registered in weighting csv file identified in config.R:\n%s.\n(Components are identified in %s: %s)',
                         g,
                         paste(p.components[!p.components %in% d_w$category], collapse=', '),
-                        pc[[g]][['layer']],
+                        pc[[g]],
                         paste(unique(d_w$category), collapse=', ')))
       }
 
 
         ## loop to calculate pressure for each component of the goal (and save as krp):
-        if (exists('krp')) rm(krp)
-        for (k in p.components){ # k = p.components[1]
-
-          ## w specific to component, pressure weighting matrix applied to all regions [region_id x pressure: weights]
-          w <- matrix(rep(unlist(pm[pm$goal==g & pm$component==k, p.layers]), nr*np),
-                      byrow=T, nrow=nr, ncol=np,
-                      dimnames = list(region_id=regions, pressure=p.layers))
-
-          ## calculate pressures per region, component
-          rp.k <- data.frame(category=k, region_id=as.integer(dimnames(p)$region_id),
-                            p = CalculatePressuresScore(p, w, pressures_categories=pk, GAMMA=gamma))
-
-          rp.k <- dplyr::mutate(rp.k, category = as.character(category))
-
-          if (exists('krp')){
-            krp = rbind(krp, rp.k)
-          } else {
-            krp = rp.k
-          }
-        }
 
         ## join region, category, pressure to weighting matrix
         krpw = krp %>%

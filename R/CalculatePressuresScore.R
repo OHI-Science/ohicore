@@ -186,7 +186,7 @@
 ##' }
 ##' 
 ##' @export
-CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_categories=list(environmental=c('po','hd','fp','sp','cc'), social='ss')) {
+CalculatePressuresScore <- function(p, w, GAMMA=0.5, pressures_categories=list(environmental=c('po','hd','fp','sp','cc'), social='ss')) {
 
      # verify parameters
      if (getOption('debug', FALSE)) {
@@ -195,7 +195,7 @@ CalculatePressuresScore <- function(p, w, GAMMA=0.5, browse=FALSE, pressures_cat
        stopifnot(min(w, na.rm=T) >= 0  && max(w, na.rm=T) <= 3)   #  [0, 3]
      }
      
-     # normalize dimension handles
+#     normalize dimension handles
      stopifnot(all(names(dimnames(p)) == c('region_id', 'pressure')))
      stopifnot(all(names(dimnames(w)) == c('region_id', 'pressure')))
      stopifnot(all(dimnames(w)$region_id %in% dimnames(p)$region_id))
