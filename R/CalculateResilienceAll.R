@@ -21,7 +21,7 @@ CalculateResilienceAll = function(layers, conf){
     dplyr::filter(!is.na(included)) %>%
     dplyr::select(goal, component, layer)
 
-  r_weights = conf$resilience_categories                                           # resilience weights table
+  r_cats = conf$resilience_categories                                           # resilience weights table
 
   r_layers = setdiff(names(conf$resilience_matrix), c('goal','component','component_name'))   # list of resilience layers from matrix
 
@@ -73,14 +73,14 @@ CalculateResilienceAll = function(layers, conf){
   }
 
 
-  ## error check: that matrix and weights table include the same resilience factors
-  check <- setdiff(r_layers, r_weights$layer)
+  ## error check: that matrix and categories table include the same resilience factors
+  check <- setdiff(r_layers, r_cats$layer)
   if (length(check) >= 1) {
     message(sprintf('These resilience layers are in the resilience_matrix.csv but not in resilience_categories.csv:\n%s',
                     paste(check, collapse=', ')))
   }
 
-  check <- setdiff(r_weights$layer, r_layers)
+  check <- setdiff(r_cats$layer, r_layers)
   if (length(check) >= 1) {
     message(sprintf('These resilience layers are in the resilience_categories.csv but not in the resilience_matrix.csv:\n%s',
                     paste(check, collapse=', ')))
@@ -90,7 +90,7 @@ CalculateResilienceAll = function(layers, conf){
   rgn_matrix <- dplyr::left_join(r_matrix, r_rgn_layers, by="layer")
 
   # merge rgn_and_matrix data with the information in the resilience_categories.csv
-  rgn_matrix_weights <- dplyr::left_join(rgn_matrix, r_weights, by="layer")
+  rgn_matrix_weights <- dplyr::left_join(rgn_matrix, r_cats, by="layer")
 
   ## average subcategories of resilience layers
   calc_resil <- rgn_matrix_weights %>%

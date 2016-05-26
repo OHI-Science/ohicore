@@ -8,9 +8,9 @@
 #' @export
 CalculatePressuresAll = function(layers, conf){
   
-  ## get resilience matrix, components, weights, categories, layers
+  ## get pressure matrix, components, weights, categories, layers
   p_matrix <- conf$pressures_matrix
-  p_matrix <- tidyr::gather(p_matrix, layer, m_intensity, 4:ncol(p_matrix)) %>%    # format the resilience matrix so it is a dataframe    
+  p_matrix <- tidyr::gather(p_matrix, layer, m_intensity, 4:ncol(p_matrix)) %>%    # format the pressure matrix so it is a dataframe    
     dplyr::filter(!is.na(m_intensity)) %>%
     dplyr::select(goal, component, layer, m_intensity)
   
@@ -19,14 +19,11 @@ CalculatePressuresAll = function(layers, conf){
   p_components <- plyr::ldply(p_components)
   names(p_components) <- c('goal', 'layer')
   
-  # gamma weighting for social vs. ecological resilience categories
+  # gamma weighting for social vs. ecological pressure categories
   p_gamma = conf$config$pressures_gamma                                      
   
   # table describing pressure categories and subcategories
-  p_categories <- conf$config$pressures_categories
-  p_categories <- suppressWarnings(data.frame(p_categories) %>%
-                                     tidyr::gather("category", "subcategory", 1:2) %>%
-                                     unique())
+  p_categories <- conf$pressure_categories
   
   # list of pressure layers from the pressures_matrix
   p_layers = sort(names(conf$pressures_matrix)[!names(conf$pressures_matrix) %in% c('goal','component','component_name')])
@@ -49,6 +46,20 @@ CalculatePressuresAll = function(layers, conf){
   }
   
   
+  ## error check: that matrix and categories table include the same pressure layers
+  check <- setdiff(p_layers, p_categories$layer)
+  if (length(check) >= 1) {
+    message(sprintf('These pressure layers are in the pressure_matrix.csv but not in pressure_categories.csv:\n%s',
+                    paste(check, collapse=', ')))
+  }
+  
+  check <- setdiff(p_categories$layer, p_layers)
+  if (length(check) >= 1) {
+    message(sprintf('These pressure layers are in the pressure_categories.csv but not in the pressure_matrix.csv:\n%s',
+                    paste(check, collapse=', ')))
+  }
+  
+  
   ## setup initial data.frame for column binding results by region
   regions_dataframe = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T) %>%
     dplyr::select(region_id = id_num)
@@ -61,7 +72,7 @@ CalculatePressuresAll = function(layers, conf){
   eco_soc_weight$category <- as.character(eco_soc_weight$category)
   
   
-  ### get the regional data layer associated with each resilience data layer:
+  ### get the regional data layer associated with each pressure data layer:
   p_rgn_layers <- SelectLayersData(layers, layers=p_layers) %>%
     dplyr::filter(id_num %in% regions_vector) %>%
     dplyr::select(region_id = id_num,
@@ -69,7 +80,7 @@ CalculatePressuresAll = function(layers, conf){
                   layer) %>%
     dplyr::filter(!is.na(val_num))
   
-  ## error check: matrix and region data layers include the same resilience factors
+  ## error check: matrix and region data layers include the same pressure factors
   check <- setdiff(p_layers, p_rgn_layers$layer)
   if (length(check) >= 1) {
     message(sprintf('These pressure layers are in the pressures_matrix.csv, but there are no associated data layers:\n%s',
@@ -85,12 +96,12 @@ CalculatePressuresAll = function(layers, conf){
   
   ## further preparation of matrix data for analysis
   p_matrix <- p_matrix %>%
-    dplyr::mutate(subcategory = substring(layer, 1, 2)) %>%
-    dplyr::group_by(goal, component, subcategory) %>%
+    left_join(p_categories, by="layer") %>%
+    dplyr::group_by(goal, component, category, subcategory) %>%
     dplyr::mutate(max_subcategory = max(m_intensity)) %>%
     data.frame()
   
-  # merge the region data layers and the resilience matrix
+  # merge the region data layers and the pressure matrix
   rgn_matrix <- dplyr::left_join(p_matrix, p_rgn_layers, by="layer")
   
   
@@ -98,7 +109,6 @@ CalculatePressuresAll = function(layers, conf){
   ## (first find maximum pressure in each pressure subcategory)
   calc_pressure <- rgn_matrix %>%
     dplyr::mutate(pressure_intensity = m_intensity*val_num) %>%
-    dplyr::left_join(p_categories, by="subcategory") %>%
     data.frame()
   
   
@@ -147,7 +157,7 @@ CalculatePressuresAll = function(layers, conf){
     dplyr::select(region_id, goal, component, component_wt) %>%
     dplyr::mutate(component = as.character(component))
   
-  ## data check:  Make sure components for each goal are included in the resilience_matrix.R
+  ## data check:  Make sure components for each goal are included in the pressure_matrix.R
   check <- setdiff(paste(p_component_layers$goal, p_component_layers$component, sep= "-"),
                    paste(p_matrix$goal[p_matrix$goal %in% p_components$goal], p_matrix$component[p_matrix$goal %in% p_components$goal], sep= "-"))
   if (length(check) >= 1) {
