@@ -3,7 +3,6 @@
 export(CalculateAll)
 export(CalculateGoalIndex)
 export(CalculatePressuresAll)
-export(CalculatePressuresScore)
 export(CalculateResilienceAll)
 export(CheckLayers)
 export(Conf)

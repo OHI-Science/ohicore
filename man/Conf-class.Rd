@@ -16,7 +16,8 @@ object reference class of Config containing:
   \item{\emph{goals}}
   \item{\emph{pressures_matrix}}
   \item{\emph{resilience_matrix}}
-  \item{\emph{resilienceweights}}
+  \item{\emph{resilience_categories}}
+  \item{\emph{pressure_categories}}
 }
 }
 \description{
@@ -32,7 +33,8 @@ To create this object, \code{Conf(dir)}. The \code{dir} is expected to have the 
   \item{\emph{goals.csv}}
   \item{\emph{pressures_matrix.csv}}
   \item{\emph{resilience_matrix.csv}}
-  \item{\emph{resilienceweights.csv}}
+  \item{\emph{resilience_weights.csv}}
+  \item{\emph{pressure_categories}}
 }
 See also \code{\link{Conf_write}()} to write the configuration back to disk.
 }
