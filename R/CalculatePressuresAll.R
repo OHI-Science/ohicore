@@ -8,16 +8,16 @@
 #' @export
 CalculatePressuresAll = function(layers, conf){
   
-  ## get pressure matrix, components, weights, categories, layers
+  ## get pressure matrix, goal elements, weights, categories, layers
   p_matrix <- conf$pressures_matrix
   p_matrix <- tidyr::gather(p_matrix, layer, m_intensity, 4:ncol(p_matrix)) %>%    # format the pressure matrix so it is a dataframe    
     dplyr::filter(!is.na(m_intensity)) %>%
-    dplyr::select(goal, component, layer, m_intensity)
+    dplyr::select(goal, element, layer, m_intensity)
   
-  # p_components: make into a data.frame
-  p_components <- conf$config$pressures_components
-  p_components <- plyr::ldply(p_components)
-  names(p_components) <- c('goal', 'layer')
+  # p_elements: make into a data.frame
+  p_element <- conf$config$pressures_element
+  p_element <- plyr::ldply(p_element)
+  names(p_element) <- c('goal', 'layer')
   
   # gamma weighting for social vs. ecological pressure categories
   p_gamma = conf$config$pressures_gamma                                      
@@ -162,9 +162,9 @@ CalculatePressuresAll = function(layers, conf){
     dplyr::summarize(pressure = weighted.mean(pressure, weight)) %>%
     data.frame()
   
-  ## Deal with goals with components
+  ## Deal with goals with goal elements
   
-  p_component_layers <- SelectLayersData(layers, layers=p_components$layer) %>%
+  p_component_layers <- SelectLayersData(layers, layers=p_element$layer) %>%
     dplyr::filter(id_num %in% regions_vector) %>%
     dplyr::select(region_id = id_num,
                   component = category,
@@ -172,29 +172,29 @@ CalculatePressuresAll = function(layers, conf){
                   layer) %>%
     dplyr::filter(!is.na(component)) %>%
     dplyr::filter(!is.na(component_wt)) %>%
-    dplyr::left_join(p_components, by="layer") %>%
+    dplyr::left_join(p_element, by="layer") %>%
     dplyr::select(region_id, goal, component, component_wt) %>%
     dplyr::mutate(component = as.character(component))
   
-  ## data check:  Make sure components for each goal are included in the pressure_matrix.R
+  ## data check:  Make sure elements of each goal are included in the pressure_matrix.R
   check <- setdiff(paste(p_component_layers$goal, p_component_layers$component, sep= "-"),
-                   paste(p_matrix$goal[p_matrix$goal %in% p_components$goal], p_matrix$component[p_matrix$goal %in% p_components$goal], sep= "-"))
+                   paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$component[p_matrix$goal %in% p_element$goal], sep= "-"))
   if (length(check) >= 1) {
-    message(sprintf('These goal-components are in the weighting data layers, but not included in the pressure_matrix.csv:\n%s',
+    message(sprintf('These goal-elements are in the weighting data layers, but not included in the pressure_matrix.csv:\n%s',
                     paste(check, collapse=', ')))
   }
   
-  check <- setdiff(paste(p_matrix$goal[p_matrix$goal %in% p_components$goal], p_matrix$component[p_matrix$goal %in% p_components$goal], sep= "-"),
+  check <- setdiff(paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$component[p_matrix$goal %in% p_element$goal], sep= "-"),
                    paste(p_component_layers$goal, p_component_layers$component, sep= "-"))
   if (length(check) >= 1) {
-    message(sprintf('These goal-components are in the pressure_matrix.csv, but not included in the weighting data layers:\n%s',
+    message(sprintf('These goal-elements are in the pressure_matrix.csv, but not included in the weighting data layers:\n%s',
                     paste(check, collapse=', ')))
   }
   
-  ## A weighted average of the components:
+  ## A weighted average of the elements:
   calc_pressure <- calc_pressure %>%
     dplyr::left_join(p_component_layers, by=c('region_id', 'goal', 'component')) %>%
-    dplyr::filter(!(is.na(component_wt) & goal %in% p_components$goal))  %>%
+    dplyr::filter(!(is.na(component_wt) & goal %in% p_element$goal))  %>%
     dplyr::mutate(component_wt = ifelse(is.na(component_wt), 1, component_wt)) %>%
     dplyr::group_by(goal, region_id) %>%
     dplyr::summarize(val_num = weighted.mean(pressure, component_wt)) %>%
