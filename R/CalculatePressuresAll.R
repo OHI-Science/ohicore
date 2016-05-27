@@ -25,10 +25,22 @@ CalculatePressuresAll = function(layers, conf){
   # table describing pressure categories and subcategories
   p_categories <- conf$pressure_categories
   
+  # error if pressure categories deviate from "ecological" and "social"
+  check <- setdiff(c("ecological", "social"), unique(p_categories$category))
+  if (length(check) > 0){
+    stop(sprintf('In pressures_categories.csv, the "category" variable does not include %s', paste(check, collapse=', ')))
+  }
+  
+  check <- setdiff(unique(p_categories$category), c("ecological", "social"))
+   if (length(check) > 0){
+    stop(sprintf('In pressures_categories.csv, the "category" variable includes %s', paste(check, collapse=', ')))
+  }
+  
+    
   # list of pressure layers from the pressures_matrix
   p_layers = sort(names(conf$pressures_matrix)[!names(conf$pressures_matrix) %in% c('goal','component','component_name')])
   
-  
+
   # error if layer value range is incorrect
   if (!all(subset(layers$meta, layer %in% p_layers, val_0to1, drop=T))){
     stop(sprintf('These pressures layers must range in value from 0 to 1:\n%s',

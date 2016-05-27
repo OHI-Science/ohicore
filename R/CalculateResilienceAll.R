@@ -22,7 +22,19 @@ CalculateResilienceAll = function(layers, conf){
     dplyr::select(goal, component, layer)
 
   r_cats = conf$resilience_categories                                           # resilience weights table
-
+  # error if resilience categories deviate from "ecological" and "social"
+  check <- setdiff(c("ecological", "social"), unique(r_cats$category))
+  if (length(check) > 0){
+    stop(sprintf('In resilience_categories.csv, the "category" variable does not include %s', paste(check, collapse=', ')))
+  }
+  
+  check <- setdiff(unique(r_cats$category), c("ecological", "social"))
+  if (length(check) > 0){
+    stop(sprintf('In resilience_categories.csv, the "category" variable includes %s', paste(check, collapse=', ')))
+  }
+  
+  
+  
   r_layers = setdiff(names(conf$resilience_matrix), c('goal','component','component_name'))   # list of resilience layers from matrix
 
   ## error unless layer value range is correct
