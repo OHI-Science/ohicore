@@ -16,14 +16,14 @@ CalculateResilienceAll = function(layers, conf){
   r_gamma = conf$config$resilience_gamma                                        # gamma weighting for social vs. ecological resilience categories
 
   r_matrix = conf$resilience_matrix
-  r_matrix = within(r_matrix, {component[is.na(component)] = ''})               # resilience matrix
+  r_matrix = within(r_matrix, {element[is.na(element)] = ''})               # resilience matrix
   r_matrix <- tidyr::gather(r_matrix, layer, included, 3:ncol(r_matrix)) %>%    # format the resilience matrix so it is a dataframe
     dplyr::filter(!is.na(included)) %>%
-    dplyr::select(goal, component, layer)
+    dplyr::select(goal, element, layer)
 
   r_categories = conf$resilience_categories                                           # resilience weights table
   
-  r_layers = setdiff(names(conf$resilience_matrix), c('goal','component','component_name'))   # list of resilience layers from matrix
+  r_layers = setdiff(names(conf$resilience_matrix), c('goal','element','element_name'))   # list of resilience layers from matrix
   
   # reporting 
   cat(sprintf('Calculating Resilience for each region...\n'))
@@ -111,53 +111,53 @@ CalculateResilienceAll = function(layers, conf){
 
   ## average subcategories of resilience layers
   calc_resil <- rgn_matrix_weights %>%
-    dplyr::group_by(goal, component, region_id, category, category_type, subcategory) %>%
+    dplyr::group_by(goal, element, region_id, category, category_type, subcategory) %>%
     dplyr::summarize(max_subcategory = max(weight),
                      val_num = weighted.mean(val_num, weight)) %>%
     data.frame()
 
   ## average category types of resilience layers (weight by max weight in each subcategory)
   calc_resil <- calc_resil %>%
-    dplyr::group_by(goal, component, region_id, category, category_type) %>%
+    dplyr::group_by(goal, element, region_id, category, category_type) %>%
     dplyr::summarize(val_num = weighted.mean(val_num, max_subcategory)) %>%
     data.frame()
 
   ## average ecological element (ecosystem and regulatory)
   calc_resil <- calc_resil %>%
-    dplyr::group_by(goal, component, region_id, category) %>%
+    dplyr::group_by(goal, element, region_id, category) %>%
     dplyr::summarize(val_num = mean(val_num)) %>%
     data.frame()
 
   ## combine ecological and social based on resilience gamma weighting
   calc_resil <- calc_resil %>%
     dplyr::left_join(eco_soc_weight, by="category") %>%
-    dplyr::group_by(goal, component, region_id) %>%
+    dplyr::group_by(goal, element, region_id) %>%
     dplyr::summarise(val_num = weighted.mean(val_num, weight)) %>%
     data.frame()
 
   ## For goals with elements, get the relevant data layers used for weights
-  r_component_layers <- SelectLayersData(layers, layers=r_element$layer) %>%
+  r_element_layers <- SelectLayersData(layers, layers=r_element$layer) %>%
     dplyr::filter(id_num %in% regions_vector) %>%
     dplyr::select(region_id = id_num,
-                  component = category,
-                  component_wt = val_num,
+                  element = category,
+                  element_wt = val_num,
                   layer) %>%
-    dplyr::filter(!is.na(component)) %>%
-    dplyr::filter(!is.na(component_wt)) %>%
+    dplyr::filter(!is.na(element)) %>%
+    dplyr::filter(!is.na(element_wt)) %>%
     dplyr::left_join(r_element, by="layer") %>%
-    dplyr::select(region_id, goal, component, component_wt) %>%
-    dplyr::mutate(component = as.character(component))
+    dplyr::select(region_id, goal, element, element_wt) %>%
+    dplyr::mutate(element = as.character(element))
 
   ## data check:  Make sure elements for each goal are included in the resilience_matrix.R
-  check <- setdiff(paste(r_component_layers$goal, r_component_layers$component, sep= "-"),
-          paste(r_matrix$goal[r_matrix$goal %in% r_element$goal], r_matrix$component[r_matrix$goal %in% r_element$goal], sep= "-"))
+  check <- setdiff(paste(r_element_layers$goal, r_element_layers$element, sep= "-"),
+          paste(r_matrix$goal[r_matrix$goal %in% r_element$goal], r_matrix$element[r_matrix$goal %in% r_element$goal], sep= "-"))
   if (length(check) >= 1) {
     message(sprintf('These goal-elements are in the weighting data layers, but not included in the resilience_matrix.csv:\n%s',
                     paste(check, collapse=', ')))
   }
 
-  check <- setdiff(paste(r_matrix$goal[r_matrix$goal %in% r_element$goal], r_matrix$component[r_matrix$goal %in% r_element$goal], sep= "-"),
-                   paste(r_component_layers$goal, r_component_layers$component, sep= "-"))
+  check <- setdiff(paste(r_matrix$goal[r_matrix$goal %in% r_element$goal], r_matrix$element[r_matrix$goal %in% r_element$goal], sep= "-"),
+                   paste(r_element_layers$goal, r_element_layers$element, sep= "-"))
   if (length(check) >= 1) {
     message(sprintf('These goal-elements are in the resilience_matrix.csv, but not included in the weighting data layers:\n%s',
                     paste(check, collapse=', ')))
@@ -165,11 +165,11 @@ CalculateResilienceAll = function(layers, conf){
 
   ## A weighted average of the elements:
   calc_resil <- calc_resil %>%
-    dplyr::left_join(r_component_layers, by=c('region_id', 'goal', 'component')) %>%
-    dplyr::filter(!(is.na(component_wt) & goal %in% r_element$goal))  %>%
-    dplyr::mutate(component_wt = ifelse(is.na(component_wt), 1, component_wt)) %>%
+    dplyr::left_join(r_element_layers, by=c('region_id', 'goal', 'element')) %>%
+    dplyr::filter(!(is.na(element_wt) & goal %in% r_element$goal))  %>%
+    dplyr::mutate(element_wt = ifelse(is.na(element_wt), 1, element_wt)) %>%
     dplyr::group_by(goal, region_id) %>%
-    dplyr::summarize(val_num = weighted.mean(val_num, component_wt))
+    dplyr::summarize(val_num = weighted.mean(val_num, element_wt))
 
   # return scores
   scores <- regions_dataframe %>%

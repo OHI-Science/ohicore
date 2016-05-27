@@ -45,7 +45,8 @@ CalculatePressuresAll = function(layers, conf){
   
     
   # list of pressure layers from the pressures_matrix
-  p_layers = sort(names(conf$pressures_matrix)[!names(conf$pressures_matrix) %in% c('goal','component','component_name')])
+  p_layers = sort(names(conf$pressures_matrix)[!names(conf$pressures_matrix) %in% 
+                                                 c('goal','element','element_name')])
   
 
   # error if layer value range is incorrect
@@ -116,7 +117,7 @@ CalculatePressuresAll = function(layers, conf){
   ## further preparation of matrix data for analysis
   p_matrix <- p_matrix %>%
     left_join(p_categories, by="layer") %>%
-    dplyr::group_by(goal, component, category, subcategory) %>%
+    dplyr::group_by(goal, element, category, subcategory) %>%
     dplyr::mutate(max_subcategory = max(m_intensity)) %>%
     data.frame()
   
@@ -134,7 +135,7 @@ CalculatePressuresAll = function(layers, conf){
   ## separate method for ecological pressures
   calc_pressure_eco <- calc_pressure %>%
     dplyr::filter(category == "ecological") %>%
-    dplyr::group_by(goal, component, category, subcategory, max_subcategory, region_id) %>%
+    dplyr::group_by(goal, element, category, subcategory, max_subcategory, region_id) %>%
     dplyr::summarize(cum_pressure = sum(pressure_intensity, na.rm=TRUE)/3) %>%
     dplyr::mutate(cum_pressure = ifelse(cum_pressure > 1, 1, cum_pressure)) %>%
     data.frame()  
@@ -142,7 +143,7 @@ CalculatePressuresAll = function(layers, conf){
   ## separate method for social pressures
   calc_pressure_soc <- calc_pressure %>%
     dplyr::filter(category == "social") %>%
-    dplyr::group_by(goal, component, category, subcategory, max_subcategory, region_id) %>%
+    dplyr::group_by(goal, element, category, subcategory, max_subcategory, region_id) %>%
     dplyr::summarize(cum_pressure = mean(pressure_intensity)) %>%
     data.frame()  
   
@@ -151,41 +152,41 @@ CalculatePressuresAll = function(layers, conf){
   
   ## average of the pressure subcategories (weighted by highest intensity for each region/subcategory)
   calc_pressure <- calc_pressure %>%
-    dplyr::group_by(goal, component, category, region_id) %>%
+    dplyr::group_by(goal, element, category, region_id) %>%
     dplyr::summarize(pressure = weighted.mean(cum_pressure, max_subcategory)) %>%
     data.frame()
   
   ## combine ecological and social pressures, based on gamma
   calc_pressure <- calc_pressure %>%
     dplyr::left_join(eco_soc_weight, by="category") %>%
-    dplyr::group_by(goal, component, region_id) %>%
+    dplyr::group_by(goal, element, region_id) %>%
     dplyr::summarize(pressure = weighted.mean(pressure, weight)) %>%
     data.frame()
   
   ## Deal with goals with goal elements
   
-  p_component_layers <- SelectLayersData(layers, layers=p_element$layer) %>%
+  p_element_layers <- SelectLayersData(layers, layers=p_element$layer) %>%
     dplyr::filter(id_num %in% regions_vector) %>%
     dplyr::select(region_id = id_num,
-                  component = category,
-                  component_wt = val_num,
+                  element = category,
+                  element_wt = val_num,
                   layer) %>%
-    dplyr::filter(!is.na(component)) %>%
-    dplyr::filter(!is.na(component_wt)) %>%
+    dplyr::filter(!is.na(element)) %>%
+    dplyr::filter(!is.na(element_wt)) %>%
     dplyr::left_join(p_element, by="layer") %>%
-    dplyr::select(region_id, goal, component, component_wt) %>%
-    dplyr::mutate(component = as.character(component))
+    dplyr::select(region_id, goal, element, element_wt) %>%
+    dplyr::mutate(element = as.character(element))
   
   ## data check:  Make sure elements of each goal are included in the pressure_matrix.R
-  check <- setdiff(paste(p_component_layers$goal, p_component_layers$component, sep= "-"),
-                   paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$component[p_matrix$goal %in% p_element$goal], sep= "-"))
+  check <- setdiff(paste(p_element_layers$goal, p_element_layers$element, sep= "-"),
+                   paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$element[p_matrix$goal %in% p_element$goal], sep= "-"))
   if (length(check) >= 1) {
     message(sprintf('These goal-elements are in the weighting data layers, but not included in the pressure_matrix.csv:\n%s',
                     paste(check, collapse=', ')))
   }
   
-  check <- setdiff(paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$component[p_matrix$goal %in% p_element$goal], sep= "-"),
-                   paste(p_component_layers$goal, p_component_layers$component, sep= "-"))
+  check <- setdiff(paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$element[p_matrix$goal %in% p_element$goal], sep= "-"),
+                   paste(p_element_layers$goal, p_element_layers$element, sep= "-"))
   if (length(check) >= 1) {
     message(sprintf('These goal-elements are in the pressure_matrix.csv, but not included in the weighting data layers:\n%s',
                     paste(check, collapse=', ')))
@@ -193,11 +194,11 @@ CalculatePressuresAll = function(layers, conf){
   
   ## A weighted average of the elements:
   calc_pressure <- calc_pressure %>%
-    dplyr::left_join(p_component_layers, by=c('region_id', 'goal', 'component')) %>%
-    dplyr::filter(!(is.na(component_wt) & goal %in% p_element$goal))  %>%
-    dplyr::mutate(component_wt = ifelse(is.na(component_wt), 1, component_wt)) %>%
+    dplyr::left_join(p_element_layers, by=c('region_id', 'goal', 'element')) %>%
+    dplyr::filter(!(is.na(element_wt) & goal %in% p_element$goal))  %>%
+    dplyr::mutate(element_wt = ifelse(is.na(element_wt), 1, element_wt)) %>%
     dplyr::group_by(goal, region_id) %>%
-    dplyr::summarize(val_num = weighted.mean(pressure, component_wt)) %>%
+    dplyr::summarize(val_num = weighted.mean(pressure, element_wt)) %>%
     data.frame()
   
   # return scores
