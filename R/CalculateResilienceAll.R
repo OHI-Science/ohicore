@@ -21,21 +21,27 @@ CalculateResilienceAll = function(layers, conf){
     dplyr::filter(!is.na(included)) %>%
     dplyr::select(goal, component, layer)
 
-  r_cats = conf$resilience_categories                                           # resilience weights table
+  r_categories = conf$resilience_categories                                           # resilience weights table
+  
+  r_layers = setdiff(names(conf$resilience_matrix), c('goal','component','component_name'))   # list of resilience layers from matrix
+  
+  # reporting 
+  cat(sprintf('Calculating Resilience for each region...\n'))
+  cat(sprintf('There are %s subcategories that incude: %s', 
+              length(unique(r_categories$subcategory)), 
+              paste(unique(r_categories$subcategory), collapse=', ')))
+  
   # error if resilience categories deviate from "ecological" and "social"
-  check <- setdiff(c("ecological", "social"), unique(r_cats$category))
+  check <- setdiff(c("ecological", "social"), unique(r_categories$category))
   if (length(check) > 0){
     stop(sprintf('In resilience_categories.csv, the "category" variable does not include %s', paste(check, collapse=', ')))
   }
   
-  check <- setdiff(unique(r_cats$category), c("ecological", "social"))
+  check <- setdiff(unique(r_categories$category), c("ecological", "social"))
   if (length(check) > 0){
     stop(sprintf('In resilience_categories.csv, the "category" variable includes %s', paste(check, collapse=', ')))
   }
   
-  
-  
-  r_layers = setdiff(names(conf$resilience_matrix), c('goal','component','component_name'))   # list of resilience layers from matrix
 
   ## error unless layer value range is correct
   if (!all(subset(layers$meta, layer %in% r_layers, val_0to1, drop=T))){
@@ -48,7 +54,19 @@ CalculateResilienceAll = function(layers, conf){
                    collapse = ', ')))
   }
 
-
+  ## error check: that matrix and categories table include the same resilience factors
+  check <- setdiff(r_layers, r_categories$layer)
+  if (length(check) >= 1) {
+    message(sprintf('These resilience layers are in the resilience_matrix.csv but not in resilience_categories.csv:\n%s',
+                    paste(check, collapse=', ')))
+  }
+  
+  check <- setdiff(r_categories$layer, r_layers)
+  if (length(check) >= 1) {
+    message(sprintf('These resilience layers are in the resilience_categories.csv but not in the resilience_matrix.csv:\n%s',
+                    paste(check, collapse=', ')))
+  }
+  
 
   ## setup initial data.frame for column binding results by region
   regions_dataframe = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T) %>%
@@ -70,7 +88,6 @@ CalculateResilienceAll = function(layers, conf){
     dplyr::filter(!is.na(val_num))
 
 
-
   ## error check: matrix and region data layers include the same resilience factors
   check <- setdiff(r_layers, r_rgn_layers$layer)
   if (length(check) >= 1) {
@@ -85,24 +102,12 @@ CalculateResilienceAll = function(layers, conf){
   }
 
 
-  ## error check: that matrix and categories table include the same resilience factors
-  check <- setdiff(r_layers, r_cats$layer)
-  if (length(check) >= 1) {
-    message(sprintf('These resilience layers are in the resilience_matrix.csv but not in resilience_categories.csv:\n%s',
-                    paste(check, collapse=', ')))
-  }
-
-  check <- setdiff(r_cats$layer, r_layers)
-  if (length(check) >= 1) {
-    message(sprintf('These resilience layers are in the resilience_categories.csv but not in the resilience_matrix.csv:\n%s',
-                    paste(check, collapse=', ')))
-  }
 
   # merge the region data layers and the resilience matrix
   rgn_matrix <- dplyr::left_join(r_matrix, r_rgn_layers, by="layer")
 
   # merge rgn_and_matrix data with the information in the resilience_categories.csv
-  rgn_matrix_weights <- dplyr::left_join(rgn_matrix, r_cats, by="layer")
+  rgn_matrix_weights <- dplyr::left_join(rgn_matrix, r_categories, by="layer")
 
   ## average subcategories of resilience layers
   calc_resil <- rgn_matrix_weights %>%

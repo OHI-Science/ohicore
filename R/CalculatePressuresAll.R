@@ -24,7 +24,14 @@ CalculatePressuresAll = function(layers, conf){
   
   # table describing pressure categories and subcategories
   p_categories <- conf$pressure_categories
+
+  # reporting 
+  cat(sprintf('Calculating Pressures for each region...\n'))
+  cat(sprintf('There are %s subcategories that incude: %s', 
+              length(unique(p_categories$subcategory)), 
+                     paste(unique(p_categories$subcategory), collapse=', ')))
   
+    
   # error if pressure categories deviate from "ecological" and "social"
   check <- setdiff(c("ecological", "social"), unique(p_categories$category))
   if (length(check) > 0){
