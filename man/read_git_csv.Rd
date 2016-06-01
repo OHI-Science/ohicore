@@ -4,30 +4,26 @@
 \alias{read_git_csv}
 \title{Read CSV from local Git repository}
 \usage{
-read_git_csv(repo, hex, path, ...)
+read_git_csv(repo, hex = NA, path, ...)
 }
 \arguments{
-\item{repo}{path to local repository}
+\item{repo:}{organization and repostiory name (e.g., 'OHI-Science/ohi-global')}
 
-\item{hex}{SHA hex of commit}
+\item{hex:}{hex SHA hex of commit (e.g., 'c7c7329')}
 
-\item{path}{to csv file with the repository as root}
+\item{path:}{path to csv file (e.g., 'eez2015/scores.csv')}
 }
 \description{
 Read CSV from local Git repository.
 }
 \details{
-If you have trouble running this function, please make sure:
-1) your path resolves to a local Git repository,
-2) the hex is valid (see history in RStudio Git or on Github) and
-3) you have the latest git2r (try \code{devtools::install_github('ropensci/git2r')}).
+This function reads a csv file from a commit from a git repository.
 }
 \examples{
-
 \dontrun{
 # get csv from github repository by SHA hex of commit
-d = read_git_csv('~/github/ohi-global', 'a81a8213', 'scores.csv')
-head(d)
+old_data <- read_git_csv('OHI-Science/ohi-global', 'c7c7329', 'eez2015/scores.csv')
+head(old_data)
 }
 
 }

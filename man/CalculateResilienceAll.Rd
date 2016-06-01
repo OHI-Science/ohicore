@@ -4,7 +4,7 @@
 \alias{CalculateResilienceAll}
 \title{Calculate all the resilience score for each (sub)goal.}
 \usage{
-CalculateResilienceAll(layers, conf, debug = FALSE)
+CalculateResilienceAll(layers, conf)
 }
 \arguments{
 \item{layers}{object \code{\link{Layers}}}

@@ -7,7 +7,6 @@ If any R/functions.R files are added or deleted this should be reflected in the 
 If changes are made to any of the R/functions.R (or other files), the following should be run.
 
 ```
-setwd('~/github/ohicore')
 
 roxygen2::roxygenise() 
 devtools::document()
