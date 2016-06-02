@@ -17,15 +17,6 @@ change_plot = function(repo = "ohi-global", scenario="eez2014", commit="previous
   
   detach("package:devtools", unload=TRUE)
   
-  require(git2r)
-  require(ggplot2)
-  require(RColorBrewer)
-  require(htmlwidgets)
-  require(plotly)
-  require(dplyr)
-  require(stringr)
-  
-  
   repo2 <- sprintf("../%s", repo)
   
   if(commit=="previous"){
@@ -58,7 +49,7 @@ change_plot = function(repo = "ohi-global", scenario="eez2014", commit="previous
     geom_jitter(aes(text=paste0("rgn = ", region_id)), position = position_jitter(width=0.2, height=0), shape=19, size=1)
   
   plotly_fig <- plotly::ggplotly(p)
-  htmlwidgets::saveWidget(htmlwidgets::as.widget(plotly_fig), "tmp_file.html", selfcontained=TRUE)
+  htmlwidgets::saveWidget(plotly::as.widget(plotly_fig), "tmp_file.html", selfcontained=TRUE)
   
   my.file.rename <- function(from, to) {
     todir <- dirname(to)
