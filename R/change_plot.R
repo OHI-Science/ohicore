@@ -16,7 +16,7 @@
 #' 
 #' @export
 change_plot = function(repo = "ohi-global", scenario="eez2014", commit="previous", 
-           fileSave="change_plot", save_csv=FALSE, save_png=FALSE){
+           fileSave, save_csv=FALSE, save_png=FALSE){
   
   repo2 <- sprintf("../%s", repo)
   
