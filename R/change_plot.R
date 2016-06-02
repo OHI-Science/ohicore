@@ -11,11 +11,12 @@
 #' @param save_csv If TRUE, the difference csv file will be saved.
 #' @param save_png If TRUE, a static png of the image will be saved. 
 #' 
+#' @import plotly
+#' @import htmlwidgets
+#' 
 #' @export
 change_plot = function(repo = "ohi-global", scenario="eez2014", commit="previous", 
-           fileSave="global_resilience_massive_revision_eez2014_test", save_csv=FALSE, save_png=FALSE){
-  
-  detach("package:devtools", unload=TRUE)
+           fileSave="change_plot", save_csv=FALSE, save_png=FALSE){
   
   repo2 <- sprintf("../%s", repo)
   

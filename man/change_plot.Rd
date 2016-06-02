@@ -5,9 +5,8 @@
 \title{change_plot.}
 \usage{
 change_plot(repo = "ohi-global", scenario = "eez2014",
-  commit = "previous",
-  fileSave = "global_resilience_massive_revision_eez2014_test",
-  save_csv = FALSE, save_png = FALSE)
+  commit = "previous", fileSave = "change_plot", save_csv = FALSE,
+  save_png = FALSE)
 }
 \arguments{
 \item{repo}{The repository name, e.g., 'ohi-global'.}
