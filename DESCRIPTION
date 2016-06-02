@@ -20,7 +20,10 @@ Imports:
     rgdal,
     sp,
     methods,
-    tidyr
+    tidyr,
+    RColorBrewer,
+    htmlwidgets,
+    plotly
 Suggests:
     testthat
 Collate:
@@ -41,4 +44,5 @@ Collate:
     'shp_to_geojson.R'
     'trace_git_csv_value.R'
     'mapvalues.R'
+    'change_plot.R'
 RoxygenNote: 5.0.1
