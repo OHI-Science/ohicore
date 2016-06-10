@@ -1,6 +1,7 @@
 ohicore
 =======
 
+
 `ohicore` is a package of core functions for calculating the Ocean Health Index. For more, please visit [OHI-Science.org](http://ohi-science.org).
 
 ## Installation
