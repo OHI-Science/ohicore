@@ -237,7 +237,8 @@ CalculateAll = function(conf, layers, debug=F){
       # calculate weighted mean by area
       group_by(goal, dimension) %>%
       summarise(score = weighted.mean(score, area, na.rm=T),
-                region_id = 0)) 
+                region_id = 0) %>%
+      ungroup()) 
     
   
   ## post-process
