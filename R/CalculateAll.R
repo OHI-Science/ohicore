@@ -236,9 +236,9 @@ CalculateAll = function(conf, layers){
       # calculate weighted mean by area
       dplyr::group_by(goal, dimension) %>%
       dplyr::summarise(score = weighted.mean(score, area, na.rm=T),
-                region_id = 0))
-
-
+                region_id = 0) %>%
+      ungroup()) 
+    
   ## post-process
   if ('FinalizeScores' %in% ls(conf$functions)){
     cat(sprintf('Calculating FinalizeScores function...\n'))
