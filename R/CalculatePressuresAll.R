@@ -28,10 +28,10 @@ CalculatePressuresAll = function(layers, conf){
   p_gamma = conf$config$pressures_gamma
 
   # table describing pressure categories and subcategories
-  p_categories <- unique(conf$pressure_categories$layer)
+  p_categories <- unique(conf$pressure_categories)
 
   # reporting 2
-  cat(sprintf('There are %s Pressures subcategories: %s \n',
+  cat(sprintf('There are %s pressures subcategories: %s \n',
               length(unique(p_categories$subcategory)),
                      paste(unique(p_categories$subcategory), collapse=', ')))
 
