@@ -108,12 +108,10 @@ CalculateAll = function(conf, layers){
   }
 
   ## Calculate Pressures, all goals
-  cat('Calculating Pressures for each region...')
   scores_P = CalculatePressuresAll(layers, conf)
   scores = rbind(scores, scores_P)
 
   ## Calculate Resilience, all goals
-  cat('Calculating Resilience for each region...')
   scores = rbind(scores, CalculateResilienceAll(layers, conf))
   scores = data.frame(scores)
 

@@ -8,6 +8,9 @@
 #' @export
 CalculateResilienceAll = function(layers, conf){
 
+  # reporting 1
+  cat(sprintf('Calculating Resilience for each region...\n'))
+
   ## get resilience matrix, goal elements, weights, categories, layers
   r_element = conf$config$resilience_element                              # weighting data for goals with elements
   r_element = plyr::ldply(r_element)
@@ -22,26 +25,25 @@ CalculateResilienceAll = function(layers, conf){
     dplyr::select(goal, element, layer)
 
   r_categories = conf$resilience_categories                                           # resilience weights table
-  
+
   r_layers = setdiff(names(conf$resilience_matrix), c('goal','element','element_name'))   # list of resilience layers from matrix
-  
-  # reporting 
-  cat(sprintf('Calculating Resilience for each region...\n'))
-  cat(sprintf('There are %s subcategories that incude: %s', 
-              length(unique(r_categories$subcategory)), 
+
+  # reporting 2
+  cat(sprintf('There are %s subcategories that incude: %s',
+              length(unique(r_categories$subcategory)),
               paste(unique(r_categories$subcategory), collapse=', ')))
-  
+
   # error if resilience categories deviate from "ecological" and "social"
   check <- setdiff(c("ecological", "social"), unique(r_categories$category))
   if (length(check) > 0){
     stop(sprintf('In resilience_categories.csv, the "category" variable does not include %s', paste(check, collapse=', ')))
   }
-  
+
   check <- setdiff(unique(r_categories$category), c("ecological", "social"))
   if (length(check) > 0){
     stop(sprintf('In resilience_categories.csv, the "category" variable includes %s', paste(check, collapse=', ')))
   }
-  
+
 
   ## error unless layer value range is correct
   if (!all(subset(layers$meta, layer %in% r_layers, val_0to1, drop=T))){
@@ -60,13 +62,13 @@ CalculateResilienceAll = function(layers, conf){
     message(sprintf('These resilience layers are in the resilience_matrix.csv but not in resilience_categories.csv:\n%s',
                     paste(check, collapse=', ')))
   }
-  
+
   check <- setdiff(r_categories$layer, r_layers)
   if (length(check) >= 1) {
     message(sprintf('These resilience layers are in the resilience_categories.csv but not in the resilience_matrix.csv:\n%s',
                     paste(check, collapse=', ')))
   }
-  
+
 
   ## setup initial data.frame for column binding results by region
   regions_dataframe = SelectLayersData(layers, layers=conf$config$layer_region_labels, narrow=T) %>%

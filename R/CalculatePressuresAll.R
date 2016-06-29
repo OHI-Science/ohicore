@@ -8,6 +8,9 @@
 #' @export
 CalculatePressuresAll = function(layers, conf){
 
+  # reporting 1
+  cat(sprintf('Calculating Pressures for each region...\n'))
+
   ## get pressure matrix, goal elements, weights, categories, layers
   p_matrix <- conf$pressures_matrix
   p_matrix <- tidyr::gather(p_matrix, layer, m_intensity, 4:ncol(p_matrix)) %>%    # format the pressure matrix so it is a dataframe
@@ -27,8 +30,7 @@ CalculatePressuresAll = function(layers, conf){
   # table describing pressure categories and subcategories
   p_categories <- conf$pressure_categories
 
-  # reporting
-  cat(sprintf('Calculating Pressures for each region...\n'))
+  # reporting 2
   cat(sprintf('There are %s subcategories that incude: %s',
               length(unique(p_categories$subcategory)),
                      paste(unique(p_categories$subcategory), collapse=', ')))
