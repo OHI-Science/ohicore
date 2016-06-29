@@ -13,8 +13,10 @@ CalculateResilienceAll = function(layers, conf){
 
   ## get resilience matrix, goal elements, weights, categories, layers
   r_element = conf$config$resilience_element                              # weighting data for goals with elements
-  r_element = plyr::ldply(r_element)
-  names(r_element) <- c('goal', 'layer')
+  if (length(r_element) >= 1) { # only if there are any goals that have elements
+    r_element = plyr::ldply(r_element)
+    names(r_element) <- c('goal', 'layer')
+  }
 
   r_gamma = conf$config$resilience_gamma                                        # gamma weighting for social vs. ecological resilience categories
 
@@ -138,40 +140,43 @@ CalculateResilienceAll = function(layers, conf){
     data.frame()
 
   ## For goals with elements, get the relevant data layers used for weights
-  r_element_layers <- SelectLayersData(layers, layers=r_element$layer) %>%
-    dplyr::filter(id_num %in% regions_vector) %>%
-    dplyr::select(region_id = id_num,
-                  element = category,
-                  element_wt = val_num,
-                  layer) %>%
-    dplyr::filter(!is.na(element)) %>%
-    dplyr::filter(!is.na(element_wt)) %>%
-    dplyr::left_join(r_element, by="layer") %>%
-    dplyr::select(region_id, goal, element, element_wt) %>%
-    dplyr::mutate(element = as.character(element))
+  if (length(r_element) >= 1) { # only if there are any goals that have elements
+    r_element_layers <- SelectLayersData(layers, layers=r_element$layer) %>%
+      dplyr::filter(id_num %in% regions_vector) %>%
+      dplyr::select(region_id = id_num,
+                    element = category,
+                    element_wt = val_num,
+                    layer) %>%
+      dplyr::filter(!is.na(element)) %>%
+      dplyr::filter(!is.na(element_wt)) %>%
+      dplyr::left_join(r_element, by="layer") %>%
+      dplyr::select(region_id, goal, element, element_wt) %>%
+      dplyr::mutate(element = as.character(element))
 
-  ## data check:  Make sure elements for each goal are included in the resilience_matrix.R
-  check <- setdiff(paste(r_element_layers$goal, r_element_layers$element, sep= "-"),
-          paste(r_matrix$goal[r_matrix$goal %in% r_element$goal], r_matrix$element[r_matrix$goal %in% r_element$goal], sep= "-"))
-  if (length(check) >= 1) {
-    message(sprintf('These goal-elements are in the weighting data layers, but not included in the resilience_matrix.csv:\n%s',
-                    paste(check, collapse=', ')))
-  }
+    ## data check:  Make sure elements for each goal are included in the resilience_matrix.R
+    check <- setdiff(paste(r_element_layers$goal, r_element_layers$element, sep= "-"),
+                     paste(r_matrix$goal[r_matrix$goal %in% r_element$goal], r_matrix$element[r_matrix$goal %in% r_element$goal], sep= "-"))
+    if (length(check) >= 1) {
+      message(sprintf('These goal-elements are in the weighting data layers, but not included in the resilience_matrix.csv:\n%s',
+                      paste(check, collapse=', ')))
+    }
 
-  check <- setdiff(paste(r_matrix$goal[r_matrix$goal %in% r_element$goal], r_matrix$element[r_matrix$goal %in% r_element$goal], sep= "-"),
-                   paste(r_element_layers$goal, r_element_layers$element, sep= "-"))
-  if (length(check) >= 1) {
-    message(sprintf('These goal-elements are in the resilience_matrix.csv, but not included in the weighting data layers:\n%s',
-                    paste(check, collapse=', ')))
-  }
+    check <- setdiff(paste(r_matrix$goal[r_matrix$goal %in% r_element$goal], r_matrix$element[r_matrix$goal %in% r_element$goal], sep= "-"),
+                     paste(r_element_layers$goal, r_element_layers$element, sep= "-"))
+    if (length(check) >= 1) {
+      message(sprintf('These goal-elements are in the resilience_matrix.csv, but not included in the weighting data layers:\n%s',
+                      paste(check, collapse=', ')))
+    }
 
-  ## A weighted average of the elements:
-  calc_resil <- calc_resil %>%
-    dplyr::left_join(r_element_layers, by=c('region_id', 'goal', 'element')) %>%
-    dplyr::filter(!(is.na(element_wt) & goal %in% r_element$goal))  %>%
-    dplyr::mutate(element_wt = ifelse(is.na(element_wt), 1, element_wt)) %>%
-    dplyr::group_by(goal, region_id) %>%
-    dplyr::summarize(val_num = weighted.mean(val_num, element_wt))
+    ## A weighted average of the elements:
+    calc_resil <- calc_resil %>%
+      dplyr::left_join(r_element_layers, by=c('region_id', 'goal', 'element')) %>%
+      dplyr::filter(!(is.na(element_wt) & goal %in% r_element$goal))  %>%
+      dplyr::mutate(element_wt = ifelse(is.na(element_wt), 1, element_wt)) %>%
+      dplyr::group_by(goal, region_id) %>%
+      dplyr::summarize(val_num = weighted.mean(val_num, element_wt))
+
+  } # end if(length(r_element) >= 1) for goals with elements
 
   # return scores
   scores <- regions_dataframe %>%
