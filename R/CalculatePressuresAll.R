@@ -28,13 +28,22 @@ CalculatePressuresAll = function(layers, conf){
   p_gamma = conf$config$pressures_gamma
 
   # table describing pressure categories and subcategories
-  p_categories <- conf$pressure_categories
+  p_categories <- unique(conf$pressure_categories$layer)
 
   # reporting 2
   cat(sprintf('There are %s Pressures subcategories: %s \n',
               length(unique(p_categories$subcategory)),
                      paste(unique(p_categories$subcategory), collapse=', ')))
 
+  ## error if the config.R weighting files are not actually included in the the data
+  obs_data <- dplyr::select(SelectLayersData(layers, layers=p_element$layer), layer)
+  obs_data <- unique(obs_data$layer)
+  exp_data <- unique(p_element$layer)
+  dif <- setdiff(exp_data, obs_data)
+  if (length(dif) > 0) {
+    stop(sprintf('weighting data layers identified in config.r do not exist; please update layers.csv and layers folder to include: %s',
+         paste(dif, collapse=', ')))
+  }
 
   # error if pressure categories deviate from "ecological" and "social"
   check <- setdiff(c("ecological", "social"), unique(p_categories$category))
@@ -167,11 +176,6 @@ CalculatePressuresAll = function(layers, conf){
     dplyr::summarize(pressure = weighted.mean(pressure, weight)) %>%
     data.frame()
 
-  ## Check that goals with goal elements are correctly set up
-  if (length(SelectLayersData(layers, layers=p_element$layer)) < 1 &
-      length(p_element) >= 1) {
-    message('weighting data layers identified in config.r do not exist; please check layers.csv and layers folder:')
-  }
 
   ## Deal with goals with goal elements
   if (length(p_element) >= 1) { # only if there are any goals that have elements
