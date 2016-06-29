@@ -10,3 +10,4 @@
   * sovregion_labels
   * sovregions
   * rgn_synonyms
+  * test
