@@ -31,7 +31,7 @@ CalculatePressuresAll = function(layers, conf){
   p_categories <- conf$pressure_categories
 
   # reporting 2
-  cat(sprintf('There are %s subcategories that incude: %s',
+  cat(sprintf('There are %s Pressures subcategories: %s \n',
               length(unique(p_categories$subcategory)),
                      paste(unique(p_categories$subcategory), collapse=', ')))
 

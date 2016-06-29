@@ -82,7 +82,7 @@ CalculateAll = function(conf, layers){
       conf$functions$Setup()
     }
 
-  ## Pre-Index functions: Status and Trend, by goal
+  ## Access Pre-Index functions: Status and Trend, by goal
   goals_X = conf$goals %>%
     dplyr::filter(!is.na(preindex_function)) %>%
     dplyr::arrange(order_calculate)

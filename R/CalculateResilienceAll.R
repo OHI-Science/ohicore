@@ -31,7 +31,7 @@ CalculateResilienceAll = function(layers, conf){
   r_layers = setdiff(names(conf$resilience_matrix), c('goal','element','element_name'))   # list of resilience layers from matrix
 
   # reporting 2
-  cat(sprintf('There are %s subcategories that incude: %s',
+  cat(sprintf('There are %s Resilience subcategories: %s \n',
               length(unique(r_categories$subcategory)),
               paste(unique(r_categories$subcategory), collapse=', ')))
 
