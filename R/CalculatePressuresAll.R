@@ -16,8 +16,10 @@ CalculatePressuresAll = function(layers, conf){
 
   # p_elements: make into a data.frame
   p_element <- conf$config$pressures_element
-  p_element <- plyr::ldply(p_element)
-  names(p_element) <- c('goal', 'layer')
+  if (length(p_element) >= 1) { # only if there are any goals that have elements
+    p_element <- plyr::ldply(p_element)
+    names(p_element) <- c('goal', 'layer')
+  }
 
   # gamma weighting for social vs. ecological pressure categories
   p_gamma = conf$config$pressures_gamma
@@ -164,52 +166,56 @@ CalculatePressuresAll = function(layers, conf){
     data.frame()
 
   ## Check that goals with goal elements are correctly set up
-  if (length(SelectLayersData(layers, layers=p_element$layer)) < 1) {
+  if (length(SelectLayersData(layers, layers=p_element$layer)) < 1 &
+      length(p_element) >= 1) {
     message('weighting data layers identified in config.r do not exist; please check layers.csv and layers folder:')
   }
 
   ## Deal with goals with goal elements
-  p_element_layers <- SelectLayersData(layers, layers=p_element$layer) %>%
-    dplyr::filter(id_num %in% regions_vector) %>%
-    dplyr::select(region_id = id_num,
-                  element = category,
-                  element_wt = val_num,
-                  layer) %>%
-    dplyr::filter(!is.na(element)) %>%
-    dplyr::filter(!is.na(element_wt)) %>%
-    dplyr::left_join(p_element, by="layer") %>%
-    dplyr::select(region_id, goal, element, element_wt) %>%
-    dplyr::mutate(element = as.character(element))
+  if (length(p_element) >= 1) { # only if there are any goals that have elements
+    p_element_layers <- SelectLayersData(layers, layers=p_element$layer) %>%
+      dplyr::filter(id_num %in% regions_vector) %>%
+      dplyr::select(region_id = id_num,
+                    element = category,
+                    element_wt = val_num,
+                    layer) %>%
+      dplyr::filter(!is.na(element)) %>%
+      dplyr::filter(!is.na(element_wt)) %>%
+      dplyr::left_join(p_element, by="layer") %>%
+      dplyr::select(region_id, goal, element, element_wt) %>%
+      dplyr::mutate(element = as.character(element))
 
-  ## data check:  Make sure elements of each goal are included in the pressure_matrix.R
-  check <- setdiff(paste(p_element_layers$goal, p_element_layers$element, sep= "-"),
-                   paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$element[p_matrix$goal %in% p_element$goal], sep= "-"))
-  if (length(check) >= 1) {
-    message(sprintf('These goal-elements are in the weighting data layers, but not included in the pressure_matrix.csv:\n%s',
-                    paste(check, collapse=', ')))
-  }
+    ## data check:  Make sure elements of each goal are included in the pressure_matrix.R
+    check <- setdiff(paste(p_element_layers$goal, p_element_layers$element, sep= "-"),
+                     paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$element[p_matrix$goal %in% p_element$goal], sep= "-"))
+    if (length(check) >= 1) {
+      message(sprintf('These goal-elements are in the weighting data layers, but not included in the pressure_matrix.csv:\n%s',
+                      paste(check, collapse=', ')))
+    }
 
-  check <- setdiff(paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$element[p_matrix$goal %in% p_element$goal], sep= "-"),
-                   paste(p_element_layers$goal, p_element_layers$element, sep= "-"))
-  if (length(check) >= 1) {
-    message(sprintf('These goal-elements are in the pressure_matrix.csv, but not included in the weighting data layers:\n%s',
-                    paste(check, collapse=', ')))
-  }
+    check <- setdiff(paste(p_matrix$goal[p_matrix$goal %in% p_element$goal], p_matrix$element[p_matrix$goal %in% p_element$goal], sep= "-"),
+                     paste(p_element_layers$goal, p_element_layers$element, sep= "-"))
+    if (length(check) >= 1) {
+      message(sprintf('These goal-elements are in the pressure_matrix.csv, but not included in the weighting data layers:\n%s',
+                      paste(check, collapse=', ')))
+    }
 
-  ## A weighted average of the elements:
-  calc_pressure <- calc_pressure %>%
-    dplyr::left_join(p_element_layers, by=c('region_id', 'goal', 'element')) %>%
-    dplyr::filter(!(is.na(element_wt) & goal %in% p_element$goal))  %>%
-    dplyr::mutate(element_wt = ifelse(is.na(element_wt), 1, element_wt)) %>%
-    dplyr::group_by(goal, region_id) %>%
-    dplyr::summarize(val_num = weighted.mean(pressure, element_wt)) %>%
-    data.frame()
+    ## Reset calc_pressure as a weighted average of the elements:
+    calc_pressure <- calc_pressure %>%
+      dplyr::left_join(p_element_layers, by=c('region_id', 'goal', 'element')) %>%
+      dplyr::filter(!(is.na(element_wt) & goal %in% p_element$goal))  %>%
+      dplyr::mutate(element_wt = ifelse(is.na(element_wt), 1, element_wt)) %>%
+      dplyr::group_by(goal, region_id) %>%
+      dplyr::summarize(pressure = weighted.mean(pressure, element_wt)) %>% # retain a 'pressure' column
+      data.frame()
+
+  } # end if(length(p_element) >= 1) for goals with elements
 
   # return scores
   scores <- regions_dataframe %>%
     dplyr::left_join(calc_pressure, by="region_id") %>%
     dplyr::mutate(dimension="pressures") %>%
-    select(goal, dimension, region_id, score=val_num) %>%
+    select(goal, dimension, region_id, score=pressure) %>%
     mutate(score = round(score*100, 2))
   return(scores)
 }

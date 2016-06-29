@@ -108,10 +108,12 @@ CalculateAll = function(conf, layers){
   }
 
   ## Calculate Pressures, all goals
+  cat('Calculating Pressures for each region...')
   scores_P = CalculatePressuresAll(layers, conf)
   scores = rbind(scores, scores_P)
 
   ## Calculate Resilience, all goals
+  cat('Calculating Resilience for each region...')
   scores = rbind(scores, CalculateResilienceAll(layers, conf))
   scores = data.frame(scores)
 
@@ -237,8 +239,8 @@ CalculateAll = function(conf, layers){
       dplyr::group_by(goal, dimension) %>%
       dplyr::summarise(score = weighted.mean(score, area, na.rm=T),
                 region_id = 0) %>%
-      ungroup()) 
-    
+      ungroup())
+
   ## post-process
   if ('FinalizeScores' %in% ls(conf$functions)){
     cat(sprintf('Calculating FinalizeScores function...\n'))
