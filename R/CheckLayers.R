@@ -3,24 +3,25 @@
 #' Check all the input layers as defined by layers.csv and update required fields
 #' 
 #' @aliases CheckLayers
-#' @param layers.csv full path to the layers.csv file.
-#' @param layers.dir full path to the directory containing the layers files.
+#' @param layers.csv path to comma-seperated value file with row of metadata for each dataset used in OHI analysis.
+#' @param layers.dir full path to the directory containing the layers files (csv files that correspond to each entry in layers.csv).
 #' @param flds_id character vector of unique identifiers, typically
 #' spatial, eg c('region_id', 'country_id', 'saup_id'), described in your \code{\link{Conf}$layers_id_fields}.
-#' @param if True (default), extra diagnostics are output
+#' @param verbose if TRUE (default), extra diagnostics are output
 #' @return warning messages
-#' @details The CheckLayers() function iterates through all the layers
-#' in layers.csv and updates the following field names, which can be NA for any except flds:
+#' @details This function goes through all the entries 
+#' in layers.csv and does several checks (e.g., that each datalayer in layers.csv is present in the layers folder, etc.).  
+#' This function appends the following information:
 #' \itemize{
 #'  \item{\emph{fld_id_num} - name of field used as spatial identifier, if numeric}
 #'  \item{\emph{fld_id_chr} - name of field used as spatial identifier, if character}
 #'  \item{\emph{fld_category} - name of field used as category}
-#'  \item{\emph{fld_year} - ame of field used as year}
+#'  \item{\emph{fld_year} - name of field used as year}
 #'  \item{\emph{fld_val_num} - name of field used as value, from fld_value, if numeric}
 #'  \item{\emph{fld_val_chr} - name of field used as value, from fld_value, if character}
 #'  \item{\emph{flds} - data fields used for the layer}
 #' }
-#' Additional diagnostic fields are updated:
+#' This function also appends the following diagnostic fields to layers.csv:
 #' \itemize{
 #'   \item{\emph{file_exists} - input filename exists}
 #'   \item{\emph{year_min} - minimum year, if year present}
@@ -39,10 +40,10 @@
 #'   CheckLayers(layers.csv, layers.dir, c('rgn_id','cntry_key','saup_id'))
 #' }
 #' @export
-CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=T, msg.indent='  '){
+CheckLayers = function(layers.csv, layers.dir, flds_id, verbose=TRUE){
   # for each layer listed in layers.csv, check for file in dir.layers,
   # and update layers.csv with information about the file's existence and identified fields for assembling into layers_data.csv
-    
+  msg.indent='  '  
   # read in
   m = read.csv(layers.csv)
   

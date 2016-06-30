@@ -11,52 +11,38 @@ LazyData: TRUE
 Depends:
     R (>= 3.1.0)
 Imports:
-    RColorBrewer,
-    RJSONIO,
     dplyr (>= 0.3),
     ggplot2 (>= 1.0.0),
-    ggvis (>= 0.4),
-    httr,
-    markdown (>= 0.6.3),
     plyr (>= 1.8.0),
-    rCharts,
     reshape2,
-    shiny (>= 0.10.0),
     stringr,
-    knitr (>= 1.5)
+    git2r,
+    rgdal,
+    sp,
+    methods,
+    tidyr,
+    RColorBrewer,
+    htmlwidgets,
+    plotly
 Suggests:
     testthat
 Collate:
     'CalculateAll.R'
     'CalculateGoalIndex.R'
     'CalculatePressuresAll.R'
-    'CalculatePressuresComponent.R'
-    'CalculatePressuresMatrix.R'
-    'CalculatePressuresScore.R'
     'CalculateResilienceAll.R'
-    'CalculateResilienceComponent.R'
-    'CalculateResilienceScore.R'
-    'CalculateStatusComponent.R'
-    'CalculateSubgoal.R'
     'CheckLayers.R'
     'Conf.R'
     'Layers.R'
     'PlotFlower.R'
     'ScoreScaling.R'
     'SelectLayersData.R'
-    'SpatialSchemes.R'
-    'TransformSpatialScheme.R'
-    'aster.R'
     'compare_scores_df.R'
     'gapfill_georegions.R'
-    'get_scenarios.R'
-    'launch_app.R'
-    'launch_cmp.R'
-    'mapvalues.R'
     'name_to_rgn.R'
     'read_git_csv.R'
     'shp_to_geojson.R'
     'trace_git_csv_value.R'
-    'write_shortcuts.R'
-    'zzz.R'
+    'mapvalues.R'
+    'change_plot.R'
 RoxygenNote: 5.0.1

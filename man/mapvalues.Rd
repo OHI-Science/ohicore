@@ -19,7 +19,7 @@ mapvalues(x, from, to, warn_missing = TRUE)
 Returns a vector with new values.
 }
 \description{
-Replace specified values with new values, in a vector or factor
+Replace specified values with new values, in a vector or factor. This is copied from plyr.
 }
 \details{
 #' If x is a factor, the matching levels of the factor will be replaced with the new values.

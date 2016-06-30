@@ -12,10 +12,6 @@
 #' @export
 shp_to_geojson = function(shp, js, geojson=sprintf('%s.geojson', tools::file_path_sans_ext(js))){
   
-  require(sp)
-  require(rgdal)
-  require(dplyr)
-
   # # debug
   # shp      = '/Volumes/data_edit/git-annex/clip-n-ship/data/Albania/rgn_offshore_gcs.shp'
   # js      = '/Volumes/data_edit/git-annex/clip-n-ship/data/Albania/regions_gcs.js'

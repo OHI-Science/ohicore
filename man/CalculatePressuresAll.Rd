@@ -4,14 +4,12 @@
 \alias{CalculatePressuresAll}
 \title{Calculate all the pressures score for each (sub)goal.}
 \usage{
-CalculatePressuresAll(layers, conf, gamma = 0.5, debug = F)
+CalculatePressuresAll(layers, conf)
 }
 \arguments{
 \item{layers}{object \code{\link{Layers}}}
 
 \item{conf}{object \code{\link{Conf}}}
-
-\item{gamma}{(optional) if not specified defaults to 0.5}
 }
 \value{
 data.frame containing columns 'region_id' and per subgoal pressures score

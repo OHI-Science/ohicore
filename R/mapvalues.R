@@ -1,6 +1,6 @@
 #' mapvalues
 #' 
-#' Replace specified values with new values, in a vector or factor 
+#' Replace specified values with new values, in a vector or factor. This is copied from plyr. 
 #' 
 #' @param x  the factor or vector to modify
 #' @param from  a vector of the items to replace
