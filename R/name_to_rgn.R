@@ -19,7 +19,7 @@ name_to_rgn <- function(df_in,   #df_in=empd
   ### and perform extra checks, including collapsing on duplicates.
   
   ### Read file of region names/IDs and select rgn_id, rgn_name, and rgn_type
-  rgns <- read.csv(rgn_master, na = "", stringsAsFactors = FALSE) %>% 
+  rgns <- rgn_master %>% 
     dplyr::select(rgn_id = rgn_id_2013, rgn_name = rgn_nam_2013, rgn_type = rgn_typ) %>% 
     dplyr::arrange(rgn_type, rgn_id, rgn_name) %>% 
     dplyr::group_by(rgn_id) %>% 
