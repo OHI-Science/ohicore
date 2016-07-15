@@ -15,7 +15,6 @@ CalculatePressuresAll = function(layers, conf){
   p_matrix <- conf$pressures_matrix
   p_matrix <- tidyr::gather(p_matrix, layer, m_intensity, 4:ncol(p_matrix)) %>%    # format the pressure matrix so it is a dataframe
     dplyr::filter(!is.na(m_intensity)) %>%
-    dplyr::mutate(m_intensity = as.integer(m_intensity)) %>% # make sure numeric so can be multiplied later
     dplyr::select(goal, element, layer, m_intensity)
 
   # p_elements: make into a data.frame
