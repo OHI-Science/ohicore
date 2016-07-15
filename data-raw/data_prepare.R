@@ -4,7 +4,7 @@
 
 library(devtools)
 
-rgn_synonyms <- read.csv('../ohiprep/src/LookupTables/rgn_eez_v2013a_synonyms.csv')
+rgn_synonyms <- read.csv('../ohiprep/src/LookupTables/rgn_eez_v2013a_synonyms.csv', na = "", stringsAsFactors = FALSE)
 devtools::use_data(rgn_synonyms, overwrite = TRUE)
 
 
