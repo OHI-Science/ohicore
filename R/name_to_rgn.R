@@ -11,7 +11,7 @@
 #'  
 #' @keywords ohi
 #' @export
-name_2_rgn <- function(df_in,   #df_in=empd
+name_to_rgn <- function(df_in,   #df_in=empd
                      fld_name      = 'country',
                      flds_unique   = c("rgn_name", "year"),
                      keep_fld_name = TRUE) {
