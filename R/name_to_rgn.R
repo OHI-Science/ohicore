@@ -1,184 +1,187 @@
-#' Name to region
+#' Name to region translate (old version still used in LE function...keep until this is revised)
 #' 
-#' Convert country names to ohi region ids.
+#' (old version still used in LE function...keep until this is revised)
 #' 
-#' @param df_in dataset
+#' @param d dataset
 #' @param fld_name field name of the region from the dataset
-#' @param flds_unique unique identifying fields for the dataset
-#' @param keep_fld_name keep original name
+#' @param flds_unique field name for the dataset
+#' @param fld_value field with value, defaults to 'value'
+#' @param collapse_fxn function to collapse duplicate regions into one (example: China, Macau, Hong Kong)
+#' @param collapse_csv optional .csv file provided to collapse duplicate regions
+#' @param collapse_flds_join optional list of fields identified to collapse duplicate regions
+#' @param dir_lookup directory of name-to-region look up tables
+#' @param rgn_master.csv .csv file of eez-to-region combinations
+#' @param rgn_synonyms.csv .csv file of synonyms of eez-to-region combinations
+#' @param add_rgn_name T or F whether to include a column with the region name
+#' @param add_rgn_type T of F whether to include the region type (eez...)
 #' 
 #' @details This function translates name to region id with a lookup.
 #'  
 #' @keywords ohi
 #' @export
-name_to_rgn <- function(df_in,   #df_in=empd
-                     fld_name      = 'country',
-                     flds_unique   = c("rgn_name", "year"),
-                     keep_fld_name = TRUE) {
-  ### DETAIL. Return a data.frame (vs add_rgn_id which writes to a csv) 
-  ### and perform extra checks, including collapsing on duplicates.
+
+name_to_rgn = function(
+  d, fld_name = 'country', 
+  flds_unique=fld_name, 
+  fld_value='value', 
+  collapse_fxn = c('sum_na','mean','weighted.mean')[1],
+  collapse_csv = NULL,
+  collapse_flds_join = NULL,
+  dir_lookup = '~/github/ohiprep/src/LookupTables',
+  rgn_master.csv   = file.path(dir_lookup, 'eez_rgn_2013master.csv'),
+  rgn_synonyms.csv = file.path(dir_lookup, 'rgn_eez_v2013a_synonyms.csv'),
+  add_rgn_name=F, add_rgn_type=F) {
+  # DETAIL. Return a data.frame (vs add_rgn_id which writes to a csv) and perform extra checks, including collapsing on duplicates.
+  #  Note: The original fld_name lost because possible to collapse multiple countries into a single region.
+  #
+  # debug: fld_name='country'; flds_unique=c('country','commodity','year'); fld_value='value'; collapse_fxn=function(x) sum(x, na.rm=T); dpath = '../ohiprep/src/LookupTables'; rgn_master.csv   = file.path(dpath, 'eez_rgn_2013master.csv'); rgn_synonyms.csv = file.path(dpath, 'rgn_eez_v2013a_synonyms.csv')
   
-  ### Read file of region names/IDs and select rgn_id, rgn_name, and rgn_type
-  rgns <- rgn_master %>% 
-    dplyr::select(rgn_id = rgn_id_2013, rgn_name = rgn_nam_2013, rgn_type = rgn_typ) %>% 
-    dplyr::arrange(rgn_type, rgn_id, rgn_name) %>% 
-    dplyr::group_by(rgn_id) %>% 
-    dplyr::summarize(rgn_name = first(rgn_name), rgn_type = first(rgn_type)) %>% 
-    dplyr::ungroup()
+  #   # ensure dplyr's summarize overrides plyr's summarize by loading in succession
+  #   if ('package:reshape2'  %in% search()) detach('package:reshape2')
+  #   if ('package:plyr'      %in% search()) detach('package:plyr')
+  #   if ('package:dplyr'     %in% search()) detach('package:dplyr')
+  #   library(reshape2)
+  #   library(plyr)
+  #   library(dplyr)
   
-  ### attach rgn_synonyms; summarize eliminates duplicate rows (same tmp_name 
-  ### and rgn_id) - rgn type not critical?
-  syns <- rgn_synonyms %>% 
-    dplyr::select(rgn_id = rgn_id_2013, tmp_name = rgn_nam_2013, 
-           tmp_type = rgn_typ)
+  # check for valid arguments  stopifnot(fld_name %in% names(d))
+  stopifnot(fld_value %in% names(d))
+  stopifnot(all(flds_unique %in% names(d)))
+  stopifnot(sum(duplicated(d[, flds_unique])) == 0)
   
-  rgn_syn <- rgns %>% 
-    dplyr::select(rgn_id, tmp_name = rgn_name, tmp_type = rgn_type) %>%
-    dplyr::bind_rows(syns) %>% 
-    dplyr::group_by(tmp_name) %>% 
-    dplyr::summarize(rgn_id = first(rgn_id), tmp_type = first(tmp_type)) 
+  rgns = read.csv(rgn_master.csv, na = "", stringsAsFactors = F) %>% 
+    select(rgn_id = rgn_id_2013, rgn_name = rgn_nam_2013, rgn_type = rgn_typ) %>% 
+    arrange(rgn_type, rgn_id, rgn_name) %>% 
+    group_by(rgn_id) %>% 
+    summarize(rgn_name = first(rgn_name), rgn_type = first(rgn_type)) %>% 
+    ungroup()
   
-  ### create a temp field in the target data frame, for the field that is being combined.
-  df_in['tmp_name'] <- df_in[fld_name]
+  r = rbind_list(rgns %>% 
+                   select(rgn_id, tmp_name = rgn_name, tmp_type = rgn_type), read.csv(rgn_synonyms.csv, na = "") %>% 
+                   select(rgn_id = rgn_id_2013, tmp_name = rgn_nam_2013, tmp_type = rgn_typ)) %>% group_by(tmp_name) %>% 
+    summarize(rgn_id = first(rgn_id), tmp_type = first(tmp_type))
   
-  ### replace problematic symbols (accents and such) within target data frame.
-  df_in <- df_in %>% 
-    dplyr::mutate(tmp_name = str_trim(tmp_name),
-           tmp_name = stringr::str_replace(tmp_name, "^'", ""))
+  d["tmp_name"] = d[fld_name]
   
-  ### combine target data frame with region name data frame;
-  ### filter to ones with 'eez' or 'ohi_region' in the type.  
-  ### * 'eez' is original OHI rgn_name/rgn_id list;
-  ### * 'ohi_region' is from the synonyms.  
-  df_in <- df_in %>%
-    dplyr::left_join(rgn_syn, by = "tmp_name") 
+  d = d %>% mutate(tmp_name = str_replace(tmp_name, "^'", ""), 
+                   tmp_name = str_replace(tmp_name, ".+voire", "Ivory Coast"), 
+                   tmp_name = str_replace(tmp_name, ".+union", "Reunion"), 
+                   tmp_name = str_replace(tmp_name, ".+publique du", "Republic of"), 
+                   tmp_name = str_replace(tmp_name, "Cura.+", "Curacao"), 
+                   tmp_name = str_replace(tmp_name, "Saint Barth.+", "Saint Barthelemy"), 
+                   tmp_name = str_replace(tmp_name, ".+Principe", "Sao Tome and Principe"))
   
-  df_matched <- df_in %>% 
-    dplyr::filter(tmp_type %in% c("eez", "ohi_region"))
+  m = merge(d, r, by = "tmp_name") %>% 
+    filter(tmp_type %in% c("eez", "ohi_region"))
   
-  ### This is the list of countries removed.  Why change tmp_name into a factor? (for table display?)
-  df_removed <- df_in %>%
-    dplyr::filter(!tmp_type %in% c("eez", "ohi_region") | is.na(tmp_type))
+  m_r = left_join(d, r, by = "tmp_name") %>% filter(!tmp_type %in% c("eez", "ohi_region")) %>% 
+    mutate(tmp_name = factor(as.character(tmp_name)))
   
-  ### countries in df_in_removed with no match - so tmp_type is NA (this is 
-  ### why left_join() is used).
-  ### Print a table of the non-matches.
-  if (sum(is.na(df_removed$tmp_type)) > 0) {
-    toprint <- df_removed %>% 
-      dplyr::filter(is.na(tmp_type))
+  if (sum(is.na(m_r$tmp_type)) > 0) {
+    toprint = m_r %>% filter(is.na(tmp_type))
     cat("\nThese data were removed for not having any match in the lookup tables:\n")
-    print(table(as.character(unique(toprint$tmp_name))))
+    print(table(as.character(unique(toprint$country))))
   }
   
-  ### print out the full table of removed names.
-  if (sum(!is.na(df_removed$tmp_name)) > 0) {
-    toprint <- df_removed %>% 
-      dplyr::filter(!is.na(tmp_type))
+  if (nrow(m_r) > 0) {
     cat("\nThese data were removed for not being of the proper rgn_type (eez,ohi_region) or mismatching region names in the lookup tables:\n")
-    print(table(select(toprint, tmp_name, tmp_type), useNA = "ifany"))
+    print(table(select(m_r, tmp_name, tmp_type), useNA = "ifany"))
   }
   
-  ### Sanity check of matched df to make sure none have NA rgn_id after the process.
-  ### This would be a failure of the region lookups table.  
-  df_matched_na <- filter(df_matched, is.na(rgn_id))
-  if (nrow(df_matched_na) > 0) {
+  m_na = filter(m, is.na(rgn_id))
+  
+  if (nrow(m_na) > 0) {
     cat("\nThese data have a valid tmp_type but no rgn_id:\n")
-    print(table(df_matched_na[, c(fld_name, "tmp_type")], useNA = "ifany"))
-    stop("FIX region lookups; one or more rows missing rgn_id values.")
+    print(table(m_na[, c(fld_name, "tmp_type")], useNA = "ifany"))
+    stop("FIX region lookups.")
   }
   
-  ### Drop fld_name column ('country' e.g.) if desired. If kept, 
-  ### and == 'rgn_name', rename so it doesn't conflict with new 'rgn_name'
-  if(!keep_fld_name) {
-    df_matched <- df_matched[ , -which(names(df_in_matched) == fld_name)]
-  } else {
-    if(fld_name == 'rgn_name') {
-      df_matched <- df_matched %>%
-        dplyr::rename(rgn_name_orig = rgn_name)
+  flds_unique_rgn_id = c("rgn_id", setdiff(c(flds_unique), fld_name))
+  
+  i_dup = duplicated(m[, flds_unique_rgn_id], fromLast = F) | 
+    duplicated(m[, flds_unique_rgn_id], fromLast = T)
+  
+  if (sum(i_dup) > 0) {
+    cat(sprintf("\nDUPLICATES found. Resolving by collapsing rgn_id with collapse_fxn: %s after first removing all NAs from duplicates...\n", 
+                collapse_fxn))
+    m_dup = m[i_dup, ]
+    m_dup$tmp_value = m_dup[[fld_value]]
+    m_dup$fld_name = m_dup[[fld_name]]
+    m_dup = mutate(m_dup, fld_name = factor(as.character(fld_name)))
+    print(table(select(m_dup, fld_name, rgn_id)))
+    sum_na = function(x) {
+      if (sum(is.na(x)) == length(x)) 
+        return(NA)
+      return(sum(x, na.rm = T))
     }
+    
+    weighted_mean = function(x, collapse_csv) {
+      if (sum(is.na(x)) == length(x)) 
+        return(NA)
+      return(sum(x, na.rm = T))
+    }
+    
+    if (collapse_fxn == "sum_na") {
+      m_dup = m_dup %>% filter(!is.na(tmp_value)) %>% 
+        group_by_(.dots=as.list(flds_unique_rgn_id)) %>% 
+        summarize(tmp_value = sum_na(tmp_value)) %>% 
+        rename_(.dots = setNames('tmp_value', fld_value))
+      head(m_dup)
+    } else {
+      if(collapse_fxn == "mean") {
+        m_dup = m_dup %>% 
+          filter(!is.na(tmp_value)) %>% 
+          group_by_(.dots=as.list(flds_unique_rgn_id)) %>% 
+          summarize(tmp_value = mean(tmp_value, na.rm = T)) %>% 
+          rename_(.dots = setNames('tmp_value', fld_value))
+        head(m_dup)
+      } else {
+        if(collapse_fxn == "weighted.mean") {
+          w = read.csv(collapse_csv)
+          flds = intersect(names(w), names(m_dup))
+          fld = setdiff(names(w), names(m_dup))
+          stopifnot(length(fld) == 1)
+          #stopifnot(length(flds) < 1) #this doesn't seem to be a good test
+          w["tmp_weight"] = w[fld]
+          w = w[, c(flds, "tmp_weight")]
+          criteria  <-  ~by == flds
+          m_dup = m_dup %>% 
+            filter(!is.na(tmp_value)) %>% 
+            group_by_(.dots=as.list(flds_unique_rgn_id)) %>% 
+            left_join(w) %>% 
+            summarize(tmp_value = weighted.mean(tmp_value, 
+                                                tmp_weight, na.rm = T)) %>% 
+            rename_(.dots = setNames('tmp_value', fld_value))
+          head(m_dup)
+        }   else {
+          stop("collapse_fxn needs to be a string of one of the following: sum_na, mean, weighted.mean.")
+        }
+      }
+    }
+    m_d = rbind_list(m[!i_dup, c(flds_unique_rgn_id, fld_value)], 
+                     m_dup)
+  } else {
+    m_d = m
   }
   
-  ### Add rgn_name column, ditch the tmp_name and tmp_type column.
-  df_out <- df_matched %>%
-    dplyr::left_join(rgns %>% 
-                       dplyr::select(rgn_id, rgn_name), by='rgn_id') %>%
-    dplyr::select(-tmp_name, -tmp_type)
+  # limit to same subset of fields for consistent behavior regardless of duplicates presents
+  m_d = m_d[, c(flds_unique_rgn_id, fld_value)]
   
-  ### Identify duplicated rgn_ids and report out.
-  dups_data <- df_out[ , c(flds_unique, 'rgn_id')] 
-  i_dupes <- duplicated(dups_data, fromLast = FALSE) | 
-    duplicated(dups_data, fromLast = TRUE)
-
-    if(sum(i_dupes) > 0) {
-    message(sprintf("\nDUPLICATES found. Consider using collapse2rgn to collapse duplicates (function in progress).\n"))
-    df_out_dupes <- df_out[i_dupes, ] %>%
-      dplyr::arrange(rgn_id, rgn_name)
-    print(df_out_dupes)
-  }
+  # add fields if explicitly requested
+  if (add_rgn_type) m_d = left_join(m_d, rgns %>% select(rgn_id, rgn_type), by='rgn_id')
+  if (add_rgn_name) m_d = left_join(m_d, rgns %>% select(rgn_id, rgn_name), by='rgn_id')
   
-  return(df_out)
+  # check to ensure no duplicates
+  stopifnot(duplicated(m_d[, c(flds_unique_rgn_id)]) == 0) 
+  
+  m_d = m_d[, c(flds_unique_rgn_id, fld_value)]
+  if (add_rgn_type) 
+    m_d = left_join(m_d, rgns %>% 
+                      select(rgn_id, rgn_type), by = "rgn_id")
+  if (add_rgn_name) 
+    m_d = left_join(m_d, 
+                    rgns %>% select(rgn_id, rgn_name), 
+                    by = "rgn_id")
+  stopifnot(duplicated(m_d[, c(flds_unique_rgn_id)]) == 0)
+  return(as.data.frame(m_d))
 }
-
-
-## exclude for now, better to do in steps, I think:
-# name_to_rgn1 <- function(df_in,   # df_in = empd
-#                          fld_name         = 'country', 
-#                          flds_unique      = fld_name, 
-#                          fld_value        = 'value', 
-#                          collapse_fxn     = c('sum_na','mean','weighted.mean')[1],
-#                          collapse_csv     = NULL,
-#                          dir_lookup       = 'src/LookupTables',
-#                          rgn_master.csv   = file.path(dir_lookup, 'eez_rgn_2013master.csv'),
-#                          rgn_synonyms.csv = rgn_synonyms,
-#                          add_rgn_name     = FALSE, 
-#                          add_rgn_type     = FALSE) {
-#   ### This function is intended to replace original name_to_rgn() by calling
-#   ### name2rgn() and collapse2rgn() sequentially.
-#   
-# 
-#   df_named <- df_in %>% 
-#     name2rgn(fld_name      = fld_name, 
-#              dir_lookup    = dir_lookup,
-#              rgn_master    = rgn_master.csv,
-#              rgn_synonyms  = rgn_synonyms.csv,
-#              keep_fld_name = TRUE)
-#   
-#   df_collapsed <- df_named %>% 
-#     collapse2rgn(fld_value = fld_value,
-#                  fld_id    = 'rgn_id', 
-#                  fld_keep  = setdiff(flds_unique, fld_name),
-#                  collapse_fxn = switch(collapse_fxn,
-#                                        'sum_na' = 'sum', 
-#                                        'mean'   = 'mean',
-#                                        'weighted.mean' = 'weighted_mean',
-#                                        collapse_fxn),
-#                  collapse_wts = collapse_csv)
-#   
-#   fld_keep_rgn_id <- c('rgn_id', setdiff(c(flds_unique), c('rgn_id', fld_name)))
-#   
-#   df_out = df_collapsed[, c(fld_keep_rgn_id, fld_value)]
-#   
-#   if(add_rgn_type | add_rgn_name) {
-#     rgns <- read.csv(rgn_master.csv, na = "", stringsAsFactors = FALSE) %>% 
-#       select(rgn_id = rgn_id_2013, rgn_name = rgn_nam_2013, rgn_type = rgn_typ) %>% 
-#       arrange(rgn_type, rgn_id, rgn_name) %>% 
-#       group_by(rgn_id) %>% 
-#       summarize(rgn_name = first(rgn_name), rgn_type = first(rgn_type)) %>% 
-#       ungroup()
-#   }
-#   if (add_rgn_type) {
-#     df_out <- df_out %>% 
-#       left_join(rgns %>% 
-#                   select(rgn_id, rgn_type), 
-#                 by = "rgn_id")
-#   }
-#   if (add_rgn_name) {
-#     df_out <- df_out %>% 
-#       left_join(rgns %>% 
-#                   select(rgn_id, rgn_name), 
-#                 by = "rgn_id")
-#   }
-#   stopifnot(duplicated(df_out[, c(fld_keep_rgn_id)]) == 0)
-#   
-#   return(as.data.frame(df_out))
-# }

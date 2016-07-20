@@ -2,22 +2,43 @@
 % Please edit documentation in R/name_to_rgn.R
 \name{name_to_rgn}
 \alias{name_to_rgn}
-\title{Name to region}
+\title{Name to region translate (old version still used in LE function...keep until this is revised)}
 \usage{
-name_to_rgn(df_in, fld_name = "country", flds_unique = c("rgn_name",
-  "year"), keep_fld_name = TRUE)
+name_to_rgn(d, fld_name = "country", flds_unique = fld_name,
+  fld_value = "value", collapse_fxn = c("sum_na", "mean",
+  "weighted.mean")[1], collapse_csv = NULL, collapse_flds_join = NULL,
+  dir_lookup = "~/github/ohiprep/src/LookupTables",
+  rgn_master.csv = file.path(dir_lookup, "eez_rgn_2013master.csv"),
+  rgn_synonyms.csv = file.path(dir_lookup, "rgn_eez_v2013a_synonyms.csv"),
+  add_rgn_name = F, add_rgn_type = F)
 }
 \arguments{
-\item{df_in}{dataset}
+\item{d}{dataset}
 
 \item{fld_name}{field name of the region from the dataset}
 
-\item{flds_unique}{unique identifying fields for the dataset}
+\item{flds_unique}{field name for the dataset}
 
-\item{keep_fld_name}{keep original name}
+\item{fld_value}{field with value, defaults to 'value'}
+
+\item{collapse_fxn}{function to collapse duplicate regions into one (example: China, Macau, Hong Kong)}
+
+\item{collapse_csv}{optional .csv file provided to collapse duplicate regions}
+
+\item{collapse_flds_join}{optional list of fields identified to collapse duplicate regions}
+
+\item{dir_lookup}{directory of name-to-region look up tables}
+
+\item{rgn_master.csv}{.csv file of eez-to-region combinations}
+
+\item{rgn_synonyms.csv}{.csv file of synonyms of eez-to-region combinations}
+
+\item{add_rgn_name}{T or F whether to include a column with the region name}
+
+\item{add_rgn_type}{T of F whether to include the region type (eez...)}
 }
 \description{
-Convert country names to ohi region ids.
+(old version still used in LE function...keep until this is revised)
 }
 \details{
 This function translates name to region id with a lookup.
