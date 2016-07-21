@@ -113,7 +113,7 @@ name_2_rgn <- function(df_in,   #df_in=empd
     message(sprintf("\nDUPLICATES found. Consider using collapse2rgn to collapse duplicates (function in progress).\n"))
     df_out_dupes <- unique(df_out[i_dupes, fld_name]) 
     print(df_out_dupes)
-  
+  } 
   return(df_out)
 }
 
