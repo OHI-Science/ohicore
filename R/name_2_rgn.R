@@ -108,13 +108,11 @@ name_2_rgn <- function(df_in,   #df_in=empd
   dups_data <- df_out[ , c(flds_unique, 'rgn_id')] 
   i_dupes <- duplicated(dups_data, fromLast = FALSE) | 
     duplicated(dups_data, fromLast = TRUE)
-
-    if(sum(i_dupes) > 0) {
+  
+  if(sum(i_dupes) > 0) {
     message(sprintf("\nDUPLICATES found. Consider using collapse2rgn to collapse duplicates (function in progress).\n"))
-    df_out_dupes <- df_out[i_dupes, ] %>%
-      dplyr::arrange(rgn_id, rgn_name)
+    df_out_dupes <- unique(df_out[i_dupes, fld_name]) 
     print(df_out_dupes)
-  }
   
   return(df_out)
 }
