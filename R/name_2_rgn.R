@@ -4,7 +4,7 @@
 #' 
 #' @param df_in dataset
 #' @param fld_name field name of the region from the dataset
-#' @param flds_unique unique identifying fields for the dataset
+#' @param flds_unique unique identifying fields for the dataset, e.g., c("rgn_name", "year")
 #' @param keep_fld_name keep original name
 #' 
 #' @details This function translates name to region id with a lookup.
@@ -13,7 +13,7 @@
 #' @export
 name_2_rgn <- function(df_in,   #df_in=empd
                      fld_name      = 'country',
-                     flds_unique   = c("rgn_name", "year"),
+                     flds_unique   = NULL,
                      keep_fld_name = TRUE) {
   ### DETAIL. Return a data.frame (vs add_rgn_id which writes to a csv) 
   ### and perform extra checks, including collapsing on duplicates.
