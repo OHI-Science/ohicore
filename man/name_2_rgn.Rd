@@ -4,7 +4,7 @@
 \alias{name_2_rgn}
 \title{Name to region (New version: doesn't collapse data)}
 \usage{
-name_2_rgn(df_in, fld_name = "country", flds_unique = c("rgn_name", "year"),
+name_2_rgn(df_in, fld_name = "country", flds_unique = NULL,
   keep_fld_name = TRUE)
 }
 \arguments{
@@ -12,7 +12,7 @@ name_2_rgn(df_in, fld_name = "country", flds_unique = c("rgn_name", "year"),
 
 \item{fld_name}{field name of the region from the dataset}
 
-\item{flds_unique}{unique identifying fields for the dataset}
+\item{flds_unique}{unique identifying fields for the dataset, e.g., c("rgn_name", "year")}
 
 \item{keep_fld_name}{keep original name}
 }
