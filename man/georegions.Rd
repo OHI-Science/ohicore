@@ -6,10 +6,10 @@
 \title{United Nations Regional Groups (streamlined)}
 \format{A data frame with 220 rows and 5 variables:
 \describe{
-  \item rgn_id: numeric region id used for Ocean Health Index (1-250)
-  \item r0: general regional groups (1 group: World)
-  \item r1: more specific regional groups (7 groups: Africa, Americas, etc.)
-  \item r2: most specific regional groups (22 groups: Caribbean, Central America, etc.)
+  \item{rgn_id}{numeric region id used for Ocean Health Index (1-250)}
+  \item{r0}{general regional groups (1 group: World)}
+  \item{r1}{more specific regional groups (7 groups: Africa, Americas, etc.)}
+  \item{r2}{most specific regional groups (22 groups: Caribbean, Central America, etc.)}
 }}
 \usage{
 georegions

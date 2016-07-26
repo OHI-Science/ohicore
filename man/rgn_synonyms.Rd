@@ -6,13 +6,13 @@
 \title{Region synonyms}
 \format{A data frame with 262 rows and 6 variables:
 \describe{
-  \item region_id_2012: numeric region id used for 2012 Ocean Health Index (1-187)
-  \item rgn_id_2013: numeric region id used for Ocean Health Index after 2012 (1-255) 
-  \item rgn_nam_2013: country names and synonyms (e.g., 'Federated State of Micronesia', 'Micronesia, FS')
-  \item rgn_key_2013: 2 letter key for countries (e.g., US, BA)
-  \item eez_iso3: 3 letter key for countries (e.g., USA, FSM)
-  \item rgn_typ: identifies whether a region is an Ocean Health Index region ('ohi_region'),
-                 'landlocked', 'disputed', or 'largescale' (includes regions: Total and World)
+  \item{region_id_2012}{numeric region id used for 2012 Ocean Health Index (1-187)}
+  \item{rgn_id_2013}{numeric region id used for Ocean Health Index after 2012 (1-255)} 
+  \item{rgn_nam_2013}{country names and synonyms (e.g., 'Federated State of Micronesia', 'Micronesia, FS')}
+  \item{rgn_key_2013}{2 letter key for countries (e.g., US, BA)}
+  \item{eez_iso3}{3 letter key for countries (e.g., USA, FSM)}
+  \item{rgn_typ}{identifies whether a region is an Ocean Health Index region ('ohi_region'),
+                 'landlocked', 'disputed', or 'largescale' (includes regions: Total and World)}
 }}
 \usage{
 rgn_synonyms
