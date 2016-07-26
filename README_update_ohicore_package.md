@@ -2,14 +2,14 @@
 
 [github.com/yihui/roxygen2](https://github.com/yihui/roxygen2#running)
 
-If any R/functions.R files are added or deleted this should be reflected in the DESCRIPTION file.
+If any R/functions.R files are added or deleted this needs to be changed in the DESCRIPTION file.
 
 If changes are made to any of the R/functions.R (or other files), the following should be run.
 
 ```
 
-roxygen2::roxygenise() 
 devtools::document()
+devtools::build()
 
 # to recreate the pdf manual
 system("cd /home/frazier/ohicore")

@@ -42,6 +42,7 @@ Collate:
     'name_to_rgn.R'
     'name_2_rgn.R'
     'collapse_2_rgn.R'
+    'data.R'
     'read_git_csv.R'
     'shp_to_geojson.R'
     'trace_git_csv_value.R'
