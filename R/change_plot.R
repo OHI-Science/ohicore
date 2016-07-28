@@ -11,8 +11,6 @@
 #' @param save_csv If TRUE, the difference csv file will be saved.
 #' @param save_png If TRUE, a static png of the image will be saved. 
 #' 
-#' @import plotly
-#' @import htmlwidgets
 #' 
 #' @export
 change_plot = function(repo = "ohi-global", scenario="eez2014", commit="previous", 
