@@ -49,7 +49,7 @@ name2rgn <- function(df_in,
 
   rgn_syn <- rgns %>% 
     select(rgn_id, tmp_name = rgn_name, tmp_type = rgn_type) %>%
-    rbind_list(syns) %>% 
+    dplyr::bind_rows(syns) %>% 
     group_by(tmp_name) %>% 
     summarize(rgn_id = first(rgn_id), tmp_type = first(tmp_type)) 
 

@@ -56,7 +56,7 @@ collapse_2_rgn <- function(df_in,
     
     ### create a data.frame of just the duplicated records, for collapsing
     df_in_dup <- df_in[i_dupes, ] %>%
-      arrange(rgn_id, rgn_name)
+      dplyr::arrange(rgn_id, rgn_name)
     print(df_in_dup)
     
     ### set tmp_value to be the value, to protect original value

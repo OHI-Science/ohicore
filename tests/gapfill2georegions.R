@@ -446,7 +446,7 @@ gapfill2georegion <- function(
   
   # assign attributes by georegion level (r#)
   z  <- 
-  rbind_list(
+  dplyr::bind_rows()(
     ### rgn has value, so no gapfill: filter and assign values
     z %>%
       filter(z_level == 'val') %>%

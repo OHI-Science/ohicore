@@ -194,8 +194,8 @@ CalculateResilienceAll = function(layers, conf){
   scores <- regions_dataframe %>%
     dplyr::left_join(calc_resil, by="region_id") %>%
     dplyr::mutate(dimension="resilience") %>%
-    select(goal, dimension, region_id, score=val_num) %>%
-    mutate(score = round(score*100, 2))
+    dplyr::select(goal, dimension, region_id, score=val_num) %>%
+    dplyr::mutate(score = round(score*100, 2))
   return(scores)
 
 }

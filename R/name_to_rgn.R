@@ -50,32 +50,33 @@ name_to_rgn = function(
   stopifnot(sum(duplicated(d[, flds_unique])) == 0)
   
   rgns = read.csv(rgn_master.csv, na = "", stringsAsFactors = F) %>% 
-    select(rgn_id = rgn_id_2013, rgn_name = rgn_nam_2013, rgn_type = rgn_typ) %>% 
-    arrange(rgn_type, rgn_id, rgn_name) %>% 
-    group_by(rgn_id) %>% 
-    summarize(rgn_name = first(rgn_name), rgn_type = first(rgn_type)) %>% 
-    ungroup()
+    dplyr::select(rgn_id = rgn_id_2013, rgn_name = rgn_nam_2013, rgn_type = rgn_typ) %>% 
+    dplyr::arrange(rgn_type, rgn_id, rgn_name) %>% 
+    dplyr::group_by(rgn_id) %>% 
+    dplyr::summarize(rgn_name = first(rgn_name), rgn_type = first(rgn_type)) %>% 
+    dplyr::ungroup()
   
-  r = rbind_list(rgns %>% 
-                   select(rgn_id, tmp_name = rgn_name, tmp_type = rgn_type), read.csv(rgn_synonyms.csv, na = "") %>% 
-                   select(rgn_id = rgn_id_2013, tmp_name = rgn_nam_2013, tmp_type = rgn_typ)) %>% group_by(tmp_name) %>% 
-    summarize(rgn_id = first(rgn_id), tmp_type = first(tmp_type))
+  r = dplyr::bind_rows(rgns %>% 
+                         dplyr::select(rgn_id, tmp_name = rgn_name, tmp_type = rgn_type), read.csv(rgn_synonyms.csv, na = "") %>% 
+                         dplyr::select(rgn_id = rgn_id_2013, tmp_name = rgn_nam_2013, tmp_type = rgn_typ)) %>% group_by(tmp_name) %>% 
+    dplyr::summarize(rgn_id = first(rgn_id), tmp_type = first(tmp_type))
   
   d["tmp_name"] = d[fld_name]
   
-  d = d %>% mutate(tmp_name = str_replace(tmp_name, "^'", ""), 
-                   tmp_name = str_replace(tmp_name, ".+voire", "Ivory Coast"), 
-                   tmp_name = str_replace(tmp_name, ".+union", "Reunion"), 
-                   tmp_name = str_replace(tmp_name, ".+publique du", "Republic of"), 
-                   tmp_name = str_replace(tmp_name, "Cura.+", "Curacao"), 
-                   tmp_name = str_replace(tmp_name, "Saint Barth.+", "Saint Barthelemy"), 
-                   tmp_name = str_replace(tmp_name, ".+Principe", "Sao Tome and Principe"))
+  d = d %>% dplyr::mutate(tmp_name = str_replace(tmp_name, "^'", ""), 
+                   tmp_name = stringr::str_replace(tmp_name, ".+voire", "Ivory Coast"), 
+                   tmp_name = stringr::str_replace(tmp_name, ".+union", "Reunion"), 
+                   tmp_name = stringr::str_replace(tmp_name, ".+publique du", "Republic of"), 
+                   tmp_name = stringr::str_replace(tmp_name, "Cura.+", "Curacao"), 
+                   tmp_name = stringr::str_replace(tmp_name, "Saint Barth.+", "Saint Barthelemy"), 
+                   tmp_name = stringr::str_replace(tmp_name, ".+Principe", "Sao Tome and Principe"))
   
   m = merge(d, r, by = "tmp_name") %>% 
-    filter(tmp_type %in% c("eez", "ohi_region"))
+    dplyr::filter(tmp_type %in% c("eez", "ohi_region"))
   
-  m_r = left_join(d, r, by = "tmp_name") %>% filter(!tmp_type %in% c("eez", "ohi_region")) %>% 
-    mutate(tmp_name = factor(as.character(tmp_name)))
+  m_r = dplyr::left_join(d, r, by = "tmp_name") %>% 
+    dplyr::filter(!tmp_type %in% c("eez", "ohi_region")) %>% 
+    dplyr::mutate(tmp_name = factor(as.character(tmp_name)))
   
   if (sum(is.na(m_r$tmp_type)) > 0) {
     toprint = m_r %>% filter(is.na(tmp_type))
@@ -88,7 +89,7 @@ name_to_rgn = function(
     print(table(select(m_r, tmp_name, tmp_type), useNA = "ifany"))
   }
   
-  m_na = filter(m, is.na(rgn_id))
+  m_na = dplyr::filter(m, is.na(rgn_id))
   
   if (nrow(m_na) > 0) {
     cat("\nThese data have a valid tmp_type but no rgn_id:\n")
@@ -122,18 +123,19 @@ name_to_rgn = function(
     }
     
     if (collapse_fxn == "sum_na") {
-      m_dup = m_dup %>% filter(!is.na(tmp_value)) %>% 
-        group_by_(.dots=as.list(flds_unique_rgn_id)) %>% 
-        summarize(tmp_value = sum_na(tmp_value)) %>% 
-        rename_(.dots = setNames('tmp_value', fld_value))
+      m_dup = m_dup %>% 
+        dplyr::filter(!is.na(tmp_value)) %>% 
+        dplyr::group_by_(.dots=as.list(flds_unique_rgn_id)) %>% 
+        dplyr::summarize(tmp_value = sum_na(tmp_value)) %>% 
+        dplyr::rename_(.dots = setNames('tmp_value', fld_value))
       head(m_dup)
     } else {
       if(collapse_fxn == "mean") {
         m_dup = m_dup %>% 
-          filter(!is.na(tmp_value)) %>% 
-          group_by_(.dots=as.list(flds_unique_rgn_id)) %>% 
-          summarize(tmp_value = mean(tmp_value, na.rm = T)) %>% 
-          rename_(.dots = setNames('tmp_value', fld_value))
+          dplyr::filter(!is.na(tmp_value)) %>% 
+          dplyr::group_by_(.dots=as.list(flds_unique_rgn_id)) %>% 
+          dplyr::summarize(tmp_value = mean(tmp_value, na.rm = T)) %>% 
+          dplyr::rename_(.dots = setNames('tmp_value', fld_value))
         head(m_dup)
       } else {
         if(collapse_fxn == "weighted.mean") {
@@ -146,19 +148,19 @@ name_to_rgn = function(
           w = w[, c(flds, "tmp_weight")]
           criteria  <-  ~by == flds
           m_dup = m_dup %>% 
-            filter(!is.na(tmp_value)) %>% 
-            group_by_(.dots=as.list(flds_unique_rgn_id)) %>% 
-            left_join(w) %>% 
-            summarize(tmp_value = weighted.mean(tmp_value, 
+            dplyr::filter(!is.na(tmp_value)) %>% 
+            dplyr::group_by_(.dots=as.list(flds_unique_rgn_id)) %>% 
+            dplyr::left_join(w) %>% 
+            dplyr::summarize(tmp_value = weighted.mean(tmp_value, 
                                                 tmp_weight, na.rm = T)) %>% 
-            rename_(.dots = setNames('tmp_value', fld_value))
+            dplyr::rename_(.dots = setNames('tmp_value', fld_value))
           head(m_dup)
         }   else {
           stop("collapse_fxn needs to be a string of one of the following: sum_na, mean, weighted.mean.")
         }
       }
     }
-    m_d = rbind_list(m[!i_dup, c(flds_unique_rgn_id, fld_value)], 
+    m_d = dplyr::bind_rows(m[!i_dup, c(flds_unique_rgn_id, fld_value)], 
                      m_dup)
   } else {
     m_d = m
@@ -168,19 +170,19 @@ name_to_rgn = function(
   m_d = m_d[, c(flds_unique_rgn_id, fld_value)]
   
   # add fields if explicitly requested
-  if (add_rgn_type) m_d = left_join(m_d, rgns %>% select(rgn_id, rgn_type), by='rgn_id')
-  if (add_rgn_name) m_d = left_join(m_d, rgns %>% select(rgn_id, rgn_name), by='rgn_id')
+  if (add_rgn_type) m_d = dplyr::left_join(m_d, rgns %>% select(rgn_id, rgn_type), by='rgn_id')
+  if (add_rgn_name) m_d = dplyr::left_join(m_d, rgns %>% select(rgn_id, rgn_name), by='rgn_id')
   
   # check to ensure no duplicates
   stopifnot(duplicated(m_d[, c(flds_unique_rgn_id)]) == 0) 
   
   m_d = m_d[, c(flds_unique_rgn_id, fld_value)]
   if (add_rgn_type) 
-    m_d = left_join(m_d, rgns %>% 
-                      select(rgn_id, rgn_type), by = "rgn_id")
+    m_d = dplyr::left_join(m_d, rgns %>% 
+                             dplyr::select(rgn_id, rgn_type), by = "rgn_id")
   if (add_rgn_name) 
-    m_d = left_join(m_d, 
-                    rgns %>% select(rgn_id, rgn_name), 
+    m_d = dplyr::left_join(m_d, 
+                    rgns %>% dplyr::select(rgn_id, rgn_name), 
                     by = "rgn_id")
   stopifnot(duplicated(m_d[, c(flds_unique_rgn_id)]) == 0)
   return(as.data.frame(m_d))

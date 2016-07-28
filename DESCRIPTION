@@ -1,11 +1,11 @@
 Package: ohicore
 Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
-Version: 0.1
-Date: 2013-09-25
+Version: 0.2
+Date: 2016-07-28
 Title: Ocean Health Index calculation package
-Author: Ben Best, Steve Hastings, Darren Hardy
-Maintainer: Ben Best <bbest@nceas.ucsb.edu>
+Author: Ben Best, Melanie Frazier, Julia Stewart Lowndes, Casey O'Hara, Ning Jiang Mendes, Jamie Afflerbach, Steve Hastings, Darren Hardy
+Maintainer: Melanie Frazier <frazier@nceas.ucsb.edu>
 License: MIT
 LazyData: TRUE
 Depends:

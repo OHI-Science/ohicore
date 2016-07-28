@@ -51,24 +51,6 @@
 #' ## write
 #' write.csv(scores, 'scores.csv', na='', row.names=F)
 #' }
-#' @import reshape2
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import git2r
-#' @importFrom dplyr arrange
-#' @importFrom dplyr desc
-#' @importFrom dplyr failwith
-#' @importFrom dplyr id
-#' @importFrom dplyr mutate
-#' @importFrom dplyr summarize
-#' @importFrom dplyr summarise
-#' @importFrom dplyr filter
-#' @importFrom dplyr intersect
-#' @importFrom dplyr setdiff
-#' @importFrom dplyr setequal
-#' @importFrom dplyr union
-#' @importFrom plyr rename
 #'
 #' @export
 CalculateAll = function(conf, layers){
@@ -184,7 +166,7 @@ CalculateAll = function(conf, layers){
             # filter only supragoal scores, merge with supragoal weightings
             dplyr::filter(dimension=='score',  goal %in% supragoals) %>%
             merge(conf$goals %>%
-                    select(goal, weight)) %>%
+                    dplyr::select(goal, weight)) %>%
             dplyr::mutate(weight = as.numeric(weight)) %>%
 
             # calculate the weighted mean of supragoals, add goal and dimension column
@@ -206,7 +188,7 @@ CalculateAll = function(conf, layers){
             # filter only supragoal scores, merge with supragoal weightings
             dplyr::filter(dimension=='future',  goal %in% supragoals) %>%
             merge(conf$goals %>%
-                    select(goal, weight)) %>%
+                    dplyr::select(goal, weight)) %>%
 
             # calculate the weighted mean of supragoals, add goal and dimension column
             dplyr::group_by(region_id) %>%

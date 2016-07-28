@@ -118,12 +118,12 @@ gapfill_georegions = function(
   
   # get n regions per georegion for later calculating gapfill score
   g = g %>%
-    group_by(r0) %>%
-    mutate(r0_n = n()) %>%  
-    group_by(r1) %>%
-    mutate(r1_n = n()) %>%
-    group_by(r2) %>%
-    mutate(r2_n = n())
+    dplyr::group_by(r0) %>%
+    dplyr::mutate(r0_n = n()) %>%  
+    dplyr::group_by(r1) %>%
+    dplyr::mutate(r1_n = n()) %>%
+    dplyr::group_by(r2) %>%
+    dplyr::mutate(r2_n = n())
   
   # add weights to data
   if (is.null(fld_weight) & is.null(rgn_weights)){
@@ -144,11 +144,11 @@ gapfill_georegions = function(
     
     # add weights to georegions
     g = g %>%
-      left_join(
+      dplyr::left_join(
         rgn_weights %>%
           plyr::rename(
             setNames('w', names(rgn_weights)[2])) %>%
-          select(id=rgn_id, w),
+          dplyr::select(id=rgn_id, w),
         by='id')
     
     if (sum(is.na(g$w))>0){
@@ -175,41 +175,41 @@ gapfill_georegions = function(
         g, 
         d, 
         by='id', all.x=T) %>%
-      arrange(id)
+      dplyr::arrange(id)
     
     # georegion means
     y = x %>%
-      filter(!is.na(v), !is.na(w))
+      dplyr::filter(!is.na(v), !is.na(w))
     z = x %>%
-      left_join(
+      dplyr::left_join(
         y %>% 
-          group_by(r2) %>%
-          summarise(
+          dplyr::group_by(r2) %>%
+          dplyr::summarise(
             r2_v       = weighted.mean(v, w),
             r2_w_avg   = mean(w),
             r2_n_notna = n(),
             r2_ids     = paste(id, collapse=',')),
         by='r2') %>%
-      left_join(
+      dplyr::left_join(
         y %>% 
-          group_by(r1) %>%
-          summarise(
+          dplyr::group_by(r1) %>%
+          dplyr::summarise(
             r1_v       = weighted.mean(v, w),
             r1_w_avg   = mean(w),
             r1_n_notna = n(),
             r1_ids     = paste(id, collapse=',')),
         by='r1') %>%
-      left_join(
+      dplyr::left_join(
         y %>% 
-          group_by(r0) %>%
-          summarise(
+          dplyr::group_by(r0) %>%
+          dplyr::summarise(
             r0_v       = weighted.mean(v, w),
             r0_w_avg   = mean(w),
             r0_n_notna = n(),
             r0_ids     = paste(id, collapse=',')),
         by='r0') %>%
-      arrange(r0, r1, r2, id) %>%
-      select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_w_avg, r1_w_avg, r0_w_avg, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, r2_ids, r1_ids, r0_ids)    
+      dplyr::arrange(r0, r1, r2, id) %>%
+      dplyr::select(r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_w_avg, r1_w_avg, r0_w_avg, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, r2_ids, r1_ids, r0_ids)    
   } else {    
     # using year
     d = plyr::rename(d, setNames('yr', fld_year))
@@ -227,56 +227,56 @@ gapfill_georegions = function(
         g, 
         by='id') %>%
       #select(yr, id, r0, r1, r2, r2_n, r1_n, r0_n, w) %>%
-      arrange(yr, id)
+      dplyr::arrange(yr, id)
     
     # merge with data
     x = gy %>%
       merge(
         d, 
         by=c('yr','id'), all.x=T) %>%      
-      arrange(yr, id) %>%
-      select(yr, id, r0, r1, r2, r2_n, r1_n, r0_n, v, w)
+      dplyr::arrange(yr, id) %>%
+      dplyr::select(yr, id, r0, r1, r2, r2_n, r1_n, r0_n, v, w)
     
     # get rows with v and w
     y = x %>%
-      filter(!is.na(v), !is.na(w))
+      dplyr::filter(!is.na(v), !is.na(w))
     
     # calculate georegion means
     z = x %>%
-      left_join(
+      dplyr::left_join(
         y %>% 
-          group_by(yr, r2) %>%
-          summarise(
+          dplyr::group_by(yr, r2) %>%
+          dplyr::summarise(
             r2_v       = weighted.mean(v, w),
             r2_w_avg   = mean(w),
             r2_n_notna = n(),
             r2_ids     = paste(id, collapse=',')),
         by=c('yr','r2')) %>%
-      left_join(
+      dplyr::left_join(
         y %>% 
-          group_by(yr, r1) %>%
-          summarise(
+          dplyr::group_by(yr, r1) %>%
+          dplyr::summarise(
             r1_v       = weighted.mean(v, w),
             r1_w_avg   = mean(w),
             r1_n_notna = n(),
             r1_ids     = paste(id, collapse=',')),
         by=c('yr','r1')) %>%
-      left_join(
+      dplyr::left_join(
         y %>% 
-          group_by(yr, r0) %>%
-          summarise(
+          dplyr::group_by(yr, r0) %>%
+          dplyr::summarise(
             r0_v       = weighted.mean(v, w),
             r0_w_avg   = mean(w),
             r0_n_notna = n(),
             r0_ids     = paste(id, collapse=',')),
         by=c('yr','r0')) %>%
-      arrange(yr, r0, r1, r2, id) %>%
-      select(yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_w_avg, r1_w_avg, r0_w_avg, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, r2_ids, r1_ids, r0_ids)    
+      dplyr::arrange(yr, r0, r1, r2, id) %>%
+      dplyr::select(yr, r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_w_avg, r1_w_avg, r0_w_avg, r2_n, r1_n, r0_n, r2_n_notna, r1_n_notna, r0_n_notna, r2_ids, r1_ids, r0_ids)    
   }
   
   # select best available value and calculate gapfilling score  
   z = z %>%
-    mutate(
+    dplyr::mutate(
       z_level = ifelse(!is.na(v), 'v',
                        ifelse(!is.na(r2_v), 'r2',
                               ifelse(!is.na(r1_v), 'r1',
@@ -284,11 +284,11 @@ gapfill_georegions = function(
   
   # assign attributes by georegion level (r#)
   z  = 
-  rbind_list(
+  dplyr::bind_rows(
     # rgn
     z %>%
-      filter(z_level=='v') %>%
-      mutate(
+      dplyr::filter(z_level=='v') %>%
+      dplyr::mutate(
         z_ids     = as.character(id),
         z_w_avg   = w,
         z_n       = 1,
@@ -297,8 +297,8 @@ gapfill_georegions = function(
         z         = v),
     # r2
     z %>%
-      filter(z_level=='r2') %>%
-      mutate(
+      dplyr::filter(z_level=='r2') %>%
+      dplyr::mutate(
         z_ids     = r2_ids,
         z_w_avg   = r2_w_avg,
         z_n       = r2_n_notna,
@@ -307,8 +307,8 @@ gapfill_georegions = function(
         z         = r2_v),
     # r1
     z %>%
-      filter(z_level=='r1') %>%
-      mutate(
+      dplyr::filter(z_level=='r1') %>%
+      dplyr::mutate(
         z_ids     = r1_ids,
         z_w_avg   = r1_w_avg,
         z_n       = r1_n_notna,
@@ -317,8 +317,8 @@ gapfill_georegions = function(
         z         = r1_v),
     # r0
     z %>%
-      filter(z_level=='r0') %>%
-      mutate(
+      dplyr::filter(z_level=='r0') %>%
+      dplyr::mutate(
         z_ids     = r0_ids,
         z_w_avg   = r0_w_avg,
         z_n       = r0_n_notna,
@@ -326,7 +326,7 @@ gapfill_georegions = function(
         z_g_score = gapfill_scoring_weights['r0'] - z_n_pct * diff(gapfill_scoring_weights[c('v','r0')]),
         z         = r0_v)
   ) %>%
-  select(-r2_ids, -r1_ids, -r0_ids)
+    dplyr::select(-r2_ids, -r1_ids, -r0_ids)
   
   # multiply by ratio if argument
   if (ratio_weights){  
@@ -342,19 +342,19 @@ gapfill_georegions = function(
   # add labels if provided
   if (!is.null(georegion_labels)){
     z = z %>%
-      left_join(
+      dplyr::left_join(
         l %>%
-          select(id=id, r0_label, r1_label, r2_label, v_label),
+          dplyr::select(id=id, r0_label, r1_label, r2_label, v_label),
         by='id') %>%
-      arrange(r0_label, r1_label, r2_label, v_label) 
+      dplyr::arrange(r0_label, r1_label, r2_label, v_label) 
     if (is.na(fld_year)){
       z = z %>%
-        select(r0_label, r1_label, r2_label, v_label, 
+        dplyr::select(r0_label, r1_label, r2_label, v_label, 
                r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, 
                r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_ids, z_n, z_n_pct, z_g_score, z)
     } else {
       z = z %>%
-        select(r0_label, r1_label, r2_label, v_label, yr, 
+        dplyr::select(r0_label, r1_label, r2_label, v_label, yr, 
                r0, r1, r2, id, w, v, r2_v, r1_v, r0_v, r2_n, r1_n, r0_n, 
                r2_n_notna, r1_n_notna, r0_n_notna, z_level, z_ids, z_n, z_n_pct, z_g_score, z)
     }
@@ -363,13 +363,13 @@ gapfill_georegions = function(
   # return result
   if (is.na(fld_year)){
     r = z %>%
-      select(id, z) %>%
-      arrange(id) %>%
+      dplyr::select(id, z) %>%
+      dplyr::arrange(id) %>%
       plyr::rename(setNames(c(fld_id, fld_value), c('id','z')))
   } else {
     r = z %>%
-      select(yr, id, z) %>%
-      arrange(yr, id) %>%
+      dplyr::select(yr, id, z) %>%
+      dplyr::arrange(yr, id) %>%
       plyr::rename(setNames(c(fld_year, fld_id, fld_value), c('yr', 'id', 'z')))
   }
   

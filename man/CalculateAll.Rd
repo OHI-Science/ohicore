@@ -64,6 +64,7 @@ scores = CalculateAll(conf, layers, debug=T)
 ## write
 write.csv(scores, 'scores.csv', na='', row.names=F)
 }
+
 }
 \keyword{ohi}
 
