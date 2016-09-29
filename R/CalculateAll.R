@@ -84,6 +84,16 @@ CalculateAll = function(conf, layers){
     assign('scores', scores, envir=conf$functions)
     if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))
     scores_g = eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)
+    
+    # error if 'status' or 'trend' are missing
+    if ( !all( c('status', 'trend') %in% unique(scores_g$dimension)) ){
+      stop(sprintf('Missing "status" or "trend" dimension in %s goal model\n', g))
+    }
+    # error if something other than 'status' or 'trend' as dimension
+    if ( !all(unique(scores_g$dimension) %in% c('status', 'trend')) ){
+      stop(sprintf('"status" and "trend" should be the only dimensions in %s goal model\n', g))
+    }
+    
     if (nrow(scores_g) > 0){
       scores = rbind(scores, scores_g[,c('goal','dimension','region_id','score')])
     }
