@@ -25,7 +25,7 @@
 #' @export
 trace_git_csv_value = function(repo, csv, subset_str, select, verbose=T){
 
-  ks = commits(repository(repo), topological=F, time=T, reverse=F)
+  ks = git2r::commits(git2r::repository(repo), topological=F, time=T, reverse=F)
   d = 
     data.frame(
       hex     = sapply(ks, function(x) x@hex),

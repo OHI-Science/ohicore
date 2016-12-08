@@ -27,24 +27,24 @@ compare_scores_df = function(a_csv, b_csv, r_csv, g_csv){
   
   # merge
   d = a %>%
-    base::merge(
+    merge(
       b, 
       by=c('goal','dimension','region_id'), 
       suffixes=c('.a','.b')) %>%        
     dplyr::rename(rgn_id=region_id) %>%
-    mutate(
+    dplyr::mutate(
       score.dif = score.a - score.b,
       score.na = is.na(score.a)!=is.na(score.b)) %>%      
-    left_join(
-      rbind_list(
+    dplyr::left_join(
+      dplyr::bind_rows(
         r %>%
-          select(rgn_id, rgn_name=label),
+          dplyr::select(rgn_id, rgn_name=label),
         data.frame(rgn_id=0, rgn_name='GLOBAL')),
       by='rgn_id') %>%
     # filter(abs(score_dif) > 0.01 | score_na == T) %>%
-    arrange(rgn_id!=0, goal!='Index', dimension!='score', goal, desc(dimension), desc(abs(score.dif)), is.na(score.a), is.na(score.b)) %>%
-    select(goal, dimension, rgn_id, rgn_name, score.a, score.b, score.dif) %>%
-    mutate(
+    dplyr::arrange(rgn_id!=0, goal!='Index', dimension!='score', goal, desc(dimension), desc(abs(score.dif)), is.na(score.a), is.na(score.b)) %>%
+    dplyr::select(goal, dimension, rgn_id, rgn_name, score.a, score.b, score.dif) %>%
+    dplyr::mutate(
       goal      = factor(goal, c('Index', g$goal)),
       dimension = factor(dimension, ohi_dimensions),
       id        = row_number())

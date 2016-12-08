@@ -25,7 +25,7 @@ shp_to_geojson = function(shp, js, geojson=sprintf('%s.geojson', tools::file_pat
   
   # read shp
   lyr = tools::file_path_sans_ext(basename(f_shp))  
-  x = readOGR(dsn=shp, layer=lyr) #  proj4string=sp::CRS('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
+  x = rgdal::readOGR(dsn=shp, layer=lyr) #  proj4string=sp::CRS('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
   
   # check fields present
   stopifnot(names(flds) %in% names(x))
@@ -35,7 +35,7 @@ shp_to_geojson = function(shp, js, geojson=sprintf('%s.geojson', tools::file_pat
   
   # write geojson
   if (file.exists(geojson)) unlink(geojson)
-  writeOGR(x, dsn=tools::file_path_sans_ext(geojson), layer=basename(tools::file_path_sans_ext(geojson)), driver='GeoJSON')  
+  rgdal::writeOGR(x, dsn=tools::file_path_sans_ext(geojson), layer=basename(tools::file_path_sans_ext(geojson)), driver='GeoJSON')  
   file.rename(tools::file_path_sans_ext(geojson), geojson)
   
   # write javascript

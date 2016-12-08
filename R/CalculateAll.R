@@ -51,24 +51,6 @@
 #' ## write
 #' write.csv(scores, 'scores.csv', na='', row.names=F)
 #' }
-#' @import reshape2
-#' @import plyr
-#' @import dplyr
-#' @import tidyr
-#' @import git2r
-#' @importFrom dplyr arrange
-#' @importFrom dplyr desc
-#' @importFrom dplyr failwith
-#' @importFrom dplyr id
-#' @importFrom dplyr mutate
-#' @importFrom dplyr summarize
-#' @importFrom dplyr summarise
-#' @importFrom dplyr filter
-#' @importFrom dplyr intersect
-#' @importFrom dplyr setdiff
-#' @importFrom dplyr setequal
-#' @importFrom dplyr union
-#' @importFrom plyr rename
 #'
 #' @export
 CalculateAll = function(conf, layers){
@@ -102,6 +84,16 @@ CalculateAll = function(conf, layers){
     assign('scores', scores, envir=conf$functions)
     if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))
     scores_g = eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)
+    
+    # error if 'status' or 'trend' are missing
+    if ( !all( c('status', 'trend') %in% unique(scores_g$dimension)) ){
+      stop(sprintf('Missing "status" or "trend" dimension in %s goal model\n', g))
+    }
+    # error if something other than 'status' or 'trend' as dimension
+    if ( !all(unique(scores_g$dimension) %in% c('status', 'trend')) ){
+      stop(sprintf('"status" and "trend" should be the only dimensions in %s goal model\n', g))
+    }
+    
     if (nrow(scores_g) > 0){
       scores = rbind(scores, scores_g[,c('goal','dimension','region_id','score')])
     }
@@ -112,7 +104,8 @@ CalculateAll = function(conf, layers){
   scores = rbind(scores, scores_P)
 
   ## Calculate Resilience, all goals
-  scores = rbind(scores, CalculateResilienceAll(layers, conf))
+  scores_R = CalculateResilienceAll(layers, conf)
+  scores = rbind(scores, scores_R)
   scores = data.frame(scores)
 
   ## Calculate Goal Score and Likely Future, all goals
@@ -159,7 +152,7 @@ CalculateAll = function(conf, layers){
     scores = rbind(scores, scores_G)
   }
 
-  ## Post-Index functions: supragoals
+  ## Post-Index functions: Calculate Status, Trend, Likely Future State and Scores for 'Supragoals'
   goals_Y = subset(conf$goals, !is.na(postindex_function))
   supragoals = subset(conf$goals, is.na(parent), goal, drop=T); supragoals
 
@@ -172,18 +165,19 @@ CalculateAll = function(conf, layers){
     scores = eval(parse(text=goals_Y$postindex_function[i]), envir=conf$functions)
   }
 
-  ## Calculate Region Index Scores using goal weights
-  cat(sprintf('Calculating Index score for each region for supragoals using goal weights...\n'))
+  ## Calculate Overall Index Scores for each region using goal weights
+  cat(sprintf('Calculating Index Score for each region using goal weights to combine goal scores...\n'))
 
   # calculate weighted-mean Index scores from goal scores and rbind to 'scores' variable
   scores =
     rbind(scores,
-          scores %>%
+        scores %>%
 
             # filter only supragoal scores, merge with supragoal weightings
             dplyr::filter(dimension=='score',  goal %in% supragoals) %>%
             merge(conf$goals %>%
-                    select(goal, weight)) %>%
+                    dplyr::select(goal, weight)) %>%
+            dplyr::mutate(weight = as.numeric(weight)) %>%
 
             # calculate the weighted mean of supragoals, add goal and dimension column
             dplyr::group_by(region_id) %>%
@@ -193,8 +187,8 @@ CalculateAll = function(conf, layers){
             data.frame())
 
 
-  ## Calculate Region Likely Future State Scores using goal weights
-  cat(sprintf('Calculating Likely Future State for each region for supragoals using goal weights...\n'))
+  ## Calculate Overall Index Likely Future State for each region
+  cat(sprintf('Calculating Index Likely Future State for each region...\n'))
 
   # calculate weighted-mean Likely Future State scores and rbind to 'scores' variable
   scores =
@@ -204,7 +198,7 @@ CalculateAll = function(conf, layers){
             # filter only supragoal scores, merge with supragoal weightings
             dplyr::filter(dimension=='future',  goal %in% supragoals) %>%
             merge(conf$goals %>%
-                    select(goal, weight)) %>%
+                    dplyr::select(goal, weight)) %>%
 
             # calculate the weighted mean of supragoals, add goal and dimension column
             dplyr::group_by(region_id) %>%

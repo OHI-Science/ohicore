@@ -129,7 +129,7 @@ CalculatePressuresAll = function(layers, conf){
 
   ## further preparation of matrix data for analysis
   p_matrix <- p_matrix %>%
-    left_join(p_categories, by="layer") %>%
+    dplyr::left_join(p_categories, by="layer") %>%
     dplyr::group_by(goal, element, category, subcategory) %>%
     dplyr::mutate(max_subcategory = max(m_intensity)) %>%
     data.frame()
@@ -221,7 +221,7 @@ CalculatePressuresAll = function(layers, conf){
   scores <- regions_dataframe %>%
     dplyr::left_join(calc_pressure, by="region_id") %>%
     dplyr::mutate(dimension="pressures") %>%
-    select(goal, dimension, region_id, score=pressure) %>%
-    mutate(score = round(score*100, 2))
+    dplyr::select(goal, dimension, region_id, score=pressure) %>%
+    dplyr::mutate(score = round(score*100, 2))
   return(scores)
 }

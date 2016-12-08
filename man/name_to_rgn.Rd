@@ -2,7 +2,7 @@
 % Please edit documentation in R/name_to_rgn.R
 \name{name_to_rgn}
 \alias{name_to_rgn}
-\title{Get scenarios}
+\title{Name to region translate (old version still used in LE function...keep until this is revised)}
 \usage{
 name_to_rgn(d, fld_name = "country", flds_unique = fld_name,
   fld_value = "value", collapse_fxn = c("sum_na", "mean",
@@ -38,7 +38,7 @@ name_to_rgn(d, fld_name = "country", flds_unique = fld_name,
 \item{add_rgn_type}{T of F whether to include the region type (eez...)}
 }
 \description{
-Get scenarios from Github.
+(old version still used in LE function...keep until this is revised)
 }
 \details{
 This function translates name to region id with a lookup.
