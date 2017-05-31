@@ -104,16 +104,39 @@ CalculatePressuresAll = function(layers, conf){
                                weight = c(p_gamma, 1-p_gamma))
   eco_soc_weight$category <- as.character(eco_soc_weight$category)
 
-
+  
+  ### ID relevant data year for each layer
+if(dim(conf$scenario_data_years)[1]>0){  
+  
+  scenario_data_year <- conf$scenario_data_years %>%
+    dplyr::filter(layer_name %in% p_layers)
+  scenario_data_year <- scenario_data_year[scenario_data_year$scenario_year == layers$data$scenario_year, ] %>%
+    dplyr::select(layer_name, scenario_year, data_year)
+  layers_no_years <- setdiff(p_layers, scenario_data_year$layer_name)
+  layers_no_years_df <- data.frame(layer_name=layers_no_years, 
+                                   scenario_year = 20100,  # creating a fake variable to match up here
+                                   data_year = 20100)
+  scenario_data_year <- rbind(scenario_data_year, layers_no_years_df) %>%
+    dplyr::select(layer = layer_name, year=data_year)
+  
+} else{
+  scenario_data_year <- data.frame(layer=p_layers, year=20100)
+}
   ### get the regional data layer associated with each pressure data layer:
-  p_rgn_layers <- SelectLayersData(layers, layers=p_layers) %>%
+  p_rgn_layers_data <- SelectLayersData(layers, layers=p_layers) %>%
     dplyr::filter(id_num %in% regions_vector) %>%
     dplyr::select(region_id = id_num,
+                  year, 
                   val_num,
                   layer) %>%
-    dplyr::filter(!is.na(val_num))
+    dplyr::filter(!is.na(val_num)) %>%
+    dplyr::mutate(year = ifelse(is.na(year), 20100, year))
+  
+  p_rgn_layers <- scenario_data_year %>%
+    dplyr::left_join(p_rgn_layers_data, by=c("year", "layer")) %>%
+    select(region_id, val_num, layer)
 
-  ## error check: matrix and region data layers include the same pressure factors
+## error check: matrix and region data layers include the same pressure factors
   check <- setdiff(p_layers, p_rgn_layers$layer)
   if (length(check) >= 1) {
     message(sprintf('These pressure layers are in the pressures_matrix.csv, but there are no associated data layers:\n%s',
