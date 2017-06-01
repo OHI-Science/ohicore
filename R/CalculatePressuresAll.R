@@ -105,7 +105,7 @@ CalculatePressuresAll = function(layers, conf){
   eco_soc_weight$category <- as.character(eco_soc_weight$category)
 
   
-  ### ID relevant data year for each layer
+  ### ID relevant data year for each layer (if there is no year data, the year is assigned as 20100)
 if(dim(conf$scenario_data_years)[1]>0){  
   
   scenario_data_year <- conf$scenario_data_years %>%
@@ -122,8 +122,20 @@ if(dim(conf$scenario_data_years)[1]>0){
 } else{
   scenario_data_year <- data.frame(layer=p_layers, year=20100)
 }
-  ### get the regional data layer associated with each pressure data layer:
-  p_rgn_layers_data <- SelectLayersData(layers, layers=p_layers) %>%
+  
+  scenario_data_year <- scenario_data_year %>%
+    mutate(layer = as.character(layer))
+  
+  
+### get each pressure data layer and select the appropriate year of data:
+  p_rgn_layers_data <- SelectLayersData(layers, layers=p_layers)
+  
+  if(length(which(names(p_rgn_layers_data)=="year"))==0){
+    p_rgn_layers_data$year = NA
+  }
+  
+  
+p_rgn_layers_data <- p_rgn_layers_data  %>%
     dplyr::filter(id_num %in% regions_vector) %>%
     dplyr::select(region_id = id_num,
                   year, 
