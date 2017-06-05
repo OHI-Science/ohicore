@@ -63,6 +63,10 @@ CalculateGoalIndex = function(id, status, trend, resilience, pressure,
      stopifnot(min(d$r, na.rm=T) >= 0  && max(d$r, na.rm=T) <= xlim[2])   #  [ 0, 1]
      stopifnot(min(d$p, na.rm=T) >= 0  && max(d$p, na.rm=T) <= xlim[2])   #  [ 0, 1]
      
+     ## manage when resilience or pressure is NA
+     p <- ifelse(is.na(p), 0, p)
+     r <- ifelse(is.na(r), 0, r)
+     
      # compute "future" status, using all dimensions
      d$xF <- with(d, (DISCOUNT * (1 + (BETA * t) + ((1-BETA) * (r - p)))) * x)
      # clamp status domain to [0, 1]
