@@ -100,7 +100,7 @@ CalculateAll = function(conf, layers){
   }
 
   ## Calculate Pressures, all goals
-  layers = Layers(layers.csv = 'layers.csv', layers.dir = 'layers')
+#  layers = Layers(layers.csv = 'layers.csv', layers.dir = 'layers')
   scores_P = CalculatePressuresAll(layers, conf)
   scores = rbind(scores, scores_P)
 
