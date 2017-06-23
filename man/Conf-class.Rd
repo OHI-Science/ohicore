@@ -2,8 +2,8 @@
 % Please edit documentation in R/Conf.R
 \docType{class}
 \name{Conf-class}
-\alias{Conf}
 \alias{Conf-class}
+\alias{Conf}
 \title{Conf reference class.}
 \arguments{
 \item{dir}{path to directory containing necessary files, e.g., eez2015/conf}

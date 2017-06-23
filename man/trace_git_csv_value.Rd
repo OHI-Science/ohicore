@@ -36,4 +36,3 @@ head(d)
 
 }
 \keyword{git}
-

@@ -22,4 +22,3 @@ possible spatial scale. There are three spatial scales in these data
 (general to specific regions: r0_label, r1_label, r2_label).
 }
 \keyword{datasets}
-

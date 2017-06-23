@@ -23,8 +23,8 @@ warning messages
 Check all the input layers as defined by layers.csv and update required fields
 }
 \details{
-This function goes through all the entries 
-in layers.csv and does several checks (e.g., that each datalayer in layers.csv is present in the layers folder, etc.).  
+This function goes through all the entries
+in layers.csv and does several checks (e.g., that each datalayer in layers.csv is present in the layers folder, etc.).
 This function appends the following information:
 \itemize{
  \item{\emph{fld_id_num} - name of field used as spatial identifier, if numeric}
@@ -55,4 +55,3 @@ This function also appends the following diagnostic fields to layers.csv:
 }
 }
 \keyword{layers}
-

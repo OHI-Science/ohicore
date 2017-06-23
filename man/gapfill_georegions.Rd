@@ -96,4 +96,3 @@ head(attr(g, 'gapfill_georegions'))
 }
 }
 \keyword{ohi}
-

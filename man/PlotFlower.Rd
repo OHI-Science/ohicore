@@ -108,4 +108,3 @@ aster(lengths=scores, widths=weights, disk=0.5, main="Example 3",
 Created by Jim Regetz. Slight modifications by Darren Hardy and Ben Best.
 }
 \keyword{layers_navigation}
-

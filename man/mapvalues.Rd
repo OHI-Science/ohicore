@@ -32,4 +32,3 @@ on vectors of any type and factors.
 } 
 }
 \keyword{ohicore}
-

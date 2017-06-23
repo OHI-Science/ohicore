@@ -9,4 +9,3 @@
 \details{
 Use this function to write the configuration to disk, like so \code{conf$write(dir)}. This is useful for modifying and then reloading with \code{\link{Conf}(dir)}.
 }
-

@@ -2,9 +2,9 @@
 % Please edit documentation in R/ScoreScaling.R
 \name{ScoreScaling}
 \alias{ScoreScaling}
-\alias{score.clamp}
-\alias{score.max}
 \alias{score.rescale}
+\alias{score.max}
+\alias{score.clamp}
 \title{Score Scaling Functions}
 \usage{
 score.rescale(x, xlim = NULL, method = "linear", ...)
@@ -38,4 +38,3 @@ score.clamp(c(-0.5, 1, 2), xlim=c(-1, 1))
 min, max, pmin, pmax
 }
 \keyword{ohi}
-

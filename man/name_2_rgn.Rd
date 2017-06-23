@@ -23,4 +23,3 @@ Convert country names to ohi region ids.
 This function translates name to region id with a lookup.
 }
 \keyword{ohi}
-

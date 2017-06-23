@@ -44,4 +44,3 @@ name_to_rgn(d, fld_name = "country", flds_unique = fld_name,
 This function translates name to region id with a lookup.
 }
 \keyword{ohi}
-

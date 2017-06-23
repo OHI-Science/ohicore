@@ -25,4 +25,3 @@ Collapse data for duplicate regions.
 This function collapses duplicate regions (example: China, Macau, Hong Kong)
 }
 \keyword{ohi}
-

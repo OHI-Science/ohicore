@@ -22,4 +22,3 @@ Synonyms for countries included in Ocean Health Index.
 These data are used to translate region names to region ids.'
 }
 \keyword{datasets}
-

@@ -22,4 +22,3 @@ Identifies a country's territories.
 This information is used to assign data to a country's territories.
 }
 \keyword{datasets}
-
