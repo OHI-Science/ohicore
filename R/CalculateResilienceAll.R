@@ -94,15 +94,50 @@ CalculateResilienceAll = function(layers, conf){
                                   weight = c(r_gamma, 1-r_gamma))
   eco_soc_weight$category <- as.character(eco_soc_weight$category)
 
-
+  ### ID relevant data year for each layer (if no year data, the year is assigned as 20100)
+  if(dim(conf$scenario_data_years)[1]>0){  
+      
+       scenario_data_year <- conf$scenario_data_years %>%
+           dplyr::filter(layer_name %in% r_layers)
+        
+       scenario_data_year <- scenario_data_year[scenario_data_year$scenario_year == layers$data$scenario_year, ] %>%
+            dplyr::select(layer_name, scenario_year, data_year)
+       
+        layers_no_years <- setdiff(r_layers, scenario_data_year$layer_name)
+        
+        layers_no_years_df <- data.frame(layer_name=layers_no_years, 
+                                           scenario_year = 20100,  # creating a fake variable to match up here
+                                           data_year = 20100)
+        
+        scenario_data_year <- rbind(scenario_data_year, layers_no_years_df) %>%
+        dplyr::select(layer = layer_name, year=data_year)
+      
+        } else{
+            scenario_data_year <- data.frame(layer=r_layers, year=20100)
+          }
+  
+  scenario_data_year <- scenario_data_year %>%
+    mutate(layer = as.character(layer))
+  
   ### get the regional data layer associated with each resilience data layer:
-  r_rgn_layers <- SelectLayersData(layers, layers=r_layers) %>%
-    dplyr::filter(id_num %in% regions_vector) %>%
+  r_rgn_layers_data <- SelectLayersData(layers, layers=r_layers) 
+  
+  if(length(which(names(r_rgn_layers_data)=="year"))==0){
+        r_rgn_layers_data$year = NA
+      }
+
+  r_rgn_layers_data <- r_rgn_layers_data  %>%
+      dplyr::filter(id_num %in% regions_vector) %>%
     dplyr::select(region_id = id_num,
+                  year,
                   val_num,
                   layer) %>%
-    dplyr::filter(!is.na(val_num))
+    dplyr::filter(!is.na(val_num)) %>%
+    dplyr::mutate(year = ifelse(is.na(year), 20100, year))
 
+  r_rgn_layers <- scenario_data_year %>%
+        dplyr::left_join(r_rgn_layers_data, by=c("year", "layer")) %>%
+        select(region_id, val_num, layer)
 
   ## error check: matrix and region data layers include the same resilience factors
   check <- setdiff(r_layers, r_rgn_layers$layer)
