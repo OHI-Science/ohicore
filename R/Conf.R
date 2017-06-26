@@ -98,8 +98,8 @@ Conf = methods::setRefClass(
       print(summary(.self$resilience_categories))
       cat('pressure_categories:\n')
       print(summary(.self$pressure_categories))
-      if(file.exists(file.path(dir, "scenario_data_year.csv"))){
-        print(summary(.self$scenario_data_year))
+      if(file.exists(file.path(dir, "scenario_data_years.csv"))){
+        print(summary(.self$scenario_data_years))
       }
     })
 )
