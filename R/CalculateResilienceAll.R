@@ -22,7 +22,8 @@ CalculateResilienceAll = function(layers, conf){
 
   r_matrix = conf$resilience_matrix
   r_matrix = within(r_matrix, {element[is.na(element)] = ''})               # resilience matrix
-  r_matrix <- tidyr::gather(r_matrix, layer, included, 3:ncol(r_matrix)) %>%    # format the resilience matrix so it is a dataframe
+  r_matrix <- tidyr::gather(r_matrix, layer, included,
+                            -c(goal, element)) %>%    # format the resilience matrix so it is a dataframe
     dplyr::filter(!is.na(included)) %>%
     dplyr::select(goal, element, layer)
 
@@ -35,7 +36,7 @@ CalculateResilienceAll = function(layers, conf){
               length(unique(r_categories$subcategory)),
               paste(unique(r_categories$subcategory), collapse=', ')))
 
-  
+
   ## error if the config.R weighting files are not actually included in the the data
   obs_data <- dplyr::select(SelectLayersData(layers, layers=r_element$layer), layer)
   obs_data <- unique(obs_data$layer)
@@ -45,8 +46,8 @@ CalculateResilienceAll = function(layers, conf){
     stop(sprintf('weighting data layers identified in config.r do not exist; please update layers.csv and layers folder to include: %s',
                  paste(dif, collapse=', ')))
   }
-  
-  
+
+
   # error if resilience categories deviate from "ecological" and "social"
   check <- setdiff(c("ecological", "social"), unique(r_categories$category))
   if (length(check) > 0){
@@ -95,33 +96,33 @@ CalculateResilienceAll = function(layers, conf){
   eco_soc_weight$category <- as.character(eco_soc_weight$category)
 
   ### ID relevant data year for each layer (if no year data, the year is assigned as 20100)
-  if(dim(conf$scenario_data_years)[1]>0){  
-      
+  if(dim(conf$scenario_data_years)[1]>0){
+
        scenario_data_year <- conf$scenario_data_years %>%
            dplyr::filter(layer_name %in% r_layers)
-        
+
        scenario_data_year <- scenario_data_year[scenario_data_year$scenario_year == layers$data$scenario_year, ] %>%
             dplyr::select(layer_name, scenario_year, data_year)
-       
+
         layers_no_years <- setdiff(r_layers, scenario_data_year$layer_name)
-        
-        layers_no_years_df <- data.frame(layer_name=layers_no_years, 
+
+        layers_no_years_df <- data.frame(layer_name=layers_no_years,
                                            scenario_year = 20100,  # creating a fake variable to match up here
                                            data_year = 20100)
-        
+
         scenario_data_year <- rbind(scenario_data_year, layers_no_years_df) %>%
         dplyr::select(layer = layer_name, year=data_year)
-      
+
         } else{
             scenario_data_year <- data.frame(layer=r_layers, year=20100)
           }
-  
+
   scenario_data_year <- scenario_data_year %>%
     mutate(layer = as.character(layer))
-  
+
   ### get the regional data layer associated with each resilience data layer:
-  r_rgn_layers_data <- SelectLayersData(layers, layers=r_layers) 
-  
+  r_rgn_layers_data <- SelectLayersData(layers, layers=r_layers)
+
   if(length(which(names(r_rgn_layers_data)=="year"))==0){
         r_rgn_layers_data$year = NA
       }

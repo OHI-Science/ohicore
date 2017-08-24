@@ -13,7 +13,8 @@ CalculatePressuresAll = function(layers, conf){
 
   ### get pressure matrix, goal elements, weights, categories, layers
   p_matrix <- conf$pressures_matrix
-  p_matrix <- tidyr::gather(p_matrix, layer, m_intensity, 4:ncol(p_matrix)) %>%    ### format the pressure matrix so it is a dataframe
+  p_matrix <- tidyr::gather(p_matrix, layer, m_intensity,
+                            -c(goal, element, element_name)) %>%    ### format the pressure matrix so it is a dataframe
     dplyr::filter(!is.na(m_intensity)) %>%
     dplyr::select(goal, element, layer, m_intensity)
 
@@ -105,8 +106,8 @@ CalculatePressuresAll = function(layers, conf){
 
   ### setup initial data.frame for column binding results by region
   regions_dataframe <- SelectLayersData(layers,
-                                        layers = conf$config$layer_region_labels,
-                                        narrow = TRUE) %>%
+                                                 layers = conf$config$layer_region_labels,
+                                                 narrow = TRUE) %>%
     dplyr::select(region_id = id_num)
   regions_vector <- regions_dataframe[['region_id']]
 
