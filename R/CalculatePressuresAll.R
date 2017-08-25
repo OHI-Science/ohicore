@@ -6,7 +6,7 @@
 #' @import dplyr
 #' @import tidyr
 #' @export
-CalculatePressuresAll = function(layers, conf){
+CalculatePressuresAll <- function(layers, conf) {
 
   ### reporting 1
   cat(sprintf('Calculating Pressures for each region...\n'))
@@ -34,7 +34,7 @@ CalculatePressuresAll = function(layers, conf){
   ### reporting 2
   cat(sprintf('There are %s pressures subcategories: %s \n',
               length(unique(p_categories$subcategory)),
-                     paste(unique(p_categories$subcategory), collapse=', ')))
+                     paste(unique(p_categories$subcategory), collapse = ', ')))
 
   ### error if the config.R weighting files are not actually included in the the data
   obs_data <- SelectLayersData(layers, layers = p_element$layer) %>%
@@ -88,7 +88,7 @@ CalculatePressuresAll = function(layers, conf){
   check <- setdiff(p_layers, p_categories$layer)
   if (length(check) >= 1) {
     message(sprintf('These pressure layers are in the pressure_matrix.csv but not in pressure_categories.csv:\n%s',
-                    paste(check, collapse=', ')))
+                    paste(check, collapse = ', ')))
   }
 
   check <- setdiff(p_categories$layer, p_layers)
@@ -168,13 +168,13 @@ CalculatePressuresAll = function(layers, conf){
   check <- setdiff(p_layers, p_rgn_layers$layer)
   if (length(check) >= 1) {
     message(sprintf('These pressure layers are in the pressures_matrix.csv, but there are no associated data layers:\n%s',
-                    paste(check, collapse=', ')))
+                    paste(check, collapse = ', ')))
   }
 
   check <- setdiff(p_rgn_layers$layer, p_layers)
   if (length(check) >= 1) {
     message(sprintf('These pressure layers have data layers, but are not included in the pressures_matrix.csv:\n%s',
-                    paste(check, collapse=', ')))
+                    paste(check, collapse = ', ')))
   }
 
 
@@ -202,6 +202,7 @@ CalculatePressuresAll = function(layers, conf){
     dplyr::group_by(goal, element, category, subcategory, max_subcategory, region_id) %>%
     dplyr::summarize(cum_pressure = sum(pressure_intensity, na.rm = TRUE) / 3) %>%
     dplyr::mutate(cum_pressure = ifelse(cum_pressure > 1, 1, cum_pressure)) %>%
+    dplyr::ungroup() %>%
     data.frame()
 
   ### separate method for social pressures
@@ -209,6 +210,8 @@ CalculatePressuresAll = function(layers, conf){
     dplyr::filter(category == "social") %>%
     dplyr::group_by(goal, element, category, subcategory, max_subcategory, region_id) %>%
     dplyr::summarize(cum_pressure = mean(pressure_intensity)) %>%
+    dplyr::mutate(cum_pressure = ifelse(cum_pressure > 1, 1, cum_pressure)) %>%
+    dplyr::ungroup() %>%
     data.frame()
 
   ### combine social and ecological
@@ -218,6 +221,7 @@ CalculatePressuresAll = function(layers, conf){
   calc_pressure <- calc_pressure %>%
     dplyr::group_by(goal, element, category, region_id) %>%
     dplyr::summarize(pressure = weighted.mean(cum_pressure, max_subcategory)) %>%
+    dplyr::ungroup() %>%
     data.frame()
 
   ### combine ecological and social pressures, based on gamma
@@ -225,6 +229,7 @@ CalculatePressuresAll = function(layers, conf){
     dplyr::left_join(eco_soc_weight, by="category") %>%
     dplyr::group_by(goal, element, region_id) %>%
     dplyr::summarize(pressure = weighted.mean(pressure, weight)) %>%
+    dplyr::ungroup() %>%
     data.frame()
 
 
@@ -272,6 +277,7 @@ CalculatePressuresAll = function(layers, conf){
       dplyr::mutate(element_wt = ifelse(is.na(element_wt), 1, element_wt)) %>%
       dplyr::group_by(goal, region_id) %>%
       dplyr::summarize(pressure = weighted.mean(pressure, element_wt)) %>% ### retain a 'pressure' column
+      dplyr::ungroup() %>%
       data.frame()
 
   } ### end if(length(p_element) >= 1) for goals with elements
