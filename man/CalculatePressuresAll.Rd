@@ -17,4 +17,3 @@ data.frame containing columns 'region_id' and per subgoal pressures score
 \description{
 Calculate all the pressures score for each (sub)goal.
 }
-

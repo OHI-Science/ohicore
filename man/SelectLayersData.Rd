@@ -45,4 +45,3 @@ Select Layers to Data
 \details{
 If neither targets or layers are specified then all layers are returned. If targets and layers are specified, then the union of the two sets of layers are returned, with any renamed layers renamed.
 }
-

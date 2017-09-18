@@ -21,4 +21,3 @@ Combine two scores.csv files and calculate difference.
 \details{
 Returns a data frame with calculated differences sorted by global (region_id=0), Index, score, goal, dimension, absolute score, is.na(a), is.na(b).
 }
-

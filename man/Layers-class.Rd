@@ -2,8 +2,8 @@
 % Please edit documentation in R/Layers.R
 \docType{class}
 \name{Layers-class}
-\alias{Layers}
 \alias{Layers-class}
+\alias{Layers}
 \title{Layers reference class.}
 \arguments{
 \item{layers.csv}{path to comma-seperated value file with row of metadata for each dataset used in OHI analysis.}

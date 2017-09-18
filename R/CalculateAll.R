@@ -81,15 +81,29 @@ CalculateAll = function(conf, layers){
     g = goals_X$goal[i]
     cat(sprintf('Calculating Status and Trend for each region for %s...\n', g))
 
+    ## assign scores variable to conf$functions environment
     assign('scores', scores, envir=conf$functions)
-    if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))
+    
+    ## error if scores already calculated for g
+    if (nrow(subset(scores, goal==g & dimension %in% c('status','trend')))!=0) {
+      stop(sprintf('Scores were assigned to goal %s by previous goal function.', g))
+    }
+    
+    ## calculate scores for goal g and create scores_g
     scores_g = eval(parse(text=goals_X$preindex_function[i]), envir=conf$functions)
     
-    # error if 'status' or 'trend' are missing
+    ## ungroup if scores_g is a grouped dataframe
+    if ( dplyr::is.grouped_df(scores_g) ){
+      cat(sprintf('Ungrouping scores variable returned from %s model...\n', g))
+      scores_g <- scores_g %>%
+        ungroup()
+    }
+    
+    ## error if 'status' or 'trend' are missing
     if ( !all( c('status', 'trend') %in% unique(scores_g$dimension)) ){
       stop(sprintf('Missing "status" or "trend" dimension in %s goal model\n', g))
     }
-    # error if something other than 'status' or 'trend' as dimension
+    ## error if something other than 'status' or 'trend' as dimension
     if ( !all(unique(scores_g$dimension) %in% c('status', 'trend')) ){
       stop(sprintf('"status" and "trend" should be the only dimensions in %s goal model\n', g))
     }
@@ -100,6 +114,7 @@ CalculateAll = function(conf, layers){
   }
 
   ## Calculate Pressures, all goals
+#  layers = Layers(layers.csv = 'layers.csv', layers.dir = 'layers')
   scores_P = CalculatePressuresAll(layers, conf)
   scores = rbind(scores, scores_P)
 

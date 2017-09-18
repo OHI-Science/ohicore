@@ -16,4 +16,3 @@ rgn_eez_area
 Area (km2) of each OHI region's eez.
 }
 \keyword{datasets}
-

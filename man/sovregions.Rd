@@ -20,4 +20,3 @@ This information is used to assign data to a country's territories.
 (This is a version of the sovregion_labels data)
 }
 \keyword{datasets}
-

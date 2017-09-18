@@ -22,4 +22,3 @@ Uses rgdal to write GeoJSON.
 }
 \keyword{geojson}
 \keyword{shapefile}
-

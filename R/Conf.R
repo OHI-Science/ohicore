@@ -37,7 +37,8 @@ Conf = methods::setRefClass(
     pressures_matrix = 'data.frame',
     resilience_matrix = 'data.frame',
     resilience_categories = 'data.frame',
-    pressure_categories = 'data.frame'
+    pressure_categories = 'data.frame',
+    scenario_data_years = 'data.frame'
     ),
   methods = list(
     initialize = function(dir) {      
@@ -59,6 +60,9 @@ Conf = methods::setRefClass(
       .self$resilience_matrix  = read.csv(file.path(dir, 'resilience_matrix.csv' ), na.strings='', stringsAsFactors=F)
       .self$resilience_categories = read.csv(file.path(dir, 'resilience_categories.csv'), na.strings='', stringsAsFactors=F)
       .self$pressure_categories = read.csv(file.path(dir, 'pressure_categories.csv'), na.strings='', stringsAsFactors=F)
+      if(file.exists(file.path(dir, "scenario_data_years.csv"))){
+        .self$scenario_data_years = read.csv(file.path(dir, 'scenario_data_years.csv'), na.strings='', stringsAsFactors=F)
+      }
       
      },
     write = function(dir){
@@ -74,7 +78,11 @@ Conf = methods::setRefClass(
       write.csv(.self$resilience_matrix , file.path(dir, 'resilience_matrix.csv' ), row.names=F, na='')
       write.csv(.self$resilience_categories, file.path(dir, 'resilience_categories.csv'), row.names=F, na='') 
       write.csv(.self$pressure_categories, file.path(dir, 'pressure_categories.csv'), row.names=F, na='') 
-    },
+      if(file.exists(file.path(dir, "scenario_data_year.csv"))){
+        write.csv(.self$scenario_data_years, file.path(dir, 'scenario_data_years.csv'), row.names=F, na='')
+      }
+      
+          },
     show = function () {
       cat('config:\n')
       print(ls(.self$config))
@@ -90,6 +98,9 @@ Conf = methods::setRefClass(
       print(summary(.self$resilience_categories))
       cat('pressure_categories:\n')
       print(summary(.self$pressure_categories))
+      if(file.exists(file.path(dir, "scenario_data_years.csv"))){
+        print(summary(.self$scenario_data_years))
+      }
     })
 )
 

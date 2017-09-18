@@ -17,4 +17,3 @@ data.frame containing columns 'region_id' and per subgoal resilience score
 \description{
 Calculate all the resilience score for each (sub)goal.
 }
-
