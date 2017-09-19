@@ -108,17 +108,17 @@ score_check = function(scenario_year, commit="previous",
   }
   
   my.file.rename(from = "tmp_file.html",
-                 to = file.path('../score_check', paste0(file_name, "_score_check_", Sys.Date(), '.html')))
+                 to = file.path('score_check', paste0(file_name, "_score_check_", Sys.Date(), '.html')))
   
   cat("An interactive plot in the 'score_check' folder has been created \n")
   
   if(save_png){
-    ggplot2::ggsave(file.path('../score_check', paste0(file_name, "_check_plot_", Sys.Date(), '.png')), width=8, height=5)
+    ggplot2::ggsave(file.path('score_check', paste0(file_name, "_check_plot_", Sys.Date(), '.png')), width=8, height=5)
     cat("A png plot has been saved in the 'score_check' folder \n")
   }
   
   if(save_csv){
-    write.csv(data_new, file.path('../score_check', paste0(file_name, "_diff_data_", Sys.Date(), '.csv')), row.names=FALSE)
+    write.csv(data_new, file.path('score_check', paste0(file_name, "_diff_data_", Sys.Date(), '.csv')), row.names=FALSE)
     cat("A csv file comparing the scores has been saved in the 'score_check' folder \n")
   }
   
