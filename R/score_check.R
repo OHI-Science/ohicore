@@ -57,11 +57,14 @@ score_check = function(scenario_year, commit="previous",
   
   # create dummy year variable if there is no year variable in the data
   if(sum(names(data_old)=="year") < 1){
+    
     data_new <- read.csv("scores.csv") %>%
       dplyr::left_join(data_old, by=c('goal', 'dimension', 'region_id')) %>%
-      dplyr::mutate(year == substring(date(), 21, 24)) %>%  # uses current year as year
+      dplyr::mutate(year = substring(date(), 21, 24)) %>%  # uses current year as year
       dplyr::mutate(change = score-old_score)
+    
     scenario_year <- substring(date(), 21, 24)
+    
   } else{
     data_new <- read.csv("scores.csv") %>%
       dplyr::left_join(data_old, by=c('year', 'goal', 'dimension', 'region_id')) %>%
