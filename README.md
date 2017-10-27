@@ -7,7 +7,7 @@ ohicore
 ## Installation
 
 
-```R
+```r
 # install packages
 
 # devtools is needed for installing packages from Github:
@@ -15,6 +15,8 @@ install.packages('devtools')
 
 devtools::install_github('ohi-science/ohicore')
 library(ohicore)
+
+```
 
 See [ohi-science.org/toolbox-training](http://ohi-science.org/toolbox-training) for more information.
 
