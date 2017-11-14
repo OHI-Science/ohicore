@@ -42,13 +42,13 @@ Parameters:
 
 \dontrun{
 ## run a model with 50 regions using random data,
-## using 5 year 1-percent discount rate and beta=0.67
+## using 5 year 1-percent discount rate and beta = 0.67
 require(ohi)
-d <- ohi.model.goal(id=1:50, 
-                    status=runif(50, 0, 1), 
-                    trend=runif(50, -1, 1), 
-                    resilience=runif(50, 0, 1), 
-                    pressure=runif(50, 0, 1), 
+d <- ohi.model.goal(id = 1:50, 
+                    status = runif(50, 0, 1), 
+                    trend = runif(50, -1, 1), 
+                    resilience = runif(50, 0, 1), 
+                    pressure = runif(50, 0, 1), 
                     DISCOUNT = (1 + 0.01)^-5,
                     BETA = 0.67,
                     default_trend = 0.0) 

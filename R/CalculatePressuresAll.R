@@ -37,14 +37,16 @@ CalculatePressuresAll <- function(layers, conf) {
                      paste(unique(p_categories$subcategory), collapse = ', ')))
 
   ### error if the config.R weighting files are not actually included in the the data
-  obs_data <- SelectLayersData(layers, layers = p_element$layer) %>%
-    .$layer %>%
-    unique()
-  exp_data <- unique(p_element$layer)
-  dif <- setdiff(exp_data, obs_data)
-  if (length(dif) > 0) {
-    stop(sprintf('weighting data layers identified in config.r do not exist; please update layers.csv and layers folder to include: %s',
-         paste(dif, collapse = ', ')))
+  if ( !is.null(p_element) ) {
+    obs_data <- SelectLayersData(layers, layers = p_element$layer) %>%
+      .$layer %>%
+      unique()
+    exp_data <- unique(p_element$layer)
+    dif <- setdiff(exp_data, obs_data)
+    if (length(dif) > 0) {
+      stop(sprintf('weighting data layers identified in config.r do not exist; please update layers.csv and layers folder to include: %s',
+                   paste(dif, collapse = ', ')))
+    }
   }
 
   ### error if pressure categories deviate from "ecological" and "social"
