@@ -44,7 +44,6 @@ Collate:
     'data.R'
     'read_git_csv.R'
     'score_check.R'
-    'shp_to_geojson.R'
     'trace_git_csv_value.R'
     'mapvalues.R'
 RoxygenNote: 6.0.1
