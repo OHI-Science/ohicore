@@ -17,8 +17,6 @@ Imports:
     reshape2,
     stringr,
     git2r,
-    rgdal,
-    sp,
     methods,
     tidyr,
     RColorBrewer,
@@ -26,16 +24,20 @@ Imports:
 Suggests:
     testthat
 Collate:
+    'AlignDataYears.R'
+    'AlignManyDataYears.R'
     'CalculateAll.R'
     'CalculateGoalIndex.R'
     'CalculatePressuresAll.R'
     'CalculateResilienceAll.R'
+    'CalculateTrend.R'
     'CheckLayers.R'
     'Conf.R'
     'Layers.R'
     'PlotFlower.R'
     'ScoreScaling.R'
     'SelectLayersData.R'
+    'WriteRefPoint.R'
     'compare_scores_df.R'
     'gapfill_georegions.R'
     'name_to_rgn.R'

@@ -27,7 +27,7 @@ Returns an interactive html plot of the change in scores (current score - previo
 }
 \description{
 Used to error check scores after addition of new data by comparing current scores to a previous commit. 
-Outpurs are saved in a file withing the github repository called "check scores". 
+Outputs are saved in a file within the github repository called "check scores". 
  Outputs include 1) an interactive html plot to examine the change 
 (current score minus previous score) in all score dimensions (status, trend, resilience, pressure, future) 
 across all goals/subgoals; 2) a static png plot of the interactive html plot; 3) a csv file with the 
