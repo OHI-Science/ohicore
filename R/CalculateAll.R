@@ -66,7 +66,8 @@ CalculateAll = function(conf, layers){
 
   ## Access Pre-Index functions: Status and Trend, by goal
   goals_X = conf$goals %>%
-    dplyr::filter(!is.na(preindex_function)) %>%
+    dplyr::filter(!is.na(preindex_function)) %>% # it it realizes it's NA
+    # dplyr::filter(preindex_function != "NA") %>% # if it thinks NA is a character string
     dplyr::arrange(order_calculate)
 
   ## Setup scores variable; many rbinds to follow
@@ -77,7 +78,7 @@ CalculateAll = function(conf, layers){
     score     = numeric())
 
   ## Calculate Status and Trend, all goals
-  for (i in 1:nrow(goals_X)){ # i=5
+  for (i in 1:nrow(goals_X)){ # i=14
     g = goals_X$goal[i]
     cat(sprintf('Calculating Status and Trend for each region for %s...\n', g))
 
