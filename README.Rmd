@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 <br>
 
-___this pkgdown website for the ohicore is currently under development___
+##_pkgdown website for the ohicore is currently under development_
 
 # ohicore
 

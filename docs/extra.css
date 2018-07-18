@@ -1,52 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Markazi+Text');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+
 body {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 13px;
-    font-weight: 120;
+    margin-top: 13px;
+    margin-bottom: 14px;
+    font-size: 15px;
+    font-family: 'Markazi+Text',"Helvetica Neue","Open Sans",sans-serif;
+    font-weight: 400;
 }
 
-#sidebar {
-    font-size: 14px
+.navbar {
+    min-height: 48px;
+    margin-bottom: 20px;
+    margin-top: 18px;
+    font-size: 14px;
+    background-color: #002a63;
+    font-weight: 480;
 }
 
-#sidebar p {
-    font-size: 14px
-}
-
-.contents h1, .contents h2, .contents h3, .contents h4 {
-    padding-top: 60px;
-    margin-top: -40px;
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+    color: #ffffff;
+    background-color: #0449927a;
 }
 
 h4 {
-    font-size: 13px;
+    font-size: 15px;
+    font-family: 'Markazi+Text', sans-serif;
+    font-weight: 460;
 }
 
 h3 {
     font-size: 17px;
+    font-family: 'Nanum+Gothic', sans-serif;
+    font-weight: 400;
 }
 
 h2 {
     font-size: 24px;
+    font-family: 'Nanum+Gothic', sans-serif;
+    font-weight: 500;
 }
 
 h1 {
     font-size: 28px;
+    font-family: 'Nanum+Gothic', sans-serif;
+    font-weight: normal;
 }
 
 pre {
+    display: block;
     border: 0;
     overflow: inherit;
-    background: #e8f3f9;
+    background: #eff4f7;
     padding-top: 1em;
     padding-bottom: 1.5em;
     padding-left: 25px;
     padding-right: 25px;
+    word-break: break-all;
+    word-wrap: break-word;
     line-height: 21px;
     font-size: 15px;
 }
 
-pre code {
-    color: #2b4877;
-    background: #e8f3f9;
+code, kbd, pre, samp {
+    font-family: Everson Mono,Inconsolata,Consolas,"Courier New",monospace;
+    font-weight: 500;
+    font-size: small;
+}
+
+code a, pre a {
+    color: #009db9;
+    font-size: small;
+    font-weight: 520;
+}
+
+a {
+    color: #009cbf;
+    text-decoration: none;
+}
+
+pre, code {
+    background-color: #eff4f7;
+    color: #1b0bd6;
+    background: #eff4f7;
 }

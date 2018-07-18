@@ -41,7 +41,7 @@ reference:
     contents:
       - '`PlotFlower`'
 navbar:
-  type: standard
+  type: inverse
   left:
     - icon: fa-home
       href: index.html
