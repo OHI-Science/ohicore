@@ -85,3 +85,13 @@ pre, code {
     color: #1b0bd6;
     background: #eff4f7;
 }
+
+footer {
+    margin-top: 45px;
+    padding: 35px 0 38px;
+    border-top: 2px solid #002b6221;
+    color: #002b62;
+    font-size: small;
+    display: flex;
+    flex-shrink: 0;
+}
