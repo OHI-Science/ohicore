@@ -14,9 +14,9 @@ knitr::opts_chunk$set(
 
 <br>
 
-##_pkgdown website for the ohicore is currently under development_
+## _pkgdown website for the ohicore is currently under development_
 
-# ohicore
+# OHICORE
 
 The `ohicore` is a package of core functions for calculating the Ocean Health Index. The goal of ohicore is to ... For more, please visit [OHI-Science.org](http://ohi-science.org).
 See [ohi-science.org/toolbox-training](http://ohi-science.org/toolbox-training) for more information on using the `ohicore` for ocean health assessments.
@@ -41,4 +41,11 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 ## basic example code
+```
+
+### Preview pkgdown Website
+
+```{r preview pkgdown site}
+library(pkgdown)
+preview_site()
 ```
