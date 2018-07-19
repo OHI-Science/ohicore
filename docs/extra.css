@@ -10,9 +10,10 @@ body {
 }
 
 .navbar {
-    min-height: 48px;
-    margin-bottom: 20px;
-    margin-top: 18px;
+    position: fixed;
+    min-height:50px;
+    margin-bottom: 16px;
+    margin-top: 0px;
     font-size: 14px;
     background-color: #002a63;
     font-weight: 480;
