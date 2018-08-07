@@ -126,14 +126,13 @@
 <h2 class="hasAnchor">
 <a href="#workflow-for-calculating-scores" class="anchor"></a>Workflow for Calculating Scores</h2>
 <p><br></p>
-<p><strong>Install</strong>   You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package <strong>once</strong> at the start of the assessment, using <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('ohi-science/ohicore')</a></code>.</p>
-<p><strong>Prep Data</strong>   Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the ‘Data for the Toolbox’ vignette for more detailed discussion of the data preparation process and recommendations.</p>
-<p><strong>Check Layers</strong>   Confirm the correct, most recent data layers are saved in the layers folder, and save them there if they are not.</p>
-<p><strong>Register Data</strong>   Manually update <code>layers.csv</code> and <code>scenario_data_years.csv</code>: register the data layers in the <code>layers.csv</code>, and update information about alignment between scenario and data years in the <code>scenario_data_years.csv</code>.</p>
-<p><strong>Configure</strong>   Configure the toolbox by running ohicore::Conf(), ohicore::CheckLayers(), and ohicore::Layers().</p>
-<p><strong>Develop Models</strong>   Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.</p>
-<p><strong>Calculate Scores</strong>   Re-configure the toolbox once model development is complete, and calculate the scores by stepping through <code>calculate_scores.R</code> (or <code>calculate_scores.Rmd</code>) from the assessment repo!</p>
-<p><strong>Explore Results</strong>   Explore the resulting score data!</p>
+<p><strong>Install </strong>   You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package only once at the start of the assessment, using <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('ohi-science/ohicore')</a></code>.</p>
+<p><strong>Prep Data </strong>   Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the Data for the Toolbox vignette for more detailed discussion of the data preparation process and recommendations.</p>
+<p><strong>Check Layers </strong>   Confirm the correct, most recent data layers are saved in the layers folder; save them there if they are not.</p>
+<p><strong>Register Data </strong>   Manually update <code>layers.csv</code> and <code>scenario_data_years.csv</code>: register the data layers in the <code>layers.csv</code>, and update information about alignment between scenario and data years in the <code>scenario_data_years.csv</code>.</p>
+<p><strong>Configure </strong>   Configure the toolbox by running <code>ohicore::Conf()</code>, <code><a href="../reference/CheckLayers.html">ohicore::CheckLayers()</a></code>, and <code>ohicore::Layers()</code>.</p>
+<p><strong>Develop Models </strong>   Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.</p>
+<p><strong>Calculate Scores </strong>   Re-configure the toolbox once model development is complete, and calculate the scores by stepping through <code>calculate_scores.R</code> (or <code>calculate_scores.Rmd</code>) from the assessment repo!</p>
 <p><br></p>
 <hr>
 </div>
@@ -149,7 +148,6 @@ scores &lt;-<span class="st">  </span>ohicore<span class="op">::</span><span cla
 
 ## save scores as scores.csv
 <span class="kw">write.csv</span>(scores, <span class="st">'scores.csv'</span>, <span class="dt">na=</span><span class="st">''</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<hr>
 </div>
   </div>
 

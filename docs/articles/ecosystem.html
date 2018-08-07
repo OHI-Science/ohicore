@@ -148,7 +148,7 @@
 <li>System files for Git+GitHub or RStudio including .Rproj, .Rhistory, .gitignore, and maybe an .Rbuildignore.</li>
 </ul>
 <p><br></p>
-<p>The ‘layers’ and ‘conf’ subfolders:</p>
+<p>The “layers” and “conf” subfolders:</p>
 <ul>
 <li>The ‘layers’ folder contains the csv files that <code>ohicore::Layers</code> and <code><a href="../reference/CheckLayers.html">ohicore::CheckLayers</a></code> take as input<br>
 </li>
@@ -162,15 +162,15 @@
 <div id="configuring-the-toolbox" class="section level2">
 <h2 class="hasAnchor">
 <a href="#configuring-the-toolbox" class="anchor"></a>Configuring the Toolbox</h2>
-<p>Configuring the toolbox involves running the <code>ohicore</code> functions: <code>Conf()</code>, <code><a href="../reference/CheckLayers.html">CheckLayers()</a></code> and <code>Layers()</code>.</p>
+<p>Configuring the toolbox involves running the <code>ohicore</code> functions: <code>Conf()</code>, <code><a href="../reference/CheckLayers.html">CheckLayers()</a></code> and <code>Layers()</code>. In the process of configuring the toolbox, the <code>layers</code> and <code>conf</code> objects are created. These are in effect lists of the prepared input data (<code>layers</code>), and everything else (<code>conf</code>) which includes all the information from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv. These two objects are created so that automated checks can be run to confirm that everything is properly prepared and accounted for, and in a consistent format that the ohicore score calculation functions can accept as input.</p>
 <p><br></p>
 <div class="figure">
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vShY-XwjwPj1nJPuEhK1BVS8wFqLb8L37QO4z2DEU42aZNZMBNvmeMJPUFCdVPzBn0noTVgvp6ozvlg/pub?w=789&amp;h=366">
 </div>
 <p><br></p>
-<p>In the process of configuring the toolbox, the ‘layers’ and ‘conf’ objects are created. These are in effect lists of the prepared input data (‘layers’), and everything else (‘conf’) which includes all the information from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv. These two objects are created so that automated checks can be run to confirm that everything is properly prepared and accounted for, and in a consistent format that the ohicore score calculation functions can accept as input.</p>
-<p><strong>Code to ensure that files are properly configured:</strong></p>
+<p>Configuration must be done each time models are edited or additional data is added to the data layers, prior to (re)calculating scores; i.e. if you have made changes to functions.R, goals.csv, or other files that become part of the <code>layers</code> or <code>conf</code> objects.</p>
 <p><br></p>
+<p><strong>Ensure files are properly configured:</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## load scenario configuration
 conf &lt;-<span class="st"> </span>ohicore<span class="op">::</span><span class="kw">Conf</span>(<span class="st">'conf'</span>)
 
@@ -184,10 +184,6 @@ layers &lt;-<span class="st"> </span>ohicore<span class="op">::</span><span clas
 ## select scenario year for the assessment
 scenario_years &lt;-<span class="st"> </span><span class="dv">2016</span>
 layers<span class="op">$</span>data<span class="op">$</span>scenario_year &lt;-<span class="st"> </span>scenario_years</code></pre></div>
-<p><br></p>
-<p>Configuration must be done each time models are edited or additional data is added to the data layers, prior to (re)calculating scores; i.e. if you have made changes to functions.R, goals.csv, or other files that become part of the ‘layers’ or ‘conf’ objects.</p>
-<p><br></p>
-<hr>
 </div>
   </div>
 

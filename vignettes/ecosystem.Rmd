@@ -33,7 +33,7 @@ An OHI repository or "repo"  will contain the following:
 
 <br>
 
-The 'layers' and 'conf' subfolders:
+The "layers" and "conf" subfolders:
 
 * The 'layers' folder contains the csv files that `ohicore::Layers` and `ohicore::CheckLayers` take as input  
 * The 'conf' (short for "configuration") folder contains a config.R script, functions.R, goals.csv, pressures and resilience matrices in csv file format, and a few other things.  
@@ -45,7 +45,8 @@ The 'layers' and 'conf' subfolders:
 
 ## Configuring the Toolbox
 
-Configuring the toolbox involves running the `ohicore` functions: `Conf()`, `CheckLayers()` and `Layers()`.
+Configuring the toolbox involves running the `ohicore` functions: `Conf()`, `CheckLayers()` and `Layers()`. In the process of configuring the toolbox, the `layers` and `conf` objects are created. These are in effect lists of the prepared input data (`layers`), and everything else (`conf`) which includes all the information from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv. These two objects are created so that automated checks can be run to confirm that everything is properly prepared and accounted for, and in a consistent format that the ohicore score calculation functions can accept as input.
+
 
 <br>
 
@@ -53,11 +54,11 @@ Configuring the toolbox involves running the `ohicore` functions: `Conf()`, `Che
 
 <br>
 
-In the process of configuring the toolbox, the 'layers' and 'conf' objects are created. These are in effect lists of the prepared input data ('layers'), and everything else ('conf') which includes all the information from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv. These two objects are created so that automated checks can be run to confirm that everything is properly prepared and accounted for, and in a consistent format that the ohicore score calculation functions can accept as input.
-
-__Code to ensure that files are properly configured:__
+Configuration must be done each time models are edited or additional data is added to the data layers, prior to (re)calculating scores;  i.e. if you have made changes to functions.R, goals.csv, or other files that become part of the `layers` or `conf` objects.
 
 <br>
+
+__Ensure files are properly configured:__
 
 ```{r, eval = FALSE}
 ## load scenario configuration
@@ -74,11 +75,3 @@ layers <- ohicore::Layers('layers.csv', 'layers')
 scenario_years <- 2016
 layers$data$scenario_year <- scenario_years
 ```
-
-<br>
-
-Configuration must be done each time models are edited or additional data is added to the data layers, prior to (re)calculating scores;  i.e. if you have made changes to functions.R, goals.csv, or other files that become part of the 'layers' or 'conf' objects.
-
-<br>
-
----

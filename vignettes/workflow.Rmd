@@ -8,29 +8,19 @@ output: html_document
 
 <br>
 
-__Install__ &nbsp;
-You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package __once__ at the start of the assessment, using  `devtools::install_github('ohi-science/ohicore')`.
+__Install __ &nbsp; You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package only once at the start of the assessment, using  `devtools::install_github('ohi-science/ohicore')`.
 
-__Prep Data__ &nbsp;
-Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the ‘Data for the Toolbox’ vignette for more detailed discussion of the data preparation process and recommendations.
+ __Prep Data __ &nbsp; Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the Data for the Toolbox vignette for more detailed discussion of the data preparation process and recommendations.
 
-__Check Layers__ &nbsp;
-Confirm the correct, most recent data layers are saved in the layers folder, and save them there if they are not.
+ __Check Layers __ &nbsp; Confirm the correct, most recent data layers are saved in the layers folder; save them there if they are not.
 
-__Register Data__ &nbsp;
-Manually update  `layers.csv` and  `scenario_data_years.csv`: register the data layers in the `layers.csv`, and update information about alignment between scenario and data years in the `scenario_data_years.csv`.
+__Register Data __ &nbsp; Manually update  `layers.csv` and  `scenario_data_years.csv`: register the data layers in the `layers.csv`, and update information about alignment between scenario and data years in the `scenario_data_years.csv`.
 
-__Configure__ &nbsp;
-Configure the toolbox by running ohicore::Conf(), ohicore::CheckLayers(), and ohicore::Layers().
+__Configure __ &nbsp; Configure the toolbox by running `ohicore::Conf()`, `ohicore::CheckLayers()`, and `ohicore::Layers()`.
 
-__Develop Models__ &nbsp;
-Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.
+__Develop Models __ &nbsp; Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.
 
-__Calculate Scores__ &nbsp;
-Re-configure the toolbox once model development is complete, and calculate the scores by stepping through `calculate_scores.R` (or `calculate_scores.Rmd`) from the assessment repo!
-
-__Explore Results__ &nbsp;
-Explore the resulting score data!
+__Calculate Scores __ &nbsp; Re-configure the toolbox once model development is complete, and calculate the scores by stepping through `calculate_scores.R` (or `calculate_scores.Rmd`) from the assessment repo!
 
 <br>
 
@@ -50,5 +40,3 @@ scores <-  ohicore::CalculateAll(conf, layers)
 ## save scores as scores.csv
 write.csv(scores, 'scores.csv', na='', row.names = FALSE)
 ```
-
----
