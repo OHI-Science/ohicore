@@ -5,7 +5,7 @@ body {
     margin-top: 13px;
     margin-bottom: 14px;
     font-size: 15px;
-    font-family: 'Markazi+Text',"Helvetica Neue","Open Sans",sans-serif;
+    font-family: 'proxima-nova', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
 }
 
@@ -16,7 +16,7 @@ body {
     margin-top: 0px;
     font-size: 14px;
     background-color: #002a63;
-    font-weight: 480;
+    font-weight: 400;
 }
 
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
@@ -24,27 +24,31 @@ body {
     background-color: #0449927a;
 }
 
+.navbar-inverse .dropdown-menu>li>a:hover, .navbar-inverse .dropdown-menu>.active>a, .navbar-inverse .dropdown-menu>.active>a:hover {
+    background-color: #02397ae0;
+}
+
 h4 {
     font-size: 15px;
-    font-family: 'Markazi+Text', sans-serif;
-    font-weight: 460;
+    font-family: 'PT+Sans', sans-serif;
+    font-weight: 400;
 }
 
 h3 {
     font-size: 17px;
-    font-family: 'Nanum+Gothic', sans-serif;
+    font-family: 'PT+Sans', sans-serif;
     font-weight: 400;
 }
 
 h2 {
     font-size: 24px;
-    font-family: 'Nanum+Gothic', sans-serif;
-    font-weight: 500;
+    font-family: 'PT+Sans', sans-serif;
+    font-weight: 400;
 }
 
 h1 {
-    font-size: 28px;
-    font-family: 'Nanum+Gothic', sans-serif;
+    font-size: 30px;
+    font-family: 'Andada', serif 'Montserrat', sans-serif;
     font-weight: normal;
 }
 
@@ -64,15 +68,15 @@ pre {
 }
 
 code, kbd, pre, samp {
-    font-family: Everson Mono,Inconsolata,Consolas,"Courier New",monospace;
-    font-weight: 500;
+    font-family: Inconsolata, 'Maison Mono', Consolas, 'Courier New', monospace;
+    font-weight: 400;
     font-size: small;
 }
 
 code a, pre a {
     color: #009db9;
     font-size: small;
-    font-weight: 520;
+    font-weight: 400;
 }
 
 a {
@@ -82,7 +86,7 @@ a {
 
 pre, code {
     background-color: #eff4f7;
-    color: #1b0bd6;
+    color: #002b62;
     background: #eff4f7;
 }
 
