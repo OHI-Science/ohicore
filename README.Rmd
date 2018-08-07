@@ -1,7 +1,6 @@
 ---
 output: github_document
 ---
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, echo = FALSE}
@@ -12,14 +11,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-<br>
-
-## _pkgdown website for the ohicore is currently under development_
-
 # OHICORE
 
-The `ohicore` is a package of core functions for calculating the Ocean Health Index. The goal of ohicore is to ... For more, please visit [OHI-Science.org](http://ohi-science.org).
-See [ohi-science.org/toolbox-training](http://ohi-science.org/toolbox-training) for more information on using the `ohicore` for ocean health assessments.
+The `ohicore` is a package of core functions for calculating the Ocean Health Index (OHI). The goal of ohicore is to facilitate calculation of OHI scores both for the annual global assessments and regional assessments, within a [tailorable framework](https://peerj.com/articles/1503/). For more information, please visit [OHI-Science.org](http://ohi-science.org). See [ohi-science.org/toolbox-training](http://ohi-science.org/toolbox-training) for more on using the `ohicore` for ocean health assessments.
 
 
 ## Installation
