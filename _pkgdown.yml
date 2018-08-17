@@ -46,7 +46,7 @@ navbar:
     - icon: fa-home
       href: index.html
     - text: "Getting Started"
-      icon: fa-play-circle-o
+      icon: fa-play-circle
       href: articles/getstarted.html
     - icon: fa-file-code-o 
       text: "Reference"

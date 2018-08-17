@@ -6,11 +6,11 @@ output: html_document
 
 ## The Toolbox Ecosystem
 
-The Toolbox is a collection of multiple interdependent R scripts and data files, organized in folders and sub-folders, used in calculating Ocean Health Index (OHI) scores. We call it a toolbox because it consists of a set of discrete, partitioned tools. And we sometimes we refer to the integration of all these as an "ecosystem" since it's the way the pieces fit together that allows the interesting things to happen, i.e. the score calculation from multiple data layers.
+The Toolbox is a collection of multiple interdependent R scripts and data files, organized in folders and sub-folders, used in calculating Ocean Health Index (OHI) scores. We call it the Toolbox because it consists of a set of discrete, partitioned tools. And we sometimes we refer to the integration of all these as an "ecosystem" since it's the way the pieces fit together that allows the interesting things to happen, i.e. the score calculation from multiple data layers.
 
-The `ohicore` is one of three primary components and is the backbone software package of the Toolbox. The other two overarching components are the assessment repository (or "repo") itself, and the `data prep` which is contained as a subfolder within the assessment for regional OHI assessments but a separate folder for the OHI global assessment. The `ohicore` contains functions to create the 'conf' and 'layers' objects, check layers, calculate trends, resilience, pressure, and status, and finally to calculate and check the scores.
+`ohicore` is one of three primary components and is the backbone software package of the Toolbox. The other two overarching components are the assessment repository (or "repo") itself, and the data preparation. In regional OHI assessments (OHI+), data preparation is done in a subfolder within the assessment repository, and for global assessments, it is in a separate repo. `ohicore` contains functions to create the 'conf' and 'layers' objects, check layers, calculate trends, resilience, pressure, and status, and finally to calculate and check the scores.
 
-Bottom line: `ohicore` is an R package that contains all the core operations for the data preparation and models for your assessment, and it will calculate OHI scores once the toolbox is configured. 
+Bottom line: `ohicore` is an R package that contains all the core operations for the data preparation and models for your assessment, and it will calculate OHI scores once the Toolbox is configured. 
 
 <br>
 
@@ -26,9 +26,9 @@ Bottom line: `ohicore` is an R package that contains all the core operations for
 
 An OHI repository or "repo"  will contain the following:  
 
-* A data preparation folder, with subfolders for each goal, and pressures and resilience.  
+* A data preparation folder, with subfolders for each goal, and pressures and resilience. Note: Global assessments have a separate repository.  
 * A scenario folder which contains calculate_scores.R, configure_toolbox.R, layers.csv, scores.csv, as well as conf, layers, spatial, and temp subfolders.  
-* Readme files in each folder contain more information for the user.  
+* README files in each folder contain more information for the user.  
 * System files for Git+GitHub or RStudio including .Rproj, .Rhistory, .gitignore, and maybe an .Rbuildignore.  
 
 <br>
@@ -37,7 +37,7 @@ The "layers" and "conf" subfolders:
 
 * The 'layers' folder contains the csv files that `ohicore::Layers` and `ohicore::CheckLayers` take as input  
 * The 'conf' (short for "configuration") folder contains a config.R script, functions.R, goals.csv, pressures and resilience matrices in csv file format, and a few other things.  
-* The purpose of the other files in the conf folder is to feed the toolbox information on the relative weighting/importance of goals or allow adjustments to goal calculation models by regional assessments.  
+* The purpose of the other files in the conf folder is to feed the Toolbox information on the relative weighting/importance of goals or allow adjustments to goal calculation models by regional assessments.  
 
 <br>
 
@@ -45,7 +45,7 @@ The "layers" and "conf" subfolders:
 
 ## Configuring the Toolbox
 
-Configuring the toolbox involves running the `ohicore` functions: `Conf()`, `CheckLayers()` and `Layers()`. In the process of configuring the toolbox, the `layers` and `conf` objects are created. These are in effect lists of the prepared input data (`layers`), and everything else (`conf`) which includes all the information from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv. These two objects are created so that automated checks can be run to confirm that everything is properly prepared and accounted for, and in a consistent format that the ohicore score calculation functions can accept as input.
+Configuring the Toolbox involves running the `ohicore` functions: `Conf()`, `CheckLayers()` and `Layers()`. In the process of configuring the Toolbox, the `layers` and `conf` objects are created. These are in effect [lists](http://r4ds.had.co.nz/lists.html) (a special type of R object) of the prepared input data (layers), and everything else (conf) which includes all the information from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv. These two objects are created so that automated checks can be run to confirm that everything is properly prepared and accounted for, and in a consistent format that the ohicore score calculation functions can accept as input.
 
 
 <br>
@@ -58,9 +58,14 @@ Configuration must be done each time models are edited or additional data is add
 
 <br>
 
+---
+
 __Ensure files are properly configured:__
 
 ```{r, eval = FALSE}
+## set working directory to the scenario folder (that contains the conf folder)
+setwd('eez')
+
 ## load scenario configuration
 conf <- ohicore::Conf('conf')
 
@@ -75,3 +80,5 @@ layers <- ohicore::Layers('layers.csv', 'layers')
 scenario_years <- 2016
 layers$data$scenario_year <- scenario_years
 ```
+
+---
