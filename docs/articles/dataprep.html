@@ -44,7 +44,7 @@
 </li>
 <li>
   <a href="../articles/getstarted.html">
-    <span class="fa fa-play-circle-o"></span>
+    <span class="fa fa-play-circle"></span>
      
     Getting Started
   </a>
@@ -113,7 +113,6 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Data for the OHI Toolbox</h1>
-                        <h4 class="author">Ellie Campbell</h4>
             
       
       <small class="dont-index">Source: <a href="https://github.com/OHI-Science/ohicore/blob/master/vignettes/dataprep.Rmd"><code>vignettes/dataprep.Rmd</code></a></small>
@@ -123,10 +122,46 @@
 
     
     
-
+<div id="format-for-the-toolbox" class="section level2">
+<h2 class="hasAnchor">
+<a href="#format-for-the-toolbox" class="anchor"></a>Format for the Toolbox</h2>
+<p>The Toolbox requires data to be in a specific format. Some of this formatting happens in the data preparation phase within the data preparation subfolder or repo, and some of this formatting is done by the Toolbox. <code>ohicore</code> functions involved in this automated data formatting include [ ]. For more details on usage and workings of these <code>ohicore</code> functions, see the Reference pages.</p>
+<p>Finalized datasets from the data preparation phase are saved to the ‘layers’ subfolder in csv format. These contain two or three columns: region identification number (rgn_id) and a column with the data value which will be labeled differently depending on what dimension (pressure, trend, resilience) the data layer relates to, and possibly a year column if multiple years are to be used in the relevant goal model(s).</p>
+<p>Once created, prepared data layers must be registered in the the layers.csv spreadsheet. Each row in layers.csv represents one data layer. The 8 columns that must be updated are [ ]. The information in this spreadsheet directs ohicore to appropriate data layers during calculations.</p>
+<p><br></p>
+<p><left><img src="https://docs.google.com/drawings/d/e/2PACX-1vTVHHtK7AiHQv0MrnYAYr4S4mImPmHEYW5CeqOxZeGfYoFTj7LEhZpkdvjs2d205kYj1i-J-WLwCWri/pub?w=914&amp;h=425"></left></p>
+<p><br></p>
+<hr>
+</div>
+<div id="what-to-include" class="section level2">
+<h2 class="hasAnchor">
+<a href="#what-to-include" class="anchor"></a>What to Include</h2>
+<p><br></p>
+<p>What datasets to include depends on the models developed for the OHI assessment, and coded in the functions.R script. Deciding on relevant data to include is a significant and time-consuming part of completing an OHI assessment. Considerations regarding whether it makes sense to include a dataset: (1) scientific, sociological or economic conceptual relevance and a signal distinguishable from background noise or confounding factors, (2) data-completeness sufficient that gapfilling can be done in a reasonably realistic manner, and in some cases (3) redundancy or multicollinearity of variables. The team must also consider whether the data fits ideal spatial boundaries for the assessment. [While the OHI team is happy to provide consultation on these matters, we encourage stakeholder and expert engagement on OHI+ teams.]</p>
+<p><br></p>
+<hr>
+</div>
+<div id="transparency-and-reproducibility" class="section level2">
+<h2 class="hasAnchor">
+<a href="#transparency-and-reproducibility" class="anchor"></a>Transparency and Reproducibility</h2>
+<p><br></p>
+<p>Arguably the most important section of this vignette.</p>
+<hr>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## example code here corresponding to suggestions about preparing data</code></pre></div>
+<hr>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#format-for-the-toolbox">Format for the Toolbox</a></li>
+      <li><a href="#what-to-include">What to Include</a></li>
+      <li><a href="#transparency-and-reproducibility">Transparency and Reproducibility</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

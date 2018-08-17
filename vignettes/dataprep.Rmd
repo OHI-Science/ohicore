@@ -1,9 +1,46 @@
 ---
 title: "Data for the OHI Toolbox"
-author: "Ellie Campbell"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+## Format for the Toolbox
+
+The Toolbox requires data to be in a specific format. Some of this formatting happens in the data preparation phase within the data preparation subfolder or repo, and some of this formatting is done by the Toolbox. `ohicore` functions involved in this automated data formatting include [ ]. For more details on usage and workings of these functions, see the Reference pages. 
+
+Finalized datasets from the data preparation phase are saved to the 'layers' subfolder in csv format. These contain two or three columns: region identification number (rgn_id) and a column with the data value which will be labeled differently depending on what dimension (pressure, trend, resilience) the data layer relates to, and possibly a year column if multiple years are to be used in the relevant goal model(s).
+
+Once created, prepared data layers must be registered in the the layers.csv spreadsheet. Each row in layers.csv represents one data layer. The 8 columns that must be updated are [ ]. The information in this spreadsheet directs ohicore to appropriate data layers during calculations.
+
+<br>
+
+<left><img src="https://docs.google.com/drawings/d/e/2PACX-1vTVHHtK7AiHQv0MrnYAYr4S4mImPmHEYW5CeqOxZeGfYoFTj7LEhZpkdvjs2d205kYj1i-J-WLwCWri/pub?w=914&h=425"></left>  
+
+<br>
+
+---
+
+## What to Include
+
+<br>
+
+What datasets to include depends on the models developed for the OHI assessment, and coded in the functions.R
+script. Deciding on relevant data to include is a significant and time-consuming part of completing an OHI assessment. Considerations regarding whether it makes sense to include a dataset: (1) scientific, sociological or economic conceptual relevance and a signal distinguishable from background noise or confounding factors, (2) data-completeness sufficient that gapfilling can be done in a reasonably realistic manner, and in some cases (3) redundancy or multicollinearity of variables. The team must also consider whether the data fits ideal spatial boundaries for the assessment. [While the OHI team is happy to provide consultation on these matters, we encourage stakeholder and expert engagement on OHI+ teams.]
+
+<br>
+
+---
+
+## Transparency and Reproducibility
+
+<br>
+
+Arguably the most important section of this vignette.
+
+---
+
+```{r, eval = FALSE}
+## example code here corresponding to suggestions about preparing data
 ```
+
+---
