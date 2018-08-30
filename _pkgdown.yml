@@ -47,6 +47,9 @@ reference:
       - '`georegions`'
       - '`rgn_synonyms`'
       - '`georegion_labels`'
+      - '`rgn_eez_area`'
+      - '`sovregion_labels`'
+      - '`sovregions`'
 navbar:
   type: inverse
   left:
