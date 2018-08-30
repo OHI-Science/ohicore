@@ -14,13 +14,14 @@ reference:
       - '`CalculateTrend`'
       - '`WriteRefPoint`'
   - title: Data Alignment
-    desc: Functions to align, combine, reformat data etc. for use in calculations
+    desc: Functions to align, combine, reformat data etc. for use in calculations, and the associated classes created
     contents:
       - '`AlignDataYears`'
       - '`AlignManyDataYears`'
       - '`CheckLayers`'
-      - '`Conf`'
-      - '`Layers`'
+      - '`Conf-class`'
+      - '`Conf_write`'
+      - '`Layers-class`'
       - '`SelectLayersData`'
   - title: Internal
     desc: Internal and helper functions
@@ -40,6 +41,12 @@ reference:
     desc: ~
     contents:
       - '`PlotFlower`'
+  - title: Datasets
+    desc: Datasets used in calculations, as lookup tables, etc
+    contents:
+      - '`georegions`'
+      - '`rgn_synonyms`'
+      - '`georegion_labels`'
 navbar:
   type: inverse
   left:
