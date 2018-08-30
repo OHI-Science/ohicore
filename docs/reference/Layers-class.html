@@ -34,7 +34,8 @@
   
 <meta property="og:title" content="Layers reference class. — Layers-class" />
 
-<meta property="og:description" content="Layers reference class." />
+<meta property="og:description" content="Layers object which pulls together all the data layers for calculating scores, 
+along with their metadata." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -153,7 +154,8 @@
 
     <div class="ref-description">
     
-    <p>Layers reference class.</p>
+    <p><code>Layers</code> object which pulls together all the data layers for calculating scores, 
+along with their metadata.</p>
     
     </div>
 
@@ -163,37 +165,45 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>layers.csv</th>
-      <td><p>path to comma-seperated value file with row of metadata for each dataset used in OHI analysis.</p></td>
+      <td><p>path to comma-seperated value file with a row of metadata for each dataset 
+(or layer) used in OHI analysis.</p></td>
     </tr>
     <tr>
       <th>layers.dir</th>
-      <td><p>full path to the directory containing the layers files (csv files that correspond to each entry in layers.csv).</p></td>
+      <td><p>full path to the directory containing the layers files 
+(the csv files that correspond to each entry in layers.csv).</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>object (non-instantiated) reference class of Layers containing</p><ul>
-<li><p><em>meta</em> - metadata data frame of original layers.csv</p></li>
-<li><p><em>data</em> - named list of data frames, one per layer</p></li>
-<li><p><em>targets</em> - named list of character vector indicating a layer's targets, goal (status, trend) or dimension (pressures, resilience)</p></li>
+    <p>Object (non-instantiated) reference class, containing</p><ul>
+<li><p><strong>meta</strong> - metadata data frame of original layers.csv</p></li>
+<li><p><strong>data</strong> - named list of data frames, one per layer</p></li>
+<li><p><strong>targets</strong> - a named list of character vectors indicating a layer's targets, 
+ goal (status, trend) or dimension (pressures, resilience)</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function creates an R object that combines into a single object all the information 
-from the layers files and the layers.csv metadata. Individual layers can be accessed as: layer_object_name$data$layer_name
-To create this object, <code>Conf(dir)</code>. The <code>dir</code> is expected to have the following files:</p><ul>
-<li><p><em>layer</em> - unique layer identifier (no spaces or special characters)</p></li>
-<li><p><em>targets</em> - a space delimited list of targets (goal code, 'Pressures', 'Resilience' or 'Regions') for which this layer is applied</p></li>
-<li><p><em>name</em> - name of the variable</p></li>
-<li><p><em>description</em> - detailed description</p></li>
-<li><p><em>units</em> - units of the value</p></li>
-<li><p><em>citation</em> - reference for documentation, typically a heading code for a supplemental document</p></li>
-<li><p><em>filename</em> - the csv data file for the layer</p></li>
-<li><p><em>fld_value</em> - required field in the layer csv file containing the value, which is often best named as a shorthand for the units without spaces or special characters</p></li>
-</ul><p>The layers.dir directory should contain all the csv filenames listed in the layers.csv file.</p>
+from the layers files in layers.dir and the layers.csv metadata. Individual layers can be 
+accessed as: layer_object_name$data$layer_name. To create this object: <code>Layers(dir)</code>. 
+The <code>layers.dir</code> should contain all the csv filenames listed in the <code>layers.csv</code> 
+file and is expected to have the following columns:</p><ul>
+<li><p><strong>layer</strong> - unique layer identifier (no spaces or special characters)</p></li>
+<li><p><strong>targets</strong> - a space delimited list of targets (goal code, 'Pressures', 
+  'Resilience' or 'Regions') for which this layer is applied</p></li>
+<li><p><strong>name</strong> - name of the variable</p></li>
+<li><p><strong>description</strong> - detailed description</p></li>
+<li><p><strong>units</strong> - units of the value</p></li>
+<li><p><strong>citation</strong> - reference for documentation, typically a heading code for 
+  a supplemental document</p></li>
+<li><p><strong>filename</strong> - the csv data file for the layer</p></li>
+<li><p><strong>fld_value</strong> - required field in the layer csv file containing the value, 
+  which is often best named as a shorthand for the units without spaces or special characters</p></li>
+</ul><p>The layers.dir directory should contain all csv filenames listed in the layers.csv file.</p>
     
 
   </div>

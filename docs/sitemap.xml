@@ -16,13 +16,7 @@
     <loc>http://OHI-Science.github.io/ohicore/reference/CalculateGoalIndex.html</loc>
   </url>
   <url>
-    <loc>http://OHI-Science.github.io/ohicore/reference/CalculatePressures.html</loc>
-  </url>
-  <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/CalculatePressuresAll.html</loc>
-  </url>
-  <url>
-    <loc>http://OHI-Science.github.io/ohicore/reference/CalculateResilience.html</loc>
   </url>
   <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/CalculateResilienceAll.html</loc>
@@ -37,16 +31,10 @@
     <loc>http://OHI-Science.github.io/ohicore/reference/Conf-class.html</loc>
   </url>
   <url>
-    <loc>http://OHI-Science.github.io/ohicore/reference/Conf.html</loc>
-  </url>
-  <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/Conf_write.html</loc>
   </url>
   <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/Layers-class.html</loc>
-  </url>
-  <url>
-    <loc>http://OHI-Science.github.io/ohicore/reference/Layers.html</loc>
   </url>
   <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/PlotFlower.html</loc>
@@ -56,9 +44,6 @@
   </url>
   <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/SelectLayersData.html</loc>
-  </url>
-  <url>
-    <loc>http://OHI-Science.github.io/ohicore/reference/SpatialSchemes.html</loc>
   </url>
   <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/WriteRefPoint.html</loc>

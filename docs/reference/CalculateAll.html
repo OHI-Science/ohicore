@@ -164,48 +164,48 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>conf</th>
-      <td><p>of class <code>Conf</code></p></td>
+      <td><p>of class <code><a href='Conf-class.html'>Conf</a></code></p></td>
     </tr>
     <tr>
       <th>layers</th>
-      <td><p>of class <code>Layers</code></p></td>
+      <td><p>of class <code><a href='Layers-class.html'>Layers</a></code></p></td>
     </tr>
     <tr>
       <th>debug</th>
-      <td><p>print debug messages (default=FALSE)</p></td>
+      <td><p>print debug messages (default = FALSE)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a data.frame of scores having the following columns:</p><ul>
-<li><p><em>region_id</em> - unique numeric region identifier, reserving 0 as the region_id for the area-weighted average of the entire study area</p></li>
-<li><p><em>goal</em> - the goal code or Index</p></li>
-<li><p><em>dimension</em> - the dimension code, one of: status, trend, pressures, resilience, future, score</p></li>
-<li><p><em>score</em> - the numeric score: 0-100 for all dimensions, except trend (-1 to 1)</p></li>
+<li><p><strong>region_id</strong> - unique numeric region identifier, reserving 0 for the area-weighted average of the entire study area</p></li>
+<li><p><strong>goal</strong> - the goal code or Index</p></li>
+<li><p><strong>dimension</strong> - the dimension code, one of: status, trend, pressures, resilience, future, score</p></li>
+<li><p><strong>score</strong> - the numeric score: 0-100 for all dimensions, except trend (-1 to 1)</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Performs the following sequence of functions, some of which are [optional]:</p><ol>
-<li><p>[functions.R:<code>Setup</code>()] - execute function <code>Setup</code>() if defined in file functions.R.
+    <p>Performs the following sequence of functions, some of which are optional:</p><ol>
+<li><p><code>Setup()</code> - execute function <code>Setup()</code> if defined in file <code>functions.R</code>.
   This function typically installs extra packages upon which the other functions in functions.R depend.</p></li>
 <li><p><code><a href='CalculatePressuresAll.html'>CalculatePressuresAll</a>()</code> - calculate pressures across all goals using pressures_matrix.csv.</p></li>
 <li><p><code><a href='CalculateResilienceAll.html'>CalculateResilienceAll</a>()</code> - calculate resilience across all goals using resilience_matrix.csv and resilience_weights.csv.</p></li>
 <li><p>goals.csv:<code>preindex_functions</code> - execute code in the <code>preindex_function</code> column of the goals.csv file
   based on <code>order_calculate</code> using functions defined in functions.R.
-  These funcutions are usually for calculating the goal's status and trend dimensions, ie
+  These funcutions are usually for calculating the goal's status and trend dimensions, i.e.
   the additional dimensions beyond pressures and resilience needed to calculate a goal index score.</p></li>
 <li><p><code><a href='CalculateGoalIndex.html'>CalculateGoalIndex</a>()</code> - run function for every goal having a status dimension assigned from the <code>preindex_functions</code>.</p></li>
 <li><p>goals.csv:<code>postindex_functions</code> - execute code in the <code>postindex_function</code> column of the goals.csv file based on <code>order_calculate</code>
   using functions defined in functions.R. These functions are usually for goals containing subgoals, ie those without their own directly calculated
   index scores, but rather scores representing averages of subgoals.</p></li>
-<li><p>regional index - calculate regional index score as weighted mean using goals.csv:<code>weight</code>.</p></li>
+<li><p>regional index - calculate regional index score as weighted mean using goals.csv: <code>weight</code>.</p></li>
 <li><p>regional likely future - calculate regional likely future score (ie goal='Index' and dimension='future') across supragoals (ie goals without a <code>parent</code> in goals.csv).</p></li>
-<li><p>[functions.R:<code>PreGlobalScores</code>()] - execute function <code>PreGlobalScores</code>() if defined in file functions.R.
+<li><p>[functions.R:<code>PreGlobalScores</code>()] - execute function <code>PreGlobalScores</code>() if defined in file <code>functions.R</code>.
   This function could perform a variety of operations on the regional scores, strategically before calculating the global scores.</p></li>
-<li><p>global (region_id=0) scores - calculate scores for global (region_id=0) with regional values weighted by config.R:<code>layer_region_areas</code>.</p></li>
+<li><p>global (region_id=0) scores - calculate scores for global (region_id=0) with regional values weighted by config.R: <code>layer_region_areas</code>.</p></li>
 <li><p>[functions.R:<code>FinalizeScores</code>()] - execute function <code>FinalizeScores</code>() if defined in file functions.R.
   This function could perform a variety of operations on the regional and global scores.</p></li>
 </ol>
@@ -217,8 +217,8 @@
 <span class='co'>## run a scenario assuming setwd() to directory containing default names for directories and files</span>
 <span class='co'>## setup</span>
 <span class='fu'>require</span>(<span class='no'>ohi</span>)
-<span class='no'>conf</span>       <span class='kw'>=</span> <span class='fu'>Conf</span>(<span class='st'>'conf'</span>)
-<span class='no'>layers</span>     <span class='kw'>=</span> <span class='fu'>Layers</span>(<span class='kw'>layers.csv</span> <span class='kw'>=</span> <span class='st'>'layers.csv'</span>,
+<span class='no'>conf</span>       <span class='kw'>=</span> <span class='fu'><a href='Conf-class.html'>Conf</a></span>(<span class='st'>'conf'</span>)
+<span class='no'>layers</span>     <span class='kw'>=</span> <span class='fu'><a href='Layers-class.html'>Layers</a></span>(<span class='kw'>layers.csv</span> <span class='kw'>=</span> <span class='st'>'layers.csv'</span>,
                     <span class='kw'>layers.dir</span> <span class='kw'>=</span> <span class='st'>'layers'</span>)
 <span class='co'>## calculate</span>
 <span class='no'>scores</span> <span class='kw'>=</span> <span class='fu'>CalculateAll</span>(<span class='no'>conf</span>, <span class='no'>layers</span>, <span class='kw'>debug</span><span class='kw'>=</span><span class='no'>T</span>)

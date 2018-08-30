@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conf: create ohicore configuration object — Conf-class • OHICORE</title>
+<title>Conf reference class. — Conf-class • OHICORE</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -32,9 +32,11 @@
 
   <link href="../extra.css" rel="stylesheet">
   
-<meta property="og:title" content="Conf: create ohicore configuration object — Conf-class" />
+<meta property="og:title" content="Conf reference class. — Conf-class" />
 
-<meta property="og:description" content="This function creates a ohicore configuration object, which" />
+<meta property="og:description" content="Conf object which contains all the configuration information for calculating scores. This creates an R object 
+that combines into a single object all the information from the following files: config.R, functions.R, goals.csv, 
+pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -146,14 +148,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Conf: create ohicore configuration object</h1>
+    <h1>Conf reference class.</h1>
     <small class="dont-index">Source: <a href='https://github.com/OHI-Science/ohicore/blob/master/R/Conf.R'><code>R/Conf.R</code></a></small>
     <div class="hidden name"><code>Conf-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function creates a ohicore configuration object, which</p>
+    <p><code>Conf</code> object which contains all the configuration information for calculating scores. This creates an R object 
+that combines into a single object all the information from the following files: <em>config.R</em>, <em>functions.R</em>, <em>goals.csv</em>, 
+<em>pressures_matrix.csv</em>, <em>resilience_matrix.csv</em>, <em>resilience_weights.csv</em>.</p>
     
     </div>
 
@@ -169,29 +173,27 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>object reference class of Config containing:</p><ul>
-<li><p><em>config</em></p></li>
-<li><p><em>functions</em></p></li>
-<li><p><em>goals</em></p></li>
-<li><p><em>pressures_matrix</em></p></li>
-<li><p><em>resilience_matrix</em></p></li>
-<li><p><em>resilience_categories</em></p></li>
-<li><p><em>pressure_categories</em></p></li>
+    <p>Object reference class of Config containing:</p><ul>
+<li><p><strong>config</strong> - concise description</p></li>
+<li><p><strong>functions</strong> - concise description</p></li>
+<li><p><strong>goals</strong> - concise description</p></li>
+<li><p><strong>pressures_matrix</strong> - concise description</p></li>
+<li><p><strong>resilience_matrix</strong> - concise description</p></li>
+<li><p><strong>resilience_categories</strong> - concise description</p></li>
+<li><p><strong>pressure_categories</strong> - concise description</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function creates an R object that combines into a single object all the information 
-from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv.
-To create this object, <code>Conf(dir)</code>. The <code>dir</code> is expected to have the following files:</p><ul>
-<li><p><em>config.R</em></p></li>
-<li><p><em>functions.R</em></p></li>
-<li><p><em>goals.csv</em></p></li>
-<li><p><em>pressures_matrix.csv</em></p></li>
-<li><p><em>resilience_matrix.csv</em></p></li>
-<li><p><em>resilience_weights.csv</em></p></li>
-<li><p><em>pressure_categories</em></p></li>
+    <p>To create this object: <code>Conf(dir)</code>. The <code>dir</code> is expected to have the following files:</p><ul>
+<li><p>config.R</p></li>
+<li><p>functions.R</p></li>
+<li><p>goals.csv</p></li>
+<li><p>pressures_matrix.csv</p></li>
+<li><p>resilience_matrix.csv</p></li>
+<li><p>resilience_weights.csv</p></li>
+<li><p>pressure_categories</p></li>
 </ul><p>See also <code><a href='Conf_write.html'>Conf_write</a>()</code> to write the configuration back to disk.</p>
     
 
