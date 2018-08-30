@@ -1,21 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Markazi+Text');
-@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic');
+@import url('https://fonts.googleapis.com/css?family=Rokkitt|Lato:400,700');
 
 body {
     margin-top: 13px;
     margin-bottom: 14px;
-    font-size: 15px;
-    font-family: 'proxima-nova', 'Helvetica', 'Arial', sans-serif;
-    font-weight: 400;
+    font-size: 14px;
+    font-family: 'proxima-nova', 'Lato', 'Lato', sans-serif;
+    font-weight: 200;
 }
 
 .navbar {
     position: fixed;
     min-height:45px;
     margin-bottom: 16px;
-    margin-top: 0px;
-    font-size: 14px;
-    background-color: #002a63;
+    font-size: 17px;
+    background-color: #123752;
+    font-family: 'Rokkitt';
     font-weight: 400;
 }
 
@@ -29,26 +28,26 @@ body {
 }
 
 h4 {
-    font-size: 15px;
-    font-family: 'PT+Sans', sans-serif;
-    font-weight: 400;
+    font-size: 18px;
+    font-family: 'Rokkitt', sans-serif;
+    font-weight: 300;
 }
 
 h3 {
-    font-size: 17px;
-    font-family: 'PT+Sans', sans-serif;
+    font-size: 20px;
+    font-family: 'Rokkitt', sans-serif;
     font-weight: 400;
 }
 
 h2 {
-    font-size: 24px;
-    font-family: 'PT+Sans', sans-serif;
+    font-size: 26px;
+    font-family: 'Rokkitt', sans-serif;
     font-weight: 400;
 }
 
 h1 {
-    font-size: 30px;
-    font-family: 'Andada', serif 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-family: 'Andada', serif 'Rokkitt', sans-serif;
     font-weight: normal;
 }
 
