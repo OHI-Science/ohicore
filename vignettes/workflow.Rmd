@@ -8,25 +8,39 @@ output: html_document
 
 <br>
 
-`r icon::fa("arrow-circle-down")` __Install __ &nbsp; You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package only once at the start of the assessment, using  `devtools::install_github('ohi-science/ohicore')`.
+`r icon::fa("arrow-circle-down")` __Install __  
+
+You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package only once at the start of the assessment, using  `devtools::install_github('ohi-science/ohicore')`.
 
 
-`r icon::fa("database")` __Prep Data __ &nbsp; Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the Data for the Toolbox vignette for more detailed discussion of the data preparation process and recommendations.
+`r icon::fa("database")` __Prep Data __  
+
+Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the Data for the Toolbox vignette for more detailed discussion of the data preparation process and recommendations.
 
 
-`r icon::fa("th-list")` __Check Layers __ &nbsp; Confirm the correct, most recent data layers are saved in the layers folder; save them there if they are not.
+`r icon::fa("th-list")` __Check Layers __  
+
+Confirm the correct, most recent data layers are saved in the layers folder; save them there if they are not.
 
 
-`r icon::fa("link")` __Register Data __ &nbsp; Manually update  `layers.csv` and  `scenario_data_years.csv`: register the data layers in the `layers.csv`, and update information about alignment between scenario and data years in the `scenario_data_years.csv`.
+`r icon::fa("link")` __Register Data __  
+
+Manually update  `layers.csv` and  `scenario_data_years.csv`: register the data layers in the `layers.csv`, and update information about alignment between scenario and data years in the `scenario_data_years.csv`.
 
 
-`r icon::fa("map-signs")` __Configure __ &nbsp; Configure the toolbox by running `ohicore::Conf()`, `ohicore::CheckLayers()`, and `ohicore::Layers()`.
+`r icon::fa("map-signs")` __Configure __  
+
+Configure the toolbox by running `ohicore::Conf()`, `ohicore::CheckLayers()`, and `ohicore::Layers()`.
 
 
-`r icon::fa("cogs")` __Develop Models __ &nbsp; Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.
+`r icon::fa("cogs")` __Develop Models __  
+
+Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.
 
 
-`r icon::fa("tachometer-alt")` __Calculate Scores __ &nbsp; Re-configure the toolbox once model development is complete, and calculate the scores by stepping through `calculate_scores.R` (or `calculate_scores.Rmd`) from the assessment repo!
+`r icon::fa("tachometer-alt")` __Calculate Scores __  
+
+Re-configure the toolbox once model development is complete, and calculate the scores by stepping through `calculate_scores` from the assessment repo!
 
 <br>
 
