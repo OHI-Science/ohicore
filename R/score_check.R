@@ -86,7 +86,7 @@ score_check = function(scenario_year, commit="previous",
   }
   
   suppressWarnings(
-    p <- ggplot2::ggplot(filter(data_new, year==scenario_year), ggplot::aes(x=goal, y=change, color=dimension)) +
+    p <- ggplot2::ggplot2(filter(data_new, year==scenario_year), ggplot2::aes(x=goal, y=change, color=dimension)) +
       #geom_point(shape=19, size=1) +
       ggplot2::theme_bw() + 
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1)) + 
