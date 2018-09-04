@@ -55,6 +55,11 @@ Collate:
     'score_check.R'
     'trace_git_csv_value.R'
     'mapvalues.R'
+    'georegion_labels.R'
+    'georegions.R'
+    'rgn_eez_area.R'
+    'sovregion_labels.R'
+    'sovregions.R'
 URL: https://github.com/OHI-Science/ohicore
 BugReports: https://github.com/OHI-Science/ohicore/issues
 LazyData: TRUE
