@@ -1,13 +1,18 @@
 Package: ohicore
+Title: Ocean Health Index calculation package
+Type: Package
+Version: 0.2
+Authors@R: c(person("Melanie", "Frazier", email = "frazier@nceas.ucsb.edu", role = c("aut", "cre")),
+  person("Ben", "Best", email = "ben@ecoquants.com", role = c("aut")),
+  person("Julia Stewart","Lowndes", email = "lowndes@nceas.ucsb.edu", role = c("aut")),
+  person("Casey", "O'Hara", email = "ohara@nceas.ucsb.edu", role = c("aut")),
+  person("Ning Jiang", "Mendes", role = c("aut")),
+  person("Jamie", "Afflerbach", email = "afflerbach@nceas.ucsb.edu", role = c("aut")),
+  person("Steve", "Hastings", role = c("aut")),
+  person("Darren", "Hardy", role = c("aut")))
 Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
-Version: 0.2
-Date: 2016-07-28
-Title: Ocean Health Index calculation package
-Author: Ben Best, Melanie Frazier, Julia Stewart Lowndes, Casey O'Hara, Ning Jiang Mendes, Jamie Afflerbach, Steve Hastings, Darren Hardy
-Maintainer: Melanie Frazier <frazier@nceas.ucsb.edu>
 License: MIT
-LazyData: TRUE
 Depends:
     R (>= 3.1.0)
 Imports:
@@ -20,9 +25,11 @@ Imports:
     methods,
     tidyr,
     RColorBrewer,
-    htmlwidgets,
+    htmlwidgets
 Suggests:
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 Collate:
     'AlignDataYears.R'
     'AlignManyDataYears.R'
@@ -48,4 +55,8 @@ Collate:
     'score_check.R'
     'trace_git_csv_value.R'
     'mapvalues.R'
+URL: https://github.com/OHI-Science/ohicore
+BugReports: https://github.com/OHI-Science/ohicore/issues
+LazyData: TRUE
+VignetteBuilder: knitr
 RoxygenNote: 6.0.1

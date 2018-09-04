@@ -9,32 +9,32 @@
 \item{dir}{path to directory containing necessary files, e.g., eez2015/conf}
 }
 \value{
-object reference class of Config containing:
+Object reference class of Config containing:
 \itemize{
-  \item{\emph{config}}
-  \item{\emph{functions}}
-  \item{\emph{goals}}
-  \item{\emph{pressures_matrix}}
-  \item{\emph{resilience_matrix}}
-  \item{\emph{resilience_categories}}
-  \item{\emph{pressure_categories}}
+  \item{\strong{config} - concise description}
+  \item{\strong{functions} - concise description}
+  \item{\strong{goals} - concise description}
+  \item{\strong{pressures_matrix} - concise description}
+  \item{\strong{resilience_matrix} - concise description}
+  \item{\strong{resilience_categories} - concise description}
+  \item{\strong{pressure_categories} - concise description}
 }
 }
 \description{
-Conf reference class.
+\code{Conf} object which contains all the configuration information for calculating scores. This creates an R object 
+that combines into a single object all the information from the following files: \emph{config.R}, \emph{functions.R}, \emph{goals.csv}, 
+\emph{pressures_matrix.csv}, \emph{resilience_matrix.csv}, \emph{resilience_weights.csv}.
 }
 \details{
-This function creates an R object that combines into a single object all the information 
-from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv.
-To create this object, \code{Conf(dir)}. The \code{dir} is expected to have the following files:
+To create this object: \code{Conf(dir)}. The \code{dir} is expected to have the following files:
 \itemize{
-  \item{\emph{config.R}}
-  \item{\emph{functions.R}}
-  \item{\emph{goals.csv}}
-  \item{\emph{pressures_matrix.csv}}
-  \item{\emph{resilience_matrix.csv}}
-  \item{\emph{resilience_weights.csv}}
-  \item{\emph{pressure_categories}}
+  \item{config.R}
+  \item{functions.R}
+  \item{goals.csv}
+  \item{pressures_matrix.csv}
+  \item{resilience_matrix.csv}
+  \item{resilience_weights.csv}
+  \item{pressure_categories}
 }
 See also \code{\link{Conf_write}()} to write the configuration back to disk.
 }

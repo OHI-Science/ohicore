@@ -1,0 +1,64 @@
+---
+title: Frequently Asked Questions
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Conceptual
+
+__Q: Are regional assessment scores comparable with global assessment scores?__
+
+A: Regional Index scores cannot be directly compared to global Index scores, or to other regional Index scores calculated through separate efforts. This is because data and indicators (both what they measure and their quality), reference points (set using local knowledge and priorities), and specific goal models are often different for the areas being compared.
+
+However, because scores for each goal are scaled to a reference point, qualitative comparisons can be made. For example, a score of 71 in the US West Coast compared to 66 in Brazil says that the US West coast is closer to fully meeting its sustainable goals (i.e., meeting regional reference points). Furthermore, use of the same Ocean Health Index framework across regional assessments permits fruitful discussion and general comparisons even if data inputs differ. Ocean Health Index assessments at any scale always work within a standardized definition of ocean health, using information to capture the philosophy of the ten goals that have been identified (and undergone scientific peer-review) prior to compiling relevant data. Use of the ten-goal framework is important both to ensure that all aspects of ocean health are captured and to allow better comparison across regional assessments than would be possible if the different regions used different methods.
+
+__Q: Where is climate change measured in the Index?__
+
+A: Four different aspects of climate change – increases in sea surface temperature (SST), sea level rise (SLR), ultraviolet radiation (UV), and ocean acidification (OA) – are included as pressures to many goals in the Index, including Natural Products, Carbon Storage, Coastal Protection, Sense of Place, Livelihoods & Economies and Biodiversity. 
+
+__Q: Why are food provision and artisanal fishing opportunities goals separated?__
+
+A: These goals measure different aspects of how people relate to fishing. The catch of fish made by artisanal (small-scale, subsistence type) fisheries is captured in the food provision goal. Jobs, wages and income from both the food provision and artisanal fishing goals are captured in the livelihoods & economies goal. The purpose of the artisanal fishing opportunity goal is to evaluate the opportunity for people to pursue this fishing in relation to their need to do so.
+
+__Q: How are the goals weighted to calculate the final score?__
+
+A: By default, goals are weighted equally because there is not better information to do otherwise, even though we understand that each goal may/should have different weights depending on regional conditions and needs. We didn’t put emphasis on goal weighing because ten individual goal scores are more important than one total score, and can tell more about the status of ocean health. If you are interested in seeing how weighing affects the total index score, you can try the following:
+
+- Scenario studies. The OHI framework is flexible so that you can change the weights and see how scores change.  
+- Studies on people’s preferences or management needs to weigh goals differently. See [Daigle et al. 2017](http://ohi-science.org/publications/).
+
+__Q: How should we compare regional scores, spatially or temporally?__
+
+A: Temporal comparison is good for repeated measurements in one location, so that managers can see how goal conditions change and whether their policies take effect. Spatial comparison is used to compare regional differences in your country.
+
+For OHI+, the most helpful comparison is temporal comparison. Management goals are different spatially, and data are different. We can’t compare spatially unless they use the same model and data. The goal of OHI is to help local agencies adapt and improve ocean resources management. Therefore it may be an unnecessary burden to compare spatially. Without worrying about comparisons, different regions can still learn from one another.
+
+__Q: We calculate trends based on 5 years of data. Wouldn’t it be more scientifically valid to have a 20 or 30 year trend?__
+
+A: Yes you can use more years of data if available. But 5 years is a good compromise between scientific validity and meaningulness for local stakeholders. On one hand, we have to do it scientifically vigorous with a solid reference. But on the other hand, a 5-yr trend is more helpful and actionable to stakeholders than a 30-yr trend.
+
+__Q: Is OHI an internationally recognized monitoring system? What other partnerships does OHI have?__
+
+A: OHI is a partnership between the National Center for Ecological Analysis and Synthesis (NCEAS) at UC Santa Barbara and Conservation International, and is gaining recognition from world governance organizations, NGOs, and local governments. There are nearly twenty assessments being led by partners and independent groups around the world: explore the [OHI+ assessments](http://ohi-science.org/projects/ohi-assessments/).
+
+__Q: Should spatial boundaries be based on ecosystem or jurisdictional boundaries?__
+
+A. The boundaries of your assessment should be driven by the boundaries where information is reported and policy decisions are made. Jurisdictional boundaries may be optimal because it is often at these scales where management and policy decisions are made, cultural priorities and management targets are identified, and information is collected in standardized and therefore comparable ways.
+
+__Q: Is there overlap or double-counting for habitat-based goals?__
+
+A. There is no complete overlap of data. Different habitat data are used for different goals. For example, not all habitats relevant for CP (for example, coral reefs) aren’t necessarily appropriate for CS.
+
+OHI is also human benefits-driven, not ecologically-driven. It happens that CS, CP, and HAB are affected by similar factors, but they provide non-overlapping benefits. It is the design of OHI to show the connectivity among goals. If certain habitats are good for multiple goals, there is strong incentive to focus energy and resources to protect those habitats.
+
+
+## Structure
+
+__Q: Can we remove or add goals to the OHI?__
+
+A: Yes, although it is important to consider the philosophy behind the goals you will be adding or removing. If a goal has value to your area, it is important to include, even if there is not data available to perfectly represent it.
+
