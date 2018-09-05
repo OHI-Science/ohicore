@@ -8,37 +8,43 @@ output: html_document
 
 <br>
 
-`r icon::fa("arrow-circle-down")` __Install __  
+`r icon::fa("arrow-circle-down")` __Install__  
 
 You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package only once at the start of the assessment, using  `devtools::install_github('ohi-science/ohicore')`.
 
+<br>
 
-`r icon::fa("database")` __Prep Data __  
+`r icon::fa("database")` __Prepare Data__  
 
 Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the Data for the Toolbox vignette for more detailed discussion of the data preparation process and recommendations.
 
+<br>
 
-`r icon::fa("th-list")` __Check Layers __  
+`r icon::fa("th-list")` __Check Layers__  
 
 Confirm the correct, most recent data layers are saved in the layers folder; save them there if they are not.
 
+<br>
 
-`r icon::fa("link")` __Register Data __  
+`r icon::fa("link")` __Register Data__  
 
-Manually update  `layers.csv` and  `scenario_data_years.csv`: register the data layers in the `layers.csv`, and update information about alignment between scenario and data years in the `scenario_data_years.csv`.
+Manually update  `layers.csv` and  `scenario_data_years.csv`. This consists of registering the data layers in the `layers.csv`, and updating information about alignment between scenario and data years in the `scenario_data_years.csv`.
 
+<br>
 
-`r icon::fa("map-signs")` __Configure __  
+`r icon::fa("map-signs")` __Configure__  
 
 Configure the toolbox by running `ohicore::Conf()`, `ohicore::CheckLayers()`, and `ohicore::Layers()`.
 
+<br>
 
-`r icon::fa("cogs")` __Develop Models __  
+`r icon::fa("cogs")` __Develop Models__  
 
 Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.
 
+<br>
 
-`r icon::fa("tachometer-alt")` __Calculate Scores __  
+`r icon::fa("tachometer-alt")` __Calculate Scores__  
 
 Re-configure the toolbox once model development is complete, and calculate the scores by stepping through `calculate_scores` from the assessment repo!
 
@@ -51,14 +57,17 @@ Re-configure the toolbox once model development is complete, and calculate the s
 <br>
 
 ```{r, eval = FALSE}
-## run the configure_toolbox.r script to check configuration first
-source("~/github/toolbox-demo/region2016/configure_toolbox.R")
+# run the configure_toolbox.r script to check configuration first
+source('~/github/toolbox-demo/region2016/configure_toolbox.R')
 
-## calculate scenario scores
+# calculate scenario scores
 scores <-  ohicore::CalculateAll(conf, layers)
 
-## save scores as scores.csv
+# save scores as scores.csv
 write.csv(scores, 'scores.csv', na='', row.names = FALSE)
 ```
 
 ---
+
+## 
+
