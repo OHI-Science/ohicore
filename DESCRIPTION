@@ -57,9 +57,9 @@ Collate:
     'mapvalues.R'
     'georegion_labels.R'
     'georegions.R'
-    'sovregions.R'
-    'sovregion_labels.R'
     'rgn_eez_area.R'
+    'sovregion_labels.R'
+    'sovregions.R'
 URL: https://github.com/OHI-Science/ohicore
 BugReports: https://github.com/OHI-Science/ohicore/issues
 LazyData: TRUE
