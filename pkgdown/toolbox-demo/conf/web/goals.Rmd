@@ -1,0 +1,335 @@
+---
+output: html_document
+---
+
+```{r set up, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+library(tidyverse)
+
+## information from layers.csv
+key <- "toolbox-demo"
+dir_scenario_gh <- "https://raw.githubusercontent.com/OHI-Science/toolbox-demo/master/region2016"
+layers_csv  <- readr::read_csv(file.path(dir_scenario_gh, 'layers.csv'))
+layers_web <- sprintf('http://ohi-science.org/%s/layers.html', key)
+```
+
+
+## Food Provision: Fisheries
+
+```{r, child='goals/FIS.Rmd', results='asis', echo=FALSE}
+```
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="FIS") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+```
+
+---- 
+
+## Food Provision: Mariculture
+
+```{r, child='goals/MAR.Rmd', results='asis', echo=FALSE}
+```
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="MAR") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+```
+
+---- 
+
+## Artisanal Fishing Opportunity 
+
+```{r, child='goals/AO.Rmd', results='asis', echo=FALSE}
+```
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="AO") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+```
+
+---- 
+
+## Natural Products
+
+```{r, child='goals/NP.Rmd', results='asis', echo=FALSE}
+```
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="NP") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+
+```
+
+---- 
+
+## Carbon Storage
+
+```{r, child='goals/CS.Rmd', results='asis', echo=FALSE}
+```
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="CS") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+```
+
+---- 
+
+## Coastal Protection
+
+```{r, child='goals/CP.Rmd', results='asis', echo=FALSE}
+```
+
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="CP") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+
+```
+
+---- 
+
+## Tourism & Recreation
+
+```{r, child='goals/TR.Rmd', results='asis', echo=FALSE}
+```
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="TR") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+
+```
+
+---- 
+
+## Livelihoods & Economies: Livelihoods
+
+```{r, child='goals/LIV.Rmd', results='asis', echo=FALSE}
+```
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="LIV") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+
+```
+
+
+---- 
+
+## Livelihoods & Economies: Economies
+
+```{r, child='goals/ECO.Rmd', results='asis', echo=FALSE}
+```
+
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="ECO") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+```
+
+---- 
+
+## Sense of Place: Iconic Species
+
+```{r, child='goals/ICO.Rmd', results='asis', echo=FALSE}
+```
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="ICO") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+```
+
+---- 
+
+## Sense of Place: Lasting Special Places
+
+```{r, child='goals/LSP.Rmd', results='asis', echo=FALSE}
+```
+
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="LSP") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+
+```
+
+---- 
+
+## Clean Waters
+
+```{r, child='goals/CW.Rmd', results='asis', echo=FALSE}
+```
+
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="CW") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+
+```
+
+---- 
+
+## Biodiversity: Species
+
+```{r, child='goals/SPP.Rmd', results='asis', echo=FALSE}
+```
+
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="SPP") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+
+```
+
+---- 
+
+## Biodiversity: Habitats
+
+```{r, child='goals/HAB.Rmd', results='asis', echo=FALSE}
+```
+
+### Data used in model
+
+**Status & trend**
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, results="asis"}
+st <- layers_csv %>%
+  filter(targets=="HAB") %>%
+  mutate(web_name = gsub(" ", "_", name)) %>%
+  mutate(web_name = tolower(web_name)) %>%
+  mutate(web_name = gsub("/", "", web_name)) %>%
+  mutate(info = sprintf("[%s](%s#%s) (%s): %s", name, layers_web, web_name, layer, description))
+
+cat(paste(st$info, collapse="\n\n"))
+
+```
+
