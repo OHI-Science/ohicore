@@ -2,8 +2,7 @@ Package: ohicore
 Title: Ocean Health Index calculation package
 Type: Package
 Version: 0.2
-Authors@R: c(
-  person("Melanie", "Frazier", email = "frazier@nceas.ucsb.edu", role = c("aut", "cre")),
+Authors@R: c(person("Melanie", "Frazier", email = "frazier@nceas.ucsb.edu", role = c("aut", "cre")),
   person("Ben", "Best", email = "ben@ecoquants.com", role = c("aut")),
   person("Julia Stewart","Lowndes", email = "lowndes@nceas.ucsb.edu", role = c("aut")),
   person("Casey", "O'Hara", email = "ohara@nceas.ucsb.edu", role = c("aut")),
@@ -51,18 +50,13 @@ Collate:
     'name_to_rgn.R'
     'name_2_rgn.R'
     'collapse_2_rgn.R'
+    'data.R'
     'read_git_csv.R'
     'score_check.R'
     'trace_git_csv_value.R'
     'mapvalues.R'
-    'georegion_labels.R'
-    'georegions.R'
-    'sovregions.R'
-    'sovregion_labels.R'
-    'rgn_eez_area.R'
 URL: https://github.com/OHI-Science/ohicore
 BugReports: https://github.com/OHI-Science/ohicore/issues
 LazyData: TRUE
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-Encoding: UTF-8
