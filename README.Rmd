@@ -14,13 +14,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-## An Ocean Health Assessment Tool
+# An Ocean Health Assessment Tool
 
 We all benefit in some shape or form from a healthy ocean. Directly or indirectly, we all rely on the ocean’s services: food, livelihood, recreational opportunities, or regulation of the global climate. The enormity of the ocean, a sparsity of data about the detailed goings-on in its depths, and conflicting views on what constitutes responsible resource use make sustainable management of this wide range of benefits a big task.
 
 Optimal management means using the resources sustainably, but also to their fullest capacities within the sustainable range, as it is the coupled human–ocean system we are interested in managing. Maintaining this  balance across the broad range of benefits requires an approach that is both comprehensive and quantitative. The Ocean Health Index, consisting of ten diverse public goals, is designed for this purpose.
-
-![](https://docs.google.com/drawings/d/e/2PACX-1vRQLIv_akeZMQUJyUH9lzwLpMCqPv4uKF29atREmxgNVc80YYVrxOwVQLfXwWPMktKLAdM79EuuaH0u/pub?w=958&h=105)
 
 ## Features & Usage
 

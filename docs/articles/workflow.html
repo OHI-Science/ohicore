@@ -127,19 +127,25 @@
 <h2 class="hasAnchor">
 <a href="#workflow-for-calculating-scores" class="anchor"></a>Workflow for Calculating Scores</h2>
 <p><br></p>
-<p><i class="fas  fa-arrow-circle-down "></i> <strong>Install </strong></p>
+<p><i class="fas  fa-arrow-circle-down "></i> <strong>Install</strong></p>
 <p>You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package only once at the start of the assessment, using <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">devtools::install_github('ohi-science/ohicore')</a></code>.</p>
-<p><i class="fas  fa-database "></i> <strong>Prep Data </strong></p>
+<p><br></p>
+<p><i class="fas  fa-database "></i> <strong>Prepare Data</strong></p>
 <p>Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the Data for the Toolbox vignette for more detailed discussion of the data preparation process and recommendations.</p>
-<p><i class="fas  fa-th-list "></i> <strong>Check Layers </strong></p>
+<p><br></p>
+<p><i class="fas  fa-th-list "></i> <strong>Check Layers</strong></p>
 <p>Confirm the correct, most recent data layers are saved in the layers folder; save them there if they are not.</p>
-<p><i class="fas  fa-link "></i> <strong>Register Data </strong></p>
-<p>Manually update <code>layers.csv</code> and <code>scenario_data_years.csv</code>: register the data layers in the <code>layers.csv</code>, and update information about alignment between scenario and data years in the <code>scenario_data_years.csv</code>.</p>
-<p><i class="fas  fa-map-signs "></i> <strong>Configure </strong></p>
+<p><br></p>
+<p><i class="fas  fa-link "></i> <strong>Register Data</strong></p>
+<p>Manually update <code>layers.csv</code> and <code>scenario_data_years.csv</code>. This consists of registering the data layers in the <code>layers.csv</code>, and updating information about alignment between scenario and data years in the <code>scenario_data_years.csv</code>.</p>
+<p><br></p>
+<p><i class="fas  fa-map-signs "></i> <strong>Configure</strong></p>
 <p>Configure the toolbox by running <code><a href="../reference/Conf-class.html">ohicore::Conf()</a></code>, <code><a href="../reference/CheckLayers.html">ohicore::CheckLayers()</a></code>, and <code><a href="../reference/Layers-class.html">ohicore::Layers()</a></code>.</p>
-<p><i class="fas  fa-cogs "></i> <strong>Develop Models </strong></p>
+<p><br></p>
+<p><i class="fas  fa-cogs "></i> <strong>Develop Models</strong></p>
 <p>Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.</p>
-<p><i class="fas  fa-tachometer-alt "></i> <strong>Calculate Scores </strong></p>
+<p><br></p>
+<p><i class="fas  fa-tachometer-alt "></i> <strong>Calculate Scores</strong></p>
 <p>Re-configure the toolbox once model development is complete, and calculate the scores by stepping through <code>calculate_scores</code> from the assessment repo!</p>
 <p><br></p>
 <hr>
@@ -148,15 +154,19 @@
 <h2 class="hasAnchor">
 <a href="#calculating-scores" class="anchor"></a>Calculating Scores</h2>
 <p><br></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## run the configure_toolbox.r script to check configuration first
-<span class="kw">source</span>(<span class="st">"~/github/toolbox-demo/region2016/configure_toolbox.R"</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># run the configure_toolbox.r script to check configuration first</span>
+<span class="kw">source</span>(<span class="st">'~/github/toolbox-demo/region2016/configure_toolbox.R'</span>)
 
-## calculate scenario scores
-scores &lt;-<span class="st">  </span>ohicore<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ohicore/topics/CalculateAll">CalculateAll</a></span>(conf, layers)
+<span class="co"># calculate scenario scores</span>
+scores &lt;-<span class="st"> </span>ohicore<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ohicore/topics/CalculateAll">CalculateAll</a></span>(conf, layers)
 
-## save scores as scores.csv
+<span class="co"># save scores as scores.csv</span>
 <span class="kw">write.csv</span>(scores, <span class="st">'scores.csv'</span>, <span class="dt">na=</span><span class="st">''</span>, <span class="dt">row.names =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <hr>
+</div>
+<div id="data-preparation-workflows" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-preparation-workflows" class="anchor"></a>Data Preparation Workflows</h2>
 </div>
   </div>
 
@@ -167,6 +177,7 @@ scores &lt;-<span class="st">  </span>ohicore<span class="op">::</span><span cla
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#workflow-for-calculating-scores">Workflow for Calculating Scores</a></li>
       <li><a href="#calculating-scores">Calculating Scores</a></li>
+      <li><a href="#data-preparation-workflows">Data Preparation Workflows</a></li>
       </ul>
 </div>
       </div>
