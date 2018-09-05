@@ -29,7 +29,6 @@ reference:
       - '`ScoreScaling`'
       - '`collapse_2_rgn`'
       - '`compare_scores_df`'
-      - '`data`'
       - '`gapfill_georegions`'
       - '`mapvalues`'
       - '`name_2_rgn`'
@@ -44,12 +43,12 @@ reference:
   - title: Datasets
     desc: Datasets used in calculations, as lookup tables, etc
     contents:
-      - '`georegions`'
-      - '`rgn_synonyms`'
-      - '`georegion_labels`'
-      - '`rgn_eez_area`'
-      - '`sovregion_labels`'
-      - '`sovregions`'
+      - 'georegions'
+      - 'rgn_synonyms'
+      - 'georegion_labels'
+      - 'rgn_eez_area'
+      - 'sovregion_labels'
+      - 'sovregions'
 navbar:
   type: inverse
   left:
