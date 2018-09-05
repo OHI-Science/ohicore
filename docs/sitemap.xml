@@ -58,12 +58,6 @@
     <loc>http://OHI-Science.github.io/ohicore/reference/gapfill_georegions.html</loc>
   </url>
   <url>
-    <loc>http://OHI-Science.github.io/ohicore/reference/georegion_labels.html</loc>
-  </url>
-  <url>
-    <loc>http://OHI-Science.github.io/ohicore/reference/georegions.html</loc>
-  </url>
-  <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/mapvalues.html</loc>
   </url>
   <url>
@@ -77,9 +71,6 @@
   </url>
   <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/rgn_eez_area.html</loc>
-  </url>
-  <url>
-    <loc>http://OHI-Science.github.io/ohicore/reference/rgn_synonyms.html</loc>
   </url>
   <url>
     <loc>http://OHI-Science.github.io/ohicore/reference/score_check.html</loc>
