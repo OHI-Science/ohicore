@@ -1,0 +1,40 @@
+---
+output: github_document
+---
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- Note: If any R/functions.R files are added or deleted this needs to be changed in the DESCRIPTION file, and the NEWS.md (changelog) file. -->
+<!-- If changes are made to any of the R/functions.R (or other files), the following should be run: pkgdown::build_site() -->
+
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# OHICORE
+
+The `ohicore` is a package of core functions for calculating the Ocean Health Index (OHI). The goal of ohicore is to facilitate calculation of OHI scores both for the annual global assessments and regional assessments, within a [tailorable framework](https://peerj.com/articles/1503/). For more information, please visit [OHI-Science.org](http://ohi-science.org). See [ohi-science.org/toolbox-training](http://ohi-science.org/toolbox-training) for more on using the `ohicore` for ocean health assessments.
+
+
+## Installation
+
+You can install ohicore from github with:
+
+```{r gh-installation, eval = FALSE}
+## devtools is needed for installing packages from Github
+install.packages("devtools")
+
+## install ohicore package
+devtools::install_github('ohi-science/ohicore')
+library(ohicore)
+```
+
+## Example
+
+```{r example}
+## basic example code
+# ohicore::FlowerPlot -need to add score data to demo folder... 8 regions, what assessment is this? what data to add?
+```

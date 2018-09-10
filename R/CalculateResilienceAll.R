@@ -38,15 +38,16 @@ CalculateResilienceAll = function(layers, conf){
 
 
   ## error if the config.R weighting files are not actually included in the the data
-  obs_data <- dplyr::select(SelectLayersData(layers, layers=r_element$layer), layer)
-  obs_data <- unique(obs_data$layer)
-  exp_data <- unique(r_element$layer)
-  dif <- setdiff(exp_data, obs_data)
-  if (length(dif) > 0) {
-    stop(sprintf('weighting data layers identified in config.r do not exist; please update layers.csv and layers folder to include: %s',
-                 paste(dif, collapse=', ')))
+  if ( !is.null(r_element) ) {
+    obs_data <- dplyr::select(SelectLayersData(layers, layers=r_element$layer), layer)
+    obs_data <- unique(obs_data$layer)
+    exp_data <- unique(r_element$layer)
+    dif <- setdiff(exp_data, obs_data)
+    if (length(dif) > 0) {
+      stop(sprintf('weighting data layers identified in config.r do not exist; please update layers.csv and layers folder to include: %s',
+                   paste(dif, collapse=', ')))
+    }
   }
-
 
   # error if resilience categories deviate from "ecological" and "social"
   check <- setdiff(c("ecological", "social"), unique(r_categories$category))

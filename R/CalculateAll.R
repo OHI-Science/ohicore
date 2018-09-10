@@ -4,34 +4,34 @@
 #'
 #' @param conf of class \code{\link{Conf}}
 #' @param layers of class \code{\link{Layers}}
-#' @param debug print debug messages (default=FALSE)
+#' @param debug print debug messages (default = FALSE)
 #' @return Returns a data.frame of scores having the following columns:
 #' \itemize{
-#'   \item{\emph{region_id} - unique numeric region identifier, reserving 0 as the region_id for the area-weighted average of the entire study area}
-#'   \item{\emph{goal} - the goal code or Index}
-#'   \item{\emph{dimension} - the dimension code, one of: status, trend, pressures, resilience, future, score}
-#'   \item{\emph{score} - the numeric score: 0-100 for all dimensions, except trend (-1 to 1)}
+#'   \item{\strong{region_id} - unique numeric region identifier, reserving 0 for the area-weighted average of the entire study area}
+#'   \item{\strong{goal} - the goal code or Index}
+#'   \item{\strong{dimension} - the dimension code, one of: status, trend, pressures, resilience, future, score}
+#'   \item{\strong{score} - the numeric score: 0-100 for all dimensions, except trend (-1 to 1)}
 #' }
 #' @details
-#' Performs the following sequence of functions, some of which are [optional]:
+#' Performs the following sequence of functions, some of which are optional:
 #' \enumerate{
-#'   \item [functions.R:\code{Setup}()] - execute function \code{Setup}() if defined in file functions.R.
+#'   \item \code{Setup()} - execute function \code{Setup()} if defined in file \code{\link{functions.R}}.
 #'   This function typically installs extra packages upon which the other functions in functions.R depend.
 #'   \item \code{\link{CalculatePressuresAll}()} - calculate pressures across all goals using pressures_matrix.csv.
 #'   \item \code{\link{CalculateResilienceAll}()} - calculate resilience across all goals using resilience_matrix.csv and resilience_weights.csv.
 #'   \item goals.csv:\code{preindex_functions} - execute code in the \code{preindex_function} column of the goals.csv file
 #'   based on \code{order_calculate} using functions defined in functions.R.
-#'   These funcutions are usually for calculating the goal's status and trend dimensions, ie
+#'   These funcutions are usually for calculating the goal's status and trend dimensions, i.e.
 #'   the additional dimensions beyond pressures and resilience needed to calculate a goal index score.
 #'   \item \code{\link{CalculateGoalIndex}()} - run function for every goal having a status dimension assigned from the \code{preindex_functions}.
 #'   \item goals.csv:\code{postindex_functions} - execute code in the \code{postindex_function} column of the goals.csv file based on \code{order_calculate}
 #'   using functions defined in functions.R. These functions are usually for goals containing subgoals, ie those without their own directly calculated
 #'   index scores, but rather scores representing averages of subgoals.
-#'   \item regional index - calculate regional index score as weighted mean using goals.csv:\code{weight}.
+#'   \item regional index - calculate regional index score as weighted mean using goals.csv: \code{weight}.
 #'   \item regional likely future - calculate regional likely future score (ie goal='Index' and dimension='future') across supragoals (ie goals without a \code{parent} in goals.csv).
-#'   \item [functions.R:\code{PreGlobalScores}()] - execute function \code{PreGlobalScores}() if defined in file functions.R.
+#'   \item [functions.R:\code{PreGlobalScores}()] - execute function \code{PreGlobalScores}() if defined in file \code{functions.R}.
 #'   This function could perform a variety of operations on the regional scores, strategically before calculating the global scores.
-#'   \item global (region_id=0) scores - calculate scores for global (region_id=0) with regional values weighted by config.R:\code{layer_region_areas}.
+#'   \item global (region_id=0) scores - calculate scores for global (region_id=0) with regional values weighted by config.R: \code{layer_region_areas}.
 #'   \item [functions.R:\code{FinalizeScores}()] - execute function \code{FinalizeScores}() if defined in file functions.R.
 #'   This function could perform a variety of operations on the regional and global scores.
 #' }
@@ -53,12 +53,13 @@
 #' }
 #'
 #' @export
+
 CalculateAll = function(conf, layers){
 
   ## Remove global scores
   if (exists('scores', envir=.GlobalEnv)) rm(scores, envir=.GlobalEnv)
 
- ## Run Setup, all goals
+  ## Run Setup, all goals
     if ('Setup' %in% ls(conf$functions)){
       cat('Running Setup()...\n')
       conf$functions$Setup()
@@ -66,7 +67,8 @@ CalculateAll = function(conf, layers){
 
   ## Access Pre-Index functions: Status and Trend, by goal
   goals_X = conf$goals %>%
-    dplyr::filter(!is.na(preindex_function)) %>%
+    dplyr::filter(!is.na(preindex_function)) %>% # it it realizes it's NA
+    # dplyr::filter(preindex_function != "NA") %>% # if it thinks NA is a character string
     dplyr::arrange(order_calculate)
 
   ## Setup scores variable; many rbinds to follow
@@ -77,7 +79,7 @@ CalculateAll = function(conf, layers){
     score     = numeric())
 
   ## Calculate Status and Trend, all goals
-  for (i in 1:nrow(goals_X)){ # i=5
+  for (i in 1:nrow(goals_X)){ # i=14
     g = goals_X$goal[i]
     cat(sprintf('Calculating Status and Trend for each region for %s...\n', g))
 

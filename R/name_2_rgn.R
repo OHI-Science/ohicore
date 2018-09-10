@@ -43,7 +43,7 @@ name_2_rgn <- function(df_in,   #df_in=empd
   
   ### replace problematic symbols (accents and such) within target data frame.
   df_in <- df_in %>% 
-    dplyr::mutate(tmp_name = str_trim(tmp_name),
+    dplyr::mutate(tmp_name = stringr::str_trim(tmp_name),
            tmp_name = stringr::str_replace(tmp_name, "^'", ""))
   
   ### combine target data frame with region name data frame;
