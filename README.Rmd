@@ -24,10 +24,10 @@ The `ohicore` is a package of core functions for calculating the Ocean Health In
 You can install ohicore from github with:
 
 ```{r gh-installation, eval = FALSE}
-## devtools is needed for installing packages from Github
+# devtools is needed for installing packages from Github
 install.packages("devtools")
 
-## install ohicore package
+# install ohicore package
 devtools::install_github('ohi-science/ohicore')
 library(ohicore)
 ```
@@ -35,6 +35,6 @@ library(ohicore)
 ## Example
 
 ```{r example}
-## basic example code
+# basic example code
 # ohicore::FlowerPlot -need to add score data to demo folder... 8 regions, what assessment is this? what data to add?
 ```
