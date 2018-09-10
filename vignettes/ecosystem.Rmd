@@ -60,7 +60,7 @@ Configuration must be done each time models are edited or additional data is add
 
 ---
 
-__Ensure files are properly configured:__
+## Ensure Files are Properly Configured
 
 ```{r, eval = FALSE}
 ## set working directory to the scenario folder (that contains the conf folder)

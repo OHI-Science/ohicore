@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Data for the OHI Toolbox • OHICORE</title>
+<title>Introduction • OHICORE</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="Data for the OHI Toolbox">
+<meta property="og:title" content="Introduction">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -115,43 +115,35 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Data for the OHI Toolbox</h1>
+      <h1>Introduction</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/OHI-Science/ohicore/blob/master/vignettes/dataprep.Rmd"><code>vignettes/dataprep.Rmd</code></a></small>
-      <div class="hidden name"><code>dataprep.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/OHI-Science/ohicore/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
+      <div class="hidden name"><code>introduction.Rmd</code></div>
 
     </div>
 
     
     
-<div id="format-for-the-toolbox" class="section level2">
+<div id="an-ocean-health-assessment-tool" class="section level2">
 <h2 class="hasAnchor">
-<a href="#format-for-the-toolbox" class="anchor"></a>Format for the Toolbox</h2>
-<p>The Toolbox requires data to be in a specific format. Some of this formatting happens in the data preparation phase within the data preparation subfolder or repo, and some of this formatting is done by the Toolbox. <code>ohicore</code> functions involved in this automated data formatting include [ ]. For more details on usage and workings of these functions, see the Reference pages.</p>
-<p>Finalized datasets from the data preparation phase are saved to the ‘layers’ subfolder in csv format. These contain two or three columns: region identification number (rgn_id) and a column with the data value which will be labeled differently depending on what dimension (pressure, trend, resilience) the data layer relates to, and possibly a year column if multiple years are to be used in the relevant goal model(s).</p>
-<p>Once created, prepared data layers must be registered in the the layers.csv spreadsheet. Each row in layers.csv represents one data layer. The 8 columns that must be updated are [ ]. The information in this spreadsheet directs ohicore to appropriate data layers during calculations.</p>
-<p><br></p>
-<p><left><img src="https://docs.google.com/drawings/d/e/2PACX-1vTVHHtK7AiHQv0MrnYAYr4S4mImPmHEYW5CeqOxZeGfYoFTj7LEhZpkdvjs2d205kYj1i-J-WLwCWri/pub?w=914&amp;h=425"></left></p>
-<p><br></p>
-<hr>
+<a href="#an-ocean-health-assessment-tool" class="anchor"></a>An Ocean Health Assessment Tool</h2>
+<p>We all benefit in some shape or form from a healthy ocean. Directly or indirectly, we all rely on the ocean’s services: food, livelihood, recreational opportunities, or regulation of the global climate. The enormity of the ocean, a sparsity of data about the detailed goings-on in its depths, and conflicting views on what constitutes responsible resource use make sustainable management of this wide range of benefits a big task.</p>
+<p>Optimal management means using resources sustainably, but also to their fullest capacities within the sustainable range, as it is the coupled human–ocean system we are interested in managing. Maintaining this balance across the broad range of benefits requires an approach that is both comprehensive and quantitative. The Ocean Health Index, consisting of ten diverse public goals, is designed for this purpose.</p>
 </div>
-<div id="what-to-include" class="section level2">
+<div id="features-usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#what-to-include" class="anchor"></a>What to Include</h2>
-<p><br></p>
-<p>What datasets to include depends on the models developed for the OHI assessment, and coded in the functions.R script. Deciding on relevant data to include is a significant and time-consuming part of completing an OHI assessment. Considerations regarding whether it makes sense to include a dataset: (1) scientific, sociological or economic conceptual relevance and a signal distinguishable from background noise or confounding factors, (2) data-completeness sufficient that gapfilling can be done in a reasonably realistic manner, and in some cases (3) redundancy or multicollinearity of variables. The team must also consider whether the data fits ideal spatial boundaries for the assessment. [While the OHI team is happy to provide consultation on these matters, we encourage stakeholder and expert engagement on OHI+ teams.]</p>
-<p><br></p>
-<hr>
+<a href="#features-usage" class="anchor"></a>Features &amp; Usage</h2>
+<p>The <code>ohicore</code> R package is what brings everything together in the Ocean Health Index assessment calculations.</p>
+<div class="figure">
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vSNh-PtRPpKCBoXGtxWJUnBbOhBn9iwIBRMFE4XARj5ECN76a0Cmejh3V9xVls3SGc6UE1Z9i29DOoL/pub?w=1164&amp;h=452">
 </div>
-<div id="transparency-and-reproducibility" class="section level2">
-<h2 class="hasAnchor">
-<a href="#transparency-and-reproducibility" class="anchor"></a>Transparency and Reproducibility</h2>
 <p><br></p>
-<p>Arguably the most important section of this vignette.</p>
-<hr>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## example code here corresponding to suggestions about preparing data</code></pre></div>
-<hr>
+</div>
+<div id="an-open-data-science-project" class="section level2">
+<h2 class="hasAnchor">
+<a href="#an-open-data-science-project" class="anchor"></a>An Open Data Science Project</h2>
+<p>Besides doing awesome science to support policy and research aimed at improving our use and care of ocean resources, we are committed to following and championing open data science practices. <code>ohicore</code> and this site are one component of this; to learn more about this dimension of our work explore our <a href="http://ohi-science.org/betterscienceinlesstime/">better science in less time page</a>.</p>
 </div>
   </div>
 
@@ -160,9 +152,9 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#format-for-the-toolbox">Format for the Toolbox</a></li>
-      <li><a href="#what-to-include">What to Include</a></li>
-      <li><a href="#transparency-and-reproducibility">Transparency and Reproducibility</a></li>
+<li><a href="#an-ocean-health-assessment-tool">An Ocean Health Assessment Tool</a></li>
+      <li><a href="#features-usage">Features &amp; Usage</a></li>
+      <li><a href="#an-open-data-science-project">An Open Data Science Project</a></li>
       </ul>
 </div>
       </div>

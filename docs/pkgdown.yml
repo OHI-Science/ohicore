@@ -5,7 +5,8 @@ articles:
   dataprep: dataprep.html
   ecosystem: ecosystem.html
   faq: faq.html
-  getstarted: getstarted.html
+  functionsR: functionsR.html
+  introduction: introduction.html
   reporting: reporting.html
   workflow: workflow.html
 urls:

@@ -44,10 +44,10 @@
   </a>
 </li>
 <li>
-  <a href="articles/getstarted.html">
+  <a href="articles/introduction.html">
     <span class="fa fa-play-circle"></span>
      
-    Getting Started
+    Introduction
   </a>
 </li>
 <li>
@@ -75,6 +75,9 @@
     </li>
     <li>
       <a href="articles/reporting.html">Reporting</a>
+    </li>
+    <li>
+      <a href="articles/functionsR.html">functions.R</a>
     </li>
   </ul>
 </li>
@@ -119,25 +122,26 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- Note: If any R/functions.R files are added or deleted this needs to be changed in the DESCRIPTION file, and the NEWS.md (changelog) file. -->
 <!-- If changes are made to any of the R/functions.R (or other files), the following should be run: pkgdown::build_site() -->
-<div id="an-ocean-health-assessment-tool" class="section level1">
+<div id="ohicore" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#an-ocean-health-assessment-tool" class="anchor"></a>An Ocean Health Assessment Tool</h1></div>
-<p>We all benefit in some shape or form from a healthy ocean. Directly or indirectly, we all rely on the ocean’s services: food, livelihood, recreational opportunities, or regulation of the global climate. The enormity of the ocean, a sparsity of data about the detailed goings-on in its depths, and conflicting views on what constitutes responsible resource use make sustainable management of this wide range of benefits a big task.</p>
-<p>Optimal management means using the resources sustainably, but also to their fullest capacities within the sustainable range, as it is the coupled human–ocean system we are interested in managing. Maintaining this balance across the broad range of benefits requires an approach that is both comprehensive and quantitative. The Ocean Health Index, consisting of ten diverse public goals, is designed for this purpose.</p>
-<div id="features-usage" class="section level2">
+<a href="#ohicore" class="anchor"></a>OHICORE</h1></div>
+<p>The <code>ohicore</code> is a package of core functions for calculating the Ocean Health Index (OHI). The goal of ohicore is to facilitate calculation of OHI scores both for the annual global assessments and regional assessments, within a <a href="https://peerj.com/articles/1503/">tailorable framework</a>. For more information, please visit <a href="http://ohi-science.org">OHI-Science.org</a>. See <a href="http://ohi-science.org/toolbox-training">ohi-science.org/toolbox-training</a> for more on using the <code>ohicore</code> for ocean health assessments.</p>
+<div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#features-usage" class="anchor"></a>Features &amp; Usage</h2>
-<p>The <code>ohicore</code> R package is what brings everything together in the Ocean Health Index assessments.</p>
-<div class="figure">
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vSNh-PtRPpKCBoXGtxWJUnBbOhBn9iwIBRMFE4XARj5ECN76a0Cmejh3V9xVls3SGc6UE1Z9i29DOoL/pub?w=1164&amp;h=452">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install ohicore from github with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## devtools is needed for installing packages from Github
+<span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
+
+## install ohicore package
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">'ohi-science/ohicore'</span>)
+<span class="kw">library</span>(ohicore)</code></pre></div>
 </div>
-<p><br></p>
-<p>An analogy for how the different pieces work together: The driving action comes from actively running the <code>calculate_scores.R</code> script in the assessment folder or repository. The prepared data is pulled into the assessment by <code>ohicore</code> functions and the objects it creates. Data included and models contained in the assessment repository <code>functions.R</code> script are both somewhat adjustable but some combinations are best for different things (like with bike gears -chainrings and rear sprockets).</p>
-</div>
-<div id="an-open-data-science-project" class="section level2">
+<div id="example" class="section level2">
 <h2 class="hasAnchor">
-<a href="#an-open-data-science-project" class="anchor"></a>An Open Data Science Project</h2>
-<p>Besides doing awesome science to support policy and research aimed at improving our use and care of ocean resources, we are committed to following and championing open data science practices. <code>ohicore</code> and this site are one component of this; to learn more about this dimension of our work see [links].</p>
+<a href="#example" class="anchor"></a>Example</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## basic example code
+<span class="co"># ohicore::FlowerPlot -need to add score data to demo folder... 8 regions, what assessment is this? what data to add?</span></code></pre></div>
 </div>
 </div>
   </div>

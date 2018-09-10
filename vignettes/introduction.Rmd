@@ -1,0 +1,22 @@
+---
+title: "Introduction"
+output: html_document
+---
+
+## An Ocean Health Assessment Tool
+
+We all benefit in some shape or form from a healthy ocean. Directly or indirectly, we all rely on the ocean’s services: food, livelihood, recreational opportunities, or regulation of the global climate. The enormity of the ocean, a sparsity of data about the detailed goings-on in its depths, and conflicting views on what constitutes responsible resource use make sustainable management of this wide range of benefits a big task.
+
+Optimal management means using resources sustainably, but also to their fullest capacities within the sustainable range, as it is the coupled human–ocean system we are interested in managing. Maintaining this  balance across the broad range of benefits requires an approach that is both comprehensive and quantitative. The Ocean Health Index, consisting of ten diverse public goals, is designed for this purpose.
+
+## Features & Usage
+
+The `ohicore` R package is what brings everything together in the Ocean Health Index assessment calculations. 
+
+![](https://docs.google.com/drawings/d/e/2PACX-1vSNh-PtRPpKCBoXGtxWJUnBbOhBn9iwIBRMFE4XARj5ECN76a0Cmejh3V9xVls3SGc6UE1Z9i29DOoL/pub?w=1164&h=452)
+
+<br>
+
+## An Open Data Science Project
+
+Besides doing awesome science to support policy and research aimed at improving our use and care of ocean resources, we are committed to following and championing open data science practices. `ohicore` and this site are one component of this; to learn more about this dimension of our work explore our [better science in less time page](http://ohi-science.org/betterscienceinlesstime/).

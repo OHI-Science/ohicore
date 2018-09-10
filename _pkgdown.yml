@@ -54,9 +54,9 @@ navbar:
   left:
     - icon: fa-home
       href: index.html
-    - text: "Getting Started"
+    - text: "Introduction"
       icon: fa-play-circle
-      href: articles/getstarted.html
+      href: articles/introduction.html
     - icon: fa-file-code-o 
       text: "Reference"
       href: reference/index.html
@@ -70,6 +70,8 @@ navbar:
          href: articles/workflow.html
       -  text: Reporting
          href: articles/reporting.html
+      -  text: functions.R
+         href: articles/functionsR.html
     - icon: fa-newspaper-o
       text: "Changelog"
       href: news/index.html

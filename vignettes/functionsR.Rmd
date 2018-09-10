@@ -1,0 +1,26 @@
+---
+title: "functions.R"
+output: html_document
+---
+
+
+## What is functions.R?
+
+Simply, `functions.R` is the R script where the goal models -- i.e. code that turn data into goal-scores -- are written. It is part of the assessment repo, rather than part of ohicore. The OHI was designed to be a flexible, tailorable framework. `ohicore` contains functions and scaffolding that are consistent across assessments, while the assessment repo contains tailored components. Models are tailored to the assessment as there is often scientific rationale for designing region-specific metrics, based on best regionally available data (often available at higher resolution or quality that for the entire globe).
+
+<br>
+
+<img src="https://docs.google.com/drawings/d/e/2PACX-1vSC0wuc8Nr8MdC0ViVsWxIqvV2w-1BeVQm87i0vhwpGew1UtWDaA7aYG9DPN6Viwvje1l_odoBsvxWi/pub?w=1148&h=1266" width="500">
+
+
+---
+
+## Developing Models
+
+
+---
+
+## Another Section
+
+
+---

@@ -43,10 +43,10 @@
   </a>
 </li>
 <li>
-  <a href="../articles/getstarted.html">
+  <a href="../articles/introduction.html">
     <span class="fa fa-play-circle"></span>
      
-    Getting Started
+    Introduction
   </a>
 </li>
 <li>
@@ -74,6 +74,9 @@
     </li>
     <li>
       <a href="../articles/reporting.html">Reporting</a>
+    </li>
+    <li>
+      <a href="../articles/functionsR.html">functions.R</a>
     </li>
   </ul>
 </li>
@@ -171,7 +174,10 @@
 <p>Configuration must be done each time models are edited or additional data is added to the data layers, prior to (re)calculating scores; i.e. if you have made changes to functions.R, goals.csv, or other files that become part of the <code>layers</code> or <code>conf</code> objects.</p>
 <p><br></p>
 <hr>
-<p><strong>Ensure files are properly configured:</strong></p>
+</div>
+<div id="ensure-files-are-properly-configured" class="section level2">
+<h2 class="hasAnchor">
+<a href="#ensure-files-are-properly-configured" class="anchor"></a>Ensure Files are Properly Configured</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set working directory to the scenario folder (that contains the conf folder)
 <span class="kw">setwd</span>(<span class="st">'eez'</span>)
 
@@ -200,6 +206,7 @@ layers<span class="op">$</span>data<span class="op">$</span>scenario_year &lt;-<
 <li><a href="#the-toolbox-ecosystem">The Toolbox Ecosystem</a></li>
       <li><a href="#contents-of-an-ohi-repo">Contents of an OHI Repo</a></li>
       <li><a href="#configuring-the-toolbox">Configuring the Toolbox</a></li>
+      <li><a href="#ensure-files-are-properly-configured">Ensure Files are Properly Configured</a></li>
       </ul>
 </div>
       </div>
