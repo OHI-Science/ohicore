@@ -35,12 +35,12 @@ script. Deciding on relevant data to include is a significant and time-consuming
 
 <br>
 
-Arguably the most important section of this vignette.
+Expand this section.
 
 ---
 
 ```{r, eval = FALSE}
-## example code here corresponding to suggestions about preparing data
+# example code here corresponding to suggestions about preparing data
 ```
 
 ---

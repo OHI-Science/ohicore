@@ -15,11 +15,6 @@ Simply, `functions.R` is the R script where the goal models -- i.e. code that tu
 
 ---
 
-## Developing Models
-
-
----
-
 ## Another Section
 
 

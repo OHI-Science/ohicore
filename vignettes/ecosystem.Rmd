@@ -27,9 +27,9 @@ Bottom line: `ohicore` is an R package that contains all the core operations for
 An OHI repository or "repo"  will contain the following:  
 
 * A data preparation folder, with subfolders for each goal, and pressures and resilience. Note: Global assessments have a separate repository.  
-* A scenario folder which contains calculate_scores.R, configure_toolbox.R, layers.csv, scores.csv, as well as conf, layers, spatial, and temp subfolders.  
+* A scenario folder which contains [`calculate_scores.R`](https://github.com/OHI-Science/ohicore/blob/dev/pkgdown/demo/calculate_scores.R), [`configure_toolbox.R`](https://github.com/OHI-Science/ohicore/blob/dev/pkgdown/demo/configure_toolbox.R), [`layers.csv`](https://github.com/OHI-Science/ohicore/blob/dev/pkgdown/demo/layers.csv), [`referencePoints.csv`](https://github.com/OHI-Science/ohicore/blob/dev/pkgdown/demo/referencePoints.csv), as well as conf, layers, spatial, and temp subfolders.  
 * README files in each folder contain more information for the user.  
-* System files for Git+GitHub or RStudio including .Rproj, .Rhistory, .gitignore, and maybe an .Rbuildignore.  
+* System files for Git+GitHub or RStudio including `.Rproj`, `.Rhistory`, `.gitignore`, and maybe an `.Rbuildignore`.  
 
 <br>
 
