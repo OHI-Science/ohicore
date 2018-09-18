@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # OHICORE
 
-The `ohicore` is a package of core functions for calculating the Ocean Health Index (OHI). The goal of ohicore is to facilitate calculation of OHI scores both for the annual global assessments and regional assessments, within a [tailorable framework](https://peerj.com/articles/1503/). For more information, please visit [OHI-Science.org](http://ohi-science.org). See [ohi-science.org/toolbox-training](http://ohi-science.org/toolbox-training) for more on using the `ohicore` for ocean health assessments.
+The `ohicore` is a package of core functions for calculating the Ocean Health Index (OHI). The goal of `ohicore` is to facilitate calculation of OHI scores both for the annual global assessments and regional assessments, within a [tailorable framework](https://peerj.com/articles/1503/). The `ohicore` R package is what brings everything together in the Ocean Health Index assessment calculations. For more information, please visit [OHI-Science.org](http://ohi-science.org). See [ohi-science.org/toolbox-training](http://ohi-science.org/toolbox-training) for more on using the `ohicore` for ocean health assessments.
 
 
 ## Installation
@@ -24,17 +24,22 @@ The `ohicore` is a package of core functions for calculating the Ocean Health In
 You can install ohicore from github with:
 
 ```{r gh-installation, eval = FALSE}
-## devtools is needed for installing packages from Github
+# devtools is needed for installing packages from Github
 install.packages("devtools")
 
-## install ohicore package
+# install ohicore package
 devtools::install_github('ohi-science/ohicore')
 library(ohicore)
 ```
 
+<!-- 
+
 ## Example
 
+Create example of using ohicore functions to create visualizations e.g. the flowerplot
+
 ```{r example}
-## basic example code
-# ohicore::FlowerPlot -need to add score data to demo folder... 8 regions, what assessment is this? what data to add?
+# flowerplot visualization
 ```
+
+-->

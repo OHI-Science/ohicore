@@ -4,7 +4,7 @@ template:
   params:
     bootswatch: yeti
 reference:
-  - title: Calculations
+  - title: Calculation
     desc: Functions to calculate scores, goal indices, pressures, resiliences, and reference points
     contents:
       - '`CalculateAll`'
@@ -12,43 +12,29 @@ reference:
       - '`CalculatePressuresAll`'
       - '`CalculateResilienceAll`'
       - '`CalculateTrend`'
-      - '`WriteRefPoint`'
-  - title: Data Alignment
+  - title: Configuration
     desc: Functions to align, combine, reformat data etc. for use in calculations, and the associated classes created
     contents:
       - '`AlignDataYears`'
       - '`AlignManyDataYears`'
-      - '`CheckLayers`'
       - '`Conf-class`'
       - '`Conf_write`'
       - '`Layers-class`'
       - '`SelectLayersData`'
-  - title: Internal
+  - title: Helper Functions
     desc: Internal and helper functions
     contents:
+      - '`WriteRefPoint`'
       - '`ScoreScaling`'
-      - '`collapse_2_rgn`'
-      - '`compare_scores_df`'
-      - '`gapfill_georegions`'
       - '`mapvalues`'
-      - '`name_2_rgn`'
-      - '`name_to_rgn`'
       - '`read_git_csv`'
-      - '`score_check`'
       - '`trace_git_csv_value`'
-  - title: Reporting
+  - title: Data Checking and Visualization
     desc: ~
     contents:
+      - '`CheckLayers`'
+      - '`score_check`'
       - '`PlotFlower`'
-  - title: Datasets
-    desc: Datasets used in calculations, as lookup tables, etc
-    contents:
-      - '`georegions`'
-      - '`rgn_synonyms`'
-      - '`georegion_labels`'
-      - '`rgn_eez_area`'
-      - '`sovregion_labels`'
-      - '`sovregions`'
 navbar:
   type: inverse
   left:
@@ -60,7 +46,8 @@ navbar:
     - icon: fa-file-code-o 
       text: "Reference"
       href: reference/index.html
-    - text: "Articles"
+    - icon: fa-newspaper-o 
+      text: "Articles"
       menu: 
       -  text: Data for the Toolbox
          href: articles/dataprep.html
@@ -68,17 +55,12 @@ navbar:
          href: articles/ecosystem.html
       -  text: Workflow
          href: articles/workflow.html
-      -  text: Reporting
-         href: articles/reporting.html
       -  text: functions.R
          href: articles/functionsR.html
-    - icon: fa-newspaper-o
-      text: "Changelog"
-      href: news/index.html
   right:
     - text: "FAQ"
       icon: fa-question-circle-o
       href: articles/faq.html
-    - icon: fa-github fa-lg
+    - icon: fa-github
       text: "github"
       href: https://github.com/OHI-Science/ohicore

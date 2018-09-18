@@ -8,8 +8,8 @@ Authors@R: c(
   person("Julia Stewart","Lowndes", email = "lowndes@nceas.ucsb.edu", role = c("aut")),
   person("Casey", "O'Hara", email = "ohara@nceas.ucsb.edu", role = c("aut")),
   person("Jamie", "Afflerbach", email = "afflerbach@nceas.ucsb.edu", role = c("aut")),
-  person("Darren", "Hardy", role = c("aut"))),
-  person("Ellie", "Campbell", role = c("aut"))
+  person("Darren", "Hardy", role = c("aut")),
+  person("Ellie", "Campbell", role = c("aut")))
 Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
 License: MIT

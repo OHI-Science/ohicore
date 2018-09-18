@@ -1,5 +1,5 @@
 ---
-title: Frequently Asked Questions
+title: "Frequently Asked Questions"
 output: html_document
 ---
 
@@ -24,13 +24,6 @@ A: Four different aspects of climate change – increases in sea surface tempera
 
 A: These goals measure different aspects of how people relate to fishing. The catch of fish made by artisanal (small-scale, subsistence type) fisheries is captured in the food provision goal. Jobs, wages and income from both the food provision and artisanal fishing goals are captured in the livelihoods & economies goal. The purpose of the artisanal fishing opportunity goal is to evaluate the opportunity for people to pursue this fishing in relation to their need to do so.
 
-<strong><span style="color:#b7c18f"> Q: How are the goals weighted to calculate the final score? </span></strong>
-
-A: By default, goals are weighted equally because there is not better information to do otherwise, even though we understand that each goal may/should have different weights depending on regional conditions and needs. We didn’t put emphasis on goal weighing because ten individual goal scores are more important than one total score, and can tell more about the status of ocean health. If you are interested in seeing how weighing affects the total index score, you can try the following:
-
-- Scenario studies. The OHI framework is flexible so that you can change the weights and see how scores change.  
-- Studies on people’s preferences or management needs to weigh goals differently. See [Daigle et al. 2017](http://ohi-science.org/publications/).
-
 <strong><span style="color:#b7c18f"> Q: How should we compare regional scores, spatially or temporally? </span></strong>
 
 A: Temporal comparison is good for repeated measurements in one location, so that managers can see how goal conditions change and whether their policies take effect. Spatial comparison is used to compare regional differences in your country.
@@ -40,10 +33,6 @@ For OHI+, the most helpful comparison is temporal comparison. Management goals a
 <strong><span style="color:#b7c18f"> Q: We calculate trends based on 5 years of data. Wouldn’t it be more scientifically valid to have a 20 or 30 year trend? </span></strong>
 
 A: Yes you can use more years of data if available. But 5 years is a good compromise between scientific validity and meaningulness for local stakeholders. On one hand, we have to do it scientifically vigorous with a solid reference. But on the other hand, a 5-yr trend is more helpful and actionable to stakeholders than a 30-yr trend.
-
-<strong><span style="color:#b7c18f"> Q: Is OHI an internationally recognized monitoring system? What other partnerships does OHI have? </span></strong>
-
-A: OHI is a partnership between the National Center for Ecological Analysis and Synthesis (NCEAS) at UC Santa Barbara and Conservation International, and is gaining recognition from world governance organizations, NGOs, and local governments. There are nearly twenty assessments being led by partners and independent groups around the world: explore the [OHI+ assessments](http://ohi-science.org/projects/ohi-assessments/).
 
 <strong><span style="color:#b7c18f"> Q: Should spatial boundaries be based on ecosystem or jurisdictional boundaries? </span></strong>
 
@@ -58,7 +47,22 @@ OHI is also human benefits-driven, not ecologically-driven. It happens that CS, 
 
 ## Structure
 
+<strong><span style="color:#b7c18f"> Q: How are the goals weighted to calculate the final score? </span></strong>
+
+A: By default, goals are weighted equally because there is not better information to do otherwise, even though we understand that each goal may/should have different weights depending on regional conditions and needs. We didn’t put emphasis on goal weighing because ten individual goal scores are more important than one total score, and can tell more about the status of ocean health. If you are interested in seeing how weighing affects the total index score, you can try the following:
+
+- Scenario studies. The OHI framework is flexible so that you can change the weights and see how scores change.  
+- Studies on people’s preferences or management needs to weigh goals differently. See [Daigle et al. 2017](http://ohi-science.org/publications/).
+
 <strong><span style="color:#b7c18f"> Q: Can we remove or add goals to the OHI? </span></strong>
 
 A: Yes, although it is important to consider the philosophy behind the goals you will be adding or removing. If a goal has value to your area, it is important to include, even if there is not data available to perfectly represent it.
 
+
+## Other
+
+<strong><span style="color:#b7c18f"> Q: Is OHI an internationally recognized monitoring system? What other partnerships does OHI have? </span></strong>
+
+A: OHI is a partnership between the National Center for Ecological Analysis and Synthesis (NCEAS) at UC Santa Barbara and Conservation International, and is gaining recognition from world governance organizations, NGOs, and local governments. There are nearly twenty assessments being led by partners and independent groups around the world: explore the [OHI+ assessments](http://ohi-science.org/projects/ohi-assessments/).
+
+---
