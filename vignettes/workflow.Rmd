@@ -3,28 +3,32 @@ title: "Workflow"
 output: html_document
 ---
 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+```
 
 ## Workflow for Calculating Scores
 
-`r icon::fa("arrow-circle-down")` __Install__  &nbsp;  You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package only once at the start of the assessment, using  `devtools::install_github('ohi-science/ohicore')`.
+<i class="fas fa-arrow-circle-down"></i> __Install__  &nbsp;  You will not need to interact with or see the inside of ohicore during an assessment, but will need to install the software package only once at the start of the assessment, using  `devtools::install_github('ohi-science/ohicore')`.
 
 
-`r icon::fa("database")` __Prepare Data__  &nbsp;  Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the Data for the Toolbox vignette for more detailed discussion of the data preparation process and recommendations.
+<i class="fas fa-database"></i> __Prepare Data__  &nbsp;  Prepare the data layers, scripting as much as possible in R, to aid transparency, reproducibility, and repeat or future assessments. See the Data for the Toolbox vignette for more detailed discussion of the data preparation process and recommendations.
 
 
-`r icon::fa("th-list")` __Check Layers__  &nbsp;  Confirm the correct, most recent data layers are saved in the layers folder. Save them there if they are not there.
+<i class="fas fa-th-list"></i> __Check Layers__  &nbsp;  Confirm the correct, most recent data layers are saved in the layers folder. Save them there if they are not there.
 
 
-`r icon::fa("link")` __Register Data__  &nbsp;  Manually update  `layers.csv` and  `scenario_data_years.csv`. This consists of registering the data layers in the `layers.csv`, and updating information about alignment between scenario and data years in the `scenario_data_years.csv`.
+<i class="fas fa-link"></i> __Register Data__  &nbsp;  Manually update  `layers.csv` and  `scenario_data_years.csv`. This consists of registering the data layers in the `layers.csv`, and updating information about alignment between scenario and data years in the `scenario_data_years.csv`.
 
 
-`r icon::fa("map-signs")` __Configure__  &nbsp;  Configure the toolbox by running `ohicore::Conf`, `ohicore::CheckLayers`, and `ohicore::Layers`.
+<i class="fas fa-map-signs"></i> __Configure__  &nbsp;  Configure the toolbox by running `ohicore::Conf`, `ohicore::CheckLayers`, and `ohicore::Layers`.
 
 
-`r icon::fa("cogs")` __Develop Models__  &nbsp;  Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.
+<i class="fas fa-cogs"></i> __Develop Models__  &nbsp;  Develop goal models in functions.R in the OHI assessment folder, running goal models line-by-line to confirm results make sense and functions act as expected.
 
 
-`r icon::fa("tachometer-alt")` __Calculate Scores__  &nbsp;  Re-configure the toolbox once model development is complete, and calculate the scores by stepping through [`calculate_scores`](https://github.com/OHI-Science/ohicore/blob/dev/pkgdown/toolbox-demo/calculate_scores.R) from the assessment repo!
+<i class="fas fa-tachometer-alt"></i> __Calculate Scores__  &nbsp;  Re-configure the toolbox once model development is complete, and calculate the scores by stepping through [`calculate_scores`](https://github.com/OHI-Science/ohicore/blob/dev/pkgdown/toolbox-demo/calculate_scores.R) from the assessment repo!
 
 ---
 

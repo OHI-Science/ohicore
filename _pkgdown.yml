@@ -37,6 +37,13 @@ reference:
       - '`PlotFlower`'
 navbar:
   type: inverse
+  right:
+    - text: "FAQ"
+      icon: fa-question-circle-o
+      href: articles/faq.html
+    - icon: fa-github
+      text: "github"
+      href: https://github.com/OHI-Science/ohicore
   left:
     - icon: fa-home
       href: index.html
@@ -57,10 +64,3 @@ navbar:
          href: articles/workflow.html
       -  text: functions.R
          href: articles/functionsR.html
-  right:
-    - text: "FAQ"
-      icon: fa-question-circle-o
-      href: articles/faq.html
-    - icon: fa-github
-      text: "github"
-      href: https://github.com/OHI-Science/ohicore
