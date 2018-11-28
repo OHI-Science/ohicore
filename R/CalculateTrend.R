@@ -32,6 +32,7 @@ CalculateTrend <- function(status_data, trend_years=trend_years){
   status_data <- status_data %>%
     dplyr::select(region_id, year, status) %>%
     dplyr::filter(year %in% trend_years) %>%
+    dplyr::filter(!is.na(status)) %>%
     unique()
   
   adj_trend_year <- min(trend_years)

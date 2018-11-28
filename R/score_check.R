@@ -38,7 +38,7 @@ score_check = function(scenario_year, commit="previous",
   
   # get commit SHA
   if(commit=="previous"){
-    commit2 = substring(git2r::commits(git2r::repository(repo_path))[[1]]@sha, 1, 7)
+    commit2 = substring(git2r::commits(git2r::repository(repo_path))[[1]][1], 1, 7)
   } else{
     if (commit == "final_2014"){
       commit2 = '4da6b4a'
@@ -86,15 +86,16 @@ score_check = function(scenario_year, commit="previous",
   }
   
   suppressWarnings(
-    p <- ggplot2::ggplot(filter(data_new, year==scenario_year), aes(x=goal, y=change, color=dimension)) +
+    p <- ggplot2::ggplot(filter(data_new, year==scenario_year), ggplot2::aes(x=goal, y=change, color=dimension)) +
       #geom_point(shape=19, size=1) +
-      theme_bw() + 
-      theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
-      labs(title=paste("Score compared to commit:", commit, sep=" "), y="Change in score", x="") +
-      scale_x_discrete(limits = c("Index", "AO", "SPP", "BD", "HAB", "CP", "CS", "CW", "FIS", "FP", 
-                                  "MAR", "ECO", "LE", "LIV", "NP", "LSP", "SP", "ICO", "TR")) +
-      scale_colour_brewer(palette="Dark2") +
-      geom_jitter(aes(text=paste0("rgn = ", region_id, "\n", rgn_name)), position = position_jitter(width=0.2, height=0), shape=19, size=1)
+      ggplot2::theme_bw() + 
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1)) + 
+      ggplot2::labs(title=paste("Score compared to commit:", commit, sep=" "), y="Change in score", x="") +
+      ggplot2::scale_x_discrete(limits = c("Index", "AO", "SPP", "BD", "HAB", "CP", "CS", "CW", "FIS", "FP", 
+                                           "MAR", "ECO", "LE", "LIV", "NP", "LSP", "SP", "ICO", "TR")) +
+      ggplot2::scale_colour_brewer(palette="Dark2") +
+      ggplot2::geom_jitter(ggplot2::aes(text=paste0("rgn = ", region_id, "\n", rgn_name)), 
+                           position = ggplot2::position_jitter(width=0.2, height=0), shape=19, size=1)
   )
   
   plotly_fig <- plotly::ggplotly(p, width = 800, height = 450)
@@ -103,7 +104,8 @@ score_check = function(scenario_year, commit="previous",
   # Function to save files in particular place  
   my.file.rename <- function(from, to) {
     todir <- dirname(to)
-    if (!isTRUE(file.info(todir)$isdir)) dir.create(todir, recursive=TRUE)
+    if (!isTRUE(file.info(todir)$isdir)) 
+      dir.create(todir, recursive=TRUE)
     file.rename(from = from,  to = to)
   }
   
@@ -124,14 +126,14 @@ score_check = function(scenario_year, commit="previous",
   
   if(NA_compare){
     data_NA <- data_new %>%
-      filter(year == scenario_year) %>%
-      mutate(NA_same = ifelse(is.na(score) & is.na(old_score), 1, 0)) %>%
-      mutate(NA_new = ifelse(is.na(score), 1, 0)) %>%
-      mutate(NA_old = ifelse(is.na(old_score), 1, 0)) %>%
-      mutate(diff_new = NA_new - NA_same) %>%
-      mutate(diff_old = NA_old - NA_same) %>%
-      summarize(new = sum(diff_new),
-                old = sum(diff_old))
+      dplyr::filter(year == scenario_year) %>%
+      dplyr::mutate(NA_same = ifelse(is.na(score) & is.na(old_score), 1, 0)) %>%
+      dplyr::mutate(NA_new = ifelse(is.na(score), 1, 0)) %>%
+      dplyr::mutate(NA_old = ifelse(is.na(old_score), 1, 0)) %>%
+      dplyr::mutate(diff_new = NA_new - NA_same) %>%
+      dplyr::mutate(diff_old = NA_old - NA_same) %>%
+      dplyr::summarize(new = sum(diff_new),
+                       old = sum(diff_old))
     
     cat("\n NA check results: \n")
     
@@ -146,4 +148,3 @@ score_check = function(scenario_year, commit="previous",
   }
   
 }
-

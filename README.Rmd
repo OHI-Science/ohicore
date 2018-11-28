@@ -39,7 +39,9 @@ library(ohicore)
 Create example of using ohicore functions to create visualizations e.g. the flowerplot
 
 ```{r example}
-# flowerplot visualization
+# basic example code
+# ohicore::FlowerPlot -need to add score data to demo folder... 8 regions, what assessment is this? what data to add?
 ```
+=======
+# flowerplot visualization
 
--->
