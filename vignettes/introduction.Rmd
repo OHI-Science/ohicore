@@ -9,9 +9,11 @@ We all benefit in some shape or form from a healthy ocean. Directly or indirectl
 
 Optimal management means using resources sustainably, but also to their fullest capacities within the sustainable range, as it is the coupled human–ocean system we are interested in managing. Maintaining this  balance across the broad range of benefits requires an approach that is both comprehensive and quantitative. The Ocean Health Index, consisting of ten diverse public goals, is designed for this purpose.
 
-## Features & Usage
+## An Analogy: Features & Usage
 
-The `ohicore` R package is what brings everything together in the Ocean Health Index assessment calculations. 
+__An analogy for how the pieces work together:__  The driving action comes from actively running the `calculate_scores.R` script in the assessment folder or repository.  The prepared data is pulled into the assessment by `ohicore` functions and the objects it creates. Data included and models contained in the assessment repository `functions.R` script are both somewhat adjustable but some combinations are best -- as with bike gears’ chainrings and rear sprockets.
+
+<br>
 
 ![](https://docs.google.com/drawings/d/e/2PACX-1vSNh-PtRPpKCBoXGtxWJUnBbOhBn9iwIBRMFE4XARj5ECN76a0Cmejh3V9xVls3SGc6UE1Z9i29DOoL/pub?w=1164&h=452)
 

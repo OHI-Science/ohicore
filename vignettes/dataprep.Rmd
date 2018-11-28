@@ -22,12 +22,12 @@ Once created, prepared data layers must be registered in the the layers.csv spre
 
 ## What to Include
 
-<br>
-
-What datasets to include depends on the models developed for the OHI assessment, and coded in the functions.R
-script. Deciding on relevant data to include is a significant and time-consuming part of completing an OHI assessment. Considerations regarding whether it makes sense to include a dataset: (1) scientific, sociological or economic conceptual relevance and a signal distinguishable from background noise or confounding factors, (2) data-completeness sufficient that gapfilling can be done in a reasonably realistic manner, and in some cases (3) redundancy or multicollinearity of variables. The team must also consider whether the data fits ideal spatial boundaries for the assessment. [While the OHI team is happy to provide consultation on these matters, we encourage stakeholder and expert engagement on OHI+ teams.]
+What datasets to include depends on the models developed for the OHI assessment, and coded in the `functions.R`
+script. Deciding on relevant data to include is a significant and time-consuming part of completing an OHI assessment. Considerations regarding whether it makes sense to include a dataset: (1) scientific, sociological or economic conceptual relevance and a signal distinguishable from background noise or confounding factors, (2) data-completeness sufficient that gapfilling can be done in a reasonably realistic manner, and in some cases (3) redundancy or multicollinearity of variables. The team must also consider whether the data fits ideal spatial boundaries for the assessment. We encourage stakeholder and expert engagement on OHI+ teams; the core OHI team is also happy to provide consultation on these matters.
 
 <br>
+
+<!-- 
 
 ---
 
@@ -42,5 +42,7 @@ Expand this section.
 ```{r, eval = FALSE}
 # example code here corresponding to suggestions about preparing data
 ```
+
+-->
 
 ---

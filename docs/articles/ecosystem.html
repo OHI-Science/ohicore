@@ -58,6 +58,8 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-newspaper-o"></span>
+     
     Articles
      
     <span class="caret"></span>
@@ -73,19 +75,9 @@
       <a href="../articles/workflow.html">Workflow</a>
     </li>
     <li>
-      <a href="../articles/reporting.html">Reporting</a>
-    </li>
-    <li>
       <a href="../articles/functionsR.html">functions.R</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="../news/index.html">
-    <span class="fa fa-newspaper-o"></span>
-     
-    Changelog
-  </a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -98,7 +90,7 @@
 </li>
 <li>
   <a href="https://github.com/OHI-Science/ohicore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fa fa-github"></span>
      
     github
   </a>
@@ -153,11 +145,11 @@
 <p><br></p>
 <p>The “layers” and “conf” subfolders:</p>
 <ul>
-<li>The ‘layers’ folder contains the csv files that <code><a href="../reference/Layers-class.html">ohicore::Layers</a></code> and <code><a href="../reference/CheckLayers.html">ohicore::CheckLayers</a></code> take as input<br>
+<li>The “layers” folder contains the csv files that <code><a href="../reference/Layers-class.html">ohicore::Layers</a></code> and <code><a href="../reference/CheckLayers.html">ohicore::CheckLayers</a></code> take as input<br>
 </li>
-<li>The ‘conf’ (short for “configuration”) folder contains a config.R script, functions.R, goals.csv, pressures and resilience matrices in csv file format, and a few other things.<br>
+<li>The “conf” (short for “configuration”) folder contains a config.R script, functions.R, goals.csv, pressures and resilience matrices in csv file format, and a few other things.<br>
 </li>
-<li>The purpose of the other files in the conf folder is to feed the Toolbox information on the relative weighting/importance of goals or allow adjustments to goal calculation models by regional assessments.</li>
+<li>The purpose of the other files in the “conf” folder is to feed the Toolbox information on the relative weighting/importance of goals or allow adjustments to goal calculation models by regional assessments.</li>
 </ul>
 <p><br></p>
 <hr>
@@ -165,7 +157,7 @@
 <div id="configuring-the-toolbox" class="section level2">
 <h2 class="hasAnchor">
 <a href="#configuring-the-toolbox" class="anchor"></a>Configuring the Toolbox</h2>
-<p>Configuring the Toolbox involves running the <code>ohicore</code> functions: <code><a href="../reference/Conf-class.html">Conf()</a></code>, <code><a href="../reference/CheckLayers.html">CheckLayers()</a></code> and <code><a href="../reference/Layers-class.html">Layers()</a></code>. In the process of configuring the Toolbox, the <code>layers</code> and <code>conf</code> objects are created. These are in effect <a href="http://r4ds.had.co.nz/lists.html">lists</a> (a special type of R object) of the prepared input data (layers), and everything else (conf) which includes all the information from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv. These two objects are created so that automated checks can be run to confirm that everything is properly prepared and accounted for, and in a consistent format that the ohicore score calculation functions can accept as input.</p>
+<p>Configuring the Toolbox involves running the <code>ohicore</code> functions: <code><a href="../reference/Conf-class.html">Conf()</a></code>, <code><a href="../reference/CheckLayers.html">CheckLayers()</a></code> and <code><a href="../reference/Layers-class.html">Layers()</a></code>. In the process of configuring the Toolbox, the <code>layers</code> and <code>conf</code> objects are created. These are in effect <a href="http://r4ds.had.co.nz/lists.html">lists</a> (a special type of R object) of the prepared input data (layers), and everything else (conf) which includes all the information from the following files: config.R, functions.R, goals.csv, pressures_matrix.csv, resilience_matrix.csv, resilience_weights.csv. These two objects are created so that automated checks can be run to confirm that everything is properly prepared and accounted for, and in a consistent format that the <code>ohicore</code> score calculation functions can accept as input.</p>
 <p><br></p>
 <div class="figure">
 <img src="https://docs.google.com/drawings/d/e/2PACX-1vShY-XwjwPj1nJPuEhK1BVS8wFqLb8L37QO4z2DEU42aZNZMBNvmeMJPUFCdVPzBn0noTVgvp6ozvlg/pub?w=789&amp;h=366">
@@ -178,20 +170,21 @@
 <div id="ensure-files-are-properly-configured" class="section level2">
 <h2 class="hasAnchor">
 <a href="#ensure-files-are-properly-configured" class="anchor"></a>Ensure Files are Properly Configured</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## set working directory to the scenario folder (that contains the conf folder)
+<p><br></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># set working directory to the scenario folder (that contains the conf folder)</span>
 <span class="kw">setwd</span>(<span class="st">'eez'</span>)
 
-## load scenario configuration
+<span class="co"># load scenario configuration</span>
 conf &lt;-<span class="st"> </span>ohicore<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ohicore/topics/Conf-class">Conf</a></span>(<span class="st">'conf'</span>)
 
-## check that scenario layers files in the \layers folder match layers.csv registration 
-## (layers files are not modified)
+<span class="co"># check that scenario layers files in the \layers folder match layers.csv registration </span>
+<span class="co"># (layers files are not modified)</span>
 ohicore<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ohicore/topics/CheckLayers">CheckLayers</a></span>(<span class="st">'layers.csv'</span>, <span class="st">'layers'</span>, <span class="dt">flds_id =</span> conf<span class="op">$</span>config<span class="op">$</span>layers_id_fields)
 
-## load scenario layers for ohicore to access (layers files are not modified)
+<span class="co"># load scenario layers for ohicore to access (layers files are not modified)</span>
 layers &lt;-<span class="st"> </span>ohicore<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/ohicore/topics/Layers-class">Layers</a></span>(<span class="st">'layers.csv'</span>, <span class="st">'layers'</span>)
 
-## select scenario year for the assessment
+<span class="co"># select scenario year for the assessment</span>
 scenario_years &lt;-<span class="st"> </span><span class="dv">2016</span>
 layers<span class="op">$</span>data<span class="op">$</span>scenario_year &lt;-<span class="st"> </span>scenario_years</code></pre></div>
 <hr>
@@ -215,7 +208,7 @@ layers<span class="op">$</span>data<span class="op">$</span>scenario_year &lt;-<
 
 
       <footer><div class="copyright">
-  <p>Developed by Melanie Frazier, Ben Best, Julia Stewart Lowndes, Casey O'Hara, Ning Jiang Mendes, Jamie Afflerbach, Steve Hastings, Darren Hardy.</p>
+  <p>Developed by Melanie Frazier, Ben Best, Julia Stewart Lowndes, Casey O'Hara, Jamie Afflerbach, Darren Hardy, Ellie Campbell.</p>
 </div>
 
 <div class="pkgdown">
