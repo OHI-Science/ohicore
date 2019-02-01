@@ -26,11 +26,11 @@ WriteRefPoint <- function(goal, method, ref_pt) {
     scen_year <- layers$data$scenario_year
   }
   
-  ref_pts <- read.csv(sprintf("temp/reference_pts_%s.csv", scen_year))  %>%
+  ref_pts <- read.csv(sprintf(here("eez/temp/reference_pts_%s.csv"), scen_year))  %>%
     rbind(data.frame(year   = layers$data$scenario_year,
                      goal   = goal,
                      method = method,
                      reference_point = ref_pt))
-  write_csv(ref_pts, sprintf("temp/reference_pts_%s.csv", scen_year))
+  write_csv(ref_pts, sprintf(here("eez/temp/reference_pts_%s.csv"), scen_year))
   
 }
