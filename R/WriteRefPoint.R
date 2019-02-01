@@ -18,7 +18,7 @@
 #' } 
 #' @export
 
-WriteRefPoint <- function(goal, method, ref_pt) {
+WriteRefPoint <- function(goal, method, ref_pt, assessment_name="eez") {
   
   if(is.null(layers$data$scenario_year)){
     scen_year <- format(format(Sys.Date(), "%Y")) 
@@ -26,11 +26,11 @@ WriteRefPoint <- function(goal, method, ref_pt) {
     scen_year <- layers$data$scenario_year
   }
   
-  ref_pts <- read.csv(sprintf(here("eez/temp/reference_pts_%s.csv"), scen_year))  %>%
+  ref_pts <- read.csv(sprintf(here("%s/temp/reference_pts_%s.csv"), assessment_name, scen_year))  %>%
     rbind(data.frame(year   = layers$data$scenario_year,
                      goal   = goal,
                      method = method,
                      reference_point = ref_pt))
-  write_csv(ref_pts, sprintf(here("eez/temp/reference_pts_%s.csv"), scen_year))
+  write_csv(ref_pts, sprintf(here("%s/temp/reference_pts_%s.csv"), asessment_name, scen_year))
   
 }
