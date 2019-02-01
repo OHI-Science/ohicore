@@ -59,6 +59,8 @@
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-newspaper-o"></span>
+     
     Articles
      
     <span class="caret"></span>
@@ -74,19 +76,9 @@
       <a href="articles/workflow.html">Workflow</a>
     </li>
     <li>
-      <a href="articles/reporting.html">Reporting</a>
-    </li>
-    <li>
       <a href="articles/functionsR.html">functions.R</a>
     </li>
   </ul>
-</li>
-<li>
-  <a href="news/index.html">
-    <span class="fa fa-newspaper-o"></span>
-     
-    Changelog
-  </a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -99,7 +91,7 @@
 </li>
 <li>
   <a href="https://github.com/OHI-Science/ohicore">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fa fa-github"></span>
      
     github
   </a>
@@ -125,23 +117,29 @@
 <div id="ohicore" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#ohicore" class="anchor"></a>OHICORE</h1></div>
-<p>The <code>ohicore</code> is a package of core functions for calculating the Ocean Health Index (OHI). The goal of ohicore is to facilitate calculation of OHI scores both for the annual global assessments and regional assessments, within a <a href="https://peerj.com/articles/1503/">tailorable framework</a>. For more information, please visit <a href="http://ohi-science.org">OHI-Science.org</a>. See <a href="http://ohi-science.org/toolbox-training">ohi-science.org/toolbox-training</a> for more on using the <code>ohicore</code> for ocean health assessments.</p>
+<p>The <code>ohicore</code> is a package of core functions for calculating the Ocean Health Index (OHI). The goal of <code>ohicore</code> is to facilitate calculation of OHI scores both for the annual global assessments and regional assessments, within a <a href="https://peerj.com/articles/1503/">tailorable framework</a>. The <code>ohicore</code> R package is what brings everything together in the Ocean Health Index assessment calculations. For more information, please visit <a href="http://ohi-science.org">OHI-Science.org</a>. See <a href="http://ohi-science.org/toolbox-training">ohi-science.org/toolbox-training</a> for more on using the <code>ohicore</code> for ocean health assessments.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install ohicore from github with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## devtools is needed for installing packages from Github
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># devtools is needed for installing packages from Github</span>
 <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
 
-## install ohicore package
+<span class="co"># install ohicore package</span>
 devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">'ohi-science/ohicore'</span>)
 <span class="kw">library</span>(ohicore)</code></pre></div>
-</div>
-<div id="example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## basic example code
-<span class="co"># ohicore::FlowerPlot -need to add score data to demo folder... 8 regions, what assessment is this? what data to add?</span></code></pre></div>
+<!-- 
+
+## Example
+
+Create example of using ohicore functions to create visualizations e.g. the flowerplot
+
+
+```r
+# flowerplot visualization
+```
+
+-->
 </div>
 </div>
   </div>
@@ -169,10 +167,9 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <li>Ben Best <br><small class="roles"> Author </small>  </li>
 <li>Julia Stewart Lowndes <br><small class="roles"> Author </small>  </li>
 <li>Casey O'Hara <br><small class="roles"> Author </small>  </li>
-<li>Ning Jiang Mendes <br><small class="roles"> Author </small>  </li>
 <li>Jamie Afflerbach <br><small class="roles"> Author </small>  </li>
-<li>Steve Hastings <br><small class="roles"> Author </small>  </li>
 <li>Darren Hardy <br><small class="roles"> Author </small>  </li>
+<li>Ellie Campbell <br><small class="roles"> Author </small>  </li>
 </ul>
 </div>
 
@@ -182,7 +179,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 
 
       <footer><div class="copyright">
-  <p>Developed by Melanie Frazier, Ben Best, Julia Stewart Lowndes, Casey O'Hara, Ning Jiang Mendes, Jamie Afflerbach, Steve Hastings, Darren Hardy.</p>
+  <p>Developed by Melanie Frazier, Ben Best, Julia Stewart Lowndes, Casey O'Hara, Jamie Afflerbach, Darren Hardy, Ellie Campbell.</p>
 </div>
 
 <div class="pkgdown">
