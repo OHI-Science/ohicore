@@ -8,7 +8,6 @@ Authors@R: c(
   person("Julia Stewart","Lowndes", email = "lowndes@nceas.ucsb.edu", role = c("aut")),
   person("Casey", "O'Hara", email = "ohara@nceas.ucsb.edu", role = c("aut")),
   person("Jamie", "Afflerbach", email = "afflerbach@nceas.ucsb.edu", role = c("aut")),
-  person("Darren", "Hardy", role = c("aut")),
   person("Ellie", "Campbell", role = c("aut")))
 Description: A collection of functions for generically calculating the Ocean
     Health Index scores as well as individual goals and sub-goals.
@@ -25,9 +24,9 @@ Imports:
     methods,
     tidyr,
     RColorBrewer,
-    htmlwidgets
+    htmlwidgets,
+    here
 Suggests:
-    testthat,
     knitr,
     rmarkdown
 Collate:
@@ -46,8 +45,6 @@ Collate:
     'SelectLayersData.R'
     'WriteRefPoint.R'
     'compare_scores_df.R'
-    'gapfill_georegions.R'
-    'name_to_rgn.R'
     'name_2_rgn.R'
     'collapse_2_rgn.R'
     'read_git_csv.R'
@@ -63,5 +60,5 @@ URL: https://github.com/OHI-Science/ohicore
 BugReports: https://github.com/OHI-Science/ohicore/issues
 LazyData: TRUE
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Encoding: UTF-8

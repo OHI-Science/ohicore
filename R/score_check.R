@@ -13,6 +13,7 @@
 #' @param save_csv  TRUE/FALSE, to save a csv file of the data
 #' @param save_png  TRUE/FALSE, save static png file of interactive plot
 #' @param NA_compare  TRUE/FALSE, compares the NA values between the datasets
+#' @param scenario_name folder name of scenario being calculated
 #'
 #' @return Returns an interactive html plot of the change in scores (current score - previous score) for all score 
 #'         dimensions and goals/subgoals.  Other outputs can also be saved.
@@ -26,19 +27,17 @@
 
 
 score_check = function(scenario_year, commit="previous", 
-                       file_name, save_csv=FALSE, save_png=FALSE, NA_compare=TRUE){
+                       file_name, scenario_name = "eez",
+                       save_csv=FALSE, save_png=FALSE, NA_compare=TRUE){
   
   cat("Wait for it....this takes a few seconds \n\n")
   
-  path_components <- unlist(strsplit(getwd(), "/"))
-  scenario_name <- path_components[length(path_components)]
-  repo_name <- path_components[length(path_components) -1]
-  repo_path <- paste(path_components[1:(length(path_components)-1)], collapse = '/')
-  scenario_path <- paste(path_components[1:(length(path_components))], collapse = '/')
+
+  scenario_path <- here(scenario_name)
   
   # get commit SHA
   if(commit=="previous"){
-    commit2 = substring(git2r::commits(git2r::repository(repo_path))[[1]][1], 1, 7)
+    commit2 = substring(git2r::commits(git2r::repository(here()))[[1]][1], 1, 7)
   } else{
     if (commit == "final_2014"){
       commit2 = '4da6b4a'
@@ -47,7 +46,8 @@ score_check = function(scenario_year, commit="previous",
   
   
   # Get repository name
-  tmp <- git2r::remote_url(git2r::repository(repo_path))
+  tmp <- git2r::remote_url(git2r::repository(here()))
+  repo_name <- stringr::str_split(tmp, "/")[[1]][5]
   org <- stringr::str_split(tmp, "/")[[1]][4]
   
   
@@ -58,7 +58,7 @@ score_check = function(scenario_year, commit="previous",
   # create dummy year variable if there is no year variable in the data
   if(sum(names(data_old)=="year") < 1){
     
-    data_new <- read.csv("scores.csv") %>%
+    data_new <- read.csv(sprintf(here("%s/scores.csv"), scenario_name)) %>%
       dplyr::left_join(data_old, by=c('goal', 'dimension', 'region_id')) %>%
       dplyr::mutate(year = substring(date(), 21, 24)) %>%  # uses current year as year
       dplyr::mutate(change = score-old_score)
@@ -66,7 +66,7 @@ score_check = function(scenario_year, commit="previous",
     scenario_year <- substring(date(), 21, 24)
     
   } else{
-    data_new <- read.csv("scores.csv") %>%
+    data_new <- read.csv(sprintf(here("%s/scores.csv"), scenario_name)) %>%
       dplyr::left_join(data_old, by=c('year', 'goal', 'dimension', 'region_id')) %>%
       dplyr::mutate(change = score-old_score)
     
@@ -75,7 +75,7 @@ score_check = function(scenario_year, commit="previous",
   ## get region names, if available (this needs to be called "regions_list" and located in the "spatial" folder)
   if(length(list.files("spatial", pattern="regions_list.csv"))>0){
     
-    rgns <- read.csv("spatial/regions_list.csv", stringsAsFactors = FALSE) %>%
+    rgns <- read.csv(sprintf(here("%s/spatial/regions_list.csv"), scenario_name), stringsAsFactors = FALSE) %>%
       dplyr::select(region_id = rgn_id, rgn_name)
     
     data_new <- data_new %>%
@@ -110,17 +110,19 @@ score_check = function(scenario_year, commit="previous",
   }
   
   my.file.rename(from = "tmp_file.html",
-                 to = file.path('score_check', paste0(file_name, "_score_check_", Sys.Date(), '.html')))
+                 to = sprintf(here('%s/score_check/%s_score_check.html'), scenario_name, file_name, Sys.Date()))
   
   cat("An interactive plot in the 'score_check' folder has been created \n")
   
   if(save_png){
-    ggplot2::ggsave(file.path('score_check', paste0(file_name, "_check_plot_", Sys.Date(), '.png')), width=8, height=5)
+    ggplot2::ggsave(sprintf(here('%s/score_check/%s_score_check.png'), scenario_name, file_name, Sys.Date()), 
+                    width=8, height=5)
     cat("A png plot has been saved in the 'score_check' folder \n")
   }
   
   if(save_csv){
-    write.csv(data_new, file.path('score_check', paste0(file_name, "_diff_data_", Sys.Date(), '.csv')), row.names=FALSE)
+    write.csv(data_new, sprintf(here('%s/score_check/%s_diff_data_%s.csv'), scenario_name, file_name, Sys.Date())
+, row.names=FALSE)
     cat("A csv file comparing the scores has been saved in the 'score_check' folder \n")
   }
   
