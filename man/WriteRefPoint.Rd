@@ -4,12 +4,14 @@
 \alias{WriteRefPoint}
 \title{WriteRefPoint}
 \usage{
-WriteRefPoint(goal, method, ref_pt)
+WriteRefPoint(goal, method, ref_pt, scenario_name = "eez")
 }
 \arguments{
 \item{goal}{goal name (e.g., "FIS")}
 
 \item{method}{method of identifying reference point (e.g., "95th quantile among regions")}
+
+\item{scenario_name}{folder name of scenario being calculated}
 
 \item{year}{default is the scenario year}
 

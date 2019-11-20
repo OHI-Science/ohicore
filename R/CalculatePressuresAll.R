@@ -125,16 +125,24 @@ CalculatePressuresAll <- function(layers, conf) {
 
     scenario_data_year <- conf$scenario_data_years %>%
       dplyr::filter(layer_name %in% p_layers)
+
     scenario_data_year <- scenario_data_year[scenario_data_year$scenario_year == layers$data$scenario_year, ] %>%
       dplyr::select(layer_name, scenario_year, data_year)
 
     layers_no_years <- setdiff(p_layers, scenario_data_year$layer_name)
+    
+    #if there are layers that do not have years, then we add them in through this layers_no_years_df year year 20100
+    if(length(layers_no_years) > 0){
+      
     layers_no_years_df <- data.frame(layer_name    = layers_no_years,
                                      scenario_year = 20100,  ### creating a fake variable to match up here
                                      data_year     = 20100,
                                      stringsAsFactors = FALSE)
 
-    scenario_data_year <- rbind(scenario_data_year, layers_no_years_df) %>%
+    scenario_data_year <- rbind(scenario_data_year, layers_no_years_df)
+    }
+    
+    scenario_data_year <- scenario_data_year %>%
       dplyr::select(layer = layer_name, year = data_year)
 
   } else{

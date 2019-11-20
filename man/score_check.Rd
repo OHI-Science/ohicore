@@ -5,7 +5,8 @@
 \title{score_check}
 \usage{
 score_check(scenario_year, commit = "previous", file_name,
-  save_csv = FALSE, save_png = FALSE, NA_compare = TRUE)
+  scenario_name = "eez", save_csv = FALSE, save_png = FALSE,
+  NA_compare = TRUE)
 }
 \arguments{
 \item{scenario_year}{if there are multiple scenario years with an assessment, choose the year of interest}
@@ -13,6 +14,8 @@ score_check(scenario_year, commit = "previous", file_name,
 \item{commit}{commit that the current scores are compared to ('previous' for last commit or 7 digit SHA, e.g., '4da6b4a')}
 
 \item{file_name}{descriptive name used to save file outputs}
+
+\item{scenario_name}{folder name of scenario being calculated}
 
 \item{save_csv}{TRUE/FALSE, to save a csv file of the data}
 
