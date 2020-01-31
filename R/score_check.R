@@ -73,7 +73,7 @@ score_check = function(scenario_year, commit="previous",
   }
   
   ## get region names, if available (this needs to be called "regions_list" and located in the "spatial" folder)
-  if(length(list.files("spatial", pattern="regions_list.csv"))>0){
+  if(length(list.files("eez/spatial", pattern="regions_list.csv"))>0){
     
     rgns <- read.csv(sprintf(here("%s/spatial/regions_list.csv"), scenario_name), stringsAsFactors = FALSE) %>%
       dplyr::select(region_id = rgn_id, rgn_name)
