@@ -48,11 +48,12 @@ score_check = function(scenario_year, commit="previous",
   # Get repository name
   tmp <- git2r::remote_url(git2r::repository(here()))
   repo_name <- stringr::str_split(tmp, "/")[[1]][5]
+  repo_name_fix <- gsub(pattern = ".git", replacement = "", x = repo_name)
   org <- stringr::str_split(tmp, "/")[[1]][4]
   
   
   # get data from previous commit
-  data_old <- read.csv(file.path("https://raw.githubusercontent.com", org, repo_name, commit2, scenario_name, "scores.csv")) %>%
+  data_old <- read.csv(file.path("https://raw.githubusercontent.com", org, repo_name_fix, commit2, scenario_name, "scores.csv")) %>%
     dplyr::rename(old_score=score) 
   
   # create dummy year variable if there is no year variable in the data
@@ -73,7 +74,7 @@ score_check = function(scenario_year, commit="previous",
   }
   
   ## get region names, if available (this needs to be called "regions_list" and located in the "spatial" folder)
-  if(length(list.files("spatial", pattern="regions_list.csv"))>0){
+  if(length(list.files("eez/spatial", pattern="regions_list.csv"))>0){
     
     rgns <- read.csv(sprintf(here("%s/spatial/regions_list.csv"), scenario_name), stringsAsFactors = FALSE) %>%
       dplyr::select(region_id = rgn_id, rgn_name)
