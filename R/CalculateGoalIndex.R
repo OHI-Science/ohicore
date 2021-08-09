@@ -79,6 +79,9 @@ CalculateGoalIndex <- function(id, status, trend, resilience, pressure,
      d$r <- ifelse(is.na(d$r), 0, d$r)
      d$p <- ifelse(is.na(d$p), 0, d$p)
      
+     ## cap the resilience so that it is no more than the pressures. 
+     d$r <- ifelse(d$r > d$p, d$p, d$r)
+     
      d$xF <- with(d, (DISCOUNT * (1 + (BETA * t) + ((1-BETA) * (r - p)))) * x)
      # clamp status domain to [0, 1]
      d$xF <- with(d, score.clamp(xF, xlim = c(0,1)))
