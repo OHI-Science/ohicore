@@ -4,8 +4,17 @@
 \alias{CalculateGoalIndex}
 \title{Calculate Goal Index}
 \usage{
-CalculateGoalIndex(id, status, trend, resilience, pressure, DISCOUNT = 1,
-  BETA = 0.67, default_trend = 0, xlim = c(0, 1))
+CalculateGoalIndex(
+  id,
+  status,
+  trend,
+  resilience,
+  pressure,
+  DISCOUNT = 1,
+  BETA = 0.67,
+  default_trend = 0,
+  xlim = c(0, 1)
+)
 }
 \arguments{
 \item{id}{is the subregion identifier}

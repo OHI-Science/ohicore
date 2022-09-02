@@ -4,11 +4,13 @@
 \name{rgn_eez_area}
 \alias{rgn_eez_area}
 \title{Region eez areas}
-\format{A data frame with 236 rows and 2 variables:
+\format{
+A data frame with 236 rows and 2 variables:
 \describe{
   \item{rgn_id}{region id used for Ocean Health Index (starting with 2013 assessment)}
   \item{area_km2}{area of region's eez}
-}}
+}
+}
 \usage{
 rgn_eez_area
 }

@@ -6,10 +6,16 @@
 By Casey O'Hara, Julia Lowndes, Melanie Frazier github.com/ohi-science
 Assumes the following is present:}
 \usage{
-PlotFlower(region_plot = NA, year_plot = NA,
-  assessment_name = "Average", scenario_folder = "eez",
-  scores_file = "scores.csv", dir_fig_save = file.path(scenario_folder,
-  "reports/figures"), legend_include = TRUE, save = TRUE)
+PlotFlower(
+  region_plot = NA,
+  year_plot = NA,
+  assessment_name = "Average",
+  scenario_folder = "eez",
+  scores_file = "scores.csv",
+  dir_fig_save = file.path(scenario_folder, "reports/figures"),
+  legend_include = TRUE,
+  save = TRUE
+)
 }
 \arguments{
 \item{region_plot}{region_id/s to plot (i.e., region_plot = c(1,4,8)), defaults to plotting all regions plus the 
