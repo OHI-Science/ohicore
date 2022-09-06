@@ -4,9 +4,13 @@
 \alias{collapse_2_rgn}
 \title{Collapse region}
 \usage{
-collapse_2_rgn(df_in, fld_value, fld_id = "rgn_id",
+collapse_2_rgn(
+  df_in,
+  fld_value,
+  fld_id = "rgn_id",
   collapse_fxn = c("sum", "mean", "weighted_mean")[1],
-  collapse_wts = NULL)
+  collapse_wts = NULL
+)
 }
 \arguments{
 \item{df_in}{dataset}

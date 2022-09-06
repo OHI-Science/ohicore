@@ -4,8 +4,14 @@
 \alias{SelectLayersData}
 \title{Select Layers to Data}
 \usage{
-SelectLayersData(object, targets = NULL, layers = NULL, cast = TRUE,
-  narrow = FALSE, expand.time.invariant = FALSE)
+SelectLayersData(
+  object,
+  targets = NULL,
+  layers = NULL,
+  cast = TRUE,
+  narrow = FALSE,
+  expand.time.invariant = FALSE
+)
 }
 \arguments{
 \item{object}{instance of Layers class}

@@ -4,8 +4,12 @@
 \alias{name_2_rgn}
 \title{Name to region (New version: doesn't collapse data)}
 \usage{
-name_2_rgn(df_in, fld_name = "country", flds_unique = NULL,
-  keep_fld_name = TRUE)
+name_2_rgn(
+  df_in,
+  fld_name = "country",
+  flds_unique = NULL,
+  keep_fld_name = TRUE
+)
 }
 \arguments{
 \item{df_in}{dataset}
