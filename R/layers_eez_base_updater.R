@@ -18,6 +18,7 @@ layers_eez_base_updater <- function() {
   layers_eez_base <- read_csv(here("metadata_documentation/layers_eez_base.csv"), col_types = cols())
   
   # prompt user for current version year
+  message("")
   version_year <- paste0("v", readline(prompt = "enter version year: "))
   
   # empty vector that will later contain layer names - used in while loop
@@ -26,7 +27,7 @@ layers_eez_base_updater <- function() {
   # loop that ends when a viable goal/subgoal abbr is supplied
   while (length(possible_layers) == 0) {
     
-    goal <- readline(prompt = "enter the goal / subgoal abbreviation for the layers you're updating: ") %>% 
+    goal <- readline(prompt = "enter the goal/subgoal/prs/res abbreviation for the layers you're updating (e.g. 'np', 'hab', or 'cc'): ") %>% 
       tolower()
     
     possible_layers <- layers_eez_base$layer[startsWith(layers_eez_base$layer, goal)]
@@ -37,7 +38,7 @@ layers_eez_base_updater <- function() {
   }
   
   # the component layers of that goal/subgoal are printed below for user's convenience
-  message("\nthese are the layers associated with that goal:\n") 
+  message("\nthese are the layers associated with that abbreviation:\n") 
   print(possible_layers)
   message("\nif you want to update all of these layers, enter 'all' at the next prompt —")
   message("if you are only updating certain ones you can copypaste the layer names above separated by commas\n")
@@ -58,13 +59,13 @@ layers_eez_base_updater <- function() {
     unknown_layers <- setdiff(updated_layers, possible_layers)
     
     if (length(unknown_layers) == length(updated_layers)) {
-      message("\nnone of the layers entered exist in the chosen goal / subgoal\n")
+      message("\nnone of the layers entered coincide with the chosen abbreviation\n")
     } else if (length(unknown_layers) == 1) {
-      message(paste0("\nthe following entry does not exist in the chosen goal / subgoal: \n"))
+      message(paste0("\nthe following entry does not coincide with the chosen abbreviation: \n"))
       print(unknown_layers)
       message("")
     } else {
-      message("\nthe following entries do not exist in the chosen goal / subgoal: \n")
+      message("\nthe following entries do not coincide with the chosen abbreviation: \n")
       print(unknown_layers)
       message("")
     }
@@ -84,15 +85,11 @@ layers_eez_base_updater <- function() {
                            TRUE ~ dir))
   
   # vector of dir names which have changed from the original csv
-  changed_dirs <- setdiff(layers_eez_base_updated$dir, layers_eez_base$dir)
+  updated_dirs <- anti_join(layers_eez_base_updated, layers_eez_base) %>% 
+    rename("dir (UPDATED)" = dir)
   
   message("\nthe selected 'dir' values will be updated as shown in the data viewer ↑ ")
   message("do you want to update layers_eez_base.csv with these changes?\n")
-  
-  # df of altered rows to be viewed by the user
-  updated_dirs <- layers_eez_base_updated %>% 
-    filter(dir %in% changed_dirs) %>% 
-    rename("dir (UPDATED)" = dir)
   
   View(updated_dirs)
   
