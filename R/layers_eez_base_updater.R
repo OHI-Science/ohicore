@@ -26,7 +26,7 @@ layers_eez_base_updater <- function() {
   # loop that ends when a viable goal/subgoal abbr is supplied
   while (length(possible_layers) == 0) {
     
-    goal <- readline(prompt = "enter the goal / subgoal abbreviation for the layers you're updating: ") %>% 
+    goal <- readline(prompt = "enter the goal / subgoal / pressure / resilliance abbreviation for the layers you're updating: ") %>% 
       tolower()
     
     possible_layers <- layers_eez_base$layer[startsWith(layers_eez_base$layer, goal)]
@@ -84,15 +84,11 @@ layers_eez_base_updater <- function() {
                            TRUE ~ dir))
   
   # vector of dir names which have changed from the original csv
-  changed_dirs <- setdiff(layers_eez_base_updated$dir, layers_eez_base$dir)
+  updated_dirs <- anti_join(layers_eez_base_updated, layers_eez_base) %>% 
+    rename("dir (UPDATED)" = dir)
   
   message("\nthe selected 'dir' values will be updated as shown in the data viewer ↑ ")
   message("do you want to update layers_eez_base.csv with these changes?\n")
-  
-  # df of altered rows to be viewed by the user
-  updated_dirs <- layers_eez_base_updated %>% 
-    filter(dir %in% changed_dirs) %>% 
-    rename("dir (UPDATED)" = dir)
   
   View(updated_dirs)
   
