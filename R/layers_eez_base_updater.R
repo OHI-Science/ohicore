@@ -17,9 +17,9 @@ layers_eez_base_updater <- function() {
   # read in the csv
   layers_eez_base <- read_csv(here("metadata_documentation/layers_eez_base.csv"), col_types = cols())
   
-  # prompt user for current version year
+  # prompt user for current version year (gsub() to remove 'v' if user adds it as well)
   message("")
-  version_year <- paste0("v", readline(prompt = "enter version year: "))
+  version_year <- paste0("v", gsub("\\D", "", readline(prompt = "enter version year: "))) 
   
   # empty vector that will later contain layer names - used in while loop
   possible_layers <- c()
@@ -27,6 +27,7 @@ layers_eez_base_updater <- function() {
   # loop that ends when a viable goal/subgoal abbr is supplied
   while (length(possible_layers) == 0) {
     
+    message("")
     goal <- readline(prompt = "enter the goal/subgoal/prs/res abbreviation for the layers you're updating (e.g. 'np', 'hab', or 'cc'): ") %>% 
       tolower()
     
@@ -42,7 +43,7 @@ layers_eez_base_updater <- function() {
   print(possible_layers)
   message("\nif you want to update all of these layers, enter 'all' at the next prompt —")
   message("if you are only updating certain ones you can copypaste the layer names above separated by commas\n")
-
+  
   
   # prompt user for layers which have been updated
   updated_layers <- str_split(readline(prompt = "enter 'all' or layers separated only by commas: "), ",")[[1]] %>% 
@@ -85,25 +86,30 @@ layers_eez_base_updater <- function() {
                            TRUE ~ dir))
   
   # vector of dir names which have changed from the original csv
-  updated_dirs <- anti_join(layers_eez_base_updated, layers_eez_base) %>% 
+  updated_dirs <- anti_join(layers_eez_base_updated, layers_eez_base, by = c("layer", "dir")) %>% 
     rename("dir (UPDATED)" = dir)
   
-  message("\nthe selected 'dir' values will be updated as shown in the data viewer ↑ ")
-  message("do you want to update layers_eez_base.csv with these changes?\n")
-  
-  View(updated_dirs)
-  
-  # request for permission to overwrite current csv with version containing updated dirs
-  overwrite <- readline(prompt = "update? ('y' or 'n'): ")
-  
-  if (overwrite == "y") {
-    write.csv(layers_eez_base_updated, here("metadata_documentation/layers_eez_base.csv"),
-              row.names = FALSE)
-    message("\nfile has been updated\n")
-  }
-  
-  else {
-    message("\nfile was *NOT* updated\n")
+  # make sure the chosen year and layers elicited changes
+  if (nrow(updated_dirs) != 0) { 
+    message("\nthe selected 'dir' values will be updated as shown in the data viewer ↑ ")
+    message("do you want to update layers_eez_base.csv with these changes?\n")
+    View(updated_dirs)
+    
+    # request for permission to overwrite current csv with version containing updated dirs
+    overwrite <- readline(prompt = "update? ('y' or 'n'): ")
+    
+    if (overwrite == "y") {
+      write.csv(layers_eez_base_updated, here("metadata_documentation/layers_eez_base.csv"),
+                row.names = FALSE)
+      message("\nfile has been updated\n")
+      
+    } else {
+      message("\nfile was *NOT* updated\n")
+    }
+    
+    # if no changes were elicited to any file paths, end function with message
+  } else {
+    message("\nthe chosen file paths already contain that version year - no updates were made\n")
   }
   
 }
