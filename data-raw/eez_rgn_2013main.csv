@@ -1,0 +1,262 @@
+rgn_typ,rgn_key_2013,rgn_id_2013,rgn_nam_2013,rgn_iso2,eez_key,eez_id,eez_nam,eez_iso3,sov_id,sov_nam,country_id_2012,region_id_2012,region_name_2012
+eez,CC,1,Cocos Islands,CC,CC,1,Cocos Islands,CCK,16,Australia,CCK,1,Australian Tropical Territories
+eez,CX,2,Christmas Island,CX,CX,2,Christmas Island,CXR,16,Australia,CXR,1,Australian Tropical Territories
+eez,NF,3,Norfolk Island,NF,NF,3,Norfolk Island,NFK,16,Australia,NFK,1,Australian Tropical Territories
+eez,HM,94,Heard and McDonald Islands,HM,HM,94,Heard and McDonald Islands,HMD,16,Australia,HMD,2,Australian Southern Ocean Territories
+eez,MQ,4,Macquarie Island,AU,AU-XMQ,4,Macquarie Island,AUS,16,Australia,Macquarie Island,2,Australian Southern Ocean Territories
+eez,NC,5,New Caledonia,NC,NC,5,New Caledonia,NCL,179,France,NCL,3,New Caledonia
+eez,VU,6,Vanuatu,VU,VU,6,Vanuatu,VUT,6,Vanuatu,VUT,4,Vanuatu
+eez,SB,7,Solomon Islands,SB,SB,7,Solomon Islands,SLB,7,Solomon Islands,SLB,5,Solomon Islands
+eez,PW,8,Palau,PW,PW,8,Palau,PLW,8,Palau,PLW,6,Palau
+eez,FM,9,Micronesia,FM,FM,9,Micronesia,FSM,9,Micronesia,FSM,7,Micronesia
+eez,NR,10,Nauru,NR,NR,10,Nauru,NRU,10,Nauru,NRU,8,Nauru
+eez,MH,11,Marshall Islands,MH,MH,11,Marshall Islands,MHL,11,Marshall Islands,MHL,9,Marshall Islands
+eez,TW,14,Taiwan,TW,TW,14,Taiwan,TWN,14,Taiwan,TWN,10,Taiwan
+eez,PH,15,Philippines,PH,PH,15,Philippines,PHL,15,Philippines,PHL,11,Philippines
+eez,AU,16,Australia,AU,AU,0,Australia,AUS,16,Australia,AUS,12,Australia
+eez,PG,17,Papua New Guinea,PG,PG,17,Papua New Guinea,PNG,17,Papua New Guinea,PNG,13,Papua New Guinea
+eez,FJ,18,Fiji,FJ,FJ,18,Fiji,FJI,18,Fiji,FJI,14,Fiji
+eez,TV,19,Tuvalu,TV,TV,19,Tuvalu,TUV,19,Tuvalu,TUV,15,Tuvalu
+eez,KR,20,South Korea,KR,KR,20,South Korea,KOR,20,South Korea,KOR,16,South Korea
+eez,KP,21,North Korea,KP,KP,21,North Korea,PRK,21,North Korea,PRK,17,North Korea
+eez,KH,24,Cambodia,KH,KH,24,Cambodia,KHM,24,Cambodia,KHM,18,Cambodia
+eez,TH,25,Thailand,TH,TH,25,Thailand,THA,25,Thailand,THA,19,Thailand
+eez,KM,28,Comoro Islands,KM,KM,28,Comoro Islands,COM,28,Comoro Islands,COM,20,Comoros
+eez,BI,34,Bassas da India,TF,TF-XBS,34,Bassas da India,ATF,179,France,Bassas da India,21,French Indian Ocean Territories
+eez,EU,35,Ile Europa,TF,TF-XEU,35,Ile Europa,ATF,179,France,Ile Europa,21,French Indian Ocean Territories
+eez,GO,30,Glorioso Islands,TF,TF-XGO,30,Glorioso Islands,ATF,179,France,Glorioso Islands,21,French Indian Ocean Territories
+eez,JN,33,Juan de Nova Island,TF,TF-XJU,33,Juan de Nova Island,ATF,179,France,Juan de Nova Island,21,French Indian Ocean Territories
+eez,RE,32,Reunion,RE,RE,32,R_union,REU,179,France,REU,21,French Indian Ocean Territories
+eez,TE,36,Ile Tromelin,TF,TF-XTE,36,Ile Tromelin,ATF,179,France,Ile Tromelin,21,French Indian Ocean Territories
+eez,YT,29,Mayotte,YT,YT,29,Mayotte,MYT,179,France,MYT,21,French Indian Ocean Territories
+eez,SC,31,Seychelles,SC,SC,31,Seychelles,SYC,31,Seychelles,SYC,22,Seychelles
+eez,MU,37,Mauritius,MU,MU,37,Mauritius,MUS,37,Mauritius,MUS,23,Mauritius
+eez,IO,38,British Indian Ocean Territory,IO,IO,38,British Indian Ocean Territory,IOT,180,United Kingdom,IOT,24,British Indian Ocean Territory
+eez,MV,39,Maldives,MV,MV,39,Maldives,MDV,39,Maldives,MDV,25,Maldives
+eez,LK,40,Sri Lanka,LK,LK,40,Sri Lanka,LKA,40,Sri Lanka,LKA,26,Sri Lanka
+eez,MZ,41,Mozambique,MZ,MZ,41,Mozambique,MOZ,41,Mozambique,MOZ,27,Mozambique
+eez,MG,42,Madagascar,MG,MG,42,Madagascar,MDG,42,Madagascar,MDG,28,Madagascar
+eez,KE,43,Kenya,KE,KE,43,Kenya,KEN,43,Kenya,KEN,29,Kenya
+eez,SO,44,Somalia,SO,SO,44,Somalia,SOM,44,Somalia,SOM,30,Somalia
+eez,ER,45,Eritrea,ER,ER,45,Eritrea,ERI,45,Eritrea,ERI,31,Eritrea
+eez,DJ,46,Djibouti,DJ,DJ,46,Djibouti,DJI,46,Djibouti,DJI,32,Djibouti
+eez,YE,47,Yemen,YE,YE,47,Yemen,YEM,47,Yemen,YEM,33,Yemen
+eez,OM,48,Oman,OM,OM,48,Oman,OMN,48,Oman,OMN,34,Oman
+eez,SD,49,Sudan,SD,SD,49,Sudan,SDN,49,Sudan,SDN,35,Sudan
+eez,SA,50,Saudi Arabia,SA,SA,50,Saudi Arabia,SAU,50,Saudi Arabia,SAU,36,Saudi Arabia
+eez,KW,51,Kuwait,KW,KW,51,Kuwait,KWT,51,Kuwait,KWT,37,Kuwait
+eez,BH,52,Bahrain,BH,BH,52,Bahrain,BHR,52,Bahrain,BHR,38,Bahrain
+eez,PK,53,Pakistan,PK,PK,53,Pakistan,PAK,53,Pakistan,PAK,39,Pakistan
+eez,AE,54,United Arab Emirates,AE,AE,54,United Arab Emirates,ARE,54,United Arab Emirates,ARE,40,United Arab Emirates
+eez,CV,56,Cape Verde,CV,CV,56,Cape Verde,CPV,56,Cape Verde,CPV,41,Cape Verde
+eez,BE,59,Belgium,BE,BE,59,Belgium,BEL,59,Belgium,BEL,42,Belgium
+eez,GI,60,Gibraltar,GI,GI,60,Gibraltar,GIB,180,United Kingdom,GIB,43,Gibraltar
+eez,TN,61,Tunisia,TN,TN,61,Tunisia,TUN,61,Tunisia,TUN,44,Tunisia
+eez,MA,62,Morocco,MA,MA,62,Morocco,MAR,62,Morocco,MAR,45,Morocco
+eez,EH,63,Western Sahara,EH,EH,63,Western Sahara,ESH,62,Morocco,ESH,46,Western Sahara
+eez,MR,64,Mauritania,MR,MR,64,Mauritania,MRT,64,Mauritania,MRT,47,Mauritania
+eez,GM,65,Gambia,GM,GM,65,Gambia,GMB,65,Gambia,GMB,48,Gambia
+eez,SN,66,Senegal,SN,SN,66,Senegal,SEN,66,Senegal,SEN,49,Senegal
+eez,LY,67,Libya,LY,LY,67,Libya,LBY,67,Libya,LBY,50,Libya
+eez,MT,68,Malta,MT,MT,68,Malta,MLT,68,Malta,MLT,51,Malta
+eez,LV,69,Latvia,LV,LV,69,Latvia,LVA,69,Latvia,LVA,52,Latvia
+eez,EE,70,Estonia,EE,EE,70,Estonia,EST,70,Estonia,EST,53,Estonia
+eez,BG,71,Bulgaria,BG,BG,71,Bulgaria,BGR,71,Bulgaria,BGR,54,Bulgaria
+eez,RO,72,Romania,RO,RO,72,Romania,ROU,72,Romania,ROU,55,Romania
+eez,RU,73,Russia,RU,RU,73,Russia,RUS,73,Russia,RUS,56,Russia
+eez,GE,74,Georgia,GE,GE,74,Georgia,GEO,74,Georgia,GEO,57,Georgia
+eez,UA,75,Ukraine,UA,UA,75,Ukraine,UKR,75,Ukraine,UKR,58,Ukraine
+eez,TR,76,Turkey,TR,TR,76,Turkey,TUR,76,Turkey,TUR,59,Turkey
+eez,SY,77,Syria,SY,SY,77,Syria,SYR,77,Syria,SYR,60,Syria
+eez,LB,78,Lebanon,LB,LB,78,Lebanon,LBN,78,Lebanon,LBN,61,Lebanon
+eez,IL,79,Israel,IL,IL,79,Israel,ISR,79,Israel,ISR,62,Israel
+eez,GR,80,Greece,GR,GR,80,Greece,GRC,80,Greece,GRC,63,Greece
+eez,CY,81,Cyprus,CY,CY,81,Cyprus,CYP,81,Cyprus,CYP,64,Cyprus
+eez,AL,82,Albania,AL,AL,82,Albania,ALB,82,Albania,ALB,65,Albania
+eez,DZ,84,Algeria,DZ,DZ,84,Algeria,DZA,84,Algeria,DZA,66,Algeria
+eez,AM,92,Amsterdam Island and Saint Paul Island,TF,TF-XAM,92,Amsterdam Island and Saint Paul Island,ATF,179,France,Amsterdam Island and Saint Paul Island,67,French Southern Ocean Territories
+eez,CZ,91,Crozet Islands,TF,TF-XCR,91,Crozet Islands,ATF,179,France,Crozet Islands,67,French Southern Ocean Territories
+eez,KG,93,Kerguelen Islands,TF,TF-XKE,93,Kerguelen Islands,ATF,179,France,Kerguelen Islands,67,French Southern Ocean Territories
+eez,AC,85,Ascension,SH,SH-AC,85,Ascension,ASC,180,United Kingdom,Ascension,68,British Southern Ocean Territories
+eez,FK,95,Falkland Islands,FK,FK,95,Falkland Islands,FLK,180,United Kingdom,FLK,68,British Southern Ocean Territories
+eez,GS,89,South Georgia and the South Sandwich Islands,GS,GS,89,South Georgia and the South Sandwich Islands,SGS,180,United Kingdom,SGS,68,British Southern Ocean Territories
+eez,SH,86,Saint Helena,SH,SH-HL,86,Saint Helena,SHN,180,United Kingdom,SHN,68,British Southern Ocean Territories
+eez,TA,88,Tristan da Cunha,SH,SH-TA,88,Tristan da Cunha,TAA,180,United Kingdom,Tristan da Cunha,68,British Southern Ocean Territories
+eez,SL,96,Sierra Leone,SL,SL,96,Sierra Leone,SLE,96,Sierra Leone,SLE,69,Sierra Leone
+eez,LR,97,Liberia,LR,LR,97,Liberia,LBR,97,Liberia,LBR,70,Liberia
+eez,TG,98,Togo,TG,TG,98,Togo,TGO,98,Togo,TGO,71,Togo
+eez,BJ,99,Benin,BJ,BJ,99,Benin,BEN,99,Benin,BEN,72,Benin
+eez,CG,100,Republique du Congo,CG,CG,100,R_publique du Congo,COG,100,R_publique du Congo,COG,73,Republic of the Congo
+eez,NM,101,Namibia,NA,NA,101,Namibia,NAM,101,Namibia,NAM,74,Namibia
+eez,PI,90,Prince Edward Islands,ZA,ZA-XPE,90,Prince Edward Islands,ZAF,102,South Africa,Prince Edward Islands,75,South Africa
+eez,ZA,102,South Africa,ZA,ZA,102,South Africa,ZAF,102,South Africa,ZAF,75,South Africa
+eez,ST,103,Sao Tome and Principe,ST,ST,103,Sao Tome and Principe,STP,103,Sao Tome and Principe,STP,76,Sao Tome and Principe
+eez,GQ,104,Equatorial Guinea,GQ,GQ,104,Equatorial Guinea,GNQ,104,Equatorial Guinea,GNQ,77,Equatorial Guinea
+eez,GH,106,Ghana,GH,GH,106,Ghana,GHA,106,Ghana,GHA,78,Ghana
+eez,CP,107,Clipperton Island,CP,CP,107,Clipperton Island,CPT,179,France,Clipperton Island,79,Clipperton Island
+eez,BS,110,Bahamas,BS,BS,110,Bahamas,BHS,110,Bahamas,BHS,80,Bahamas
+eez,CU,112,Cuba,CU,CU,112,Cuba,CUB,112,Cuba,CUB,81,Cuba
+eez,HT,114,Haiti,HT,HT,114,Haiti,HTI,114,Haiti,HTI,82,Haiti
+eez,DO,115,Dominican Republic,DO,DO,115,Dominican Republic,DOM,115,Dominican Republic,DOM,83,Dominican Republic
+eez,PR,116,Puerto Rico and Virgin Islands of the United States,PR,PR,116,Puerto Rico and Virgin Islands of the United States,PRI,163,United States,PRI|VIR,84,USA Caribbean Territories
+eez,AI,118,Anguilla,AI,AI,118,Anguilla,AIA,180,United Kingdom,AIA,85,British Caribbean Territories
+eez,BM,108,Bermuda,BM,BM,108,Bermuda,BMU,180,United Kingdom,BMU,85,British Caribbean Territories
+eez,KY,113,Cayman Islands,KY,KY,113,Cayman Islands,CYM,180,United Kingdom,CYM,85,British Caribbean Territories
+eez,MS,121,Montserrat,MS,MS,121,Montserrat,MSR,180,United Kingdom,MSR,85,British Caribbean Territories
+eez,TC,111,Turks and Caicos Islands,TC,TC,111,Turks and Caicos Islands,TCA,180,United Kingdom,TCA,85,British Caribbean Territories
+eez,VG,117,British Virgin Islands,VG,VG,117,British Virgin Islands,VGB,180,United Kingdom,VGB,85,British Caribbean Territories
+eez,KN,119,Saint Kitts and Nevis,KN,KN,119,Saint Kitts and Nevis,KNA,119,Saint Kitts and Nevis,KNA,86,Saint Kitts and Nevis
+eez,AG,120,Antigua and Barbuda,AG,AG,120,Antigua and Barbuda,ATG,120,Antigua and Barbuda,ATG,87,Antigua and Barbuda
+eez,LC,122,Saint Lucia,LC,LC,122,Saint Lucia,LCA,122,Saint Lucia,LCA,88,Saint Lucia
+eez,DM,123,Dominica,DM,DM,123,Dominica,DMA,123,Dominica,DMA,89,Dominica
+eez,BB,124,Barbados,BB,BB,124,Barbados,BRB,124,Barbados,BRB,90,Barbados
+eez,GD,125,Grenada,GD,GD,125,Grenada,GRD,125,Grenada,GRD,91,Grenada
+eez,TT,126,Trinidad and Tobago,TT,TT,126,Trinidad and Tobago,TTO,126,Trinidad and Tobago,TTO,92,Trinidad and Tobago
+eez,VC,127,Saint Vincent and the Grenadines,VC,VC,127,Saint Vincent and the Grenadines,VCT,127,Saint Vincent and the Grenadines,VCT,93,Saint Vincent and the Grenadines
+eez,AW,250,Aruba,AW,AW,250,Aruba,AW,177,Netherlands,ANT,94,Netherlands Caribbean Territories
+eez,BO,245,Bonaire,BQ,BQ-BO,245,Bonaire,BQ,177,Netherlands,ANT,94,Netherlands Caribbean Territories
+eez,CW,244,Curacao,CW,CW,244,Curacao,CW,177,Netherlands,ANT,94,Netherlands Caribbean Territories
+eez,EQ,249,Sint Eustatius,BQ,BQ-SE,249,Sint-Eustasius,ANT,177,Netherlands,ANT,94,Netherlands Caribbean Territories
+eez,SQ,248,Saba,BQ,BQ-SA,248,Saba,BES,177,Netherlands,ANT,94,Netherlands Caribbean Territories
+eez,SX,220,Sint Maarten,SX,SX,220,Sint-Maarten,SXM,177,Netherlands,Southern Saint-Martin,94,Netherlands Caribbean Territories
+eez,PA,129,Panama,PA,PA,129,Panama,PAN,129,Panama,PAN,95,Panama
+eez,CR,130,Costa Rica,CR,CR,130,Costa Rica,CRI,130,Costa Rica,CRI,96,Costa Rica
+eez,NI,131,Nicaragua,NI,NI,131,Nicaragua,NIC,131,Nicaragua,NIC,97,Nicaragua
+eez,CO,132,Colombia,CO,CO,132,Colombia,COL,132,Colombia,COL,98,Colombia
+eez,HN,133,Honduras,HN,HN,133,Honduras,HND,133,Honduras,HND,99,Honduras
+eez,SV,134,El Salvador,SV,SV,134,El Salvador,SLV,134,El Salvador,SLV,100,El Salvador
+eez,MX,135,Mexico,MX,MX,135,Mexico,MEX,135,Mexico,MEX,101,Mexico
+eez,GT,136,Guatemala,GT,GT,136,Guatemala,GTM,136,Guatemala,GTM,102,Guatemala
+eez,EC,137,Ecuador,EC,EC,137,Ecuador,ECU,137,Ecuador,ECU,103,Ecuador
+eez,EC,137,Ecuador,EC,EC-XGL,109,Galapagos Islands,ECU,137,Ecuador,Galapagos Islands,103,Ecuador
+eez,PE,138,Peru,PE,PE,138,Peru,PER,138,Peru,PER,104,Peru
+eez,VE,139,Venezuela,VE,VE,139,Venezuela,VEN,139,Venezuela,VEN,105,Venezuela
+eez,GX,140,Guadeloupe and Martinique,GP_MQ,GP_MQ,140,Guadeloupe and Martinique,GP-MQ,179,France,GLP|MTQ,106,French Caribbean Territories
+eez,MF,221,Northern Saint-Martin,MF,MF,221,Northern Saint-Martin,MAF,179,France,MAF,106,French Caribbean Territories
+eez,IS,143,Iceland,IS,IS,143,Iceland,ISL,143,Iceland,ISL,107,Iceland
+eez,PN,146,Pitcairn,PN,PN,146,Pitcairn,PCN,180,United Kingdom,PCN,108,British Pacific Territories (Pitcairn)
+eez,PF,147,French Polynesia,PF,PF,147,French Polynesia,PYF,179,France,PYF,109,French Polynesia
+eez,WF,161,Wallis and Futuna,WF,WF,161,Wallis and Futuna,WLF,179,France,WLF,109,French Polynesia
+eez,JI,149,Jarvis Island,UM,UM-86,149,Jarvis Island,UMI,163,United States,Jarvis Island,110,Jarvis Island
+eez,AS,151,American Samoa,AS,AS,151,American Samoa,ASM,163,United States,ASM,111,USA Pacific Inhabited Territories
+eez,HB,158,Howland Island and Baker Island,UM,UM-84,158,Howland Island and Baker Island,UMI,163,United States,Howland Island and Baker Island,114,USA Pacific Uninhabited Territories
+eez,MP,13,Northern Mariana Islands and Guam,MP,MP,13,Northern Mariana Islands and Guam,MNP,163,United States,MNP|GUM,111,USA Pacific Inhabited Territories
+eez,WS,152,Samoa,WS,WS,152,Samoa,WSM,152,Samoa,WSM,112,Samoa
+eez,TO,155,Tonga,TO,TO,155,Tonga,TON,155,Tonga,TON,113,Tonga
+eez,JA,159,Johnston Atoll,UM,UM-67,159,Johnston Atoll,UMI,163,United States,Johnston Atoll,114,USA Pacific Uninhabited Territories
+eez,PY,150,Palmyra Atoll,UM,UM-95,150,Palmyra Atoll,UMI,163,United States,Palmyra Atoll,114,USA Pacific Uninhabited Territories
+eez,WI,12,Wake Island,UM,UM-79,12,Wake Island,UMI,163,United States,Wake Island,114,USA Pacific Uninhabited Territories
+eez,CK,153,Cook Islands,CK,CK,153,Cook Islands,COK,162,New Zealand,COK,115,New Zealand
+eez,NU,154,Niue,NU,NU,154,Niue,NIU,162,New Zealand,NIU,115,New Zealand
+eez,NZ,162,New Zealand,NZ,NZ,162,New Zealand,NZL,162,New Zealand,NZL,115,New Zealand
+eez,TK,156,Tokelau,TK,TK,156,Tokelau,TKL,162,New Zealand,TKL,115,New Zealand
+eez,US,163,United States,US,US-AK,170,Alaska,USA,163,United States,Alaska,116,United States
+eez,US,163,United States,US,US-HI,160,Hawaii,USA,163,United States,Hawaii,116,United States
+eez,US,163,United States,US,US,163,United States,USA,163,United States,USA,116,United States
+eez,BZ,164,Belize,BZ,BZ,164,Belize,BLZ,164,Belize,BLZ,117,Belize
+eez,JM,166,Jamaica,JM,JM,166,Jamaica,JAM,166,Jamaica,JAM,118,Jamaica
+eez,GY,167,Guyana,GY,GY,167,Guyana,GUY,167,Guyana,GUY,119,Guyana
+eez,SR,168,Suriname,SR,SR,168,Suriname,SUR,168,Suriname,SUR,120,Suriname
+eez,GF,169,French Guiana,GF,GF,169,French Guiana,GUF,179,France,GUF,121,French Guiana
+eez,BR,171,Brazil,BR,BR,171,Brazil,BRA,171,Brazil,BRA,122,Brazil
+eez,BR,171,Brazil,BR,BR-XTR,87,Trindade,BRA,171,Brazil,Trindade,122,Brazil
+eez,AR,172,Argentina,AR,AR,172,Argentina,ARG,172,Argentina,ARG,123,Argentina
+eez,UY,173,Uruguay,UY,UY,173,Uruguay,URY,173,Uruguay,URY,124,Uruguay
+eez,FI,174,Finland,FI,FI,174,Finland,FIN,174,Finland,FIN,125,Finland
+eez,DK,175,Denmark,DK,DK,175,Denmark,DNK,175,Denmark,DNK,126,Denmark
+eez,FO,141,Faeroe Islands,FO,FO,141,Faeroe Islands,FRO,175,Denmark,FRO,126,Denmark
+eez,GL,145,Greenland,GL,GL,145,Greenland,GRL,175,Denmark,GRL,126,Denmark
+eez,DE,176,Germany,DE,DE,176,Germany,DEU,176,Germany,DEU,127,Germany
+eez,NL,177,Netherlands,NL,NL,177,Netherlands,NLD,177,Netherlands,NLD,128,Netherlands
+eez,PL,178,Poland,PL,PL,178,Poland,POL,178,Poland,POL,129,Poland
+eez,FR,179,France,FR,FR,179,France,FRA,179,France,FRA,130,France
+eez,GB,180,United Kingdom,GB,GB,180,United Kingdom,GBR,180,United Kingdom,GBR,131,United Kingdom
+eez,GG,228,Guernsey,GG,GG,228,Guernsey,GGY,180,United Kingdom,GGY,131,United Kingdom
+eez,JE,227,Jersey,JE,JE,227,Jersey,JEY,180,United Kingdom,JEY,131,United Kingdom
+eez,IE,181,Ireland,IE,IE,181,Ireland,IRL,181,Ireland,IRL,132,Ireland
+eez,CS,58,Canary Islands,ES,ES-CN,58,Canary Islands,ESP,182,Spain,Canary Islands,133,Spain
+eez,ES,182,Spain,ES,ES,182,Spain,ESP,182,Spain,ESP,133,Spain
+eez,AX,55,Azores,PT,PT-20,55,Azores,PRT,183,Portugal,Azores,134,Portugal
+eez,MD,57,Madeira,PT,PT-30,57,Madeira,PRT,183,Portugal,Madeira,134,Portugal
+eez,PT,183,Portugal,PT,PT,183,Portugal,PRT,183,Portugal,PRT,134,Portugal
+eez,IT,184,Italy,IT,IT,184,Italy,ITA,184,Italy,ITA,135,Italy
+eez,MC,185,Monaco,MC,MC,185,Monaco,MCO,185,Monaco,MCO,136,Monaco
+eez,ME,186,Montenegro,ME,ME,186,Montenegro,MNE,186,Montenegro,SCG,137,Serbia and Montenegro
+eez,HR,187,Croatia,HR,HR,187,Croatia,HRV,187,Croatia,HRV,138,Croatia
+eez,SI,188,Slovenia,SI,SI,188,Slovenia,SVN,188,Slovenia,SVN,139,Slovenia
+eez,LT,189,Lithuania,LT,LT,189,Lithuania,LTU,189,Lithuania,LTU,140,Lithuania
+eez,QA,190,Qatar,QA,QA,190,Qatar,QAT,190,Qatar,QAT,141,Qatar
+eez,IR,191,Iran,IR,IR,191,Iran,IRN,191,Iran,IRN,142,Iran
+eez,IQ,192,Iraq,IQ,IQ,192,Iraq,IRQ,192,Iraq,IRQ,143,Iraq 
+eez,GW,193,Guinea Bissau,GW,GW,193,Guinea Bissau,GNB,193,Guinea Bissau,GNB,144,Guinea-Bissau
+eez,GN,194,Guinea,GN,GN,194,Guinea,GIN,194,Guinea,GIN,145,Guinea
+eez,CI,195,Ivory Coast,CI,CI,195,Ivory Coast,CIV,195,Ivory Coast,CIV,146,Ivory Coast
+eez,NG,196,Nigeria,NG,NG,196,Nigeria,NGA,196,Nigeria,NGA,147,Nigeria
+eez,CM,197,Cameroon,CM,CM,197,Cameroon,CMR,197,Cameroon,CMR,148,Cameroon
+eez,GA,198,Gabon,GA,GA,198,Gabon,GAB,198,Gabon,GAB,149,Gabon
+eez,CD,199,Democratic Republic of the Congo,CD,CD,199,Democratic Republic of the Congo,COD,199,Democratic Republic of the Congo,COD,150,Democratic Republic of the Congo
+eez,AO,200,Angola,AO,AO,200,Angola,AGO,200,Angola,AGO,151,Angola
+eez,TZ,202,Tanzania,TZ,TZ,202,Tanzania,TZA,202,Tanzania,TZA,152,Tanzania
+eez,AN,26,Andaman and Nicobar,IN,IN-XAN,26,Andaman and Nicobar,IND,203,India,Andaman and Nicobar,153,India
+eez,IN,203,India,IN,IN,203,India,IND,203,India,IND,153,India
+eez,BD,204,Bangladesh,BD,BD,204,Bangladesh,BGD,204,Bangladesh,BGD,154,Bangladesh
+eez,MM,205,Myanmar,MM,MM,205,Myanmar,MMR,205,Myanmar,MMR,155,Myanmar
+eez,BN,247,Brunei,BN,BN,247,Brunei,BRN,247,Brunei,MYS,156,Malaysia
+eez,MY,206,Malaysia,MY,MY,206,Malaysia,MYS,206,Malaysia,MYS,156,Malaysia
+eez,VN,207,Vietnam,VN,VN,207,Vietnam,VNM,207,Vietnam,VNM,157,Vietnam
+eez,SG,208,Singapore,SG,SG,208,Singapore,SGP,208,Singapore,SGP,158,Singapore
+eez,CN,209,China,CN,CN,209,China,CHN,209,China,CHN,159,China
+eez,JP,210,Japan,JP,JP,210,Japan,JPN,210,Japan,JPN,160,Japan
+eez,KI,212,Kiribati,KI,KI-G,212,Kiribati,KIR,212,Kiribati,KIR,161,Kiribati
+eez,LG,148,Line Group,KI,KI-L,148,Line Group,KIR,212,Kiribati,Line Group,161,Kiribati
+eez,PX,157,Phoenix Group,KI,KI-P,157,Phoenix Group,KIR,212,Kiribati,Phoenix Group,161,Kiribati
+eez,AQ,213,Antarctica,AQ,AQ,213,Antarctica,ATA,213,Antarctica,ATA,162,Antarctica
+eez,EG,214,Egypt,EG,EG,214,Egypt,EGY,214,Egypt,EGY,163,Egypt
+eez,XD,255,DISPUTED,,XD-EG-SD,252,Disputed Sudan-Egypt,0,0,Disputed Egypt-Sudan,EGY,174,Disputed Egypt-Sudan
+eez,JO,215,Jordan,JO,JO,215,Jordan,JOR,215,Jordan,JOR,164,Jordan
+eez,ID,216,Indonesia,ID,ID,216,Indonesia,IDN,216,Indonesia,IDN,165,Indonesia
+eez,CA,218,Canada,CA,CA,218,Canada,CAN,218,Canada,CAN,166,Canada
+eez,PM,219,Saint Pierre and Miquelon,PM,PM,219,Saint Pierre and Miquelon,SPM,179,France,SPM,167,Saint Pierre and Miquelon
+eez,SE,222,Sweden,SE,SE,222,Sweden,SWE,222,Sweden,SWE,168,Sweden
+eez,BV,105,Bouvet Island,BV,BV,105,Bouvet Island,BVT,223,Norway,BVT,169,Norway
+eez,NO,223,Norway,NO,NO,223,Norway,NOR,223,Norway,NOR,169,Norway
+eez,SJ,144,Jan Mayen,SJ,SJ,144,Jan Mayen,SJM,223,Norway,SJM,169,Norway
+eez,CL,224,Chile,CL,CL,224,Chile,CHL,224,Chile,CHL,170,Chile
+eez,CL,224,Chile,CL,CL-XEA,225,Easter Island,CHL,224,Chile,Easter Island,170,Chile
+eez,OE,237,Oecussi Ambeno,TL,TL-OE,237,Oecussi Ambeno,TLS,231,East Timor,Oecussi Ambeno,171,East Timor
+eez,TL,231,East Timor,TL,TL,231,East Timor,TLS,231,East Timor,TLS,171,East Timor
+fao,XAAN,268,"Atlantic, Antarctic",,,1048,"Atlantic, Antarctic",,,,,,
+fao,XAEC,264,"Atlantic, Eastern Central",,,1034,"Atlantic, Eastern Central",,,,,,
+fao,XANE,262,"Atlantic, Northeast",,,1027,"Atlantic, Northeast",,,,,,
+fao,XANW,261,"Atlantic, Northwest",,,1021,"Atlantic, Northwest",,,,,,
+fao,XARC,260,Arctic Sea,,,1018,Arctic Sea,,,,,,
+fao,XASE,267,"Atlantic, Southeast",,,1047,"Atlantic, Southeast",,,,,,
+fao,XASW,266,"Atlantic, Southwest",,,1041,"Atlantic, Southwest",,,,,,
+fao,XAWC,263,"Atlantic, Western-Central",,,1031,"Atlantic, Western-Central",,,,,,
+eez,BA,232,Bosnia and Herzegovina,BA,BA,232,Bosnia and Herzegovina,BIH,232,Bosnia and Herzegovina,BIH,172,Bosnia and Herzegovina
+eez,AZ,255,Azerbaijan,AZ,AZ,241,Azerbaijan,AZE,233,Azerbaijan,,173,
+eez,KZ,255,Kazakhstan,KZ,KZ,242,Kazakhstan,KAZ,235,Kazakhstan,,173,
+eez,TM,255,Turkmenistan,TM,TM,243,Turkmenistan,TKM,236,Turkmenistan,,173,
+eez,XD,255,DISPUTED,,XD-AU-TL,238,Australia - East Timor,0,0,Joint Development,,174,
+eez,XD,255,DISPUTED,,XD-AU-PG,239,Australia - Papua New Guinea,0,0,Australia - Papua New Guinea,,174,
+eez,XD,255,DISPUTED,,XD-AU-ID,251,Australia/Indonesia,0,0,Australia/Indonesia,,174,
+eez,XD,255,DISPUTED,,XD-CL-PE,240,Chile/Peru,0,0,Disputed,,174,
+eez,XD,255,DISPUTED,,XD-CO-JM,165,Colombia - Jamaica,0,0,Joint Regime,,174,
+eez,XD,255,DISPUTED,,XD-CN-JP,217,Conflict Zone,0,0,Disputed,,174,
+eez,XD,255,DISPUTED,,XD-JP-KP,211,Japan - Korea,0,0,Joint Regime,,174,
+eez,XD,255,DISPUTED,,XD-JP-KR,226,Japan - South Korea Conflict Zone,0,0,Disputed,,174,
+eez,XD,255,DISPUTED,,XD-NE-ST,201,Nigeria - Sao Tome and Principe,0,0,Joint Regime,,174,
+fao,XIAN,271,"Indian Ocean, Antarctic And Southern",,,1058,"Indian Ocean, Antarctic And Southern",,,,,,
+fao,XIEA,270,"Indian Ocean, Eastern",,,1057,"Indian Ocean, Eastern",,,,,,
+fao,XIWE,269,"Indian Ocean, Western",,,1051,"Indian Ocean, Western",,,,,,
+fao,XMED,265,Mediterranean And Black Sea,,,1037,Mediterranean And Black Sea,,,,,,
+fao,XPAN ,278,"Pacific, Antarctic",,,1088,"Pacific, Antarctic",,,,,,
+fao,XPEC,275,"Pacific, Eastern Central",,,1077,"Pacific, Eastern Central",,,,,,
+fao,XPNE,273,"Pacific, Northeast",,,1067,"Pacific, Northeast",,,,,,
+fao,XPNW,272,"Pacific, Northwest",,,1061,"Pacific, Northwest",,,,,,
+fao,XPSE,277,"Pacific, Southeast",,,1087,"Pacific, Southeast",,,,,,
+fao,XPSW,276,"Pacific, Southwest",,,1081,"Pacific, Southwest",,,,,,
+fao,XPWC,274,"Pacific, Western Central",,,1071,"Pacific, Western Central",,,,,,
+eez,XD,255,DISPUTED,,XD-PF,22,Paracel Islands,0,22,Disputed,,174,
+eez,XD,255,DISPUTED,,XD-KU,27,Southern Kuriles,0,0,Disputed,,174,
+eez,XD,255,DISPUTED,,XD-PG,23,Spratly Islands,0,23,Disputed,,174,

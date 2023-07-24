@@ -4,12 +4,12 @@
 
 library(devtools)
 
-rgn_synonyms <- read.csv('../ohiprep/src/LookupTables/rgn_eez_v2013a_synonyms.csv', na = "", stringsAsFactors = FALSE)
-devtools::use_data(rgn_synonyms, overwrite = TRUE)
+rgn_synonyms <- read.csv('data-raw/rgn_eez_v2013a_synonyms.csv', na = "", stringsAsFactors = FALSE)
+usethis::use_data(rgn_synonyms, overwrite = TRUE)
 
 
-rgn_master <- read.csv('../ohiprep/src/LookupTables/eez_rgn_2013master.csv', na = "", stringsAsFactors = FALSE)
-devtools::use_data(rgn_master, overwrite = TRUE)
+rgn_master <- read.csv('data-raw/eez_rgn_2013main.csv', na = "", stringsAsFactors = FALSE)
+usethis::use_data(rgn_master, overwrite = TRUE)
 
 ## The following have not been updated, will do this when I figure out how they are used.
 

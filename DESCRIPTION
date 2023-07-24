@@ -61,5 +61,5 @@ URL: https://github.com/OHI-Science/ohicore
 BugReports: https://github.com/OHI-Science/ohicore/issues
 LazyData: TRUE
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.2
 Encoding: UTF-8

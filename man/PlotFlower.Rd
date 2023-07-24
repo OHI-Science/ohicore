@@ -41,7 +41,3 @@ the contribution of the fisheries and mariculture subgoals to the food provision
 information determines the relative width of these two subgoals in the flowerplot;
 if not available, these subgoals will have equal widths.
 }
-\examples{
-
-
-}
