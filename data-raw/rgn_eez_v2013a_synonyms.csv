@@ -5,6 +5,7 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 9,"Micronesia, FS",FM,FSM,ohi_region
 9,Micronesia (Fed. States of),FM,FSM,ohi_region
 9,Micronesia (Federated States of),FM,FSM,ohi_region
+9,Micronesia (Fed. States),FM,FSM,ohi_region
 9,Micronesia Federated States of,FM,FSM,ohi_region
 9,"Micronesia, Fed. States of",FM,FSM,ohi_region
 9,"Micronesia, Fed. Sts.",FM,FSM,ohi_region
@@ -109,7 +110,8 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 139,Venezuela (Bolivarian Republic of),VE,VEN,ohi_region
 139,Venezuela Bolivarian Republic of,VE,VEN,ohi_region
 139,"Venezuela, Boliv Rep of",VE,VEN,ohi_region
-139,"Venezuela, Bolivarian Republic of",VE,VEN,ohi_region
+139,"Venezuela, Boliv Rep of",VE,VEN,ohi_region
+139,"Venezuela (Boliv Rep of)",VE,VEN,ohi_region
 139,"Venezuela, RB",VE,VEN,ohi_region
 140,Guadeloupe,GX,Guadeloupe and Martinique,ohi_region
 140,Martinique,GX,Guadeloupe and Martinique,ohi_region
