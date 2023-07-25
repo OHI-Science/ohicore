@@ -162,6 +162,7 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 202,"Tanzania, United Republic of",TZ,TZA,ohi_region
 202,United Rep. of Tanzania,TZ,TZA,ohi_region
 202,United Republic of Tanzania,TZ,TZA,ohi_region
+202,"United Republic of Tanzania,Zanzibar",TZ,TZA,ohi_region
 205,Burma/Myanmar,MM,MMR,ohi_region
 205,Burma,MM,MMR,ohi_region
 207,Viet Nam,VN,VNM,ohi_region
@@ -209,6 +210,7 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 245,Netherlands (Kingdom of the),BO,BQ,ohi_region
 247,Brunei Darussalam,BN,BRN,ohi_region
 249,Sint Eustasius,EQ,Sint-Eustasius,ohi_region
+83,Saint Helena/Asc./Trist.,SH,SHN,ohi_region
 76,Turkiye,TR,TUR,ohi_region
 76,Türkiye,TR,TUR,ohi_region
 ,,,,
