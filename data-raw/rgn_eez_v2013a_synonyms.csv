@@ -206,23 +206,33 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 76,Türkiye,TR,TUR,ohi_region
 ,,,,
 ,,,,
-255,Azerbaijan,,,landlocked
-255,"Disputed Territory (Paracel Is., Spratly Is.)",,,disputed
-255,Gaza Strip,,,disputed
-255,Kazachstan,,,landlocked
-255,Kazakhstan,,,landlocked
-255,Occupied Palestinian Territory,,,disputed
-255,Palestine,,,disputed
-255,Palestine State of,,,disputed
-255,State Of Palestine,,,disputed
-255,"Palestine, Occupied Tr.",,,disputed
-255,Paracel Islands,,,disputed
-255,Spratly Islands,,,disputed
-255,Tajikistan,,,landlocked
-255,Turkmenistan,,,landlocked
-255,Uzbekistan,,,landlocked
-255,West Bank,,,disputed
-255,West Bank and Gaza,,,disputed
+,Azerbaijan,,,landlocked
+,"Disputed Territory (Paracel Is., Spratly Is.)",,,disputed
+,"Australia - East Timor",,,disputed
+,"Australia - Papua New Guinea",,,disputed
+,"Australia/Indonesia",,,disputed
+,"Chile/Peru",,,disputed
+,"Colombia - Jamaica",,,disputed
+,Gaza Strip,,,disputed
+,Japan - South Korea Conflict Zone,,,disputed
+,Nigeria - Sao Tome and Principe,,,disputed
+,Kazachstan,,,landlocked
+,Kazakhstan,,,landlocked
+,Occupied Palestinian Territory,,,disputed
+,Palestine,,,disputed
+,Palestine State of,,,disputed
+,Southern Kuriles,,,disputed
+,Spratly Islands,,,disputed
+,Disputed Sudan-Egypt,,,disputed
+,State Of Palestine,,,disputed
+,"Palestine, Occupied Tr.",,,disputed
+,Paracel Islands,,,disputed
+,Spratly Islands,,,disputed
+,Tajikistan,,,landlocked
+,Turkmenistan,,,landlocked
+,Uzbekistan,,,landlocked
+,West Bank,,,disputed
+,West Bank and Gaza,,,disputed
 ,Afghanistan,,,landlocked
 ,Andorra,,,landlocked
 ,Armenia,,,landlocked

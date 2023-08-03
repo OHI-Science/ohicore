@@ -212,7 +212,6 @@ eez,LG,148,Line Group,KI,KI-L,148,Line Group,KIR,212,Kiribati,Line Group,161,Kir
 eez,PX,157,Phoenix Group,KI,KI-P,157,Phoenix Group,KIR,212,Kiribati,Phoenix Group,161,Kiribati
 eez,AQ,213,Antarctica,AQ,AQ,213,Antarctica,ATA,213,Antarctica,ATA,162,Antarctica
 eez,EG,214,Egypt,EG,EG,214,Egypt,EGY,214,Egypt,EGY,163,Egypt
-eez,XD,255,DISPUTED,,XD-EG-SD,252,Disputed Sudan-Egypt,0,0,Disputed Egypt-Sudan,EGY,174,Disputed Egypt-Sudan
 eez,JO,215,Jordan,JO,JO,215,Jordan,JOR,215,Jordan,JOR,164,Jordan
 eez,ID,216,Indonesia,ID,ID,216,Indonesia,IDN,216,Indonesia,IDN,165,Indonesia
 eez,CA,218,Canada,CA,CA,218,Canada,CAN,218,Canada,CAN,166,Canada
@@ -234,18 +233,6 @@ fao,XASE,267,"Atlantic, Southeast",,,1047,"Atlantic, Southeast",,,,,,
 fao,XASW,266,"Atlantic, Southwest",,,1041,"Atlantic, Southwest",,,,,,
 fao,XAWC,263,"Atlantic, Western-Central",,,1031,"Atlantic, Western-Central",,,,,,
 eez,BA,232,Bosnia and Herzegovina,BA,BA,232,Bosnia and Herzegovina,BIH,232,Bosnia and Herzegovina,BIH,172,Bosnia and Herzegovina
-eez,AZ,255,Azerbaijan,AZ,AZ,241,Azerbaijan,AZE,233,Azerbaijan,,173,
-eez,KZ,255,Kazakhstan,KZ,KZ,242,Kazakhstan,KAZ,235,Kazakhstan,,173,
-eez,TM,255,Turkmenistan,TM,TM,243,Turkmenistan,TKM,236,Turkmenistan,,173,
-eez,XD,255,DISPUTED,,XD-AU-TL,238,Australia - East Timor,0,0,Joint Development,,174,
-eez,XD,255,DISPUTED,,XD-AU-PG,239,Australia - Papua New Guinea,0,0,Australia - Papua New Guinea,,174,
-eez,XD,255,DISPUTED,,XD-AU-ID,251,Australia/Indonesia,0,0,Australia/Indonesia,,174,
-eez,XD,255,DISPUTED,,XD-CL-PE,240,Chile/Peru,0,0,Disputed,,174,
-eez,XD,255,DISPUTED,,XD-CO-JM,165,Colombia - Jamaica,0,0,Joint Regime,,174,
-eez,XD,255,DISPUTED,,XD-CN-JP,217,Conflict Zone,0,0,Disputed,,174,
-eez,XD,255,DISPUTED,,XD-JP-KP,211,Japan - Korea,0,0,Joint Regime,,174,
-eez,XD,255,DISPUTED,,XD-JP-KR,226,Japan - South Korea Conflict Zone,0,0,Disputed,,174,
-eez,XD,255,DISPUTED,,XD-NE-ST,201,Nigeria - Sao Tome and Principe,0,0,Joint Regime,,174,
 fao,XIAN,271,"Indian Ocean, Antarctic And Southern",,,1058,"Indian Ocean, Antarctic And Southern",,,,,,
 fao,XIEA,270,"Indian Ocean, Eastern",,,1057,"Indian Ocean, Eastern",,,,,,
 fao,XIWE,269,"Indian Ocean, Western",,,1051,"Indian Ocean, Western",,,,,,
@@ -257,6 +244,3 @@ fao,XPNW,272,"Pacific, Northwest",,,1061,"Pacific, Northwest",,,,,,
 fao,XPSE,277,"Pacific, Southeast",,,1087,"Pacific, Southeast",,,,,,
 fao,XPSW,276,"Pacific, Southwest",,,1081,"Pacific, Southwest",,,,,,
 fao,XPWC,274,"Pacific, Western Central",,,1071,"Pacific, Western Central",,,,,,
-eez,XD,255,DISPUTED,,XD-PF,22,Paracel Islands,0,22,Disputed,,174,
-eez,XD,255,DISPUTED,,XD-KU,27,Southern Kuriles,0,0,Disputed,,174,
-eez,XD,255,DISPUTED,,XD-PG,23,Spratly Islands,0,23,Disputed,,174,
