@@ -10,7 +10,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 9,"Micronesia, Fed. States of",FM,FSM,ohi_region
 9,"Micronesia, Fed. Sts.",FM,FSM,ohi_region
 9,"Micronesia, Fed.States of",FM,FSM,ohi_region
-9,"Micronesia, Federated States of",FM,FSM,ohi_region
 12,United States Minor Outlying Islands (Wake Is.),WI,Wake Island,ohi_region
 13,Guam,MP,MNP,ohi_region
 13,N. Mariana Islands,MP,MNP,ohi_region
@@ -20,13 +19,11 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 14,Taiwan (China),TW,TWN,ohi_region
 14,Taiwan Province of China,TW,TWN,ohi_region
 14,"Taiwan, China",TW,TWN,ohi_region
-14,"Taiwan, Province of China",TW,TWN,ohi_region
 18,"Fiji, Republic of",FJ,FJI,ohi_region
 20,"Korea, South",KR,KOR,ohi_region
 20,"Korea, South (Republic of Korea)",KR,KOR,ohi_region
 20,Korea Republic of,KR,KOR,ohi_region
 20,"Korea, Rep.",KR,KOR,ohi_region
-20,"Korea, Republic of",KR,KOR,ohi_region
 20,Republic of Korea,KR,KOR,ohi_region
 20,Korea (Republic of),KR,KOR,ohi_region
 21,"Korea, Dem. People's Rep.",KP,PRK,ohi_region
@@ -103,7 +100,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 127,St Vincent and the Grenadines,VC,VCT,ohi_region
 127,St. Vincent & the Grenadines,VC,VCT,ohi_region
 127,St.Vincent & Grenadines,VC,VCT,ohi_region
-127,St. Vincent and The Grenadines,VC,VCT,ohi_region
 127,St. Vincent and the Grenadines,VC,VCT,ohi_region
 137,Ecuador,EC,ECU,ohi_region
 137,Galapagos,EC,ECU,ohi_region
@@ -134,11 +130,9 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 186,Serbia and Montenegro,ME,SCG,ohi_region
 191,Iran (Islamic Rep. of),IR,IRN,ohi_region
 191,Iran (Islamic Republic of),IR,IRN,ohi_region
-191,Iran Islamic Republic of,IR,IRN,ohi_region
 191,"Iran, Islamic Rep.",IR,IRN,ohi_region
 191,"Iran, Islamic Republic of",IR,IRN,ohi_region
 193,Guinea-Bissau,GW,GNB,ohi_region
-193,Guinea-bissau,GW,GNB,ohi_region
 195,C.+voire,CI,CIV,ohi_region
 195,Cote d'Ivoire,CI,CIV,ohi_region
 195,Côte d’Ivoire,CI,CIV,ohi_region
@@ -157,10 +151,10 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 199,Democratic Republic of Congo,CD,COD,ohi_region
 199,Zaire,CD,COD,ohi_region
 202,Tanzania (United Republic of),TZ,TZA,ohi_region
+202,Tanzania (United Republic of),TZ,TZA,ohi_region
 202,Tanzania United Republic of,TZ,TZA,ohi_region
 202,Zanzibar,TZ,TZA,ohi_region
 202,"Tanzania, United Rep. of",TZ,TZA,ohi_region
-202,"Tanzania, United Republic of",TZ,TZA,ohi_region
 202,United Rep. of Tanzania,TZ,TZA,ohi_region
 202,United Republic of Tanzania,TZ,TZA,ohi_region
 202,"United Republic of Tanzania, Zanzibar",TZ,TZA,ohi_region
@@ -174,12 +168,9 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 209,Hong Kong China (SAR),CN,CHN,ohi_region
 209,Hong Kong SAR,CN,CHN,ohi_region
 209,Hong Kong SAR China,CN,CHN,ohi_region
-209,"Hong Kong SAR, China",CN,CHN,ohi_region
 209,"China, mainland",CN,CHN,ohi_region
-209,"Hong Kong, China (SAR)",CN,CHN,ohi_region
 209,Macao,CN,CHN,ohi_region
 209,Macao SAR China,CN,CHN,ohi_region
-209,"Macao SAR, China",CN,CHN,ohi_region
 209,Macau,CN,CHN,ohi_region
 209,Macau (China),CN,CHN,ohi_region
 209,"Macau, China",CN,CHN,ohi_region
@@ -200,7 +191,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 221,St. Martin (French part),MF,Saint Martin,ohi_region
 224,Chile,CL,CHL,ohi_region
 224,Easter Island,CL,CHL,ohi_region
-231,Timor-leste,TL,TLS,ohi_region
 231,Timor-Leste,TL,TLS,ohi_region
 232,Bosnia-Herzegovina,BA,BIH,ohi_region
 232,Bosnia Herzegovina,BA,BIH,ohi_region
@@ -222,8 +212,9 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 255,Kazachstan,,,landlocked
 255,Kazakhstan,,,landlocked
 255,Occupied Palestinian Territory,,,disputed
-255,Occupied Palestinian territory,,,disputed
+255,Palestine,,,disputed
 255,Palestine State of,,,disputed
+255,State Of Palestine,,,disputed
 255,"Palestine, Occupied Tr.",,,disputed
 255,Paracel Islands,,,disputed
 255,Spratly Islands,,,disputed
@@ -242,15 +233,16 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 ,Bolivia (Plurinat.State),,,landlocked
 ,Bolivia (Plurinational State of),,,landlocked
 ,Bolivia Plurinational State of,,,landlocked
-,"Bolivia, Plurinational State of",,,landlocked
 ,Botswana,,,landlocked
 ,Burkina Faso,,,landlocked
 ,Burundi,,,landlocked
 ,Central African Republic,,,landlocked
 ,Chad,,,landlocked
 ,Czechia,,,landlocked
+,czech republic (czechia),,,landlocked
 ,Czech Republic,,,landlocked
 ,Czechoslovakia,,,landlocked
+,eswatini,,,landlocked
 ,Ethiopia,,,landlocked
 ,Ethiopia PDR,,,landlocked
 ,Holy See,,,landlocked
@@ -269,13 +261,13 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 ,Liechtenstein,,,landlocked
 ,Luxembourg,,,landlocked
 ,Macedonia,,,landlocked
+,North Macedonia,,,landlocked
 ,"Macedonia, Fmr Yug Rp of",,,landlocked
 ,"Macedonia, FYR",,,landlocked
 ,Malawi,,,landlocked
 ,Mali,,,landlocked
 ,Moldova,,,landlocked
 ,Moldova Republic of,,,landlocked
-,"Moldova, Republic of",,,landlocked
 ,Mongolia,,,landlocked
 ,Nepal,,,landlocked
 ,Niger,,,landlocked
@@ -291,7 +283,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 ,Switzerland,,,landlocked
 ,TFYR Macedonia,,,landlocked
 ,TFYR of Macedonia,,,landlocked
-,The former Yugoslav Republic of Macedonia,,,landlocked
 ,The Former Yugoslav Republic of Macedonia,,,landlocked
 ,Total,,,largescale
 ,Uganda,,,landlocked

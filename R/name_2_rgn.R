@@ -27,7 +27,7 @@ name_2_rgn <- function(df_in,   #df_in=empd
     dplyr::ungroup()
   
   ### attach rgn_synonyms; summarize eliminates duplicate rows (same tmp_name 
-  ### and rgn_id) - rgn type not critical?
+  ### and rgn_id)
   syns <- rgn_synonyms %>% 
     dplyr::select(rgn_id = rgn_id_2013, tmp_name = rgn_nam_2013, 
            tmp_type = rgn_typ)
@@ -44,7 +44,16 @@ name_2_rgn <- function(df_in,   #df_in=empd
   ### replace problematic symbols (accents and such) within target data frame.
   df_in <- df_in %>% 
     dplyr::mutate(tmp_name = stringr::str_trim(tmp_name),
-           tmp_name = stringr::str_replace(tmp_name, "^'", ""))
+           tmp_name = stringr::str_replace(tmp_name, "^'", "")) %>% 
+    mutate(tmp_name = stringr::str_remove(tmp_name, ",")) %>% 
+
+    
+    mutate(tmp_name = tolower(tmp_name))
+    
+  #turn all of the names to lowercase and remove commas
+  rgn_syn <- rgn_syn %>%
+    mutate(tmp_name = tolower(tmp_name)) %>% 
+    mutate(tmp_name = stringr::str_remove(tmp_name, ","))
   
   ### combine target data frame with region name data frame;
   ### filter to ones with 'eez' or 'ohi_region' in the type.  
