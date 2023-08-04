@@ -30,8 +30,9 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 21,Democratic People's Republic of Korea,KP,PRK,ohi_region
 21,"Korea, Dem. People's Rep",KP,PRK,ohi_region
 21,"Korea, Dem. People's Rep. of",KP,PRK,ohi_region
+21,"Korea, Dem. People's Rep. of",KP,PRK,ohi_region
 21,"Korea, Dem. Rep.",KP,PRK,ohi_region
-21,"Korea, Democratic People's Republic of",KP,PRK,ohi_region
+21,"korea democratic people´s republic of",KP,PRK,ohi_region
 21,Korea (North),KP,PRK,ohi_region
 21,"Korea, North",KP,PRK,ohi_region
 28,Comoros,KM,COM,ohi_region
@@ -166,6 +167,7 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 209,Hong Kong,CN,CHN,ohi_region
 209,Hong Kong (China),CN,CHN,ohi_region
 209,Hong Kong China (SAR),CN,CHN,ohi_region
+209,Hong Kong china,CN,CHN,ohi_region
 209,Hong Kong SAR,CN,CHN,ohi_region
 209,Hong Kong SAR China,CN,CHN,ohi_region
 209,"China, mainland",CN,CHN,ohi_region
@@ -173,7 +175,8 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 209,Macao SAR China,CN,CHN,ohi_region
 209,Macau,CN,CHN,ohi_region
 209,Macau (China),CN,CHN,ohi_region
-209,"Macau, China",CN,CHN,ohi_region
+209,"Macau China",CN,CHN,ohi_region
+209,"Macao China",CN,CHN,ohi_region
 209,Province of China,CN,CHN,ohi_region
 214,"Egypt, Arab Rep.",EG,EGY,ohi_region
 219,Saint Pierre and Miqelon,PM,SPM,ohi_region
