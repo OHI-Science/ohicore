@@ -30,7 +30,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 21,Democratic People's Republic of Korea,KP,PRK,ohi_region
 21,"Korea, Dem. People's Rep",KP,PRK,ohi_region
 21,"Korea, Dem. People's Rep. of",KP,PRK,ohi_region
-21,"Korea, Dem. People's Rep. of",KP,PRK,ohi_region
 21,"Korea, Dem. Rep.",KP,PRK,ohi_region
 21,"korea democratic people´s republic of",KP,PRK,ohi_region
 21,Korea (North),KP,PRK,ohi_region
@@ -107,7 +106,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 139,Venezuela (Bolivarian Republic of),VE,VEN,ohi_region
 139,Venezuela Bolivarian Republic of,VE,VEN,ohi_region
 139,"Venezuela, Boliv Rep of",VE,VEN,ohi_region
-139,"Venezuela, Boliv Rep of",VE,VEN,ohi_region
 139,"Venezuela (Boliv Rep of)",VE,VEN,ohi_region
 139,"Venezuela, RB",VE,VEN,ohi_region
 140,Guadeloupe,GX,Guadeloupe and Martinique,ohi_region
@@ -151,7 +149,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 199,Dem. Rep. of the Congo,CD,COD,ohi_region
 199,Democratic Republic of Congo,CD,COD,ohi_region
 199,Zaire,CD,COD,ohi_region
-202,Tanzania (United Republic of),TZ,TZA,ohi_region
 202,Tanzania (United Republic of),TZ,TZA,ohi_region
 202,Tanzania United Republic of,TZ,TZA,ohi_region
 202,Zanzibar,TZ,TZA,ohi_region
@@ -207,8 +204,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 83,Saint Helena/Asc./Trist.,SH,SHN,ohi_region
 76,Turkiye,TR,TUR,ohi_region
 76,Türkiye,TR,TUR,ohi_region
-,,,,
-,,,,
 ,Azerbaijan,,,landlocked
 ,"Disputed Territory (Paracel Is., Spratly Is.)",,,disputed
 ,"Australia - East Timor",,,disputed
@@ -230,7 +225,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 ,State Of Palestine,,,disputed
 ,"Palestine, Occupied Tr.",,,disputed
 ,Paracel Islands,,,disputed
-,Spratly Islands,,,disputed
 ,Tajikistan,,,landlocked
 ,Turkmenistan,,,landlocked
 ,Uzbekistan,,,landlocked

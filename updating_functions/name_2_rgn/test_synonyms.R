@@ -15,12 +15,12 @@
 #' result <- your_function(arg1_value, arg2_value)
 #' 
 #' # read in existing countries csv
-countries <- read_csv(here::here("tests/test_countries.csv"))
+countries <- read_csv(here::here("updating_functions/name_2_rgn/test_countries.csv"))
 #read in the updated synonyms csv
-rgn_master <- read_csv(here::here("data-raw/eez_rgn_2013main.csv"))
+load(here::here("data/rgn_master.rda"))
 
 #read in the region data frame
-rgn_synonyms  <- read_csv(here::here("data-raw/rgn_eez_v2013a_synonyms.csv"))
+load(file = here::here("data/rgn_synonyms.rda"))
 
 test_synonyms <- function(synonyms_list, append_synonyms = FALSE) {
   
@@ -29,11 +29,12 @@ test_synonyms <- function(synonyms_list, append_synonyms = FALSE) {
   
   # run through name_2_rgn and see if all are taken care of properly
   ohi_names <- name_2_rgn(df_in = df_in, fld_name = "country")
-  
   # append synonyms to the end of the csv if were used & relevant for future testing
   # so we ensure no updates to the function cause older fixed synonyms to become unfixed
   if (append_synonyms) {
-    write_csv(df_in, "/home/egg/personal/test_countries.csv")
+    write_csv(df_in, here::here("updating_functions/name_2_rgn/test_countries.csv"))
+    
   }
+  return(ohi_names)
   
 }
