@@ -15,17 +15,19 @@ This script can be used to update the synonyms in name_2\_rgn as well as confirm
 **1.)** Run the code below to update the synonyms list in name_2 region. If you need to delete or edit existing synonyms open \~/data_raw/rgn_eez_v2013a_synonyms.csv and manually edit the file.
 
 ```{r}
+library(tidyverse)
 load(here::here("data/rgn_master.rda"))
 
 #new synonyms, update with new synonyms
-new_synonyms <- c("Micronesia Federated States of")
+new_synonyms <- c("Netherlands (Kingdom of the",
+                  "saint helena ascension and tristan da cunha")
 
 #region ids, update with the matching region id for the synonym
 #put NA for landlocked or disputed
-region_ids <- c(9) 
+region_ids <- c(177,86) 
 
 #rgn type (must be be ohi_region, landlocked, or disputed)
-region_types <- c("ohi_region")
+region_types <- c("ohi_region", "ohi_region")
 
 #run the function to add synonyms 
 source(here::here("updating_functions/name_2_rgn/update_synonyms.R"))
