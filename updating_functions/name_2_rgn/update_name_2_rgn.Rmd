@@ -10,18 +10,19 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This script can be used to update the synonyms in name_2\_rgn as well as confirm that the update was successful. To update synonyms in name_2\_rgn follow the steps below.
+This script can be used to update the synonyms in name_2\_rgn as well as confirm that the update was successful.
 
-**1.)** Run the code below to update the synonyms list in name_2 region. If you experience issues or need to delete synonyms open \~/data_raw/rgn_eez_v2013a_synonyms.csv and manually edit the file.
+**1.)** Run the code below to update the synonyms list in name_2 region. If you need to delete or edit existing synonyms open \~/data_raw/rgn_eez_v2013a_synonyms.csv and manually edit the file.
 
 ```{r}
 load(here::here("data/rgn_master.rda"))
 
-#new synonyms
-new_synonyms <- c("Congooooo, Democratic Republic")
+#new synonyms, update with new synonyms
+new_synonyms <- c("Micronesia Federated States of")
 
-#region ids
-region_ids <- c(199)
+#region ids, update with the matching region id for the synonym
+#put NA for landlocked or disputed
+region_ids <- c(9) 
 
 #rgn type (must be be ohi_region, landlocked, or disputed)
 region_types <- c("ohi_region")
@@ -44,21 +45,17 @@ source(here::here("data_raw/data_prepare.R"))
 
 ```{r}
 #source the functions for testing the synonyms 
-source(here::here("updating_functions_documentation/name_2_rgn/test_synonyms.R"))
+source(here::here("updating_functions/name_2_rgn/test_synonyms.R"))
 
 #source the latest version of name_2_rgn
 source(here::here("R/name_2_rgn.R"))
 
-#create a list of synyonyms that you updated 
-
-synonyms <- c("Albania") #replace this with your list
 #run the test_synonyms function
 #to add the synonyms to the test data frame set append_synonyms to true, do not do this until you have confirmed they are working as expected
 
-
 #review output, confirm your synonyms were not removed for not having any match in the lookup tables 
 #review the results data frame and check that the synoynms you added were assigned to the correct region
-result <- test_synonyms(synonyms)
+results <- test_synonyms(new_synonyms)
 ```
 
 **4)** Push changes to the ohicore repository. Reinstall ohicore from the dev branch to use the updated functions.

@@ -31,7 +31,7 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 21,"Korea, Dem. People's Rep",KP,PRK,ohi_region
 21,"Korea, Dem. People's Rep. of",KP,PRK,ohi_region
 21,"Korea, Dem. Rep.",KP,PRK,ohi_region
-21,"korea democratic people´s republic of",KP,PRK,ohi_region
+21,korea democratic people´s republic of,KP,PRK,ohi_region
 21,Korea (North),KP,PRK,ohi_region
 21,"Korea, North",KP,PRK,ohi_region
 28,Comoros,KM,COM,ohi_region
@@ -106,7 +106,7 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 139,Venezuela (Bolivarian Republic of),VE,VEN,ohi_region
 139,Venezuela Bolivarian Republic of,VE,VEN,ohi_region
 139,"Venezuela, Boliv Rep of",VE,VEN,ohi_region
-139,"Venezuela (Boliv Rep of)",VE,VEN,ohi_region
+139,Venezuela (Boliv Rep of),VE,VEN,ohi_region
 139,"Venezuela, RB",VE,VEN,ohi_region
 140,Guadeloupe,GX,Guadeloupe and Martinique,ohi_region
 140,Martinique,GX,Guadeloupe and Martinique,ohi_region
@@ -172,8 +172,8 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 209,Macao SAR China,CN,CHN,ohi_region
 209,Macau,CN,CHN,ohi_region
 209,Macau (China),CN,CHN,ohi_region
-209,"Macau China",CN,CHN,ohi_region
-209,"Macao China",CN,CHN,ohi_region
+209,Macau China,CN,CHN,ohi_region
+209,Macao China,CN,CHN,ohi_region
 209,Province of China,CN,CHN,ohi_region
 214,"Egypt, Arab Rep.",EG,EGY,ohi_region
 219,Saint Pierre and Miqelon,PM,SPM,ohi_region
@@ -204,96 +204,98 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 83,Saint Helena/Asc./Trist.,SH,SHN,ohi_region
 76,Turkiye,TR,TUR,ohi_region
 76,Türkiye,TR,TUR,ohi_region
-,Azerbaijan,,,landlocked
-,"Disputed Territory (Paracel Is., Spratly Is.)",,,disputed
-,"Australia - East Timor",,,disputed
-,"Australia - Papua New Guinea",,,disputed
-,"Australia/Indonesia",,,disputed
-,"Chile/Peru",,,disputed
-,"Colombia - Jamaica",,,disputed
-,Gaza Strip,,,disputed
-,Japan - South Korea Conflict Zone,,,disputed
-,Nigeria - Sao Tome and Principe,,,disputed
-,Kazachstan,,,landlocked
-,Kazakhstan,,,landlocked
-,Occupied Palestinian Territory,,,disputed
-,Palestine,,,disputed
-,Palestine State of,,,disputed
-,Southern Kuriles,,,disputed
-,Spratly Islands,,,disputed
-,Disputed Sudan-Egypt,,,disputed
-,State Of Palestine,,,disputed
-,"Palestine, Occupied Tr.",,,disputed
-,Paracel Islands,,,disputed
-,Tajikistan,,,landlocked
-,Turkmenistan,,,landlocked
-,Uzbekistan,,,landlocked
-,West Bank,,,disputed
-,West Bank and Gaza,,,disputed
-,Afghanistan,,,landlocked
-,Andorra,,,landlocked
-,Armenia,,,landlocked
-,Austria,,,landlocked
-,Belarus,,,landlocked
-,Bhutan,,,landlocked
-,Bolivia,,,landlocked
-,Bolivia (Plurinat.State),,,landlocked
-,Bolivia (Plurinational State of),,,landlocked
-,Bolivia Plurinational State of,,,landlocked
-,Botswana,,,landlocked
-,Burkina Faso,,,landlocked
-,Burundi,,,landlocked
-,Central African Republic,,,landlocked
-,Chad,,,landlocked
-,Czechia,,,landlocked
-,czech republic (czechia),,,landlocked
-,Czech Republic,,,landlocked
-,Czechoslovakia,,,landlocked
-,eswatini,,,landlocked
-,Ethiopia,,,landlocked
-,Ethiopia PDR,,,landlocked
-,Holy See,,,landlocked
-,Holy See (Vatican City),,,landlocked
-,Holy See (Vatican),,,landlocked
-,Hungary,,,landlocked
-,Kosovo,,,landlocked
-,Kyrgyz Republic,,,landlocked
-,Kyrgyzstan,,,landlocked
-,Lao PDR,,,landlocked
-,Lao People?s Democratic Republic,,,landlocked
-,Lao People's Dem. Rep.,,,landlocked
-,Lao People's Democratic Republic,,,landlocked
-,Laos,,,landlocked
-,Lesotho,,,landlocked
-,Liechtenstein,,,landlocked
-,Luxembourg,,,landlocked
-,Macedonia,,,landlocked
-,North Macedonia,,,landlocked
-,"Macedonia, Fmr Yug Rp of",,,landlocked
-,"Macedonia, FYR",,,landlocked
-,Malawi,,,landlocked
-,Mali,,,landlocked
-,Moldova,,,landlocked
-,Moldova Republic of,,,landlocked
-,Mongolia,,,landlocked
-,Nepal,,,landlocked
-,Niger,,,landlocked
-,Paraguay,,,landlocked
-,Republic of Moldova,,,landlocked
-,Rwanda,,,landlocked
-,San Marino,,,landlocked
-,Serbia,,,landlocked
-,Slovak Republic,,,landlocked
-,Slovakia,,,landlocked
-,South Sudan,,,landlocked
-,Swaziland,,,landlocked
-,Switzerland,,,landlocked
-,TFYR Macedonia,,,landlocked
-,TFYR of Macedonia,,,landlocked
-,The Former Yugoslav Republic of Macedonia,,,landlocked
-,Total,,,largescale
-,Uganda,,,landlocked
-,Vatican,,,landlocked
-,World,,,largescale
-,Zambia,,,landlocked
-,Zimbabwe,,,landlocked
+NA,Azerbaijan,NA,NA,landlocked
+NA,"Disputed Territory (Paracel Is., Spratly Is.)",NA,NA,disputed
+NA,Australia - East Timor,NA,NA,disputed
+NA,Australia - Papua New Guinea,NA,NA,disputed
+NA,Australia/Indonesia,NA,NA,disputed
+NA,Chile/Peru,NA,NA,disputed
+NA,Colombia - Jamaica,NA,NA,disputed
+NA,Gaza Strip,NA,NA,disputed
+NA,Japan - South Korea Conflict Zone,NA,NA,disputed
+NA,Nigeria - Sao Tome and Principe,NA,NA,disputed
+NA,Kazachstan,NA,NA,landlocked
+NA,Kazakhstan,NA,NA,landlocked
+NA,Occupied Palestinian Territory,NA,NA,disputed
+NA,Palestine,NA,NA,disputed
+NA,Palestine State of,NA,NA,disputed
+NA,Southern Kuriles,NA,NA,disputed
+NA,Spratly Islands,NA,NA,disputed
+NA,Disputed Sudan-Egypt,NA,NA,disputed
+NA,State Of Palestine,NA,NA,disputed
+NA,"Palestine, Occupied Tr.",NA,NA,disputed
+NA,Paracel Islands,NA,NA,disputed
+NA,Tajikistan,NA,NA,landlocked
+NA,Turkmenistan,NA,NA,landlocked
+NA,Uzbekistan,NA,NA,landlocked
+NA,West Bank,NA,NA,disputed
+NA,West Bank and Gaza,NA,NA,disputed
+NA,Afghanistan,NA,NA,landlocked
+NA,Andorra,NA,NA,landlocked
+NA,Armenia,NA,NA,landlocked
+NA,Austria,NA,NA,landlocked
+NA,Belarus,NA,NA,landlocked
+NA,Bhutan,NA,NA,landlocked
+NA,Bolivia,NA,NA,landlocked
+NA,Bolivia (Plurinat.State),NA,NA,landlocked
+NA,Bolivia (Plurinational State of),NA,NA,landlocked
+NA,Bolivia Plurinational State of,NA,NA,landlocked
+NA,Botswana,NA,NA,landlocked
+NA,Burkina Faso,NA,NA,landlocked
+NA,Burundi,NA,NA,landlocked
+NA,Central African Republic,NA,NA,landlocked
+NA,Chad,NA,NA,landlocked
+NA,Czechia,NA,NA,landlocked
+NA,czech republic (czechia),NA,NA,landlocked
+NA,Czech Republic,NA,NA,landlocked
+NA,Czechoslovakia,NA,NA,landlocked
+NA,eswatini,NA,NA,landlocked
+NA,Ethiopia,NA,NA,landlocked
+NA,Ethiopia PDR,NA,NA,landlocked
+NA,Holy See,NA,NA,landlocked
+NA,Holy See (Vatican City),NA,NA,landlocked
+NA,Holy See (Vatican),NA,NA,landlocked
+NA,Hungary,NA,NA,landlocked
+NA,Kosovo,NA,NA,landlocked
+NA,Kyrgyz Republic,NA,NA,landlocked
+NA,Kyrgyzstan,NA,NA,landlocked
+NA,Lao PDR,NA,NA,landlocked
+NA,Lao People?s Democratic Republic,NA,NA,landlocked
+NA,Lao People's Dem. Rep.,NA,NA,landlocked
+NA,Lao People's Democratic Republic,NA,NA,landlocked
+NA,Laos,NA,NA,landlocked
+NA,Lesotho,NA,NA,landlocked
+NA,Liechtenstein,NA,NA,landlocked
+NA,Luxembourg,NA,NA,landlocked
+NA,Macedonia,NA,NA,landlocked
+NA,North Macedonia,NA,NA,landlocked
+NA,"Macedonia, Fmr Yug Rp of",NA,NA,landlocked
+NA,"Macedonia, FYR",NA,NA,landlocked
+NA,Malawi,NA,NA,landlocked
+NA,Mali,NA,NA,landlocked
+NA,Moldova,NA,NA,landlocked
+NA,Moldova Republic of,NA,NA,landlocked
+NA,Mongolia,NA,NA,landlocked
+NA,Nepal,NA,NA,landlocked
+NA,Niger,NA,NA,landlocked
+NA,Paraguay,NA,NA,landlocked
+NA,Republic of Moldova,NA,NA,landlocked
+NA,Rwanda,NA,NA,landlocked
+NA,San Marino,NA,NA,landlocked
+NA,Serbia,NA,NA,landlocked
+NA,Slovak Republic,NA,NA,landlocked
+NA,Slovakia,NA,NA,landlocked
+NA,South Sudan,NA,NA,landlocked
+NA,Swaziland,NA,NA,landlocked
+NA,Switzerland,NA,NA,landlocked
+NA,TFYR Macedonia,NA,NA,landlocked
+NA,TFYR of Macedonia,NA,NA,landlocked
+NA,The Former Yugoslav Republic of Macedonia,NA,NA,landlocked
+NA,Total,NA,NA,largescale
+NA,Uganda,NA,NA,landlocked
+NA,Vatican,NA,NA,landlocked
+NA,World,NA,NA,largescale
+NA,Zambia,NA,NA,landlocked
+NA,Zimbabwe,NA,NA,landlocked
+76,turk,TR,TUR,ohi_region
+9,Micronesia States of,FM,FSM,ohi_region

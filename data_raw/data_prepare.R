@@ -4,11 +4,11 @@
 
 library(devtools)
 
-rgn_synonyms <- read.csv('data_raw/rgn_eez_v2013a_synonyms.csv', na = "", stringsAsFactors = FALSE)
+rgn_synonyms <- read_csv('data_raw/rgn_eez_v2013a_synonyms.csv')
 usethis::use_data(rgn_synonyms, overwrite = TRUE)
 
 
-rgn_master <- read.csv('data_raw/eez_rgn_2013main.csv', na = "", stringsAsFactors = FALSE)
+rgn_master <- read_csv('data_raw/eez_rgn_2013main.csv')
 usethis::use_data(rgn_master, overwrite = TRUE)
 
 ## The following have not been updated, will do this when I figure out how they are used.
