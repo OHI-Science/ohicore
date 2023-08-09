@@ -23,7 +23,7 @@ update_synonyms <- function(synonyms_list, region_id_list, rgn_type_list) {
     left_join(rgn_master, by ="rgn_id_2013")
   
   cat("\nConfirm these are the correct region names for your synonyms:\n")
-  print(table(name_check$rgn_nam_2013.y))
+  print(name_check$rgn_nam_2013.y)
   
   confirmation <- readline("Add these synonyms? (yes/no): ") 
   
@@ -46,7 +46,7 @@ update_synonyms <- function(synonyms_list, region_id_list, rgn_type_list) {
     if (nrow(final_synonyms_test) > 0) {
       print("Duplicates detected, synonyms were not added.")
     } else if (!all(rgn_data$rgn_typ %in% valid_values)) {
-      print("Invalid rgion type")
+      print("Invalid region type")
     } else {
       write_csv(final_synonyms, here::here("data_raw/rgn_eez_v2013a_synonyms.csv"))
       print("Synonyms Added")

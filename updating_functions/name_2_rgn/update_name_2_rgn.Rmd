@@ -20,14 +20,15 @@ load(here::here("data/rgn_master.rda"))
 
 #new synonyms, update with new synonyms
 new_synonyms <- c("Netherlands (Kingdom of the",
-                  "saint helena ascension and tristan da cunha")
+                  "saint helena ascension and tristan da cunha",
+                  "Saint Helena/Asc./Trist.")
 
 #region ids, update with the matching region id for the synonym
 #put NA for landlocked or disputed
-region_ids <- c(177,86) 
+region_ids <- c(177,86, 86) 
 
 #rgn type (must be be ohi_region, landlocked, or disputed)
-region_types <- c("ohi_region", "ohi_region")
+region_types <- c("ohi_region", "ohi_region", "ohi_region")
 
 #run the function to add synonyms 
 source(here::here("updating_functions/name_2_rgn/update_synonyms.R"))
@@ -57,6 +58,8 @@ source(here::here("R/name_2_rgn.R"))
 
 #review output, confirm your synonyms were not removed for not having any match in the lookup tables 
 #review the results data frame and check that the synoynms you added were assigned to the correct region
+
+
 results <- test_synonyms(new_synonyms)
 ```
 
