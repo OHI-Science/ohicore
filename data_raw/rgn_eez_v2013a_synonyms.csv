@@ -200,7 +200,6 @@ rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
 245,Netherlands - Bonaire,BO,BQ,ohi_region
 247,Brunei Darussalam,BN,BRN,ohi_region
 249,Sint Eustasius,EQ,Sint-Eustasius,ohi_region
-86,Saint Helena/Asc./Trist.,SH,SHN,ohi_region
 76,Turkiye,TR,TUR,ohi_region
 76,Türkiye,TR,TUR,ohi_region
 NA,Azerbaijan,NA,NA,landlocked
@@ -297,4 +296,3 @@ NA,World,NA,NA,largescale
 NA,Zambia,NA,NA,landlocked
 NA,Zimbabwe,NA,NA,landlocked
 177,Netherlands (Kingdom of the),NL,NLD,ohi_region
-86,saint helena ascension and tristan da cunha,SH,SHN,ohi_region
