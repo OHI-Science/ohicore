@@ -5,7 +5,6 @@ update_synonyms <- function(synonyms_list, region_id_list, rgn_type_list) {
  
 
   #make them into a data frame
-  
   rgn_data <- tibble(rgn_id_2013 = region_id_list, rgn_nam_2013 = synonyms_list,
   rgn_typ = rgn_type_list)   
   
@@ -42,11 +41,14 @@ update_synonyms <- function(synonyms_list, region_id_list, rgn_type_list) {
       group_by(rgn_nam_2013) %>% 
       summarize(n=n()) %>% filter(n >1)
     
+    invalid_rgn_types <- rgn_data$rgn_typ[rgn_data$rgn_typ %in% c("landlocked", "disputed")]
     
     if (nrow(final_synonyms_test) > 0) {
       print("Duplicates detected, synonyms were not added.")
     } else if (!all(rgn_data$rgn_typ %in% valid_values)) {
       print("Invalid region type")
+    } else if (length(invalid_rgn_types) > 0 && any(!is.na(rgn_data$rgn_id_2013[rgn_data$rgn_typ %in% invalid_rgn_types]))) {
+      cat("rgn_id should be NA for landlocked or disputed regions.\n")
     } else {
       write_csv(final_synonyms, here::here("data_raw/rgn_eez_v2013a_synonyms.csv"))
       print("Synonyms Added")
