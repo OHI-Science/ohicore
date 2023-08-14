@@ -10,7 +10,7 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This script can be used to update the synonyms in name_2\_rgn as well as confirm that the update was successful.
+This script can be used to update the synonyms in name_2_rgn as well as confirm that the update was successful.
 
 **1.)** Run the code below to update the synonyms list in name_2 region. If you need to delete or edit existing synonyms open \~/data_raw/rgn_eez_v2013a_synonyms.csv and manually edit the file.
 
@@ -19,7 +19,7 @@ library(tidyverse)
 load(here::here("data/rgn_master.rda"))
 
 #new synonyms, update with new synonyms
-new_synonyms <- c("Netherlands (Kingdom of the",
+new_synonyms <- c("Netherlands (Kingdom of the)",
                   "saint helena ascension and tristan da cunha",
                   "Saint Helena/Asc./Trist.")
 
@@ -44,7 +44,7 @@ source(here::here("data_raw/data_prepare.R"))
 
 **3)** Confirm that the update was successful
 
--   If you experience unexpected issues when testing the update, you may need to update the name_2\_rgn function stored in the R folder.
+-   If you experience unexpected issues when testing the update, you may need to update the name_2_rgn function stored in the R folder.
 
 ```{r}
 #source the functions for testing the synonyms 
@@ -57,10 +57,10 @@ source(here::here("R/name_2_rgn.R"))
 #to add the synonyms to the test data frame set append_synonyms to true, do not do this until you have confirmed they are working as expected
 
 #review output, confirm your synonyms were not removed for not having any match in the lookup tables 
-#review the results data frame and check that the synoynms you added were assigned to the correct region
+#review the results data frame and check that the synoynms you added were assigned to the correct region. 
 
 
 results <- test_synonyms(new_synonyms)
 ```
 
-**4)** Push changes to the ohicore repository. Reinstall ohicore from the dev branch to use the updated functions.
+**4)** Push changes to the ohicore repository. Reinstall ohicore from the dev branch to use the updated function.
