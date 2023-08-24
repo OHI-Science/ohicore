@@ -1,0 +1,25 @@
+country,associated_non_ohi_region,population,source,data_year,notes
+Bonaire,Netherlands Antilles,22573,https://www.cbs.nl/en-gb/figures/detail/84712ENG?dl=88B72,2022,
+Aruba,Netherlands Antilles,106440,https://data.worldbank.org/indicator/SP.POP.TOTL,2022,
+Curacao,Netherlands Antilles,150000,https://data.worldbank.org/indicator/SP.POP.TOTL,2022,
+Sint Eustatius,Netherlands Antilles,3242,https://www.cbs.nl/en-gb/figures/detail/84712ENG?dl=88B72,2022,
+Sint Maarten,Netherlands Antilles,43390,https://data.worldbank.org/indicator/SP.POP.TOTL,2022,
+Saba,Netherlands Antilles,1911,https://www.cbs.nl/en-gb/figures/detail/84712ENG?dl=88B72,2022,
+Tristan da Cunha,Saint Helena/Asc./Trist.,245,https://www.un.org/dppa/decolonization/en/nsgt/saint-helena,2021,this 2021 data had the clearest breakdown of population between the islands
+Saint Helena,Saint Helena/Asc./Trist.,4439,https://www.un.org/dppa/decolonization/en/nsgt/saint-helena,2021,this 2021 data had the clearest breakdown of population between the islands
+Ascension,Saint Helena/Asc./Trist.,937,https://www.un.org/dppa/decolonization/en/nsgt/saint-helena,2021,this 2021 data had the clearest breakdown of population between the islands
+Guernsey,Channel Islands,64234,"https://www.gov.gg/population#:~:text=On%2030th%20September%202022%2C%20Guernsey%27s,year%20ending%2030th%20September%202022.",2022,
+Jersey,Channel Islands,107800,https://datareportal.com/reports/digital-2022-jersey,2022,"census data for 2021 also available: https://www.gov.je/StatisticsPerformance/Population/pages/census2021results.aspx#:~:text=The%20total%20resident%20population%20of,were%20present%20on%20Census%20Day"
+Wake Island,United States Minor Outlying Islands,100,https://worldpopulationreview.com/regions/wake-island-population,2023,"technically uninhabited, but has about 100 workers at any given time"
+Jarvis Island,United States Minor Outlying Islands,0,https://www.britannica.com/place/Jarvis-Island,2023,"uninhabited, so no population as of 2023"
+Palmyra Atoll,United States Minor Outlying Islands,0,https://www.britannica.com/place/Palmyra-Atoll,2023,"uninhabited, so no population as of 2023"
+Holland Island and Baker Island,United States Minor Outlying Islands,0,https://www.britannica.com/place/Howland-Island; https://www.britannica.com/place/Baker-Island,2023,"uninhabited, so no population as of 2023"
+Johnston Atoll,United States Minor Outlying Islands,0,https://www.britannica.com/place/Johnston-Atoll,2023,"uninhabited, so no population as of 2023"
+Glorioso Islands,French Southern Territories,0,https://www.indexmundi.com/glorioso_islands/population.html,2023,"uninhabited, so no population as of 2023"
+Juan de Nova Island,French Southern Territories,0,https://www.cia.gov/the-world-factbook/countries/french-southern-and-antarctic-lands/,2023,"states a small French military garrison and a few meteorologists inhabit, but for our purposes we will call this 0/uninhabited as of 2023"
+Bassas da India,French Southern Territories,0,https://www.cia.gov/the-world-factbook/countries/french-southern-and-antarctic-lands/,2023,considered uninhabitable as of 2023
+Ile Europa,French Southern Territories,0,https://www.cia.gov/the-world-factbook/countries/french-southern-and-antarctic-lands/,2023,"states a small French military garrison and a few meteorologists inhabit, but for our purposes we will call this 0/uninhabited as of 2023"
+Ile Tromelin,French Southern Territories,0,https://www.cia.gov/the-world-factbook/countries/french-southern-and-antarctic-lands/,2023,"some scientists visit, but uninhabited"
+Crozet Islands,French Southern Territories,24,https://www.cia.gov/the-world-factbook/countries/french-southern-and-antarctic-lands/,2023,"uninhabited, but 18 to 30 people staffing the Alfred Faure research station, using the average of this"
+Amsterdam Island and Saint Paul Island,French Southern Territories,0,https://www.cia.gov/the-world-factbook/countries/french-southern-and-antarctic-lands/,2023,"uninhabited, but has meteorological station, visits by fishermen and scientists, but for our purposes we will call this 0/uninhabited as of 2023"
+Kerguelen Islands,French Southern Territories,75,https://www.cia.gov/the-world-factbook/countries/french-southern-and-antarctic-lands/,2023,"technically uninhabited, 50 to 100 personnel at any given time as of 2023, using the average of this"

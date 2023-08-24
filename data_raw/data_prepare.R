@@ -3,10 +3,10 @@
 ### eventually this will have its own package ('rohiprep')
 
 library(devtools)
+library(tidyverse)
 
 rgn_synonyms <- read_csv('data_raw/rgn_eez_v2013a_synonyms.csv')
 usethis::use_data(rgn_synonyms, overwrite = TRUE)
-
 
 rgn_master <- read_csv('data_raw/eez_rgn_2013main.csv')
 usethis::use_data(rgn_master, overwrite = TRUE)
@@ -26,4 +26,5 @@ usethis::use_data(sovregion_labels, overwrite = TRUE)
 sovregions <- read.csv('data_raw/sovregions.csv')
 usethis::use_data(sovregions, overwrite = TRUE)
 
-
+split_pops <- read_csv('data_raw/split_pops.csv')
+usethis::use_data(split_pops, overwrite = TRUE)
