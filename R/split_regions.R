@@ -6,10 +6,11 @@
 ### The population weights are pulled from a CSV with populations for each OHI region in question (often small islands).
 ### The decision was made that when a dataset contains both a macro-region and a sub-region that the sub-region's data will be calculated by
 ### summing the population weight of the macro region and the record for the region together. This is an imperfect solution; however, we believe it to be the best solution.
+### The duplicate argument is used when the values should not be split up or subdevided between the new regions created such as when calculating sustainability scores. 
 
 library(tidyverse)
 
-region_split <- function(m, country_column = "country", value_column = "value") {
+region_split <- function(m, country_column = "country", value_column = "value", duplicate = FALSE) {
   
   # List of macro-regions to break down
   split_details <- list(
@@ -51,7 +52,7 @@ region_split <- function(m, country_column = "country", value_column = "value") 
       # Calculate area weights for the regions
       area_weights <- population %>%
         filter(country %in% regions) %>%
-        mutate(weight = population / pop_sum) %>%
+        mutate(weight = ifelse(duplicate, 1, population / pop_sum)) %>% # Conditionally set weight
         select(country, weight) %>%
         mutate(id = row_number()) 
       
@@ -69,14 +70,23 @@ region_split <- function(m, country_column = "country", value_column = "value") 
         filter(!(country %in% country_name)) %>%
         rbind(m_new)
       
-      # Sum duplicates
-      m <- m %>%
-        group_by(country, commodity, year, product) %>%
-        summarize(value = case_when(all(is.na(value)) ~ NA,
-                                    TRUE ~ sum(value, na.rm = TRUE))) %>%
-        ungroup()
+      # Sum duplicate rows if duplicate is False
+      if (!duplicate) {
+        m <- m %>%
+          group_by(country, commodity, year, product) %>%
+          summarize(value = case_when(all(is.na(value)) ~ NA,
+                                      TRUE ~ sum(value, na.rm = TRUE))) %>%
+          ungroup()
+        
+        # Remove duplicates if duplicate is True
+      } else {
+        
+        # Remove duplicates
+        m <- m[!duplicated(m), ]
+        
+      } # End duplicate if statement
       
-    } # End if statement
+    } # End country if statement
     
   } # End for loop
   
@@ -87,8 +97,7 @@ region_split <- function(m, country_column = "country", value_column = "value") 
   # Return the new data frame
   return(m)
   
-} # End function  
-
+} # End function 
   
   
   
