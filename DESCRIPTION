@@ -25,7 +25,8 @@ Imports:
     tidyr,
     RColorBrewer,
     htmlwidgets,
-    here
+    here,
+    rlang
 Suggests:
     knitr,
     rmarkdown
