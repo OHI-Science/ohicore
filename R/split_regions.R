@@ -52,7 +52,7 @@ region_split <- function(m, country_column = "country", value_column = "value", 
   
   # Rename data frame columns
   m <- m %>%
-    rename(country = paste0(country_column), value = paste0(value_column))
+    rename(paste0(country_column) = country, paste0(value_column) = value)
   
   # Load population weighting data
   population <- split_pops
@@ -117,8 +117,4 @@ region_split <- function(m, country_column = "country", value_column = "value", 
   # Return the new data frame
   return(m)
   
-} # End function 
-  
-  
-  
-  
+} # End function
