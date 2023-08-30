@@ -1,12 +1,32 @@
-### This function takes datesets that have country records that contain multiple OHI regions (macro-regions). 
-### This is a common occurrence and there are many different combinations of country records that hold multiple OHI regions.
-### This function attempts to account for all currently known versions of this; however, future OHI prepers may need to update this function to account for new cases.
-### The function works by checking for common country names that often contain multiple OHI regions and then breaks those countries into OHI regions.
-### Each new OHI Region's data is filled by a population weighting of the data value column.
-### The population weights are pulled from a CSV with populations for each OHI region in question (often small islands).
-### The decision was made that when a dataset contains both a macro-region and a sub-region that the sub-region's data will be calculated by
-### summing the population weight of the macro region and the record for the region together. This is an imperfect solution; however, we believe it to be the best solution.
-### The duplicate argument is used when the values should not be split up or subdevided between the new regions created such as when calculating sustainability scores. 
+#' Split Macro-Regions to OHI Regions
+#' 
+#' This function takes datasets containing country records that include multiple OHI regions 
+#' (macro-regions) and breaks them down into individual OHI regions. It uses population-weighted
+#' values to distribute data across the new regions. When a dataset contains both a macro-region 
+#' and a sub-region, the sub-region's data is calculated by summing the population weight of the 
+#' macro region and the record for the region. 
+#'
+#' @param m The input dataset containing countries and associated values.
+#' @param country_column The column name in the dataset `m` representing the countries. Defaults to "country".
+#' @param value_column The column name in the dataset `m` representing the values associated with each country. Defaults to "value".
+#' @param duplicate A logical value. If TRUE, the values will not be split between new regions, e.g., when calculating sustainability scores. Defaults to FALSE.
+#' 
+#' @details The function is built to recognize common macro-region names and their corresponding OHI regions. 
+#' It's imperative for users to be aware that this function might require updates if new macro-regions 
+#' or changes to OHI regions occur in the future.
+#'
+#' Population data is used to weight the values for each newly split region. This data must be provided
+#' in the `split_pops` data frame (external to this function). If `duplicate` is set to TRUE, values are 
+#' not divided among regions but duplicated instead.
+#'
+#' @return A dataset with macro-regions split into individual OHI regions.
+#' 
+#' @examples 
+#' # This assumes existence of a dataset similar in structure to expected input and `split_pops`
+#' # updated_data <- region_split(original_data)
+#'
+#' @keywords ohi, macro-region, split
+#' @export
 
 library(tidyverse)
 

@@ -28,3 +28,4 @@ usethis::use_data(sovregions, overwrite = TRUE)
 
 split_pops <- read_csv('data_raw/split_pops.csv')
 usethis::use_data(split_pops, overwrite = TRUE)
+
