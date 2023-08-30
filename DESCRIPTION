@@ -57,6 +57,7 @@ Collate:
     'rgn_eez_area.R'
     'sovregion_labels.R'
     'sovregions.R'
+    'split_regions.R'
 URL: https://github.com/OHI-Science/ohicore
 BugReports: https://github.com/OHI-Science/ohicore/issues
 LazyData: TRUE
