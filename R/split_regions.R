@@ -112,7 +112,7 @@ region_split <- function(m, country_column = "country", value_column = "value", 
   
   # Rename columns to match data frame input
   m <- m %>%
-    rename(paste0(country_column) = country, paste0(value_column) = value)
+    rename(!!country_column := country, !!value_column := value)
   
   # Return the new data frame
   return(m)
