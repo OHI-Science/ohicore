@@ -28,9 +28,7 @@
 #' @keywords ohi, macro-region, split
 #' @export
 
-library(tidyverse)
-
-region_split <- function(m, country_column = "country", value_column = "value", duplicate = FALSE) {
+split_regions <- function(m, country_column = "country", value_column = "value", duplicate = FALSE) {
   
   # List of macro-regions to break down
   split_details <- list(
