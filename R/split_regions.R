@@ -90,8 +90,10 @@ split_regions <- function(m, country_column = "country", value_column = "value",
       
       # Sum duplicate rows if duplicate is False
       if (!duplicate) {
+        grouping_vars <- setdiff(names(m), "value")
+        
         m <- m %>%
-          group_by(country, commodity, year, product) %>%
+          group_by(across(all_of(grouping_vars))) %>%
           summarize(value = case_when(all(is.na(value)) ~ NA,
                                       TRUE ~ sum(value, na.rm = TRUE))) %>%
           ungroup()
