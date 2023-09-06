@@ -19,16 +19,18 @@ library(tidyverse)
 load(here::here("data/rgn_master.rda"))
 
 #new synonyms, update with new synonyms
-new_synonyms <- c("Netherlands (Kingdom of the)",
-                  "saint helena ascension and tristan da cunha",
-                  "Saint Helena/Asc./Trist.")
+new_synonyms <- c("congo - brazzaville",
+                  "congo - kinshasa",
+                  "myanmar (burma)",
+                  "st. vincent and grenadines",
+                  "u.s. virgin islands")
 
 #region ids, update with the matching region id for the synonym
 #put NA for landlocked or disputed
-region_ids <- c(177,86, 86) 
+region_ids <- c(100,199, 205, 127, 116) 
 
 #rgn type (must be be ohi_region, landlocked, or disputed)
-region_types <- c("ohi_region", "ohi_region", "ohi_region")
+region_types <- c("ohi_region", "ohi_region", "ohi_region", "ohi_region", "ohi_region")
 
 #run the function to add synonyms 
 source(here::here("updating_functions/name_2_rgn/update_synonyms.R"))
