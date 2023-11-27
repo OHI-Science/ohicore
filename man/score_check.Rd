@@ -4,9 +4,15 @@
 \alias{score_check}
 \title{score_check}
 \usage{
-score_check(scenario_year, commit = "previous", file_name,
-  scenario_name = "eez", save_csv = FALSE, save_png = FALSE,
-  NA_compare = TRUE)
+score_check(
+  scenario_year,
+  commit = "previous",
+  file_name,
+  scenario_name = "eez",
+  save_csv = FALSE,
+  save_png = FALSE,
+  NA_compare = TRUE
+)
 }
 \arguments{
 \item{scenario_year}{if there are multiple scenario years with an assessment, choose the year of interest}

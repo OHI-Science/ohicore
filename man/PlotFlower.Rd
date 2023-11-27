@@ -6,10 +6,16 @@
 By Casey O'Hara, Julia Lowndes, Melanie Frazier github.com/ohi-science
 Assumes the following is present:}
 \usage{
-PlotFlower(region_plot = NA, year_plot = NA,
-  assessment_name = "Average", scenario_folder = "eez",
-  scores_file = "scores.csv", dir_fig_save = file.path(scenario_folder,
-  "reports/figures"), legend_include = TRUE, save = TRUE)
+PlotFlower(
+  region_plot = NA,
+  year_plot = NA,
+  assessment_name = "Average",
+  scenario_folder = "eez",
+  scores_file = "scores.csv",
+  dir_fig_save = file.path(scenario_folder, "reports/figures"),
+  legend_include = TRUE,
+  save = TRUE
+)
 }
 \arguments{
 \item{region_plot}{region_id/s to plot (i.e., region_plot = c(1,4,8)), defaults to plotting all regions plus the 
@@ -34,8 +40,4 @@ goal/subgoal names used for plotting
 the contribution of the fisheries and mariculture subgoals to the food provision goal; this
 information determines the relative width of these two subgoals in the flowerplot;
 if not available, these subgoals will have equal widths.
-}
-\examples{
-
-
 }

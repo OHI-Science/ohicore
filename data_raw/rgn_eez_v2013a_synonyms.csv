@@ -1,0 +1,303 @@
+rgn_id_2013,rgn_nam_2013,rgn_key_2013,eez_iso3,rgn_typ
+1,Cocos (Keeling) Islands,CC,CCK,ohi_region
+7,British Solomon Islands,SB,SLB,ohi_region
+9,Federated State of Micronesia,FM,FSM,ohi_region
+9,"Micronesia, FS",FM,FSM,ohi_region
+9,Micronesia (Fed. States of),FM,FSM,ohi_region
+9,Micronesia (Federated States of),FM,FSM,ohi_region
+9,Micronesia (Fed. States),FM,FSM,ohi_region
+9,Micronesia Federated States of,FM,FSM,ohi_region
+9,"Micronesia, Fed. States of",FM,FSM,ohi_region
+9,"Micronesia, Fed. Sts.",FM,FSM,ohi_region
+9,"Micronesia, Fed.States of",FM,FSM,ohi_region
+12,United States Minor Outlying Islands (Wake Is.),WI,Wake Island,ohi_region
+13,Guam,MP,MNP,ohi_region
+13,N. Mariana Islands,MP,MNP,ohi_region
+13,Northern Mariana Is.,MP,MNP,ohi_region
+13,Northern Mariana Islands,MP,MNP,ohi_region
+14,"China, Taiwan Province of",TW,TWN,ohi_region
+14,Taiwan (China),TW,TWN,ohi_region
+14,Taiwan Province of China,TW,TWN,ohi_region
+14,"Taiwan, China",TW,TWN,ohi_region
+18,"Fiji, Republic of",FJ,FJI,ohi_region
+20,"Korea, South",KR,KOR,ohi_region
+20,"Korea, South (Republic of Korea)",KR,KOR,ohi_region
+20,Korea Republic of,KR,KOR,ohi_region
+20,"Korea, Rep.",KR,KOR,ohi_region
+20,Republic of Korea,KR,KOR,ohi_region
+20,Korea (Republic of),KR,KOR,ohi_region
+21,"Korea, Dem. People's Rep.",KP,PRK,ohi_region
+21,Democratic People's Republic of Korea,KP,PRK,ohi_region
+21,"Korea, Dem. People's Rep",KP,PRK,ohi_region
+21,"Korea, Dem. People's Rep. of",KP,PRK,ohi_region
+21,"Korea, Dem. Rep.",KP,PRK,ohi_region
+21,korea democratic people´s republic of,KP,PRK,ohi_region
+21,Korea (North),KP,PRK,ohi_region
+21,"Korea, North",KP,PRK,ohi_region
+28,Comoros,KM,COM,ohi_region
+32,R.+union,RE,REU,ohi_region
+32,R_union,RE,REU,ohi_region
+32,Reunion,RE,REU,ohi_region
+32,Réunion,RE,REU,ohi_region
+37,British Indian Ocean Territory (Chagos Archipelago),MU,MUS,ohi_region
+39,"Maldives, Republic of",MV,MDV,ohi_region
+42,Madagasca,MG,MDG,ohi_region
+47,"Yemen, Rep.",YE,YEM,ohi_region
+49,Sudan (former),SD,SDN,ohi_region
+56,Cabo Verde,CV,CPV,ohi_region
+62,Morocco (includes Western Sahara),MA,MAR,ohi_region
+65,"Gambia, The",GM,GMB,ohi_region
+65,The Gambia,GM,GMB,ohi_region
+67,Libyan Arab Jamahiriya,LY,LBY,ohi_region
+73,Russian Federation,RU,RUS,ohi_region
+73,Russian Federation (before 9.91: USSR),RU,RUS,ohi_region
+73,Un. Sov. Soc. Rep.,RU,RUS,ohi_region
+77,Syrian Arab Republic,SY,SYR,ohi_region
+89,South Georgia and South Sandwich Islands,GS,SGS,ohi_region
+94,Heard Island and McDonald Islands,HM,HMD,ohi_region
+95,Falkland Is.(Malvinas),FK,FLK,ohi_region
+95,Falkland Islands (Islas Malvinas),FK,FLK,ohi_region
+95,Falkland Islands (Malvinas),FK,FLK,ohi_region
+100,Congo,CG,COG,ohi_region
+100,Congo Rep of,CG,COG,ohi_region
+100,Republic of Congo,CG,COG,ohi_region
+100,"Congo, R.+publique du",CG,COG,ohi_region
+100,"Congo, R_publique du",CG,COG,ohi_region
+100,"Congo, Rep.",CG,COG,ohi_region
+100,"Congo, Republic of",CG,COG,ohi_region
+100,"Congo, Republic of the",CG,COG,ohi_region
+100,R.+publique du Congo,CG,COG,ohi_region
+100,R_publique du Congo,CG,COG,ohi_region
+100,"Congo, Republique du",CG,COG,ohi_region
+103,S.+Principe,ST,STP,ohi_region
+110,Bahamas (The),BS,BHS,ohi_region
+110,"Bahamas, The",BS,BHS,ohi_region
+110,The Bahamas,BS,BHS,ohi_region
+111,Turks and Caicos Is.,TC,TCA,ohi_region
+116,Puerto Rico,PR,PRI,ohi_region
+116,United States Virgin Islands,PR,PRI,ohi_region
+116,USVI,PR,PRI,ohi_region
+116,US Virgin Islands,PR,PRI,ohi_region
+116,Virgin Islands,PR,PRI,ohi_region
+116,Virgin Islands (U.S.),PR,PRI,ohi_region
+116,Virgin Islands (US),PR,PRI,ohi_region
+116,"Virgin Islands, U.S.",PR,PRI,ohi_region
+117,UK Virgin Islands,VG,VGB,ohi_region
+117,Virgin Islands (British),VG,VGB,ohi_region
+117,"Virgin Islands, British",VG,VGB,ohi_region
+119,Saint Kitts &amp Nevis,KN,KNA,ohi_region
+119,St Kitts and Nevis,KN,KNA,ohi_region
+119,St. Kitts & Nevis,KN,KNA,ohi_region
+119,St. Kitts and Nevis,KN,KNA,ohi_region
+120,Antigua & Barbuda,AG,ATG,ohi_region
+122,St Lucia,LC,LCA,ohi_region
+122,St. Lucia,LC,LCA,ohi_region
+123,Commonwealth of Dominica,DM,DOM,ohi_region
+126,Trinidad & Tobago,TT,TTO,ohi_region
+126,Trinidad &amp Tobago,TT,TTO,ohi_region
+127,Saint Vincent &amp the Grenadines,VC,VCT,ohi_region
+127,Saint Vincent/Grenadines,VC,VCT,ohi_region
+127,St Vincent and the Grenadines,VC,VCT,ohi_region
+127,St. Vincent & the Grenadines,VC,VCT,ohi_region
+127,St.Vincent & Grenadines,VC,VCT,ohi_region
+127,St. Vincent and the Grenadines,VC,VCT,ohi_region
+137,Ecuador,EC,ECU,ohi_region
+137,Galapagos,EC,ECU,ohi_region
+139,Venezuela (Bolivarian Republic of),VE,VEN,ohi_region
+139,Venezuela Bolivarian Republic of,VE,VEN,ohi_region
+139,"Venezuela, Boliv Rep of",VE,VEN,ohi_region
+139,Venezuela (Boliv Rep of),VE,VEN,ohi_region
+139,"Venezuela, RB",VE,VEN,ohi_region
+140,Guadeloupe,GX,Guadeloupe and Martinique,ohi_region
+140,Martinique,GX,Guadeloupe and Martinique,ohi_region
+141,Faroe Islands,FO,FRO,ohi_region
+144,Svalbard and Jan Mayen,SJ,SJM,ohi_region
+144,Svalbard and Jan Mayen Islands,SJ,SJM,ohi_region
+146,Pitcairn Islands,PN,PCN,ohi_region
+147,French Polynesia (Tuamotu),PF,PYF,ohi_region
+158,Howland Island,HB,Howland Island and Baker Island,ohi_region
+161,Wallis and Futuna Islands,WF,WLF,ohi_region
+161,Wallis and Futuna Is.,WF,WLF,ohi_region
+163,United States of America,US,USA,ohi_region
+167,British Guyana,GY,GUY,ohi_region
+168,Surinam,SR,SUR,ohi_region
+169,French Guyana,GF,GUF,ohi_region
+171,Brazil,BR,BRA,ohi_region
+171,Trinidade,BR,BRA,ohi_region
+180,UK,GB,GBR,ohi_region
+180,United Kingdom of Great Britain and Northern Ireland,GB,GBR,ohi_region
+186,Serbia and Montenegro,ME,SCG,ohi_region
+191,Iran (Islamic Rep. of),IR,IRN,ohi_region
+191,Iran (Islamic Republic of),IR,IRN,ohi_region
+191,"Iran, Islamic Rep.",IR,IRN,ohi_region
+191,"Iran, Islamic Republic of",IR,IRN,ohi_region
+193,Guinea-Bissau,GW,GNB,ohi_region
+195,C.+voire,CI,CIV,ohi_region
+195,Cote d'Ivoire,CI,CIV,ohi_region
+195,Côte d’Ivoire,CI,CIV,ohi_region
+195,Cote d'ivorie,CI,CIV,ohi_region
+199,Congo (Democratic Republic of the),CD,COD,ohi_region
+199,"Congo, Dem. Rep.",CD,COD,ohi_region
+199,"Congo, Dem. Rep. of the",CD,COD,ohi_region
+199,"Congo, Dem rep. of",CD,COD,ohi_region
+199,"Congo, Democratic Republic",CD,COD,ohi_region
+199,"Congo, Democratic Republic of the",CD,COD,ohi_region
+199,"Congo, Democratic Republic of",CD,COD,ohi_region
+199,"Congo, The Democratic Republic of the",CD,COD,ohi_region
+199,Dem. Rep. Congo,CD,COD,ohi_region
+199,"Congo, DR",CD,COD,ohi_region
+199,Dem. Rep. of the Congo,CD,COD,ohi_region
+199,Democratic Republic of Congo,CD,COD,ohi_region
+199,Zaire,CD,COD,ohi_region
+202,Tanzania (United Republic of),TZ,TZA,ohi_region
+202,Tanzania United Republic of,TZ,TZA,ohi_region
+202,Zanzibar,TZ,TZA,ohi_region
+202,"Tanzania, United Rep. of",TZ,TZA,ohi_region
+202,United Rep. of Tanzania,TZ,TZA,ohi_region
+202,United Republic of Tanzania,TZ,TZA,ohi_region
+202,"United Republic of Tanzania, Zanzibar",TZ,TZA,ohi_region
+205,Burma/Myanmar,MM,MMR,ohi_region
+205,Burma,MM,MMR,ohi_region
+207,Viet Nam,VN,VNM,ohi_region
+209,"China, Hong Kong SAR",CN,CHN,ohi_region
+209,"China, Macao SAR",CN,CHN,ohi_region
+209,Hong Kong,CN,CHN,ohi_region
+209,Hong Kong (China),CN,CHN,ohi_region
+209,Hong Kong China (SAR),CN,CHN,ohi_region
+209,Hong Kong china,CN,CHN,ohi_region
+209,Hong Kong SAR,CN,CHN,ohi_region
+209,Hong Kong SAR China,CN,CHN,ohi_region
+209,"China, mainland",CN,CHN,ohi_region
+209,Macao,CN,CHN,ohi_region
+209,Macao SAR China,CN,CHN,ohi_region
+209,Macau,CN,CHN,ohi_region
+209,Macau (China),CN,CHN,ohi_region
+209,Macau China,CN,CHN,ohi_region
+209,Macao China,CN,CHN,ohi_region
+209,Province of China,CN,CHN,ohi_region
+214,"Egypt, Arab Rep.",EG,EGY,ohi_region
+219,Saint Pierre and Miqelon,PM,SPM,ohi_region
+219,St Pierre and Miquelon,PM,SPM,ohi_region
+219,St. Pierre and Miquelon,PM,SPM,ohi_region
+219,Saint Pierre,PM,SPM,ohi_region
+220,Saint Maarten (Dutch West Indies),SX,Southern Saint-Martin,ohi_region
+220,Sint Maarten,SX,Southern Saint-Martin,ohi_region
+220,Sint Maarten (Dutch part),SX,Southern Saint-Martin,ohi_region
+220,"Sint Maarten, Dutch West Indies",SX,Southern Saint-Martin,ohi_region
+220,"Saint Maarten, DWI",SX,Southern Saint-Martin,ohi_region
+221,Northern Saint Martin,MF,Saint Martin,ohi_region
+221,Saint Martin (French Part),MF,Saint Martin,ohi_region
+221,Saint Martin,MF,Saint Martin,ohi_region
+221,St. Martin (French part),MF,Saint Martin,ohi_region
+224,Chile,CL,CHL,ohi_region
+224,Easter Island,CL,CHL,ohi_region
+231,Timor-Leste,TL,TLS,ohi_region
+232,Bosnia-Herzegovina,BA,BIH,ohi_region
+232,Bosnia Herzegovina,BA,BIH,ohi_region
+244,Curacao,CW,CUW,ohi_region
+244,Curaçao,CW,CUW,ohi_region
+244,Cura.+ao,CW,CUW,ohi_region
+245,Netherlands - Bonaire,BO,BQ,ohi_region
+247,Brunei Darussalam,BN,BRN,ohi_region
+249,Sint Eustasius,EQ,Sint-Eustasius,ohi_region
+76,Turkiye,TR,TUR,ohi_region
+76,Türkiye,TR,TUR,ohi_region
+NA,Azerbaijan,NA,NA,landlocked
+NA,"Disputed Territory (Paracel Is., Spratly Is.)",NA,NA,disputed
+NA,Australia - East Timor,NA,NA,disputed
+NA,Australia - Papua New Guinea,NA,NA,disputed
+NA,Australia/Indonesia,NA,NA,disputed
+NA,Chile/Peru,NA,NA,disputed
+NA,Colombia - Jamaica,NA,NA,disputed
+NA,Gaza Strip,NA,NA,disputed
+NA,Japan - South Korea Conflict Zone,NA,NA,disputed
+NA,Nigeria - Sao Tome and Principe,NA,NA,disputed
+NA,Kazachstan,NA,NA,landlocked
+NA,Kazakhstan,NA,NA,landlocked
+NA,Occupied Palestinian Territory,NA,NA,disputed
+NA,Palestine,NA,NA,disputed
+NA,Palestine State of,NA,NA,disputed
+NA,Southern Kuriles,NA,NA,disputed
+NA,Spratly Islands,NA,NA,disputed
+NA,Disputed Sudan-Egypt,NA,NA,disputed
+NA,State Of Palestine,NA,NA,disputed
+NA,"Palestine, Occupied Tr.",NA,NA,disputed
+NA,Paracel Islands,NA,NA,disputed
+NA,Tajikistan,NA,NA,landlocked
+NA,Turkmenistan,NA,NA,landlocked
+NA,Uzbekistan,NA,NA,landlocked
+NA,West Bank,NA,NA,disputed
+NA,West Bank and Gaza,NA,NA,disputed
+NA,Afghanistan,NA,NA,landlocked
+NA,Andorra,NA,NA,landlocked
+NA,Armenia,NA,NA,landlocked
+NA,Austria,NA,NA,landlocked
+NA,Belarus,NA,NA,landlocked
+NA,Bhutan,NA,NA,landlocked
+NA,Bolivia,NA,NA,landlocked
+NA,Bolivia (Plurinat.State),NA,NA,landlocked
+NA,Bolivia (Plurinational State of),NA,NA,landlocked
+NA,Bolivia Plurinational State of,NA,NA,landlocked
+NA,Botswana,NA,NA,landlocked
+NA,Burkina Faso,NA,NA,landlocked
+NA,Burundi,NA,NA,landlocked
+NA,Central African Republic,NA,NA,landlocked
+NA,Chad,NA,NA,landlocked
+NA,Czechia,NA,NA,landlocked
+NA,czech republic (czechia),NA,NA,landlocked
+NA,Czech Republic,NA,NA,landlocked
+NA,Czechoslovakia,NA,NA,landlocked
+NA,eswatini,NA,NA,landlocked
+NA,Ethiopia,NA,NA,landlocked
+NA,Ethiopia PDR,NA,NA,landlocked
+NA,Holy See,NA,NA,landlocked
+NA,Holy See (Vatican City),NA,NA,landlocked
+NA,Holy See (Vatican),NA,NA,landlocked
+NA,Hungary,NA,NA,landlocked
+NA,Kosovo,NA,NA,landlocked
+NA,Kyrgyz Republic,NA,NA,landlocked
+NA,Kyrgyzstan,NA,NA,landlocked
+NA,Lao PDR,NA,NA,landlocked
+NA,Lao People?s Democratic Republic,NA,NA,landlocked
+NA,Lao People's Dem. Rep.,NA,NA,landlocked
+NA,Lao People's Democratic Republic,NA,NA,landlocked
+NA,Laos,NA,NA,landlocked
+NA,Lesotho,NA,NA,landlocked
+NA,Liechtenstein,NA,NA,landlocked
+NA,Luxembourg,NA,NA,landlocked
+NA,Macedonia,NA,NA,landlocked
+NA,North Macedonia,NA,NA,landlocked
+NA,"Macedonia, Fmr Yug Rp of",NA,NA,landlocked
+NA,"Macedonia, FYR",NA,NA,landlocked
+NA,Malawi,NA,NA,landlocked
+NA,Mali,NA,NA,landlocked
+NA,Moldova,NA,NA,landlocked
+NA,Moldova Republic of,NA,NA,landlocked
+NA,Mongolia,NA,NA,landlocked
+NA,Nepal,NA,NA,landlocked
+NA,Niger,NA,NA,landlocked
+NA,Paraguay,NA,NA,landlocked
+NA,Republic of Moldova,NA,NA,landlocked
+NA,Rwanda,NA,NA,landlocked
+NA,San Marino,NA,NA,landlocked
+NA,Serbia,NA,NA,landlocked
+NA,Slovak Republic,NA,NA,landlocked
+NA,Slovakia,NA,NA,landlocked
+NA,South Sudan,NA,NA,landlocked
+NA,Swaziland,NA,NA,landlocked
+NA,Switzerland,NA,NA,landlocked
+NA,TFYR Macedonia,NA,NA,landlocked
+NA,TFYR of Macedonia,NA,NA,landlocked
+NA,The Former Yugoslav Republic of Macedonia,NA,NA,landlocked
+NA,Total,NA,NA,largescale
+NA,Uganda,NA,NA,landlocked
+NA,Vatican,NA,NA,landlocked
+NA,World,NA,NA,largescale
+NA,Zambia,NA,NA,landlocked
+NA,Zimbabwe,NA,NA,landlocked
+177,Netherlands (Kingdom of the),NL,NLD,ohi_region
+100,congo - brazzaville,CG,COG,ohi_region
+199,congo - kinshasa,CD,COD,ohi_region
+205,myanmar (burma),MM,MMR,ohi_region
+127,st. vincent and grenadines,VC,VCT,ohi_region
+116,u.s. virgin islands,PR,PRI,ohi_region
