@@ -111,7 +111,7 @@ score_check = function(scenario_year, commit="previous",
   }
   
   my.file.rename(from = "tmp_file.html",
-                 to = sprintf(here('%s/score_check/%s_score_check.html'), scenario_name, file_name, Sys.Date()))
+                 to = sprintf(here('%s/score_check/%s_score_check_%s.html'), scenario_name, file_name, Sys.Date()))
   
   cat("An interactive plot in the 'score_check' folder has been created \n")
   
