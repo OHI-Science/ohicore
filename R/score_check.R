@@ -33,11 +33,11 @@ score_check = function(scenario_year, commit="previous",
   cat("Wait for it....this takes a few seconds \n\n")
   
 
-  scenario_path <- here(scenario_name)
+  scenario_path <- here::here(scenario_name)
   
   # get commit SHA
   if(commit=="previous"){
-    commit2 = substring(git2r::commits(git2r::repository(here()))[[1]][1], 1, 7)
+    commit2 = substring(git2r::commits(git2r::repository(here::here()))[[1]][1], 1, 7)
   } else{
     if (commit == "final_2014"){
       commit2 = '4da6b4a'
@@ -46,7 +46,7 @@ score_check = function(scenario_year, commit="previous",
   
   
   # Get repository name
-  tmp <- git2r::remote_url(git2r::repository(here()))
+  tmp <- git2r::remote_url(git2r::repository(here::here()))
   repo_name <- stringr::str_split(tmp, "/")[[1]][5]
   repo_name_fix <- gsub(pattern = ".git", replacement = "", x = repo_name)
   org <- stringr::str_split(tmp, "/")[[1]][4]
@@ -59,7 +59,7 @@ score_check = function(scenario_year, commit="previous",
   # create dummy year variable if there is no year variable in the data
   if(sum(names(data_old)=="year") < 1){
     
-    data_new <- read.csv(sprintf(here("%s/scores.csv"), scenario_name)) %>%
+    data_new <- read.csv(sprintf(here::here("%s/scores.csv"), scenario_name)) %>%
       dplyr::left_join(data_old, by=c('goal', 'dimension', 'region_id')) %>%
       dplyr::mutate(year = substring(date(), 21, 24)) %>%  # uses current year as year
       dplyr::mutate(change = score-old_score)
@@ -67,7 +67,7 @@ score_check = function(scenario_year, commit="previous",
     scenario_year <- substring(date(), 21, 24)
     
   } else{
-    data_new <- read.csv(sprintf(here("%s/scores.csv"), scenario_name)) %>%
+    data_new <- read.csv(sprintf(here::here("%s/scores.csv"), scenario_name)) %>%
       dplyr::left_join(data_old, by=c('year', 'goal', 'dimension', 'region_id')) %>%
       dplyr::mutate(change = score-old_score)
     
@@ -76,7 +76,7 @@ score_check = function(scenario_year, commit="previous",
   ## get region names, if available (this needs to be called "regions_list" and located in the "spatial" folder)
   if(length(list.files("eez/spatial", pattern="regions_list.csv"))>0){
     
-    rgns <- read.csv(sprintf(here("%s/spatial/regions_list.csv"), scenario_name), stringsAsFactors = FALSE) %>%
+    rgns <- read.csv(sprintf(here::here("%s/spatial/regions_list.csv"), scenario_name), stringsAsFactors = FALSE) %>%
       dplyr::select(region_id = rgn_id, rgn_name)
     
     data_new <- data_new %>%
@@ -111,18 +111,18 @@ score_check = function(scenario_year, commit="previous",
   }
   
   my.file.rename(from = "tmp_file.html",
-                 to = sprintf(here('%s/score_check/%s_score_check_%s.html'), scenario_name, file_name, Sys.Date()))
+                 to = sprintf(here::here('%s/score_check/%s_score_check_%s.html'), scenario_name, file_name, Sys.Date()))
   
   cat("An interactive plot in the 'score_check' folder has been created \n")
   
   if(save_png){
-    ggplot2::ggsave(sprintf(here('%s/score_check/%s_score_check.png'), scenario_name, file_name, Sys.Date()), 
+    ggplot2::ggsave(sprintf(here::here('%s/score_check/%s_score_check_%s.png'), scenario_name, file_name, Sys.Date()), 
                     width=8, height=5)
     cat("A png plot has been saved in the 'score_check' folder \n")
   }
   
   if(save_csv){
-    write.csv(data_new, sprintf(here('%s/score_check/%s_diff_data_%s.csv'), scenario_name, file_name, Sys.Date())
+    write.csv(data_new, sprintf(here::here('%s/score_check/%s_diff_data_%s.csv'), scenario_name, file_name, Sys.Date())
 , row.names=FALSE)
     cat("A csv file comparing the scores has been saved in the 'score_check' folder \n")
   }
