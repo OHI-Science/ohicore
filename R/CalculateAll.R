@@ -98,7 +98,7 @@ CalculateAll = function(conf, layers){
     if ( dplyr::is.grouped_df(scores_g) ){
       cat(sprintf('Ungrouping scores variable returned from %s model...\n', g))
       scores_g <- scores_g %>%
-        ungroup()
+        dplyr::ungroup()
     }
     
     ## error if 'status' or 'trend' are missing

@@ -16,20 +16,19 @@
 #' scores.csv; if not provided, defaults to most recent year
 #' @param assessment_name this is the name that will be given to the weighted 
 #' average of all regions (i.e., region_id=0, usually something like: "Global Average")
-#' @scenario_folder name of the scenario folder within the repository 
+#' @param scenario_folder name of the scenario folder within the repository 
 #' (this is the folder with scores.csv, conf and layers folders, etc.)
-#' @scores_file name of the file with the score data used to create the flower plots, 
+#' @param scores_file name of the file with the score data used to create the flower plots, 
 #' typically: "scores.csv"
-#' @dir_fig_save file path to the location the figures (and related csv file) will be 
+#' @param dir_fig_save file path to the location the figures (and related csv file) will be 
 #' saved
-#' @save whether to save csv and png files (otherwise figures are only displayed)
+#' @param save whether to save csv and png files (otherwise figures are only displayed)
 #'
 #' @return png file/s of flowerplots will be saved in the dir_fig_save location; an
 #' additional regions_figs.csv file will be saved that describes region_id, region_name,
 #' and file paths to flower_.png files. 
 #' @export
 #'
-#' @examples
 #'
 #'
 

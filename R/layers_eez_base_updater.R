@@ -11,11 +11,8 @@
 
 layers_eez_base_updater <- function() {
   
-  require(here)
-  require(tidyverse)
-  
   # read in the csv
-  layers_eez_base <- read_csv(here("metadata_documentation/layers_eez_base.csv"), col_types = cols())
+  layers_eez_base <- readr::read_csv(here("metadata_documentation/layers_eez_base.csv"), col_types = cols())
   
   # prompt user for current version year (gsub() to remove 'v' if user adds it as well)
   message("")
@@ -46,8 +43,8 @@ layers_eez_base_updater <- function() {
   
   
   # prompt user for layers which have been updated
-  updated_layers <- str_split(readline(prompt = "enter 'all' or layers separated only by commas: "), ",")[[1]] %>% 
-    str_remove_all(" ")
+  updated_layers <- stringr::str_split(readline(prompt = "enter 'all' or layers separated only by commas: "), ",")[[1]] %>% 
+    stringr::str_remove_all(" ")
   
   if (tolower(updated_layers[1]) == "all") {
     updated_layers <- possible_layers
@@ -71,8 +68,8 @@ layers_eez_base_updater <- function() {
       message("")
     }
     
-    updated_layers <- str_split(readline(prompt = "enter 'all' or layers separated only by commas: "), ",")[[1]] %>% 
-      str_remove_all(" ")
+    updated_layers <- stringr::str_split(readline(prompt = "enter 'all' or layers separated only by commas: "), ",")[[1]] %>% 
+      stringr::str_remove_all(" ")
     
     if (tolower(updated_layers[1]) == "all") {
       updated_layers <- possible_layers
@@ -81,13 +78,13 @@ layers_eez_base_updater <- function() {
   
   # create df with updated file paths
   layers_eez_base_updated <- layers_eez_base %>% 
-    mutate(dir = case_when(layer %in% updated_layers ~ 
+    mutate(dir = dplyr::case_when(layer %in% updated_layers ~ 
                              gsub("v20\\d\\d", version_year, dir),
                            TRUE ~ dir))
   
   # vector of dir names which have changed from the original csv
-  updated_dirs <- anti_join(layers_eez_base_updated, layers_eez_base, by = c("layer", "dir")) %>% 
-    rename("dir (UPDATED)" = dir)
+  updated_dirs <- dplyr::anti_join(layers_eez_base_updated, layers_eez_base, by = c("layer", "dir")) %>% 
+    dplyr::rename("dir (UPDATED)" = dir)
   
   # make sure the chosen year and layers elicited changes
   if (nrow(updated_dirs) != 0) { 
@@ -99,7 +96,7 @@ layers_eez_base_updater <- function() {
     overwrite <- readline(prompt = "update? ('y' or 'n'): ")
     
     if (overwrite == "y") {
-      write.csv(layers_eez_base_updated, here("metadata_documentation/layers_eez_base.csv"),
+      write.csv(layers_eez_base_updated, here::here("metadata_documentation/layers_eez_base.csv"),
                 row.names = FALSE)
       message("\nfile has been updated\n")
       

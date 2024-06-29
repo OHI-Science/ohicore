@@ -50,7 +50,7 @@ split_regions <- function(m, country_column = "country", value_column = "value",
   
   # Rename data frame columns
   m <- m %>%
-    rename(!!paste0(country_column) := country, !!paste0(value_column) := value)
+    dplyr::rename(!!paste0(country_column) := country, !!paste0(value_column) := value)
   
   # Load population weighting data
   population <- split_pops
@@ -69,23 +69,23 @@ split_regions <- function(m, country_column = "country", value_column = "value",
       
       # Calculate area weights for the regions
       area_weights <- population %>%
-        filter(country %in% regions) %>%
-        mutate(weight = ifelse(duplicate, 1, population / pop_sum)) %>% # Conditionally set weight
-        select(country, weight) %>%
-        mutate(id = row_number()) 
+        dplyr::filter(country %in% regions) %>%
+        dplyr::mutate(weight = ifelse(duplicate, 1, population / pop_sum)) %>% # Conditionally set weight
+        dplyr::select(country, weight) %>%
+        dplyr::mutate(id = row_number()) 
       
       # Split the data into different regions
       m_new <- m %>%
-        filter(country == country_name) %>%
-        uncount(length(regions), .id = "id") %>%
-        left_join(area_weights, by = c("id" = "id")) %>%
-        mutate(value = value * weight) %>%
-        mutate(country = country.y) %>%
-        select(-country.x, -country.y, -id, -weight)
+        dplyr::filter(country == country_name) %>%
+        tidyr::uncount(length(regions), .id = "id") %>%
+        dplyr::left_join(area_weights, by = c("id" = "id")) %>%
+        dplyr::mutate(value = value * weight) %>%
+        dplyr::mutate(country = country.y) %>%
+        dplyr::select(-country.x, -country.y, -id, -weight)
       
       # Update m to remove the original country and add broken down rows
       m <- m %>%
-        filter(!(country %in% country_name)) %>%
+        dplyr::filter(!(country %in% country_name)) %>%
         rbind(m_new)
       
       # Sum duplicate rows if duplicate is False
@@ -93,10 +93,10 @@ split_regions <- function(m, country_column = "country", value_column = "value",
         grouping_vars <- setdiff(names(m), "value")
         
         m <- m %>%
-          group_by(across(all_of(grouping_vars))) %>%
-          summarize(value = case_when(all(is.na(value)) ~ NA,
+          dplyr::group_by(across(all_of(grouping_vars))) %>%
+          dplyr::summarize(value = case_when(all(is.na(value)) ~ NA,
                                       TRUE ~ sum(value, na.rm = TRUE))) %>%
-          ungroup()
+          dplyr::ungroup()
         
         # Remove duplicates if duplicate is True
       } else {
@@ -112,7 +112,7 @@ split_regions <- function(m, country_column = "country", value_column = "value",
   
   # Rename columns to match data frame input
   m <- m %>%
-    rename(!!country_column := country, !!value_column := value)
+    dplyr::rename(!!country_column := country, !!value_column := value)
   
   # Return the new data frame
   return(m)

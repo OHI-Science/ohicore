@@ -32,6 +32,6 @@ WriteRefPoint <- function(goal, method, ref_pt, scenario_name="eez") {
                      goal   = goal,
                      method = method,
                      reference_point = ref_pt))
-  write_csv(ref_pts, sprintf(here("%s/temp/reference_pts_%s.csv"), scenario_name, scen_year))
+  readr::write_csv(ref_pts, sprintf(here("%s/temp/reference_pts_%s.csv"), scenario_name, scen_year))
   
 }

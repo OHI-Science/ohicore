@@ -67,8 +67,8 @@ CalculateResilienceAll = function(layers, conf){
                  paste(
                    unlist(
                      layers$meta %>%
-                       filter(layer %in% r_layers & val_0to1==F) %>%
-                       select(layer)),
+                       dplyr::filter(layer %in% r_layers & val_0to1==F) %>%
+                       dplyr::select(layer)),
                    collapse = ', ')))
   }
 
@@ -144,7 +144,7 @@ CalculateResilienceAll = function(layers, conf){
 
   r_rgn_layers <- scenario_data_year %>%
         dplyr::left_join(r_rgn_layers_data, by=c("year", "layer")) %>%
-        select(region_id, val_num, layer)
+        dplyr::select(region_id, val_num, layer)
 
   ## error check: matrix and region data layers include the same resilience factors
   check <- setdiff(r_layers, r_rgn_layers$layer)

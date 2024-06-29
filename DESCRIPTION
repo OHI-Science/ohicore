@@ -18,7 +18,6 @@ Imports:
     dplyr (>= 0.3),
     ggplot2 (>= 1.0.0),
     plyr (>= 1.8.0),
-    reshape2,
     stringr,
     git2r,
     methods,
@@ -26,7 +25,9 @@ Imports:
     RColorBrewer,
     htmlwidgets,
     here,
-    rlang
+    rlang,
+    plotly,
+    tidyverse
 Suggests:
     knitr,
     rmarkdown

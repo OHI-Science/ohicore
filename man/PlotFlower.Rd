@@ -26,6 +26,17 @@ scores.csv; if not provided, defaults to most recent year}
 
 \item{assessment_name}{this is the name that will be given to the weighted 
 average of all regions (i.e., region_id=0, usually something like: "Global Average")}
+
+\item{scenario_folder}{name of the scenario folder within the repository 
+(this is the folder with scores.csv, conf and layers folders, etc.)}
+
+\item{scores_file}{name of the file with the score data used to create the flower plots, 
+typically: "scores.csv"}
+
+\item{dir_fig_save}{file path to the location the figures (and related csv file) will be 
+saved}
+
+\item{save}{whether to save csv and png files (otherwise figures are only displayed)}
 }
 \value{
 png file/s of flowerplots will be saved in the dir_fig_save location; an
