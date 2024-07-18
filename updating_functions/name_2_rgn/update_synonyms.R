@@ -1,26 +1,43 @@
-old_synonyms <- read_csv(here::here("data_raw/rgn_eez_v2013a_synonyms.csv"))
+#' Update Synonyms function for OHI region names
+#'
+#' @param synonyms_list list of synonyms 
+#' @param region_id_list list of OHI region IDs you want to associate these synonyms with
+#' @param rgn_type_list type of region: 'ohi_region', 'landlocked', or 'disputed'
+#'
+#' @return
+#' @export # append new synonyms to rgn_eez_v2013a_synonyms.csv
+#'
+#' @examples # see update_name_2_rgn.Rmd
 
-valid_values <- c('ohi_region', 'landlocked', 'disputed')
+
 update_synonyms <- function(synonyms_list, region_id_list, rgn_type_list) {
- 
-
-  #make them into a data frame
+  
+  # source old synonyms
+  old_synonyms <- read_csv(here::here("data_raw/rgn_eez_v2013a_synonyms.csv"))
+  
+  # define valid values
+  valid_values <- c('ohi_region', 'landlocked', 'disputed')
+  
+  # make them into a data frame
   rgn_data <- tibble(rgn_id_2013 = region_id_list, rgn_nam_2013 = synonyms_list,
-  rgn_typ = rgn_type_list)   
+                     rgn_typ = rgn_type_list)   
   
   
   rgn_main <- rgn_master %>% select(-c(rgn_nam_2013, rgn_typ))
   
-  #lookup the correct information for each
+  # lookup the correct information for each
   rgn_syn_new <- rgn_data %>%
     left_join(rgn_main, by = "rgn_id_2013") %>% 
     select(rgn_id_2013, rgn_nam_2013, rgn_key_2013,
-             eez_iso3, rgn_typ) # select the rows we want
+           eez_iso3, rgn_typ) # select the rows we want
   cat("\nConfirm new line(s) are correct:\n")
   print(rgn_syn_new)
+  
+  
   name_check <- rgn_syn_new %>% 
     left_join(rgn_master, by ="rgn_id_2013")
   
+  # check if region names are correct
   cat("\nConfirm these are the correct region names for your synonyms:\n")
   print(name_check$rgn_nam_2013.y)
   
@@ -31,7 +48,7 @@ update_synonyms <- function(synonyms_list, region_id_list, rgn_type_list) {
   if (tolower(confirmation) == "yes") {
     
     final_synonyms <- rbind(old_synonyms, rgn_syn_new)
-    #check that there are no duplicates
+    # check that there are no duplicates
     final_synonyms_test <- final_synonyms %>% 
       mutate(rgn_nam_2013 = tolower(rgn_nam_2013)) %>% 
       mutate(rgn_nam_2013 = stringr::str_remove(rgn_nam_2013, ",")) %>% 
@@ -39,7 +56,7 @@ update_synonyms <- function(synonyms_list, region_id_list, rgn_type_list) {
       mutate(rgn_nam_2013 = stringr::str_remove(rgn_nam_2013, "´")) %>% 
       mutate(rgn_nam_2013 = stringr::str_remove(rgn_nam_2013, "’")) %>% 
       group_by(rgn_nam_2013) %>% 
-      summarize(n=n()) %>% filter(n >1)
+      summarize(n = n()) %>% filter(n >1)
     
     invalid_rgn_types <- rgn_data$rgn_typ[rgn_data$rgn_typ %in% c("landlocked", "disputed")]
     

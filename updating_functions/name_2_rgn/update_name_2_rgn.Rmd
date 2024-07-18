@@ -14,7 +14,7 @@ This script can be used to update the synonyms in name_2_rgn as well as confirm 
 
 **1.)** Run the code below to update the synonyms list in name_2 region. If you need to delete or edit existing synonyms open \~/data_raw/rgn_eez_v2013a_synonyms.csv and manually edit the file.
 
-```{r}
+```{r v2023-updates, eval=FALSE}
 library(tidyverse)
 load(here::here("data/rgn_master.rda"))
 
@@ -27,7 +27,7 @@ new_synonyms <- c("congo - brazzaville",
 
 #region ids, update with the matching region id for the synonym
 #put NA for landlocked or disputed
-region_ids <- c(100,199, 205, 127, 116) 
+region_ids <- c(100, 199, 205, 127, 116) 
 
 #rgn type (must be be ohi_region, landlocked, or disputed)
 region_types <- c("ohi_region", "ohi_region", "ohi_region", "ohi_region", "ohi_region")
@@ -35,8 +35,46 @@ region_types <- c("ohi_region", "ohi_region", "ohi_region", "ohi_region", "ohi_r
 #run the function to add synonyms 
 source(here::here("updating_functions/name_2_rgn/update_synonyms.R"))
 
-update_synonyms(new_synonyms, region_ids, region_types)
+update_synonyms(synonyms_list = new_synonyms,
+                region_id_list = region_ids,
+                rgn_type_list = region_types)
 ```
+
+
+v2024 updates:
+
+    -   "China, Macao Special Administrative Region"
+    -   "China, Hong Kong Special Administrative Region"
+    
+-  also updated `update_synonyms.R` --> added Roxygen skeleton, comments
+
+```{r v2024-updates, eval=FALSE}
+library(tidyverse)
+load(here::here("data/rgn_master.rda"))
+
+#new synonyms, update with new synonyms
+new_synonyms <- c("China, Macao Special Administrative Region",
+                  "China, Hong Kong Special Administrative Region")
+
+#region ids, update with the matching region id for the synonym
+#put NA for landlocked or disputed
+region_ids <- c(209, 209) 
+
+#rgn type (must be be ohi_region, landlocked, or disputed)
+region_types <- c("ohi_region", "ohi_region")
+
+#run the function to add synonyms 
+source(here::here("updating_functions/name_2_rgn/update_synonyms.R"))
+
+update_synonyms(synonyms_list = new_synonyms,
+                region_id_list = region_ids,
+                rgn_type_list = region_types)
+
+# synonyms successfully added!
+```
+
+
+
 
 **2)** Rerun data_prepare.R to update the rda files stored in the data folder
 
